@@ -1,0 +1,44 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+} TYPE(PS)
+{ TYPE(SAC)
+¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++Use the%Quick Edit Text Search+dialog to specify up to 6 search strings
++and select search options.
++
++After pressing%ENTER+Endevor will attempt to search all of the elements that
++are currently displayed in the%Element Selection List+which the user is
++allowed 'read' access to.
++
++%Search In:+Specify Element to search Element source code, history, changes
++ or summary of levels. Specify Component to search through the current
++ Component List (source) or its history, changes or summary of levels.
++
++NOTE: Component lists are searched in their native format, which is different
++      from the format seen in Element Selection List options BX, SX or CX
++
++%Search Options:
++  %Mixed Case:+Set to N to perform a non-case sensitive search. Set to Y to
++   perform a case sensitive search.
++  %Filter Element List:+Set to Y to remove any elements that did not match
++   the search criteria from the element list. Set to N to keep all of the
++   elements in the list. You can use%esort+or%eonly+to locate the elements
++   that matched the search afterwards.
++  %Include Binary Types:+Set to Y to include elements whose type definition
++   has FORMAT=B (binary) in the search. By default such elements are skipped.
++  %Logical Operator:+When more than one search string is specified, set to
++   A(nd) to only find elements containing all of the strings, or to
++   O(r) to find all elements containing at least one of the strings.
++
++%Column Range:+Allows the search to be limited to specific columns of the
++ searched text. For element history, changes or summary, search the columns
++ that correspond to the columns in the matching Print action output in batch.
++ Column range is not used for component list searches.
++
++                                (%END+to return)
+)END

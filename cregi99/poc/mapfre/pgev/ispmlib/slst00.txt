@@ -1,0 +1,4 @@
+SLST001 'Not with E mode'                                .ALARM=YES
+'Split results is only available with Fast scan'
+SLST002 'COB ASM EASY only for E'                        .ALARM=YES
+'Expanded listing scan for COBOL, assembler and EASYTRIEVE only'

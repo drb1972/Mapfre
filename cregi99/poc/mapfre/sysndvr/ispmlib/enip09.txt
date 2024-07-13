@@ -1,0 +1,6 @@
+ENIP090E 'Internal Error'                                .ALARM=YES
+'&PDVERRT'
+
+ENIP091E 'ISPF Service Error'                            .ALARM=YES
+'The ISPF &PDVISRV service failed with a return code of X''&PDV         ERRRC'''
+

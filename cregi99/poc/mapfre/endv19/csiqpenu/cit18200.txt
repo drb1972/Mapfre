@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Long-named and Mixed-case Element Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Long-named and Mixed-case Element Enhancements
++
++%Action Panels
++ On any action panel, the UPPERCASE option lets you specify whether the Element
++ name that you enter will be accepted as a mixed case value or be converted to
++ an uppercase value. This option is now available on all action panels.
++ In addtion, the CASE-SENSITIVE option, which determines whether the match
++ function is case-sensitive, has been renamed to CASE-SENSITIVE ELM NM.
++%Report Requests
++ You can now code a mixed-case 1- to 255-character Element name when requesting
++ certain reports in foreground. The setting of the UPPERCASE field determines
++ whether the Element name entered will be uppercased or not in the SCL.
++ These enhancements are available on the following request panels: Master
++ Control File Report, Historical (SMF) Reports and Unload/Reload Reports.
++%Element Summary Panels
++ Standardize the format of the two location lines on all of the element
++ summary panels. The element name has been expanded to 60 characters and
++ the location information will appear on the line below the element name.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18210
+)END

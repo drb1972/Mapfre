@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Component List Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The forward/reverse delta and consolidation options can be set for
++component lists.
++
++
++    Select%1+or%2+for more information
++
+%    1+- Forward/reverse delta      %3+- Auto retention
+%    2+- Consolidation rules
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE4111 2,CITE4115 3,CITE4119)
+)END

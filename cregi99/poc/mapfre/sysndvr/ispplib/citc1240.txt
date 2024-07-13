@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Promotion Packages \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Promotion Packages +
+
++ Promotion packages is a new feature that allows you to use a single package
+  for moving inventory up through the CA Endevor SCM map, without having to
+  edit the package SCL.  A package specified as a promotion package can only
+  contain%MOVE+actions.  Once the package has been executed successfully, the
+ %MOVE FROM+location specified in the SCL is automatically updated to the next
+  location in the map and the package is%CAST+automatically and becomes ready to
+  be approved or executed for the move to the next location in the map.
+
+
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1250
+)END

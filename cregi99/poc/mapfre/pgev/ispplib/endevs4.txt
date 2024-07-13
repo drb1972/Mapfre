@@ -1,0 +1,21 @@
+)ATTR DEFAULT(%+_)
+? TYPE(OUTPUT) INTENS(HIGH) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)BODY expand(//)
+%-/-/- ENDEVOR Security Maintenance -/-/-
++Command%====>_ZCMD
+%
++
++Environment :?envname +System :?sysname +User Type :?usertype
++
++
++
++User Id   :_usrname +
+)INIT
+.CURSOR = &cursor
+)PROC
+if (.RESP = ENTER)
+   ver (&usrname,NB,NAME)
+)END

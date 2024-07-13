@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Name \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++This new Merge Output option allows you to assign or overrride a Processor
++Group name for an element after PDM finishes the CA Endevor SCM merge process.
++
++To override or assign a new processor group name:
++ - Use the PROCESSOR GROUP NAME merge option clause in batch mode.
++ - Update the PROCESSOR GROUP merge option field on the Merge Output
++   Specification panel in foreground mode.
++
++ If you do not provide a processor group name, one is selected for you.
++ - When the element is at the target location prior to the PDM merge,
++   the element will inherit the group name from that element.
++ - When the element is not at the target location but exists up the map,
++   the element will inherit that element's processor group name.
++ - The element type definition's default processor group name will be
++   used when the element cannot be found along its destination route.
++
++
+)END

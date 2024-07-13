@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Relative Processing Sequence \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++3-digit number defining the order in which processors are executed
++in batch, for the type displayed to the right. For example:
+          010 CLISTS
+          020 JCL
+          030 PROC
+          040 COPYBOOK
+
++To change the sequence so that JCL runs after PROC, overtype the
++sequence numbers, using any value from 1-9. For example:
+          025 JCL
+          015 PROC
+
++When you press ENTER, the panel is redisplayed reflecting the new order:
+          100 CLISTS
+          110 PROC
+          120 JCL
+          130 COPYBOOK
++
++\ \ (%PF3+to return) \ \
+)END

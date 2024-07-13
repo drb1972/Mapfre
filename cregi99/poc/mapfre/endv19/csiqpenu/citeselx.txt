@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - Commands \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++                                                                   %Page 1 of 3
++The ISPF%LOCATE, EONLY+and%ESORT+commands are supported on the Element
++Selection List panel.
++
+%LOCATE Command
++Syntax:%LOCATE value-from-first-column
++The%LOCATE+(L) command lets you locate a row and place that row at the
++top to the panel. The%LOCATE+command is case-sensitive. If an exact
++match to the specified value is found, the matching row is displayed as
++the first row on the panel. If a partial match is found, the row prior
++to the first partially matching row is displayed as the first row. If
++you enter a mixed or lower-case value and no match is found, the value
++is uppercased and then the scan is run again.
++
+%ESORT Command
++Syntax:%ESORT column-heading+or%ESORT -column-heading
++The%ESORT+(ES) command lets you specify a column and whether the content
++of that column is to be sorted in ascending or descending order. Coding
++the minus sign prior to the column-heading value results in list being
++
++\ \ (Press%ENTER+to continue, or%PF3+to return) \ \
+)PROC
+  &ZCONT = CITESELY
+)END

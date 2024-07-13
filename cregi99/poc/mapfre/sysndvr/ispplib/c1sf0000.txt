@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+ ¢   TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ |   TYPE(OUTPUT) INTENS(LOW)  CAPS(OFF)
+ 01 TYPE(DATAOUT) INTENS(LOW)  CAPS(OFF)
+ 02 TYPE(DATAOUT) INTENS(HIGH) CAPS(OFF)
+ 03 TYPE(DATAIN)  INTENS(LOW)
+ 04 TYPE(DATAIN)  INTENS(HIGH)
+ $  AREA(DYNAMIC) EXTEND(OFF)
+)BODY
+%-------------------------- Foreground Options Menu ----------------------------
+%OPTION  ===>_ZCMD                                                             +
+%
+ $ENDYNV02                                                                   $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+ $                                                                           $
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+)INIT
+  .HELP = CITF0000
+)PROC
+)END

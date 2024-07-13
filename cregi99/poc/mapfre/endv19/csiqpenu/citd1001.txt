@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Display Elements - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+     applies if DISPLAY LIST=Y.
+
+   %S+- To display a summary of change history for an element.
+
+   %M+- To display Master Control File information for an element.
+
+   %B+- To display all statements in the current level of an element.
+
+   %C+- To display all inserts and deletions in the current level of an
+        element.
+
+   %H+- To display all statements in all levels of an element, and the
+        level at which each insert/deletion occurred.
+
+  %LL+- To display an element's output listing, for ACM users.
+
++%SX, BX, CX, HX+ to display component list information.
+
++\ \ (%PF3/Enter+to return to Display Panel / Tutorial Selection Panel ) \ \
+)END

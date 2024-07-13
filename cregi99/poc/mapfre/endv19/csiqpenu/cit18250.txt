@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Apply List Filters for CCID in Element Change Levels \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%ISPF Apply List Filters for CCID in Element Change Levels
++
++ A new option,%"All Element Change Lvls",+has been added to the ISPF Apply List
++ Filters option for the%"Where CCID"+clause. Specifying%"Y"+for this option
++ will create a selection list that includes all Elements with a change level
++ associated with the specified CCID.
++
++ This new filtering option is available in the Endevor foreground
++ interface and in Quick Edit. Previously, this functionality was only available
++ in batch or through the API. Note that this new feature applies only for the
++ CCID filter and not for user ID or Processor Group name filtering.
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18260
+)END

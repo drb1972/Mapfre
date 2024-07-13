@@ -1,0 +1,106 @@
+CIEV190I '*Bottom   '                                    .ALARM=NO
+'----------------------------- Bottom of the List -------------------' +
+'--------------------------------------------------------------------' +
+'------------------------'
+CIEV191I '*Cancelled'                                    .ALARM=NO
+'CIEV191IE Action was cancelled by the user'
+CIEV191J '*Saved    '                                    .ALARM=NO
+'CIEV191JE Saved but NOT generated'
+CIEV191K '*Saved/Gen'                                    .ALARM=NO
+'CIEV191KE Saved and Generated'
+CIEV191L '*Not Gen''d'                                   .ALARM=NO
+'CIEV191LE Not Generated'
+CIEV191M '*Created  '                                    .ALARM=NO
+'CIEV191ME Element Created'
+CIEV191N '*No Change'                                    .ALARM=NO
+'CIEV191NE No Change Detected'
+CIEV191O '*BaseRegrn'                                    .ALARM=NO
+'CIEV191OE Base Regression'
+CIEV191P '*Chg Regrn'                                    .ALARM=NO
+'CIEV191PE Change Regression'
+CIEV191Q '*Saved/Sub'                                    .ALARM=NO
+'CIEV191QE Element Save and Generate Job submitted'
+CIEV192I '*Selected '                                    .ALARM=NO
+'CIEV192IE Element was selected'
+CIEV192J '*Invld opt'                                    .ALARM=NO
+'CIEV192JE Invalid Option Entered'
+CIEV192K '*NoOptions'                                    .ALARM=NO
+'CIEV192KE There are no authorized options on the current panel'
+CIEV194I '*SignedOut'                                    .ALARM=NO
+'CIEV194IE Element was SignedOut'
+CIEV195I '*ProcGrpEr'                                    .ALARM=NO
+'CIEV195IE Processor Group was not found'
+CIEV195J '*NoProcGrp'                                    .ALARM=NO
+'CIEV195JE NO Processor Group was found'
+CIEV195K '*FGNotAlow'                                    .ALARM=NO
+'CIEV195KE The Generate processor cannot execute in foreground'
+CIEV195L '*Not Auth'                                     .ALARM=NO
+'CIEV195LE The user is NOT authorized to access the element'
+CIEV195M '*Group Chg'                                    .ALARM=NO
+'CIEV195ME Processor Group Change'
+CIEV195N '*RC > Max '                                    .ALARM=NO
+'CIEV195NE Processor Return code greater than Max'
+CIEV196I '*Not Valid'                                    .ALARM=NO
+'CIEV196IE Create command issued on the line containing an existing Element'
+CIEV196J '*Not Valid'                                    .ALARM=NO
+'CIEV196JE Browse, Changes, Summary or History requested for sourceless Element'
+CIEV196K '*BackedOut'                                    .ALARM=NO
+'CIEV196KE Element is Backed out'
+CIEV196L '*Too Long '                                    .ALARM=NO
+'CIEV196LE Source Element length too long'
+CIEV196M '*Name N/A '                                    .ALARM=NO
+'CIEV196ME A command was issued for an element that has a name with brackets'
+CIEV196N '*Not Found'                                    .ALARM=NO
+'CIEV196NE Command issued for element which no longer exists'
+CIEV197I '*NoDsnFnd '                                    .ALARM=NO
+'CIEV197IE No Datasets Selected'
+CIEV197J '*MbrNotFnd'                                    .ALARM=NO
+'CIEV197JE Member not present in dataset'
+CIEV197K '*NotAllwd '                                    .ALARM=NO
+'CIEV197KE Error switching to new environment'
+CIEV197L '*FP Error '                                    .ALARM=NO
+'CIEV197LE Incorrect Footprint information'
+CIEV197M '*ElmNamErr'                                    .ALARM=NO
+'CIEV197ME Element Name does not match Footprint Name'
+CIEV198I '*Gen/Inplc'                                    .ALARM=NO
+'CIEV198IE Generate in Place'
+CIEV198J '*Gen/NoSrc'                                    .ALARM=NO
+'CIEV198JE Generate No Source'
+CIEV198K '*Gen/Cpybk'                                    .ALARM=NO
+'CIEV198KE Generate Copyback'
+CIEV198L '*Submitted'                                    .ALARM=NO
+'CIEV198LE Generate Job Submitted'
+CIEV198M '*Not valid'                                    .ALARM=NO
+'CIEV198ME element was found up the map AND an element exists in Entry Stage'
+CIEV198N '*SrcNotFnd'                                    .ALARM=NO
+'CIEV198NE Source Not Found'
+CIEV198O '*Deleted  '                                    .ALARM=NO
+'CIEV198OE Element Deleted'
+CIEV198P '*Moved    '                                    .ALARM=NO
+'CIEV198PE Element Moved'
+CIEV198Q '*Cmp Del  '                                    .ALARM=NO
+'CIEV198QE Component Deleted'
+CIEV198R '*SI Done  '                                    .ALARM=NO
+'CIEV198RE Sign-in Done'
+CIEV198S '*SO Done  '                                    .ALARM=NO
+'CIEV198SE Sign-out Done'
+CIEV199I '*Master   '                                    .ALARM=NO
+'CIEV199IE Master Information displayed'
+CIEV199J '*Browsed  '                                    .ALARM=NO
+'CIEV199JE Element was Browsed'
+CIEV199K '*Viewed   '                                    .ALARM=NO
+'CIEV199KE Element was Viewed'
+CIEV199L '*Error    '                                    .ALARM=NO
+'CIEV199LE Error - Unable to process request'
+CIEV199M '*Saved/Que'                                    .ALARM=NO
+'CIEV199ME Element Save and Generate Reqest Queued'
+CIEV199O '*Queued'                                       .ALARM=NO
+'CIEV199OE Request Queued'
+CIEV199P '*Built'                                        .ALARM=NO
+'CIEV199PE Request SCL Built'
+CIEV199Q '*Sync'd   '                                    .ALARM=NO
+'CIEV199QE Element synchronized with up the map version'
+CIEV199R '*In Sync'                                      .ALARM=NO
+'CIEV199RE Element is already in sync'
+CIEV199S '*Disabled'                                     .ALARM=NO
+'CIEV199SE Sync in place feature not enabled'

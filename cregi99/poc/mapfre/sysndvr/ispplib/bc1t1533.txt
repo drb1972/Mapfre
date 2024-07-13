@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPLDEL Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPLDEL command logically deletes all lines in the specified file or
++files, by placing a comment indicator ( * ) in the first column of the
++line. The command then automatically invokes WIPCOUNT to recount the
++WIP statistics.
++
++To execute the WIPLDEL command, type WIPLDEL and the desired parameters
++(R, 1, 2) in the command field, then press ENTER.
++
++Use the WIPLDEL command to:
++
++  * Compare any two of the three input files.
++
++  * View a single input member.
++
++
++
+)END

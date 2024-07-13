@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+# TYPE(TEXT) INTENS(LOW) COLOR(RED)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Endevor Security -/-/-
+%Command ===>_zcmd
+%
++
+# / / ********************** / /
+# / / * Security Violation * / /
+# / / ********************** / /
++
++
++ / / Sorry, but you don't have access to this facility / /
++
++
++ / / Press%ENTER+or%PF3+to remove this message / /
+)Init
+)Proc
+)End

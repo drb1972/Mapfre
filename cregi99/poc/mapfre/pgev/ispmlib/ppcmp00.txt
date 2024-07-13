@@ -1,0 +1,18 @@
+PPCMP001 'Stage B, D, E or F only'                            .ALARM=YES
+'Only stage B, D, E or F packages may be shipped'
+PPCMP002 'Package must be 15 characters'                      .ALARM=YES
+'Package name must be 15 characters in length'
+PPCMP003 'Package name is wrong'                              .ALARM=YES
+'Package name structure is detailed on this panel'
+PPCMP004 'Package name must begin with a C'                   .ALARM=YES
+'Package name structure is detailed on this panel'
+PPCMP005 'Specify Y or N'                                     .ALARM=YES
+'Only Y or N are valid for the Restart from shipment step field'
+PPCMP006 'Package is not valid'                               .ALARM=YES
+'Package has either not been cast or has already executed'
+PPCMP007 'See panel for valid entries'                        .ALARM=YES
+'Valid scheduling environments are listed on this panel'
+PPCMP008 'Package not EXECUTED'                               .ALARM=YES
+'Package must be executed before it can be shipped'
+PPCMP009 'Package is an unknown status'                       .ALARM=YES
+'Contact Endevor Support : mapfre.endevor@rsmpartners.com

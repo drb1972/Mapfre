@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - Common Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
+%ELEMENT  +- Names of elements that met the selection criteria
+%MESSAGE  +- Error or information message associated with the element
+%TYPE     +- Type associated with the element
+%NS       +- A Y identifies the element as source-less
+%ENVIRON  +- Environment where the element resides
+%S        +- ID of the Stage where the element resides
+%SYSTEM   +- Name of the system associated with the element
+%SUBSYSTEM+- Name of the subsystem associated with the element
+%VVLL     +- Element version and level
+%PROCGRP  +- Processor group associated with this element
+%CUR DTE  +- Current source (last level) date in the format of DDMMMYY
+%GEN DTE  +- Last Generate date in the format of DDMMMYY
+%USERID   +- Userid associated with the current source (last level)
+%CCID     +- CCID associated with the last level of the element
+%PRRC     +- Return code from the most recent processor execution
+%NDRC     +- Return code for the most recent action
+%SIGNOUT  +- Userid that the element is currently signed out to
++
++
++\ \ (Press%PF3+or%ENTER+to return) \ \
+)END

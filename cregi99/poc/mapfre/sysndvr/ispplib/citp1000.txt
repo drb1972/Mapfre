@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Display Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel allows you to display information about a package. You should only
++select highlighted visible options.
++
++  Enter:  To view:
+%  blank+- Information about the elements in the package.
+%      S+- The SCL for the package.
+%      A+- Information about the approvers for the package.
+%      B+- Dataset backout information for the package.
+%     BU+- USS backout information for the package.
+%      R+- Cast report information.
+%      N+- Notes associated with the package.
+%     SH+- Ship status information.
+%      H+- Package promotion history.
+%     CI+- Correlation information (for PAC and Info/Man only).
++
++  Select from the following options for more information:
+%    1+- Package ID fields          %5+- Execution window
+%    2+- Package status             %6+- Package events
+%    3+- Sharable package           %7+- Enterprise package
+%    4+- Backout enabled            %8+- Promotion package fields
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITBKEN0
+                  5,CITXWIN0 6,CITPKEV0 7,CITENPK0 8,CITPROMA)
+)END

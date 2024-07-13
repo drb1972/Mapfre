@@ -1,0 +1,9 @@
+@REM ****************************************************** #RJIDVRD ***
+@REM *    CONTENTS: ENDEVOR/MVS - INCLUDED MEMBER
+@REM *     PURPOSE: CONDITIONNALLY DELETE A REMOTE STAGING DATASET
+@REM *******************************************************************
+@REM *    PTF P002595
+@REM *******************************************************************
+@IF &TDSN
+ DELETE '&TDSN' NONVSAM
+@ENDIF

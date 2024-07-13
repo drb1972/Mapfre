@@ -1,0 +1,713 @@
+       01  EXIT-CONTROL-BLOCK.
+           05  ECB-LENGTH              PIC 9(4) COMP SYNC.
+           05  ECB-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  ECB-BLOCK-ID            PIC X(4).
+           05  ECB-FLAG                PIC 9(8) COMP SYNC.
+           05  FILLER REDEFINES ECB-FLAG.
+               10 ECB-SRCHR            PIC X.
+                  88  ELEMENT-SOURCE   VALUE 'E'.
+                  88  OUTPUT-COMPONENT VALUE 'O'.
+               10 FILLER               PIC X(3).
+           05  ECB-RETURN-CODE         PIC 9(8) COMP SYNC.
+               88  RETURN-OK           VALUE 0.
+               88  RETURN-OK-MODS      VALUE 4.
+               88  RETURN-ABORT        VALUE 8.
+           05  ECB-ARGUMENTS           PIC 9(8) COMP SYNC.
+           05  ECB-EXIT-NUMBER         PIC 9(8) COMP SYNC.
+               88  C1IEXT01            VALUE 1.
+               88  C1IEXT02            VALUE 2.
+               88  C1IEXT03            VALUE 3.
+               88  C1IEXT04            VALUE 4.
+               88  C1IEXT05            VALUE 5.
+               88  C1IEXT06            VALUE 6.
+               88  HIGH-EXIT-NUMBER    VALUE 6.
+           05  ECB-USER-ID             PIC X(8).
+           05  ECB-TSO-BATCH-MODE      PIC X.
+               88  TSO                 VALUE 'T'.
+               88  BATCH               VALUE 'B'.
+           05  ECB-CALL-FLAG           PIC X.
+               88  INTERNAL-CALL       VALUE 'Y'.
+               88  ACTION-CALL         VALUE 'N'.
+           05  ECB-SMF-FLAG            PIC X.
+               88  SMF-ENABLED         VALUE 'Y'.
+               88  SMF-DISABLED        VALUE 'N'.
+           05  ECB-SMF-WRITE-FLAG      PIC X.
+               88  SMF-WRITE-BUFFER    VALUE 'Y'.
+               88  SMF-NO-WRITE-BUF    VALUE 'N'.
+           05  ECB-ACTION-CODE         PIC 9(8) COMP SYNC.
+               88  ADD-ACTION          VALUE 1.
+               88  UPDATE-ACTION       VALUE 2.
+               88  RETRIEVE-ACTION     VALUE 3.
+               88  DELETE-ACTION       VALUE 4.
+               88  GENERATE-ACTION     VALUE 5.
+               88  DISPLAY-ACTION      VALUE 6.
+               88  MOVE-ACTION         VALUE 7.
+               88  ARCHIVE-ACTION      VALUE 8.
+               88  SIGNOUT-ACTION      VALUE 9.
+               88  CHGTYPE-ACTION      VALUE 11.
+               88  SIGNIN-ACTION       VALUE 12.
+               88  SO-OVERRIDE-ACTION  VALUE 13.
+               88  ENV-MGR-ACTION      VALUE 14.
+               88  PRINT-ACTION        VALUE 15.
+               88  TRANSFER-ACTION     VALUE 16.
+               88  VALIDATE-ACTION     VALUE 17.
+               88  RESTORE-ACTION      VALUE 18.
+               88  ALTER-ACTION        VALUE 32.
+           05  ECB-ACTION-NAME         PIC X(8).
+           05  ECB-MESSAGE-CODE        PIC X(4).
+           05  ECB-MESSAGE-LENGTH      PIC 9(4) COMP SYNC.
+           05  ECB-MESSAGE-TEXT        PIC X(132).
+           05  ECB-CALLER-ORIGIN       PIC X(1).
+               88  CALLER-ENDEVOR      VALUE 'E'.
+               88  CALLER-QUICKEDIT    VALUE 'Q'.
+           05  ECB-UNDER-PACKAGE       PIC X(1).
+               88  PACKAGE-YES         VALUE 'Y'.
+               88  PACKAGE-NO          VALUE 'N'.
+               88  PACKAGE-INSPECT     VALUE 'I'.
+           05  ECB-REQUEST-POINTER     PIC 9(8) COMP SYNC.
+           05  ECB-PANEL-TYPE          PIC 9(8) COMP SYNC.
+               88  NO-PANEL-INFO       VALUE 0.
+               88  ENVIRONMENT-PANEL   VALUE 1.
+               88  MAIN-PANEL          VALUE 2.
+               88  FOREGROUND-PANEL    VALUE 3.
+           05  ECB-EXIT-HOLD-FIELD     PIC 9(8) COMP SYNC.
+           05  ECB-SECURITY-FUNCTION   PIC 9(8) COMP SYNC.
+           05  ECB-HIGH-RC             PIC 9(8) COMP SYNC.
+           05  ECB-PKG-ID              PIC X(16).
+           05  ECB-RC255               PIC 9.
+           05  ECB-RC257               PIC 9.
+           05  ECB-API-IND             PIC X.
+           05  FILLER                  PIC X.
+           05  ECB-ALTER-POINTER       PIC 9(8) COMP SYNC.
+           05  ECB-ALTER-FIELD         PIC X(8).
+           05  FILLER                  PIC X(16).
+      *
+      *
+      *
+       01  REQUEST-INFO-BLOCK.
+           05  REQ-LENGTH              PIC 9(4) COMP SYNC.
+           05  REQ-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  REQ-BLOCK-ID            PIC X(4).
+           05  REQ-CCID                PIC X(12).
+           05  REQ-COMMENT             PIC X(40).
+           05  REQ-REQUEST-FLAG        PIC 9(8) COMP SYNC.
+           05  REQ-SISO-INDICATOR      PIC X.
+               88  SIGNOUT-OVERRIDE    VALUE 'Y'.
+               88  NO-SIGNOUT-OVERRIDE VALUE 'N'.
+           05  REQ-COPY-INDICATOR      PIC X.
+               88  RETRIEVE-COPY-ONLY  VALUE 'Y'.
+               88  RETRIEVE-FOR-UPDATE VALUE 'N'.
+           05  REQ-EXPINCL-INDICATOR   PIC X.
+               88  EXPAND-INCLUDES     VALUE 'Y'.
+               88  NO-EXPAND-INCLUDES  VALUE 'N'.
+           05  REQ-OVERWRITE-INDICATOR PIC X.
+               88  WRITE-OVER-MEMBER    VALUE 'Y'.
+               88  NO-WRITE-OVER-MEMBER VALUE 'N'.
+           05  REQ-ACTION-RC           PIC 9(8) COMP SYNC.
+           05  REQ-NEW-VERSION         PIC X(2).
+           05  REQ-GEN-COPYBACK        PIC X.
+               88  GEN-COPYBACK           VALUE 'Y'.
+               88  NO-GEN-COPYBACK        VALUE 'N'.
+           05  REQ-BENE                PIC X(1).
+               88  BYP-ELM-NAME-EDIT      VALUE 'Y'.
+           05  REQ-EM-CHK              PIC X(1).
+           05  REQ-SY-CHK              PIC X(1).
+           05  REQ-CM-CHK              PIC X(1).
+           05  REQ-TMSG                PIC X(1).
+           05  REQ-DELETE-AFTER        PIC X.
+               88  DELETE-AFTER-ACTION    VALUE 'Y'.
+               88  NO-DELETE-AFTER-ACTION VALUE 'N'.
+           05  REQ-MOVE-WITH-HISTORY   PIC X.
+               88  MOVE-WITH-HISTORY    VALUE 'Y'.
+               88  MOVE-WITHOUT-HISTORY VALUE 'N'.
+           05  REQ-ADD-WITH-UPDATE     PIC X.
+               88  ADD-WITH-UPDATE     VALUE 'Y'.
+               88  ADD-WITHOUT-UPDATE  VALUE 'N'.
+           05  REQ-BYPASS-GEN-PROC     PIC X.
+               88  BYPASS-GEN-PROC     VALUE 'Y'.
+               88  NO-BYPASS-GEN-PROC  VALUE 'N'.
+           05  REQ-DEL-COMPS-ONLY      PIC X.
+               88  DEL-COMPS-ONLY      VALUE 'Y'.
+               88  NO-DEL-COMPS-ONLY   VALUE 'N'.
+           05  REQ-SYNCHRONIZE         PIC X.
+               88  YES-SYNCHRONIZE     VALUE 'Y'.
+               88  NO-SYNCHRONIZE      VALUE 'N'.
+           05  REQ-IGNGEN-FAIL         PIC X.
+               88  IGNORE-GEN-FAIL     VALUE 'Y'.
+               88  NO-INGORE-GEN-FAIL  VALUE 'N'.
+           05  REQ-BYPASS-DEL-PROC     PIC X.
+               88  BYPASS-DEL-PROC     VALUE 'Y'.
+               88  NO-BYPASS-DEL-PROC  VALUE 'N'.
+           05  REQ-PROCESSOR-GROUP     PIC X(8).
+           05  REQ-SIGNOUT-USRID       PIC X(8).
+           05  REQ-SEARCH-OPTION       PIC X.
+               88  SEARCH-ENV-MAP      VALUE 'Y'.
+               88  NO-SEARCH-ENV-MAP   VALUE 'N'.
+           05  REQ-RETAIN-SIGNOUT-OPT  PIC X.
+               88  RETAIN-SIGNOUT      VALUE 'Y'.
+               88  NO-RETAIN-SIGNOUT   VALUE 'N'.
+           05  REQ-JUMP-OPTION         PIC X.
+               88  JUMP-IS-OK          VALUE 'Y'.
+               88  NO-JUMP-SPECIFIED   VALUE 'N'.
+           05  REQ-SIGNIN-OPTION       PIC X.
+               88  SIGNIN-IS-SPECIFIED VALUE 'Y'.
+               88  NO-SIGNIN-SPECIFIED VALUE 'N'.
+           05  REQ-USER-DATA           PIC X(80).
+           05  REQ-AUTOGEN             PIC X.
+               88  REQ-AUTOGEN-YES     VALUE 'Y'.
+               88  REQ-AUTOGEN-NO      VALUE 'N'.
+           05  REQ-AUTOGENX            PIC X.
+               88  REQ-AUTOGENX-YES    VALUE 'Y'.
+               88  REQ-AUTOGENX-NO     VALUE 'N'.
+           05  REQ-GEN-NOSOURCE        PIC X.
+               88  GEN-NOSOURCE           VALUE 'Y'.
+               88  GEN-SOURCE             VALUE 'N'.
+           05  REQ-RETAIN-GEN-HST      PIC X.
+               88  RETAIN-GENHST          VALUE 'Y'.
+               88  NO-RETAIN-GENHST       VALUE 'N'.
+           05  REQ-AUTOGEN-SPAN        PIC X.
+               88  AUTOGEN-SPAN-NON    VALUE 'N'.
+               88  AUTOGEN-SPAN-ALL    VALUE 'A'.
+               88  AUTOGEN-SPAN-SYS    VALUE 'S'.
+               88  AUTOGEN-SPAN-SUB    VALUE 'B'.
+           05  REQ-ALTER-WITH-UPDATE   PIC X.
+               88  ALTER-WITH-UPDATE   VALUE 'Y'.
+               88  ALTER-WITH-NOUPDATE VALUE 'N'.
+           05  REQ-ALTER-SEARCH        PIC X.
+               88  ALTER-SEARCH-ALL    VALUE 'A'.
+               88  ALTER-SEARCH-FIRST  VALUE 'F'.
+           05  REQ-ALTER-EXACT-MATCH    PIC X.
+               88  ALTER-EXACT-MATCH-ON   VALUE 'Y'.
+               88  ALTER-EXACT-MATCH-OFF  VALUE 'N'.
+           05  REQ-BYP-DUP-OUTPUT-CK    PIC X.
+               88  BYP-DUP-OUTPUT-CK-ON   VALUE 'Y'.
+               88  BYP-DUP-OUTPUT-CK-OFF  VALUE 'N'.
+           05  FILLER                  PIC X(31).
+      *
+      *
+      *
+       01  SRC-ENVIRONMENT-BLOCK.
+           05  SRC-ENV-LENGTH              PIC 9(4) COMP SYNC.
+           05  SRC-ENV-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  SRC-ENV-BLOCK-ID            PIC X(4).
+           05  SRC-ENV-FLAGS               PIC 9(4) COMP SYNC.
+           05  SRC-ENV-TYPE-OF-BLOCK       PIC X.
+               88  SRC-INTERNAL-C1-BLOCK   VALUE 'C'.
+               88  SRC-EXTERNAL-ENV-BLOCK  VALUE 'E'.
+               88  SRC-ARCHIVE-FILE        VALUE 'A'.
+           05  SRC-ENV-IO-TYPE             PIC X.
+               88  SRC-SOURCE-LOCATION     VALUE 'I'.
+               88  SRC-TARGET-LOCATION     VALUE 'O'.
+           05  SRC-ENV-NEXT-ENV-POINTER    PIC 9(8) COMP SYNC.
+           05  SRC-ENV-FILE-POINTER        PIC 9(8) COMP SYNC.
+           05  SRC-ENV-SITE-NAME           PIC X.
+           05  SRC-ENV-STAGE-ID            PIC X.
+               88  SRC-STAGE-ONE           VALUE '1'.
+               88  SRC-STAGE-TWO           VALUE '2'.
+           05  SRC-ENV-STAGE-CODE          PIC X.
+           05  FILLER                  PIC X.
+           05  SRC-ENV-ELEMENT-VERSION     PIC 9(4) COMP SYNC.
+           05  SRC-ENV-ELEMENT-LEVEL       PIC 9(4) COMP SYNC.
+           05  SRC-ENV-ENVIRONMENT-NAME    PIC X(8).
+           05  SRC-ENV-STAGE-NAME          PIC X(8).
+           05  SRC-ENV-SYSTEM-NAME         PIC X(8).
+           05  SRC-ENV-SYSTEM-DATA         PIC X(8).
+           05  SRC-ENV-SYSTEM-CCID-VALDT   PIC X(1).
+               88  SRC-SYSTEM-VALIDATE     VALUE 'Y'.
+               88  SRC-SYSTEM-NO-VALIDATE  VALUE 'N'.
+           05  FILLER                      PIC X(7).
+           05  SRC-ENV-SUBSYSTEM-NAME      PIC X(8).
+           05  SRC-ENV-SUBSYSTEM-DATA      PIC X(8).
+           05  SRC-ENV-TYPE-NAME           PIC X(8).
+           05  SRC-ENV-TYPE-DATA           PIC X(8).
+           05  SRC-ENV-ELEMENT-NAME        PIC X(10).
+           05  SRC-ENV-MAP-NEW             PIC X(1).
+           05  FILLER             PIC X(7).
+           05  FILLER             PIC 9(8) COMP SYNC OCCURS 19 TIMES.
+           05  SRC-ENV-ELEMENT-AREA-OFFSET PIC 9(4) COMP SYNC.
+           05  FILLER             PIC 9(4) COMP SYNC.
+           05  SRC-ENV-AREA-BUFFER         PIC X(257).
+      *
+      *
+      *
+       01  SRC-ELEMENT-MASTER-INFO-BLOCK.
+           05  SRC-ELM-LENGTH              PIC 9(4) COMP SYNC.
+           05  SRC-ELM-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  SRC-ELM-BLOCK-ID            PIC X(4).
+           05  SRC-ELM-FLAGS               PIC 9(8) COMP SYNC.
+           05  SRC-ELM-ELEMENT-VERSION     PIC 9(4) COMP SYNC.
+           05  SRC-ELM-ELEMENT-LEVEL       PIC 9(4) COMP SYNC.
+           05  SRC-ELM-NUMBER-INSERTS      PIC 9(8) COMP SYNC.
+           05  SRC-ELM-NUMBER-DELETES      PIC 9(8) COMP SYNC.
+           05  SRC-ELM-ELEMENT-NAME        PIC X(10).
+           05  SRC-ELM-CURRENT-CCID        PIC X(12).
+           05  SRC-ELM-BASE-LEVEL-NUMBER   PIC 9(4) COMP SYNC.
+           05  SRC-ELM-BASE-TOTAL-STMTS    PIC 9(8) COMP SYNC.
+           05  SRC-ELM-BASE-DATE           PIC 9(6).
+           05  SRC-ELM-BASE-TIME           PIC 9(4).
+           05  SRC-ELM-BASE-COMMENT        PIC X(40).
+           05  SRC-ELM-BASE-USERID         PIC X(8).
+           05  SRC-ELM-GEN-USERID          PIC X(8).
+           05  SRC-ELM-GEN-DATE            PIC 9(6).
+           05  SRC-ELM-GEN-TIME            PIC 9(4).
+           05  SRC-ELM-FROM-DSN            PIC X(44).
+           05  SRC-ELM-FROM-MEMBER         PIC X(10).
+           05  SRC-ELM-PROCESSOR-FLAG      PIC X.
+           05  FILLER                  PIC X(3).
+           05  SRC-ELM-PROCESSOR-LAST-DATE PIC 9(6).
+           05  SRC-ELM-PROCESSOR-LAST-TIME PIC 9(4).
+           05  SRC-ELM-PROCESSOR-USERID    PIC X(8).
+           05  SRC-ELM-PROCESSOR-NAME      PIC X(10).
+           05  SRC-ELM-PROCESSOR-RC        PIC 9(4) COMP SYNC.
+           05  SRC-ELM-PROCESSOR-C1-RC     PIC 9(4) COMP SYNC.
+           05  SRC-ELM-PROCESSOR-LAST-COMMENT PIC X(40).
+           05  SRC-ELM-LEVEL-COMMENT       PIC X(40).
+           05  SRC-ELM-LEVEL-DATE          PIC 9(6).
+           05  SRC-ELM-LEVEL-TIME          PIC 9(4).
+           05  SRC-ELM-LEVEL-USERID        PIC X(8).
+           05  SRC-ELM-LAST-ACTION         PIC X(8).
+           05  SRC-ELM-LAST-LEVEL-TOTAL    PIC 9(8) COMP SYNC.
+           05  SRC-ELM-MOVE-DATE           PIC 9(6).
+           05  SRC-ELM-MOVE-TIME           PIC 9(4).
+           05  SRC-ELM-MOVE-USERID         PIC X(8).
+           05  SRC-ELM-RETRIEVE-DATE       PIC 9(6).
+           05  SRC-ELM-RETRIEVE-TIME       PIC 9(4).
+           05  SRC-ELM-RETRIEVE-USERID     PIC X(8).
+           05  SRC-ELM-RETRIEVE-COMMENT    PIC X(40).
+           05  SRC-ELM-RETRIEVE-TO-DSN     PIC X(44).
+           05  SRC-ELM-RETRIEVE-TO-MEMBER  PIC X(10).
+           05  FILLER                  PIC X(30).
+           05  SRC-ELM-RET-CCID            PIC X(12).
+           05  SRC-ELM-GEN-CCID            PIC X(12).
+           05  SRC-ELM-MOD-ACTION          PIC X(8).
+           05  SRC-ELM-ACTION-CCID         PIC X(12).
+           05  SRC-ELM-ACTION-COMM         PIC X(40).
+           05  SRC-ELM-ACTION-USER         PIC X(8).
+           05  SRC-ELM-ACTION-DATE         PIC 9(6).
+           05  SRC-ELM-ACTIOM-TIME         PIC 9(4).
+           05  SRC-ELM-SIGNOUT-ID          PIC X(8).
+           05  SRC-ELM-LOC-FLAG            PIC X.
+           05  SRC-ELM-FR-ACTION           PIC X(8).
+           05  SRC-ELM-FR-ACT-USERID       PIC X(8).
+           05  SRC-ELM-FR-ACT-DATE         PIC 9(6).
+           05  SRC-ELM-FR-ACT-TIME         PIC 9(4).
+           05  SRC-ELM-FR-SITE             PIC X.
+           05  SRC-ELM-FR-ENV              PIC X(8).
+           05  SRC-ELM-FR-SYS              PIC X(8).
+           05  SRC-ELM-FR-SUBSYS           PIC X(8).
+           05  SRC-ELM-FR-ELEMENT          PIC X(10).
+           05  SRC-ELM-FR-TYPE             PIC X(8).
+           05  SRC-ELM-FR-STG-NBR          PIC X.
+           05  SRC-ELM-FR-VER              PIC 9(4) COMP SYNC.
+           05  SRC-ELM-FR-LEVEL            PIC 9(4) COMP SYNC.
+
+      * NEW ELEMENT FIELDS FOR E/MVS 3.6 FOLLOW
+
+           05  SRC-ELM-UPDATE-MEMBER-NAME  PIC X(10).
+           05  SRC-ELM-BASE-MEMBER-NAME    PIC X(10).
+           05  SRC-ELM-LOWER-LEVEL-IND     PIC X(2).
+           05  SRC-ELM-PCT-PREV-INSERT-DEL PIC X.
+           05  SRC-ELM-PCT-PREV-DELS-REINS PIC X.
+           05  SRC-ELM-ESD-FP-NAME-IF-OBJ  PIC X(8).
+           05  SRC-ELM-DELTA-FORMAT        PIC X.
+               88  SRC-ELM-FORWARD-DELTA   VALUE 'F'.
+               88  SRC-ELM-REVVERSE-DELTA  VALUE 'R'.
+               88  SRC-ELM-IMAGE-DELTA     VALUE 'I'.
+               88  SRC-ELM-LOG-DELTA       VALUE 'L'.
+           05  SRC-ELM-PACKED-INDICATOR    PIC X.
+               88  SRC-ELM-BASE-NOT-PACKED VALUE 'Y'.
+           05  SRC-ELM-LAST-PROC-VERSION   PIC X.
+           05  SRC-ELM-LAST-PROC-LEVEL     PIC X.
+           05  SRC-ELM-RECORD-FORMAT       PIC X.
+           05  SRC-ELM-CONF-DELTA-MEM-ID   PIC X(8).
+           05  SRC-ELM-CONF-DELTA-VERSION  PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-BASE-TOTAL     PIC S9(8) COMP SYNC.
+           05  SRC-ELM-CONF-LAST-LVL-TOTAL PIC S9(8) COMP SYNC.
+           05  SRC-ELM-CONF-BASE-LVL-NBR   PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-LAST-LVL-NBR   PIC S9(4) COMP SYNC.
+           05  SRC-ELM-INSERTS-LAST-LEVEL  PIC S9(4) COMP SYNC.
+           05  SRC-ELM-DELETES-LAST-LEVEL  PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-REGRES-INS-PCT PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-REGRES-DEL-PCT PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-BASE-DATE      PIC 9(6).
+           05  SRC-ELM-CONF-BASE-TIME      PIC 9(4).
+           05  SRC-ELM-CONF-LAST-LVL-DATE  PIC 9(6).
+           05  SRC-ELM-CONF-LAST-LVL-TIME  PIC 9(4).
+           05  SRC-ELM-CONF-COMP-STAT-FLAG PIC X.
+           05  SRC-ELM-CONF-DELTA-FORMAT   PIC X.
+           05  SRC-ELM-CONF-DELTA-BASE-FLG PIC X.
+               88  SRC-ELM-CONF-BASE-IN-DELTA VALUE 'Y'.
+           05  SRC-ELM-LAST-PROC-PACKAGE   PIC X(16).
+           05  SRC-ELM-PACKAGE-TIMESTAMP1  PIC X(4).
+           05  SRC-ELM-PACKAGE-TIMESTAMP2  PIC X(4).
+           05  SRC-ELM-PACKAGE-WITH-OUTPUT PIC X(16).
+           05  SRC-ELM-OPACKAGE-TIMESTAMP1 PIC X(4).
+           05  SRC-ELM-OPACKAGE-TIMESTAMP2 PIC X(4).
+           05  SRC-ELM-PROCESSOR-GROUP     PIC X(8).
+           05  SRC-ELM-PACKAGE-RESERVED    PIC X(16).
+           05  SRC-ELM-PKG-RES-TIMESTAMP1  PIC X(4).
+           05  SRC-ELM-PKG-RES-TIMESTAMP2  PIC X(4).
+           05  SRC-ELM-FROM-FILE-TYPE-FLG  PIC X.
+               88  SRC-ELM-FROM-NA-TYPE  VALUE ' '.
+               88  SRC-ELM-FROM-DSN-TYPE  VALUE 'D'.
+               88  SRC-ELM-FROM-PATH-TYPE VALUE 'P'.
+           05  SRC-ELM-TO-FILE-TYPE-FLG  PIC X.
+               88  SRC-ELM-TO-NA-TYPE  VALUE ' '.
+               88  SRC-ELM-TO-DSN-TYPE  VALUE 'D'.
+               88  SRC-ELM-TO-PATH-TYPE VALUE 'P'.
+           05  SRC-ELM-FROM-PATH-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  SRC-ELM-FROM-NAME-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  SRC-ELM-TO-PATH-AREA-OFFSET    PIC S9(4) COMP SYNC.
+           05  SRC-ELM-TO-NAME-AREA-OFFSET    PIC S9(4) COMP SYNC.
+           05  SRC-ELM-NAME-AREA-OFFSET       PIC S9(4) COMP SYNC.
+           05  SRC-ELM-BASE-ELM-VERSION       PIC S9(4) COMP SYNC.
+           05  SRC-ELM-CONF-LAST-VERSION      PIC S9(4) COMP SYNC.
+           05  SRC-ELM-NOSOURCE-FLG      PIC X.
+               88  SRC-ELM-NOSOURCE     VALUE 'Y'.
+           05  FILLER                    PIC X(27).
+           05  SRC-ELM-AREA-BUFFER       PIC X(2320).
+           05  SRC-ELM-USER-DATA         PIC X(80).
+           05  FILLER                    PIC X(40).
+      *
+      *
+      *
+       01  SRC-FILE-CONTROL-BLOCK.
+           05  SRC-FIL-LENGTH            PIC 9(4) COMP SYNC.
+           05  SRC-FIL-CURRENT-VERSION   PIC 9(4) COMP SYNC.
+           05  SRC-FIL-BLOCK-ID          PIC X(4).
+           05  SRC-FIL-DATASET-NAME      PIC X(44).
+           05  SRC-FIL-DATASET-MEMBER    PIC X(10).
+           05  SRC-FIL-DDNAME            PIC X(8).
+           05  SRC-FIL-DATASET-TYPE      PIC X(3).
+           05  SRC-FIL-PATH-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  SRC-FIL-NAME-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  FILLER                    PIC X(21).
+           05  SRC-FIL-AREA-BUFFER       PIC X(1027).
+      *
+      *
+      *
+       01  TGT-ENVIRONMENT-BLOCK.
+           05  TGT-ENV-LENGTH              PIC 9(4) COMP SYNC.
+           05  TGT-ENV-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  TGT-ENV-BLOCK-ID            PIC X(4).
+           05  TGT-ENV-FLAGS               PIC 9(4) COMP SYNC.
+           05  TGT-ENV-TYPE-OF-BLOCK       PIC X.
+               88  TGT-INTERNAL-C1-BLOCK   VALUE 'C'.
+               88  TGT-EXTERNAL-ENV-BLOCK  VALUE 'E'.
+               88  TGT-ARCHIVE-FILE        VALUE 'A'.
+           05  TGT-ENV-IO-TYPE             PIC X.
+               88  TGT-SOURCE-LOCATION     VALUE 'I'.
+               88  TGT-TARGET-LOCATION     VALUE 'O'.
+           05  TGT-ENV-NEXT-ENV-POINTER    PIC 9(8) COMP SYNC.
+           05  TGT-ENV-FILE-POINTER        PIC 9(8) COMP SYNC.
+           05  TGT-ENV-SITE-NAME           PIC X.
+           05  TGT-ENV-STAGE-ID            PIC X.
+               88  TGT-STAGE-ONE           VALUE '1'.
+               88  TGT-STAGE-TWO           VALUE '2'.
+           05  TGT-ENV-STAGE-CODE          PIC X.
+           05  TGT-ENV-ELEMENT-CHANGES     PIC X.
+               88  TGT-SOURCE-CHANGES      VALUE 'Y'.
+               88  TGT-NO-SOURCE-CHANGES   VALUE 'N'.
+           05  TGT-ENV-ELEMENT-VERSION     PIC 9(4) COMP SYNC.
+           05  TGT-ENV-ELEMENT-LEVEL       PIC 9(4) COMP SYNC.
+           05  TGT-ENV-ENVIRONMENT-NAME    PIC X(8).
+           05  TGT-ENV-STAGE-NAME          PIC X(8).
+           05  TGT-ENV-SYSTEM-NAME         PIC X(8).
+           05  TGT-ENV-SYSTEM-DATA         PIC X(8).
+           05  TGT-ENV-SYSTEM-CCID-VALDT   PIC X(1).
+               88  TGT-SYSTEM-VALIDATE     VALUE 'Y'.
+               88  TGT-SYSTEM-NO-VALIDATE  VALUE 'N'.
+           05  FILLER                      PIC X(7).
+           05  TGT-ENV-SUBSYSTEM-NAME      PIC X(8).
+           05  TGT-ENV-SUBSYSTEM-DATA      PIC X(8).
+           05  TGT-ENV-TYPE-NAME           PIC X(8).
+           05  TGT-ENV-TYPE-DATA           PIC X(8).
+           05  TGT-ENV-ELEMENT-NAME        PIC X(10).
+           05  TGT-ENV-MAP-NEW             PIC X(1).
+           05  FILLER             PIC X(7).
+           05  FILLER             PIC 9(8) COMP SYNC OCCURS 19 TIMES.
+           05  TGT-ENV-ELEMENT-AREA-OFFSET PIC 9(4) COMP SYNC.
+           05  FILLER             PIC 9(4) COMP SYNC.
+           05  TGT-ENV-AREA-BUFFER         PIC X(257).
+      *
+      *
+      *
+       01  TGT-ELEMENT-MASTER-INFO-BLOCK.
+           05  TGT-ELM-LENGTH              PIC 9(4) COMP SYNC.
+           05  TGT-ELM-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  TGT-ELM-BLOCK-ID            PIC X(4).
+           05  TGT-ELM-FLAGS               PIC 9(8) COMP SYNC.
+           05  TGT-ELM-ELEMENT-VERSION     PIC 9(4) COMP SYNC.
+           05  TGT-ELM-ELEMENT-LEVEL       PIC 9(4) COMP SYNC.
+           05  TGT-ELM-NUMBER-INSERTS      PIC 9(8) COMP SYNC.
+           05  TGT-ELM-NUMBER-DELETES      PIC 9(8) COMP SYNC.
+           05  TGT-ELM-ELEMENT-NAME        PIC X(10).
+           05  TGT-ELM-CURRENT-CCID        PIC X(12).
+           05  TGT-ELM-BASE-LEVEL-NUMBER   PIC 9(4) COMP SYNC.
+           05  TGT-ELM-BASE-TOTAL-STMTS    PIC 9(8) COMP SYNC.
+           05  TGT-ELM-BASE-DATE           PIC 9(6).
+           05  TGT-ELM-BASE-TIME           PIC 9(4).
+           05  TGT-ELM-BASE-COMMENT        PIC X(40).
+           05  TGT-ELM-BASE-USERID         PIC X(8).
+           05  TGT-ELM-GEN-USERID          PIC X(8).
+           05  TGT-ELM-GEN-DATE            PIC 9(6).
+           05  TGT-ELM-GEN-TIME            PIC 9(4).
+           05  TGT-ELM-FROM-DSN            PIC X(44).
+           05  TGT-ELM-FROM-MEMBER         PIC X(10).
+           05  TGT-ELM-PROCESSOR-FLAG      PIC X.
+           05  FILLER                  PIC X(3).
+           05  TGT-ELM-PROCESSOR-LAST-DATE PIC 9(6).
+           05  TGT-ELM-PROCESSOR-LAST-TIME PIC 9(4).
+           05  TGT-ELM-PROCESSOR-USERID    PIC X(8).
+           05  TGT-ELM-PROCESSOR-NAME      PIC X(10).
+           05  TGT-ELM-PROCESSOR-RC        PIC 9(4) COMP SYNC.
+           05  TGT-ELM-PROCESSOR-C1-RC     PIC 9(4) COMP SYNC.
+           05  TGT-ELM-PROCESSOR-LAST-COMMENT PIC X(40).
+           05  TGT-ELM-LEVEL-COMMENT       PIC X(40).
+           05  TGT-ELM-LEVEL-DATE          PIC 9(6).
+           05  TGT-ELM-LEVEL-TIME          PIC 9(4).
+           05  TGT-ELM-LEVEL-USERID        PIC X(8).
+           05  TGT-ELM-LAST-ACTION         PIC X(8).
+           05  TGT-ELM-LAST-LEVEL-TOTAL    PIC 9(8) COMP SYNC.
+           05  TGT-ELM-MOVE-DATE           PIC 9(6).
+           05  TGT-ELM-MOVE-TIME           PIC 9(4).
+           05  TGT-ELM-MOVE-USERID         PIC X(8).
+           05  TGT-ELM-RETRIEVE-DATE       PIC 9(6).
+           05  TGT-ELM-RETRIEVE-TIME       PIC 9(4).
+           05  TGT-ELM-RETRIEVE-USERID     PIC X(8).
+           05  TGT-ELM-RETRIEVE-COMMENT    PIC X(40).
+           05  TGT-ELM-RETRIEVE-TO-DSN     PIC X(44).
+           05  TGT-ELM-RETRIEVE-TO-MEMBER  PIC X(10).
+           05  FILLER                  PIC X(30).
+           05  TGT-ELM-RET-CCID            PIC X(12).
+           05  TGT-ELM-GEN-CCID            PIC X(12).
+           05  TGT-ELM-MOD-ACTION          PIC X(8).
+           05  TGT-ELM-ACTION-CCID         PIC X(12).
+           05  TGT-ELM-ACTION-COMM         PIC X(40).
+           05  TGT-ELM-ACTION-USER         PIC X(8).
+           05  TGT-ELM-ACTION-DATE         PIC 9(6).
+           05  TGT-ELM-ACTIOM-TIME         PIC 9(4).
+           05  TGT-ELM-SIGNOUT-ID          PIC X(8).
+           05  TGT-ELM-LOC-FLAG            PIC X.
+           05  TGT-ELM-FR-ACTION           PIC X(8).
+           05  TGT-ELM-FR-ACT-USERID       PIC X(8).
+           05  TGT-ELM-FR-ACT-DATE         PIC 9(6).
+           05  TGT-ELM-FR-ACT-TIME         PIC 9(4).
+           05  TGT-ELM-FR-SITE             PIC X.
+           05  TGT-ELM-FR-ENV              PIC X(8).
+           05  TGT-ELM-FR-SYS              PIC X(8).
+           05  TGT-ELM-FR-SUBSYS           PIC X(8).
+           05  TGT-ELM-FR-ELEMENT          PIC X(10).
+           05  TGT-ELM-FR-TYPE             PIC X(8).
+           05  TGT-ELM-FR-STG-NBR          PIC X.
+           05  TGT-ELM-FR-VER              PIC 9(4) COMP SYNC.
+           05  TGT-ELM-FR-LEVEL            PIC 9(4) COMP SYNC.
+
+      * NEW ELEMENT FIELDS FOR E/MVS 3.6 FOLLOW
+
+           05  TGT-ELM-UPDATE-MEMBER-NAME  PIC X(10).
+           05  TGT-ELM-BASE-MEMBER-NAME    PIC X(10).
+           05  TGT-ELM-LOWER-LEVEL-IND     PIC X(2).
+           05  TGT-ELM-PCT-PREV-INSERT-DEL PIC X.
+           05  TGT-ELM-PCT-PREV-DELS-REINS PIC X.
+           05  TGT-ELM-ESD-FP-NAME-IF-OBJ  PIC X(8).
+           05  TGT-ELM-DELTA-FORMAT        PIC X.
+               88  TGT-ELM-FORWARD-DELTA   VALUE 'F'.
+               88  TGT-ELM-REVVERSE-DELTA  VALUE 'R'.
+               88  TGT-ELM-IMAGE-DELTA     VALUE 'I'.
+               88  TGT-ELM-LOG-DELTA       VALUE 'L'.
+           05  TGT-ELM-PACKED-INDICATOR    PIC X.
+               88  TGT-ELM-BASE-NOT-PACKED VALUE 'Y'.
+           05  TGT-ELM-LAST-PROC-VERSION   PIC X.
+           05  TGT-ELM-LAST-PROC-LEVEL     PIC X.
+           05  TGT-ELM-RECORD-FORMAT       PIC X.
+           05  TGT-ELM-CONF-DELTA-MEM-ID   PIC X(8).
+           05  TGT-ELM-CONF-DELTA-VERSION  PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-BASE-TOTAL     PIC S9(8) COMP SYNC.
+           05  TGT-ELM-CONF-LAST-LVL-TOTAL PIC S9(8) COMP SYNC.
+           05  TGT-ELM-CONF-BASE-LVL-NBR   PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-LAST-LVL-NBR   PIC S9(4) COMP SYNC.
+           05  TGT-ELM-INSERTS-LAST-LEVEL  PIC S9(4) COMP SYNC.
+           05  TGT-ELM-DELETES-LAST-LEVEL  PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-REGRES-INS-PCT PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-REGRES-DEL-PCT PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-BASE-DATE      PIC 9(6).
+           05  TGT-ELM-CONF-BASE-TIME      PIC 9(4).
+           05  TGT-ELM-CONF-LAST-LVL-DATE  PIC 9(6).
+           05  TGT-ELM-CONF-LAST-LVL-TIME  PIC 9(4).
+           05  TGT-ELM-CONF-COMP-STAT-FLAG PIC X.
+           05  TGT-ELM-CONF-DELTA-FORMAT   PIC X.
+           05  TGT-ELM-CONF-DELTA-BASE-FLG PIC X.
+               88  TGT-ELM-CONF-BASE-IN-DELTA VALUE 'Y'.
+           05  TGT-ELM-LAST-PROC-PACKAGE   PIC X(16).
+           05  TGT-ELM-PACKAGE-TIMESTAMP1  PIC X(4).
+           05  TGT-ELM-PACKAGE-TIMESTAMP2  PIC X(4).
+           05  TGT-ELM-PACKAGE-WITH-OUTPUT PIC X(16).
+           05  TGT-ELM-OPACKAGE-TIMESTAMP1 PIC X(4).
+           05  TGT-ELM-OPACKAGE-TIMESTAMP2 PIC X(4).
+           05  TGT-ELM-PROCESSOR-GROUP     PIC X(8).
+           05  TGT-ELM-PACKAGE-RESERVED    PIC X(16).
+           05  TGT-ELM-PKG-RES-TIMESTAMP1  PIC X(4).
+           05  TGT-ELM-PKG-RES-TIMESTAMP2  PIC X(4).
+           05  TGT-ELM-FROM-FILE-TYPE-FLG  PIC X.
+               88  TGT-ELM-FROM-NA-TYPE  VALUE ' '.
+               88  TGT-ELM-FROM-DSN-TYPE  VALUE 'D'.
+               88  TGT-ELM-FROM-PATH-TYPE VALUE 'P'.
+           05  TGT-ELM-TO-FILE-TYPE-FLG  PIC X.
+               88  TGT-ELM-TO-NA-TYPE  VALUE ' '.
+               88  TGT-ELM-TO-DSN-TYPE  VALUE 'D'.
+               88  TGT-ELM-TO-PATH-TYPE VALUE 'P'.
+           05  TGT-ELM-FROM-PATH-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  TGT-ELM-FROM-NAME-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  TGT-ELM-TO-PATH-AREA-OFFSET    PIC S9(4) COMP SYNC.
+           05  TGT-ELM-TO-NAME-AREA-OFFSET    PIC S9(4) COMP SYNC.
+           05  TGT-ELM-NAME-AREA-OFFSET       PIC S9(4) COMP SYNC.
+           05  TGT-ELM-BASE-ELM-VERSION       PIC S9(4) COMP SYNC.
+           05  TGT-ELM-CONF-LAST-VERSION      PIC S9(4) COMP SYNC.
+           05  TGT-ELM-NOSOURCE-FLG      PIC X.
+               88  TGT-ELM-NOSOURCE     VALUE 'Y'.
+           05  FILLER                    PIC X(27).
+           05  TGT-ELM-AREA-BUFFER       PIC X(2320).
+           05  TGT-ELM-USER-DATA         PIC X(80).
+           05  FILLER                    PIC X(40).
+      *
+      *
+      *
+       01  TGT-FILE-CONTROL-BLOCK.
+           05  TGT-FIL-LENGTH          PIC 9(4) COMP SYNC.
+           05  TGT-FIL-CURRENT-VERSION PIC 9(4) COMP SYNC.
+           05  TGT-FIL-BLOCK-ID        PIC X(4).
+           05  TGT-FIL-DATASET-NAME    PIC X(44).
+           05  TGT-FIL-DATASET-MEMBER  PIC X(10).
+           05  TGT-FIL-DDNAME          PIC X(8).
+           05  TGT-FIL-DATASET-TYPE    PIC X(3).
+           05  TGT-FIL-PATH-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  TGT-FIL-NAME-AREA-OFFSET  PIC S9(4) COMP SYNC.
+           05  FILLER                    PIC X(21).
+           05  TGT-FIL-AREA-BUFFER       PIC X(1027).
+      *
+      *
+      *
+       01  ALTER-ACTION-BLOCK.
+           05  ALT-ACT-LENGTH              PIC 9(4) COMP SYNC.
+           05  ALT-ACT-CURRENT-VERSION     PIC 9(4) COMP SYNC.
+           05  ALT-ACT-BLOCK-ID            PIC X(4).
+      *
+      *  ALTER ACTION REQUEST FLAG
+           05  ALT-REQ-CCG                 PIC X.
+               88  ALT-REQ-CCGY                VALUE 'Y'.
+               88  ALT-REQ-CCGN                VALUE 'N'.
+           05  ALT-REQ-CCL                 PIC X.
+               88  ALT-REQ-CCLY                VALUE 'Y'.
+               88  ALT-REQ-CCLN                VALUE 'N'.
+           05  ALT-REQ-CCR                 PIC X.
+               88  ALT-REQ-CCRY                VALUE 'Y'.
+               88  ALT-REQ-CCRN                VALUE 'N'.
+           05  ALT-REQ-DES                 PIC X.
+               88  ALT-REQ-DESY                VALUE 'Y'.
+               88  ALT-REQ-DESN                VALUE 'N'.
+           05  ALT-REQ-PRG                 PIC X.
+               88  ALT-REQ-PRGY                VALUE 'Y'.
+               88  ALT-REQ-PRGN                VALUE 'N'.
+           05  ALT-REQ-SGN                 PIC X.
+               88  ALT-REQ-SGNY                VALUE 'Y'.
+               88  ALT-REQ-SGNN                VALUE 'N'.
+           05  ALT-REQ-USR                 PIC X.
+               88  ALT-REQ-USRY                VALUE 'Y'.
+               88  ALT-REQ-USRN                VALUE 'N'.
+           05  FILLER                      PIC X(32).
+      *
+      * REPLACE CLAUSE MATCH FOUND FLAG
+      *    NOTE: THE MATCH FLAGS ARE NOT SET AT THE TIME OF THE EXIT 02
+      *    CALLS. THEY ARE SET AND AVAILABLE AT THE TIME OF THE EXIT 03
+      *    CALLS.
+           05  ALT-MATCH-FLAG              PIC X.
+               88  ALT-MATCH-FLAGY             VALUE 'Y'.
+               88  ALT-MATCH-FLAGN             VALUE 'N'.
+      * INDIVIDUAL FIELD MATCH FLAGS
+           05  ALT-MATCH-CCG               PIC X.
+               88  ALT-MATCH-CCGY              VALUE 'Y'.
+               88  ALT-MATCH-CCGN              VALUE 'N'.
+           05  ALT-MATCH-CCL               PIC X.
+               88  ALT-MATCH-CCLY              VALUE 'Y'.
+               88  ALT-MATCH-CCLN              VALUE 'N'.
+           05  ALT-MATCH-CCR               PIC X.
+               88  ALT-MATCH-CCRY              VALUE 'Y'.
+               88  ALT-MATCH-CCRN              VALUE 'N'.
+           05  ALT-MATCH-DES               PIC X.
+               88  ALT-MATCH-DESY              VALUE 'Y'.
+               88  ALT-MATCH-DESN              VALUE 'N'.
+           05  ALT-MATCH-PRG               PIC X.
+               88  ALT-MATCH-PRGY              VALUE 'Y'.
+               88  ALT-MATCH-PRGN              VALUE 'N'.
+           05  ALT-MATCH-SGN               PIC X.
+               88  ALT-MATCH-SGNY              VALUE 'Y'.
+               88  ALT-MATCH-SGNN              VALUE 'N'.
+           05  ALT-MATCH-USR               PIC X.
+               88  ALT-MATCH-USRY              VALUE 'Y'.
+               88  ALT-MATCH-USRN              VALUE 'N'.
+           05  FILLER                      PIC X.
+           05  FILLER                      PIC X(32).
+      *
+      * REPLACE CLAUSE UPDATED FLAG
+      *
+           05  ALT-UPDTE-FLAG              PIC X.
+               88  ALT-UPDTE-FLAGY             VALUE 'Y'.
+               88  ALT-UPDTE-FLAGN             VALUE 'N'.
+      * INDIVIDUAL FIELD UPDATE FLAGS
+           05  ALT-UPDTE-CCG               PIC X.
+               88  ALT-UPDTE-CCGY              VALUE 'Y'.
+               88  ALT-UPDTE-CCGN              VALUE 'N'.
+           05  ALT-UPDTE-CCL               PIC X.
+               88  ALT-UPDTE-CCLY              VALUE 'Y'.
+               88  ALT-UPDTE-CCLN              VALUE 'N'.
+           05  ALT-UPDTE-CCR               PIC X.
+               88  ALT-UPDTE-CCRY              VALUE 'Y'.
+               88  ALT-UPDTE-CCRN              VALUE 'N'.
+           05  ALT-UPDTE-DES               PIC X.
+               88  ALT-UPDTE-DESY              VALUE 'Y'.
+               88  ALT-UPDTE-DESN              VALUE 'N'.
+           05  ALT-UPDTE-PRG               PIC X.
+               88  ALT-UPDTE-PRGY              VALUE 'Y'.
+               88  ALT-UPDTE-PRGN              VALUE 'N'.
+           05  ALT-UPDTE-SGN               PIC X.
+               88  ALT-UPDTE-SGNY              VALUE 'Y'.
+               88  ALT-UPDTE-SGNN              VALUE 'N'.
+           05  ALT-UPDTE-USR               PIC X.
+               88  ALT-UPDTE-USRY              VALUE 'Y'.
+               88  ALT-UPDTE-USRN              VALUE 'N'.
+           05  FILLER                      PIC X.
+           05  FILLER                      PIC X(32).
+      *
+      * BEFORE, FROM AND TO VALUES FOR EACH OF THE FIELDS
+      *    NOTE: THE FOLLOWING FIELDS CONTAIN THE FROM AND
+      *    TO VALUES THAT WERE CODED ON THE ACTION REQUEST.
+      *
+           05  ALT-BEFORE-GCID             PIC X(12).
+           05  ALT-FROM-GCID               PIC X(12).
+           05  ALT-TO-GCID                 PIC X(12).
+           05  ALT-BEFORE-LCID             PIC X(12).
+           05  ALT-FROM-LCID               PIC X(12).
+           05  ALT-TO-LCID                 PIC X(12).
+           05  ALT-BEFORE-RCID             PIC X(12).
+           05  ALT-FROM-RCID               PIC X(12).
+           05  ALT-TO-RCID                 PIC X(12).
+           05  ALT-BEFORE-DESC             PIC X(40).
+           05  ALT-FROM-DESC               PIC X(40).
+           05  ALT-TO-DESC                 PIC X(40).
+           05  ALT-BEFORE-PRGN             PIC X(8).
+           05  ALT-FROM-PRGN               PIC X(8).
+           05  ALT-TO-PRGN                 PIC X(8).
+           05  ALT-BEFORE-SGNI             PIC X(8).
+           05  ALT-FROM-SGNI               PIC X(8).
+           05  ALT-TO-SGNI                 PIC X(8).
+           05  ALT-BEFORE-USRD             PIC X(80).
+           05  ALT-FROM-POS                PIC 9(4) COMP SYNC.
+           05  ALT-FROM-TXL                PIC 9(4) COMP SYNC.
+           05  ALT-FROM-USRD               PIC X(80).
+           05  ALT-TO-POS                  PIC 9(4) COMP SYNC.
+           05  ALT-TO-LEN                  PIC 9(4) COMP SYNC.
+           05  ALT-TO-TXL                  PIC 9(4) COMP SYNC.
+           05  ALT-TO-PAD                  PIC X.
+           05  ALT-TO-USRD                 PIC X(80).
+           05  FILLER                      PIC X(256).

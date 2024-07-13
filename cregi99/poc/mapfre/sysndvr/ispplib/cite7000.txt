@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Environment Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                           %(Screen 1 of 2)+
++
+Use this panel to display the environment definitions defined during
+installation in your C1DEFLTS Table.  The fields on this panel are:
+
+%Current Environment+- Name of the current environment.  To display the
+      details for another environment, enter that environment's name in
+      this field and press ENTER.
+
+%Title+- Descriptive title for the current environment.
+
+%Next Environment+- Name of the next environment on the map.
+
+%User Security Table+- Name of the User Security Table currently in use
+      (applicable for native security only).
+
+%Resource Security Table+- Name of the Resource Security Table currently
+      in use (applicable for native security only).
+
+
+
+
+                                               (%ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITE7001
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Complementary Data Sets \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this field to indicate whether to ship complementary data sets
++to this destination.
++
+%   N+- Default. Do not ship complementary data sets.
+%   Y+- Ship complementary data sets.
++
++Complementary data sets contain the backout of a given shipment. For
++example, if a shipment contains the outputs of a package A, then the
++complementary data sets for the shipment contain the backout for
++package A. Conversely, if a shipment contains the backout for
++package B, the complementary data sets contain the outputs for
++package B.
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

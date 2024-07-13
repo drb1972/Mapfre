@@ -1,0 +1,23 @@
+CPTB160 'Invalid Unit Type'                         .ALARM=YES
+'CPTB160 The Unit Type contains one or more invalid characters.'
+
+CPTB161 'Invalid Processing Mode'                   .ALARM=YES
+'CPTB161 An invalid processing mode was entered. Specify F or B.'
+
+CPTB162 'Dataset Name Required'                     .ALARM=YES
+'CPTB162 A fully specified dataset name is required to continue.'
+
+CPTB164 'Validation Failed'                         .ALARM=YES
+'CPTB164 The dataset specified failed the validation requirements.'
+
+CPTB165 'Wildcard not Allowed'                      .ALARM=YES
+'CPTB165 The member name cannot be a wild carded value'
+
+CPTB166 'Dest & Wtr Mut Excl'                       .ALARM=YES
+'CPTB166 The Destination and Writer Name fields are mutually exclusive'
+
+CPTB167 'Invalid Writer Name'                       .ALARM=YES
+'CPTB167 The Writer Name contains one or more invalid characters'
+
+CPTB168 'Invld Merge to Loc '                       .ALARM=YES
+'CPTB168 Merge output to Endevor only allowed with Auto-merge   '

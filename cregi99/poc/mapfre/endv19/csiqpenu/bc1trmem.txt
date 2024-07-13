@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Specifying a Root Member or Element \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++ *****************************************************************
++ * If the WIP Library member     *   Then you can specify Root   *
++ * was specified                 *   members or elements         *
++ *****************************************************************
++ * > By leaving the field blank  *  > By leaving the field blank *
++ * > Using an overlay mask       *  > Using a name mask          *
++ *                               *  > As an explicit value       *
++ *****************************************************************
++ *   As an explicit value        *    Only as an explicit value  *
++ *****************************************************************
++
+%Note:+The maximum allowable LRECL for a Root member is 247.
++
++If the WIP library is a sequential data set, you must specify an explicit
++member or element name.
++
++   Select%1-2+for information about:
++
+%    1+- Selecting members from a list  %2+- Selecting elements from a list
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TMSEL 2,BC1TESEL)
+)END

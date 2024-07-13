@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (UX) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Dump Quick Edit Row Variables
++
++  This sample user routine (NDUSRXUX) gathers the selected row element details
++  and invokes browse on the list.
++
+%  Intended Use:+
++  Use this routine to quickly review details as they would be passed to YOUR
++  user routines allowing you to discover the table name, key and variable
++  names associated with each column.
++
+%  Note:+
++  This information is provided ASIS - there is no guarantee that these fields
++  will not be updated in any future release.  You are responsible to ensure
++  that any user routines that you create are capable of detecting or
++  handling any such changes gracefully.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

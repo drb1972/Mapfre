@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%\-\ Product Interfaces and Obsolete Feature Removal \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Product Interfaces Removed
++
++The following product interfaces were removed:
++   Endevor Netman Interface
++   Endevor Roscoe Interface
++   Endevor Infoman Interface
++
+%Obsolete Features Removed
++
++The following product features were removed:
++   Native Security
++   System Type Sequencing
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+)PROC
+   &ZCONT = CIT18020
+)END

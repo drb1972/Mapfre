@@ -1,0 +1,31 @@
+)PANEL
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY EXPAND(\\)
+%\-\  All Element Change Levels Filtering Enabled  \-\
+%Command ===>_ZCMD                                                             +
++
++   ************************************************************************
++   *                                                                      *
++   *   The%All Element Change Levels+option was enabled in the previous   *
++   *   panel.                                                             *
++   *                                                                      *
++   *   A%significant delay+can occur if there are a large number of       *
++   *   elements to be scanned for CCID in all their change levels.        *
++   *                                                                      *
++   *   To return and refine your search, enter the%END+command.           *
++   *   To continue with your search, press the%ENTER+key.                 *
++   *                                                                      *
++   ************************************************************************
+)INIT
+)PROC
+)END

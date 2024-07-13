@@ -1,0 +1,20 @@
+IMGR230E 'MAX JUNCTIONS DEFINED'                         .ALARM=YES
+'&VARWLTXT'
+IMGR231E 'APPRV GRP NOT DEFINED'                         .ALARM=YES
+'&VARWLTXT'
+IMGR232E 'APPRV GRP DEFINED'                             .ALARM=YES
+'&VARWLTXT'
+IMGR233E 'TYPE SEQ NOT DEFINED'                          .ALARM=YES
+'&VARWLTXT'
+IMGR234E 'TFC BUILD ERROR'                               .ALARM=YES
+'&VARWLTXT'
+IMGR235E 'TDF BUILD ERROR'                               .ALARM=YES
+'&VARWLTXT'
+IMGR236E 'TYPES NOT FOUND'                               .ALARM=YES
+'&VARWLTXT'
+IMGR237E 'PROC GRP DEFINED'                              .ALARM=YES
+'&VARWLTXT'
+IMGR238E 'PROC GRP NOT DEFINED'                          .ALARM=YES
+'&VARWLTXT'
+IMGR239E 'ELEMENTS EXIST'                                .ALARM=YES
+'&VARWLTXT'

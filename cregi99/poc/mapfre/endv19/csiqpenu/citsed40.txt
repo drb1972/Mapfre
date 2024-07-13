@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Generate \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields provide information about the last time the element was
++generated.
++
+%Userid+- Id of the user who last generated the element.
+%Date/time+- Date and time when the element was last generated.
+%CCID+- CCID specified the last time the element was generated.
++
+%Comment+- Comment specified the last time the element was generated.
+%Delta FMT+- Storage format for element deltas.
+%               F+- Forward
+%               R+- Reverse
+%               I+- Image
+%               L+- Log
++
+%Component List VVLL+- Shows the version and level of the component
++   list associated with the element.
++
++
++
++                                            (%PF3+to return)
+)END

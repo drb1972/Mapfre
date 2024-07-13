@@ -1,0 +1,77 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Add compare support for COMPELM \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Quick Edit Add compare support for COMPELM
++
+%  Endevor Quick Edit+now supports a new primary command,%COMPELM,+which can
++  be used to compare the current Element to any other Element in Endevor
++  in a similar manner to the%ISPF COMPARE+command. On invocation the
++  user may optionally specify an Element name or filter the Element
++  selection list, or use the NEXT keyword to default to looking up the
++  map using the current Element name and type. The COMPARE keywords EXCLUDE/X,
++  SAVE and SYSIN are also supported.
++
+%  Compare Elements (COMPELM)
++  The%COMPELM+command enables you to compare the current Element with another
++  Element in Endevor and, if required, merge changes into the current Element
++  using the%MD+(MakeData) line command.  The compared Element that you select
++  can either be another Element or a different version of the same Element,
++  taken from a different location on the map.
++
+%  Follow these steps:
++  - Type the COMPELM command on the command line of the ISPF Edit panel of the
++    Element that you want to use as a basis for your comparison.
++  - The Element COPY/COMPARE filter panel opens.
++  - Complete any filter specifications that you require:  Environment, Type,
++    Subsystem, and so on.
++  - The Element Selection List panel opens.
++  - Type%S+(for Summary) next to the Element that you want to select a specific
++    version of.
++  - The Summary of Element Levels panel opens.
++  - Type%CO+(for Compare) next to the version and level (VVLL) that you want to
++    compare your current Element with.
++  - A merge of the two Elements displays.
++
++  You can also issue%B+(Browse),%C+(Changes),%H+(History) and%M+(Master) line
++  commands to view information about the element before selecting%CO.+
++
+%  Reading the COMPELM Merge Panel
++  The following illustration shows an example of a merge of two
++  Elements created using the COMPELM command:
++
+%  ELE03        +%TO: ENV1/1/EZSYS/EZSUB/COPYBOOK             Changes are shown
++  Command ===>                                                 Scroll ===> CSR
++  ****** *************************** Top of Data *****************************
++ %======+ELEO3 This is a changed element with a few obvious (EXTRA)
++ %.OAAAA+ELEO3 This is a changed element with a few obvious
++  000002 ELE03 lines that can be inserted and changed.
++  000003 ELE03 Please try the COPYELM command to add another element
++  000004 ELE03 somewhere in the middle, top or bottom of this element
++  000005 ELE03 For example you might pick ELE01 or ELE02
++  000006 ELE03 It has some extra history
++ %======+ELE03 lines that are added to
++ %======+ELE03 at the bottom
++  ****** ************************** Bottom of Data ***************************
++
++  Lines that exist only in the Element that you are editing are marked with
++ %.OAAAA+(where the suffix is incremented alphabetically). If Edit highlighting
++  is enabled, these lines display in a different color.  Lines that exist only
++  in the Element that is being compared are inserted as information lines
++  (marked by equals signs) in the Element that is being edited.
++  You can jump to the next unique or missing line using the%L LABEL+or
++ %L SPECIAL+primary commands.
++
++  COMPELM supports the following parameters of the ISPF COMPARE command:
++    NEXT EXCLUDE SYSIN SAVE
++  COMPELM does not support the following parameters of the COMPARE command:
++    VOL SESSION
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18350
+)END

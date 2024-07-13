@@ -1,0 +1,43 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+|VARFLIT%----------------  PROCESSOR GROUP DEFINITION  -------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++CURRENT ENV: ¢VAREVNME+  STAGE ID: ¢Z+  SYSTEM: ¢VARSYNME+  TYPE: ¢VARTYNME+
++NEXT    ENV: ¢VARNXENV+  STAGE ID: ¢Z+  SYSTEM: ¢VARNXSYS+  TYPE: ¢VARTYNS2+
++
++PROCESSOR GROUP:    ¢VARPRNME+    +PROCESSOR O/P TYPE:¢VARPRRGT        +
++DESCRIPTION:        ~VARPRDES                                          +
++NEXT PRCS GROUP:    ¢VARNXPRG+
++
++UPDATED:            ¢Z      ¢Z    +BY¢VARLUUID+
++
++-----------------------  OUTPUT MANAGEMENT INFORMATION  -----------------------
++
++PROCESSOR TO USE FOR MOVE     ACTION:    ¢Z+(M/G)
++PROCESSOR TO USE FOR TRANSFER ACTION:    ¢Z+(M/G)
++
++       S - Browse Symbolics                    L - List Processor
++
++                                     FOREGROUND EXECUTION
+_Z+ GENERATE PROCESSOR:    ¢VARTYPRG+    :    ¢Z+(Y/N)¢VARUSTX1   +
+_Z+ DELETE PROCESSOR:      ¢VARTYPRD+    :    ¢Z+(Y/N)¢VARUSTX2   +
+_Z+ MOVE PROCESSOR:        ¢VARTYPRM+    :    ¢Z+(Y/N)¢VARUSTX3   +
+)INIT
+  .HELP = CITPGDF0
+  .ZVARS = '(VARWKSID VARNXSTG +
+             VARLUDTE VARLUTME +
+             VARPMOVE VARPXFER +
+             VARUSYO1 VARTYFEG VARUSYO2 +
+             VARTYFED VARUSYO3 VARTYFEM)'
+)END

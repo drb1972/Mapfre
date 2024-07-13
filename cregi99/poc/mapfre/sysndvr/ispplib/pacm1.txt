@@ -1,0 +1,146 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PADC(_)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ¢ TYPE(INPUT) INTENS(HIGH) caps(off) JUST(LEFT) PADC(_)
+   ! TYPE(OUTPUT) INTENS(HIGH)
+)BODY  LMSG(LMSG) EXPAND(@@)
+ @-@  ACM QUERY  @-@
+!LMSG
+%OPTION  ===>_ZCMD                                                     +
++
+%BLANK+- Perform Element query          %C+- Perform Comment query
+%    M+- Perform Member query           %O+- Perform Object query
++
++ELEMENT/MEMBER%===>_CIELM     +
++
++ELEMENT Query Information:     Query Options:
++  ENVIRONMENT%===>_acmenv  +   Where-used/Components used %===>_WH +(WHE/COM)
++  SYSTEM     %===>_acmsys  +   Foreground/Batch Mode%=========>_Z+  (F/B)
++  SUBSYSTEM  %===>_acmsub  +   Create GENERATE SCL  %=========>_Z+  (Y/N)
++  TYPE       %===>_acmtyp  +   Exclude circular references%===>_Z+  (Y/N)
++  STAGE NBR  %===>_z+(1/2/*)+  Exclude indirect references%===>_Z+  (Y/N)
++                               Exclude related  references%===>_Z+  (Y/N)
++MEMBER Query Information:
++  DSNAME     %===>_acmdsn                                      +
++
++COMMENT/OBJECT Query Information:
++  ¢acmcom                                                                  +
+)INIT
+&zcmd = &z
+.CURSOR = CIELM
+.HELP = TACM1
+.ZVARS = '(+
+           ACMOPT1                                  +
+           ACMOPT2                                  +
+           EXCLCIR                                  +
+           ACMSTG                                   +
+           EXCLIND                                  +
+           EXCLREL                                  +
+          )'
+VGET (wh acmopt1 acmopt2 EXCLCIR EXCLIND EXCLREL) PROFILE
+if (&wh = '')
+  &wh = 'WHE'
+if (&acmopt1 = '')
+  &ACMOPT1 = 'F'
+if (&acmopt2 = '')
+  &ACMOPT2 = 'N'
+if (&EXCLCIR = '')
+  &EXCLCIR = 'N'
+if (&EXCLIND = '')
+  &EXCLIND = 'N'
+if (&EXCLREL = '')
+  &EXCLREL = 'N'
+VGET (ACMTYP ACMENV ACMSYS ACMSUB ACMSTG ACMDSN ACMCOM) PROFILE
+if (&CIELM = '*')
+  &CIELM = '__________'
+)PROC
+  VER(&ZCMD,LIST,'M','C','O')
+  VER(&WH,LIST,'WHE','COM')
+  VER(&ACMOPT1,NB,LIST,'F','B')
+  VER(&ACMOPT2,NB,LIST,'Y','N')
+  VER(&EXCLCIR,NB,LIST,'Y','N')
+  VER(&EXCLIND,NB,LIST,'Y','N')
+  VER(&EXCLREL,NB,LIST,'Y','N')
+  /*   OBJ/COM/MBR TYPES DO NOT HAVE COMPONENTS, SPECIFY WHE OPTION */
+  IF (&WH = 'COM')
+     IF (&ZCMD = 'C' OR &ZCMD = 'O' OR &ZCMD = 'M')
+        .CURSOR = WH
+        .MSG = ACMQ223E
+  /*   DETERMINE ACTION */
+  IF (&ACMOPT2 = 'N')
+    IF (&ACMOPT1 = 'F')
+       &ACMACT = '1'
+    ELSE
+       &ACMACT = '2'
+  IF (&ACMOPT2 = 'Y')
+    IF (&ACMOPT1 = 'F')
+       &ACMACT = '3'
+    ELSE
+       &ACMACT = '4'
+  /*   DETERMINE SORT ACTION */
+  IF (&ZCMD = ' ' )
+     &SCAN = TRANS(&WH,'WHE','1','COM','2')
+     &ACMQTYP  = '7'
+     VER(&CIELM,NONBLANK)
+     &ACMELM = &CIELM
+     if  (&acmenv = ' ')
+       &acmenv = '*'
+     if  (&acmsys = ' ')
+       &acmsys = '*'
+     if  (&acmsub = ' ')
+       &acmsub = '*'
+     if  (&acmtyp = ' ')
+       &acmtyp = '*'
+     if  (&acmstg = ' ')
+       &acmstg = '*'
+     VER(&ACMSTG,LIST,'1','2','*')
+  ELSE
+     VER(&WH,LIST,'WHE')
+     &SCAN = '1'
+  /*   DETERMINE RECORD TYPE */
+  IF (&ZCMD = 'M')
+     &ACMQTYP  = '8'
+     VER(&CIELM,NONBLANK)
+     &ACMMEM = &CIELM
+
+     /* FIRST CHECK WHETHER WE WANT TO SEARCH AMONG ALL OF THE PDS'S */
+     /* LISTED IN ACMQ: IN THAT CASE THE DSN WILL BE ASTERISK        */
+     IF (&ACMDSN = ' ')
+        &ACMDSN = '*'
+
+     /* VERIFY IF THIS IS DATASET NAME IN TSO FORMAT (IN QUOTES)     */
+     /* THIS CHECK WOULD FAIL IF: THE QUOTES ENCLOSING THE DATASET   */
+     /* NAME ARE NOT MATCHING (ONLY LEADING OR TRAILING QUOTES)      */
+     /* ERROR WILL HAPPEN EVEN IF INVALID CHARACTERS ARE USED OR     */
+     /* PARTS OF THE DSNAME ARE TOO LONG (>8)                        */
+     /* SO AT THE END, WE EITHER HAVE DATASET NAME ENCLOSED IN       */
+     /* QUOTES OR NOT ENCLOSED AT ALL. LET'S CHECK THE FIRST OPTION  */
+     /* AND BAIL OUT IF IT IS LIKE THAT.                             */
+     IF (&ACMDSN ^= '*')
+        VER(&ACMDSN,DSNAME,MSG=ACMQ222E)
+        &A = TRUNC (&ACMDSN,1)
+        IF (&A = '''')
+            .MSG = ACMQ222E
+        IF (&A = '"')
+            .MSG = ACMQ222E
+ &q   = ''''
+ IF (&ZCMD = 'O')
+    &ACMQTYP  = '5'
+    &deb = trunc(&acmcom,1)
+    if (&deb ^= '''')
+      VER(&ACMCOM,NB,LEN,LE,70)
+      &acmcom = '&q&acmcom&q'
+ IF (&ZCMD = 'C')
+    &ACMQTYP  = '6'
+    &deb = trunc(&acmcom,1)
+    if (&deb ^= '''')
+      VER(&ACMCOM,NB,LEN,LE,70)
+      &acmcom = '&q&acmcom&q'
+    VER(&ACMCOM,NB,LEN,LE,70)
+&SCMD = &ZCMD
+&ZCMD = ' '
+VPUT (WH ACMOPT1 ACMOPT2 EXCLCIR EXCLIND EXCLREL) PROFILE
+VPUT (ACMTYP ACMENV ACMSYS ACMSUB ACMSTG ACMDSN ACMCOM SCMD) PROFILE
+)END

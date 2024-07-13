@@ -1,0 +1,16 @@
+)ATTR DEFAULT(%+_)
+! TYPE(TEXT) COLOR(GREEN)
+@ TYPE(TEXT) COLOR(TURQ)
+¢ TYPE(OUTPUT) COLOR(GREEN) CAPS(OFF)
+^ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF)
+)BODY EXPAND(\\)
+%\-\  ENDEVOR WIZARD  \-\
++
++   Use this panel to edit Endevor Wizard control members.
++
++   1: Use option 1 to edit existing wizard control members
++
++   2: Use option 2 to create new wizard control members for delete
++      commands
+)INIT
+)END

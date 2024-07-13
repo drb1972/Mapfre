@@ -1,0 +1,74 @@
+         MACRO
+         ENHAETRA &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        TRANSFER ELEMENT - REQUEST BLOCK                             *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=1,                  CONTROL BLOCK VERSION           X
+               EYE='ETRQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AETRA_RQ
+         SPACE ,
+AETRA_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AETRA_RQ_DATA
+*                 ELEMENT DATA
+AETRA_RQ_ELM      DC CL10' '           ELEMENT NAME
+AETRA_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+AETRA_RQ_VERSION  DC CL2' '            VERSION (1-99)
+AETRA_RQ_LEVEL    DC CL2' '            LEVEL (0-99)
+AETRA_RQ_TELM     DC CL10' '           TARGET ELEMENT NAME
+*                 FROM LOCATION DATA
+AETRA_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AETRA_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AETRA_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AETRA_RQ_TYPE     DC CL8' '            TYPE NAME
+AETRA_RQ_STG_ID   DC CL1' '            STAGE ID
+AETRA_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 TARGET LOCATION DATA
+AETRA_RQ_TENV     DC CL8' '            ENVIRONMENT NAME
+AETRA_RQ_TSYSTEM  DC CL8' '            SYSTEM NAME
+AETRA_RQ_TSUBSYS  DC CL8' '            SUBSYSTEM NAME
+AETRA_RQ_TTYPE    DC CL8' '            TYPE NAME
+AETRA_RQ_TSTG_ID  DC CL1' '            STAGE ID
+AETRA_RQ_TSTG_NUM DC CL1' '            STAGE NUMBER (1/2)
+*                 ACTION OPTIONS
+AETRA_RQ_CCID       DC CL12' '         CCID
+AETRA_RQ_COMM       DC CL40' '         COMMENT
+AETRA_RQ_NEWVER     DC CL2' '          NEW VERSION (1-99)
+AETRA_RQ_IGN_GFAIL  DC CL1' '          IGNORE GENERATE FAILED (Y/N)
+AETRA_RQ_BYP_GENPRO DC CL1' '          BYPASS GENERATE PROCESSOR (Y/N)
+AETRA_RQ_PROGRO     DC CL8' '          PROCESSOR GROUP
+AETRA_RQ_OVESIGNO   DC CL1' '          OVERRIDE SIGNOUT (Y/N)
+AETRA_RQ_BYP_ELEDEL DC CL1' '          BYPASS ELEMENT DELETE (Y/N)
+AETRA_RQ_BYP_DELPRO DC CL1' '          BYPASS DELETE PROCESSOR (Y/N)
+AETRA_RQ_WIT_HIS    DC CL1' '          WITH HISTORY (Y/N)
+AETRA_RQ_SYN        DC CL1' '          SYNCHRONIZE (Y/N)
+AETRA_RQ_SIGNIN     DC CL1' '          SIGNIN (Y/N)
+AETRA_RQ_RETA_SIGNO DC CL1' '          RETAIN SIGNOUT (Y/N)
+AETRA_RQ_SIGNO_TO   DC CL8' '          SIGNOUT TO USERID
+AETRA_RQ_RESERVE    DC CL3' '          ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AETRA_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AETRA_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AETRA_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+AETRA_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AETRA_RQ_VER#1_DATADSLN EQU *-AETRA_RQ_DATA
+AETRA_RQ_VER#1_DSLN     EQU *-AETRA_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AETRA_RQ_DATADSLN EQU *-AETRA_RQ_DATA
+AETRA_RQ_DSLN     EQU *-AETRA_RQ
+         ORG      AETRA_RQ_DATA
+AETRA_RQ_DATAAREA DS XL(AETRA_RQ_DATADSLN)     DATA AREA
+         MEND

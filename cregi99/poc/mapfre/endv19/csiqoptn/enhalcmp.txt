@@ -1,0 +1,172 @@
+         MACRO
+         ENHALCMP &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST USING COMPONENT - REQUEST BLOCK                         *
+*                                                                     *
+***********************************************************************
+ALCMP_VER       EQU 2                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALCMP_VER,          CONTROL BLOCK VERSION           X
+               EYE='LCMQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALCMP_RQ
+         SPACE ,
+ALCMP_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALCMP_RQ_DATA
+*                 REQUEST TYPE (C,E,M,O)
+ALCMP_RQ_RQTYPE   DC CL1' '            REQUEST TYPE (C,E,M,O)
+ALCMP_RQ_RQTYPE$C    EQU C'C'             RELATED COMMENTS
+ALCMP_RQ_RQTYPE$E    EQU C'E'             ACM FOOTPRINTED ELEMENTS
+ALCMP_RQ_RQTYPE$M    EQU C'M'             ACM NON-FOOTPRINTED MEMBERS
+ALCMP_RQ_RQTYPE$O    EQU C'O'             RELATED OBJECTS
+*                 DIRECTION INDICATOR -- (C)OMPONENTS OR (W)HERE USED
+ALCMP_RQ_DIR      DC CL1' '            DIRECTION IND (C/W)
+ALCMP_RQ_DIR$C       EQU C'C'             DISPLAY COMPONENTS REQUEST
+ALCMP_RQ_DIR$W       EQU C'W'             DISPLAY WHERE-USED REQUEST
+******************************************************************
+* ELEMENT/MEMBER/OBJECT/COMMENT 70 BYTE KEY AREA
+******************************************************************
+*                 ELEMENT AND INV LOCATION INFORMATION (TYPE E)
+ALCMP_RQ_ELM      DC CL10' '           ELEMENT NAME
+ALCMP_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALCMP_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+ALCMP_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+ALCMP_RQ_TYPE     DC CL8' '            TYPE NAME
+ALCMP_RQ_STG_NUM  DC CL1' '            STAGE NUM (1/2)
+ALCMP_RQ_STG_ID   DC CL1' '            STAGE ID
+                  DC CL26' '
+         ORG      ALCMP_RQ_ELM
+*                 MEMBER AND DATA SET LOCATION INFORMATION (TYPE M)
+ALCMP_RQ_MBR      DC CL10' '           MEMBER NAME
+ALCMP_RQ_DSN      DC CL44' '           DATA SET NAME
+                  DC CL16' '
+         ORG      ALCMP_RQ_ELM
+*                 RELATED OBJECT NAME INFORMATION (TYPE O)
+ALCMP_RQ_OBJNAME  DC CL70' '           RELATED OBJECT NAME
+         ORG      ALCMP_RQ_ELM
+*                 RELATED COMMENT NAME INFORMATION (TYPE C)
+ALCMP_RQ_COMMNAME DC CL70' '           RELATED COMMENT NAME
+         ORG      ALCMP_RQ_COMMNAME+L'ALCMP_RQ_COMMNAME
+*                 OUTPUT FILTERS (TYPE C,E,M,O)
+ALCMP_RQ_EXCLCIR  DC CL1' '            EXCLUDE CIRCULARS DATA (Y/N)
+ALCMP_RQ_EXCLIND  DC CL1' '            EXCLUDE INDIRECT DATA (Y/N)
+ALCMP_RQ_EXCLREL  DC CL1' '            EXCLUDE RELATED ELM/MBR (Y/N)
+ALCMP_RQ_FENV     DC CL8' '            ENVIRONMENT NAME FILTER
+ALCMP_RQ_FSYSTEM  DC CL8' '            SYSTEM NAME FILTER
+ALCMP_RQ_FSUBSYS  DC CL8' '            SUBSYSTEM NAME FILTER
+ALCMP_RQ_FTYPE    DC CL8' '            TYPE NAME FILTER
+ALCMP_RQ_FSTG_NUM DC CL1' '            STAGE NUM (1/2) FILTER
+ALCMP_RQ_FSTG_ID  DC CL1' '            STAGE ID        FILTER
+*                 GENERATE SCL PARAMETERS (TYPE C,E,M,O)
+ALCMP_RQ_BLDSCL   DC CL1' '            BLD GENERATE ACTION SCL (Y/N)
+ALCMP_RQ_GENV     DC CL8' '            ENVIRONMENT NAME
+ALCMP_RQ_GSYSTEM  DC CL8' '            SYSTEM NAME
+ALCMP_RQ_GSUBSYS  DC CL8' '            SUBSYSTEM NAME
+ALCMP_RQ_GTYPE    DC CL8' '            TYPE NAME
+ALCMP_RQ_GSTG_ID  DC CL1' '            STAGE ID
+ALCMP_RQ_GSTG_NUM DC CL1' '            STAGE NUM (1/2)
+ALCMP_RQ_GCCID    DC CL12' '           CCID
+ALCMP_RQ_GCOMMENT DC CL40' '           COMMENT
+ALCMP_RQ_GCOPYBACK DC CL1' '           COPY BACK OPTION
+ALCMP_RQ_GSEARCH  DC CL1' '            SEARCH MAP OPTION
+ALCMP_RQ_GOVESIGNO DC CL1' '           OVERRIDE SIGNOUT
+ALCMP_RQ_GPROGRO  DC CL8' '            PROCESSOR GROUP
+                  DC CL1' '            RESERVED
+                  DS 0X
+ALCMP_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALCMP_RQ_VER#1_DATADSLN EQU *-ALCMP_RQ_DATA
+ALCMP_RQ_VER#1_DSLN     EQU *-ALCMP_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALCMP_RQ_VER#2_DATADSLN EQU *-ALCMP_RQ_DATA
+ALCMP_RQ_VER#2_DSLN     EQU *-ALCMP_RQ
+         SPACE ,
+ALCMP_RQ_DATADSLN EQU *-ALCMP_RQ_DATA
+ALCMP_RQ_DSLN     EQU *-ALCMP_RQ
+         ORG      ALCMP_RQ_DATA
+ALCMP_RQ_DATAAREA DS XL(ALCMP_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST USING COMPONENT - RESPONSE BLOCK                        *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALCMP_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LCMS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALCMP_RS
+         SPACE ,
+ALCMP_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALCMP_RS_DATA
+*                 TYPE AND LEVEL INFORMATION
+ALCMP_RS_RECTYP   DC CL1' '            RECORD TYPE (1-6)
+ALCMP_RS_RECTYP$0    EQU 0               ** INACTIVE/DELETED **
+ALCMP_RS_RECTYP$1    EQU C'1'             ACM FOOTPRINTED ELEMENT
+ALCMP_RS_RECTYP$2    EQU C'2'             ACM NON-FOOTPRINTED MEMBER
+ALCMP_RS_RECTYP$3    EQU C'3'             RELATED ELEMENT
+ALCMP_RS_RECTYP$4    EQU C'4'             RELATED MEMBER
+ALCMP_RS_RECTYP$5    EQU C'5'             RELATED OBJECT
+ALCMP_RS_RECTYP$6    EQU C'6'             RELATED COMMENT
+ALCMP_RS_LEVEL    DC CL2' '            LEVEL (1, 2 OR 3)
+ALCMP_RS_LEVEL$1     EQU C'01'            ELEMENT
+ALCMP_RS_LEVEL$2     EQU C'02'            PARENT
+ALCMP_RS_LEVEL$3     EQU C'03'            GRANDPARENT
+ALCMP_RS_SYNONYM  DC C' '              SYNONYM (=*)
+         ORG      ALCMP_RS_SYNONYM A
+ALCMP_RS_INDIRECT DC C' '              INDIRECT RELATIONSHIP (=*)
+         ORG
+*                 FOOTPRINTED ELEMENT DATA (RECTYP=1 OR 3)
+ALCMP_RS_FPDATA   DS X                 BEGINNING OF FOOTPRINT DATA
+         ORG      ALCMP_RS_FPDATA
+ALCMP_RS_ELM      DC CL10' '           ELEMENT NAME
+ALCMP_RS_TYPE     DC CL8' '            TYPE NAME
+ALCMP_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALCMP_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALCMP_RS_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+ALCMP_RS_STG_NUM  DC CL1' '            STAGE NUMBER
+ALCMP_RS_STG_NUM$1   EQU C'1'             STAGE 1
+ALCMP_RS_STG_NUM$2   EQU C'2'             STAGE 2
+ALCMP_RS_STG_ID   DC CL1' '            STAGE ID
+ALCMP_RS_STG_NAME DC CL8' '            STAGE NAME
+                  DC CL20' '           RESERVED
+ALCMP_RS_FPDATA_END  EQU   *
+         ORG      ALCMP_RS_FPDATA
+*                 NON-FOOTPRINTED MEMBER DATA (RECTYP=2 OR 4)
+ALCMP_RS_NFPDSN   DC CL44' '           NON-FP DATASET NAME
+ALCMP_RS_NFPMBR   DC CL10' '           NON-FP MEMBER NAME
+                  DC CL18' '           ALIGNMENT
+*
+         ORG      ALCMP_RS_FPDATA
+*                 RELATED OBJECT OR COMMENT DATA (RECTYP=5 OR 6)
+ALCMP_RS_RELTEXTL DC H'0'              RELATED OBJ/COMM DATA LENGTH
+ALCMP_RS_RELTEXT  DC CL70' '           RELATED OBJ/COMM DATA
+*
+         ORG      ALCMP_RS
+ALCMP_RS_SCLSTMT  DC CL80' '           SCL STATEMENT
+                  DC CL8' '            ALIGNMENT
+*
+                  ORG  ALCMP_RS_FPDATA_END
+ALCMP_RS_RELATED  DC C' '              RELATED  RELATIONSHIP (=R)
+ALCMP_RS_CIRCULAR DC C' '              CIRCULAR RELATIONSHIP (=C)
+                  DC  CL10' '          ** RESERVED **
+                  DS 0X
+ALCMP_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALCMP_RS_VER#1_DATADSLN EQU *-ALCMP_RS_DATA
+ALCMP_RS_VER#1_DSLN     EQU *-ALCMP_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALCMP_RS_VER#2_DATADSLN EQU *-ALCMP_RS_DATA
+ALCMP_RS_VER#2_DSLN     EQU *-ALCMP_RS
+         SPACE ,
+ALCMP_RS_DATADSLN EQU *-ALCMP_RS_DATA
+ALCMP_RS_DSLN     EQU *-ALCMP_RS
+         ORG      ALCMP_RS_DATA
+ALCMP_RS_DATAAREA DS XL(ALCMP_RS_DATADSLN)     DATA AREA
+         MEND

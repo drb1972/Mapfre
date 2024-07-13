@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Inventory Mapping - Example \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Assume that there are these inventory classifications:
++  * System FINANCE in all environments
++  * Subsystem PO in all environments
++  * Type COBOLin all route stages in system FINANCE
++  * Processor group BTCHCOB in all route stages for type COBOL.
++
+%       route     ---------> --------> --------> ---------------->+
++               *-----------------*------------------*---------------*
++               |      DEV        |       QA         |     PROD      |
++               | UNIT  |  INT    |  QA    |  HOLD   | FIX   |  PROD |
++               |-------|---------|--------|---------|-------|-------|
++ NEXT SYSTEM   |    FINANCE      |     FINANCE      |      none     |
++ NEXT SUBSYSTEM|      PO         |       PO         |      none     |
++ NEXT TYPE     |  COBOL|  COBOL  |  COBOL |  COBOL  |  N/A  |   none|
++ NEXT GROUP    |BTCHCOB| BTCHCOB | BTCHCOB| BTCHCOB |  N/A  |   none|
++               *-------*---------*--------*---------*-------*-------*
++
++                                            (%PF3+to return)
+)END

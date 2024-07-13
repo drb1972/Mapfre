@@ -1,0 +1,49 @@
+)ATTR DEFAULT(%+¯)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ¢ TYPE(text) INTENS(LOW) skip(on)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
++    ------------- Build DB2 Stored Procedure ------------------------
+%   %Please complete all fields and press enter to continue.
+%
++    Press PF3 to Quit.
+%
+%
+%
+%
+ %Information required for create of stored procedre:
++ ----------------------------------------------------
++
++ SYSTEM ID           ==>$Z ¢         (ENDEVOR SYSTEM)
++ PROCEDURE NAME      ==>$Z     ¢_$Z         ¢ +(BEGIN WITH MODULE NAME)
++ NUMBER OF CURSORS   ==>$Z  ¢        (0-100)
++ COMMIT ON RETURN    ==>$Z¢          (Y/N)
++ PARAMETER STYLE     ==>$Z¢          (G or N) Gen, or Gen with Nulls
+
+
+)INIT
+  .HELP = NOHELP
+  .ZVARS = '(DB2SP01 DB2SP03 DB2SP02 DB2SP04 DB2SP05 DB2SP06 )'
+
+  &DB2SP01 = &Z
+  &DB2SP02 = &Z
+  &DB2SP03 = &Z
+  &DB2SP04 = &Z
+  &DB2SP05 = 'N'
+  &DB2SP06 = 'G'
+
+)PROC
+  VER (&DB2SP01,NB,PICT,AA)
+  VER (&DB2SP03,NB,PICT,AACCCC)
+  &SUB2 = &DB2SP01
+  &SUB = TRUNC(&DB2SP03,2)
+  VER (&SUB,NB,LISTV,&SUB2)
+  &TEST = TRUNC(&db2sp02,1)
+  VER (&TEST,NB,PICT,c)
+
+  VER (&DB2SP04,NB,RANGE,0,100)
+  VER (&DB2SP05,LIST,Y,N)
+  VER (&DB2SP06,LIST,G,N)
+
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The CREATE Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Once you have edited the matrix you can create WIP files or SCL for one
++or more rows by typing CREATE in the command field, then pressing ENTER.
++
+%Note:+When you issue the CREATE command, PDM only processes included rows
++   that have at least a Root and Derivation 1 member.
++
++In foreground mode, PDM begins the Build WIP process for all included rows.
++In batch mode, PDM creates batch requests for all included rows, and
++writes the requests to the batch request data set. These batch files
++can be processed using the SUBMIT option on the Primary Option Panel.
++
++When the Build WIP process is complete, PDM returns the Parallel
++Development Manager - Primary Option Panel, with the message:
++
++   WIP Build Complete- If you are processing in foreground mode.
++
++   Requests Written- If you are processing in batch mode.
++
+)END

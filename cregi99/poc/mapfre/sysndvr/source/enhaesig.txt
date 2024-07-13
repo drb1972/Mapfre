@@ -1,0 +1,52 @@
+         MACRO
+         ENHAESIG &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        SIGNIN ELEMENT - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+AESIG_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AESIG_RQ$EYE    EQU C'ESIQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AESIG_RQ
+         SPACE ,
+AESIG_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AESIG_RQ_DATA
+*                 ELEMENT DATA
+AESIG_RQ_ELM      DC CL10' '           ELEMENT NAME
+AESIG_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AESIG_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AESIG_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AESIG_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AESIG_RQ_TYPE     DC CL8' '            TYPE NAME
+AESIG_RQ_STG_ID   DC CL1' '            STAGE ID
+AESIG_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 ACTION OPTIONS
+AESIG_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AESIG_RQ_SIGNO_TO DC CL8' '            SIGNOUT TO USERID
+AESIG_RQ_SEARCH   DC CL1' '            SEARCH MAP (Y/N)
+AESIG_RQ_RESERVE  DC CL3' '            ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AESIG_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AESIG_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AESIG_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AESIG_RQ_VER#1_DATADSLN EQU *-AESIG_RQ_DATA
+AESIG_RQ_VER#1_DSLN     EQU *-AESIG_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AESIG_RQ_DATADSLN EQU *-AESIG_RQ_DATA
+AESIG_RQ_DSLN     EQU *-AESIG_RQ
+         ORG      AESIG_RQ_DATA
+AESIG_RQ_DATAAREA DS XL(AESIG_RQ_DATADSLN)     DATA AREA
+         MEND

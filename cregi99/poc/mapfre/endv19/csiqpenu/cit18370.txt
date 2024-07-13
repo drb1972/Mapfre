@@ -1,0 +1,20 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Add Fingerprint Info to List Element CSV, API, RESTapi Output \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Add Fingerprint Info to List Element CSV, API, RESTapi Output
++
++ This enhancement adds the Element fingerprint information to the output
++ for a CSV, API or RESTapi list Element request. At this time, the Element
++ fingerprint data is 16 characters long, representing 8 characters of the
++ date and 8 characters of the time, both in hexadecimal format.  This date
++ and time reflects the last level timestamp for the Element.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18380
+)END

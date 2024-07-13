@@ -1,0 +1,46 @@
+         MACRO
+         ENHAPCAS &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        CAST PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APCAS_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+APCAS_RQ$EYE    EQU C'PCAQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APCAS_RQ
+         SPACE ,
+APCAS_RQ_DATA     DS XL1               BEGINNING OF DATA AREA
+         ORG      APCAS_RQ_DATA
+APCAS_RQ_PKGID    DC CL16' '           PACKAGE ID
+APCAS_RQ_VALCMP   DC CL1' '            VALIDATE COMPONENTS (Y/N)
+APCAS_RQ_BOENABLED DC CL1' '           BACKOUT ENABLED (Y/N)
+APCAS_RQ_EWF_DATE DC CL7' '            EXEC WINDOW FROM DATE (DDMMMYY)
+APCAS_RQ_EWF_TIME DC CL5' '            EXEC WINDOW FROM TIME (HH:MM)
+APCAS_RQ_EWT_DATE DC CL7' '            EXEC WINDOW TO   DATE (DDMMMYY)
+APCAS_RQ_EWT_TIME DC CL5' '            EXEC WINDOW TO   TIME (HH:MM)
+*                 RESERVED AREA
+APCAS_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL3' '            ALIGNMENT
+APCAS_RQ_VER#1_DATADSLN EQU *-APCAS_RQ_DATA
+APCAS_RQ_VER#1_DSLN     EQU *-APCAS_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+APCAS_RQ_UPDT_NOTES DC CL1' '          UPDATE PACKAGE NOTES FLAG (Y/N)
+APCAS_RQ_NOTES    DS CL480             PACKAGE NOTES AREA
+APCAS_RQ_NOTES_LNG EQU *-APCAS_RQ_NOTES LENGTH OF NOTES AREA
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+APCAS_RQ_VER#2_DATADSLN EQU *-APCAS_RQ_DATA
+APCAS_RQ_VER#2_DSLN     EQU *-APCAS_RQ
+         SPACE ,
+APCAS_RQ_DATADSLN EQU *-APCAS_RQ_DATA
+APCAS_RQ_DSLN     EQU *-APCAS_RQ
+         ORG      APCAS_RQ_DATA
+APCAS_RQ_DATAAREA DS XL(APCAS_RQ_DATADSLN)    DATA AREA
+         MEND

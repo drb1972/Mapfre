@@ -1,0 +1,411 @@
+C1BMLXIT TITLE 'SAMPLE USER EXIT FOR THE IMPLEMENTATION LOAD UTILITY'
+C1BMLXIT CSECT
+         MACRO                                                          00000100
+&LABEL   SETAMODE &AMODE,&WORKREG=R15                                   00000200
+         LCLC  &X                                                       00030000
+&X       SETC  '&SYSNDX'                                                00040000
+&LABEL   DS    0H                                                       00050000
+         L     &WORKREG,X'10'          GET CVT ADDRESS                  00060000
+         TM    116(&WORKREG),X'80'     TEST FOR XA                      00070000
+         LA    &WORKREG,MODE&X         GET ADDRESS INTO REGISTER        00090000
+         BZR   &WORKREG                . EXIT IF NOT XA                 00091003
+         AIF   (&AMODE EQ 31).SET31                                     00001000
+         AIF   (&AMODE EQ 24).SET24                                     00110000
+         MNOTE 8,'*** INVALID AMODE SPECIFIED, 24 ASSUMED.'             00120000
+         AGO   .SET24                                                   00130000
+.SET31   ANOP                                                           00001500
+         O     &WORKREG,=X'80000000'   SET 31-BIT MODE VIA SIGN BIT     00150003
+.SET24   ANOP                                                           00160000
+         BSM   0,&WORKREG              ENTER MODE                       00170000
+.EXIT    ANOP                                                           00200001
+MODE&X   DS    0H                                                       00210000
+         MEND                                                           00001700
+C1BMLXIT AMODE 31
+C1BMLXIT RMODE 24
+***********************************************************************
+*                                                                     *
+*  PROGRAM NAME:   C1BMLXIT                                           *
+*                                                                     *
+*  DESCRIPTION:    THIS IS A SAMPLE LOAD UTILITY FOOTPRINT OVERRIDE   *
+*                  EXIT.  THE PROGRAM IS INTENDED TO DEMONSTRATE HOW  *
+*                  THE EXIT COULD BE USED.                            *
+*                                                                     *
+*                  THE EXIT IS INTENDED TO DETERMINE THE NAME OF THE  *
+*                  LOAD MEMBER THAT WAS CREATED BY LINK EDIT CONTROL  *
+*                  CARDS WHEN THE CONTROL CARD MEMBER NAME IS DIFF-   *
+*                  ERENT FROM THE LOAD MODULE NAME.  THIS SITUATION   *
+*                  COULD OCCUR IF THE CONTROL CARDS CONTAINED A       *
+*                  "NAME" STATEMENT.  FOR EXAMPLE, ASSUME THAT THE    *
+*                  FOLLOWING LINK EDIT CONTROL CARDS RESIDE IN        *
+*                  DATASET 'PAYROLL.LINKCARD(PAYPROG1)':              *
+*                      INCLUDE PAYPROG1                               *
+*                      NAME PAYPROG2(R)                               *
+*                  FURTHERMORE, ASSUME THAT THE LOAD LIBRARY IS NAMED *
+*                  'PAYROLL.LOADLIB' AND THAT IT IS SPECIFIED ON THE  *
+*                  LOAD UTILITY "FOOTPRINT" STATEMENT.  WHEN THE LOAD *
+*                  UTILITY ATTEMPTS TO FOOTPRINT THE LOAD MODULE      *
+*                  ASSOCIATED WITH THE LINK EDIT CONTROL CARDS, IT    *
+*                  WILL FAIL BECAUSE THE LOAD MODULE IS NAMED         *
+*                  PAYPROG2, NOT PAYPROG1.                            *
+*                                                                     *
+*                  THIS EXIT ASSUMES THAT THE DATASET THAT IS BEING   *
+*                  LOADED CONTAINS LINK EDIT CONTROL CARDS.  THE      *
+*                  ROUTINE WILL READ THE CURRENT MEMBER THAT IS BEING *
+*                  PROCESSED AND ATTEMPT TO DETERMINE THE NAME OF     *
+*                  THE LOAD MODULE THAT WAS CREATED.  THE ROUTINE     *
+*                  SEARCHES FOR THE "NAME" STATEMENT.  IF FOUND, IT   *
+*                  WILL EXTRACT THE MEMBER NAME CREATED AND RETURN    *
+*                  A RETURN CODE OF FOUR TO INDICATE THAT AN ALTER-   *
+*                  NATE MEMBER IS TO BE FOOTPRINTED.  IF THE "NAME"   *
+*                  STATEMENT CANNOT BE FOUND, A RETURN CODE OF ZERO   *
+*                  IS PASSED.                                         *
+*                                                                     *
+*                  TO FURTHER DIFFERENTIATE LINK EDIT CONTROL CARDS   *
+*                  FROM OTHER TYPES OF DATA, THE EXIT USES THE        *
+*                  ELEMENT TYPE NAME THAT WAS PASSED TO SEARCH A TABLE*
+*                  OF PREDEFINED LINK EDIT CONTROL CARD ELEMENT TYPES *
+*                  (SEE LABEL LINKTABL).  THE ROUTINE WILL ONLY PROC- *
+*                  ESS ELEMENTS THAT MATCH ELEMENT TYPES DEFINED IN   *
+*                  THE TABLE.                                         *
+*                                                                     *
+*                  THE PROGRAM ASSUMES THAT THE INPUT DATASET IS A    *
+*                  PARTITIONED DATASET WITH FIXED LENGTH RECORDS. THE *
+*                  PROGRAM DOES NOT VALIDATE THESE ASSUMPTIONS.  CODE *
+*                  CAN BE ADDED AFTER THE 'OPEN' TO VALIDATE THE DATA-*
+*                  SET CHARACTERISTICS, IF DESIRED.                   *
+*                                                                     *
+*  ON ENTRY:                                                          *
+*   THE REGISTERS WILL CONTAIN THE FOLLOWING INFORMATION              *
+*      R0: UNDEFINED                                                  *
+*      R1: THE ADDRESS OF A TWO WORD PARAMETER LIST:                  *
+*          WORD 1: ADDRESS OF THE EXIT REQUEST DSECT                  *
+*          WORD 2: ADDRESS OF A 400 BYTE, DOUBLE WORD ALIGNED WORK    *
+*                  AREA.  THE WORK AREA IS SET TO BINARY ZEROES BEFORE*
+*                  THE EXIT IS CALLED.                                *
+*      R2-R12: UNDEFINED                                              *
+*      R13: CALLERS SAVE AREA.  THE FIRST WORK OF THE SAVE AREA MUST  *
+*           NOT BE MODIFIED.                                          *
+*      R14: RETURN ADDRESS                                            *
+*      R15: ENTRY POINT ADDRESS                                       *
+*                                                                     *
+*  ON EXIT:                                                           *
+*    THE REGISTERS MUST CONTAIN THE FOLLOWING INFORMATION:            *
+*                                                                     *
+*      R0: UNDEFINED                                                  *
+*      R1: UNDEFINED                                                  *
+*      R2-R12: MUST BE RESTORED TO THEIR ORIGINAL VALUES              *
+*      R14: UNDEFINED                                                 *
+*      R15: EXIT RETURN CODE:                                         *
+*          RC = 0, CONTINUE EXECUTION, USE THE SOURCE                 *
+*                  MEMBER NAME TO LOCATE THE OUTPUT,                  *
+*          RC = 4, CONTINUE EXECUTION, AN OUTPUT MEMBER               *
+*                  NAME HAS BEEN SUPPLIED IN THE                      *
+*                  EXMBRNM FIELD IN THE EXIT DSECT.                   *
+*          RC = 8, AN ERROR OCCURRED.                                 *
+*                                                                     *
+* ATTRIBUTES: REENTRANT, REUSABLE                                     *
+*             AMODE(31), RMODE(24)                                    *
+*                                                                     *
+* LANGUAGE                                                            *
+* PROCESSOR:  ASSEMBLER H, VERSION 2                                  *
+*                                                                     *
+***********************************************************************
+         EJECT
+***********************************************************************
+* SAVE THE CALLERS REGISTERS, ESTABLISH PROGRAM ADDRESSABILITY AND    *
+* CHAIN THE SAVE AREAS.  THE EXIT USES THE FIRST 18 WORDS OF THE      *
+* PROVIDED WORK AREA AS ITS SAVE AREA.                                *
+***********************************************************************
+         SAVE  (14,12),,'C1BMLXIT-&SYSDATE-&SYSTIME'
+         LR    R12,R15                 USE R12 AS THE CSECT
+         USING C1BMLXIT,R12             BASE REGISTER
+         USING PARMAREA,R1             USE R1 AS THE PARAMTER LIST BASE
+         L     R2,PARM2                R2 HAS THE ADDRESS OF THE PROV- X
+                                        IDED WORK AREA
+         ST    R13,4(R2)               CHAIN THE
+         ST    R2,8(R13)                SAVE AREAS
+         LR    R13,R2                  R13 HAS THE EXIT SAVE AREA      X
+                                        ADDRESS
+         USING WORKDSCT,R13            USE R13 AS THE WORKAREA DSECT   X
+                                        BASE REGISTER
+         SPACE 1
+***********************************************************************
+* OBTAIN ADDRESSABILITY VIA R10 TO THE LOAD EXIT CONTROL BLOCK.       *
+***********************************************************************
+MAIN1000 DS    0H
+         L     R10,PARM1               USE R10 AS THE EXIT CONTROL
+         USING LOADDS,R10               BLOCK BASE REGISTER
+         DROP  R1                      (PARMAREA)
+         SPACE ,
+***********************************************************************
+* USE THE 'LINKTABL' TABLE TO VALIDATE THAT THE ELEMENT TYPE REPRES-  *
+* ENTS A LINK EDIT CONTROL DECK.  IF THE ELEMENT TYPE IS NOT FOR LINK *
+* EDIT CONTROL CARDS THEN THE EXIT WILL IMMEDIATELY STOP PROCESSING   *
+* AND PASS A RETURN CODE OF ZERO.                                     *
+***********************************************************************
+MAIN1100 DS    0H
+         XC    WRETCODE,WRETCODE       SET THE RETURN CODE TO ZERO
+         MVC   WMODNAME,BLANKS         SET THE MODULE NAME TO SPACES
+         LA    R3,LINKTABL             USE R3 AS THE LOOKUP TABLE      X
+                                        ADDRESS
+         LA    R4,LINKTABC             R4 HAS THE NUMBER OF TABLE      X
+                                        ENTRIES
+MAIN1110 DS    0H
+         CLC   EXTYPE,0(R3)            IF AN ELEMENT TYPE NAME MATCH
+         BE    MAIN1120                 WAS FOUND THEN CONTINUE
+         LA    R3,LINKTAB#(,R3)        ELSE, POINT TO THE NEXT
+         BCT   R4,MAIN1110              ENTRY AND LOOP
+         B     MAIN9000                IF NOT FOUND, STOP PROCESSING
+MAIN1120 DS    0H
+         SPACE 1
+***********************************************************************
+* READ THE LINK EDIT CONTROL STATEMENTS SEARCHING FOR THE 'NAME'      *
+* STATEMENT.                                                          *
+***********************************************************************
+MAIN1200 DS    0H
+         MVC   WDCB(WDCBL),MDCB        COPY THE MODEL DCB
+         LA    R4,WDCB                 USE R4 AS THE
+         USING IHADCB,R4                DCB BASE REGISTER
+         MVC   DCBDDNAM,EXDDNM         COPY THE INPUT DATASET DDNAME
+         MVC   WOPEN(WOPENL),MOPEN     COPY THE MODEL OPEN PARAMETER
+         SETAMODE 24                   ENTER 24 BIT MODE
+         OPEN  (WDCB,INPUT),MF=(E,WOPEN)  OPEN THE INPUT DATASET
+         SETAMODE 31                   REENTER 31 BIT MODE
+         TM    DCBOFLGS,DCBOFOPN       IF THE OPEN FAILED
+         BZ    MAIN8000                 THEN EXIT
+         XR    R1,R1                   R7 HAS THE
+         ICM   R1,B'0011',DCBBLKSI      INPUT DATASET
+         ST    R1,WBUFLEN                BLOCK SIZE
+         GETMAIN RC,LV=(1)             GETMAIN AN I/O BUFFER
+         ST    R1,WBUFADDR             SAVE THE BUFFER ADDRESS
+         MVC   WMEMBER,EXELENM         SET THE INPUT MEMBER NAME EQUAL X
+                                        TO THE ELEMENT NAME
+         SETAMODE 24                   ENTER 24 BIT MODE
+         FIND  WDCB,WMEMBER,D          FIND THE MEMBER
+         LR    R2,R15                  SAVE THE RETURN CODE
+         SETAMODE 31                   REENTER 31 BIT MODE
+         OC    DCBRELAD,DCBRELAD       IF THE MEMBER WAS NOT
+         BZ    MAIN1500                 FOUND THEN STOP
+         MVC   WREAD(WREADL),MREAD     COPY THE MODEL READ DECB
+*---------------------------------------------------------------------*
+* READ THE NEXT RECORD FROM THE INPUT FILE. CALCULATE THE INPUT RECORD*
+* LENGTH AND SAVE IT IN R7.                                           *
+*---------------------------------------------------------------------*
+MAIN1300 DS    0H
+         L     R11,WBUFADDR            R11 HAS THE I/O BUFFER ADDRESS
+         SETAMODE 24                   ENTER 24 BIT MODE
+         READ  WREAD,SF,WDCB,(R11),MF=E  READ A RECORD AND WAIT
+         CHECK WREAD                      FOR THE READ TO COMPLETE
+         SETAMODE 31                   WHEN DONE, RETURN TO 31 BIT MODE
+         L    R15,WREAD+16             R15 HAS THE IOB ADDRESS ASSOC-  X
+                                        IATED WITH THE READ
+         XR   R1,R1                    R1 HAS THE RESIDUAL
+         ICM  R1,B'0011',14(R15)        BYTE COUNT FROM THE READ
+         L    R7,WBUFLEN               R7 HAS THE FILE BLOCKSIZE
+         SR   R7,R1                    SUBTRACT THE RESIDUAL COUNT     X
+                                        FROM THE BLOCK SIZE TO OBTAIN  X
+                                         THE INPUT RECORD LENGTH
+*---------------------------------------------------------------------*
+* SCAN THE BLOCK JUST READ LOOKING FOR THE 'NAME ' STATEMENT.  IF THE *
+* STATEMENT IS NOT FOUND IN THE BLOCK THEN READ THE NEXT BLOCK IN THE *
+* FILE.                                                               *
+*---------------------------------------------------------------------*
+MAIN1400 DS    0H
+         SH    R7,=Y(L'LNAME)          DECREMENT THE RECORD LENGTH TO  X
+                                        ACCOUNT FOR THE LENGTH OF THE  X
+                                         NAME STATEMENT.  THIS WILL    X
+                                          PREVENT THE ROUTINE FROM     X
+                                           OVERFLOWING THE I/O BUFFER
+         SR    R5,R5                   R5 CONTAINS WMODNAME LENGTH
+MAIN1410 DS    0H
+         CLC   LNAME,0(R11)            IF THE 'NAME ' STATEMENT WAS
+         BE    MAIN1420                 FOUND THEN CONTINUE
+         LA    R11,1(,R11)             ELSE, POINT TO THE NEXT INPUT
+         BCT   R7,MAIN1410              CHARACTER AND LOOP UNTIL THE   X
+                                         END OF THE RECORD HAS BEEN    X
+                                          REACHED
+         B     MAIN1300                IF THE END IS REACHED, READ THE X
+                                        NEXT RECORD
+*---------------------------------------------------------------------*
+* THE 'NAME ' STATEMENT HAS BEEN FOUND.  SKIP OVER ANY BLANKS BETWEEN *
+* THE 'NAME' STATEMENT AND THE MODULE NAME.  IF A MODULE NAME IS NOT  *
+* FOUND THEN READ THE NEXT BLOCK IN THE FILE.                         *
+*---------------------------------------------------------------------*
+MAIN1420 DS    0H
+         LA    R11,L'LNAME(,R11)       POINT PAST THE 'NAME ' STATEMENT
+         SH    R7,=Y(L'LNAME)          DECREMENT THE INPUT RECORD      X
+                                        LENGTH
+         LTR   R7,R7                   IF THERE ARE NO MORE CHARACTERS
+         BNP   MAIN1300                 IN THE BLOCK, READ THE NEXT ONE
+MAIN1430 DS    0H
+         CLI   0(R11),C' '             SKIP OVER
+         BNE   MAIN1440                 ANY BLANKS BEFORE
+         LA    R11,1(,R11)               THE MODULE
+         BCT   R7,MAIN1430                NAME
+         B     MAIN1300                IF ALL BLANKS WERE FOUND THEN   X
+                                        READ THE NEXT RECORD
+*---------------------------------------------------------------------*
+* THE START OF THE MODULE NAME HAS BEEN FOUND.  COPY UP TO EIGHT CHAR-*
+* ACTERS, STOPPING WHEN AN OPEN PARENTHESIS OF A SPACE IS FOUND.      *
+*---------------------------------------------------------------------*
+MAIN1440 DS    0H
+         LA    R6,8                    SET THE MAXIMUM LENGTH OF THE   X
+                                        MODULE NAME
+         LA    R8,WMODNAME             USE R8 TO POINT TO THE MODULE   X
+                                        NAME FIELD
+MAIN1450 DS    0H
+         CLI   0(R11),C'('             IF THE END OF THE
+         BE    MAIN1460                 MODULE NAME HAS BEEN
+         CLI   0(R11),C' '               FOUND THEN STOP
+         BE    MAIN1460                   PROCESSING
+         MVC   0(1,R8),0(R11)          ELSE, COPY THE CURRENT CHARACTER
+         LA    R11,1(,R11)             POINT TO THE NEXT INPUT AND
+         LA    R8,1(,R8)                OUTPUT CHARACTERS
+         LA    R5,1(,R5)               INCREMENT THE MODULE NAME LENGTH
+         BCT   R6,MAIN1450             LOOP OVER THE MODULE NAME
+MAIN1460 DS    0H
+         SPACE 1
+*---------------------------------------------------------------------*
+* THE 'NAME' STATEMENT HAS BEEN FOUND AND THE MODULE NAME EXTRACTED   *
+* OR THE END OF THE INPUT MEMBER HAS BEEN REACHED.  CLOSE THE INPUT   *
+* DATASET, FREE THE I/O BUFFER AND BEGIN TERMINATION PROCESSING.      *
+*---------------------------------------------------------------------*
+MAIN1500 DS    0H
+         MVC   WCLOSE(WCLOSEL),MCLOSE  COPY THE CLOSE PARAMETER LIST
+         SETAMODE 24
+         CLOSE (WDCB),MF=(E,WCLOSE)    CLOSE THE INPUT FILE
+         SETAMODE 31
+         L     R0,WBUFLEN              R0 HAS THE BUFFER LENGTH
+         L     R1,WBUFADDR             R1 HAS THE BUFFER ADDRESS
+         FREEMAIN RC,LV=(0),A=(1)      FREE THE BUFFER STORAGE
+         CLC   WMODNAME,BLANKS         IF A MODULE NAME WAS NOT
+         BE    MAIN8000                 FOUND THEN EXIT WITH AN ERROR
+*---------------------------------------------------------------------*
+* THE ROUTINE FOUND AND EXTRACTED THE MODULE NAME.  COPY THE MODULE   *
+* NAME TO THE EXIT CONTROL BLOCK AND SET THE RETURN CODE TO FOUR.     *
+*---------------------------------------------------------------------*
+MAIN1510 DS    0H
+         MVC   EXMBRNM,WMODNAME        COPY THE LOAD MODULE NAME
+         LA    R15,4                   SET THE RETURN CODE
+         ST    R15,WRETCODE             TO FOUR
+         B     MAINEXIT                  AND EXIT
+         SPACE 1
+*---------------------------------------------------------------------*
+* AN ERROR OCCURRED DURING PROCESSING.  SET THE RETURN CODE TO EIGHT  *
+* AND EXIT.                                                           *
+*---------------------------------------------------------------------*
+MAIN8000 DS    0H
+         LA    R15,8                   SET THE RETURN CODE
+         ST    R15,WRETCODE             TO EIGHT
+         B     MAINEXIT                  AND EXIT
+*---------------------------------------------------------------------*
+* THE ELEMENT TYPE IS NOT A LINK EDIT CONTROL DECK.  RETURN WITH THE  *
+* DEFAULT CODE OF ZERO.                                               *
+*---------------------------------------------------------------------*
+MAIN9000 DS    0H
+         B     MAINEXIT
+         SPACE 1
+*---------------------------------------------------------------------*
+* PROCESSING IS COMPLETE.  RETURN TO THE CALLER WITH THE RETURN CODE. *
+*---------------------------------------------------------------------*
+MAINEXIT DS    0H
+         L     R15,WRETCODE            R15 HAS THE RETURN CODE
+         L     R13,4(,R13)             R13 HAS THE CALLERS SAVEAREA
+         RETURN (14,12),,RC=(15)       RETURN TO THE LOAD UTILITY
+         DROP  R13                     (WORKDSCT)
+         TITLE 'PROGRAM LITERALS AND CONSTANTS'
+*---------------------------------------------------------------------*
+* PROGRAM LITERALS, CONTANTS AND MODEL PARAMETER LISTS                *
+*---------------------------------------------------------------------*
+         LTORG
+         SPACE 2
+LNAME    DC    CL5'NAME '              LINKAGE EDITOR 'NAME' STATEMENT
+         SPACE 2
+MOPEN    OPEN  (0,(INPUT)),MF=L
+MOPENL   EQU   *-MOPEN
+MCLOSE   CLOSE (0),MF=L
+MCLOSEL  EQU   *-MCLOSE
+MDCB     DCB   DDNAME=*,                                               X
+               DSORG=PO,                                               X
+               MACRF=(R),                                              X
+               EODAD=MAIN1500
+MDCBL    EQU   *-MDCB
+MREAD    READ  DECB1,SF,*,*,80,MF=L
+MREADL   EQU   *-MREAD
+BLANKS   DC    CL80' '
+         TITLE 'LINKTABL - LINK EDIT ELEMENT TYPE NAME TABLE'
+***********************************************************************
+* THE FOLLOWING TABLE IS USED TO IDENTIFY ELEMENT TYPES THAT REPRES-  *
+* ENT LINK EDIT CONTROL STATEMENTS.  THE TABLE CAN BE AS LONG AS      *
+* NECESSARY.  SIMPLY ADD NEW ENTRIES AS NEEDED OR REPLACE THE DEFAULT *
+* ENTRIES PROVIDED.  NEW ENTRIES MUST BE ADDED BETWEEN THE LINKTAB#   *
+* AND LINKTABC LABELS.  EACH ENTRY IS EXACTLY EIGHT BYTES LONG AND    *
+* PADDED WITH SPACES, IF NEEDED.                                      *
+***********************************************************************
+LINKTABL DS    0CL8
+LINKTAB# EQU   8                       LENGTH OF A TABLE ENTRY
+         DC    CL8'LINKSET '
+         DC    CL8'LINKCARD'
+         DC    CL8'        '           SPARE ENTRY
+         DC    CL8'        '           SPARE ENTRY
+         DC    CL8'        '           SPARE ENTRY
+         DC    CL8'        '           SPARE ENTRY
+         DC    CL8'        '           SPARE ENTRY
+LINKTABC EQU   ((*-LINKTABL)/8)        NUMBER OF ENTRIES IN THE TABLE
+         TITLE '@LOADDS - LOAD EXIT PARAMETER LIST'
+***********************************************************************
+* EXIT PARAMETER LIST                                                 *
+***********************************************************************
+PARMAREA DSECT
+PARM1    DS    A                       ADDRESS OF EXIT CONTROL BLOCK
+PARM2    DS    A                       ADDRESS OF SUPPLIED WORK AREA
+         TITLE '@LOADDS - LOAD EXIT CONTROL BLOCK'
+***********************************************************************
+*  EXIT CONTROL BLOCK DSECT                                           *
+***********************************************************************
+         @LOADDS DSCT=YES
+         TITLE 'LOAD EXIT WORK AREA'
+***********************************************************************
+*  SAVE AREA AND WORK AREA DEFINITION                                 *
+***********************************************************************
+WORKDSCT DSECT
+WSAVE    DS    18F                     REGISTER SAVE AREA
+WRETCODE DS    F                       PROGRAM RETURN CODE
+WDCB     DS    XL(MDCBL)               DCB AREA
+WDCBL    EQU   *-WDCB
+WOPEN    OPEN  (*,(INPUT)),MF=L        OPEN PARAMETER LIST
+WOPENL   EQU   *-WOPEN
+WCLOSE   CLOSE (*),MF=L                CLOSE PARAMETER LIST
+WCLOSEL  EQU   *-WCLOSE
+WREAD    READ  Z,SF,*,*,80,MF=L        READ DECB
+WREADL   EQU   *-WREAD
+WBUFLEN  DS    F                       I/O BUFFER LENGTH
+WBUFADDR DS    F                       I/O BUFFER ADDRESS
+WMODNAME DS    CL10                    EXTRACTED MODULE NAME
+WMEMBER  DS    CL8                     'FIND' MEMBER NAME
+         TITLE 'REGISTER EQUATE DEFINITIONS'
+***********************************************************************
+* REGISTER EQUATE DEFINITIONS                                         *
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+         TITLE 'DCBD - DCB MAPPING MACRO'
+***********************************************************************
+* DCBD: DCB MAPPING MACRO                                             *
+***********************************************************************
+         DCBD  DSORG=PO,DEVD=DA
+         END

@@ -1,0 +1,41 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Pro IV / Endevor Interface+\-\
+%Command ==>_ZCMD
++
++
++
++
++  Pro IV Application%                ===>^Z +  (MM,NL,PL)
++
++  Endevor Subsystem to be updated%   ===>^Z  + (MT1 - 6 )
++
++  Endevor CCID%                      ===>^Z           +
++
++  Change Record Type%                ===>^Z        +
++  (STANDARD or EMERGENCY)
++
++  Pro IV Input DSN%  ===>^Z                                                +
++  (No quotes needed)
++
++
++
++
++
+)INIT
+   .HELP     = HEDSN01
+   .ZVARS    = '(PROIVAPP C1SUB C1CCID PKGTYP INDSN)'
+)REINIT
+   &PMSG = ''
+)PROC
+   &PFKEY = .PFKEY
+   &PMSG = ''
+   VER (&PROIVAPP,NB,LIST,MM,NL,PL)
+   VER (&C1SUB,NB,LIST,MT1,MT2,MT3,MT4,MT5,MT6)
+   VER (&C1CCID,NB)
+   VER (&PKGTYP,NB,LIST,STANDARD,EMERGENCY)
+   VER (&INDSN,NB,DSNAME)
+)END

@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ JCL to be Included with PDM Batch Job \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to define JCL (usually DD statements) that you want to
++include with the JCL submitted to process the batch request data set.
++
++One possible use of this capability is if a request references a source
++or target file by DD name.
++
++When you finish typing the JCL statements, press PF3 to return to
++the Batch Options Menu.
++
++
++
++
+)END

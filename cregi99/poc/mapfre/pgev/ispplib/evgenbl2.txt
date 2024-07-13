@@ -1,0 +1,49 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+! TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Create GENER/OL Migration File+\-\
+%Command ==>_ZCMD
++
++
++
++  Total Number of components added to file %===>!Z  +
++
++  Infoman Change Record Number      %===>^Z       +    (C0nnnnnn)
++
++  AD Application Team               %===>^Z +          (See help)
++
++  Reason for Change                 %===>^Z           +
++
++  Gener/OL Sublibrary               %===>^Z       +    (See help)
++
++  Target SGTLIB                     %===>^Z+           (1,2 or U)
++
++  Component Name                    %===>^Z       +
++
++  Component Type                    %===>^Z+           (P/W/R/M/F)
++
++
++
++  Press PF3 to exit or PF1 for HELP
+)INIT
+   .HELP = EVGENBLH
+   .ZVARS = '(TOT CHGNO ADTEAM CHGTYP SUBLIB SGTLIB CMPNAM CMPTYP)'
+)REINIT
+   &PMSG = ''
+)PROC
+   &PFKEY = .PFKEY
+   &PMSG = ''
+   VER (&CHGNO,NB)
+   VER (&CHGNO,PICT,C9999999)
+   VER (&ADTEAM,NB)
+   VER (&ADTEAM,NB,LIST,HO,MO,TV,PT,HR,CL,AC,WB,LF,FS)
+   VER (&CHGTYP,NB)
+   VER (&SUBLIB,NB,LIST,MOTOR,RESIDENT,ACCOUNT,CREDCLMS,NONRES,
+        CUSTCON,HOUSE,NSMOT,NSRES,NSMCL,NSNONRES,TRAVEL,PET)
+   VER (&SGTLIB,NB,LIST,1,2)
+   VER (&CMPNAM,NB)
+   VER (&CMPTYP,NB,LIST,P,W,R,M,F)
+)END

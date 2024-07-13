@@ -1,0 +1,59 @@
+         MACRO
+&LABEL   C1PRODDA &DUMMY=N,&SYSOUT=N,&STEPLIB=N,&DSNCNT=1,             X
+               &FP=N,&VERFP=N,&ENQ=N,&SYSIN=N                           00030000
+.*
+         GBLA  &RLSTEP#,&DSCNT                                          00050001
+         GBLC  &DSCNT#L                                                 00060001
+.*
+.*  INIT DSN CONCATENATION COUNT, GENERATE LBL FOR COUNT FIELD          00080001
+.*                                                                      00090001
+&DSCNT   SETA  0                                                        00100001
+&DSCNT#L SETC  'DS#&SYSNDX'                                             00110001
+.*                                                                      00120001
+         DC    XL1'01'                 DD STATEMENT IDENTIFIER
+         DC    AL1(&RLSTEP#)           RELATIVE STEP NUMBER
+.*
+         AIF   ('&DUMMY' EQ 'Y').DUMMY
+         AIF   ('&SYSOUT' EQ 'Y').SYSOUT
+         AIF   ('&STEPLIB' EQ 'Y').STEPLIB
+         AIF   ('&SYSIN' EQ 'Y').SYSIN                                  00190001
+         DC    BL1'10000000'           DATASET INDENTIFIER
+         AGO   .FOOTCHK
+.STEPLIB ANOP
+         DC    BL1'11000000'           STEPLIB IDENTIFIER
+         AGO   .FOOTCHK
+.DUMMY   ANOP
+         DC    BL1'00010000'           DUMMY DATASET IDENTIFIER
+         AGO   .FOOTCHK
+.SYSOUT  ANOP
+         DC    BL1'00100000'           SYSOUT IDENTIFIER
+         AGO   .FOOTCHK                                                 00300001
+.SYSIN   ANOP                                                           00310001
+         DC    BL1'10010000'           SYSIN DATA SET IDENTIFIER        00320001
+         AGO   .FOOTCHK                                                 00330001
+.*
+.FOOTCHK ANOP
+         AIF   ('&FP' NE 'C').FTVCHK   FOOTPRNT=CREATE?
+         DC    BL1'10000000'           NORMAL FOOTPRINT FLAG
+         AGO   .DSNCNT
+.*
+.FTVCHK  ANOP
+         AIF   ('&FP' NE 'V').NOFTPRT  FOOTPRNT=VERIFY?
+         DC    BL1'00100000'           FOOTPRINT VERIFICATION REQUESTED
+         AGO   .DSNCNT
+.*
+.NOFTPRT ANOP
+         AIF   ('&FP' NE 'N').BADFOOT  BETTER BE FOOTPRNT=NO
+         DC    BL1'00000000'           NO CONTROL-I FOOTPRINT
+.*
+.DSNCNT  ANOP
+DS#&SYSNDX DC   AL1(0)                 NBR OF DATASETS ASSOC W/DDN      00500002
+         AGO   .ENDIT
+.*
+.BADFOOT ANOP
+         MNOTE 12,'** ERROR - FP MUST HAVE VALUE OF C, V, OR N **'
+         AGO   .ENDIT
+.*
+.ENDIT   ANOP
+         SPACE 1
+         MEND

@@ -1,0 +1,38 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  CaseGen Retrieve  \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++
++
++ CCID                  ==>$Z       + CMR required for the retrieve
++
++ DIF Element Name      ==>$Z       +
++
++ Enter the name of the CaseGen element you want to retrieve.
++
+%\ \  There is no system name required because it will find only elements  \ \
+%\ \  in the LJ/LJ1 system.  \ \
++
+%\ \--(Hit enter to continue)--\ \
++
++
++
+)INIT
+  .ZVARS = '(TCCI,TELM)'
+  .cursor = TCCI
+
+)REINIT
+  .cursor = TCCI
+)PROC
+  VER (&TCCI,NB,LEN,'=',8)
+  VER (&TELM,NB)
+
+  &PFK = .PFKEY
+  VPUT (TCCI TELM) PROFILE
+)END

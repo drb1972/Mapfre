@@ -1,0 +1,80 @@
+         MACRO
+         ENHALAGR &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST  - APPROVER GROUP REQUEST BLOCK                         *
+*                                                                     *
+***********************************************************************
+ALAGR_VER       EQU 1                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALAGR_VER,          CONTROL BLOCK VERSION           X
+               EYE='LAGQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALAGR_RQ
+         SPACE ,
+ALAGR_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALAGR_RQ_DATA
+ALAGR_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALAGR_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALAGR_RQ_RESERVE2 DC CL1' '            ** RESERVED **
+ALAGR_RQ_RESERVE3 DC CL1' '            ** RESERVED **
+ALAGR_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALAGR_RQ_AGRNAME  DC CL16' '           APPROVER GROUP NAME
+                  DS 0X
+ALAGE_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALAGR_RQ_VER#1_DATADSLN EQU *-ALAGR_RQ_DATA
+ALAGR_RQ_VER#1_DSLN     EQU *-ALAGR_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALAGR_RQ_DATADSLN EQU *-ALAGR_RQ_DATA
+ALAGR_RQ_DSLN     EQU *-ALAGR_RQ
+         ORG      ALAGR_RQ_DATA
+ALAGR_RQ_DATAAREA DS XL(ALAGR_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST APPROVER GROUP - RESPONSE BLOCK                         *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALAGR_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LAGS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALAGR_RS
+         SPACE ,
+ALAGR_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALAGR_RS_DATA
+ALAGR_RS_SITE     DC CL1' '            SITE ID
+ALAGR_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALAGR_RS_STG_NAME DC CL8' '            STAGE NAME
+ALAGR_RS_STG_ID   DC CL1' '            STAGE ID
+ALAGR_RS_STG_NUM  DC CL1' '            STAGE NUM
+ALAGR_RS_AGRNAME  DC CL16' '           APPROVER GROUP NAME
+ALAGR_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALAGR_RS_UPD_DATE DC ZL8'0'            UPDATE DATE 'YYYYMMDD'
+ALAGR_RS_UPD_TIME DC ZL8'0'            UPDATE TIME 'HHMMSSTH'
+ALAGR_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALAGR_RS_FMID     DC ZL5'0'            RECORD CREATED RELEASE ID
+ALAGR_RS_QUORM    DC ZL8'0'            QUORUM-COUNT
+ALAGR_RS_TITLE    DC CL50' '           TITLE
+ALAGR_RS_AUSER    DC 16CL8' '          16 USERIDS
+ALAGR_RS_AUREQ    DC 16CL1' '          16 REQUIRED USERID FLAGS ' '/'Y'
+ALAGR_RS_ADISQ    DC CL1' '            APPROVER DISQUALIFICATION ' '/'Y'
+                  DS 0X
+ALAGR_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALAGR_RS_VER#1_DATADSLN EQU *-ALAGR_RS_DATA
+ALAGR_RS_VER#1_DSLN     EQU *-ALAGR_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALAGR_RS_DATADSLN EQU *-ALAGR_RS_DATA
+ALAGR_RS_DSLN     EQU *-ALAGR_RS
+         ORG      ALAGR_RS_DATA
+ALAGR_RS_DATAAREA DS XL(ALAGR_RS_DATADSLN)     DATA AREA
+         MEND

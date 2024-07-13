@@ -1,0 +1,83 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Dynamic Environment Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Dynamic Environment Feature                              \ \+Enabled:%&VNTDYNEN
++
++
++  CD18106   Dynamic Environment Feature
++
++  The%Dynamic Environment+feature allows for creating a new environment,
++  on demand, without requiring an update to the static environment list in
++  the C1DEFLTS table. Included with this feature is batch SCL support for
++  cloning a system, formerly available only in foreground.
++  When used with the%Deferred File Creation+(DFC) feature, there is no
++  requirement to pre-allocate files for use in a newly created environment
++  other than the%Master Control+files.
++
++  To%enable+the%Dynamic Environment+feature, perform the following steps:
++  1. Create the%Global Control File.+
++     The GCF is a VSAM file that contains information that defines a dynamic
++     environment.  Sample JCL is provided in CSIQJCL member%BC1JJB08.
++  2. Update the%C1DEFLTS+table to specify the%GCF+filename.
++     Add GCFDSN=uprfx.uqual.gcf to the%MAIN+section of the%C1DEFLTS+table,
++     where uprfx.uqual.gcf is the name of the GCF file created by BC1JJB08.
++
++  Once the Dynamic Environment Feature has been enabled, you can execute
++  a%Batch Administration+job (ENBE1000) to define a dynamic environment
++  and optionally%clone+a%system+or%systems+from an existing environment.
++
++ %Define Environment Examples:
++ %Note:+The%LIKE+parameter can be specified to inherit values from another
++        environment. Any parameter available in the C1DEFLTS ENVRNMNT
++        section can be specified in the%Define Environment+SCL and
++        will override values taken from the "LIKED" environment.
++        You%must+provide the%Stage One MCF+and%Stage Two MCF+parameters,
++        these are not inherited and there is no default for them.
++
++  In this example using LIKE, all settings are taken from environment%DEV+
++  except the%Master Control File+(MCF) names. This means, for instance,
++  that the next environment and stage is the same for DEV and DEVB:
++ %DEFINE ENVIRONMENT 'DEVB'+
++         LIKE  'DEV'
++         STAGE ONE MCF IS 'SPRFX.SQUAL.DEVB1.MCF'
++         STAGE TWO MCF IS 'SPRFX.SQUAL.DEVB2.MCF'
++  .
++
++  In this example a Dynamic Environment is defined%without+the%LIKE+
++  parameter, supplying some parameters and allowing others to default:
++ %DEFINE ENVIRONMENT 'WRK'+
++         TITLE 'WORK ENVIRONMENT'
++         NEXT ENVIRONMENT 'DEV' STAGE ID '1'
++         STAGE ONE MCF IS 'SPRFX.SQUAL.WRK1.MCF'
++         STAGE TWO MCF IS 'SPRFX.SQUAL.WRK2.MCF'
++         STAGE ONE TITLE 'WRK STAGE 1'
++         STAGE TWO TITLE 'WRK STAGE 1'
++         STAGE ONE NAME  'WRKSTG1'
++         STAGE TWO NAME  'WRKSTG2'
++  .
++ %Clone System Example:
++  In this example, system FINANCE is cloned from environment DEV
++  to environment WRK using Batch Administration SCL:
++
++ %CLONE SYSTEM 'FINANCE'+
++         FROM ENV  'DEV'
++         TO   ENV  'WRK'
++  INCLUDE SUBSYSTEMS
++  INCLUDE TYPES
++  .
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

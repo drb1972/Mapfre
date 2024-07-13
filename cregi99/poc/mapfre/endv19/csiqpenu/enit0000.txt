@@ -1,0 +1,29 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Batch Package panel appears when you select option 6 from the Primary
++Options Menu.  Use this panel to initiate batch package processing.    Do so
++by selecting an action and entering an SCL data set name or other sequential
++or partitioned data set name and pressing enter.
++
++  Select 1 - 4 for information about:
+%    1+- Actions
+%    2+- SCL data set name fields
+%    3+- SCL processing options
+%    4+- JCL JOB statements
+%
++Select a Help topic or Press%PF3+or%End+to exit help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1, enit0010
+                 2, enit0020
+                 3, enit0030
+                 4, enit0040
+                )
+)END

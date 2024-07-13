@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%\-\ ISPF View Mode \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Support for ISPF View Mode +
+
++ You may use either Option 0 (ISPF Defaults) or QE option D to indicate to
+  Endevor that either ISPF View mode ("V") or Browse mode ("B") is to be used
+  when displaying element or data set content.
+
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7120
+)END

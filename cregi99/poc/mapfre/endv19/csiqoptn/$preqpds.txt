@@ -1,0 +1,86 @@
+         MACRO                                                          00010000
+&NAME    $PREQPDS &DSCT=YES                                             00020000
+         AIF   ('&DSCT' NE 'YES').SKPDSCT                               00030000
+$PREQPDS DSECT                                                          00040000
+         AGO   .SKPEQU                                                  00050000
+.SKPDSCT ANOP                                                           00060000
+$PREQPDS DS    0F                                                       00070000
+.SKPEQU  ANOP                                                           00071000
+**********************************************************************  00080000
+*                                                                    *  00090000
+*         $PREQPDS - BLOCK FOR REQUEST PARMS ASSOCIATED WITH A       *  00100000
+*                    PACKAGE           7/15/90                       *  00110001
+*                                                                    *  00130000
+**********************************************************************  00140000
+PREQLEN   DC    AL2(PREQSIZE)      LENGTH OF THE BLOCK                  00160000
+PREQVERS  DC    AL2(PREQ$VER)      CURRENT VERSION OF THE BLOCK         00170000
+PREQ$VER  EQU   1                      VERSION OF THE BLOCK             00180000
+PREQID    DC    CL4'PREQ'          BLOCK ID                             00190000
+PREQCOMM  DC    CL50' '            PACKAGE COMMENT                      00192000
+PREQFLAG  DC    F'0'               SPECIAL FLAGS                        00200000
+PREQBOEN DC     CL1' '             BACKOUT ENABLED FOR PACKAGE          00210001
+PREQ$BYS  EQU    C'Y'                   YES                             00211003
+PREQ$BNO  EQU   C'N'                    NO                              00212003
+PREQDEL   DC    CL1' '             DELETE  ENABLED FOR PACKAGE          00210001
+PREQ$DYS  EQU   C'Y'                    YES                             00211003
+PREQ$DNO  EQU   C'N'                    NO                              00212003
+PREQPSHR  DC    CL1' '             SHARE   ENABLED FOR PACKAGE          00210001
+PREQ$SYS  EQU   C'Y'                    YES                             00211003
+PREQ$SNO  EQU   C'N'                    NO                              00212003
+PREQPAPD  DC    CL1' '             APPEND PACKAGE ?                     00210001
+PREQ$PYS  EQU   C'Y'                    YES                             00211003
+PREQ$PNO  EQU   C'N'                    NO                              00212003
+PREQEWSD  DC    CL7' '             EXECUTION WINDOW START DATE
+PREQEWST  DC    CL5' '             EXECUTION WINDOW START TIME
+PREQEWED  DC    CL7' '             EXECUTION WINDOW END DATE
+PREQEWET  DC    CL5' '             EXECUTION WINDOW END TIME
+PREQIPKG  DC    CL16' '            COPY SUBFUNC - SOURCE PACKAGE ID
+PREQDEST  DC    CL8' '             SHIP - DESTINATION (BEF/AFT/CONF)
+PREQSTYP  DC    CL3' '             SHIP - SHIPMENT TYPE (BEF/AFT)
+PREQS$PKG EQU   C'P'                      PKG = PACKAGE SHIPMENT
+PREQS$BKO EQU   C'B'                      BKO = BACKOUT SHIPMENT
+PREQSCMP  DC    CL3' '             SHIP - COMPLEMENTS (BEF/AFT)
+PREQS$CO  EQU   C'Y'                      YES = COMPLEMENTS REQUESTED
+PREQS$NC  EQU   C'N'                      NO  = NO COMPLEMENT FILES
+PREQSCNF  DC    CL4' '             SHIP - CONFIRMATION TYPE (CNF)
+PREQ$HXMT EQU   C'HXMT'                   HOST - TRANSMITTED
+PREQ$RCPY EQU   C'RCPY'                 REMOTE - COPIED TO PRODUCTION
+PREQSRES  DC    CL2' '             SHIP - CONFIRMATION RESULT (CNF)
+PREQ$EXEC EQU   C'EX'                     EXECUTED (RC NOT AVAILABLE)
+PREQ$ABND EQU   C'AB'                     ABENDED (RC NOT AVAILABLE)
+PREQ$RCGT EQU   C'GT'                     RC GREATER THAN PREQSRCV
+PREQ$RCLT EQU   C'LT'                     *  LESS THAN
+PREQ$RCEQ EQU   C'EQ'                     *  EQUAL
+PREQ$RCGE EQU   C'GE'                     *  GREATER THAN OR EQUAL
+PREQ$RCLE EQU   C'LE'                     *  LESS THAN OR EQUAL
+PREQSRCV  DC    CL4' '             SHIP - CONF RETURN CODE VALUE (CNF)
+PREQ$NONE EQU   C'*'                      NO RC IF PREQ$EXEC/PREQ$ABND
+PREQAPGP  DC    CL16' '                   OVERRIDE APPROVER GROUP
+PREQAPID  DC    CL8' '                    OVERRIDE APPROVER ID
+*
+PREQDARC  DC    CL1' '             DELETE PACKAGE WITH ARCHIVE
+PREQ$AYS  EQU   C'Y'                    YES                             00211003
+PREQ$ANO  EQU   C'N'                    NO                              00212003
+PREQNOTE  DC    CL1' '             PACKAGE NOTES
+PREQ$NYS  EQU   C'Y'                    YES
+PREQ$NNO  EQU   C'N'                    NO
+PREQPROM  DC    CL1' '             PROMOTION PACKAGE
+PREQ$PROY EQU   C'Y'                    YES
+PREQ$PRON EQU   C'N'                    NO
+PREQCDPH  DC    CL1' '             COMMIT/DELETE PROMOTION HISTORY
+PREQ$CDPY EQU   C'Y'                    YES
+PREQ$CDPN EQU   C'N'                    NO
+*                                  PREQCVAL CAN BE MODIFIED BY
+*                                     THE BEFORE CAST EXIT PROGRAM
+PREQCVAL  DC    CL1' '             COMPONENT VALIDATION SETTING
+          DC    CL3' '             *** RESERVED ***
+PREQCONN  DC    CL8' '             COLLECT - CONNECTION (BEF/AFT)
+PREQCTYP  DC    CL3' '             COLLECT - COLLECTN TYPE (BEF/AFT)
+PREQC$PKG EQU   C'P'                         PKG = PACKAGE COLLECT
+PREQC$BKO EQU   C'B'                         BKO = BACKOUT COLLECT
+PREQCRCV  DC    CL4' '             COLLECT - SDSBAPI RETURN CODE (AFT)
+PREQPROD  DC    CL20' '            COLLECT - PRODUCT NAME (BEF/AFT)
+          DC    CL1' '             *** RESERVED ***
+          DC    16F'0'             *** RESERVED ***
+PREQSIZE  EQU   *-$PREQPDS         LENGTH OF $PREQPDS BLOCK             00540000
+         MEND                                                           00550000

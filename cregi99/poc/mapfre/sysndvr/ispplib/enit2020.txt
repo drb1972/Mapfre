@@ -1,0 +1,21 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Submit Options \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The following Submit Options appear on the Submit Package panel and provide
++the following functions:
++
+%JCL Procedure Name -+Identifies the 1 to 8 character name of the JCL procedure
++used to invoke the Submit Package action JCL. If you do not specify this
++the Submit Package action creates JCL to invoke the batch JCL procedure.
++
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2000
+)END

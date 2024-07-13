@@ -1,0 +1,5 @@
+ENIP010I '&PDVSCLCR Statements written'                  .ALARM=YES
+'&PDVSCLCR Action statements were written'
+ENIP011I 'DESCRIPTION REQUIRED'                        .ALARM=YES
+'DESCRIPTION FIELD IS REQUIRED - ENTER A NON-BLANK CHAR'
+

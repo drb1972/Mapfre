@@ -1,0 +1,18 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Export Options \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Replace Member field replaces an existing like-named member.  The Replace
++Member field is valid only if the Export data set specifies a member name.
++If the Export data set specifies a member and the Replace Member field is N,
++the member must not exist in the data set.
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2A00
+)END

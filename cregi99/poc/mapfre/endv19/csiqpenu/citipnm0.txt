@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Remote IPNAME/IPPORT \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Identifies the site to which package outputs are to be shipped. The
++IPNAME/IPPORT is only valid for the XCOM transmission method. IPNAME
++can be 1-63 characters in length. IPPORT can be 1-5 characters in length
++in the range of 1-65535. This parameter must match the XCOM SERVPORT
++specification of the target server.
++
++For XCOM, the IPNAME/IPPORT or the NODENAME must be specified, but
++not both.
++
++
++
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

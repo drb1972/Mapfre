@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Alter Action Field Level Security Enhancement \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 1 of 2
+%Alter Action Field Level Security Enhancement
++
++   This enhancement allows an administrator to limit who can perform
++   Alter action updates on Element record metadata depending on which
++   metadata field the user is attempting to update.
++
++   To take advantage of this feature, add the new keyword%ALTERFLD+
++   to a level of the%NAMEQU &LIT1            +entry on the External
++   Security Interface table, BC1TNEQU. When the security exit
++   encounters an Alter action and builds the pseudo data set name, a
++   value that corresponds to the metadata field specified on the Alter
++   action is substituted for the%ALTERFLD node+on the pseudo data set.
++
++   Your security administrator can configure your site's security
++   software to restrict users from this pseudo data set based on their
++   user profile. The External Security Interface and your security
++   software can then limit who can perform updates on specific fields.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'ACTION_INITIATION'
+)PROC
+   &ZCONT = CIT18041
+)END

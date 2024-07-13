@@ -1,0 +1,78 @@
+)ATTR DEFAULT(%+_)
+ {  TYPE(PS)                               /* POINT AND SHOOT */
+ }  TYPE(CH)                               /* COLUMN HEADING */
+ | TYPE(OUTPUT) INTENS(HIGH)               /* USE FOR INDICATORS */
+ ±  TYPE(OUTPUT) JUST(LEFT)  COLOR(BLUE)   /* DATA OUTPUTS   */
+ ?  TYPE(INPUT) PADC(_)
+)BODY EXPAND(\\)
+%-\-\ ENDEVOR OPTION SETTINGS \-\-
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+%                                                          +SYSTEM   -±ZSYSID  +
+}Dataset Suffixes:                                         +APPLID   -±ZAPPLID +
++  ISPPLIB . .±ISPPLIB                    |ISPIND+         +DEFAULTS -±DFLTNAME+
++  ISPMLIB . .±ISPMLIB                    |ISMIND+
++  ISPSLIB . .±ISPSLIB                    |ISSIND+}Environment settings:
++  ISPTLIB . .±ISPTLIB                    |ISLIND+  +Application ID . . ._Z   +
++  ISPLLIB . .±ISPLLIB                    |ISTIND+  +Defaults Suffix. . ._Z +
++  SYSPROC . .±SYSPROC                    |SYPIND+
++  CONLIB. . .±CONLIB                     |CONIND+}Dynamic Area Customization:
++  STEPLIB . .±STEPNDVR                   |STEIND+  +Program Name . ._REXXGMSG+
++
+%
+}Dataset Prefixes:
++?Z+User Prefix . . ._UserPfx                                           |UPRIND+
++?Z+Site Prefix . . ._SitePfx                                           |SPRIND+
++   Product Prefix. ._ProdPfx                                           |PPRIND+
++
++Amend details as required and press{ENTER+to validate or{END+to Exit.
+)INIT
+.HELP = ENDEVORH
+ .ZVARS = 'APPLNDVR DFLTNDVR ENABUSER ENABSITE'
+ IF (&DFLTNDVR = '')
+     &DFLTNAME = 'C1DEFLTS'
+ ELSE
+     &DFLTNAME = 'C1DEFL&DFLTNDVR'
+ IF (.CURSOR = '')
+     .CURSOR = 'ZCMD'
+ &ENABUSER = TRANS (&ENABUSER &Z,&Z *,/)
+ &ENABSITE = TRANS (&ENABSITE &Z,&Z *,/)
+ IF (&USERPFX = '')
+     &ENABUSER = &Z
+ IF (&SITEPFX = '')
+     &ENABSITE = &Z
+)PROC
+ IF (VER(&DFLTNDVR,NONBLANK))
+     &DFLTNAME = 'C1DEFL&DFLTNDVR'
+     IF (VER(&DFLTNAME,NAME))
+         GOTO VALIDATE
+     ELSE
+         /* Dummy check that will always fail but positions cursor */
+         VER(&DFLTNDVR,NUM,MSG=CIIO042)
+ ELSE
+     &DFLTNDVR = ''
+ VALIDATE:
+ VER(&APPLNDVR,ALPHAB,MSG=CIIO042)
+ VER(&REXXGMSG,NAME,MSG=CIDS009)
+ &ENABUSER = TRANS (&ENABUSER &Z,&Z *,/)
+ &ENABSITE = TRANS (&ENABSITE &Z,&Z *,/)
+ IF (.RESP = 'ENTER') /* so long as user didn't hit END or RETURN */
+    &NDVLUSER = &ENABUSER
+    &NDVLSITE = &ENABSITE
+    VPUT (NDVLUSER NDVLSITE) PROFILE
+ IF (&ZCMD = 'END') .RESP = 'END'
+)FIELD
+ FIELD(ISPPLIB)  IND(ISPIND) SCROLL(ON) LEN(1024)
+ FIELD(ISPMLIB)  IND(ISMIND) SCROLL(ON) LEN(1024)
+ FIELD(ISPSLIB)  IND(ISSIND) SCROLL(ON) LEN(1024)
+ FIELD(ISPTLIB)  IND(ISTIND) SCROLL(ON) LEN(1024)
+ FIELD(ISPLLIB)  IND(ISLIND) SCROLL(ON) LEN(1024)
+ FIELD(SYSPROC)  IND(SYPIND) SCROLL(ON) LEN(1024)
+ FIELD(CONLIB)   IND(CONIND) SCROLL(ON) LEN(1024)
+ FIELD(STEPNDVR) IND(STEIND) SCROLL(ON) LEN(1024)
+ FIELD(USERPFX)  IND(UPRIND) SCROLL(ON) LEN(1024)
+ FIELD(SITEPFX)  IND(SPRIND) SCROLL(ON) LEN(1024)
+ FIELD(PRODPFX)  IND(PPRIND) SCROLL(ON) LEN(1024)
+)PNTS
+ FIELD(ZPS00001) VAR(ZCMD) VAL(' ')
+ FIELD(ZPS00002) VAR(ZCMD) VAL(END)
+)END

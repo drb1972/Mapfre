@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Quick Edit panel to edit an element you have specified.
++You can use all ISPF/PDF Edit commands and features except the
++'Initial Macro' feature.
++
++The name of the element and the location to which it will be added
++appear at the top of the panel. When you have finished editing,
++these commands are available:
++
+% SAVE+- To add or update the element at Stage 1 of the base
++        environment, remain in the edit session, and not execute
++        the generate processor.
++
+% END+-  To add or update the element at Stage 1 of the base
++        environment, execute the generate processor (only if the
++        element has been saved), and terminate the edit session.
++
+% CANCEL+- To perform no actions and terminate the dialog.
++
++                                      (%END+to return)
+)END

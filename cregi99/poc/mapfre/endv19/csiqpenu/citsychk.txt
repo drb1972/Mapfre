@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE - Synchronization \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Synchronization+- If you enable the synchronization option, the
++   VALIDATE action performs synchronization checking. If a second copy
++   of the element exists up the logical map, an additional check is
++   performed to determine if another copy of this element exists at a
++   physical location in-between the two copies of the element located
++   in the logical map.
++
+%      N+- Do not perform synchronization checking.
+%      Y+- Perform synchronization checking.
++
++The default synchronization panel field value is obtained from the
+%&LIT             +parameter in the Endevor Configuration Table
++(ENDICNFG). If this parameter is not coded in the table a value of Y
++is assumed.
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)INIT
+    &LIT   = 'VALIDATE_ACT_SYNC'
+)END

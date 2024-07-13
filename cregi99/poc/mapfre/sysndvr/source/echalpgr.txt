@@ -1,0 +1,76 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST PROCESSOR GROUP - REQUEST BLOCK               *
+      *                                                               *
+      *****************************************************************
+       01  ALPGR-RQ.
+           05  ALPGR-RQ-HEADER.
+               10  ALPGR-RQ-LEN        PIC 9(4) COMP VALUE 64.
+               10  ALPGR-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALPGR-RQ-ID         PIC 9(4) COMP VALUE 1136.
+               10  ALPGR-RQ-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALPGR-RQ-EYE        PIC X(4)      VALUE 'LPGQ'.
+           05  ALPGR-RQ-DATAAREA.
+               10  ALPGR-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALPGR-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALPGR-RQ-RESERVE2   PIC X         VALUE SPACE.
+               10  ALPGR-RQ-RESERVE3   PIC X         VALUE SPACE.
+               10  ALPGR-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALPGR-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALPGR-RQ-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALPGR-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALPGR-RQ-PGRP       PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC X(3)      VALUE SPACES.
+               10  ALPGR-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALPGR-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALPGR-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALPGR-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  FILLER              PIC X         VALUE SPACE.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST PROCESSOR GROUP - RESPONSE BLOCK              *
+      *                                                               *
+      *****************************************************************
+       01  ALPGR-RS.
+           05  ALPGR-RS-HEADER.
+               10  ALPGR-RS-LEN        PIC 9(4) COMP VALUE 444.
+               10  ALPGR-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALPGR-RS-ID         PIC 9(4) COMP VALUE 1137.
+               10  ALPGR-RS-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALPGR-RS-EYE        PIC X(4)      VALUE 'LPGS'.
+           05  ALPGR-RS-DATAAREA.
+               10  ALPGR-RS-SITE       PIC X         VALUE SPACE.
+               10  ALPGR-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALPGR-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALPGR-RS-PGRP       PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-PROTY      PIC X(4)      VALUE SPACES.
+               10  ALPGR-RS-SYMNUM     PIC 9(4)      VALUE ZEROS.
+               10  ALPGR-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALPGR-RS-UPD-BDTE REDEFINES ALPGR-RS-UPD-DATE.
+                   15  ALPGR-RS-UPD-YYYY   PIC 9(4).
+                   15  ALPGR-RS-UPD-MM     PIC 9(2).
+                   15  ALPGR-RS-UPD-DD     PIC 9(2).
+               10  ALPGR-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALPGR-RS-UPD-BTME REDEFINES ALPGR-RS-UPD-TIME.
+                   15  ALPGR-RS-UPD-HH     PIC 9(2).
+                   15  ALPGR-RS-UPD-MI     PIC 9(2).
+                   15  ALPGR-RS-UPD-SS     PIC 9(2).
+                   15  ALPGR-RS-UPD-TH     PIC 9(2).
+               10  ALPGR-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-DESC       PIC X(50)     VALUE SPACES.
+               10  ALPGR-RS-NEXT-PGR   PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-PMOVE      PIC X         VALUE SPACE.
+               10  ALPGR-RS-PXFER      PIC X         VALUE SPACE.
+               10  ALPGR-RS-PRONME     PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-PGRTYPE    PIC X(16)     VALUE SPACES.
+               10  ALPGR-RS-PROFG      PIC X         VALUE SPACE.
+               10  ALPGR-RS-SYM-LEN    PIC 9(2)      VALUE ZEROS.
+               10  ALPGR-RS-SYM        PIC X(8)      VALUE SPACES.
+               10  ALPGR-RS-SVAL-LEN   PIC 9(4)      VALUE ZEROS.
+               10  ALPGR-RS-SVAL       PIC X(256)    VALUE SPACES.
+               10  FILLER              PIC XX        VALUE SPACES.

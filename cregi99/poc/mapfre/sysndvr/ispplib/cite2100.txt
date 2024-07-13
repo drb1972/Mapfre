@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Define systems for the applications at your site. For example, you may
++have financial and manufacturing applications, and therefore define a
++system FINANCE and a system MFG.
++
++You must define a system to each environment where it will be used.
++
++
++
++
++
++Select%1+-%8+for information about specific system definition fields.
++
+%    1+- Current location        %5+- General options
+%    2+- Next location           %6+- Signin/Signout options
+%    3+- System name             %7+- Last system backup
+%    4+- Auto Age Level Retention%8+- Processor output libraries
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITE2105
+                  5,CITE2110, 6,CITE2120 7,CITE2130 8,CITE2140)
+)END

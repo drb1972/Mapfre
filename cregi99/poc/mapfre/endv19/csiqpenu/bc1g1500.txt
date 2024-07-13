@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Edit WIP -------------------- Edit - Entry Panel ------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++ISPF Library:+
++   Project%===>_PTBWPPRJ+
++   Group  %===>_PTBWPLIB+
++   Type   %===>_PTBWPTYP+
++   Member %===>_PTBWPMEM  +     (Blank or pattern for member selection list)+
++
++Other partitioned or sequential data set:+
++   Data Set Name %===>_PTBWPOTH
++
+)INIT
+   .HELP = BC1T1500
+)END

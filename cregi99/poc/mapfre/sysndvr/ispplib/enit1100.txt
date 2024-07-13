@@ -1,0 +1,34 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Selection List \-\ TUTORIAL
+%Option  ===>_ZCMD                                                             +
++
++Use the Package Selection List panel to specify package actions to be
++performed on specified packages.  The top half of the panel lists the
++package actions and the bottom half lists the packages that meet
++the selection criteria specified on the Package Specification Panel.
++
++Perform batch package processing by typing the two-letter action code next to
++the appropriate package ID(s) in the package list and pressing enter. Some
++actions require additional information and cause a second panel to display.
+
+%Note:+A complete list of packages that meet the selection criteria
++specified on the Package Specification Panel.  You may not have authority
++to perform all batch package actions. If you are not authorized to
++perform a specific action an error message displays and the action and
++subsequent actions are not processed.
+
++Select 1 - 2 for information about the following:
+%     1+ Package actions
+%     2+ Package summary
++
++ Select a Help topic or Press%End+to exit Help
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,ENIT1110
+                 2,ENIT1120
+                )
+)END

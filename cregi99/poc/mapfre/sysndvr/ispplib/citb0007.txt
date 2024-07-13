@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Append \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicate whether you want to append new requests to an existing
++data set or member. Acceptable values are:
+
+   %N+- Default. Overwrite any data currently in the data set or member.
+
+   %Y+- Append new requests to the named data set or member.
+
+
+
+
+
+
+
+
+
+
++
++                                            (%PF3+to return)
+)END

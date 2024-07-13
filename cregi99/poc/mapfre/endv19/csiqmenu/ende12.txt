@@ -1,0 +1,23 @@
+ENDE120I 'Used By ENDIE4M '                            .ALARM=NO
+' This element was copied back from inventory location: '
+ENDE121I 'Used By ENDIE4M '                            .ALARM=NO
+' ENV: &EEVETKEN STG: &EEVETKSI SYS: &EEVETKSY SBS: &EEVETKSB TYPE: &EEVETKTY '
+
+ENDE122I 'Used By ENDIE4M '                            .ALARM=NO
+' The update to this element will be compared to the copy of '
+ENDE123I 'Used By ENDIE4M '                            .ALARM=NO
+' the element located at inventory location:'
+ENDE124I 'Used By ENDIE4M '                            .ALARM=NO
+' ENV: &EEVXENV STG: &EEVXSTI SYS: &EEVXSYS SBS: &EEVXSBS TYPE: &EEVXTYP '
+
+ENDE125I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! Another copy of this element exists at inventory location: '
+ENDE126I 'Used By ENDIE4M '                            .ALARM=NO
+' ENV: &EEVPENV STG: &EEVPSTI SYS: &EEVPSYS SBS: &EEVPSBS TYPE: &EEVPTYP '
+
+ENDE127I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! This element will NOT be generated when the Edit session '
+ENDE128I 'Used By ENDIE4M '                            .ALARM=NO
+' is normally terminated because the generate processor for '
+ENDE129I 'Used By ENDIE4M '                            .ALARM=NO
+' processor group &EEVAPGRP cannot execute in foreground mode.'

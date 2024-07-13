@@ -1,0 +1,27 @@
+ENIP080E 'Invalid Value'                                 .ALARM=YES
+'The Package Type must be either STANDARD or EMERGENCY'
+
+ENIP081E 'Change not Allowed'                            .ALARM=YES
+'The Execution Window can be changed ONLY when it is closed'
+
+ENIP082E 'Package Not Eligible'                          .ALARM=YES
+'Package ''&PDVPKGID'' is not elegible to be modified'
+
+ENIP083E 'Action Not Supported'                          .ALARM=YES
+'Foreground Execution of the &PDVACTN action is not supported'
+
+ENIP084E 'Invalid Package ID'                            .ALARM=YES
+'Package ID ''&PDVPKGID'' contains one or more invalid characters'
+
+ENIP085I 'SCL Written'                                   .ALARM=YES
+'The SCL statement has been written to the SCL data set'
+
+ENIP086I 'Define Cancelled'                              .ALARM=YES
+'The DEFINE request has been cancelled'
+
+ENIP087E 'Not Allowed'                .HELP=ENIPH087     .ALARM=YES
+'&PDVACTN is not allowed for ''&PDVCPKGI''. Enter HELP for more info'
+
+ENIP088E 'Imbedded Quote'                                .ALARM=YES
+'The Package Note Text cannot contain imbedded single quotes'
+

@@ -1,0 +1,20 @@
+PKMR320E 'Invalid members per cyl'                     .ALARM=YES
+'Valid ranges are .01 thru .99, 1.0 thru 9.9, and 10 thru 999'
+PKMR321E 'Path or file name ovflo'                     .ALARM=YES
+'Too many qualifiers or too many characters in the name '
+PKMR322E 'Invalid "drive:\"      '                     .ALARM=YES
+'A remote path drive consists of a letter followed by a : and a \'
+PKMR323E 'Separator not found    '                     .ALARM=YES
+'The remote path mask contains no separators "." or "\" '
+PKMR324E 'Invalid "." in WS mask '                     .ALARM=YES
+'"." can only separate the last two qualifiers in a workstation path'
+PKMR325E 'Server LU Missing'                           .ALARM=YES
+'The VTAM LU name of the DistribuLink MVS Server is required'
+PKMR326E 'Extension not allowed'                       .ALARM=YES
+'Mainframe and "split" remote masks cannot have extensions'
+PKMR327E 'Invalid extension'                           .ALARM=YES
+'Extension contains a backslash, period, or imbedded space'
+PKMR328W 'Invalid connectn change'                     .ALARM=YES
+'Collection for &VNBCONN1 is in progress - submit or reset'
+PKMR329E 'No Matches - Product Name'                   .ALARM=YES
+'No Collections on file satisfy the Product Name criteria'

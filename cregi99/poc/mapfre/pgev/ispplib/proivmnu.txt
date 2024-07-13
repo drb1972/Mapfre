@@ -1,0 +1,26 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Pro-IV Utility Menu+\-\
+%OPTION  ===>_ZCMD                                                             +
+%
+%
+%   1 +PROIVADD      - Add PRO-IV components to Endevor
+%
+%   2 +PROIVBLD      - Build / ADD BOOTS and PARMS for
+%     +                Shipment to Production
+%
+%   3 +PROIVLOG      - Add PRO-IV a PRO-IV Object to Endevor
+%
+)INIT
+  .HELP = CITUSER0
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+                1,'CMD(%PROIVADD)'
+                2,'CMD(%PROIVBLD)'
+                3,'CMD(%PROIVLOG)'
+                *,'?' )
+  &ZTRAIL = .TRAIL
+)END

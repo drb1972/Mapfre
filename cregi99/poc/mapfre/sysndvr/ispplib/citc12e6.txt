@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API-CSV Promotion Packages Filtering Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 2 of 3+
+% API-CSV Promotion Package Filtering Enhancement (Continued)+
+
+  The CSV Utility's List Package ID function now includes the
+  promotion package filters, which filter by promotion
+  package type, promotion package target environment, and
+  promotion package stage ID. Previously, the promotion
+  package filter only filtered by promotion package type.
+
+  The API List Package Header function now includes fields in
+  the request structure for the promotion package target
+  environment and promotion package stage ID, in addition
+  to the promotion package flag. The promotion package flag
+  was also renamed to promotion package filter type and
+  supports values of A, P, or X. The promotion package fields
+  are now returned in the response structure when the basic
+  data option is specified. Previously promotion package data
+  was returned only when the full data flag was specified.
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E7
+)END

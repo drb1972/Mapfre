@@ -1,0 +1,11 @@
+/* START OF SPECIFICATIONS *******************************************/ 00001000
+                                                                        00022000
+TABLE NAME(TS0B06A) USE(ADD) CODE(0220) SEPARATOR(,);                   00023000
+                                                                        00024000
+  FIELD PANEL(BTN00000) INDEX(S0B06)        /*  CHANGE RECORD TYPE   */ 00025000
+        REQUIRED(Y) RCDSWORD(Y);                                        00026000
+                                                                        00027000
+  FIELD PANEL(BLG6ACNM) INDEX(S0CBC)        /*  ACTIVITY NAME(S) TO  */ 00028000
+        REQUIRED(Y);                        /*  BE ADDED             */ 00029000
+                                                                        00030000
+ETABLE;                                                                 00040000

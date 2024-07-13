@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Member/USS File Selection List - Add/Update \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                                   %Page 1 of 2
++Type the line command of%A,%U,%AN or%XF next to the Member/USS File
++name(s) you wish to process.
++
+%A  +- Add a Member/USS File name at the target location.
++
+%U  +- Update an element at the target location.
++
+%AN +- Add a Member/USS File name and rename it at the target location.
++      A pop-up Window will appear that allows you to enter the new
++      name.
++
+%XF +- Displays the full USS File name in a pop-up window. The window
++      can be moved by using:
++      1) the%WINDOW+command using a PF function key (KEYS)
++      2) by a double click on the pop-up boarder and double clicking
++         on the target location.
++
++
++\ \ (Press%Enter+to continue or%PF3+to return) \ \
+)PROC
+ &ZCONT = CITMSEL2
+)END

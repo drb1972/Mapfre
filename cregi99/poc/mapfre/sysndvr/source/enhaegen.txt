@@ -1,0 +1,58 @@
+         MACRO
+         ENHAEGEN &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        GENERATE ELEMENT - REQUEST BLOCK                             *
+*                                                                     *
+***********************************************************************
+AEGEN_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AEGEN_RQ$EYE    EQU C'EGEQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AEGEN_RQ
+         SPACE ,
+AEGEN_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEGEN_RQ_DATA
+*                 ELEMENT DATA
+AEGEN_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEGEN_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEGEN_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEGEN_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEGEN_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEGEN_RQ_TYPE     DC CL8' '            TYPE NAME
+AEGEN_RQ_STG_ID   DC CL1' '            STAGE ID
+AEGEN_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 ACTION OPTIONS
+AEGEN_RQ_CCID     DC CL12' '           CCID
+AEGEN_RQ_COMM     DC CL40' '           COMMENT
+AEGEN_RQ_COPYBACK DC CL1' '            COPYBACK (Y/N)
+AEGEN_RQ_SEARCH   DC CL1' '            SEARCH MAP (Y/N)
+AEGEN_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AEGEN_RQ_PROGRO   DC CL8' '            PROCESSOR GROUP
+AEGEN_RQ_AUTOGEN  DC CL1' '            AUTOGEN (Y/N)
+AEGEN_RQ_NOSOURCE DC CL1' '            NOSOURCE (Y/N)
+AEGEN_RQ_RESERVE  DC CL1' '            ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AEGEN_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AEGEN_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AEGEN_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AEGEN_RQ_VER#1_DATADSLN EQU *-AEGEN_RQ_DATA
+AEGEN_RQ_VER#1_DSLN     EQU *-AEGEN_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEGEN_RQ_DATADSLN EQU *-AEGEN_RQ_DATA
+AEGEN_RQ_DSLN     EQU *-AEGEN_RQ
+         ORG      AEGEN_RQ_DATA
+AEGEN_RQ_DATAAREA DS XL(AEGEN_RQ_DATADSLN)    DATA AREA
+         MEND

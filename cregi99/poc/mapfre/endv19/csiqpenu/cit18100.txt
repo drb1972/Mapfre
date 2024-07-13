@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Eclipse-Based UI Package View \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Eclipse-Based UI Package View
++
++ Package View lists the Endevor packages that are related to a
++ specified repository. You can perform the following actions from the
++ Package view: Reset Package, Cast Package, Inspect Package, Delete
++ Package, Assign Project, and Edit Package SCL.
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18110
+)END

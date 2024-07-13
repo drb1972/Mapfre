@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SCL Generation Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The SCL Generation panel allows you to access action request panels
++for use in building action requests for batch execution.
++
++The REQUEST DATA SET and APPEND information comes from the Batch
++Options menu.
++
++    Select%1+-%14+for information about specific actions
++
+%    1+- Display                    % 9+- Transfer
+%    2+- Add/Update                 %10+- Print member
+%    3+- Retrieve                   %11+- List element
+%    4+- Generate                   %12+- List member
+%    5+- Move                       %13+- Archive
+%    6+- Delete                     %14+- Validate
+%    7+- Print element
+%    8+- Signin
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITD1000 2,CITF1000 3,CITF2000 4,CITF3000
+                  5,CITF4000 6,CITF5000 7,CITF6000 8,CITF7000
+                  9,CITF9000 10,CITN1000 11,CITFA000 12,CITN5000
+                  13,CITFB000 14,CITFC000)
+)END

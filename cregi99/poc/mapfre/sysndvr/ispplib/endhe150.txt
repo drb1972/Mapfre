@@ -1,0 +1,32 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++     Select%1+-%17+for information about action options
++
++   Generate Action Options             +   Move Action Options
+%     1+- Generate Element after Edit   %     8+- Sync
+%     2+- Generate Element in Place     %     9+- With History
+%     3+- Generate Element No Source    %    10+- Retain Signout
+%     4+- Generate Action Mode          %    11+- Signout to
+%     5+- Generate with Autogen         %    12+- Acknowledge Element Jump
++                                       %    13+- Delete From Element
++   Delete Action Options               %    14+- Move Action Mode
+%     6+- Only Component
+%     7+- Delete Action Mode            +   Signin Action Options
++                                       %    15+- Signin/Signout To
++                                       %    16+- Signin Action Mode
+%
+%                                       +   Signout Action Options
+%                                       %    17+- Signout Action Mode
+%
++
++                                       (%END+to return)
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,ENDHE151  8,CITSYNC0  2,ENDHE153  9,CITWHIS0
+                       3,ENDHE155 10,CITRTSO0  4,ENDHE152 11,CITSOTO0
+                       5,CITOAUTG 12,CITJUMP0 13,CITBYED0 14,ENDHE161
+                       6,CITONLC0  7,ENDHE154 15,CITSITO0 16,ENDHE156
+                      17,ENDHE157)
+)END

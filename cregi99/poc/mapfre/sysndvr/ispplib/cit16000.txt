@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ CA Endevor Software Change Manager Version 16.0 - New Features \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
++                                                                 %Page 1 of 2+
++The following panels present information about the features and
++enhancements that are available with V16.0 of CA Endevor SCM.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- CA Endevor Quick Edit Eclipse-Based UI                              %base+
+% 2+- Best Practices Implementation Toolkit                               %base+
+% 3+- Autogen Action Option Enhancements                                  %base+
+% 4+- Concurrent Action Processing Type Groups                            %base+
+% 5+- Package Ship of Outputs ASIS after Backout                          %base+
+% 6+- UNIX System Services Package Ship Batch Administration              %base+
+% 7+- Package Ship Post-Ship Script Execution                             %base+
+% 8+- Package Ship Host Job Name for Remote Job                           %base+
+% 9+- Web Services Enhancements                                           %base+
+%10+- Target Symbol Names for Existing Symbols                            %base+
+%11+- Support for Variable-length Records in CA Quick Edit Create Action  %base+
++
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+for more options,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT16010 2,CIT16020 3,CIT16030 4,CIT16040
+                       5,CIT16050 6,CIT16060 7,CIT16070 8,CIT16080
+                       9,CIT16090 10,CIT160A0 11,CIT160B0)
+   &ZCONT = CIT16001
+)END

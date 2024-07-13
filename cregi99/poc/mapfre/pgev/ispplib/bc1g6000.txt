@@ -1,0 +1,49 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Submit --------------------- PDM Batch Options Menu ---------------------------
+%Option ===>_VARWKCMD                                                          +
+%
+%    1+ BROWSE    - Browse request data set
+%    2+ EDIT      - Edit request data set
+%    3+ BUILD JCL - Enter additional JCL to be included with the job
+%    4+ SUBMIT    - Submit job for batch processing
++
++ Batch Request Data Set:                                      (Req'd for
++    Project  ===>_PTBRQPRJ+       Include JCL ===>_Z+  (Y/N)   option 4)
++    Group    ===>_PTBRQLIB+
++    Type     ===>_PTBRQTYP+
++    Member   ===>_PTBRQMEM  +(Option 1 or 2: Blank for member selection list)
++
++ Other partitioned or sequential data set:
++  Data Set Name ===>_PTBRQOTH                                              +
++
++ JOB Statement Information:
++  ===>_C1BJC1
++  ===>_C1BJC2
++  ===>_C1BJC3
++  ===>_C1BJC4
++
+)INIT
+ .ZVARS = '(PB1VINCF)'
+   .HELP = BC1T6000
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the Batch   */
+   /* Request Other Data Set Name field across sessions.            */
+   /*****************************************************************/
+   /*VGET (PTBRQOTH) PROFILE                                        */
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)PROC
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the Batch   */
+   /* Request Other Data Set Name field across sessions.            */
+   /*****************************************************************/
+   /*VPUT (PTBrqOTH) PROFILE                                        */
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

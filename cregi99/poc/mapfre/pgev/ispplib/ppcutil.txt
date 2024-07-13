@@ -1,0 +1,50 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Populator -}-}-
+Option ===>_ZCMD                                             +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%                          
+%                          
+%           T TEST STREAM -Select TestStream
+%           D DELETE/ALLOC-Delete & Allocate TestStream Datasets
+%           B BUILD       -Build TestStream from Production/Test
+%
+%           P PACKAGE     -Apply Shipped Tracker/Package
+%           U UPDATE PROD -Update Production Components
+%           O OVERRIDES   -Update/Delete Override Library Components
+%
+%           J JCLPREP     -Check Input JCL Libraries
+%
+%           A ADMIN       -Options & Settings
+%
+%
+%            ENTER+to continue or%PF3/END+to exit.
+)INIT
+ .ZVARS = 'ZSYSID STREAMID'
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+         T,'CMD(%PPCSELCT)'
+        TD,'CMD(%PPCSELCT DEBUG)'
+         D,'CMD(%PPCDALL)'
+        DD,'CMD(%PPCDALL DEBUG)'
+         B,'CMD(%PPCBLD)'
+        BD,'CMD(%PPCBLD DEBUG)'
+         P,'CMD(%PPCPKGE)'
+        PD,'CMD(%PPCPKGE DEBUG)'
+         U,'CMD(%PPCUPDT UP)'
+        UD,'CMD(%PPCUPDT UP DEBUG)'
+         O,'PANEL(PPCOVER)'
+         J,'CMD(%PPCJCLP NONE)'
+        JD,'CMD(%PPCJCLP NONE DEBUG)'
+         A,'PANEL(PPCADM)'
+       ' ',' '
+         *,'?' )
+)END

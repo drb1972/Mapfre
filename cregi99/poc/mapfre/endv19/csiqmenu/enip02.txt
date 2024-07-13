@@ -1,0 +1,15 @@
+ENIP020E 'Package ID Required'                           .ALARM=YES
+'A package ID is required when the DEFINE action is selected'
+
+ENIP021E 'Wild Card not Allowed'                         .ALARM=YES
+'A wild card package ID is not allowed for the action selected'
+
+ENIP022E 'Package ID not Found'                          .ALARM=YES
+'The package ID specified was not found'
+
+ENIP023E 'No Packages Selected'                          .ALARM=YES
+'There were no packages that match the filter criteria'
+
+ENIP024E 'Invalid Value'                                 .ALARM=YES
+'The Where Older than value must be blank or numeric'
+

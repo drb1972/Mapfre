@@ -1,0 +1,18 @@
+)ATTR  DEFAULT(%+_)
+ # AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  WELCOME TO MAPFRE ENDEVOR  \-\
+%COMMAND ===>_ZCMD
+#SAREA1                                                                       #
+)AREA SAREA1
++
++  Welcome to Endevor at MAPFRE
++
++
++
++  For technical assistance you can contact us:
++   Email: %¯ endevor (mapfre.endevor@rsmpartners.com)
++   Phone: % +44 (0)1527 837767.
++
+)PROC
+)END

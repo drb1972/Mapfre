@@ -1,0 +1,18 @@
+************************************************************************00033400
+**                                                                    **
+** SAMPLE SYNTAX FOR THE ENDEVOR CONSCAN PROCESSOR PROGRAM            **
+**                                                                    **
+************************************************************************00033400
+*
+* COMMENT IS '*' IN COLUMN 1
+*
+          COMMENT
+          FIND1 STRING='*',POS=1
+          END1  CARD
+* LINK EP=CSECT1
+          SCANTYPE ELEMENT
+          FIND1 STRING='LINK',POS=ANY
+          FIND2 STRING='EP=',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC
+          END2  TYPE=CHAR,PARM=','

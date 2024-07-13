@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "FROM" Path and/or USS file name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Element name you coded on the previous panel will be created from
++the Path/USS file you code on this panel.
++
+%FROM PATH+- The 1 to 768 character name of the From Path. The Path name
+        field is a variable field. Scrolling and the%ZEXPAND+command
+        are supported on this field. The Path name must begin and end
+        with a forward slash (/).
+
+%FROM USS FILE+- The 1 to 255 character name of the From USS file. Five
+        51 character lines are provided to enter the name. If you do
+        not code a USS file name, the Element name is used as the USS
+        file name. If the Element name is blank, a selection list of
+        the files in the directory is displayed.
++
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

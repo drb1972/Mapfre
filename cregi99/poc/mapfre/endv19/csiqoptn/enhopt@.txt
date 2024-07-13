@@ -1,0 +1,14 @@
+         MACRO
+&LABEL   ENHOPT@ &MSG
+         GBLB  &OPTTRACE
+         LCLC  &C
+.*
+         AIF   (NOT &OPTTRACE).OPT180
+&C       SETC  '&MSG'
+         AIF   ('&C'(1,1) NE '''').OPT120
+&C       SETC  '&MSG'(2,K'&MSG-2)
+.OPT120  ANOP
+         MNOTE '&C'
+.OPT180  ANOP
+         MEXIT
+         MEND

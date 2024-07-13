@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signout Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Applicable when retrieving an element with signin/signout in effect.
++Acceptable values are:
++
+%     Y+- Default. Sign out the retrieved element to your userid.
++
+%     N+- Retrieve the element but not sign it out to your userid.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+ to return)
+)END

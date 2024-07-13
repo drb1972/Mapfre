@@ -1,0 +1,40 @@
+         MACRO
+         ENHAPDEN &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        DENY PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APDEN_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+APDEN_RQ$EYE    EQU C'PDNQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APDEN_RQ
+         SPACE ,
+APDEN_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      APDEN_RQ_DATA
+APDEN_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+APDEN_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+APDEN_RQ_VER#1_DATADSLN EQU *-APDEN_RQ_DATA
+APDEN_RQ_VER#1_DSLN     EQU *-APDEN_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+APDEN_RQ_UPDT_NOTES DC CL1' '          UPDATE PACKAGE NOTES FLAG (Y/N)
+APDEN_RQ_NOTES    DS CL480             PACKAGE NOTES AREA
+APDEN_RQ_NOTES_LNG EQU *-APDEN_RQ_NOTES LENGTH OF NOTES AREA
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+APDEN_RQ_VER#2_DATADSLN EQU *-APDEN_RQ_DATA
+APDEN_RQ_VER#2_DSLN     EQU *-APDEN_RQ
+         SPACE ,
+APDEN_RQ_DATADSLN EQU *-APDEN_RQ_DATA
+APDEN_RQ_DSLN     EQU *-APDEN_RQ
+         ORG      APDEN_RQ_DATA
+APDEN_RQ_DATAAREA DS XL(APDEN_RQ_DATADSLN)     DATA AREA
+         MEND

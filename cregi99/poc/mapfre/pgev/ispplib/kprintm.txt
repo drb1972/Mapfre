@@ -1,0 +1,66 @@
+)Attr Default(%+_)
+  ^ type(input) intens(non)
+  @ type(input) intens(high)
+  # type(input) intens(non)
+  + type(text) intens(low) skip(on)
+)Body Expand(!!)
++-!-!- %Kaiser Utility Menu+ -!-!-%&sys
+%Command  ===>_zcmd                                                            +
+%
+%  +Dataset:@wdsn                                                              +
+%
+%   B+- Browse
+%   C+- Copy
+%        +To Dataset     %===>@cdsn                                            +
+%        +Member Name    %===>@cmem    +
+%   E+- Edit
+%   M+- EMC2 Email
+%        +Send to ID     %===>@emsnd                                           +
+%        +Subject title  %===>@emsub                                           +
+%        +Your password  %===>#empsw   + (not displayed)
+%   P+- Print
+%   T+- TCP/IP Printing
+%  XM+- XMITIP Mail
+%        +Send to Addr   %===>@xaddr                                           +
+%
+%! ! &END+- Return to Previous Panel ! !
+)INIT
+   .Help = isr00003
+   .Cursor = zcmd
+   IF (&kprcmd NE &z)
+       &zcmd   = &kprcmd
+       &kprcmd = &z
+       .Resp = ENTER
+   &sys = &zsysid
+   &end = pfk(END)
+   Vget ( wdsn cdsn cmem ) Profile
+
+)PROC
+   Ver (&wdsn,nb)
+   Vput (wdsn cdsn cmem) Profile
+
+   if (&zcmd = XM)
+      ver (&xaddr,nb)
+
+   &Zsel = Trans( trunc (&zcmd,'.')
+                 B,'Cmd(%kpbrows)'
+                 C,'Cmd(%kpcopy)'
+                 E,'Cmd(%kpedit)'
+                 M,'Cmd(%kpemc2)'
+                 P,'Cmd(%kpprnt)'
+                 T,'Cmd(%lprprint &wdsn)'
+                XM,'Cmd(%xmitip &xaddr nomsg file &wdsn)'
+                 X,exit
+                BA,exit
+              BACK,exit
+                CA,exit
+               CAN,exit
+            CANCEL,exit
+                IN,exit
+                EN,exit
+                 Q,exit
+              QUIT,exit
+               ' ',' '
+                 *,'?' )
+   &ztrail = .Trail
+)END

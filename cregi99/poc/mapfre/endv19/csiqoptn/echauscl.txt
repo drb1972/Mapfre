@@ -1,0 +1,24 @@
+      *****************************************************************
+      *            SCL ACTION - REQUEST BLOCK
+      *****************************************************************
+       01  AUSCL-RQ.
+           05  AUSCL-RQ-HEADER.
+               10  AUSCL-RQ-LEN        PIC 9(04) COMP VALUE 2016.
+               10  AUSCL-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  AUSCL-RQ-ID         PIC 9(04) COMP VALUE 1920.
+               10  AUSCL-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AUSCL-RQ-EYE        PIC X(04)      VALUE 'USCQ'.
+           05  AUSCL-RQ-DATAAREA.
+               10  AUSCL-RQ-SCLTYPE    PIC X(01)      VALUE SPACES.
+                   88  AUSCL-RQ-SCLTYPE-A             VALUE 'A'.
+                   88  AUSCL-RQ-SCLTYPE-C             VALUE 'C'.
+                   88  AUSCL-RQ-SCLTYPE-E             VALUE 'E'.
+                   88  AUSCL-RQ-SCLTYPE-P             VALUE 'P'.
+                   88  AUSCL-RQ-SCLTYPE-S             VALUE 'S'.
+                   88  AUSCL-RQ-SCLTYPE-X             VALUE 'X'.
+               10  AUSCL-RQ-SCL        PIC X(80)
+                                       OCCURS 25 TIMES VALUE SPACES.
+               10  AUSCL-RQ-ISDDN      PIC X(01)      VALUE SPACES.
+                   88  AUSCL-RQ-ISDDN-Y               VALUE 'Y'.
+                   88  AUSCL-RQ-ISDDN-N               VALUE 'N'.
+               10  AUSCL-RQ-RESERVE    PIC X(02)      VALUE SPACES.

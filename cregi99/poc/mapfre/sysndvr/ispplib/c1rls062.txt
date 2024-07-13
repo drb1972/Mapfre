@@ -1,0 +1,33 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag ^ sh msg
+tag & sh dsname
+tag @ uh memsel
+tag ¢ sh memname
+tag ~ sh memfoot
+%---------------------------  Library Selection List  --------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+^
++                    Library:&
++
+  % I+- Display footprints contained within a load module
++
++After a footprint has been displayed:
+%   L+- Display library mbr   %B+- Browse element     %C+- Changes only
+%   S+- Change summary        %H+- Change history     %M+- Master record
++
++              |--------------------  F O O T P R I N T  ----------------------|
++    MEMBER     SYSTEM   SUBSYSTEM ELEMENT    TYPE     S  VVLL  DATE    TIME LD
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+  @ ¢          ~
+enddef

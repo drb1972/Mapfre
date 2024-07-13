@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+  @   TYPE(OUTPUT) INTENS(LOW)
+  %   TYPE(TEXT) INTENS(HIGH)
+  +   TYPE(TEXT) INTENS(LOW) SKIP(ON)
+  _   TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+  !   TYPE(INPUT)  INTENS(HIGH) CAPS(ON)  JUST(LEFT)
+      PAD(_)
+)BODY EXPAND(\\)
++\-\%Element Selection+\-\
+%COMMAND ===>_ZCMD            \ \          %SCROLL = =>_AMT +
+%
++Type %SUB +on the command line to submit the retrieve job
++     Check the output for job %TTYYCSEG +in SDSF
++
++  Use %PF8 +to scroll Forward / %PF7 +to scroll Backward
++
++  Use %PF3 +to return to find another element
++
++  Use %S +to   Select the element for retrieval
++      %X +to Unselect the element for retrieval
++
++               Element   Type     System Subsys  Env  Stg   ProcGrp
++
+)MODEL
+!y+@w          @ele      @typ       @sys  @sub   @env  @stg @pro
+)INIT
+ &y = ' ' &zcmd = &z
+ .cursor = zcmd
+)REINIT
+ if (.msg = ' ')
+    &d = ' '
+    &y = ' '
+    refresh(y)
+)PROC
+  if (&ztdsels ^= '0000')
+       VER(&y,LIST,X,S,' ')
+)END

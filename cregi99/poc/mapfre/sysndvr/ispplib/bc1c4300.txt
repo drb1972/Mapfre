@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - SAS Reporting System \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PDM SAS reporting system allows users to generate a set of standard
++reports, or to build customized reports from the Build WIP and Merge
++action statistical records that PDM creates. The standard reports are:
++
++  Report 01: The BUILD WIP Action Summary report
++  Report 02: The MERGE Action Summary report
++  Report 03: Build WIP results sorted by the complexity factor
++  Report 04: Build WIP results sorted by the WIP member name
++
++Chapter 7 of the PDM User's Guide discusses the SAS reporting system.
++
++
+)END

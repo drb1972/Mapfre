@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Create GENERATE SCL  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this option to provide information for the creation of GENERATE SCL.  The
++SCL is placed in the data set specified on this panel.  After the SCL has been
++constucted, you will be placed in EDIT if tailoring is required.
++
++Action Options:  Options that will be used for the GENERATE action.
++  CCID/COMMENT   - CCID and COMMENT values to be used by the GENERATE action.
++
++  COPYBACK (Y/N) - If Y, ACMQ will build GENERATE COPYBACK statements. You
++  must specify the target environment and stage. System and subsystem are
++  optional. Wildcards are not allowed on inventory fields. If you select
++  COPYBACK you cannot select NOSOURCE.
++
++  NOSOURCE (Y/N) - If Y, ACMQ will build GENERATE NOSOURCE statements. You
++  must specify the target environment and stage. System and subsystem are
++  optional. Wildcards are not allowed on inventory fields. If you select
++  NOSOURCE you cannot select COPYBACK.
++
++  If both COPYBACK and NOSOURCE are 'N', the target inventory fields must be
++  blank.
++                             (%ENTER+to continue,%PF3+to return)
+)PROC
+  &ZCONT = TACMS2
+)END

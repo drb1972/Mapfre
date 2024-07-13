@@ -1,0 +1,74 @@
+         MACRO
+         ENHALPKS &DSECT=YES
+*
+         ENHAAID# ,                    API ID DEFINITIONS
+*
+***********************************************************************
+*        LIST PACKAGE SHIP - REQUEST BLOCK                            *
+***********************************************************************
+ALPKS_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+ALPKS_RQ$EYE    EQU C'LSHQ'            CONTROL BLOCK EYE-CATCHER
+*
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALPKS_RQ
+*
+ALPKS_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALPKS_RQ_DATA
+ALPKS_RQ_PKGID    DC CL16' '           PACKAGE ID
+ALPKS_RQ_ROPT     DC CL1' '            DATA OPTION
+ALPKS_RQ_RESERVE  DC CL1' '            **RESERVED**
+                  DS 0X
+                  DS 0F
+*
+ALPKS_RQ_VER#1_DATADSLN EQU *-ALPKS_RQ_DATA
+ALPKS_RQ_VER#1_DSLN     EQU *-ALPKS_RQ
+.*
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+.*
+*
+ALPKS_RQ_DATADSLN EQU *-ALPKS_RQ_DATA
+ALPKS_RQ_DSLN     EQU *-ALPKS_RQ
+         ORG      ALPKS_RQ_DATA
+ALPKS_RQ_DATAAREA DS XL(ALPKS_RQ_DATADSLN)     DATA AREA
+***********************************************************************
+*        LIST PACKAGE SHIP - RESPONSE BLOCK                           *
+***********************************************************************
+ALPKS_RS$VER    EQU ALPKS_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALPKS_RS$EYE    EQU C'LSHS'            CONTROL BLOCK EYE-CATCHER
+*
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALPKS_RS
+*
+ALPKS_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALPKS_RS_DATA
+*
+ALPKS_RS_PKGID    DC CL16' '           PACKAGE ID
+ALPKS_RS_SHDT     DC CL7' '            SHIP SUBMIT DATE
+ALPKS_RS_SHTM     DC CL5' '            SHIP SUBMIT TIME
+ALPKS_RS_SUID     DC CL8' '            SHIP SUBMIT USER ID
+ALPKS_RS_UPDT     DC CL7' '            RECORD LAST UPDATE DATE
+ALPKS_RS_UPTM     DC CL5' '            RECORD LAST UPDATE TIME
+ALPKS_RS_UPCT     DC CL5' '            RECORD UPDATE COUNT
+ALPKS_RS_TYPE     DC CL1' '            PACKAGE TYPE
+ALPKS_RS_CMPL     DC CL1' '            COMPLEMENTARY FILES
+ALPKS_RS_CMOV     DC CL1' '            CMPL FILES OVERRIDE
+ALPKS_RS_METH     DC CL1' '            TRANSMISSION METHOD
+ALPKS_RS_DSID     DC CL7' '            DESTINATION ID
+ALPKS_RS_HSRC     DC CL6' '            HOST STAGING RC
+ALPKS_RS_HTRC     DC CL6' '            HOST TRANSMISSION RC
+ALPKS_RS_RMRC     DC CL6' '            REMOTE MOVE RC
+ALPKS_RS_RJNM     DC CL8' '            REMOTE JOB NAME
+ALPKS_RS_RESERVE  DC CL1' '            ** RESERVED **
+                  DS 0X
+                  DS 0F
+*
+ALPKS_RS_VER#1_DATADSLN EQU *-ALPKS_RS_DATA
+ALPKS_RS_VER#1_DSLN     EQU *-ALPKS_RS
+*
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+*
+ALPKS_RS_DATADSLN EQU *-ALPKS_RS_DATA
+ALPKS_RS_DSLN     EQU *-ALPKS_RS
+         ORG      ALPKS_RS_DATA
+ALPKS_RS_DATAAREA DS XL(ALPKS_RS_DATADSLN)     DATA AREA
+         MEND

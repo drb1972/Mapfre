@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Updated/Created Fields \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++These fields show the date and time when the destination, the
++DistribuLink connection, or the mapping rule was created and last
++updated, and the user ID associated with each activity.
++
++
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Storage Formats - continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Image delta format+- The element base is the current image of the
++   element. If you choose this format, no source compare is peformed
++   to determine changes.  Instead, each element level represents
++   a full image of the element. This format consumes more DASD storage
++   and should be restricted to elements such as USS binary executables and
++   machine-generated source where the source compare is impossible or
++   unnecessary. With this format, it is recommended that you keep the
++   "Remove/Consol at Level" number low.
++
++   Elements with either forward or reverse delta formats can change to
++   image delta format when moved (or transferred) without change history.
++   Likewise, elements with image deltas can change to forward or reverse
++   delta format when moved (or transferred) without history from one
++   location to another. Note, move with history is not permitted between
++   locations where one type format is image and the other is a different
++   type format.
++
++          (%PF3+to return,%ENTER+for more information on%image delta+)
++
+)proc
+   &ZCONT = CITT2533
+)END

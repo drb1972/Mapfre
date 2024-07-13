@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Query  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++ELEMENT Query Information: For option blanks (element query) enter the
++   inventory location information to limit which elements the search
++   pertains to. Wildcarding and masking characters are allowed.
++
++MEMBER Query Information: For option M (member query) enter an
++   optional data set name to limit which library the search pertains
++   to. Wilcarding and masking characters are not allowed and beginning
++   and ending quotes are not allowed.
++
++COMMENT/OBJECT Query Information: For options C or O, enter the
++   name of the comment or object the search pertains to.
++   Wildcarding and masking characters are not allowed. Beginning and
++   ending quotes are optional. This field is case-sensitive.
++
++
++
++
++
++                             (%ENTER+to continue,%END+to return)
+)PROC
+   &ZCONT = TACM3
+)END

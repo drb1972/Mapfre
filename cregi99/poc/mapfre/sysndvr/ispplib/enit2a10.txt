@@ -1,0 +1,26 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Export to Data Set Name \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Export to Data Set Name fields identify the location of the external
++data set to which the SCL is to be written.  They are standard ISPF data set
++specification fields used to identify an external data set and member.  The
++data set can be a PDS or sequential file.
++
++Use the Other Partitioned or Sequential Data Set field as an alternative to
++Export to Data Set Name fields to identify the external data set and member.
++Type the data set and member specification in 'data set(member)' format.
++
++The data set selected must be allocated with either fixed or variable length
++records.  If fixed, the record length must be 80.  If variable, the record
++length must be at least 84.
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2A00
+)END

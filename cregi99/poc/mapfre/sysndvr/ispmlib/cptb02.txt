@@ -1,0 +1,30 @@
+CPTB020 'Invalid Selection'                             .ALARM=YES
+'CPTB020 Select only one valid option from the list below.'
+
+CPTB021 'Invalid Matrix Command'                         .ALARM=YES
+'CPTB021 The Matrix Command entered is invalid. Valid commands are listed below'
+
+CPTB022 'BUILD WIP Complete'
+'CPTB022 The BUILD WIP process has completed successfully.'
+
+CPTB023 'No Matches Found'
+'CPTB023 No matches were found for the specified member/element name or pattern'
+
+CPTB024 'Invalid Selection'                              .ALARM=YES
+'COTB024 Numeric selections or VVLL select are the only valid options.'
+
+CPTB025 'BUILD WIP Error'                                .ALARM=YES
+'CPTB025 The BUILD WIP process completed with error(s).'
+
+CPTB026 'WIP Member Required'                            .ALARM=YES
+'CPTB026 A sequential ROOT requires a sequential WIP or an explicit WIP member'
+
+CPTB027  'WIP Member exists'                             .ALARM=YES
+'CPTB027 The WIP member exists and the NO REPLACE option was specified.'
+
+CPTB028  'Select only one Entry'                         .ALARM=YES
+'CPTB028 Only one entry may be selected from the list below.'
+
+CPTB029  'Member Already Exists'                         .ALARM=YES
+'CPTB029 The WIP member exists and NO REPLACE was specified.'
+

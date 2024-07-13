@@ -1,0 +1,14 @@
+@REM ************************************************* #PSNFTPE
+@REM *    CONTENTS: ENDEVOR/MVS - REMOTE EXECUTION OF THE AHJOB
+@REM * TRANSMITTER: NETVIEW FILE TRANSFER PROGRAM
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO
+@REM *              AT THE REMOTE SITE.
+@REM **********************************************************
+@REM    P002232 APPLIED
+@REM **********************************************************
+//SUBFTP01 EXEC PGM=IKJEFT01,COND=(0,LT)
+//SYSOUT    DD  SYSOUT=*
+//SYSTSPRT  DD  SYSOUT=*
+//SYSTSIN   DD  *
+ SUBMIT '&AHJOBDSN'
+/*

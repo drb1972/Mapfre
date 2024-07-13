@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+ @ TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Automatic Recovery \-\
+%Command ===>_VARWKCMD                                        %Scroll ===>_AMT +
++*****************************************************************************
++* The following element was being edited (or created) when a system         *
++* failure or task abend occurred:                                           *
++*                                                                           *
++*   Element:^QEPELM    ^Z +Environment:@QEPEVNME+  Stage ID:@Z+             *
++*    System:@QEPSYS  +       Subsystem:@QEPSBS  +      Type:@QEPTYP  +      *
++*                                                                           *
++*      CCID:@EEVCCID      +Processor Group:@EEVPRGRP+                       *
++*   Comment:@EEVCOMM                                 +                      *
++*%WARNING:+Timestamp does not match. %ELEMENT H-A-S BEEN MODIFIED           *
++*****************************************************************************
++   Press%ENTER+ key to continue editing the element
++   Enter%END  + command to exit Quick Edit
++   Enter%CANCEL+command to cancel recovery of the element
++
+%Edit Recovery+does not have all of the functionality of QuickEdit.
++     If you elect to proceed (by hitting ENTER), view the data set
++     to see if it is correct.  Thence, hit PF3 (or END) to terminate
++     recovery.  You will then be placed into normal Quick Edit to
++     continue the editing of your element.
+)INIT
+  .ZVARS = '(QEPIND QEPSTG)  '
+  .HELP = ENDHE400
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+)FIELD
+ FIELD(QEPELM) IND(QEPIND) SCROLL(ON)
+)END

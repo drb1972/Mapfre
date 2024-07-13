@@ -1,0 +1,28 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ } TYPE(TEXT)  COLOR(YELLOW)    HILITE(REVERSE)
+)BODY EXPAND (\\) window (52,11)
+%\-\ Target User PDS \-\
++
++  TO USER PDS:
++     +Project %==>_UPDS1   +
++     +Group   %==>_UPDS2   +
++     +Type    %==>_UPDS3   +
++     +Replace?%==>_Z+
++
+)INIT
+ .help = EVXPED1H
+ .ZVARS = '(REPL)'
+ &REPL = 'N'
+)REINIT
+  REFRESH(*)
+)PROC
+  VER (&UPDS1,NB)
+  VER (&UPDS2,NB)
+  VER (&UPDS3,NB)
+  VER (&REPL,NB,LIST,Y,N,MSG=EVXP007)
+)END

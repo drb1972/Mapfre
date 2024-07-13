@@ -1,0 +1,60 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit Batch Actions Queue Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Quick Edit Batch Actions Queue Feature                   \ \+Enabled:%&VNTQUENA
++                                                         \ \+Default:%&VNTQUQUD
++                                                         \ \+Profile:%&VNTQUQPR
++  CD18101   QUICK EDIT BATCH ACTION FEATURE              \ \+Prompt: %&VNTQUPRD
++
++  When Quick Edit users request batch actions, the requests can either
++  be executed as a single batch job, per request, or queued and processed
++  later using the%SQ+command.  Queued requests are executed according to
++  Global Type Sequence, and can exploit CAP(Concurrent Action Processing).
++
++  This feature is enabled by adding the following option to your optional
++  feature table:
++
++        ENHOPT%CD18101_QE_QUE_BATCH_ACT=ON+             +DEFAULT IS OFF
++
++  If enabled, the configuration table values (see ENDICNFG, option
+%  QE_QUE_BATCH_ACT_MODE+and%QE_QUE_BATCH_ACT_PROF+values) control the
++  default option (Y,N) and whether the user's choice is saved in their
++  profile, or reset to the default at every startup.
++
++  In addition, Quick Edit users can use the EDIT sub-command of SQ to
++  Edit their SCL requests, and that Edit environment now supports SCL
++ %MODel+commands and a new%VALidate+macro command to validate the
++  the SCL.  These model commands are available anywhere in Endevor using
++  the%MODEL CLASS SCL+command, or by tailoring your ISREMCLS panel.
++
++  If Prompt after Edit option enabled, the Batch Submit panel will be
++  shown after each Edit action. The configuration table default value
++  could be used (see ENDICNFG, option%QE_QUE_BATCH_PROMPT+value).
++
++  The following topics will be presented only if selected by number:
++
++  { 1}Using the SQ command+
++  { 2}Prompt after Edit option+
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = ENDHE150
+ &ZSEL = TRANS(&ZCMD,
+                   1,*ENDHE159
+                   2,*ENDHE162
+                   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01004) VAR(ZCMD) VAL(END)
+)END

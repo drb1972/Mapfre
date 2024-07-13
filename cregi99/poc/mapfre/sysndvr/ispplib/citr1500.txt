@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Unload/Reload Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel
++
++  1. Type an alphanumeric character in the selection field for the
++     reports you want to generate.
++
++  2. Specify the location of the information you want in the report
++      in the FROM UNLOAD TAPE fields.
++
++  3. Specify the inventory location for which you want the report(s).
++
++      * ENVIRONMENT is required, all other fields are optional.
++
++      * PACKAGE ID only applies to Report 55.
++
++
++
++
++                                            (%PF3+to return)
+)END

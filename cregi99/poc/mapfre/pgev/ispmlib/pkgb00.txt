@@ -1,0 +1,8 @@
+PKGB001 'Pos 1 must be C'                                    .ALARM=YES
+'The package name begin with the letter C'
+PKGB002 'Pos 2 to 7 not numeric'                             .ALARM=YES
+'Characters 2 to 7 of the package id must be numeric'
+PKGB003 'Pos 9 must be B,D,ForP'                             .ALARM=YES
+'The ninth character of the package id must be B, D, F or P'
+PKGB004 'Pos 10 to 15 not numeric'                           .ALARM=YES
+'Characters 10 to 15 of the package id must be numeric or blank'

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection - RESET \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++To RESET the current queue of packages selected for collection, type%4+
++in the Option field and press ENTER. No other data is needed.
++
++A message will be displayed in the upper right hand corner of the panel
++indicating that the reset is complete.
++
++Reset is used to clear the current queue so that the selection process
++can be re-entered without submitting the collection request.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
++
+)END

@@ -1,0 +1,17 @@
+************************************************************************00033400
+**                                                                    **
+** SAMPLE SYNTAX FOR THE ENDEVOR CONSCAN PROCESSOR PROGRAM            **
+**                                                                    **
+************************************************************************00033400
+*                                                                       00034100
+* COMMENT IS '*' IN COLUMN 7
+*                                                                       00034100
+          COMMENT
+          FIND1 STRING='*',POS=7
+          END1  CARD
+* CALL DTESUB.
+          SCANTYPE ELEMENT
+          FIND1 STRING=' CALL ',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC
+          END2  TYPE=CHAR,PARM='.'

@@ -1,0 +1,44 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (Dx) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%DiffTool - Compare any two elements+
++
++  These sample user routine (NDUSRXD*) allows the user to select any two
++  elements and invoke a compare between them.
++
+%  Intended Use:+
++  Use these routines to quickly compare an element with any prior version,
++  in the current environment, or at any other location on the map.  Rows can
++  be selected from the Summary of levels, or the element selection list on
++  any split screen.
++
++  Supported Line commands:
+%  D    +On its own, selects an element or version to compare.
+%       +When two elements have been selected, compare is invoked.
+%  DN   +Use DN to select the%"NEW"+version to compare.
+%  DO   +Use DO to select the%"OLD"+version.
+%  DU   +Compare this element with the next version of the element%Up+the map.
+%  DP   +Compare this element with the%Production+(top of the map) version.
++
+%  Note:+
++  This routine invokes IBM(R) Super/C to perform the actual compare. To
++  check or modify the compare options use command%EDIFopt.  You can also
++  use this panel to adjust the allocation parameters of the temporary files
++  if needed to accommodate special needs (e.g. record length, or formatting).
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

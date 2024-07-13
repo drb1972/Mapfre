@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprint Display \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++You must provide a member name to use options I and L.
++
++Use this panel to request a member or list of members for which you
++want to view the CSECTs, their footprints or associated source.
++
++    For more information about
++
+%    1+- ISPF fields       %2+- Footprints
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITISPF0 2,CITT6000)
+)END

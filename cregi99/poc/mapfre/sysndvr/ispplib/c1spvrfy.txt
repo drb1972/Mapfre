@@ -1,0 +1,32 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%---------------------------  Package ID Prompt  -------------------------------
+%COMMAND ===>_ZCMD                                                             +
++
++
++
++   ************************************************************************
++   *                                                                      *
++   *  %You omitted the package id from the previous panel. A significant +*
++   *  %delay may occur if you do not limit the package selection list.   +*
++   *                                                                      *
++   *                                                                      *
++   *   If you wish to return to the previous panel to make a package id   *
++   *   specification, enter the%END+command.                              *
++   *                                                                      *
++   *   Otherwise, press the%ENTER+key to continue...                      *
++   *                                                                      *
++   ************************************************************************
+)INIT
+)PROC
+)END

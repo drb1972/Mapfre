@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_VARWKCMD                                                         +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++Dynamic Panel Options
++
+%   Layout (L-Long/S-Short)+- For users who do NOT make use of long
++     Element names, and do NOT need USS file support, set the option to
++    %S+for short.  This option formats the panel in the earlier panel
++     style and hides options these users do not need.
++     Use option%L+for long for users who want a panel layout that can
++     display a long Element name at the top (followed by type, CCID and
++     COMMENT).  The related options%Uppercase Elm Name,+and
++    %Case-sensitive Elm Name+are visible and active.  The initial
++     value for this field is set from the%&LIT1        +ENDICNFG
++     Configuration Table parameter.
++     Once the User Defaults panel is displayed the value entered by the
++     user is saved and restored each time the panel is re-displayed.
++
+%   Hide Dialog Prompt Text+-Specify%Y+for yes, or%N+for no to contol how
++     the dialog prompt text at the top of the Quick Edit panels are
++     displayed.  The default value is 'N' but can be changed using
++     the%&LIT2             +ENDICNFG Configuration Table option.
++     As a convenience the user can also toggle this this feature on/off
++     by placing the cursor in the column heading and pressing ENTER.
++
++\ \ (Press%ENTER+to continue or%END+to exit)  \ \
++
+)INIT
+   &LIT1 = 'UI_OPT_ELEMENT'
+   &LIT2 = 'UI_OPT_HIDE_PROMPT'
+)END

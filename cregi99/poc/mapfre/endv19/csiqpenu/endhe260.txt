@@ -1,0 +1,33 @@
+)ATTR
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)AREA SCRLAREA
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
++Use the Summary of Element Levels panel to edit a particular level
++of an element, display a particular level, or to display the
++changes or change history for a particular level of an element.
++
++Note that although option "M" (Master) can be specified for any change
++level, the displayed information is associated with the last level.
++
++Request an action against an element level by typing the requisite
++option letter to the left of the desired version and level.
++For example, to edit level 0103 of an element, type%E+to the left
++of 0103 in the VVLL column.
++
++You can select more than one level for processing, and specify
++a different processing option for each level. The dialog
++processes the levels in the order in which they appear in
++the selection list.
++
++The summary of levels selection list occupies two screens, so the LEFT
++and RIGHT scroll commands or the default F keys can be used to scroll
++from screen 1 to screen 2 or vice versa. Repeated left or right
++scrolling will result in recycling of the screens.
++
++To initiate processing, press%ENTER+.
++
++                                (%END+to return)
+)END

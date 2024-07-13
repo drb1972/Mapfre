@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection Requests \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++Use the Product Collection Request Panel to build, display, submit and
++reset product collection requests and to display the status of collection
++requests which have already executed.
++
++Depending on the activity selected, different information must be
++supplied on this panel.
++
++
++  Select%1+-%5+for more information about how to:
++
+%  1+-%SELECT+a connection and package(s) to be collected by DistribuLink.
+%  2+-%DISPLAY+the current queue of packages selected for collection.
+%  3+-%SUBMIT+the product collection request for batch execution.
+%  4+-%RESET+the current queue of packages selected for collection.
+%  5+- Display the%STATUS+of collection requests which have executed.
++
++
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPC910 2,CITPC920
+                  3,CITPC930 4,CITPC940 5,CITPC950)
+)END

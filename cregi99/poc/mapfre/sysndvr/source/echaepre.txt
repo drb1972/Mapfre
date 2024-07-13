@@ -1,0 +1,44 @@
+      *****************************************************************
+      *                                                               *
+      *            PRINT ELEMENT - REQUEST BLOCK                      *
+      *                                                               *
+      *****************************************************************
+       01  AEPRE-RQ.
+           05  AEPRE-RQ-HEADER.
+               10  AEPRE-RQ-LEN        PIC 9(04) COMP VALUE 256.
+               10  AEPRE-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEPRE-RQ-ID         PIC 9(04) COMP VALUE 1312.
+               10  AEPRE-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  AEPRE-RQ-EYE        PIC X(04)      VALUE 'EPEQ'.
+           05  AEPRE-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEPRE-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEPRE-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+               10  AEPRE-RQ-VERSION    PIC X(02)      VALUE SPACES.
+               10  AEPRE-RQ-LEVEL      PIC X(02)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEPRE-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEPRE-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEPRE-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEPRE-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AEPRE-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AEPRE-RQ-DDN        PIC X(08)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEPRE-RQ-NOCC       PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-COMP       PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-PRT-OPT    PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-SEARCH     PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-INTRTST    PIC X(01)      VALUE SPACES.
+               10  AEPRE-RQ-READONLY   REDEFINES AEPRE-RQ-INTRTST
+                                       PIC X(01).
+               10  AEPRE-RQ-RESERVE    PIC X(02)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AEPRE-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AEPRE-WCCID         PIC X(12)      VALUE SPACES.
+               10  AEPRE-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AEPRE-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AEPRE-WPROGRO-2-8   PIC X(56)      VALUE SPACES.
+               10  FILLER              PIC X(02)      VALUE SPACES.
+               10  AEPRE-RQ-LISTSTR    PIC X(08)      VALUE SPACES.

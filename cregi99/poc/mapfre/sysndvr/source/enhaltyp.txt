@@ -1,0 +1,131 @@
+         MACRO
+         ENHALTYP &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST TYPE - REQUEST BLOCK                                    *
+*                                                                     *
+***********************************************************************
+ALTYP_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+ALTYP_RQ$EYE    EQU C'LTYQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALTYP_RQ
+         SPACE ,
+ALTYP_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALTYP_RQ_DATA
+ALTYP_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALTYP_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALTYP_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR- (N)O -OR- (R)ANGE
+ALTYP_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALTYP_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALTYP_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+ALTYP_RQ_STG_ID   DC CL1' '            STAGE ID
+ALTYP_RQ_TOSTG_ID DC CL1' '            RANGE-TO STAGE ID -OR-          X
+                                       BETWEEN-TO STAGE ID
+ALTYP_RQ_SYSTEM   DC CL8' '            SYSTEM NAME/MASK
+ALTYP_RQ_TYPE     DC CL8' '            TYPE NAME/MASK
+                  DC CL2' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALTYP_RQ_VER#1_DATADSLN EQU *-ALTYP_RQ_DATA
+ALTYP_RQ_VER#1_DSLN     EQU *-ALTYP_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALTYP_RQ_VER#2_DATADSLN EQU *-ALTYP_RQ_DATA
+ALTYP_RQ_VER#2_DSLN     EQU *-ALTYP_RQ
+         SPACE ,
+ALTYP_RQ_DATADSLN EQU *-ALTYP_RQ_DATA
+ALTYP_RQ_DSLN     EQU *-ALTYP_RQ
+         ORG      ALTYP_RQ_DATA
+ALTYP_RQ_DATAAREA DS XL(ALTYP_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST TYPE - RESPONSE BLOCK                                   *
+*                                                                     *
+***********************************************************************
+ALTYP_RS$VER    EQU ALTYP_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALTYP_RS$EYE    EQU C'LTYS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALTYP_RS
+         SPACE ,
+ALTYP_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALTYP_RS_DATA
+ALTYP_RS_SITE     DC CL1' '            SITE ID
+ALTYP_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALTYP_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALTYP_RS_TYPE     DC CL8' '            TYPE NAME
+ALTYP_RS_TYPENBR  DC CL2' '            TYPE ID NUMBER
+ALTYP_RS_STG_NAME DC CL8' '            STAGE NAME
+ALTYP_RS_STG_ID   DC CL1' '            STAGE ID
+ALTYP_RS_STG_NUM  DC CL1' '            STAGE NUM
+ALTYP_RS_STG_REL  DC ZL4'0'            RELATIVE STAGE NUMBER
+ALTYP_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALTYP_RS_UPD_DATE DC ZL8'0'            UPDATE DATE 'YYYYMMDD'
+ALTYP_RS_UPD_TIME DC ZL8'0'            UPDATE TIME 'HHMMSSTH'
+ALTYP_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALTYP_RS_FMID     DC ZL5'0'            RECORD CREATED RELEASE ID
+ALTYP_RS_NXT_TYP  DC CL8' '            NEXT TYPE NAME IN PATH
+ALTYP_RS_DESC     DC CL50' '           TYPE DESCRIPTION
+ALTYP_RS_DPGRPNME DC CL8' '            DEFAULT PROCESSOR GROUP NAME
+ALTYP_RS_FILEEXT  DC CL8' '            FILE EXTENSION NAME
+ALTYP_RS_HOOP     DC CL1' '            HOME OPSYS: M-MVS / W-WKSTATION
+         ORG      ALTYP_RS_HOOP
+ALTYP_RS_DATAFMT  DC CL1' '            DATA FORMAT
+ALTYP_RS_DATAFMTB    EQU C'B'             BINARY DATA
+ALTYP_RS_DATAFMTT    EQU C'T'             TEXT DATA
+         ORG      ALTYP_RS_DATAFMT+L'ALTYP_RS_DATAFMT
+ALTYP_RS_EXTLANG  DC CL8' '            LANGUAGE
+ALTYP_RS_INTLANG  DC CL8' '            PV/LB LANGUAGE
+ALTYP_RS_REPCT    DC CL2' '            REGRESSION PERCENT
+ALTYP_RS_RESEV    DC CL1' '            REGRESSION SEVERITY
+ALTYP_RS_SLEN     DC CL5' '            SOURCE LENGTH
+ALTYP_RS_CMPFR    DC CL5' '            COMPARE FROM
+ALTYP_RS_CMPTO    DC CL5' '            COMPARE TO
+ALTYP_RS_AUCON    DC CL1' '            Y/N - AUTO CONSOLIDATE
+ALTYP_RS_AULTC    DC CL3' '            CONSOLIDATE LEVEL
+ALTYP_RS_AUCLE    DC CL3' '            AUTO CONSOLIDATE LEVEL
+ALTYP_RS_CAUCO    DC CL1' '            Y/N - COMPONENT AUTO CONSOLIDATE
+ALTYP_RS_CULTC    DC CL3' '            COMPONENT CONSOLIDATE LEVEL
+ALTYP_RS_CAUCL    DC CL3' '            COMPONENT AUTO CONSOLIDATE LVL
+ALTYP_RS_SOEXI    DC CL1' '            Y/N - EXPAND INC IN SRC O/P LIB
+ALTYP_RS_DELTY    DC CL1' '            F/R/I/L - FWD,REV,IMG,LOG DELTA
+ALTYP_RS_CDELTY   DC CL1' '            F/R - FWD, REV DELTA COMPONENT
+ALTYP_RS_CMPBA    DC CL1' '            Y/N - COMPRESS BASE?
+ALTYP_RS_NNCR     DC CL1' '            Y - NOT ENCRYPTED ELM NAME
+ALTYP_RS_ODSTYP   DC CL2' '            SRC OUTPUT DATA SET: PO/PV/LB
+ALTYP_RS_ODSNME   DC CL44' '           SRC OUTPUT DATA SET NAME
+ALTYP_RS_IDSTYP   DC CL2' '            INCLUDE DATA SET: PO/PV/LB
+ALTYP_RS_IDSNME   DC CL44' '           INCLUDE DATA SET NAME
+ALTYP_RS_BDSTYP   DC CL2' '            BASE DATA SET: PO/PV/LB
+ALTYP_RS_BDSNME   DC CL44' '           BASE DATA SET NAME
+ALTYP_RS_UDSTYP   DC CL2' '            UPDATE DATA SET: PO/PV/LB
+ALTYP_RS_UDSNME   DC CL44' '           UPDATE DATA SET NAME
+*                                      N - ENCRYPTED ELM NAME
+ALTYP_RS_ELRECFM  DC CL1' '            ELEMENT RECFM
+                  DC CL1' '            ALIGNMENT
+         SPACE ,
+ALTYP_RS_VER#1_DATADSLN EQU *-ALTYP_RS_DATAAREA
+ALTYP_RS_VER#1_DSLN  EQU *-ALTYP_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALTYP_RS_HFSD     DC CL4' '    HFS RECORD DELIMITER (MACRO: C1UIODLM)
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALTYP_RS_VER#2_DATADSLN EQU *-ALTYP_RS_DATA
+ALTYP_RS_VER#2_DSLN     EQU *-ALTYP_RS
+         SPACE ,
+ALTYP_RS_DATADSLN EQU *-ALTYP_RS_DATA
+ALTYP_RS_DSLN     EQU *-ALTYP_RS
+         ORG      ALTYP_RS_DATA
+ALTYP_RS_DATAAREA DS XL(ALTYP_RS_DATADSLN)     DATA AREA
+         MEND

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Element Action Backout \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
+%
+%Package Element Action Backout +
++
+ This enhancement allows the output members of a single action within a package
+ to be backed out without backing out the entire package.
+
+%*EXCEPTION*+If there are multiple actions within the package that produce the
+ same output member, the package will not be eligible for Element Action
+ Backout.
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1530
+)END

@@ -1,0 +1,2 @@
+CJGG140S 'PROCESSING ABENDED'                            .ALARM=YES
+'&C1LMSG'

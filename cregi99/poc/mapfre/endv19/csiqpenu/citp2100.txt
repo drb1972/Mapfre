@@ -1,0 +1,27 @@
+%TUTORIAL  ---------------  PACKAGE EDIT VALIDATION  ------------------ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++Errors have been found within the package identified above.
+
+
+ You have the option of either:
+
+
+     OPTION E: Editing the package SCL to correct the errors.
+
+     OPTION Q: Quiting out of this edit session and discarding all
+               changes you have made during this Package edit
+               session.
+
+     OPTION S: Quiting out of this edit session but saving all
+               changes made during this Package Edit session.
+
+
+    %Please Note: If you choose option S, the Package will contain
+                  SCL errors.
+
+
+    +Enter the Option you choose in the OPTION prompt.
+)PROC
+   &ZCONT = CITP2000
+)END

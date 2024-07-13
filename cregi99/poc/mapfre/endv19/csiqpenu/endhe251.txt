@@ -1,0 +1,10 @@
+)ATTR DEFAULT(%+_)
+)BODY EXPAND (\\)
+%TUTORIAL \-\ DEPRECATED \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++                                                                 %Page 2 of 2
++
++THIS HELP PANEL IS DEPRECATED ENDHE250 IS NOW SCROLLABLE
+)PROC
+   &ZCONT = ENDHE250
+)END

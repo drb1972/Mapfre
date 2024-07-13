@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ Move Component List Enhancement \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Move Component List Enhancement +
+
++ This enhancement provides the ability to update the component list to reflect
+  the new location of the output components as the result of the execution of
+  the move processor. An additional consequence of this is that the Quick Edit
+  commands LL and LO will now function properly after a move.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7110
+)END

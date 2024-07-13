@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Stage Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Current env+- Name of the environment for which stage information is shown.
++
+%Next env+- The name of the next environment on the map.
+%Stage ID+- ID of the first Stage in the next environment.
++
+%Stage 1 and 2 Information.+
++
+%   ID+- Stage ID.
++
+%   Name+- Stage name.
++
+%   Title+- Stage description.
++
+%   MCF data set name+- Data set name of the Master Control File for the Stage.
++
+%   Entry Stage+- Entry stage used for Add/Update actions (Y/N).
++
+%   Stop at Stage+- Promotion package stop at stage option (Y/N).
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Replace Member \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Applicable if the TO data set is a library.  Indicates whether to
++replace a member with the same name in the TO data set. Acceptable
++values are:
++
+%   N+- Default. Do not retrieve the element if a member with the same
++           name exists in the to data set.
++
+%   Y+- Retrieve the element, replacing the member with the same name.
++
++
++
++
++
++
++
++
++                                            (%PF3+ to return)
+)END

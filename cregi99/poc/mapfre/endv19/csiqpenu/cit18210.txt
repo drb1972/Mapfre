@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Web Services RESTful API client & Eclipse-Based UI \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Web Services RESTful API client & Eclipse-Based UI
++
+% Web Services RESTful API client
++ The Create and Update Package actions are separated into two different REST
++ methods in the RESTful API. The Create Package action uses the POST method
++ and the Update Package action uses the PUT method. The mixed parameters of
++ Multipart/form-data and query are replaced solely by Multipart/form-data
++ parameters for Create and Update Package actions.
++
+% Eclipse-Based UI Package Create option renamed
++ When you want to create a Package, but plan to add the SCL to the Package
++ later, you can select the option Define Package without SCL from the
++ Create Package dialog. Previously, this option was labeled Define Empty
++ Package. The functionality has not changed; only the name of the option has
++ changed.
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18220
+)END

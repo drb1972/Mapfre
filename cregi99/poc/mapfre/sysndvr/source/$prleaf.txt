@@ -1,0 +1,120 @@
+         MACRO
+.**********************************************************************
+.* Name:        $PRLEAF                                               *
+.* Description: IF-THEN-ELSE specification macro                      *
+.* Function:    Define processor conditional JCL blocks for           *
+.*                                                                    *
+.*              This macro builds a conditional tree. Each entry      *
+.*              represents either a node or a leaf entry. The node    *
+.*              represents either an AND or an OR variant (including  *
+.*              NOTs). Each leaf represents an expression.  The node  *
+.*              points to two expressions, the first being the left   *
+.*              expression and the second the right as in the         *
+.*              following expression: left_expr AND right_expr        *
+.*              where left_expr and right_expr are conditional        *
+.*              expressions in the form a=b.                          *
+.*                                                                    *
+.* Keywords/parameters:                                               *
+.*    TYPE - specify the tree entry type, node (NODE) or leaf (LEAF). *
+.*                                                                    *
+.*    LEFT - specify the address of the left expression (leaf or node)*
+.*                                                                    *
+.*    RIGHT- specify the address of the right expression (leaf or     *
+.*           node)                                                    *
+.*                                                                    *
+.*    OPER - Specify the Boolean operator connecting the two          *
+.*           expressions EXP1 and EXP2. Example: OPER=AND. Valid      *
+.*           values are AND, OR, NOT.                                 *
+.*                                                                    *
+.**********************************************************************
+&LABEL   $PRLEAF &ELEM1=,             First element                    +
+               &ELEM2=,               Second element                   +
+               &COND=,                Expression operator              +
+               &REFER=,               Step refer back                  +
+               &SYMBOL=NO,            Element 1 type                   +
+               &P=PRI
+.*
+         COPY  $PRGLBLS                Copy the global variables
+         LCLB  &EQ,&NE,&GT,&NG,&LT,&NL,&LE,&GE
+         LCLC  &BLKE1TY
+         LCLC  &FLDSLBL                Local ITE label value
+         LCLC  &CLEAF
+         LCLC  &E1TYPE
+.*
+         AIF   (&PRSTART).ITE0020
+         MNOTE 16,'Misplaced leaf entry'
+.ITE0020 ANOP
+&PRITE   SETC  'ITE'
+&EQ      SETB  ('&COND' EQ 'EQ' OR '&COND' EQ '=')
+&NE      SETB  ('&COND' EQ 'NE' OR '&COND' EQ '^=')
+&GT      SETB  ('&COND' EQ 'GT' OR '&COND' EQ '>')
+&LT      SETB  ('&COND' EQ 'LT' OR '&COND' EQ '<')
+&NG      SETB  ('&COND' EQ 'NG' OR '&COND' EQ '^>')
+&NL      SETB  ('&COND' EQ 'NL' OR '&COND' EQ '^<')
+&GE      SETB  ('&COND' EQ 'GE' OR '&COND' EQ '>=')
+&LE      SETB  ('&COND' EQ 'LE' OR '&COND' EQ '<=')
+&E1TYPE  SETC  'PRILKWD'
+         AIF   ('&SYMBOL' EQ 'NO').ITE0120
+&E1TYPE  SETC  'PRILSYMB'
+.ITE0120 ANOP
+.**********************************************************************
+.* Validate the presence of expression elements:
+.**********************************************************************
+.ITE0300 ANOP
+         AIF   ('&ELEM1' NE '').ITE0320
+         MNOTE 16,'Required element 1 expression is missing'
+.ITE0320 ANOP
+         AIF   ('&ELEM2' NE '' AND '&ELEM1' NE '').ITE0340
+         AIF   ('&ELEM2' EQ '').ITE0340
+         MNOTE 16,'Element 2 specified with no element 1'
+.ITE0340 ANOP
+         AIF   ('&ELEM1' EQ 'RC').ITE0440
+         AIF   ('&ELEM1' EQ 'ABEND').ITE0600
+         AIF   ('&ELEM1' EQ 'ABENDCC').ITE0440
+         AIF   ('&ELEM1' EQ 'RUN').ITE0440
+&BLKE1TY SETC  'PRITESYM'
+         AGO   .ITE0460
+.ITE0440 ANOP
+&BLKE1TY SETC  'PRITEDEF'
+         AGO   .ITE0460
+.ITE0460 ANOP
+.**********************************************************************
+.* Validate the expression conditional operator:
+.**********************************************************************
+&PRITECOND SETA &EQ*128+&NE*64+&LT*32+&NL*16+&GT*8+&NG*4+&LE*2+&GE*1
+         AIF   (&PRITECOND NE 0).ITE0520
+         MNOTE 16,'Invalid expression conditional operator: &COND..'
+.ITE0520 ANOP
+.**********************************************************************
+.* Generate a leaf entry
+.**********************************************************************
+.ITE0600 ANOP
+&PRCSECT CSECT
+         DC      A(&LABEL)
+         DC      A(0)
+&LABEL   DS    0F                      ITE leaf entry
+&FLDSLBL SETC  '&LABEL.VARS'
+&FLDSCNT SETC  '&LABEL.LEAF#'
+&FLDSLEN SETC  '&LABEL.$LN'
+         DC    Y(&P.TEEQU)             Identify ITE block
+         DC    Y(&FLDSLEN)             Length of this block
+         DC    Y(&P.TEVER)             Endevor version generating proc
+         DC    Y(&FLDSCNT)             Number of variable fields
+         SPACE 2
+         DC    AL1(&P.LLEAF)           Entry type (Leaf)
+         DC    AL1(&E1TYPE)            Element type
+         DC    AL2(0)                  Reserved
+         DC    A(&FLDSLBL)             A(Element 1)
+         DC    A(0)                    A(Element 2)
+         DC    A(0)                    Conditional operator
+.*
+&FLDSLBL DS    0F
+         $PRFLD FIELD=ITEE1,VALUE=&ELEM1                                00000060
+         $PRFLD FIELD=ITEE2,VALUE=&ELEM2                                00000060
+         $PRFLD FIELD=ITECC,VALUE=&COND                                 00000060
+         $PRFLD FIELD=ITE1T,VALUE=&BLKE1TY                              00000060
+         $PRFLD FIELD=ITERB,VALUE=&REFER                                00000060
+&FLDSCNT EQU ((*-&FLDSLBL)/8)          Number of variable fields
+&FLDSLEN EQU   *-&LABEL                Size of the block
+         MEXIT
+         MEND

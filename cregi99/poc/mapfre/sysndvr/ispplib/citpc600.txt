@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Data Set Mapping Rules \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++Use this panel to create, display, modify, or test data set mapping
++rules.
++
+%   blank+- Modify the mapping rule.
+%     T+- Test one or more mapping rules.
+%     #+- Delete the mapping rule.
++
++
++    Select%1+-%11+for information about specific fields
++
+%    1+- Destination ID               %7+- Remote file extension
+%    2+- Connection ID                %8+- Approx host members/cyl
+%    3+- Mapping rule description     %9+- Host data set name (test rule)
+%    4+- Host data set name mask     %10+- Remote DSN or path (test rule)
+%    5+- Remote DSN/path mask (MVS)  %11+- Created/updated fields
+%    6+- Remote DSN/path mask (WS)
++
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITCONN0 3,CITMRUL0 4,CITHMSK0
+                  5,CITRMVM0 6,CITRWSM0 7,CITREXT0 8,CITAHMC0
+                  9,CITTHDS0 10,CITTRDS0 11,CITPDBTM)
+)END

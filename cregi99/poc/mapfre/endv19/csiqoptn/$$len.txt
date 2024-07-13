@@ -1,0 +1,7 @@
+         MACRO                                                          00001
+         $$LEN &ROL=,&LEN=                                              00002
+.*  LEN=  IS THE LENGTH OF STORAGE                                      00003
+         AIF   ('&LEN' EQ '').DONE                                      00004
+         $$ABSEXP ROL=&ROL,ARG=&LEN,FMT=N,TYPE=OT$$LEN                  00005
+.DONE    ANOP                                                           00006
+         MEND                                                           00007

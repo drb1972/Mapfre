@@ -1,0 +1,273 @@
+XIT7APNT TITLE 'ENDEVOR SAMPLE PACKAGE EXIT - NOTIFY APPROVERS'
+***********************************************************************
+*   DESCRIPTION: THIS PACKAGE EXIT PROGRAM WILL EXTRACT               *
+*                APPROVER GROUPS AND THEN NOTIFY EACH USER            *
+*                VIA THE NOTIFICATION FACILITY.                       *
+*                                                                     *
+*   SETUP        THE SETUP ROUTINE ENABLES THIS PROGRAM               *
+*                AT THE FOLLOWING EXIT POINTS:                        *
+*                                                                     *
+*                1. POST CAST                                         *
+*                2. POST EXECUTION                                    *
+*                3. PRE  RESET                                        *
+*                3. POST BACKOUT                                      *
+*                                                                     *
+*                                                                     *
+*   REGISTERS ON ENTRY:                                               *
+*                                                                     *
+*                0(R1) --> $PECBDS     EXIT CONTROL BLOCK             *
+*                4(R1) --> $PREQPDS    EXIT REQUEST BLOCK             *
+*                8(R1) --> $PHDRDS     EXIT HEADER BLOCK              *
+*               12(R1) --> $PFILDS     EXIT FILE BLOCK                *
+*               16(R1) --> $PACTREQ    EXIT ACT SUMMARY REQUEST       *
+*               20(R1) --> $PAPPREQ    EXIT APPROVER REQUEST          *
+*               24(R1) --> $PBODREQ    EXIT BACKOUT REQUEST           *
+*                                                                     *
+*   REGISTER USAGE:                                                   *
+*                                                                     *
+*                R5     -> $NOTIFY                                    *
+*                R6     -> $PECBDS                                    *
+*                R7     -> $PREQPDS                                   *
+*                R8     -> $PHDRDS                                    *
+*                R9     -> $PAPPREQ                                   *
+*                R12    -> BASE PROGRAM                               *
+*                R13    -> STACK USED FOR STANDARD IBM USAGE          *
+*                                                                     *
+*                                                                     *
+*                                                                     *
+***********************************************************************
+***********************************************************************
+*   PACKAGE EXIT CONTROL BLOCK                                        *
+***********************************************************************
+         $PECBDS
+***********************************************************************
+*   PACKAGE EXIT REQUEST BLOCK                                        *
+***********************************************************************
+         $PREQPDS
+***********************************************************************
+*   PACKAGE EXIT HEADER  BLOCK                                        *
+***********************************************************************
+         $PHDRDS
+***********************************************************************
+*   PACKAGE EXIT REQUEST FOR APPROVER GROUP BLOCK                     *
+***********************************************************************
+         $PAPPREQ
+***********************************************************************
+*   LOCAL MAP FOR APPROVER LIST DATA AREA                             *
+***********************************************************************
+LAPPMAP  DSECT                      LOCAL MAP FOR APPROVER ID LIST
+LAPPAPID DS    CL8
+LAPPAPDA DS    CL7
+LAPPAPTI DS    CL5
+LAPPAFLG DS    CL8
+LAPPAREQ DS    CL8
+LAPPLN   EQU   *-LAPPMAP
+***********************************************************************
+*   REQISTER EQUATES                                                  *
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+***********************************************************************
+*   THIS PROGRAM'S WORKAREA MAP                                       *
+***********************************************************************
+WORKAREA DSECT
+*
+SAVEAREA DS    18F
+*
+         $NOTIFY DSECT=NO
+*
+PLIST    DS    8F                                              C9221850
+WORKLN   EQU   *-WORKAREA
+         TITLE 'XIT7APNT: NOTIFY APPROVERS'
+***********************************************************************
+*   MAINLINE LOGIC                                                    *
+***********************************************************************
+XIT7APNT CSECT
+         SAVE  (14,12),,'NOTIFY APPROVERS'  SAVE CALLERS REG 12(13)
+         LR    R12,R15                      POINT TO THIS PROGRAM
+         USING XIT7APNT,R12
+         L     R6,0(,R1)                    POINT TO THE $PECBDS
+         USING $PECBDS,R6
+         L     R7,4(,R1)                    POINT TO THE $PREQPDS
+         USING $PREQPDS,R7
+         L     R8,8(,R1)                    POINT TO THE $PHDRDS
+         USING $PHDRDS,R8
+         L     R9,20(,R1)                   POINT TO THE $PAPPREQ
+         USING $PAPPREQ,R9
+***********************************************************************
+*   GET STORAGE FOR SAVEAREA AND $NOTIFY                              *
+***********************************************************************
+         L     R0,=A(WORKLN)                GET SIZE OF W.A
+         GETMAIN R,LV=(0)                   GET WORKING STORAGE
+         ST    R1,8(R13)                    STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)                    STORE OLD STACK +4(NEW)
+         LR    R13,R1                       POINT R13 TO OUR STACK
+        USING WORKAREA,R13
+***********************************************************************
+*        CHECK FOR SETUP CALL                                        *
+***********************************************************************
+         XR     R5,R5                       CLEAR STORAGE REG
+         CLC    PECBFNNM,=CL8'SETUP'        ARE WE AT SETUP
+         BNE    MAIN0050                    NO GO CHECK FOR FUNCTION
+**********************************************************************
+*        ENABLE THE EXIT POINTS FOR THIS PROGRAM                     *
+*                                                                    *
+*                                                                    *
+*  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP PROCESSING.*
+*  THE USER EXIT SHOULD MODIFY THESE FIELDS TO ENABLE EXIT POINTS.   *
+*  THIS SETUP IS DONE ONCE PER ENDEVOR SESSION.                      *
+*  THE DEFAULT IS 'N'. TO ENABLE SET FIELD TO 'Y'.                   *
+*                                                                    *
+**********************************************************************
+         MVI   PECBBOAF,C'Y'                ENABLE AFTER BACKOUT EXIT
+*
+         MVI   PECBCAAF,C'Y'                ENABLE AFTER CAST  EXIT
+*
+         MVI   PECBEXAF,C'Y'                ENABLE AFTER EXEC   EXIT
+*
+         MVI   PECBRSBE,C'Y'                ENABLE BEFORE RESET EXIT
+*
+         B     MAIN9000                     RETURN TO ENDEVOR
+***********************************************************************
+*   SEE WHAT PHASE WE ARE IN ....                                             *
+***********************************************************************
+MAIN0050 DS    0H
+***********************************************************************
+*   HAVE WE ALREADY BEEN HERE?                                        *
+***********************************************************************
+         LH    R15,PECBRQRC                 LOAD RETURN CODE FROM NDVR
+         C     R15,=A(PECBRROK)             READ SUCCESSFUL
+         BE    MAIN0200
+         C     R15,=A(PECBRNFD)             READ NOT FOUND
+         BE    MAIN0500
+         C     R15,=A(PECBREOF)             READ EOF
+         BE    MAIN0500
+         LTR   R15,R15                      FIRST TIME THRU
+         BNZ   MAIN8000
+***********************************************************************
+*   SET FLAG FOR REQUESTING APPROVER GROUPS                           *
+***********************************************************************
+         MVI   PECBAPPR,C'Y'                 SET APPROVER REQUEST FLAG
+         B     MAIN9000
+         SPACE                                                          00400000
+***********************************************************************
+*   SET UP TSO $NOTIFY CONTROL BLOCK                                  *
+***********************************************************************
+MAIN0200 DS    0H
+         MVC   NOTFTYPE,=CL8'TSO'           MOVE IN PROTOCOL
+         MVI   NTSOLOGN,C'Y'                SET THE LOGON ATTRIBUTE
+***********************************************************************
+*   BUILD MESSAGE TEXT                                                *
+***********************************************************************
+         MVC   NOTMSGTX,BLANKS              CLEAR MESSAGE TEXT FIELD
+         LA    R2,L'WMSGTEXT-1              GET MESSAGE TEXT LENGTH
+         EX    R2,MVCMSG00                  MOVE MESSAGE
+***********************************************************************
+*   LOAD NOTIFY PROGRAM IF NOT ALREADY DONE                           *
+*   NOTE: OTHER PACKAGE EXITS MAY HAVE USED THIS ANCHOR WORD FOR      *
+*         SOMETHING ELSE. CHECK WITH YOUR ENDEVOR TECHNICIAN TO MAKE  *
+*         SURE THIS WORD IS AVAILABLE.                                *
+***********************************************************************
+         ICM   R15,B'1111',PECBUEXT         SEE IF LOADED BC1PNTFY
+         BNZ   MAIN0210
+         LOAD  EP=BC1PNTFY,ERRET=MAIN8000
+         LR    R15,R0
+         ST    R15,PECBUEXT                 STORE IN EXIT ANCHOR WORD
+*********************************************************************** 00640000
+**      BUILD LOCAL APPROVER GROUP BLOCK FIRST. THEN COPY TO         ** 00650001
+**      THE PACKAGE EXIT BLOCK APPROVER GROUP STORAGE.               ** 00650001
+*********************************************************************** 00660000
+MAIN0210 DS    0H
+         CLI   PAPPGTYP,C'E'                EXTERNAL APPROVER GROUP?
+         BE    MAIN0300                      YES, SKIP THE GROUP
+         LH    R3,PAPPAPP#                  LOAD #NUMBER OF APPROVERS
+         LA    R4,PAPPAPLN                  LOAD LENGTH OF ENTRY
+         LA    R2,PAPPAPID                  POINTER TO FIRST USERID
+        USING  LAPPMAP,R2
+MAIN0250 DS    0H
+         MVC   NOTFUSER,LAPPAPID            MOVE IN USER ID
+***********************************************************************
+** CALL NOTIFY PROGRAM SENDING THE $NOTIFY BLOCK
+***********************************************************************
+         LA    R1,PLIST              POINT TO PARAM LIST       C9221850
+         LA    R14,$NOTIFY           POINT TO CONTROL BLOCK    C9221850
+         ST    R14,0(,R1)            POINT TO CONTROL BLOCK    C9221850
+         OI    0(R1),X'80'                  SET V.L. SWITCH
+         BALR  R14,R15
+         LTR   R15,R15
+         BNZ   MAIN8000
+*
+***********************************************************************
+** REFRESH POINTER TO BC1PNTFY
+***********************************************************************
+         ICM   R15,B'1111',PECBUEXT
+         BZ    MAIN8000                    ERROR AT THIS POINT
+*
+         LA    R2,0(R4,R2)                  WALK THE LIST
+         BCT   R3,MAIN0250                  GET NEXT APPROVER ID
+MAIN0300 DS    0H
+***********************************************************************
+** GO GET NEXT APPROVER GROUP. IF SO DESIRED
+***********************************************************************
+         MVI   PECBAPPR,C'Y'                RESET REQUEST FLAG
+         B     MAIN9000
+***********************************************************************
+** NOT FOUND OR END OF FILE HAS BEEN ENCOUNTERED.
+** CLEAR ALL REQUEST FLAGS AND RETURN TO ENDEVOR.
+***********************************************************************
+MAIN0500 DS    0H
+         MVI   PECBAPPR,C'N'                CLEAR REQUEST FLAG
+         B     MAIN9000                     LEAVE
+MAIN8000 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)        LOAD BAD RC
+***********************************************************************
+* IT IS THE USERS DECISION TO FAIL THE PACKAGE FUNCTION OR JUST ISSUE
+* A MESSAGE IF THE NOTIFICATION FACILITY RETURNS A NON ZERO RETURN
+* CODE. KEEP IN MIND THAT THE HIGHEST RETURN VALUE, WHICH CAN BE ON AN
+* "AFTER" PACKAGE FUNCTION, WILL BE FOUR. THE EXIT FACILITY WILL
+* DIMINISH A HIGHER RETURN CODE AND THE USER WILL GET A MESSAGE
+* TO THAT EFFECT.
+***********************************************************************
+***********************************************************************
+*   MOVE ERROR MESSAGE FROM UTILITY                                   *
+***********************************************************************
+         MVC   PECBMSG,NOTERMSG             MOVE ERROR MSG TO EXIT BLK
+         B     MAINEXIT
+MAIN9000 DS    0H
+         XC    PECBRTCD,PECBRTCD            CLEAR RETURN CODE
+MAINEXIT DS    0H
+         LR    R5,R13                        SAVE NEW STACK POINTER
+         L     R13,4(R13)                    POINT TO OLD STACK
+***********************************************************************
+*   CLEAN UP THIS PROGRAM'S STORAGE                                   *
+*   NOTE: THIS HAS TO BE DONE BEFORE THE "LOAD MULTIPLE" IS           *
+*   DOEN BECAUSE YOU LOSE THE POINTER TO YOUR STORAGE                 *
+***********************************************************************
+*
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(5),LV=(0)            FREE STORAGE
+*
+MAINRTRN DS    0H
+         RETURN (14,12)
+*
+MVCMSG00 MVC   NOTMSGTX(0),WMSGTEXT
+***********************************************************************
+*   PROGRAM CONSTANTS                                                 *
+***********************************************************************
+WMSGTEXT DC    C'MESSAGE TEXT FOR NOTIFICATION FACILITY'
+BLANKS   DC    CL80' '
+         END

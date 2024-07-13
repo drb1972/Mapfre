@@ -1,0 +1,13 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Retrieves \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
++
+%Retrieve+                                    Set
++
+)END

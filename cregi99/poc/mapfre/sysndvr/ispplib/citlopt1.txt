@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Options Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Display SYS/SBS List+- Display action only. Indicates whether you
+      want to go directly to the Element Selection list from the
+      Display Elements panel. Y (yes), N (No). Default is N.
+
+%First Found+- Retrieve action only. Indicates whether the Element
+      Selection list should include only the first occurrence of
+      specified elements found when searching the map. Y (yes), N (no).
+      The default is Y.
+
+%Where Signout Eq+- Signin action only. Builds a list of elements
+      signed out to a specified user id. The default user id is the
+      current logon id.  Wildcarding is allowed without placeholders.
++
+)END

@@ -1,0 +1,30 @@
+)ATTR
+  z TYPE(TEXT) INTENS(HIGH) CAPS(ON) COLOR(BLUE)
+  R TYPE(TEXT) INTENS(HIGH) CAPS(ON) COLOR(red)
+)BODY EXPAND({}) DEFAULT(%+^)
+z
+z               Who's to blame for changing that procedure?
+z
+z             ../////       We don't have a blame culture here, but
+z            \   6 6        if you wait a second, I can tell you who
+z             C    \        was resposible for the latest erronious
+z              \-_/         code amendment....
+z           ___\ (__        ____________________________________________
+z          /    \/  `       _____    /
+z         /  /  /\  |      /   _)))     _____________
+z        /  /\  ||  \     /   / , ,    |        '\\\\\\
+z        \ |  ) ||  |    (   (    \    |        ' ____|_                t
+z         \(_/--\/--)    /  ,' __=     |        '||::::::
+z         |_ \   _  '   /___) /__ )    |        '||_____|
+z           \'   \) |  (/ \_ ¯ _|\     \'_______|_____|
+z           |    /  |  / \_ \_/ ),\    ___/____|___\___
+z         __|___/\__|_(  <_ ___(___\__|    _    '  <<<:|
+z        /             '-/ \________  |_________'___o_o|
+z       /                \¯/::::::::|                   \
+z      /                 '=========='                    \
+z      /                 '=========='                    \
+z      /                 '=========='                    \
+z     /___________________________________________________\
+R     Hit enter to see summary of latest change....
+)PROC
+)End

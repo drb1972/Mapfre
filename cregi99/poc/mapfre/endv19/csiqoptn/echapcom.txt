@@ -1,0 +1,18 @@
+      *****************************************************************
+      *
+      *            COMMIT A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APCOM-RQ.
+           05  APCOM-RQ-HEADER.
+               10  APCOM-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APCOM-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APCOM-RQ-ID         PIC 9(04) COMP VALUE 1600.
+               10  APCOM-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APCOM-RQ-EYE        PIC X(04)      VALUE 'PCMQ'.
+           05  APCOM-RQ-DATAAREA.
+               10  APCOM-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APCOM-RQ-DEL-PROMHIST
+                                       PIC X(01) VALUE SPACES.
+               10  APCOM-RQ-RESERVE    PIC X(02) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

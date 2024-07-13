@@ -1,0 +1,34 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag @ uh typsel
+tag ¢ sh type
+tag ^ sh typtitle
+tag & sh env sys stage
+%---------------------------  Type Selection List  -----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++  Environment:&        +   System:&        +    Stage:&  +
++
++  TYPE       TYPE DESCRIPTION
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+enddef

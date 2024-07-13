@@ -1,0 +1,41 @@
+          MACRO                                                         00010000
+&NAME     $SMFHDDS                &DSCT=YES                             00020001
+          AIF   ('&DSCT' NE 'YES').NODSCT                               00030000
+$SMFHDDS  DSECT                                                         00040000
+          AGO   .START                                                  00050000
+.NODSCT   ANOP                                                          00060000
+$SMFHDDS  DS    0D                 ALIGN IT
+.START    ANOP                                                          00080000
+*********************************************************************   00090000
+*                                                                   *   00091000
+*         $SMFHDDS - HEADER FOR THE SMF RECORDS FOR ENDEVOR-C1      *   00100000
+*                                                                   *   00120000
+*********************************************************************   00121000
+SMHLEN    DS    H                  LENGTH OF THE OVERALL RECORD         00130000
+SMHSEGID  DS    H                  ** RESERVED **                       00140002
+SMHSID    DS    XL1                SYSTEM TYPE ID                       00150000
+SMH$VS2   EQU   X'02'                  VS2 INDICATOR                    00160000
+SMH$VS1   EQU   X'01'                  VS1 INDICATOR                    00170000
+SMHRECTY  DS    XL1                SMF RECORD TYPE ( DEFAULT 230)       00180000
+SMH$230   EQU   230                    SMF RECORD TYPE DEFAULT          00190000
+SMHTIME   DS    XL4                TIME IN HUNDREDTHS OF A SECOND       00200000
+SMHDATE   DS    XL4                DATE                                 00210000
+SMHCPUID  DS    CL4                CPU FROM SYSTEM WRITING RECORD       00220000
+SMHHDLEN  DS    H                  LENGTH OF THIS HEADER                00230000
+SMHC1VER  DS    X                  ENDEVOR-C1 RECORD FORMAT VERSION     00160000
+SMH$RF00  EQU   X'00'                  RELEASE 2.2 AND PRIOR RELEASES   00170000
+SMH$RF01  EQU   X'01'                  RELEASE 2.5 THRU CURRENT         00170000
+SMHCTLTY  DS    X                  ENDEVOR-C1 RECORD SUBTYPE            00160000
+SMH$SEC   EQU   X'01'                  SECURITY RECORD TYPE             00250000
+SMH$ACT   EQU   X'02'                  ACTION RECORD TYPE               00260000
+SMH$ESI   EQU   X'03'                  ESI EXCEPTION WARNING RECORD     00260000
+SMH$ENV   EQU   X'04'                  ENVIRONMENT MCF CHANGES
+SMH$MAX   EQU   SMH$ENV                ** MAX RECORD NUM DEFINED **     00270000
+SMHCONT   DS    H                  CONTINUATION FLAG FOR RECORD         00280000
+SMHSEQ    DS    H                  SEQUENCE NUMBER OF RECORD            00290000
+SMHC1ENV  DS    CL8                ENDEVOR-C1 ENVIRONMENT NAME          00300000
+SMHUSER   DS    CL8                USER ISSUING REQUEST                 00310000
+          DS    0D
+SMHSIZE   EQU   *-$SMFHDDS         SIZE OF THE HEADER ( FOR SMHHDLEN)   00320000
+SMHDATA   EQU   *                  START OF THE DATA                    00330000
+          MEND                                                          00340000

@@ -1,0 +1,113 @@
+)ATTR DEFAULT(%+_)
+ /* The EXTEND(ON) keyword for the scroll area ($) causes this panel   */
+ /* to adjust to screen size.                                          */
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ¬ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) JUST(ASIS)
+/* | TYPE(OUTPUT) INTENS(LOW) */
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY
+%DISPLAY -------------------  DISPLAY DESTINATION  -----------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++ %D+- Display DSN Mapping Rules+    %DU+- Display USS Mapping Rules+
++
++DESTINATION:¢VNBSSDST+               SHIP COMPLEMENTARY DATASETS (N/Y):¢Z+
++DESCRIPTION:~VDDDESCR                      +
++TRANSMISSION METHOD:¢VDDXMETH   +    REMOTE NODENAME:¢VDDXNODE        +
++UPDATED:¢Z      ¢Z    +BY¢VDDUUSER+ +CREATED:¢Z      ¢Z    +BY¢VDDCUSER+
+$SAREA                                                                         $
+)AREA SAREA
++REMOTE IPNAME/IPPORT (XCOM ONLY):
++  IPNAME:¢VDDXIPNM                                                       +
++  IPPORT:¢Z    +
++
++REMOTE+JOB STATEMENT INFORMATION:+
++ ¢VDDRJC1                                                                 +
++ ¢VDDRJC2                                                                 +
++ ¢VDDRJC3                                                                 +
++ ¢VDDRJC4                                                                 +
++
++STAGING INFORMATION:
++  For DATASET:              HOST Site               REMOTE Site
++    DSN Prefix             ¢VDDHSPFX      +        ¢VDDRSPFX      +
++    DISPOSITION            ¢Z     +                ¢Z     +
++    UNIT                   ¢VDDHUNIT+              ¢VDDRUNIT+
++    VOLUME SERIAL          ¢Z     +                ¢Z     +
++
++  For UNIX SYSTEM SERVICES Files:
++    HOST Path Name PREFIX:                         DISPOSITION:¢Z     +
++    *¬VDDHPN01                                                        +*
++    *¬VDDHPN02                                                        +*
++    *¬VDDHPN03                                                        +*
++    *¬VDDHPN04                                                        +*
++    *¬VDDHPN05                                                        +*
++    *¬VDDHPN06                                                        +*
++    *¬VDDHPN07                                                        +*
++    *¬VDDHPN08                                                        +*
++    *¬VDDHPN09                                                        +*
++    *¬VDDHPN10                                                        +*
++    *¬VDDHPN11                                                        +*
++    *¬VDDHPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
++
++    REMOTE Path Name PREFIX:                       DISPOSITION:¢Z     +
++    *¬VDDRPN01                                                        +*
++    *¬VDDRPN02                                                        +*
++    *¬VDDRPN03                                                        +*
++    *¬VDDRPN04                                                        +*
++    *¬VDDRPN05                                                        +*
++    *¬VDDRPN06                                                        +*
++    *¬VDDRPN07                                                        +*
++    *¬VDDRPN08                                                        +*
++    *¬VDDRPN09                                                        +*
++    *¬VDDRPN10                                                        +*
++    *¬VDDRPN11                                                        +*
++    *¬VDDRPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
+)INIT
+/* This panel shopws how to code a vertical scrolling              */
+/* section in a panel. See the following:                          */
+/* - Attribute byte '$'                                            */
+/* - Section )AREA SAREA                                           */
+/* - Field SAREA                                                   */
+/*                                                                 */
+/* Notes (based on observation):                                   */
+/* - The line starting $SAREA defines the placement of the scroll  */
+/*   area in the )BODY section of the panel                        */
+/*   - Multiple lines can be defined with the name (SAREA) only on */
+/*     the first line
+/*   - Fields on the panel after the scroll area will not display  */
+/*     if line $SAREA is defined as a single line as in this panel */
+/*   - The dollar sign ($) is a delimiter, not an attribute byte   */
+/*     and multiple lines can be defined using it, which allows    */
+/*     additonal panel fields and lines to be defined after it     */
+/*   - The 2 dollar signs on the line are required for defining    */
+/*     the width of the scroll area                                */
+/*   - Minimum size of the scroll area is 2 lines                  */
+/*   - A "More: - +" display field is automatically generated on   */
+/*     the first line of the scroll area                           */
+/* - The )AREA section defines the scrolling area                  */
+/*   - This area is not limited vertically by the size of the      */
+/*     panel or the size of the scrolling area defined in the      */
+/*     )BODY section of the panel because it scrolls!              */
+/*   - The width of the lines in this section should be no wider   */
+/*     than the placement of the dollar sign delimiters in the     */
+/*     )BODY section of the panel                                  */
+/*   - The dollar signs do NOT use up a byte on the panel lines    */
+/*     that they define, they are only delimiters                  */
+/*   - Like ISPF table display panels, the scrolling area can      */
+/*     vary with the vertical size of the screen when EXTEND(ON)   */
+/*     is used                                                     */
+/*                                                                 */
+  .HELP = CITPD200
+    .ZVARS = '( VDDSHCMP +
+                VDDUPDAT VDDUPTIM +
+                VDDCRDAT VDDCRTIM +
+                VDDXIPPT VDDHDISP VDDRDISP +
+                VDDHVSER VDDRVSER +
+                VDDHPDIS VDDRPDIS )'
+)PROC
+)END

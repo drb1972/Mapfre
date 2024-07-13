@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%-----------------------------  TRANSFER ELEMENTS  -----------------------------
+%OPTION  ===>_ZCMD                                                             +
++                               ELEMENT DISPLAY OPTIONS:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   T+- Transfer element         %M+- Master   %C+- Changes
++
++CCID%===>^CTLNBR      +  COMMENT%===>`DESCRPT1                                +
++
++FROM LOCATION:                         ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DELETE 'FROM' ELM%===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             GENERATE ELEMENT %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             OVERRIDE SIGNOUT %===>_Z+(Y/N)
++  ELEMENT    %===>_CIELM     +           PROCESSOR GROUP  %===>_VARFPGRP+
++  TYPE       %===>_TYPEN   +             SYNC             %===>_Z+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +     WITH HISTORY     %===>_Z+(Y/N)
+                       ¢Z+-|CLU2ID  +     RETAIN SIGNOUT   %===>_Z+(Y/N)
++TO LOCATION:                             SIGNOUT TO       %===>_VARSETSO+
++  ENVIRONMENT%===>_VNBF9ENV+
++  SYSTEM     %===>_VNBF9SYS+           LIST OPTIONS:
++  SUBSYSTEM  %===>_VNBF9SBS+             DISPLAY LIST      %===>_Z+(Y/N)
++  ELEMENT    %===>@VNBF9ELM  +           APPLY LIST FILTERS%===>_Z+(Y/N)
++  TYPE       %===>_VNBF9TYP+             BUILD USING MAP   %===>_Z+(Y/N)
++  STAGE      %===>_Z+
++
+)INIT
+  .HELP = CITF9000
+  .ZVARS = '(VNBF9NOD VNBF9NOG +
+             C1SISOFR VARSYNC CLU1I VNBF9HIS CLU2I VARRTNSO +
+             VARWKLST VARWHPNL VARSHMAP VNBF9STG)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+)PROC
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

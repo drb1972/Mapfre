@@ -1,0 +1,23 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++This screen is shown when Endevor cannot determine in which specific target
++inventory location the Edit or Generate action should be performed.
++This can happen when:
++ - The element selection list was built using wildcards in one or more
++   of the Environment, System and Subsystem fields, AND
++ - More than one inventory location maps to the element that was selected
++   for the Edit or Generate action.
++
++On this screen, you can enter fully or partially wildcarded values in any or
++all of the Environment, System and/or Subsystem fields or leave them blank.
++
++Endevor uses the input on this screen to select possible target locations
++that map to the selected element. If more than one target location exists you
++will be prompted to select a specific location.
++
++
++
++                                           (%END+to return)
+)END

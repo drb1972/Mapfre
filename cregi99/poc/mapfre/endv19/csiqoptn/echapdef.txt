@@ -1,0 +1,62 @@
+      *****************************************************************
+      *
+      *            DEFINE A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APDEF-RQ.
+           05  APDEF-RQ-HEADER.
+               10  APDEF-RQ-LEN        PIC 9(04) COMP VALUE 672.
+               10  APDEF-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APDEF-RQ-ID         PIC 9(04) COMP VALUE 1632.
+               10  APDEF-RQ-VERS       PIC 9(04) COMP VALUE 3.
+               10  APDEF-RQ-EYE        PIC X(04)      VALUE 'PDFQ'.
+           05  APDEF-RQ-DATAAREA.
+               10  APDEF-RQ-PKGID      PIC X(16) VALUE SPACES.
+      *  FUNCTION C(REATE) OR (M)ODIFY PACKAGE
+               10  APDEF-RQ-FUNC       PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-FUNC-C        VALUE 'C'.
+                   88  APDEF-RQ-FUNC-M        VALUE 'M'.
+               10  APDEF-RQ-DESC       PIC X(50) VALUE SPACES.
+      *  TYPE OF PACKAGE (S)TANDARD OR (E)MERGENCY
+               10  APDEF-RQ-TYPE       PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-TYPE-E        VALUE 'E'.
+                   88  APDEF-RQ-TYPE-S        VALUE 'S'.
+      *  SHARE/APPEND/BACKOUT ENABLED (Y)ES OR (N)O
+               10  APDEF-RQ-SHARE      PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-SHARE-Y       VALUE 'Y'.
+                   88  APDEF-RQ-SHARE-N       VALUE 'N'.
+               10  APDEF-RQ-APPEND     PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-APPEND-Y      VALUE 'Y'.
+                   88  APDEF-RQ-APPEND-N      VALUE 'N'.
+               10  APDEF-RQ-BOENABLED  PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-BOENABLED-Y   VALUE 'Y'.
+                   88  APDEF-RQ-BOENABLED-N   VALUE 'N'.
+      *  EXECUTION WINDOW FROM AND THRU DATA
+      *    DATE FORMAT DDMMMYY (31JAN02), TIME FORMAT HH:MM (23:59)
+               10  APDEF-RQ-EWF-DATE   PIC X(07) VALUE SPACES.
+               10  APDEF-RQ-EWF-TIME   PIC X(05) VALUE SPACES.
+               10  APDEF-RQ-EWT-DATE   PIC X(07) VALUE SPACES.
+               10  APDEF-RQ-EWT-TIME   PIC X(05) VALUE SPACES.
+      *  COPY FROM PACKAGE DATA
+               10  APDEF-RQ-COPY-PKGID PIC X(16) VALUE SPACES.
+      *  IMPORT SCL FROM DATA
+               10  APDEF-RQ-IMPORT-DDN PIC X(08) VALUE SPACES.
+               10  APDEF-RQ-IMPORT-DSN PIC X(44) VALUE SPACES.
+               10  APDEF-RQ-IMPORT-MBR PIC X(10) VALUE SPACES.
+               10  APDEF-RQ-RMTSCL     PIC X(01) VALUE SPACES.
+      *  PACKAGE NOTES
+               10  APDEF-RQ-UPDT-NOTES PIC X(01) VALUE SPACES.
+               10  APDEF-RQ-NOTES.
+                   15  APDEF-RQ-NOTES1 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES2 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES3 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES4 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES5 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES6 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES7 PIC X(60) VALUE SPACES.
+                   15  APDEF-RQ-NOTES8 PIC X(60) VALUE SPACES.
+               10  APDEF-RQ-DONOTVAL-SCL PIC X(01) VALUE SPACES.
+                   88  APDEF-RQ-DONOTVALIDATE-SCL-Y VALUE 'Y'.
+      *           VERSION 3 FIELDS AFTER THIS POINT
+               10  APDEF-RQ-PROMPKG    PIC X(01) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

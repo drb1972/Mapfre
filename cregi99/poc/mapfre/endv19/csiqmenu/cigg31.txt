@@ -1,0 +1,15 @@
+CIGG310E '$SMR ERROR'                           .ALARM=YES
+'C1G0310E Browse &C1MDSN for more information'
+
+CIGG312E 'CONWRITE Parse Error'                 .ALARM=YES
+'C1G0312E Browse &C1MDSN for more information'
+
+CIGG313W 'Padding may occur'                    .ALARM=YES
+'C1G0313W See &C1MDSN for more information'
+
+CIGG314E 'Dataset Validation Error'             .ALARM=YES
+'C1G0314E See &C1MDSN for more information'
+
+CIGG315W 'PV/LB Validation Error'               .ALARM=YES
+'C1G0315W See &C1MDSN for more information'
+

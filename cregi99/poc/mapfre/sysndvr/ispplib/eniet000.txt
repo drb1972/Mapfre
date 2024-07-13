@@ -1,0 +1,32 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIET000                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) CAPS(OFF)
+)BODY
++-------------------------------------------------------------------------------
++
++   The requested function could not be performed because an internal error
++  occurred in the panel tailoring dialog.
++
++  Please terminate the dialog and retry the request.  If the
++  problem persists, contact Technical Support with the
++  following information:
++
++     1) The dialog function that you were attempting.
++     2) The name of the panel in error:#VARERRPN+
++     3) The error condition:#VARERRCD                          +
++
++
++
++
++
++
++
++
++
++
++  Hit%ENTER+to continue the dialog.
++
+)END

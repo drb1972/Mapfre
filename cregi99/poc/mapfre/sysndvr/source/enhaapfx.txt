@@ -1,0 +1,30 @@
+         MACRO
+&LABEL   ENHAAPFX &DSECT=YES,                                          X
+               &PREFIX=,                                               X
+               &VALUES=SUPPLIED
+         AIF   ('&DSECT' NE 'YES').NODSECT
+&PREFIX  DSECT ,
+         AGO   .DSECTOK
+.NODSECT ANOP
+&PREFIX  DS   0D
+.DSECTOK ANOP
+         AIF   ('&LABEL' EQ '').NOLABEL
+&LABEL   DS   0D
+.NOLABEL ANOP
+         SPACE ,
+&PREFIX._HEADER DS  XL12
+         ORG    &PREFIX._HEADER
+&PREFIX._LEN    DC   Y(&PREFIX._DSLN)  STRUCTURE SIZE
+&PREFIX._FLAGS  DC   Y(0)              FLAGS
+&PREFIX._ID     DC   Y(&PREFIX.$ID)    ID NUMBER
+&PREFIX._VERS   DC   Y(&PREFIX.$VER)   VERSION NUMBER
+&PREFIX._EYE    DC   AL4(&PREFIX.$EYE) EYE-CATCHER
+         AIF   ('&VALUES' EQ 'SUPPLIED').NOVALUE
+         SPACE ,
+&PREFIX._DATAAREA DS 0F
+&PREFIX._DSLN   EQU  *-&PREFIX._HEADER
+&PREFIX.$ID     EQU  0
+&PREFIX.$VER    EQU  0
+&PREFIX.$EYE    EQU  C'$EYE'
+.NOVALUE ANOP
+         MEND

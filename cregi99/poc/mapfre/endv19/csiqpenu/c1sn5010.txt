@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+)BODY
+%-------------------------------  LIST OUTPUT  ---------------------------------
+%OPTION  ===>_ZCMD                                                             +
++
++Specify data set where output of LIST will be placed, then press the ENTER key
++
++TO ISPF LIBRARY:+
++   PROJECT%===>_VNB51PRO+
++   LIBRARY%===>_VNB51GRP+
++   TYPE   %===>_VNB51TYP+
++   MEMBER %===>_VNB51MBR+
++
++OTHER PARTITIONED, SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_VNB51OTH                                    +
+)INIT
+  .HELP = CITN5010
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Libraries \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Base/Image Library+- Name of the base library for the type. Can be PDS,
+   Panvalet, Librarian, or ELIB.
+
+%Delta Library+- Name of the delta library for the type. Can be PDS,
+   Panvalet, Librarian, or ELIB.
+
+%Source Output Library+- Data set name of source output library.
+
+%INCLUDE Library+- Name of the PDS, Panvalet, or Librarian INCLUDE
+   library for the type. If specified, members can be included and expanded
+   from this library.
+
+%Expand INCLUDEs+- Indicates whether INCLUDE statements are expanded when
+   the element is written to the source output library. Acceptable values are:
+     %Y+- Expand INCLUDE statements.
+     %N+- Do not expand INCLUDE statements.
++
++
++\ \ (%PF3+to return,%ENTER+for symbolics for these fields) \ \
+)PROC
+   &ZCONT = CITT2520
+)END

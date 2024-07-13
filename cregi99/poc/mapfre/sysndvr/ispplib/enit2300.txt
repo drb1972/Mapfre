@@ -1,0 +1,35 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approve Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use this panel to approve a package for execution.  To approve a package
++select action 1 and press enter.  You can cancel the Approve Package action by
++selecting action 2 and pressing enter.
++
++The Approve Package panel also allows you to enter notes you may want to
++associate with the package as part of the approval process.  To enter notes
++select action N and press enter. The Enter Package Note Text panel displays.
++
++Select 1 - 5 for information about:
+%   1+- Package identification fields
+%   2+- Sharable package
+%   3+- Enable backout
+%   4+- Execution window
+%   5+- Package event fields
+%
+%
++ Select a Help topic or Press%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citshpk0
+                 3,citbken0
+                 4,citxwin0
+                 5,citpkev0
+                )
+)END

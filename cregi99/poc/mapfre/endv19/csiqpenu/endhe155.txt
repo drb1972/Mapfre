@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate No Source \-\ TUTORIAL
+%Command ===>_ZCMD
+%
+%Generate No Source+- Indicates whether you want to generate the element
++   using the elements source up the map from the target location.
++   Component and outputs are generated at the target without the
++   element source being copied back.
++
++
+%      Y+- Generate the element using the source from up the map.
++          Do not copy the element back.
++
+%      N+- (Default) Do not generate without source.
++
++
++
++
++
++
++
++
++
++\ \(%END+to return) \ \
+)END

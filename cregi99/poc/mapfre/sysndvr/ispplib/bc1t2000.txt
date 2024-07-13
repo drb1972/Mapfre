@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ WIP Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the WIP Specification Panel to identify the library or data set
++that will contain the WIP files you will be building.
++
+%WIP Library+- Specifies the library that will contain the WIP files, using
++    standard ISPF naming conventions. The WIP library must be either a
++    partitioned or sequential data set, and must have an LRECL equal to at
++    least the LRECL of the Root library plus eight bytes.
++
+%WIP Other Partitioned or Sequential Data Set+- This is an alternative
++   field for specifying the WIP library, using standard ISPF conventions.
++
+%Note:+If the data set you specify is not catalogued, PDM displays a WIP
++      Data Set Allocation Panel that allows you to dynamically allocate
++      the data set.
++
++    Select%1-3+for information about:
++
+%    1+- Specifying a WIP member    %3+- Replacing like-named members
+%    2+- Build WIP options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TWMEM 2,BC1T2OPT 3,BC1TREPL)
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Auto retention \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Auto retent+- Indicates whether change levels are to be managed
++   by age. Acceptable value is:
+%     Y+ Managed by age. When set, all elements/components change levels
++        under the type's system are managed by age. The 'retain lvls'
++        value on the system panel determines how long change levels are
++        to remain. For reverse/image deltas, change levels that expire
++        are dropped. For forward deltas, change levels that expire are
++        incorporated into the base. This is just an informational field
++        set from the system definition. Age retention values are defined
++        at the system level. This field is only displayed if the system's
++        definition has it active. When inactive, the level's consolidation
++        rules apply.
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

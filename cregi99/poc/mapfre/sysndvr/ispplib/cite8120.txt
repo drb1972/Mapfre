@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Definition - Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Approver Group+- The name of the approver group.
++
+%Environment+- The environment to which the approver group is defined.
++
+%Title+- The 1- to 50-character approver group description.
++
+%Quorum size+- The quorum size for this approver group. Acceptable
++   values are 0-16.
++
+%Approver+- The TSO user IDs of the approvers in the group. There can
++   be up to 16 approvers in a group.
++
+%Req'd (Y/N)+- Indicates whether the designated approver is a required
++   approver for the group.
++
++
++
++
++                                            (%PF3+to return)
+)END

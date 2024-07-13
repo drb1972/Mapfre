@@ -1,0 +1,47 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2012 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP2200                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT)    INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)     INTENS(HIGH) JUST(LEFT)
+ ! TYPE(INPUT)     INTENS(HIGH) CAPS(ON) JUST(LEFT)
+ ¢ TYPE(&PDVCVTYP) INTENS(&PDVCVINT) CAPS(ON) PADC(_)
+ ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
++--------------------------------%Cast Package+---------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the package information below and select an action:
++   _Z+ 1  Cast Package        2  Cancel the Cast action
++       N  Enter Package Notes
++
++  Package ID.............#PDVSLPKG        +
++  Description............~PDVSLDSC                                          +
++  Package Type...........#PDVSLTYP  +
++  Sharable Package.......#Z+
++  Validate Components....¢Z+ (Y/W)
++  Enable Backout.........!Z+ (Y/N)
++  Execution window from..#Z      +#Z    +to#Z      +#Z    +
++
++  Created by user#Z       +on date#Z      +at time#Z    +
++  PKG last updated by user#Z       +on date#Z      +at time#Z    +
++
++
++
++
++
++
++
+)INIT
+  .HELP = enit2200
+  .ZVARS = '(VARWKCMD, PDVSLSHR, PDVSLCVL, PDVSLBOE,    +
+             PDVSLWSD, PDVSLWST, PDVSLWED, PDVSLWET,    +
+             PDVSLDUI, PDVSLDDT, PDVSLDTM, PDVSLLUI,    +
+             PDVSLLDT, PDVSLLTM)'
+ &PACKPRE = TRUNC(&PDVSLPKG,2)
+ IF (&PACKPRE = 'C0')
+   .attrchar(!) = 'TYPE(OUTPUT) INTENS(LOW)'
+)PROC
+ VER (&PDVSLCVL,LIST,Y,W,y,w)
+)END

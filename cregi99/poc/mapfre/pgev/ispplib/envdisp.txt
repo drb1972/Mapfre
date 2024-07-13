@@ -1,0 +1,29 @@
+)ATTR DEFAULT(%#_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
+# TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Environment Display -/-/-
+%Command ===>_zcmd
+%
+#
+#Environment...?envname #:?envtitl
+#
+#                 +--------------+
+#                 |              | Title :?stg1ttl
+#                 |  ?stg1nme #  | Id.   :?stg1id
+#                 |              |
+#                 +--------------+
+#                 |              | Title :?stg2ttl
+#                 |  ?stg2nme #  | Id.   :?stg2id
+#                 |              |
+#                 +--------------+
+#                         |
+#                         |
+#                         +------>?nextenv
+)Init
+)Proc
+)End

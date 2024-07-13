@@ -1,0 +1,27 @@
+         MACRO
+         @PRDDXDS ,
+         GBLB  &@PRDDX
+         AIF   (&@PRDDX).GENNED
+&@PRDDX  SETB  (1)
+.**********************************************************************
+.*                                                                   **
+.*  @PRDDXDS - PROCESSOR DD STMT ALLOCATION DETAIL                   **
+.*                                                                   **
+.**********************************************************************
+@PRDDXDS DSECT
+PRBXRC   DS    F                       SVC 99 RETURN CODE (R15)
+PRBXERR  DS    XL2                     SVC 99 ERROR CODE (S99ERROR)
+PRBXINFO DS    XL2                     SVC 99 INFORMATION (S99INFO)
+PRBXDDNM DS    CL8                     ALLOCATED DDNAME
+PRBXDSNM DS    CL44                    ALLOCATED DSNAME
+PRBXVOL  DS    CL6                     ALLOCATED VOLSER
+         DS    CL3                     *** RESERVED ***
+PRBXDSG  DS    XL2                     ALLOCATED DSORG
+PRBXATTR DS    XL1                     ALLOCATED ATTRIBUTE
+PRBXTYPE DS    XL1                     ALLOCATED DATASET TYPE
+PRBXUNIT DS    CL5                     ALLOCATED UNIT NAME
+PRBXERSN DS    XL2                     SVC 99 SMS REASON CODE (S99ERSN)
+         SPACE ,
+PRDDX$LN EQU   *-@PRDDXDS              LENGTH OF DD STATEMENT BLOCK
+.GENNED  ANOP
+         MEND

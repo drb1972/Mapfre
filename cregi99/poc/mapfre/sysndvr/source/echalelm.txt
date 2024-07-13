@@ -1,0 +1,541 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST ELEMENT - REQUEST BLOCK                       *
+      *                                                               *
+      *****************************************************************
+       01  ALELM-RQ.
+           05  ALELM-RQ-HEADER.
+               10  ALELM-RQ-LEN        PIC 9(4) COMP VALUE 272.
+               10  ALELM-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALELM-RQ-ID         PIC 9(4) COMP VALUE 1104.
+               10  ALELM-RQ-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALELM-RQ-EYE        PIC X(4)      VALUE 'LELQ'.
+           05  ALELM-RQ-DATAAREA.
+               10  ALELM-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALELM-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALELM-RQ-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  ALELM-RQ-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALELM-RQ-ELM        PIC X(10)     VALUE SPACES.
+               10  ALELM-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALELM-RQ-STG-NUM    PIC X         VALUE SPACE.
+                   88  ALELM-RQ-STG-NUM1                 VALUE '1'.
+                   88  ALELM-RQ-STG-NUM2                 VALUE '2'.
+      *        TO/THRU DATA
+               10  ALELM-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALELM-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  ALELM-RQ-ELM-THRU   PIC X(10)     VALUE SPACES.
+               10  ALELM-RQ-TOELM      REDEFINES
+                   ALELM-RQ-ELM-THRU   PIC X(10).
+      *        ACTION OPTIONS
+               10  ALELM-RQ-PATH       PIC X         VALUE 'L'.
+                   88  ALELM-RQ-PATHL                    VALUE 'L'.
+                   88  ALELM-RQ-PATHP                    VALUE 'P'.
+               10  ALELM-RQ-RETURN     PIC X         VALUE 'F'.
+                   88  ALELM-RQ-RETURNA                  VALUE 'A'.
+                   88  ALELM-RQ-RETURNF                  VALUE 'F'.
+               10  ALELM-RQ-SEARCH     PIC X         VALUE 'A'.
+                   88  ALELM-RQ-SEARCHA                  VALUE 'A'.
+                   88  ALELM-RQ-SEARCHB                  VALUE 'B'.
+                   88  ALELM-RQ-SEARCHE                  VALUE 'E'.
+                   88  ALELM-RQ-SEARCHR                  VALUE 'R'.
+                   88  ALELM-RQ-SEARCHN                  VALUE 'N'.
+               10  ALELM-RQ-BDATA      PIC X         VALUE SPACE.
+                   88  ALELM-RQ-BDATAY                   VALUE 'Y' 'B'.
+               10  ALELM-RQ-FLAG       REDEFINES
+                   ALELM-RQ-BDATA      PIC X.
+               10  ALELM-RQ-FDSN       PIC X         VALUE SPACE.
+                   88  ALELM-RQ-FDSNY                    VALUE 'Y'.
+               10  ALELM-RQ-TDSN       PIC X         VALUE SPACE.
+                   88  ALELM-RQ-TDSNY                    VALUE 'Y'.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  ALELM-RQ-WLPROC-FAIL PIC X        VALUE SPACES.
+                   88  ALELM-RQ-WLPROC-FAILY             VALUE 'Y'.
+                   88  ALELM-RQ-WLPROC-FAILN             VALUE 'N'.
+      *        WHERE LAST PROC TYPE: (A)NY, (D)ELETE, (G)EN, (M)OVE
+               10  ALELM-RQ-WLPROC-TYP PIC X         VALUE SPACES.
+                   88  ALELM-RQ-WLPROC-TYPA              VALUE 'A'.
+                   88  ALELM-RQ-WLPROC-TYPD              VALUE 'D'.
+                   88  ALELM-RQ-WLPROC-TYPG              VALUE 'G'.
+                   88  ALELM-RQ-WLPROC-TYPM              VALUE 'M'.
+      *        WHERE GEN DATE/TIME. FORMAT: DDMMMYY HH:MM
+               10  ALELM-RQ-WGEN-FDATE PIC X(07)     VALUE SPACES.
+               10  ALELM-RQ-WGEN-FTIME PIC X(05)     VALUE SPACES.
+               10  ALELM-RQ-WGEN-TDATE PIC X(07)     VALUE SPACES.
+               10  ALELM-RQ-WGEN-TTIME PIC X(05)     VALUE SPACES.
+      *        WHERE CCID TYPE VALUES:
+      *            LAST (A)CTION, (C)URRENT, (G)ENERATE,
+      *            LAST (L)EVEL, AND (R)ETRIEVE
+               10  ALELM-RQ-WCCID-TYP  PIC X         VALUE SPACES.
+                   88  ALELM-RQ-WCCID-TYPA               VALUE 'A'.
+                   88  ALELM-RQ-WCCID-TYPC               VALUE 'C'.
+                   88  ALELM-RQ-WCCID-TYPG               VALUE 'G'.
+                   88  ALELM-RQ-WCCID-TYPL               VALUE 'L'.
+                   88  ALELM-RQ-WCCID-TYPR               VALUE 'R'.
+      *        WHERE CCID(S)
+               10  ALELM-RQ-WCCID      PIC X(12)     VALUE SPACES.
+               10  ALELM-RQ-WCCID2-8   PIC X(84)     VALUE SPACES.
+               10  ALELM-RQ-WCCIDX     REDEFINES ALELM-RQ-WCCID2-8.
+                   15  ALELM-RQ-WCCID2  PIC X(12).
+                   15  ALELM-RQ-WCCID3  PIC X(12).
+                   15  ALELM-RQ-WCCID4  PIC X(12).
+                   15  ALELM-RQ-WCCID5  PIC X(12).
+                   15  ALELM-RQ-WCCID6  PIC X(12).
+                   15  ALELM-RQ-WCCID7  PIC X(12).
+                   15  ALELM-RQ-WCCID8  PIC X(12).
+      *        WHERE PROCESSOR GROUP(S)
+               10  ALELM-RQ-WPROGRO    PIC X(08)     VALUE SPACES.
+               10  ALELM-RQ-WPROGRO2-8 PIC X(56)     VALUE SPACES.
+               10  ALELM-RQ-WPROGROX   REDEFINES ALELM-RQ-WPROGRO2-8.
+                   15  ALELM-RQ-WPROGRO2  PIC X(08).
+                   15  ALELM-RQ-WPROGRO3  PIC X(08).
+                   15  ALELM-RQ-WPROGRO4  PIC X(08).
+                   15  ALELM-RQ-WPROGRO5  PIC X(08).
+                   15  ALELM-RQ-WPROGRO6  PIC X(08).
+                   15  ALELM-RQ-WPROGRO7  PIC X(08).
+                   15  ALELM-RQ-WPROGRO8  PIC X(08).
+      *        RESERVED
+               10  ALELM-RQ-RESERVED1  PIC X(02)     VALUE SPACES.
+               10  ALELM-RQ-RESERVED2  PIC X(02)     VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST ELEMENT - RESPONSE BLOCK                      *
+      *                                                               *
+      *****************************************************************
+       01  ALELM-RS.
+           05  ALELM-RS-HEADER.
+               10  ALELM-RS-LEN        PIC 9(4) COMP VALUE 1312.
+               10  ALELM-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALELM-RS-ID         PIC 9(4) COMP VALUE 1105.
+               10  ALELM-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALELM-RS-EYE        PIC X(4)      VALUE 'LELS'.
+           05  ALELM-RS-DATAAREA.
+               10  ALELM-RS-RECTYP     PIC X         VALUE SPACE.
+                   88  ALELM-RS-RECTYP-TYPM              VALUE 'M'.
+                   88  ALELM-RS-RECTYP-TYPB              VALUE 'B'.
+                   88  ALELM-RS-RECTYP-TYPF              VALUE 'F'.
+                   88  ALELM-RS-RECTYP-TYPT              VALUE 'T'.
+                   88  ALELM-RS-RECTYP-TYPS              VALUE 'S'.
+               10  ALELM-RS-SITE       PIC X         VALUE SPACE.
+               10  ALELM-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-ELEMENT    PIC X(10)     VALUE SPACES.
+               10  ALELM-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALELM-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALELM-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALELM-RS-PROCGRP    PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-UPD-BDTE REDEFINES ALELM-RS-UPD-DATE.
+                   15  ALELM-RS-UPD-YYYY   PIC 9(4).
+                   15  ALELM-RS-UPD-MM     PIC 9(2).
+                   15  ALELM-RS-UPD-DD     PIC 9(2).
+               10  ALELM-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-UPD-BTME REDEFINES ALELM-RS-UPD-TIME.
+                   15  ALELM-RS-UPD-HH     PIC 9(2).
+                   15  ALELM-RS-UPD-MI     PIC 9(2).
+                   15  ALELM-RS-UPD-SS     PIC 9(2).
+                   15  ALELM-RS-UPD-TH     PIC 9(2).
+               10  ALELM-RS-SIGNOUT    PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-ELM-VV     PIC 9(2)      VALUE ZEROS.
+               10  ALELM-RS-ELM-LL     PIC 9(2)      VALUE ZEROS.
+               10  ALELM-RS-CMP-VV     PIC X(2)      VALUE SPACES.
+               10  ALELM-RS-CMP-LL     PIC X(2)      VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE LAST ACTION                             *
+      *****************************************************************
+               10  ALELM-RS-LMOD-NAME  PIC X(8)     VALUE SPACES.
+               10  ALELM-RS-LACT-NAME  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-LACT-RC    PIC X(5)      VALUE SPACES.
+               10  ALELM-RS-LACT-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-LACT-BDTE REDEFINES ALELM-RS-LACT-DATE.
+                   15  ALELM-RS-LACT-YYYY  PIC 9(4).
+                   15  ALELM-RS-LACT-MM    PIC 9(2).
+                   15  ALELM-RS-LACT-DD    PIC 9(2).
+               10  ALELM-RS-LACT-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-LACT-BTME REDEFINES ALELM-RS-LACT-TIME.
+                   15  ALELM-RS-LACT-HH    PIC 9(2).
+                   15  ALELM-RS-LACT-MI    PIC 9(2).
+                   15  ALELM-RS-LACT-SS    PIC 9(2).
+                   15  ALELM-RS-LACT-TH    PIC 9(2).
+               10  ALELM-RS-LACT-USER  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-LACT-CCID  PIC X(12)     VALUE SPACES.
+               10  ALELM-RS-LACT-COMMENT PIC X(40)   VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE ELEMENT BASE                            *
+      *****************************************************************
+               10  ALELM-RS-EBAS-NAME  PIC X(10)     VALUE SPACES.
+               10  ALELM-RS-EBAS-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EBAS-BDTE REDEFINES ALELM-RS-EBAS-DATE.
+                   15  ALELM-RS-EBAS-YYYY  PIC 9(4).
+                   15  ALELM-RS-EBAS-MM    PIC 9(2).
+                   15  ALELM-RS-EBAS-DD    PIC 9(2).
+               10  ALELM-RS-EBAS-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EBAS-BTME REDEFINES ALELM-RS-EBAS-TIME.
+                   15  ALELM-RS-EBAS-HH    PIC 9(2).
+                   15  ALELM-RS-EBAS-MI    PIC 9(2).
+                   15  ALELM-RS-EBAS-SS    PIC 9(2).
+                   15  ALELM-RS-EBAS-TH    PIC 9(2).
+               10  ALELM-RS-EBAS-TOTL  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EBAS-LVL   PIC 9(2)      VALUE ZEROS.
+               10  ALELM-RS-EBAS-FLG1  PIC X         VALUE SPACE.
+               10  ALELM-RS-EBAS-USER  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-EBAS-COMMENT PIC X(40)   VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE ELEMENT DELTA (LAST LEVEL)              *
+      *****************************************************************
+               10  ALELM-RS-EDLT-NAME  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-EDLT-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EDLT-BDTE REDEFINES ALELM-RS-EDLT-DATE.
+                   15  ALELM-RS-EDLT-YYYY  PIC 9(4).
+                   15  ALELM-RS-EDLT-MM    PIC 9(2).
+                   15  ALELM-RS-EDLT-DD    PIC 9(2).
+               10  ALELM-RS-EDLT-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EDLT-BTME REDEFINES ALELM-RS-EDLT-TIME.
+                   15  ALELM-RS-EDLT-HH    PIC 9(2).
+                   15  ALELM-RS-EDLT-MI    PIC 9(2).
+                   15  ALELM-RS-EDLT-SS    PIC 9(2).
+                   15  ALELM-RS-EDLT-TH    PIC 9(2).
+               10  ALELM-RS-EDLT-TOTL  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-EDLT-USER  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-EDLT-CCID  PIC X(12)     VALUE SPACES.
+               10  ALELM-RS-EDLT-COMMENT PIC X(40)   VALUE SPACES.
+               10  ALELM-RS-EDLT-INS   PIC 9(5)      VALUE ZEROS.
+               10  ALELM-RS-EDLT-DEL   PIC 9(5)      VALUE ZEROS.
+               10  ALELM-RS-EDLT-FMT   PIC X         VALUE SPACE.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE COMPONENT LIST BASE                     *
+      *****************************************************************
+               10  ALELM-RS-XBAS-NAME  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-XBAS-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XBAS-BDTE REDEFINES ALELM-RS-XBAS-DATE.
+                   15  ALELM-RS-XBAS-YYYY  PIC 9(4).
+                   15  ALELM-RS-XBAS-MM    PIC 9(2).
+                   15  ALELM-RS-XBAS-DD    PIC 9(2).
+               10  ALELM-RS-XBAS-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XBAS-BTME REDEFINES ALELM-RS-XBAS-TIME.
+                   15  ALELM-RS-XBAS-HH    PIC 9(2).
+                   15  ALELM-RS-XBAS-MI    PIC 9(2).
+                   15  ALELM-RS-XBAS-SS    PIC 9(2).
+                   15  ALELM-RS-XBAS-TH    PIC 9(2).
+               10  ALELM-RS-XBAS-TOTL  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XBAS-LVL   PIC 9(2)      VALUE ZEROS.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE COMPONENT LIST DELTA                    *
+      *****************************************************************
+               10  ALELM-RS-XDLT-NAME  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-XDLT-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XDLT-BDTE REDEFINES ALELM-RS-XDLT-DATE.
+                   15  ALELM-RS-XDLT-YYYY  PIC 9(4).
+                   15  ALELM-RS-XDLT-MM    PIC 9(2).
+                   15  ALELM-RS-XDLT-DD    PIC 9(2).
+               10  ALELM-RS-XDLT-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XDLT-BTME REDEFINES ALELM-RS-XDLT-TIME.
+                   15  ALELM-RS-XDLT-HH    PIC 9(2).
+                   15  ALELM-RS-XDLT-MI    PIC 9(2).
+                   15  ALELM-RS-XDLT-SS    PIC 9(2).
+                   15  ALELM-RS-XDLT-TH    PIC 9(2).
+               10  ALELM-RS-XDLT-TOTL  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XDLT-INS   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XDLT-DEL   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-XDLT-FMT   PIC X         VALUE SPACE.
+               10  ALELM-RS-XDLT-MON   PIC X         VALUE SPACE.
+               10  ALELM-RS-XDLT-CPY   PIC X         VALUE SPACE.
+               10  ALELM-RS-XDLT-DLTA  PIC X         VALUE SPACE.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE LAST ELEMENT MOVE                       *
+      *****************************************************************
+               10  ALELM-RS-MOV-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-MOV-BDTE REDEFINES ALELM-RS-MOV-DATE.
+                   15  ALELM-RS-MOV-YYYY   PIC 9(4).
+                   15  ALELM-RS-MOV-MM     PIC 9(2).
+                   15  ALELM-RS-MOV-DD     PIC 9(2).
+               10  ALELM-RS-MOV-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-MOV-BTME REDEFINES ALELM-RS-MOV-TIME.
+                   15  ALELM-RS-MOV-HH     PIC 9(2).
+                   15  ALELM-RS-MOV-MI     PIC 9(2).
+                   15  ALELM-RS-MOV-SS     PIC 9(2).
+                   15  ALELM-RS-MOV-TH     PIC 9(2).
+               10  ALELM-RS-MOV-USER   PIC X(8)      VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE LAST ADD OR UPDATE DATA SETS            *
+      *****************************************************************
+               10  ALELM-RS-FR-DSN     PIC X(44)     VALUE SPACES.
+               10  ALELM-RS-FR-MBR     PIC X(10)     VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE ELEMENT PROCESSOR EXECUTION             *
+      *****************************************************************
+               10  ALELM-RS-PROC-FLG1  PIC X         VALUE SPACE.
+               10  ALELM-RS-PROC-FLG2  PIC X         VALUE SPACE.
+               10  ALELM-RS-PROC-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-PROC-BDTE REDEFINES ALELM-RS-PROC-DATE.
+                   15  ALELM-RS-PROC-YYYY  PIC 9(4).
+                   15  ALELM-RS-PROC-MM    PIC 9(2).
+                   15  ALELM-RS-PROC-DD    PIC 9(2).
+               10  ALELM-RS-PROC-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-PROC-BTME REDEFINES ALELM-RS-PROC-TIME.
+                   15  ALELM-RS-PROC-HH    PIC 9(2).
+                   15  ALELM-RS-PROC-MI    PIC 9(2).
+                   15  ALELM-RS-PROC-SS    PIC 9(2).
+                   15  ALELM-RS-PROC-TH    PIC 9(2).
+               10  ALELM-RS-GEN-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-GEN-BDTE REDEFINES ALELM-RS-GEN-DATE.
+                   15  ALELM-RS-GEN-YYYY   PIC 9(4).
+                   15  ALELM-RS-GEN-MM     PIC 9(2).
+                   15  ALELM-RS-GEN-DD     PIC 9(2).
+               10  ALELM-RS-GEN-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-GEN-BTME REDEFINES ALELM-RS-GEN-TIME.
+                   15  ALELM-RS-GEN-HH     PIC 9(2).
+                   15  ALELM-RS-GEN-MI     PIC 9(2).
+                   15  ALELM-RS-GEN-SS     PIC 9(2).
+                   15  ALELM-RS-GEN-TH     PIC 9(2).
+               10  ALELM-RS-GEN-USER   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-GEN-CCID   PIC X(12)     VALUE SPACES.
+               10  ALELM-RS-GEN-COMMENT PIC X(40)    VALUE SPACES.
+               10  ALELM-RS-PROC-FLG   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-LASTPROC   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-PROC-RC    PIC X(5)      VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE LAST ELEMENT RETRIEVE                   *
+      *****************************************************************
+               10  ALELM-RS-RET-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-RET-BDTE REDEFINES ALELM-RS-RET-DATE.
+                   15  ALELM-RS-RET-YYYY   PIC 9(4).
+                   15  ALELM-RS-RET-MM     PIC 9(2).
+                   15  ALELM-RS-RET-DD     PIC 9(2).
+               10  ALELM-RS-RET-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-RET-BTME REDEFINES ALELM-RS-RET-TIME.
+                   15  ALELM-RS-RET-HH     PIC 9(2).
+                   15  ALELM-RS-RET-MI     PIC 9(2).
+                   15  ALELM-RS-RET-SS     PIC 9(2).
+                   15  ALELM-RS-RET-TH     PIC 9(2).
+               10  ALELM-RS-RET-USER   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-RET-CCID   PIC X(12)     VALUE SPACES.
+               10  ALELM-RS-RET-COMM   PIC X(40)     VALUE SPACES.
+               10  ALELM-RS-RET-DSN    PIC X(44)     VALUE SPACES.
+               10  ALELM-RS-RET-MBR    PIC X(10)     VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE PKG LAST EXECUTED AGAINST THE ELM SOURCE*
+      *****************************************************************
+               10  ALELM-RS-SPKG-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-SPKG-BDTE REDEFINES ALELM-RS-SPKG-DATE.
+                   15  ALELM-RS-SPKG-YYYY  PIC 9(4).
+                   15  ALELM-RS-SPKG-MM    PIC 9(2).
+                   15  ALELM-RS-SPKG-DD    PIC 9(2).
+               10  ALELM-RS-SPKG-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-SPKG-BTME REDEFINES ALELM-RS-SPKG-TIME.
+                   15  ALELM-RS-SPKG-HH    PIC 9(2).
+                   15  ALELM-RS-SPKG-MI    PIC 9(2).
+                   15  ALELM-RS-SPKG-SS    PIC 9(2).
+                   15  ALELM-RS-SPKG-TH    PIC 9(2).
+               10  ALELM-RS-SPKG-ID    PIC X(16)     VALUE SPACES.
+      *
+      *****************************************************************
+      * INFO ABOUT THE PKG LAST EXECUTED AGAINST THE ELEMENT OUTPUTS  *
+      *****************************************************************
+               10  ALELM-RS-OPKG-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-OPKG-BDTE REDEFINES ALELM-RS-OPKG-DATE.
+                   15  ALELM-RS-OPKG-YYYY  PIC 9(4).
+                   15  ALELM-RS-OPKG-MM    PIC 9(2).
+                   15  ALELM-RS-OPKG-DD    PIC 9(2).
+               10  ALELM-RS-OPKG-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-OPKG-BTME REDEFINES ALELM-RS-OPKG-TIME.
+                   15  ALELM-RS-OPKG-HH    PIC 9(2).
+                   15  ALELM-RS-OPKG-MI    PIC 9(2).
+                   15  ALELM-RS-OPKG-SS    PIC 9(2).
+                   15  ALELM-RS-OPKG-TH    PIC 9(2).
+               10  ALELM-RS-OPKG-ID    PIC X(16)     VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE LAST "FROM" ENDEVOR LOCATION            *
+      *****************************************************************
+               10  ALELM-RS-FROM-SITE  PIC X         VALUE SPACE.
+               10  ALELM-RS-FROM-ENV   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-FROM-SYS   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-FROM-SBS   PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-FROM-ELM   PIC X(10)     VALUE SPACES.
+               10  ALELM-RS-FROM-TYPE  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-FROM-STGNUM  PIC X       VALUE SPACE.
+               10  ALELM-RS-FROM-FACT  PIC X(8)      VALUE SPACES.
+               10  ALELM-RS-FROM-VV    PIC XX        VALUE SPACE.
+               10  ALELM-RS-FROM-LL    PIC XX        VALUE SPACE.
+      *****************************************************************
+               10  ALELM-RS-FMID       PIC 9(5)      VALUE ZEROS.
+      *
+      *****************************************************************
+      * INFO ABOUT THE PKG FOR WHICH THE ELEMENT IS LOCKED            *
+      *****************************************************************
+               10  ALELM-RS-LPKG-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-LPKG-BDTE REDEFINES ALELM-RS-LPKG-DATE.
+                   15  ALELM-RS-LPKG-YYYY  PIC 9(4).
+                   15  ALELM-RS-LPKG-MM    PIC 9(2).
+                   15  ALELM-RS-LPKG-DD    PIC 9(2).
+               10  ALELM-RS-LPKG-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELM-RS-LPKG-BTME REDEFINES ALELM-RS-LPKG-TIME.
+                   15  ALELM-RS-LPKG-HH    PIC 9(2).
+                   15  ALELM-RS-LPKG-MI    PIC 9(2).
+                   15  ALELM-RS-LPKG-SS    PIC 9(2).
+                   15  ALELM-RS-LPKG-TH    PIC 9(2).
+               10  ALELM-RS-LPKG-ID    PIC X(16)     VALUE SPACES.
+               10  FILLER              PIC X(01)     VALUE SPACES.
+               10  ALELM-RS-USERDATA   PIC X(80)     VALUE SPACES.
+               10  ALELM-RS-NOSOURCE   PIC X(01)     VALUE SPACES.
+               10  FILLER              PIC X(05)     VALUE SPACES.
+               10  ALELM-RS-EBAS-VV    PIC 9(2)      VALUE ZERO.
+               10  ALELM-RS-XBAS-VV    PIC 9(2)      VALUE ZERO.
+               10  ALELM-RS-ELMNAMEL   PIC 9(4) COMP VALUE ZERO.
+               10  ALELM-RS-ELMNAME    PIC X(255)    VALUE SPACES.
+               10  FILLER              PIC X(03)     VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *            LIST ELEMENT - RESPONSE BLOCK                      *
+      *              BASE FIELDS RECORD LAYOUT                        *
+      *****************************************************************
+       01  ALELB-RS.
+           05  ALELB-RS-HEADER.
+               10  ALELB-RS-LEN        PIC 9(4) COMP VALUE 396.
+               10  ALELB-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALELB-RS-ID         PIC 9(4) COMP VALUE 1105.
+               10  ALELB-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALELB-RS-EYE        PIC X(4)      VALUE 'LELS'.
+           05  ALELB-RS-DATAAREA.
+               10  ALELB-RS-RECTYP     PIC X         VALUE SPACE.
+                   88  ALELB-RS-RECTYP-TYPM              VALUE 'M'.
+                   88  ALELB-RS-RECTYP-TYPB              VALUE 'B'.
+                   88  ALELB-RS-RECTYP-TYPF              VALUE 'F'.
+                   88  ALELB-RS-RECTYP-TYPT              VALUE 'T'.
+                   88  ALELB-RS-RECTYP-TYPS              VALUE 'S'.
+               10  ALELB-RS-SITE       PIC X         VALUE SPACE.
+               10  ALELB-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-ELEMENT    PIC X(10)     VALUE SPACES.
+               10  ALELB-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALELB-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALELB-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALELB-RS-PROCGRP    PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALELB-RS-UPD-BDTE REDEFINES ALELB-RS-UPD-DATE.
+                   15  ALELB-RS-UPD-YYYY   PIC 9(4).
+                   15  ALELB-RS-UPD-MM     PIC 9(2).
+                   15  ALELB-RS-UPD-DD     PIC 9(2).
+               10  ALELB-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALELB-RS-UPD-BTME REDEFINES ALELB-RS-UPD-TIME.
+                   15  ALELB-RS-UPD-HH     PIC 9(2).
+                   15  ALELB-RS-UPD-MI     PIC 9(2).
+                   15  ALELB-RS-UPD-SS     PIC 9(2).
+                   15  ALELB-RS-UPD-TH     PIC 9(2).
+               10  ALELB-RS-SIGNOUT    PIC X(8)      VALUE SPACES.
+               10  ALELB-RS-ELM-VV     PIC 9(2)      VALUE ZEROS.
+               10  ALELB-RS-ELM-LL     PIC 9(2)      VALUE ZEROS.
+               10  ALELB-RS-CMP-VV     PIC X(2)      VALUE SPACES.
+               10  ALELB-RS-CMP-LL     PIC X(2)      VALUE SPACES.
+      *
+      *****************************************************************
+      * INFORMATION ABOUT THE ELEMENT DELTA (LAST LEVEL)              *
+      *****************************************************************
+               10  ALELB-RS-EDLT-DATE  PIC 9(8)      VALUE ZEROS.
+               10  ALELB-RS-EDLT-BDTE REDEFINES ALELB-RS-EDLT-DATE.
+                   15  ALELB-RS-EDLT-YYYY  PIC 9(4).
+                   15  ALELB-RS-EDLT-MM    PIC 9(2).
+                   15  ALELB-RS-EDLT-DD    PIC 9(2).
+               10  ALELB-RS-EDLT-TIME  PIC 9(8)      VALUE ZEROS.
+               10  ALELB-RS-EDLT-BTME REDEFINES ALELB-RS-EDLT-TIME.
+                   15  ALELB-RS-EDLT-HH    PIC 9(2).
+                   15  ALELB-RS-EDLT-MI    PIC 9(2).
+                   15  ALELB-RS-EDLT-SS    PIC 9(2).
+                   15  ALELB-RS-EDLT-TH    PIC 9(2).
+               10  ALELB-RS-NOSOURCE   PIC X(01)     VALUE SPACES.
+               10  FILLER              PIC X(09)     VALUE SPACES.
+               10  ALELB-RS-ELMNAMEL   PIC 9(4) COMP VALUE ZERO.
+               10  ALELB-RS-ELMNAME    PIC X(255)    VALUE SPACES.
+               10  FILLER              PIC X(04)     VALUE SPACES.
+      *
+      *****************************************************************
+      *            LIST ELEMENT - RESPONSE BLOCK                      *
+      *               EXTENSION RECORD LAYOUT                         *
+      * EXTDATA CONTAINS 4 VALUES: PATH NAME LGTH, PATH NAME          *
+      *    HFS FILE NAME LGTH AND HFS FILE NAME. THE LGTH FIELDS ARE  *
+      *    EACH DEFINED AS BINARY HALFWORD. THE NAME VALUES ARE       *
+      *    VARIABLE LENGTH CHARACTER DATA.                            *
+      *****************************************************************
+       01  ALELX-RS.
+           05  ALELX-RS-HEADER.
+               10  ALELX-RS-LEN        PIC 9(4) COMP VALUE 1040.
+               10  ALELX-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALELX-RS-ID         PIC 9(4) COMP VALUE 1105.
+               10  ALELX-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALELX-RS-EYE        PIC X(4)      VALUE 'LELS'.
+           05  ALELX-RS-DATAAREA.
+               10  ALELX-RS-RECTYP     PIC X         VALUE SPACE.
+                   88  ALELX-RS-RECTYP-TYPF              VALUE 'F'.
+                   88  ALELX-RS-RECTYP-TYPT              VALUE 'T'.
+               10  ALELX-RS-EXTDATA    PIC X(1027)   VALUE SPACE.
+      *****************************************************************
+      *            LIST ELEMENT CHANGE LEVEL SUMMARY                  *
+      *               RESPONSE BLOCK                                  *
+      *****************************************************************
+       01  ALELS-RS.
+           05  ALELS-RS-HEADER.
+               10  ALELS-RS-LEN        PIC 9(4) COMP VALUE 484.
+               10  ALELS-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALELS-RS-ID         PIC 9(4) COMP VALUE 1105.
+               10  ALELS-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALELS-RS-EYE        PIC X(4)      VALUE 'LELS'.
+           05  ALELS-RS-DATAAREA.
+               10  ALELS-RS-RECTYP     PIC X         VALUE SPACE.
+                   88  ALELS-RS-RECTYP-TYPS              VALUE 'S'.
+               10  ALELS-RS-DTYPE      PIC X         VALUE SPACE.
+                   88  ALELS-RS-DTYPE-E                  VALUE 'E'.
+                   88  ALELS-RS-DTYPE-C                  VALUE 'C'.
+      * ELEMENT INFORMATION
+               10  ALELS-RS-SITE       PIC X         VALUE SPACE.
+               10  ALELS-RS-ENV        PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-SYSTEM     PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-SUBSYS     PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-ELEMENT    PIC X(10)     VALUE SPACE.
+               10  ALELS-RS-TYPE       PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-STG-NAME   PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALELS-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALELS-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALELS-RS-PROCGRP    PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-UPD-DATE   PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-UPD-TIME   PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-SIGNOUT    PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-ELM-VV     PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-ELM-LL     PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-CMP-VV     PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-CMP-LL     PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-RECCNT     PIC 9(4)      VALUE ZEROS.
+      * CHANGE LEVEL SUMMARY INFORMATION
+               10  ALELS-RS-RECNUM     PIC 9(4)      VALUE ZEROS.
+               10  ALELS-RS-VV         PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-LL         PIC X(2)      VALUE SPACE.
+               10  ALELS-RS-USER       PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-DATE       PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-TIME       PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-STMTS      PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-INS        PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-DEL        PIC X(8)      VALUE SPACE.
+               10  ALELS-RS-SYNC       PIC X         VALUE SPACE.
+               10  ALELS-RS-CCID       PIC X(12)     VALUE SPACE.
+               10  ALELS-RS-COMM       PIC X(40)     VALUE SPACE.
+      * ELEMENT LONG NAME INFORMATION
+               10  ALELS-RS-ELMNAMEL   PIC 9(4) COMP VALUE ZEROS.
+               10  ALELS-RS-ELMNAME    PIC X(255)    VALUE SPACE.
+               10  ALELS-RS-RESERVE    PIC X         VALUE SPACE.

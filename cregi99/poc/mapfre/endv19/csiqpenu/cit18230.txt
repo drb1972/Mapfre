@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Redesign of Eclipse Plug-In Local File Management \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Redesign of Eclipse Plug-In Local File Management
++
++ This enhancement changes the way that Elements are handled locally
++ in the Eclipse plugin.
++
++ When you add an Element to a Project, it is retrieved from the Endevor
++ repository to your computer where you are using the plugin. The Element file
++ on your computer is the local Element. An Element will have a local Element
++ when it is opened (Endevor Retrieve action) and downloaded to an
++ Eclipse plug-in project.
++
++ You can edit a local Element and save the changes to the local Element.
++ Optionally, you can also save the changed Element back to the Endevor
++ repository. There are various states describing the relationship between a
++ local Element and its corresponding Element in the Endevor repository.
++ Icons and tooltips for the local Elements in the project help you to
++ identify the relationships.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18240
+)END

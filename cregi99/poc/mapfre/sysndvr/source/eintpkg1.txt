@@ -1,0 +1,201 @@
+ /* START OF SPECIFICATIONS ******************************************/ 00010000
+ /*                                                                  */ 00100000
+ /* FUNCTION:                                                        */ 00110000
+ /*    THIS REPORT FORMAT TABLE PRODUCES AN INFORMATION/MANAGEMENT   */ 00120000
+ /*    CHANGES WITH RELATED ACTIVITIES REPORT                        */ 00130000
+ /*                                                                  */ 00140000
+ /* MODULE TYPE: REPORT FORMAT TABLE                                 */ 00150000
+ /*                                                                  */ 00160000
+ /*    NOTE: #1 NO FREE FORM TEXT.                                   */ 00170000
+ /*          #2 BECAUSE OF MIXED HEADING REQUIREMENT, HEADINGS       */ 00171000
+ /*             WILL BE HANDLED THROUG PUT STATEMENTS BEFORE         */ 00172000
+ /*             NOT AS HEADING/EHEADINGS.                            */ 00180000
+ /*                                                                  */ 00190000
+ /*                                                                  */ 00200000
+ /*                                                                  */ 00201000
+ /*                                                                  */ 00210000
+ /*** END OF SPECIFICATIONS ******************************************/ 00220000
+/********************************************************************** 00230000
+/*                                                                    * 00240000
+/*     ENDEVOR/INFO MAN CROSS REFERENCED RECORDS WITH ACTIVITIES      * 00250000
+/*                                                                    * 00260000
+/********************************************************************** 00270000
+                                                                        00280000
+                                                                        00290000
+SECTION  SEPARATION(1) TEST(N) PRINT(N)      /* SECTION DEFINITION      00300000
+                                                                        00310000
+  /******************************************************************** 00320000
+  /* TITLES FOR:                                                      * 00330000
+  /*  INFORMATION/MANAGEMENT CHANGES WITH RELATED ACTIVITIES REPORT   * 00340000
+  /*                                                                  * 00350000
+  /******************************************************************** 00360000
+                                                                        00370000
+  TITLE                                     /* REPORT TITLES            00380000
+    PUT COLUMN(001) VALUE(DATE &ZECDATE)    /* REPORT DATE              00390000
+    PUT COLUMN(027) VALUE(***      ENDEVOR MVS - INFO/MAN PACKAGE LEVEL+00400000
+ PARENT RECORD DETAIL REPORT      ***)      /* REPORT TITLE             00410001
+    PUT COLUMN(123) VALUE(PAGE)               /* REPORT PAGE NUMBER     00420000
+    PUT COLUMN(128) VALUE(&ZPAGENO) LENGTH(4) JUSTIFY(R) /* PAGE NUMBER 00430000
+                                                                        00440000
+    PUT COLUMN(001) VALUE(TIME &ZCTIME)      /* REPORT TIME             00450000
+    PUT COLUMN(036) VALUE(---------------------------------------------+00460000
+----------------------)                                                 00470005
+    SPACE LINES(2) EXECUTE(U)               /* SPACE 2 LINES            00480000
+  ETITLE                                    /* END TITLE DEFINITION     00490000
+                                                                        00710000
+  /******************************************************************** 00720000
+  /* TITLES FOR:                                                      * 00730000
+  /*   INFORMATION/MANAGEMENT CHANGES WITH RELATED ACTIVITIES REPORT  * 00740000
+  /*                                                                  * 00750000
+  /******************************************************************** 00760000
+                                                                        01200000
+  /******************************************************************** 01210000
+  /* PROCESSING FOR:                                                  * 01220000
+  /*    THE PACKAGE LEVEL PARENT RECORD  FIRST THEN ALL THE CHILDREN  * 01230000
+  /*                                                                  * 01240000
+  /******************************************************************** 01250000
+                                                                        01260000
+  SEARCH  ARGUMENT(!S0B06  TYPE/PACKAGE)    EXECUTE(C)  MAP(N)         +01270000
+          MERGE(0) SORT(STAC/. RNID/.)       /* GET ALL CHG WITH ACT    01280000
+                                                                        01290000
+    SET NAME(CHANGE) DATA(RNID/.)            /* SAVE CHANGE NUMBER      01300000
+                                                                        01310000
+      PUT COLUMN(001) VALUE(------------------------------)             01320000
+      PUT COLUMN(001) VALUE(PACKAGE)          /*                        01330000
+      PUT COLUMN(009) VALUE(LEVEL)            /*                        01340000
+      PUT COLUMN(015) VALUE(INTERFACE)        /*                        01350000
+      PUT COLUMN(025) VALUE(RECORD)           /* PACKAGE CREATE DATA    01351000
+      PUT COLUMN(001) VALUE(------------------------------)             01352000
+      SPACE LINES(1)                                                    01353000
+                                                                        01361400
+      PUT COLUMN(001) VALUE(CURR)             /* CURRENT STATUS         01361500
+      PUT COLUMN(007) VALUE(INFO)             /* RNID                   01361600
+      PUT COLUMN(017) VALUE(ENDEVOR)          /* ENDEVOR PACKAGE        01361704
+      PUT COLUMN(034) VALUE(INFO/MAN)         /* INFO/UPDATE DATA       01361800
+      PUT COLUMN(052) VALUE(PACKAGE)          /* PACKAGE EXECUTE WIND   01361900
+      PUT COLUMN(060) VALUE(EXECUTION)        /* PACKAGE EXECUTE WIND   01362000
+      PUT COLUMN(070) VALUE(WINDOW)           /* PACKAGE EXECUTE WIND   01362100
+      PUT COLUMN(083) VALUE(APPROVER)         /* APPROVAL STATUS        01362200
+      PUT COLUMN(094) VALUE(LAST)             /* LAST FUNCTION          01362400
+      PUT COLUMN(099) VALUE(PACKAGE)          /* EXECUTED               01362500
+                                                                        01362600
+      PUT COLUMN(001) VALUE(STAT)             /* CURRENT STATUS         01362700
+      PUT COLUMN(007) VALUE(RNID)             /* INFO  RNID             01362800
+      PUT COLUMN(017) VALUE(PACKAGE)          /* PACKAGE ID             01362900
+      PUT COLUMN(034) VALUE(UPDATE)           /* INFO CREATE USER       01363000
+      PUT COLUMN(043) VALUE(USER)             /* INFO UPDATE DATA       01363100
+      PUT COLUMN(052) VALUE(START)            /* PLANNED START DATE     01363200
+      PUT COLUMN(067) VALUE(END)              /* PLANNED END DATE       01363300
+      PUT COLUMN(083) VALUE(STATUS)           /* APPROVAL STATUS        01363400
+      PUT COLUMN(094) VALUE(FUNCTION)         /* LAST FUNCTION          01363600
+                                                                        01363700
+      PUT COLUMN(001) VALUE(----)             /* CURRENT STATUS         01363800
+      PUT COLUMN(007) VALUE(--------)         /* RECORD NUMBER/ID       01363900
+      PUT COLUMN(017) VALUE(----------------) /* PACKAGE ID             01364000
+      PUT COLUMN(034) VALUE(-------)          /* UPDATE DATE            01364100
+      PUT COLUMN(043) VALUE(--------)         /* UPDATE USER            01364200
+      PUT COLUMN(052) VALUE(--------------)   /* PLANNED START DATE     01364300
+      PUT COLUMN(067) VALUE(--------------)   /* PLANNED END DATE       01364400
+      PUT COLUMN(083) VALUE(----------)       /* APPROVER STATUS        01364500
+      PUT COLUMN(094) VALUE(------------)     /* LAST FUNCTION          01364700
+                                              /* DESCRIPTION            01364800
+    PUT COLUMN(001) LENGTH(04) DATA(STAC/.)   /* CURRENT STATUS         01364900
+    PUT COLUMN(007) LENGTH(08) DATA(RNID/.)   /* RECORD NUMBER/ID       01365000
+    PUT COLUMN(017) LENGTH(08) DATA(!S0CD4)   /* PACKAGE ID             01365104
+    PUT COLUMN(034) LENGTH(08) DATA(!S0C35)   /* UPDATE DATE            01365200
+    PUT COLUMN(043) LENGTH(08) DATA(!S0B5E)   /* UPDATE USER            01365300
+    PUT COLUMN(052) LENGTH(08) DATA(!S0C41)   /* PLANNED START DATE     01365400
+    PUT COLUMN(061) LENGTH(05) DATA(!S0C6E)   /* PANNED START TIME      01365500
+    PUT COLUMN(067) LENGTH(08) DATA(!S0C42)   /* PLANNED END DATE       01365600
+    PUT COLUMN(076) LENGTH(05) DATA(!S0C6F)   /* PANNED END TIME        01365700
+    PUT COLUMN(083) LENGTH(08) DATA(STAP/.)   /* APPROVAL STATUS        01365800
+    PUT COLUMN(094) LENGTH(8)  DATA(!S0C0B)   /* LAST PACKAGE FUNCTION  01366004
+                                                                        01366100
+      SPACE LINES(1) EXECUTE(U)               /* SPACE 1 LINE           01366200
+                                                                        01367000
+    SPACE LINES(1) EXECUTE(C)                                           01600000
+    PUT COLUMN(001) VALUE(DESCRIPTION)       /* DESCRIPTION             01610000
+    PUT COLUMN(001) VALUE(-----------)       /* DESCRIPTION             01611000
+    PUT COLUMN(001) LENGTH(42) DATA(!S0E0F)   /* DESCRIPTION            01612000
+                                                                        01630000
+    SPACE LINES(1) EXECUTE(C)                 /* SPACE 1 LINE           01680000
+                                                                        01680100
+IF DATA(!S0CBC) OPERATOR(NE) VALUE(&ZIFDATA) /* IF ACTIVITIES EXIST     01681000
+                                                                        01681100
+  SPACE LINES(1) EXECUTE(C) MINLINES(4)                                 01682000
+    PUT COLUMN(010) VALUE(---------------------------------------------+01683000
+-----)                                                                  01684000
+    PUT COLUMN(010) VALUE(NO ACTIVITY RECORDS EXIST FOR)                01685000
+    PUT COLUMN(040) VALUE(PACKAGE)                                      01689400
+    PUT COLUMN(050) LENGTH(08) DATA(RNCC/.)   /* PACKAGE ID             01689500
+    PUT COLUMN(010) VALUE(---------------------------------------------+01689600
+-----)                                                                  01689700
+                                                                        01689900
+ELSE                                                                    01690000
+    PUT COLUMN(010) VALUE(---------------------------------------------+01690100
+------------------------)                                               01690200
+    PUT COLUMN(010) VALUE(ACTIVITY)                                     01692000
+    PUT COLUMN(020) VALUE(RECORDS:)                                     01693000
+    PUT COLUMN(030) VALUE(ONE)                                          01694000
+    PUT COLUMN(035) VALUE(PER)                                          01695000
+    PUT COLUMN(039) VALUE(UNIQUE)                                       01696000
+    PUT COLUMN(046) VALUE(ENDEVOR)                                      01697000
+    PUT COLUMN(054) VALUE(CCID)                                         01698000
+    PUT COLUMN(059) VALUE(IN)                                           01698100
+    PUT COLUMN(063) VALUE(PACKAGE)                                      01698200
+    PUT COLUMN(071) LENGTH(08) DATA(RNCC/.)   /* PACKAGE ID             01698300
+                                                                        01699000
+    PUT COLUMN(010) VALUE(---------------------------------------------+01699100
+------------------------)                                               01699200
+    SPACE LINES(1) EXECUTE(C)                                           01699400
+                                                                        01699500
+      PUT COLUMN(036) VALUE(LAST)                                       01699800
+      PUT COLUMN(041) VALUE(UPDATE)                                     01700000
+      PUT COLUMN(056) VALUE(ACTIVITY) /* ACTIVITY TYPE                  01700100
+                                                                        01700300
+      PUT COLUMN(010) VALUE(RNID)    /* RECORD NUMBER/ID                01700400
+      PUT COLUMN(019) VALUE(CCID)    /* UNIQUE ENDEVOR CCID             01700500
+      PUT COLUMN(036) VALUE(DATE)    /* LAST UPDATE  DATE               01700600
+      PUT COLUMN(045) VALUE(USER)    /* LAST UPDATE  USER               01700700
+      PUT COLUMN(056) VALUE(TYPE)     /* ACTIVITY TYPE                  01700800
+      PUT COLUMN(070) VALUE(DESCRIPTION) /* DES                         01701000
+                                                                        01701100
+                                                                        01701200
+      PUT COLUMN(010) VALUE(--------)                                   01701300
+      PUT COLUMN(019) VALUE(-------------)                              01701400
+      PUT COLUMN(036) VALUE(--------)                                   01701500
+      PUT COLUMN(045) VALUE(--------)                                   01701600
+      PUT COLUMN(056) VALUE(--------)                                   01701700
+      PUT COLUMN(070) VALUE(-----------)                                01701900
+                                                                        01702000
+EIF                                                                     01702100
+    /****************************************************************** 01703000
+    /* PROCESSING FOR:                                                * 01710000
+    /*                  RELATED ACTIVITIES                            * 01720000
+    /*                                                                * 01730000
+    /****************************************************************** 01740000
+                                                                        01752000
+    SEARCH  ARGUMENT(!S0B07 RNOR/&CHANGE)   SORT(STAC/. RNID/.)        +01760000
+            EXECUTE(C)  MERGE(N)  MAP(N)        /* GET ALL ACTIVITIES   01770000
+                                                                        01780000
+      /**************************************************************** 01790000
+      /* DATA FOR:                                                    * 01800000
+      /*            RELATED ACTIVITIES                                * 01810000
+      /*                                                              * 01820000
+      /**************************************************************** 01830000
+                                                                        01840000
+      PUT COLUMN(010) LENGTH(08) DATA(RNID/.)   /* RECORD NUMBER/ID     01862000
+      PUT COLUMN(019) LENGTH(08) DATA(NAMA/.)   /* ACTIVITY NAME        01863003
+      PUT COLUMN(036) LENGTH(08) DATA(!S0C35)   /* LAST UPDATE  DATE    01871000
+      PUT COLUMN(045) LENGTH(08) DATA(!S0B5E)   /* LAST UPDATE  USER    01880000
+      PUT COLUMN(056) LENGTH(08) DATA(TYPE/.)   /* ACTIVITY TYPE        02070000
+      PUT COLUMN(070) LENGTH(42) DATA(!S0E0F)   /* DESCRIPTION          02080000
+                                                                        02090000
+      SPACE LINES(1) EXECUTE(C)                 /* SPACE 1 LINE         02100000
+    ESEARCH                                     /* END GET ALL ACTIV.   02110000
+                                                                        02120000
+   SPACE LINES(1) EXECUTE(C)                    /* SPACE 1 LINE         02130000
+                                                                        02140000
+  EJECT                                                                 02141000
+  ESEARCH                                       /* END CHANGE SEARCH    02150000
+ESECTION                                        /* END OF REPORT        02160000

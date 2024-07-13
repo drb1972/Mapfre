@@ -1,0 +1,10 @@
+@REM ****************************************************** #PSNDVRD ***
+@REM *    CONTENTS: ENDEVOR/MVS - HOST DATASET DELETION CONTROL CARD
+@REM * TRANSMITTER: ALL
+@REM *     PURPOSE: IDCAMS CONTROL CARD TO DELETE HOST STAGING
+@REM *              DATASET.
+@REM *******************************************************************
+@REM
+@IF &FDSN
+ DELETE '&FDSN' NONVSAM
+@ENDIF

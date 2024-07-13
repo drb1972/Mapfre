@@ -1,0 +1,4 @@
+//*--SKELETON CMSPWARN - END OF CD CHECKS                            --
+//SPWARN   EXEC @SPWARN,COND=EVEN
+//CHECKIT  ENDIF
+//*

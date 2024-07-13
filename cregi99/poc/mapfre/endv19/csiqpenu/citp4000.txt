@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Review Package \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to approve or deny packages, with these options:
++
+%  blank+- To display information about the elements in the package.
+%    A+- To approve the package.
+%    D+- To deny the package.
+%    L+- To display approver group information.
+%    N+- To add notes you want to associate with the package.
+%   DA+- To add/update dynamic approvers.
++
++
++
++
++    Select%1+-%9+for information about
++
+%    1+- Package ID fields          %5+- Package events
+%    2+- Package status             %6+- Package element information
+%    3+- Sharable package           %7+- Approver group information
+%    4+- Execution window           %8+- Notes exist for package
+%    9+- Dynamic approvers
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITXWIN0
+                  5,CITPKEV0 6,CITP1100 7,CITP1200 8,citnefp0
+                  9,CITP4100)
+)END

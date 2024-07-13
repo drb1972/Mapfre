@@ -1,0 +1,3 @@
+ENDE110S 'Macro ABEND'                .HELP=ENDIEH10   .ALARM=YES
+'ENDE110S &EEVPGMNM: A &EEVABCOD ABEND occurred during processing'
+

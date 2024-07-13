@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - Commands \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++                                                                   %Page 2 of 3
+%ESORT Command  (continued)
++sorted in descending order.
++
++A long name indicator column follows the Element name column. You can
++sort on the indicator field by using a column heading of%&L
++Examples:%ESORT &L+(ascending order) or%ES -&L+(descending order).
++
+%EONLY Command+
++Syntax:%EONLY column-heading-value+or%EONLY -column-heading value
++The%EONLY+(EO) command filters the list, so that only rows that match
++the specified column value are included or excluded from the display.
++Only the first three characters of the column-heading are required.
++The value specified on the command and the column value on each row
++is uppercased prior to the compare, except for the Element. All values
++are wild carded automatically. The use of the placeholder character (a
++percent symbol) is supported. Do not specify the wildcard character (an
++asterisk) or quotes, because these are considered to be text characters
++and are included in the search value. You can enter a long-named Element
++
++\ \ (Press%ENTER+or%PF3+to return) \ \
++
+)INIT
+  &L = +
+)PROC
+  &ZCONT = CITESELZ
+)END

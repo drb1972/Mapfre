@@ -1,0 +1,76 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   | TYPE(OUTPUT) INTENS(LOW)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ UNLOAD/RELOAD REPORTS \-\
+%COMMAND%===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++SELECT REPORTS:
+ _Z%50 +System Inventory Profile          _Z%53 +Unload Approver Group Usage
+ _Z%51 +Unload System Definition profile  _Z%54 +Element Catalog
+ _Z%52 +Unload Approver Group Definition  _Z%55 +Unload Package
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++FROM UNLOAD TAPE:  (enter tape information in JCL format)
+%===> +//UNLINPT DD_UNLDJCL1
+%===> _UNLDJCL2
+%===> _UNLDJCL3
++
++SELECTION INFORMATION:
++  ENVIRONMENT%===>_VAREVNME+
++  SYSTEM     %===>_SYS     +
++  SUBSYSTEM  %===>_SBS     +
++  ELEMENT    %===>@VNT1ENME  |VNTIND
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+
++
++  PACKAGE ID %===>_VARSPPKG        +
+<OTHERWISE>
++ELEMENT%===>@VNT1ENME                                           |VNTIND
++  TYPE %===>_TYPEN   +
++
++FROM UNLOAD TAPE:  (enter tape information in JCL format)
+%===> +//UNLINPT DD_UNLDJCL1
+%===> _UNLDJCL2
+%===> _UNLDJCL3
++
++SELECTION INFORMATION:                 OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+            +UPPERCASE ELM NAME     %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +
++  SUBSYSTEM  %===>_SBS     +
++  STAGE      %===>_D+
++
++  PACKAGE ID %===>_VARSPPKG        +
+</SELECT>
+%
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+ .ZVARS = '(RPT50 RPT53 RPT51 RPT54 RPT52 RPT55         )'
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+ .ZVARS = '(RPT50 RPT53 RPT51 RPT54 RPT52 RPT55 VNTUPPER)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+ .HELP = CITR1500
+ IF (&AMT = ' ')
+    &AMT = PAGE
+&YNLIST = 'Y N'
+)PROC
+VER (&VAREVNME,NB,MSG=CISR005)
+VER (&VNTUPPER,NB,LISTV,&YNLIST,MSG=CIEV002)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND) SCROLL(ON) LEN(255)
+)END

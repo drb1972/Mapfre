@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY
+%EXECUTE ----------------  EXECUTE/SUBMIT PACKAGE  -----------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %E+- Execute Package                 %S+ - Submit Package
++
++
++PACKAGE ID:|VPHPKGID        +            STATUS:|VPHSTAT     +
++DESCRIPTION: ~VPHCOMM                                           +
++PACKAGE TYPE:|VPHTYPE   +                PROMOTION PKG:|Z+
++SHARABLE PACKAGE:|Z+
++EXECUTION WINDOW FROM%===>_Z      _Z    +TO%===>_Z      _Z    +
++
++              USER ID  DATE    TIME
++CREATED:     |VPHCRUID|Z      |Z    +
++LAST UPDATED:|VPHPUUID|Z      |Z    +
++CAST:        |VPHCUID |Z      |Z    +
++APPROVED:             |Z      |Z    +
++EXECUTED:    |VPHXUID |Z      |Z    +         RC:|Z    +|Z         +
++
+)INIT
+  .HELP = CITP5000
+  .ZVARS = '( VPHPROM                                             +
+              VPHPSHR                                             +
+              VPHWSD VPHWST VPHWED VPHWET                         +
+              VPHCRD VPHCRT                                       +
+              VPHPUD VPHPUT VPHCD VPHCT                           +
+              VPHAD VPHAT VPHXD VPHXT VPHXRC VPHBSTAT             )'
+)PROC
+)END

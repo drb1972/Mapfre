@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Autogen Action Option Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Autogen Action Option Enhancements +
++
+ The%AUTOGEN+feature was enhanced to include the%AUTOGEN SPAN+
+ parameter to enable cross-System and cross-Subsystem support.
+ Previously, only "using" elements that were located in the same
+ logical map as the component were generated. This enhancement
+ allows "using" elements found in Systems and Subsystems not in
+ the same map as the component being acted upon to be generated.
+
+%Simulation mode+causes the actual execution of all actions in
+ the batch job to be bypassed. No updates are performed. Use the
+ C1MSGS1 and C1MSGS2 reports for impact analysis to see what the
+ results would be if the actions are performed.
+
+ The%&LIT          +option was added into the Optional Feature Table.
+ When enabled and "using" elements are not found at the target
+ location, the using elements are generated with%COPYBACK+instead
+ of the%NOSOURCE+option.
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)INIT
+    &LIT   = 'AUTOGEN_SOURCE'
+)PROC
+   &ZCONT = CIT16040
+)END

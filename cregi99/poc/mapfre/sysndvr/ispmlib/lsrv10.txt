@@ -1,0 +1,8 @@
+LSRV100E 'VSAM SHROPTN ERROR'                             .ALARM=YES
+'&VARWLTXT'
+LSRV101E 'LSERV SHROPTN ERROR'                             .ALARM=YES
+'&VARWLTXT'
+LSRV102E 'LSERV ERROR'                                     .ALARM=YES
+'&VARWLTXT'
+LSRV103E 'VSAM ERROR'                                     .ALARM=YES
+'&VARWLTXT'

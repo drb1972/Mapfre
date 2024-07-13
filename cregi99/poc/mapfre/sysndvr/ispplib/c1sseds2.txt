@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(OUTPUT) CAPS(OFF)       FORMAT(&VARFMCCI) INTENS(HIGH)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY EXPAND(\\)
+%------------------------------  ELEMENT MASTER  -------------------------------
+%COMMAND ===>_ZCMD                                            +(PANEL 2 OF 2)  +
++
++ELEMENT: ¢EMNAME    +ENV:¢EMENV   +SYS:¢EMSYS   +SUB:¢EMSBS   +TYPE:¢EMTYPE  +
++PROC GRP:¢EPRGRP  +  STG:¢Z      +VVLL:¢ECVL           +LAST ACTION:¢ELSTACT
++N/S:¢EMSRCD                                             +SIGNOUT ID:¢EOWNRID
++
++---------------------------------  RETRIEVE  ----------------------------------
++USERID: ¢EMRUID  +  DATE/TIME:¢EMRD   ¢EMRT +     CCID:^ERCCID
++COMMENT:`EMRCOM
++RETRIEVE TO DSN:@ETDSN
++
++-----------------------------------  BASE  ------------------------------------
++USERID: ¢EMBUID  +  DATE/TIME:¢EMBDTE ¢EMBT   +
++COMMENT:`EMBCOM
++
+%\-\ From Location \-\
++USERID: ¢EFUID   +  DATE/TIME:¢EFD    ¢EFT  +   ACTION:¢ELFRACT
++ELEMENT:¢EFELM     +ENV:¢EFENV   +SYS:¢EFSYS   +SUB:¢EFSBS   +TYPE:¢EFTYPE  +
++    STG:¢EFSTG#  +  VVLL:¢EFVVLL
++
++                                               (Press ENTER for previous panel)
+)INIT
+  .ZVARS = '(EMSTGID)'
+  .HELP = CITSED00
+)END

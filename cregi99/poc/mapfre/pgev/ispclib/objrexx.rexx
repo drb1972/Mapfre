@@ -1,0 +1,37 @@
+/* */
+ADDRESS MVS
+SEQ = 0
+TRACE O
+
+/* LOOP THROUGH THE OBJECT CARDS */
+"EXECIO 1 DISKR OBJIN (FIFO"
+DO UNTIL RC > 0
+
+   PARSE PULL DATA
+
+   /* TEST THE TYPE OF THE CURRENT CARD. */
+   TYPE = SUBSTR(DATA,2,4)
+   IF TYPE = "ESD" THEN DO
+      IF SEQ > 0 THEN DO
+         /* CLOSE PREVIOUS OUTPUT FILE                          */
+         "EXECIO 0 DISKW OBJOUT" || SEQ || " (FINIS"
+      END
+      /* SWITCH TO THE NEXT OUTPUT FILE.                        */
+      SEQ = SEQ + 1
+   END
+
+   IF TYPE = "NAME" THEN
+      /* DROP THE NAME CONTROL STATEMENTS SO THAT THE FOOTPRINT */
+      /* IDENTIFY CONTROL STATEMENTS WILL BE ACCEPTED BY THE    */
+      /* LINKAGE EDITOR.                                        */
+      NOP
+   ELSE DO
+      /* WRITE THE CURRENT LINE TO THE CURRENT OUTPUT FILE.     */
+      PUSH DATA
+      "EXECIO 1 DISKW OBJOUT" || SEQ
+   END
+
+   "EXECIO 1 DISKR OBJIN (FIFO"
+
+END
+EXIT

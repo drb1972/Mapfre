@@ -1,0 +1,258 @@
+XIT2NTFY TITLE 'ENDEVOR EXIT 2 OR EXIT 3 - SAMPLE NOTIFY'
+*************************************************************P0001582**
+*                                                            P0001582 *
+*   XIT2NTFY HAS BEEN MODIFIED TO SHOW HOW TO USE THE        P0001582 *
+*   NEW XMITM PROTOCOL WITH BC1PNTFY. XMITM PROTOCOL WAS     P0001582 *
+*   DESIGNED TO LET BC1PNTFY CREATE A MULTI LINES MESSAGE    P0001582 *
+*   FOR THE XMIT (TRANSMIT) FEATURE OF TSO.                  P0001582 *
+*                                                            P0001582 *
+*   IT USES THE NEW MACRO $NTFXMTM AS EXPLAINED BELOW.       P0001582 *
+*                                                            P0001582 *
+*   HOW TO USE $NTFXMTM:                                     P0001582 *
+*                                                            P0001582 *
+*   TYPE=I : USES CPOOL TO ALLOCATE EXTRA ROOM FOR           P0001582 *
+*                 ADDITIONAL MESSAGE LINES                   P0001582 *
+*            PRIM : NUMBER OF CELLS                          P0001582 *
+*            SECM : IF THE NUMBER OF LINES GETS GREATER THAN P0001582 *
+*                   PRIM , SEC ALLOWS FOR MORE LINES.        P0001582 *
+*                                                            P0001582 *
+*   TYPE=W : ACQUIRES A CELL                                 P0001582 *
+*            MOVES NOTMSGXT IN THIS CELL (MESSAGE FOR XMITM) P0001582 *
+*                                                            P0001582 *
+*   TYPE=C : FREES THE CPOOL ALLOCATED BY TYPE I.            P0001582 *
+*                                                            P0001582 *
+*************************************************************P0001582**
+***********************************************************************
+*   DESCRIPTION: THIS SAMPLE EXIT  PROGRAM WILL NOTIFY                *
+*                A USER USING TSO  PROTOCOL DURING                    *
+*                ACTION PROCESSING.                                   *
+*                THE OTHER POSSIBLE PROTOCOLS (TPX , XMIT AND         *
+*                XMITM) WILL BE INCLUDED BUT COMMENTED                *
+*                OUT.                                                 *
+*                                                                     *
+*   HOW TO USE:  THIS IS SAMPLE CODE FOR A EITHER EXIT 2 OR 3         *
+*                NOTIFY. TO USE EITHER THE XMIT OR TPX PROTOCOL,      *
+*                THE USEREXIT MUST FILL IN SITE INFORMATION SUCH      *
+*                AS TPX NAME AND SEND TYPE, OR XMIT NODE NAME.        *
+*                                                                     *
+*   HOW TO USE:  ASSEMBLER AND LINK THIS MODULE                       *
+*                                                                     *
+*   LINK EDIT:   RENT, AMODE=31, RMODE=24                             *
+*                                                                     *
+*   REGISTERS ON ENTRY:                                               *
+*                                                                     *
+*                0(R1) --> $ECBDS     EXIT CONTROL BLOCK              *
+*                4(R1) --> $REQPDS    EXIT REQUEST BLOCK              *
+*                                                                     *
+*   REGISTER USAGE:                                                   *
+*                                                                     *
+*                R5     -> $NOTIFY                                    *
+*                R6     -> $ECBDS                                     *
+*                R7     -> $REQPDS                                    *
+*                R12    -> BASE PROGRAM                               *
+*                R13    -> STANDARD USAGE........                     *
+*   ==>                 -> WE USE STANDARD STACK SAVEAREA USAGE       *
+*                                                                     *
+***********************************************************************
+***********************************************************************
+*   EXIT CONTROL BLOCK                                                *
+***********************************************************************
+         $ECBDS
+***********************************************************************
+*   EXIT REQUEST BLOCK                                                *
+***********************************************************************
+         $REQPDS
+***********************************************************************
+*   REQISTER EQUATES                                                  *
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+***********************************************************************
+*   WORKAREA                                                          *
+***********************************************************************
+WORKAREA DSECT
+*
+SAVEAREA DS     18F
+*
+         $NOTIFY DSECT=NO
+NOTFRST  DC    A(0)  FIRST MSG                                 P0001582  0003380
+*NOTCPID  DC    A(0)  CPID FOR CPOOL                          P0001582   0003390
+NOTCUR   DC    A(0)                                            P0001582  0003400
+CPOOLR   CPOOL BUILD,PCELLCT=2500,SCELLCT=500,CSIZE=80,        P0001582**0003410
+               LOC=BELOW,MF=L                                  P0001582  0003420
+*
+PLIST    DS     8F                                             C9221851
+*
+WORKLN   EQU    *-WORKAREA
+         TITLE 'XIT2NTFY: NOTIFY EXIT'
+***********************************************************************
+*                                                                     *
+***********************************************************************
+XIT2NTFY CSECT
+***********************************************************************
+*   MAIN LOGIC                                                        *
+***********************************************************************
+         SAVE  (14,12)                      SAVE CALLERS REG 12(13)
+         LR    R12,R15                      POINT TO THIS PROGRAM
+         USING XIT2NTFY,R12
+         L     R6,0(,R1)                    POINT TO THE $ECBDS
+         USING $ECBDS,R6
+         L     R7,ECBREQA                   POINT TO $REQPDS   C9221851
+         USING $REQPDS,R7
+***********************************************************************
+*   GET STORAGE FOR SAVEAREA AND $NOTIFY                              *
+***********************************************************************
+         L     R0,=A(WORKLN)                GET SIZE OF W.A
+         GETMAIN R,LV=(0)                   GET WORKING STORAGE
+         ST    R1,8(R13)                    STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)                    STORE OLD STACK +4(NEW)
+         LR    R13,R1                       POINT R13 TO OUR STACK
+*
+*
+MAIN0050 DS    0H
+         LA    R5,72(R13)                   POINT TO LOCAL WORKAREA
+*
+         USING $NOTIFY,R5                   ESTABLISH ADDRESSIBILIY
+         $NTFXMTM TYPE=I                    INIT CPOOL FOR MSG P0001582
+*
+***********************************************************************
+*   LOAD NOTIFY PROGRAM IF NOT ALREADY DONE                           *
+*   NOTE: OTHER INSTALLED EXITS MAY BE USING THE ANCHOR WORD/ANCHOR ID*
+*         CHECK WITH ENDEVOR TECHNICIAN BEFORE ASSUMING YOU CAN USE   *
+*         THIS FIELD.                                                 *
+***********************************************************************
+         ICM   R15,B'1111',ECBUEXT          PROGRAM LOADED?
+         BNZ   MAIN0100                     YES. CONTINUE
+         LOAD  EP=BC1PNTFY,ERRET=MAIN8000   NO. LOAD
+         LR    R15,R0
+         ST    R15,ECBUEXT                  STORE IN EXIT ANCHOR WORD
+MAIN0100 DS    0H
+***********************************************************************
+*   SET UP TSO $NOTIFY CONTROL BLOCK                                  *
+***********************************************************************
+         MVC   NOTFTYPE,=CL8'TSO'
+         MVI   NTSOLOGN,C'Y'
+         MVC   NOTFUSER,ECBUSER             <====  USER ID
+***********************************************************************
+*   SET UP TPX $NOTIFY CONTROL BLOCK                                  *
+***********************************************************************
+*        MVC   NOTFTYPE,=CL8'TPX'
+*        MVC   NTPXJOBN,=CL8'TPXJOBNM'      <===== USER TPX JOB NAME
+*        MVI   NTPXTYPE,C'L'                <===== USER CALL TYPE
+*        MVC   NOTFUSER,=CL8'LISTNAME'      <===== USER TPX LIST NAME
+*        MVI   NTPXSAVE,C'Y'
+***********************************************************************
+*   FILL IN ALL THE XMIT REQUEST FIELDS                               *
+*   NOTE: TO USE THE XMIT OPTION, XMIT MUST BE ENABLED ON YOUR        *
+*         SYSTEM. CHECK WITH YOUR MVS SYSTEM PROGRAMMER.              *
+***********************************************************************
+*        MVC   NOTFTYPE,=CL8'XMIT'          <====  USE MVS/XMIT
+*        MVC   NOTFUSER,=CL8'USERID'        <====  USER ID
+*        MVC   NXMTNODE,=CL8'NJENODEN'      <====  USER NJE NODE NAME
+***************************************************************P0001582
+*   FILL IN ALL THE XMITM REQUEST FIELDS                       P0001582
+*   NOTE: TO USE THE XMITM OPTION,XMIT MUST BE ENABLED ON YOUR P0001582
+*         SYSTEM. CHECK WITH YOUR MVS SYSTEM PROGRAMMER.       P0001582
+***************************************************************P0001582
+*        MVC   NOTFTYPE,=CL8'XMITM'         <====  XMITM       P0001582
+*        MVC   NOTFUSER,=CL8'USERID'        <====  USER ID     P0001582
+*        MVC   NXMTNODE,=CL8'NJENODEN'      <====  NODE        P0001582
+***********************************************************************
+*   BUILD MESSAGE TEXT  - EITHER FROM LITERAL POOL OR USER MESSAGE    *
+***********************************************************************
+         MVC   NOTMSGTX,BLANKS              CLEAR MESSAGE TEXT
+         LA    R2,L'WMSGTEXT-1              SET MESSAGE   LENGTH
+         EX    R2,MVCMSG00                  MOVE MESSAGE
+*
+* ALL LINES BELOW UNTIL 'CALL' COMMENT LINE SHOULD BE          P0001582
+*     COMMENTED FOR OTHER PROTOCOLS THAN XMITM.                P0001582
+*                                                              P0001582
+*        $NTFXMTM TYPE=W               STORE NOTMSGTX IN CPOOL P0001582
+*
+*        MVC   NOTMSGTX,BLANKS         CLEAR MESSAGE TEXT      P0001582
+*        LA    R2,L'WMSGTXT1-1         SET MESSAGE 1 LENGTH    P0001582
+*        EX    R2,MVCMSG01             MOVE MESSAGE 1          P0001582
+*        $NTFXMTM TYPE=W               STORE NOTMSGTX IN CPOOL P0001582
+*
+*        MVC   NOTMSGTX,BLANKS         CLEAR MESSAGE TEXT      P0001582
+*        LA    R2,L'WMSGTXT2-1         SET MESSAGE 2 LENGTH    P0001582
+*        EX    R2,MVCMSG02             MOVE MESSAGE 2          P0001582
+*        $NTFXMTM TYPE=W               STORE NOTMSGTX IN CPOOL P0001582
+***********************************************************************
+** CALL NOTIFY PROGRAM SENDING THE $NOTIFY BLOCK
+***********************************************************************
+         LA    R1,PLIST              POINT TO PARAM LIST       C9221851
+         LA    R14,$NOTIFY           POINT TO CONTROL BLOCK    C9221851
+         ST    R14,0(,R1)            POINT TO CONTROL BLOCK    C9221851
+         OI    0(R1),X'80'                  SET V.L. SWITCH
+         L     R15,ECBUEXT           RESTORE BC1PNTFY ADDRESS  P0001582
+*
+*
+         BALR  R14,R15                      BRANCH TO BC1PNTFY  (1)
+*
+*
+         LTR   R15,R15                      CHECK RETURN CODES
+         BNZ   MAIN8000
+         B     MAIN9000
+*
+MAIN8000 DS    0H
+         MVC   ECBRTCD,=A(ECB$FAIL)         SET BAD RC
+***********************************************************************
+* IT IS THE USERS DECISION TO FAIL THE ACTION OR JUST ISSUE
+* A MESSAGE IF THE NOTIFICATION FACILITY RETURNS A NON ZERO RETURN
+* CODE. KEEP IN MIND THAT THE HIGHEST A RETURN VALUE CAN BE ON AN
+* "AFTER" ACTION FUNCTION, WILL BE FOUR.
+***********************************************************************
+***********************************************************************
+*   MOVE ERROR MESSAGE FROM UTILITY                                   *
+***********************************************************************
+         MVC   ECBMSG,NOTERMSG              MOVE IS ERROR MESSAGE
+         B     MAINEXIT
+MAIN9000 DS    0H
+         XC    ECBRTCD,ECBRTCD               CLEAR RC
+MAINEXIT DS    0H
+*
+         $NTFXMTM TYPE=C            FREE CPOOL FOR MESSAGE     P0001582
+*
+         LR    R5,R13                        SAVE NEW STACK POINTER
+         L     R13,4(R13)                    POINT TO OLD STACK
+***********************************************************************
+*   CLEAN UP THIS PROGRAM'S STORAGE                                   *
+*   NOTE: THIS HAS TO BE DONE BEFORE THE "LOAD MULTIPLE" IS           *
+*   DONE BECAUSE YOU LOSE THE POINTER TO YOUR STORAGE                 *
+***********************************************************************
+*
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(5),LV=(0)            FREE STORAGE
+*
+MAINRTRN DS    0H
+***********************************************************************
+*   RETURN HOME VIA 12(R13) ----> R14                                 *
+***********************************************************************
+         RETURN  (14,12)                    RESTORE
+*
+MVCMSG00 MVC   NOTMSGTX(0),WMSGTEXT
+MVCMSG01 MVC   NOTMSGTX(0),WMSGTXT1                            P0001582
+MVCMSG02 MVC   NOTMSGTX(0),WMSGTXT2                            P0001582
+***********************************************************************
+*   PROGRAM CONSTANTS                                                 *
+***********************************************************************
+WMSGTEXT DC    C'MESSAGE TEXT FOR NOTIFICATION FACILITY'
+WMSGTXT1 DC    C'EXTRA MESSAGE LINE 1 FOR XMITM PROTOCOL'      P0001582
+WMSGTXT2 DC    C'EXTRA MESSAGE LINE 2 FOR XMITM PROTOCOL'      P0001582
+BLANKS   DC    CL80' '
+         END

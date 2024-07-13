@@ -1,0 +1,42 @@
+)ATTR
+  _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)    COLOR(&@MIHC1)
+  ~ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)   COLOR(&@MOHA1)
+  ¢ TYPE(TEXT)   INTENS(HIGH)             COLOR(&@MTH1)  /* Option Values     */
+  % TYPE(TEXT)   INTENS(HIGH)             COLOR(&@MTH2)  /* High   Text       */
+  ¦ TYPE(TEXT)   INTENS(LOW)              COLOR(&@MTL1)  /* Option Short Names*/
+  | TYPE(TEXT)   INTENS(LOW)              COLOR(&@MTL2)  /* Low    Text       */
+  + TYPE(TEXT)   INTENS(LOW)              COLOR(&@MTL3)  /* Field Names       */
+
+)BODY EXPAND(\\)
+%\-\   Process Generated JCL   \-\
++Option ===>_ZCMD                                                              +
++
++
+¢  1¦EDIT     +- Edit Generated JCL|(only operative where ISPF Screen > 2)
++
+¢  2¦SUBMIT   +- Submit Generated JCL
++
++
++Enter¢END+command to terminate dialog
+%
+)INIT
+  VGET (@MIHC1 @MOHA1 @MTH1  @MTH2  @MTL1  @MTL2  @MTL3) PROFILE
+  IF (&@MIHC1 = &Z)
+      &@MIHC1 = WHITE
+  IF (&@MOHA1 = &Z)
+      &@MOHA1 = TURQ
+  IF (&@MTH1 = &Z)
+      &@MTH1 = YELLOW
+  IF (&@MTH2 = &Z)
+      &@MTH2 = TURQ
+  IF (&@MTL1 = &Z)
+      &@MTL1 = GREEN
+  IF (&@MTL2 = &Z)
+      &@MTL2 = BLUE
+  IF (&@MTL3 = &Z)
+      &@MTL3 = GREEN
+
+)PROC
+  &ZQ = TRUNC(&ZCMD,'.')
+  VER (&ZQ,NB,LIST,1,2,X)
+)END

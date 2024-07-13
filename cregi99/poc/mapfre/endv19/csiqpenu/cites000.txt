@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information from C1DEFLTS \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to review the site definitions contained in the C1DEFLTS table.
++
+%Customer Name+- The name of your site.
++
++Enter one of the options listed below on the selection line and press
++enter for information about that group on fields:
++
+%          1+- Function Controls
+%          2+- Options
+%          3+- Package Processing Options
+%          4+- Control Data Set Names
+%          5+- Parmlib Information
+%          6+- CA-7 Interface Values
+%          7+- Concurrent Action Processing Options
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITES010 2,CITES020 3,CITES030 4,CITES040
+                       5,CITES060,6,CITES050,7,CITES070)
+)END

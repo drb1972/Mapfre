@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The name of the processor group to be associated with the element.
++You can type a processor group name in this field or use a name mask to
++access a list of processor groups.
+
++If you do not provide a processor group name, one is selected for you.
+
++
++    Select%1+-%6+to learn how processor groups are determined for
++
+%    1+- Add                        %4+- Transfer
+%    2+- Delete                     %5+- Update
+%    3+- Generate                   %6+- Move
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPGRP1 2,CITPGRP2 3,CITPGRP3 4,CITPGRP4
+                  5,CITPGRP5 6,CITPGRP6)
+)END

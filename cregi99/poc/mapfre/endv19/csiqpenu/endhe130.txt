@@ -1,0 +1,27 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++The List Options fields allow you to limit the elements presented
++in the Quick Edit element selection list.
++
+%Apply List Filters+- Displays a panel where you can enter options
++  to filter the elements presented in the selection list.
++  When this option is%N,+filters are%not+applied.
++  Press the%HELP+key when the%Apply List Filters+panel is displayed
++  for more information about the fields on this panel.
++
+%Build Using Map+- Indicates whether the environment map should
++  be searched building the element selection list.
+%  Y+- Search the map. %N+- (Default) Do not search the map.
++
+%Return First Found+- Indicates whether the search should stop
++  after finding the first occurrence of an element.
++   %Y+- (Default) Return the first matching element found.
++   %N+- Search for all occurrences and return a list.
++
++
++\ \(%ENTER+to continue,%END+to return) \ \
+)PROC
+   &ZCONT = endhe131
+)END

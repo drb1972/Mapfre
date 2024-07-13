@@ -1,0 +1,35 @@
+         MACRO
+         ENHAPEXE &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        EXECUTE PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=1,                  CONTROL BLOCK VERSION           X
+               EYE='PEXQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=APEXE_RQ
+         SPACE ,
+APEXE_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      APEXE_RQ_DATA
+APEXE_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+APEXE_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+APEXR_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+APEXE_RQ_VER#1_DATADSLN EQU *-APEXE_RQ_DATA
+APEXE_RQ_VER#1_DSLN     EQU *-APEXE_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APEXE_RQ_DATADSLN EQU *-APEXE_RQ_DATA
+APEXE_RQ_DSLN     EQU *-APEXE_RQ
+         ORG      APEXE_RQ_DATA
+APEXE_RQ_DATAAREA DS XL(APEXE_RQ_DATADSLN)     DATA AREA
+         MEND

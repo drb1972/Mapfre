@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%\-\ Web Services Configuration Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Web Services Configuration Enhancements
++
++The Web Services installation and configuration process has been
++modified to minimize the exposure to configuration-related errors
++and to provide a process to validate the installation and configuration
++parameters. The installation process has been changed as follows:
++
++   - A new central properties file%(ENWSInstallOptions.properties)
++     contains parameters that allow you to tailor the installation
++     according to your environment.
++   - Endevor provides scripts for the configuration of the
++     security access to Web Services.
++   - Endevor provides scripts for the installation, update and
++     validation of Web Services.
++   - Endevor provides a "round trip" validation utility that
++     validates the setup and configuration of all parts of Web Services.
++     The utility is a Java command-line application that can be used
++     under various OS environments.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+)PROC
+   &ZCONT = CIT18060
+)END

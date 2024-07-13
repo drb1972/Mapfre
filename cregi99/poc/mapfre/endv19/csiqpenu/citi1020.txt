@@ -1,0 +1,63 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Quick Edit User Routines Feature                         \ \+Enabled:%&VNTQUSRA
++                                                         \ \+HidePrm:%&VNTQUSRH
++
++  CD18102   QUICK EDIT USER ROUTINES FEATURE
++
++  This feature enables sites to add their own custom user extension points
++  to Quick Edit.  Once enabled, if the user enters a un-recognized line
++  command in Quick Edit, Endevor will search for a REXX or CLIST with the
++  name NDUSRXxx (where xx is that command).  If found that routine is called
++  using ISPF SELECT CMD service passing the details of the current row as
++  shared pool variables.  The routine then performs that custom action and
++  may update the default "status" message to indicate what it did.
++
++  User Extension point routines are treated like Exits in that they are not
++  directly supported by Broadcom, however, several sample routines are
++  provided that you could enable and use as a basis for building your
++  own routines.  We encourage you to share your requirements on the
++  community forums and potentially any code you build could be contributed.
++
++  Currently the available User Routine commands available are;
++  &C1QEUSRM
++
++  The following topics are presented in sequence, or may be selected by option:
++  {AL}Display/Update Element Meta-data (CCID, Description, etc.)+
++  { D}DiffTool - Compare any two elements+
++  {SU}Submit - Submit this element for batch processing+
++  { T}Transfer - Build Batch Transfer SCL for Element+
++  {UD}Display/update the Element UserData+
++  {UX}Dump Quick Edit Row Variables+
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = ENDHE150
+ &ZSEL = TRANS(&ZCMD,
+                  AL,NDUSRTAL
+                   D,NDUSRTD
+                  SU,NDUSRTSU
+                   T,NDUSRTT
+                  UD,NDUSRTUD
+                  UX,NDUSRTUX
+                   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(AL)
+FIELD(ZPS01002) VAR(ZCMD) VAL(D)
+FIELD(ZPS01003) VAR(ZCMD) VAL(SU)
+FIELD(ZPS01004) VAR(ZCMD) VAL(T)
+FIELD(ZPS01005) VAR(ZCMD) VAL(UD)
+FIELD(ZPS01006) VAR(ZCMD) VAL(UX)
+FIELD(ZPS01007) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01008) VAR(ZCMD) VAL(END)
+)END

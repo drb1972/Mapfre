@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Script Escape Character \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Escape+- A single character used in DistribuLink installation scripts
++   to locate variable fields. This is an optional field. The default
++   is an ampersand.
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

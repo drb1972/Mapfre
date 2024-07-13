@@ -1,0 +1,63 @@
+         MACRO                                                          00010031
+         @INFOBLK &BLOCK=,&DSECT=YES                                    00020031
+         AIF ('&BLOCK' EQ '@INHDS').RTN1000                             00030031
+*********************************************************************** 00040031
+*********************************************************************** 00041000
+*  HEADER FOR THE @INFO COMMUNICATION BLOCK.                          * 00050031
+*********************************************************************** 00060031
+.RTN1000 ANOP                                                           00070031
+         AIF   ('&DSECT' NE 'NO').RTN1010                               00080031
+@INHDS   EQU   *                                                        00090031
+         AGO   .RTN1020                                                 00100031
+.RTN1010 ANOP                                                           00110031
+@INHDS   DSECT                                                          00120031
+.RTN1020 ANOP                                                           00130031
+INHIEYE  DC    A(INHIEYEC)             EYECATCHER                       00140001
+INHIEYEC  EQU   C'@INH'                 VALUE OF STORAGE                00150031
+INHIVER  DC    Y(INHIVERC)             VERSION OF BLOCK                 00160001
+INHIVERC  EQU   2                       VERSION 2                       00180003
+INHPGM   DC    CL8' '                  PROGRAM NAME                     00180002
+INHPARM  DC    CL56' '                 INFO/MAN PARAMETER               00190037
+INHINCA  DC    F'0'                    POINTER TO FIRST @INCDS ENTRY    00200031
+INHINCNT DC    F'0'                    NUMBER OF @INCDS ENTRIES         00210031
+INHINTA  DC    F'0'                    POINTER TO THE @TSP ENTRY        00230003
+         DS    0D                                                       00540031
+INHLNG    EQU   *-@INHDS                DSECT LENGTH                    00550031
+         AIF   ('&DSECT' NE 'NO').RTN2000                               00560031
+         MEXIT                                                          00570031
+.RTN2000 ANOP                                                           00580031
+         TITLE '@INCALL: WHEN SHOULD THE INTERFACE BE CALLED?'          00590031
+*********************************************************************** 00600031
+*  THE @INCALL BLOCK DEFINES THE CONDITIONS UNDER WHICH A CALL        * 00610031
+*  TO THE ENDEVOR/MVS INFORMATION/MANAGEMENT INTERFACE BACK-END       * 00620001
+*  PROGRAM WILL OCCUR.                                                * 00621001
+*********************************************************************** 00630031
+@INCALL  DSECT                                                          00640031
+INCIEYE  DC    A(INCIEYEC)             EYECATCHER                       00650001
+INCIEYEC  EQU   C'@INC'                 VALUE OF STORAGE                00660031
+INCENV   DC    CL8' '                  ENVIRONMENT NAME                 00670031
+INCTSP20 DC    CL1'Y'                  CCID CHECKING                    00390007
+INCTSP21 DC    CL1'Y'                  RECORD STATUS CHECKING           00400007
+INCTSP22 DC    CL1'Y'                  APPROVAL PROCESS CHECKING        00410007
+INCTSP30 DC    CL1'Y'                  ACTIVITY LOGGING                 00420007
+         DS    0D                      ALIGN                            00700031
+INCLNG    EQU   *-@INCALL               DSECT LENGTH                    00710031
+         AIF   ('&DSECT' NE 'NO').RTN3000                               00450004
+         MEXIT                                                          00460000
+.RTN3000 ANOP                                                           00470000
+         TITLE '@INTSP: VERIFY IF TSPXX IS ACTIVE'                      00480000
+*********************************************************************** 00490000
+*  THE @INTSP BLOCK DEFINES THE GLOBAL TSP RULES. THIS BLOCK WILL ONLY* 00500000
+*  EXIST IF THERE ARE NO @INCALL BLOCKS. THE SAME TSP ENABLE/DISABLE  * 00510000
+*  FLAGS EXIST WITHIN THE @INCALL BLOCK.                              * 00520000
+*********************************************************************** 00530000
+@INTSP   DSECT                                                          00540000
+INCITSP  DC    A(INCITSPC)             EYECATCHER                       00550000
+INCITSPC  EQU   C'@TSP'                VALUE OF STORAGE                 00560000
+INTTSP20 DC    CL1'Y'                  CCID CHECKING                    00570007
+INTTSP21 DC    CL1'Y'                  RECORD STATUS CHECKING           00580007
+INTTSP22 DC    CL1'Y'                  APPROVAL PROCESS CHECKING        00590007
+INTTSP30 DC    CL1'Y'                  ACTIVITY LOGGING                 00600007
+         DS    0D                      ALIGN                            00610000
+INTLNG    EQU   *-@INTSP                DSECT LENGTH                    00620000
+         MEND                                                           00720031

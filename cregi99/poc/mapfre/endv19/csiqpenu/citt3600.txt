@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ ISPF Selection Lists and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++  The map allows you to view  elements anywhere in the life cycle from
++  ISPF Selection lists.  To build selection lists across the map, specify
++  BUILD USING MAP=Y on foreground action panels. BUILD USING MAP=N restricts
++  the search to the current environment.  The selection list is built
++  beginning, with the FROM location specified in the action.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

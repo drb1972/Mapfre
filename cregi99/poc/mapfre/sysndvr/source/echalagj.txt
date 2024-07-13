@@ -1,0 +1,62 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST  - APPROVER GROUP JUNCTION REQUEST BLOCK      *
+      *                                                               *
+      *****************************************************************
+       01  ALAGJ-RQ.
+           05  ALAGJ-RQ-HEADER.
+               10  ALAGJ-RQ-LEN        PIC 9(4) COMP VALUE 52.
+               10  ALAGJ-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALAGJ-RQ-ID         PIC 9(4) COMP VALUE 1184.
+               10  ALAGJ-RQ-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALAGJ-RQ-EYE        PIC X(4)      VALUE 'LAJQ'.
+           05  ALAGJ-RQ-DATAAREA.
+               10  ALAGJ-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALAGJ-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALAGJ-RQ-RESERVE2   PIC X         VALUE SPACE.
+               10  ALAGJ-RQ-RESERVE3   PIC X         VALUE SPACE.
+               10  ALAGJ-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RQ-AGJKEY     PIC X(25)     VALUE SPACES.
+               10  ALAGJ-RQ-KEY REDEFINES  ALAGJ-RQ-AGJKEY.
+                   15  ALAGJ-RQ-SYSTEM     PIC X(8).
+                   15  ALAGJ-RQ-SUBSYS     PIC X(8).
+                   15  ALAGJ-RQ-TYPE       PIC X(8).
+                   15  ALAGJ-RQ-STG-NUM    PIC X.
+               10  FILLER              PIC X(3)      VALUE SPACE.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST APPROVER GROUP JUNCTION - RESPONSE BLOCK      *
+      *                                                               *
+      *****************************************************************
+       01  ALAGJ-RS.
+           05  ALAGJ-RS-HEADER.
+               10  ALAGJ-RS-LEN        PIC 9(4) COMP VALUE 104.
+               10  ALAGJ-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALAGJ-RS-ID         PIC 9(4) COMP VALUE 1185.
+               10  ALAGJ-RS-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALAGJ-RS-EYE        PIC X(4)      VALUE 'LAJS'.
+           05  ALAGJ-RS-DATAAREA.
+               10  ALAGJ-RS-SITE       PIC X         VALUE SPACE.
+               10  ALAGJ-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RS-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALAGJ-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALAGJ-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALAGJ-RS-UPD-BDTE REDEFINES ALAGJ-RS-UPD-DATE.
+                   15  ALAGJ-RS-UPD-YYYY   PIC 9(4).
+                   15  ALAGJ-RS-UPD-MM     PIC 9(2).
+                   15  ALAGJ-RS-UPD-DD     PIC 9(2).
+               10  ALAGJ-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALAGJ-RS-UPD-BTME REDEFINES ALAGJ-RS-UPD-TIME.
+                   15  ALAGJ-RS-UPD-HH     PIC 9(2).
+                   15  ALAGJ-RS-UPD-MI     PIC 9(2).
+                   15  ALAGJ-RS-UPD-SS     PIC 9(2).
+                   15  ALAGJ-RS-UPD-TH     PIC 9(2).
+               10  ALAGJ-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALAGJ-RS-FMID       PIC 9(5)      VALUE ZEROS.
+               10  ALAGJ-RS-JUN-TYPE   PIC XX        VALUE SPACES.
+               10  ALAGJ-RS-AGNME      PIC X(16)     VALUE SPACES.
+               10  FILLER              PIC X(3)      VALUE SPACES.

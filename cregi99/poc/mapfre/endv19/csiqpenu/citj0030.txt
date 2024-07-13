@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)                  /* CCID */
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick edit command CCOLS \-\
+%Option ===>~ZCMD                                                 %Version 19.0
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Quick edit command CCOLS                                 \ \+Enabled:%&DISCCENA
++
++
++  CD19002   Quick edit command CCOLS
++
++ This enhancement allows you to use the CCOLS command, or it's
++ abbreviation "CC". You can do this either on the main Endevor screen,
++ or in the element selection panel.
++
++ After invoking the CCOLS command, the user is presented with an ISPF edit
++ session, in which the Element selection list columns can be adjusted.
++ The user can change the column width, the column order, and the color of
++ the column content.
++
++ When you have finished customizing the element selection panel appearence,
++  the changes are saved in the ISPF profile library.
++
++ The changes are saved and loaded every time you access Endevor.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+&DISCCENA = TRANS(&VNTCCOLS E,'ENABLED ' D,'DISABLED')
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

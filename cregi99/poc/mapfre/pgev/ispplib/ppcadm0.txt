@@ -1,0 +1,34 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ ¢ TYPE(OUTPUT) INTENS(LOW)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream &TYP Editor -}-}-
+Option ===>_ZCMD                                             +System ID :¢Z   +
+%
+%
+%
+%
++                     Dataset : '&DSN'
+%
+%
++                     2 character¢TYP   +id ===>_Z +
+%
+%
++                     Blank for member list, select member and hit enter
++                     ** to edit master #&TYP.S member
++                     $$ to perform ISPF Member List processing
+%
+%
+%
+%                          
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+ .ZVARS = 'ZSYSID ID'
+)PROC
+  IF  (&ID NE '**' AND &ID NE '$$')
+    VER (&ID,PICT,'AC')
+  VPUT ID
+)END

@@ -1,0 +1,36 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP2600                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT)    INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)     INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)     INTENS(HIGH) JUST(LEFT) PADC(_)
+ ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
++-------------------------------%Commit Package+--------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the package information below and select an action:
++   _Z+ 1  Commit Package      2  Cancel the Commit action
++
++  Delete Promotion History.._Z+ (Y/N)
++
++  Package ID.............#PDVSLPKG        +
++  Description............~PDVSLDSC                                          +
++  Promotion Package......#Z+
++  Sharable Package.......#Z+
++  Backout Enabled........#Z+
++  Package Type...........#PDVSLTYP  +
++
++       Created by user#Z       +on date#Z      +at time#Z    +
++  Last updated by user#Z       +on date#Z      +at time#Z    +
++
+)INIT
+  .HELP = enit2600
+  .ZVARS = '(VARWKCMD, PDVSLDPH,                        +
+             PDVSLPRO, PDVSLSHR, PDVSLBOE,              +
+             PDVSLDUI, PDVSLDDT, PDVSLDTM,              +
+             PDVSLLUI, PDVSLLDT, PDVSLLTM)'
+)PROC
+)END

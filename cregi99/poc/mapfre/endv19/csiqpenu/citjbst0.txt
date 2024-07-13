@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Job Statement Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use these fields to specify job card settings for batch jobs. Provide all
++job card parameters, including the job name, time, message parameters,
++remote print information, and any other standards in use at your site.
++
++On the%CREATE/MODIFY DESTINATION+panel, you can specify the job name with
++the symbol%$HOSTJNM+in the%REMOTE JOB STATEMENT INFORMATION+field. For
++example, specify the following in the first entry field: //$HOSTJNM JOB ...
++This symbol takes the remote job name from the host job. Therefore, the host
++and remote jobs execute with the same job name, which makes it easier for
++you to understand which host job relates to which remote job.
++
++If you want the remote job to execute on a different or specific system,
++include a /*ROUTE XEQ card so that the remote job execution occurs on the
++system you specify.
++
++
++                                            (%PF3+to return)
+)END

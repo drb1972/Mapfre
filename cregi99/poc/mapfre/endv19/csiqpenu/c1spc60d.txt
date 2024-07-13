@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) INTENS(HIGH) JUST(ASIS)
+   ` TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+   \ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF) JUST(LEFT)
+)BODY
+%Display -----------------  Display DSN Mapping Rule  --------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++
++Connection ID:¢VNBSSDST+
++
++Mapping Rule Description:`VDMDESCR                                +
++
++To exclude datasets from collection, leave Remote DSN blank.
++
++Host Data Set Name Mask:¢VDMHDSN                                     +
++  maps to
++Remote DSN or Path Name:\VDMRDSN1                                          +
+  \VDMRDSN2                                                            +     +
+  \VDMRDSN3                                                            +     +
+  \VDMRDSN4                                                            +     +
++Remote File Extension:\Z  +
++
++Approx Host Members/Cyl:¢Z  +
++
++
++
++
++Updated:¢VDMUPDAT¢VDMUPTIM+by¢VDMUUSER +Created:¢VDMCRDAT¢VDMCRTIM+by¢VDMCUSER+
+)INIT
+  .HELP = CITPC600
+    .ZVARS = '(VDMREXTN VDMAHMPC)'
+)PROC
+)END

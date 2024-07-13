@@ -1,0 +1,31 @@
+)ATTR
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ¢ TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+)BODY
+%------------------------- Quick Edit Error Messages ---------------------------
+%Command ===>_ZCMD                                                             +
++
++ The internal $FPGR service passed a non-zero return code when trying to
++ identify the processor group to be used with the element.  The following
++ information is provided about the error:
++
++ Return/Reason Codes....¢EEVEERRC+  Invoking Routine.......¢EEVPGMNM+
++
++ The return code can have the following values:
++   0004: The processor group was not found
++   0008: A processing error occured.
++ The reason code can have the following values:
++   04: An invalid parameter list was provided
++   08: An invalid parameter list was provided
++   0C: An invalid parameter list was provided
++   10: An element type record was not found
++   14: The processor group cannot be executed in foreground
++   18: An $IMR called failed
++   1C: An element registration error occurred (see exec log msgs)
++   20: A processor group definition could not be found
++
++ Enter the END command to return to the previous panel.
++
+)INIT
+)PROC
+)END

@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Element Action SCL Syntax Allows Blanks in Element and USS Names \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 1 of 2
+%Element action SCL allows blanks in Element, USS file and path names
++
++Support for embedded blanks within Element action SCL statement names
++was added for Element, USS file and path names.
++
++   Allowable characters for the Element and USS file are:
+%   &LIT1
++
++   Allowable characters for the path name are:
+%   &LIT2
++
++
++
++
+%New method to code Element, USS file and path names
++
++A new syntax method to code element, USS file and path names in
+element action SCL statements was implemented. An example of the
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'blank, ., $, -, _, #, @, a-z, {, A-Z, and 0-9'
+    &LIT2  = 'blank, ., $, -, _, #, @, a-z, {, A-Z, 0-9, / and +'
+)PROC
+   &ZCONT = CIT18031
+)END

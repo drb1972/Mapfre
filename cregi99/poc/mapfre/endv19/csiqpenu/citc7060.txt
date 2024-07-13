@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ API and CSV Utility Inventory Wildcarding \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%API and CSV Utility Inventory Wildcarding +
+
++ When using the Endevor API or the Comma Separated Value (CSV) utility to
+  extract inventory data, you can now use wildcard and placeholder characters
+  (name masking) to specify inventory locations.
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7070
+)END

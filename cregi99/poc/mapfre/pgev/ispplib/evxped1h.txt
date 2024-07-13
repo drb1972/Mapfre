@@ -1,0 +1,26 @@
+)ATTR DEFAULT(%+_)
+)BODY EXPAND(\\)
+%\-\  Listing Copy Utility  \-\
++
+  This panel allows you to perform the following three functions:
+
+   %E+- Copy a program listing from Endevor listing library into an Xpediter
+        DDIO file.
+
+          Only the relevant part of the listing will be copied (i.e. the output
+          from the compile or assemble step).
+
+   %P+- Copy an entire listing from an Endevor listing library to a user PDS.
+
+          Listings stored in Endevor listing libraries can have 10 character
+          member names, as the listing name is suffixed with the first character
+          of the type and the third character of the subsystem ID.
+
+          These last two characters are removed before the listing is stored
+          in the PDS.
+
+   %X+- Copy a listing from one xpediter DDIO file to another.
+
+  All of these options will submit a batch job for which you can specify
+  your own job card.
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Integrating Concurrently Developed Software \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Integrating concurrently developed software requires varying levels
++of involvement by programmers and managers, depending on the
++complexity of the parallel development effort. There are three steps
++to the integration process:
++
++ *%Analysis.+To determine the scope of the integration project. This
++     can be handled by programmers in simple parallel development
++     situations. More managerial involvement is often required for
++     vendor updates or more complicated development projects.
++ *%Consolidation and conflict resolution.+Procedures need to be
++     established for gathering the proper programs and identifying
++     conflicts for resolution. Again, managerial involvement
++     increases as project complexity increases.
++ *%Integrating the changes.+This is often a manual process, one that
++     can be very time consuming and error prone in large or
++     complicated projects.
++
+)END

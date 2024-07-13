@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Commit Package Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to commit packages, by typing%C+in the option field and
++pressing ENTER.
++
+%   I+- To view correlation information.
++
++A DELETE PROMOTION HISTORY value of Y causes all previous versions of
++a promotion package to be deleted prior to the commit of the latest
++version. A default value for this option can be established in the
++configuration table, ENDICNFG.
++
++    Select%1+-%5+for information about:
++
+%    1+- Package ID fields          %4+- Execution window
+%    2+- Package status             %5+- Package events
+%    3+- Sharable package
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITXWIN0
+                    5,CITPKEV0)
+)END

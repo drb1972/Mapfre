@@ -1,0 +1,47 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Merge ------------------- Merge Work-in-Process File --------------------------
+%Command ===>_VARWKCMD                                                         +
++
++Specify%Work-in-Process ("WIP")+Library below, then Press%ENTER+Key+
++
++WIP Library:+
++   Project%===>_PTBWPPRJ+
++   Library%===>_PTBWPLIB+
++   Type   %===>_PTBWPTYP+
++   Member %===>_PTBWPMEM  +     (Blank or pattern for member selection list,+
++                                 '*' for all members)+
++
++WIP Other partitioned or sequential data set:+
++   Data Set Name%===>_PTBWPOTH
++
++
++
++
++
++
++
++
++
++
+)INIT
+   .HELP = BC1T4000
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the WIP     */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VGET (PTBwpOTH) PROFILE                                        */
+)PROC
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the WIP     */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VPUT (PTBWPOTH) PROFILE                                        */
+)END

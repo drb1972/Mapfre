@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ How PDM Works \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Parallel Development Manager operates with standard PDS and
++sequential data sets, Endevor elements, and Panvalet
++and The Librarian files.
++
++You can use PDM interactively (in foreground) or in batch. In either
++mode, PDM processing involves three basic steps:
++
++ * Building a Work-In-Process (WIP) file.
++ * Editing the WIP file.
++ * Merging the WIP file.
++
++    Select%1-3+for information about:
++
+%    1+- Building a WIP file        %3+- Merging a WIP file
+%    2+- Editing a WIP file
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T2000 2,BC1T1500 3,BC1T4000)
+)END

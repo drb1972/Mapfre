@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Add/Update Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1 - 8+for information about action options
++
+%    1+- CCIDs and Comments         %5+- Override signout
+%    2+- Generate element           %6+- Processor group
+%    3+- Delete input source        %7+- Update if present
+%    4+- New version                %8+- Autogen
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITBYGP0 3,CITDINS0 4,CITNVER0
+                  5,CITORSO0 6,CITPGRP0 7,CITUDIP0 8,CITOAUTG)
+)END

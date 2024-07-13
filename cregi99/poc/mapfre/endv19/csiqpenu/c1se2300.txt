@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+|VARFLIT%-------------------- SYSTEM DEFINITION --------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++
++TO INFORMATION:
++   ENVIRONMENT:    ¢VAREVNME+
++   SYSTEM:         ¢VARSYNME+
++   TITLE      %===>~VARSYTTL                                         +
++
++
++FROM INFORMATION:
++   ENVIRONMENT%===>_VARWKEVN+
++   SYSTEM     %===>_VARWKSYN+
++
++
++GENERAL OPTIONS:
++   COPY SUBSYSTEMS  %===>_Z+ (Y/N)
++   COPY TYPES       %===>_Z+ (Y/N) (TYPES AND PROCESSOR GROUPS)
++
+)INIT
+  .HELP = CITE2300
+  .ZVARS = '(VARWKFG1 VARWKFG2)'
+)PROC
+)END

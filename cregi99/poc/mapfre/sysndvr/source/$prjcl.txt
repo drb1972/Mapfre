@@ -1,0 +1,42 @@
+         MACRO                                                          00000001
+&LABEL   $PRJCL &CARD=                 JCL CARD IMAGE                   00000002
+.********************************************************************** 00000003
+.*                                                                    * 00000004
+.*       JCL CARD IMAGE                                               * 00000005
+.*                                                                    * 00000006
+.*       CREATED BY C1GJTRNS                                          * 00000007
+.*                                                                    * 00000008
+.*       CONTAINS:      JCL CARD IMAGE                                * 00000009
+.*                                                                    * 00000010
+.********************************************************************** 00000011
+         COPY  $PRGLBLS
+         LCLC  &BLKLBL                 LABEL FOR CURRENT BLOCK          00000015
+&BLKLBL  SETC  '&PRJCL'                ASSIGN CURRENT BLOCK LABEL       00000016
+         AIF   (&PRLSTPR EQ 100).LOGIC DOES THIS FOLLOW A $PRHDR?       00000017
+         AIF   (&PRLSTPR EQ 200).CONT  DOES THIS FOLLOW A $PRSYM?       00000018
+         AIF   (&PRLSTPR EQ 300).CONT  DOES THIS FOLLOW A $PRPGM?       00000019
+         AIF   (&PRLSTPR EQ 400).CONT  DOES THIS FOLLOW A $PRCC?        00000020
+         AIF   (&PRLSTPR EQ 500).LOGIC DOES THIS FOLLOW A $PRDDA?       00000021
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?       00000022
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?       00000023
+         AIF   (&PRLSTPR EQ 800).CONT  DOES THIS FOLLOW A $PRJCL?       00000024
+         AIF   (&PRLSTPR EQ 1000).CONT  DOES THIS FOLLOW A $PRITE?      00000024
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM, LST+00000025
+               PR(&PRLSTPR)'                                            00000025
+         AGO   .MEXIT                                                   00000026
+.CONT    ANOP                                                           00000027
+&PRLSTPR SETA  800                     THIS IS JCL IMAGE                00000028
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS    00000029
+&PRCSECT CSECT                                                          00000030
+         DC    A(&BLKLBL)                                               00000031
+         DC    A(&PRJCL)               NEXT IMAGE IN CHAIN              00000032
+&BLKLBL  DS    0F                                                       00000033
+         DC    CL80&CARD                                                00000041
+         AGO   .MEXIT                                                   00000044
+.LOGIC   ANOP                                                           00000045
+         MNOTE 8,'LOGICAL ERROR, $PRJCL MAY NOT FOLLOW A $PRHDR OR $PRDX00000046
+               DB CARD.'                                                00000047
+         AGO   .MEXIT                                                   00000048
+.MEXIT   ANOP                                                           00000049
+         SPACE 2                                                        00000050
+         MEND                                                           00000051

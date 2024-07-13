@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Element Delta Retention by Age \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Element Delta Retention by Age +
+
++ This feature allows you to retain element change levels (deltas) by age in
+ %number of months,+automatically compressing change levels older than the
+  number of months specified in the%system definition+when an element is
+  moved to the%last stage+in the CA Endevor SCM map. There is also a utility
+  that can be scheduled periodically to compress those change levels for
+  elements that are rarely changed.  The maximum number of months that can be
+  specified is%999.+ This feature is optional and is selected when a system is
+  defined.  It can be added to an existing system at any time.
+
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1240
+)END

@@ -1,0 +1,21 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Selection List Action Fields (cont.) \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
+%Inspect-+Checks package elements for security, signout, and
++         synchronization conflicts and source changes that would
++         prevent successful execution of the package.
+%Reset-+  Resets a package to a status of In-edit.
+%Submit-+ Submits a JCL job stream to execute one or more packages.
+%Package-+Displays information about a package.
++Summary+
++
++Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit1100
+)END

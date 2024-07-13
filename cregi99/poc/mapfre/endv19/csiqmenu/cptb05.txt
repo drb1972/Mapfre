@@ -1,0 +1,30 @@
+CPTB050 'Invalid Selection'                             .ALARM=YES
+'CPTB050 Valid options in this field are: S'
+
+CPTB051 'Invalid Selection Code'                        .ALARM=YES
+'CPTB051 Valid codes are: I(include) (e)X(clude) or R(ename).'
+
+CPTB052 'Enter New Member Name'                         .ALARM=YES
+'CPTB052 Enter a new WIP memner name to complete the RENAME option.'
+
+CPTB053 'Invalid Member Name'                           .ALARM=YES
+'CPTB053 The specified member name contains invalid characters.'
+
+CPTB054 'Invalid Selection Code'                        .ALARM=YES
+'CPTB054 The numeric value specified is greater than the size of the Matrix.'
+
+CPTB055 'Member Name Exists'                            .ALARM=YES
+'CPTB055 The specified member name is already used in the WIP Matrix.'
+
+CPTB056 'Invalid Operation'                             .ALARM=YES
+'CPTB0 The Include operation is not valid if a matching ROOT does not exist.'
+
+CPTB057 'Too Many Members'                              .ALARM=YES
+'CPTB057 More than 99,999 members or elements were selected for processing.'
+
+CPTB058 'No WIP Members Selected'                       .ALARM=YES
+'CPTB058 No WIP members were selected from the matrix.'
+
+CPTB059 'Request Cancelled'                             .ALARM=YES
+'CPTB059 QUIT or END was entered.  No requests were generated.'
+

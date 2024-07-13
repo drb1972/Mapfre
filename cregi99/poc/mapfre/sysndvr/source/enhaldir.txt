@@ -1,0 +1,92 @@
+         MACRO
+         ENHALDIR &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        DIRECTORY LIST - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+ALDIR_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+ALDIR_RQ$EYE    EQU C'LDIQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALDIR_RQ
+         SPACE ,
+ALDIR_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALDIR_RQ_DATA
+*                 REQUEST DATA SET AND MEMBER INFORMATION
+ALDIR_RQ_DDN      DC CL8' '            DDNAME
+ALDIR_RQ_DSN      DC CL44' '           DATA SET NAME
+ALDIR_RQ_MBR      DC CL10' '           ELEMENT NAME
+ALDIR_RQ_MBR_THRU DC CL10' '           THRU ELEMENT NAME
+*                 ACTION OPTIONS
+ALDIR_RQ_CSECT    DC CL1' '            CSECT REQUEST (Y/N)
+ALDIR_RQ_SUBDIR   DC CL1' '            INCLUDE SUBDIRECTORIES (Y/N)
+                  DC CL2' '            RESERVED
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALDIR_RQ_VER#1_DATADSLN EQU *-ALDIR_RQ_DATA
+ALDIR_RQ_VER#1_DSLN     EQU *-ALDIR_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALDIR_RQ_VER#2_DATADSLN EQU *-ALDIR_RQ_DATA
+ALDIR_RQ_VER#2_DSLN     EQU *-ALDIR_RQ
+         SPACE ,
+ALDIR_RQ_DATADSLN EQU *-ALDIR_RQ_DATA
+ALDIR_RQ_DSLN     EQU *-ALDIR_RQ
+         ORG      ALDIR_RQ_DATA
+ALDIR_RQ_DATAAREA DS XL(ALDIR_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        DIRECTORY LIST - RESPONSE BLOCK                              *
+*                                                                     *
+***********************************************************************
+ALDIR_RS$VER    EQU ALDIR_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALDIR_RS$EYE    EQU C'LDIS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALDIR_RS
+         SPACE ,
+ALDIR_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALDIR_RS_DATA
+*                 FOOTPRINT DATA
+ALDIR_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALDIR_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALDIR_RS_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+ALDIR_RS_ELEMENT  DC CL10' '           ELEMENT NAME
+ALDIR_RS_TYPE     DC CL8' '            TYPE NAME
+ALDIR_RS_STG_NUM  DC CL1' '            STAGE NUM (1/2)
+ALDIR_RS_VVLL     DC CL5' '            VERSION/LEVEL (VV.LL)
+ALDIR_RS_DATE     DC CL7' '            FP DATE (DDMMMYY)
+ALDIR_RS_TIME     DC CL5' '            FP TIME (HH:MM)
+ALDIR_RS_SITEID   DC CL1' '            SITE ID
+ALDIR_RS_LD_FLAG  DC CL1' '            LOAD UTILITY FLAG (Y/BLANK)
+*                 END OF FOOTPRINT DATA
+ALDIR_RS_CSECT    DC CL8' '            CSECT NAME FOR LOAD MODULES
+ALDIR_RS_MODE     DC CL1' '            HFS MODE TYPE (D,F,U)
+ALDIR_RS_MODE_D   EQU C'D'                ENTRY IS A DIRECTORY
+ALDIR_RS_MODE_F   EQU C'F'                ENTRY IS A FILE
+ALDIR_RS_MODE_U   EQU C'U'                ENTRY TYPE IS UNKNOWN
+                  DC CL1' '            ALIGNMENT BYTE
+ALDIR_RS_MBRL     DC H'0'              LENGTH OF MEMBER NAME
+ALDIR_RS_MBR      DC CL255' '          MEMBER NAME (FILE NAME FOR HFS)
+                  DC CL3' '            RESERVED
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALDIR_RS_VER#1_DATADSLN EQU *-ALDIR_RS_DATA
+ALDIR_RS_VER#1_DSLN     EQU *-ALDIR_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALDIR_RS_VER#2_DATADSLN EQU *-ALDIR_RS_DATA
+ALDIR_RS_VER#2_DSLN     EQU *-ALDIR_RS
+         SPACE ,
+ALDIR_RS_DATADSLN EQU *-ALDIR_RS_DATA
+ALDIR_RS_DSLN     EQU *-ALDIR_RS
+         ORG      ALDIR_RS_DATA
+ALDIR_RS_DATAAREA DS XL(ALDIR_RS_DATADSLN)     DATA AREA
+         MEND

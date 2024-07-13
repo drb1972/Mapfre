@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element at PDM's Endevor Target  \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++When a same-named element already exists at the PDM Merge Endevor
++target location, a compare will be done to determine if the target's last
++level is equal to the DV1 element used during the WIP process. If so, a
++change level containing DV2 modification will be created. If not equal, a
++synchronization check will be performed to insure that the existing element
++is at the same source level as the Root element used during the PDM WIP
++process. If the element is in-sync with the Root, changes levels will be
++created for each of the derivations found in the WIP file. Each level
++will inherit the derivation's CCID, Comment, Userid, Date and Time.
++
++If the element is found out-of-sync with the Root, the PDM Merge Output
++process will terminate. After a failure, you should examine the causes to
++determine the appropriate action. If you still want to perform the merge
++you can use the Merge Output SYNC option. This will create a sync change
++level that will bring the element back to the Root's state.
++
++ Select%1-4+for more information about new PDM Endevor Merge Options:
++
+%    1+- Delete NDVR DV1 DV2 after Merge        %3+- Processor Group Name
+%    2+- Bypass Generate Processor after Merge  %4+- SYNC NDVR Output
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1C1010 2,BC1C1020 3,BC1C1030 4,BC1C1040)
+)END

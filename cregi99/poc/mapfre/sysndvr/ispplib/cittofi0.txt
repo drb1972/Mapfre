@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ To File \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Archive action only. Use this field to specify the DDname of an archive
++data set.
++
++Make sure to include JCL for this data set when you submit a batch job
++for execution. Do this using the INCLUDE JCL field on the Batch Options
++menu.
++
++The DCB must specify RECFM=VB, LRECL of at least 1021, DSORG=PS, and
++a block size greater than 804.
++
++When archiving to tape the recommended block size is 32,000.
++
++
+
++
++                                            (%PF3+to return)
+)END

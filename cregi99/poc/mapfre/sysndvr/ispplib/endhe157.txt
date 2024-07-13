@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Signout Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Signout Action Mode+- Indicates whether the SIGNOUT action will be
++       executed in foreground or batch.
++
+%          F+- Execute the signout action in the foreground session.
++
+%          B+- Submit a batch job to execute the signout action.
++
++       Note: The signout action command, SO, signs the element out to you.
++       The SO action executes a Signin action with the 'signout to' value
++       set to your user-id.
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

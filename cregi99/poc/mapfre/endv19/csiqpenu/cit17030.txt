@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Alter Element Action \-\
+%Option ===>_ZCMD                                                 %Version 17.0+
+%
+%Alter Element Action +
++
+ Using the%Alter+action, you can change the following%Master Control File+
+ element record metadata fields:
+
+ - Generate CCID
+ - Last Action CCID
+ - Retrieve CCID
+ - Processor Group Name
+ - Signout UserID
+ - Description
+ - User Data
+
+%Note:+All of the above fields%and+the Alter Action metadata can be viewed
+ with the Element Master display option.
+
+
+
+
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT17040
+)END

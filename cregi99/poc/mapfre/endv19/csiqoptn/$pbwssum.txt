@@ -1,0 +1,37 @@
+         MACRO
+&LABEL   $PBWSSUM &DSCT=YES
+*--------------------------------------------------------------------*
+*                                                                    *
+* Macro: $PBWSSUM                                                    *
+*                                                                    *
+* Function: The $PBWSSUM macro maps the PDM BUILD WIP Summary stat-  *
+*  istics record.                                                    *
+*                                                                    *
+*--------------------------------------------------------------------*
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PBWSSUM DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$PBWSSUM DS    0F
+.SKPEQU  ANOP
+$PWSLEN  DC    Y($PWSDSLN)             Length of the structure
+$PWSEYE  DC    CL4'SSUM'               Eye catcher
+$PWSVERS DC    Y(1)                    Version number
+WSTYPE   DC    Y(2)                    Record Type: WIP Summary
+WSWIPDSN DS    CL44                    WIP dataset name
+WSMBRSEL DS    F'0'                    Members selected for processing
+WSMBRSUC DS    F'0'                    Members successfully processed
+WSMBRREP DS    F'0'                    Members with REPLACE conflicts
+WSMBRERR DS    F'0'                    Members in error
+WSMNOICD DS    F'0'                    Members with no Inserts/deletes
+WSMNOCON DS    F'0'                    Members with no conflicts
+WSMCOMP5 DS    F'0'                    Members, complexity factor 5
+WSMCOMP4 DS    F'0'                    Members, complexity factor 4
+WSMCOMP3 DS    F'0'                    Members, complexity factor 3
+WSMCOMP2 DS    F'0'                    Members, complexity factor 2
+WSMCOMP1 DS    F'0'                    Members, complexity factor 1
+WSMCOMP0 DS    F'0'                    Members, complexity factor 0
+WSMWPMRG DS    F'0'                    Members Auto-Merged
+WSHWIPRC DS    F'0'                    Highest BUILD return code
+$PWSDSLN EQU   *-$PBWSSUM
+         MEND

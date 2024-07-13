@@ -1,0 +1,222 @@
+//********************************************************************
+//*                   ENXMOVE - Move PDS member(s)
+//* STEP1 INITLIST: ALLOCATE TEMPORARY BSTCOPY OUTPUT DATA SET
+//* STEP2 COPYOBJ:  COPY THE OBJECT LIBRARY MEMBER TO THE NEXT LOCATION
+//* STEP3 WRITE: PRINT THE COMPONENT LIST
+//* STEP4 SHOWME1: DISPLAY THE COMPONENT LIST - DEBUGGING PURPOSES
+//* STEP5 COMPLIST: CREATE THE IEBCOPY STATEMENTS
+//* STEP6 SHOWME2: DISPLAY THE COMPONENT LIST - DEBUGGING PURPOSES
+//* STEP7 COPYLOAD: COPY THE LOAD, DBRM LIBRARY MEMBERS TO THE TARGET
+//* STEP8 COPYLIST: COPY THE LISTING TO THE NEXT LOCATION AND REBUILD
+//* STEP9 SYSPRT: PRINT THE SYSPRINT IF RC FROM ANY STEP IS NOT = ZERO
+//* STEP10 MOVECMP: MOVE THE COMPONENT LIST AND UPDATE LIST TO REFLECT
+//*        THE TARGET LIBRARY NAMES
+//*
+//********************************************************************
+//ENXMOVE PROC AAA=,
+//         COPYLIST='YES',             COPY LISTING MBR
+//         COPYLOAD='YES',             COPY LOAD MBR
+//         DBRMSRC='&PFXS...DBRM',     SRC DBRMLIB DSN
+//         DBRMTRG='&PFXT...DBRM',     TRG DBRMLIB DSN
+//         COPYOBJ='YES',              COPY OBJECT MBR
+//         HLQ='UPRFX.UQUAL',          HIGH LEVEL QUALIFIER
+//         LISTSRC='&PFXS...LIST',     SRC LISTING DSN
+//         LISTTRG='&PFXT...LIST',     TRG LISTING DSN
+//         LOADSRC='&PFXS...LOAD',     SRC LOADLIB DSN
+//         LOADTRG='&PFXT...LOAD',     TRG LOADLIB DSN
+//         OBJSRC='&PFXS...OBJ',       SRC OBJECT DSN
+//         OBJTRG='&PFXT...OBJ',       TRG OBJECT DSN
+//         PFXS=&HLQ..&C1SY..&C1SSUBSYS..&C1EN(1,1)&C1SSTGNUM,
+//         PFXT=&HLQ..&C1SY..&C1SU..&C1EN(1,1)&C1S#,
+//         USECOMPL='Y',               Use component List Y/N
+//         SHOWME='Y',
+//         SITEDBR='&#&C1SUBSYS.DBR',  DBRM
+//         SITELOAD='&#&C1SUBSYS.LOD', BATCH
+//         SITEOLOD='&#&C1SUBSYS.ONL', CICS
+//         SITETRG='&#&C1SUBSYS.TRG',  TRG
+//         STRING1='&C1SENVMNT(1,8)&C1SSTGID&C1SSYSTEM(1,8)',
+//         STRING2='        &C1ELEMENT(1,10)&C1TY',
+//         TUNIT='TDISK',              UNIT FOR TEMP DSNS
+//         ZZZ=
+//*
+//*********************************************************************
+//* STEP1 INITLIST: ALLOCATE TEMPORARY BSTCOPY OUTPUT DATA SET
+//*********************************************************************
+//INITLIST EXEC PGM=BC1PDSIN
+//C1INIT01 DD DSN=&&SYSPRT,
+//            DISP=(,PASS),SPACE=(CYL,(1,5)),
+//            DCB=(RECFM=FBA,LRECL=121,DSORG=PS)
+//*
+//C1INIT02 DD DSN=&&DBRMS,DISP=(,PASS),
+//            UNIT=&TUNIT,SPACE=(TRK,(1,1)),
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=3120,DSORG=PS)
+//*********************************************************************
+//* STEP2 COPYOBJ:  COPY THE OBJECT LIBRARY MEMBER TO THE NEXT LOCATION
+//*********************************************************************
+//COPYOBJ  EXEC PGM=BSTCOPY,MAXRC=0,
+//         EXECIF=(&COPYOBJ,EQ,YES)
+//INDD     DD DSN=&OBJSRC,
+//            DISP=SHR
+//SYSIN    DD *
+  COPY O=OUTDD,I=INDD
+  SELECT MEMBER=((&C1ELEMENT,,R))
+//SYSUT3   DD UNIT=&TUNIT,SPACE=(TRK,(1,1))
+//SYSUT4   DD UNIT=&TUNIT,SPACE=(TRK,(1,1))
+//OUTDD    DD DSN=&OBJTRG,
+//            DISP=SHR,MONITOR=COMPONENTS
+//SYSPRINT DD DSN=&&SYSPRT,
+//            DISP=(OLD,PASS)
+//*
+//**********************************************************************
+//* STEP3 WRITE: PRINT THE COMPONENT LIST
+//**********************************************************************
+//WRITE    EXEC PGM=CONWRITE,MAXRC=4,
+//         EXECIF=(&USECOMPL,EQ,'Y')
+//CONWIN   DD *
+  WRITE ELEMENT &C1ELEMENT
+     FROM ENV &C1SENVMNT SYSTEM &C1SYSTEM SUBSYSTEM &C1SSUBSYS
+          TYPE &C1ELTYPE STAGE &C1SSTGID
+  TO DDN PRNTFILE
+  OPTION COMPONENT.
+//PRNTFILE DD DSN=&&PRNTFILE,DISP=(NEW,PASS),
+//            UNIT=&TUNIT,SPACE=(TRK,(5,5)),
+//            DCB=(RECFM=FB,LRECL=203,BLKSIZE=4060)
+//*
+//**********************************************************************
+//* STEP4 SHOWME1: DISPLAY THE COMPONENT LIST - DEBUGGING PURPOSES
+//**********************************************************************
+//SHOWME1  EXEC PGM=IEBGENER,
+//        EXECIF=((&SHOWME,EQ,'Y'),(&USECOMPL,EQ,'Y'))
+//SYSPRINT DD DUMMY
+//SYSUT1   DD DSN=&&PRNTFILE,DISP=(OLD,PASS)
+//SYSUT2   DD SYSOUT=*
+//SYSIN    DD DUMMY
+//*
+//**********************************************************************
+//* STEP5 COMPLIST: CREATE THE IEBCOPY STATEMENTS
+//*                 Maintain the Generate processor output DDnames
+//*                 to provide consistency across multiple move actions
+//**********************************************************************
+//COMPLIST EXEC PGM=IRXJCL,PARM='ENBPIU00 PARMLIST',MAXRC=4,
+//         EXECIF=(&USECOMPL,EQ,'Y')
+//TABLE    DD DSN=&&PRNTFILE,DISP=(OLD,DELETE)
+//*PARMLIST /  Model / Out DD/ Options / A/M.../#
+//PARMLIST DD * Search for SYSLMOD and DBRMLIB outputs
+ MEMBERS  SELECTS  OPTIONS   M O SYSLMOD
+ DBRMLIB  DBRMS    OPTIONS   M O DBRMLIB
+//POSITION DD *
+  InOrOut  37 37
+  DDNAME   49 56
+  STEPNAME 29 36
+  MEMBER   39 46
+  Dataset  57 100
+//OPTIONS  DD DUMMY
+//MEMBERS  DD *
+  SELECT MEMBER=((&MEMBER,,R))
+//DBRMLIB  DD *
+  COPY INDD=DBRMLIBI,OUTDD=DBRMLIBO
+  SELECT MEMBER=((&MEMBER,,R))
+//SYSEXEC  DD DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//SYSTSIN  DD DUMMY
+//SYSTSPRT DD SYSOUT=*
+//* / Build SELECT statements for members to be copied\
+//SELECTS  DD DSN=&&SELECTS,DISP=(,PASS),
+//            UNIT=&TUNIT,SPACE=(TRK,(1,1)),
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=3120,DSORG=PS)
+//*
+//* / Build complete COPY command with SELECTS for DBRM \
+//DBRMS    DD DSN=&&DBRMS,DISP=(OLD,PASS)
+//*
+//**********************************************************************
+//* STEP6 SHOWME2: DISPLAY THE COMPONENT LIST - DEBUGGING PURPOSES
+//**********************************************************************
+//SHOWME2  EXEC PGM=IEBGENER,
+//        EXECIF=((&SHOWME,EQ,'Y'),(&USECOMPL,EQ,'Y'))
+//SYSPRINT DD SYSOUT=*                           MESSAGES
+//SYSUT1   DD DSN=&&SELECTS,DISP=(OLD,PASS)
+//         DD DSN=&&DBRMS,DISP=(OLD,PASS)
+//SYSUT2   DD SYSOUT=*                           OUTPUT FILE
+//SYSIN    DD DUMMY                              CONTROL STATEMENTS
+//SYSUDUMP DD SYSOUT=*
+//*
+//*********************************************************************
+//* STEP7 COPYLOAD: COPY THE LOAD, DBRM LIBRARY MEMBERS TO THE TARGET
+//*                 LOCATION
+//*********************************************************************
+//COPYLOAD EXEC PGM=BSTCOPY,MAXRC=0,
+//         EXECIF=(&COPYLOAD,EQ,YES)
+//INDD     DD DSN=&LOADSRC,
+//            DISP=SHR
+//   IF (COMPLIST.RUN AND COMPLIST.RC = 0) THEN
+//SYSIN    DD  *  Preserve the the output dd name as SYSLMOD
+  COPY O=SYSLMOD,I=INDD
+//         DD DSN=&&SELECTS,DISP=(OLD,DELETE)
+//*         / Copy the DBRM if found in component list\
+//         DD DSN=&&DBRMS,DISP=(OLD,DELETE)
+//   ELSE
+//SYSIN    DD  *  Preserve the the output dd name as SYSLMOD
+  COPY O=SYSLMOD,I=INDD
+  SELECT MEMBER=((&C1ELEMENT,,R))
+//   ENDIF
+//SYSUT3   DD UNIT=&TUNIT,SPACE=(TRK,(1,1))
+//SYSUT4   DD UNIT=&TUNIT,SPACE=(TRK,(1,1))
+//   IF (&SITETRG EQ 'Y')           AND
+//      ('&C1PRGRP(1:4)' EQ 'CICS') AND
+//      (&SITEOLOD GE 'A')   THEN
+//SYSLMOD  DD DSN=&SITEOLOD,            <- copy to online lib
+//         DISP=SHR,MONITOR=COMPONENTS
+//   ELSE
+//   IF (&SITETRG EQ 'Y')           AND
+//      (&SITELOAD GE 'A') THEN
+//SYSLMOD  DD DSN=&SITELOAD,            <- copy to batch  lib
+//         DISP=SHR,MONITOR=COMPONENTS
+//   ELSE
+//SYSLMOD  DD DSN=&LOADTRG,             <- copy to output lib
+//         DISP=SHR,MONITOR=COMPONENTS
+//   ENDIF
+//   ENDIF
+//* /DBRM member is copied if found in component list\
+//DBRMLIBI DD DSN=&DBRMSRC,ALLOC=COND,
+//         DISP=SHR
+//   IF (&SITETRG EQ 'Y')           AND
+//      (&SITEDBR GE 'A') THEN
+//DBRMLIBO DD DSN=&SITEDBR,
+//         DISP=SHR,FOOTPRNT=CREATE,MONITOR=COMPONENTS
+//   ELSE
+//DBRMLIBO DD DSN=&DBRMTRG,ALLOC=COND,
+//         DISP=SHR,FOOTPRNT=CREATE,MONITOR=COMPONENTS
+//   ENDIF
+//SYSPRINT DD DSN=&&SYSPRT,
+//            DISP=(OLD,PASS)
+//*
+//*******************************************************************
+//* STEP8 COPYLIST: COPY THE LISTING TO THE NEXT LOCATION AND REBUILD
+//*        BANNER
+//*******************************************************************
+//COPYLIST EXEC PGM=CONLIST,COND=EVEN,MAXRC=0,PARM=COPY,
+//         EXECIF=(&COPYLIST,EQ,YES)
+//C1LLIBI  DD DSN=&LISTSRC,
+//            DISP=SHR
+//C1BANNER DD DSN=&&BANNER,
+//            DISP=(,PASS,DELETE),UNIT=&TUNIT,SPACE=(TRK,(1,1)),
+//            DCB=(RECFM=FBA,LRECL=121,DSORG=PS)
+//C1LLIBO  DD DSN=&LISTTRG,
+//            DISP=SHR,MONITOR=COMPONENTS
+//*
+//*******************************************************************
+//* STEP9 SYSPRT: PRINT THE SYSPRINT IF RC FROM ANY STEP IS NOT = ZERO
+//*******************************************************************
+//SYSPRT   EXEC PGM=CONLIST,COND=(0,EQ),PARM=PRINT
+//C1BANNER DD UNIT=&TUNIT,SPACE=(TRK,(1,1)),
+//            DCB=(RECFM=FBA,LRECL=121,DSORG=PS)
+//LIST01   DD DSN=&&SYSPRT,
+//            DISP=(OLD,DELETE)
+//C1PRINT  DD SYSOUT=*,
+//            DCB=(RECFM=FBA,LRECL=133,DSORG=PS)
+//*
+//**********************************************************************
+//* STEP10 MOVECMP: MOVE THE COMPONENT LIST AND UPDATE LIST TO REFLECT
+//*        THE TARGET LIBRARY NAMES
+//**********************************************************************
+//MOVECMP  EXEC PGM=BC1PMVCL,COND=(0,NE)
+//*

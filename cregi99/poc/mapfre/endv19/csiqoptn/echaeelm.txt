@@ -1,0 +1,53 @@
+      *****************************************************************
+      *                                                               *
+      *            EXTRACT ELEMENT - REQUEST BLOCK                    *
+      *                                                               *
+      *****************************************************************
+       01  AEELM-RQ.
+           05  AEELM-RQ-HEADER.
+               10  AEELM-RQ-LEN        PIC 9(4) COMP VALUE 64.
+               10  AEELM-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  AEELM-RQ-ID         PIC 9(4) COMP VALUE 1200.
+               10  AEELM-RQ-VERS       PIC 9(4) COMP VALUE 1.
+               10  AEELM-RQ-EYE        PIC X(4)      VALUE 'EELQ'.
+           05  AEELM-RQ-DATAAREA.
+               10  AEELM-RQ-FORMAT     PIC X         VALUE SPACE.
+               10  AEELM-RQ-RTYPE      PIC X         VALUE 'E'.
+               10  AEELM-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  AEELM-RQ-RESERVE2   PIC X         VALUE SPACE.
+               10  AEELM-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  AEELM-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  AEELM-RQ-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  AEELM-RQ-TYPE       PIC X(8)      VALUE SPACES.
+               10  AEELM-RQ-ELM        PIC X(10)     VALUE SPACES.
+               10  AEELM-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  AEELM-RQ-VERSION    PIC XX        VALUE SPACES.
+               10  AEELM-RQ-LEVEL      PIC XX        VALUE SPACES.
+               10  FILLER              PIC X         VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            EXTRACT ELEMENT - RESPONSE BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  AEELM-RS.
+           05  AEELM-RS-HEADER.
+               10  AEELM-RS-LEN        PIC 9(4) COMP VALUE 72.
+               10  AEELM-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  AEELM-RS-ID         PIC 9(4) COMP VALUE 1201.
+               10  AEELM-RS-VERS       PIC 9(4) COMP VALUE 1.
+               10  AEELM-RS-EYE        PIC X(4)      VALUE 'EELS'.
+           05  AEELM-RS-DATAAREA.
+               10  AEELM-RS-SITE       PIC X         VALUE SPACE.
+               10  AEELM-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  AEELM-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  AEELM-RS-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  AEELM-RS-ELM        PIC X(10)     VALUE SPACES.
+               10  AEELM-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  AEELM-RS-STG-ID     PIC X         VALUE SPACE.
+               10  AEELM-RS-RECCNT     PIC 9(8)      VALUE ZEROS.
+               10  AEELM-RS-RECNUM  REDEFINES  AEELM-RS-RECCNT
+                                       PIC 9(8).
+               10  AEELM-RS-MAXLEN     PIC 9(8)      VALUE ZEROS.
+               10  AEELM-RS-RECLEN  REDEFINES  AEELM-RS-MAXLEN
+                                       PIC 9(8).

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%\-\ Element Synchronization \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Element Fetch for Delta Synchronization Option +
+
++ By default, when an out-of-sync change is detected during MOVE or TRANSFER
+  action processing, and the "SYNC" option is specified, Endevor will fetch
+  the out-of-sync element to the target location of the action, then perform
+  change synchronization.
+
+  Additional changes in SP03.
+  Endevor will issue Message%SMGR117+ELEMENT WILL BE SYNCHRONIZED when the
+  elements are out-of-sync and the SYNC option has been coded.
+  Endevor will issue Message%SMGR116+when an element is NOT SYNCHRONIZED with
+  the next element up the map and the SYNC option has not been coded.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7150
+)END

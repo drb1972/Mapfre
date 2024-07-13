@@ -1,0 +1,77 @@
+C1UEXT06 TITLE 'ENDEVOR EXIT 6 EXAMPLE'                                 00001000
+*********************************************************************** 00002000
+*   DESCRIPTION:  THIS PROGRAM WILL DELETE THE CCID TABLE LOADED BY   * 00003000
+*                 EXIT 2 (C1UEXT02). REVIEW C1UEXT02 FOR MORE         * 00003100
+*                 INFORMATION                                         * 00003200
+*                                                                     * 00003300
+*   REGISTERS ON ENTRY:                                               * 00004000
+*                                                                     * 00004100
+*                0(R1) --> $ECBDS      EXIT CONTROL BLOCK             * 00004200
+*                                                                     * 00004500
+*   REGISTER USAGE:                                                   * 00004600
+*                                                                     * 00004700
+*                R6     -> CCIDS                                      * 00004900
+*                R7     -> $ECBDS                                     * 00005100
+*                R12    -> BASE PROGRAM                               * 00007000
+*                R13    -> STACK USED FOR STANDARD IBM USAGE          * 00008000
+*********************************************************************** 00009000
+         TITLE '$ECBDS : EXIT CONTROL BLOCK'                            00010000
+*********************************************************************** 00011000
+*   EXIT CONTROL BLOCK                                                * 00012000
+*********************************************************************** 00012100
+         $ECBDS                                                         00012200
+         TITLE 'CCIDDS : CCID TABLE'                                    00013300
+*********************************************************************** 00013400
+*   DSECT FOR LOADMODULE CCIDTBL                                      * 00013500
+*********************************************************************** 00013600
+CCIDS    DSECT                                                          00013700
+CCIDEYE  DS    CL4                     EYECATCHER 'CCID'                00013800
+CCIDENV  DS    CL4                     ENVIRONMENT NAME                 00013900
+CCIDSYS  DS    CL4                     SYSTEM NAME                      00014000
+CCIDCCID DS    CL4                     CCID NAME                        00014100
+CCIDSLN  EQU   *-CCIDS                 DSECT LENGTH                     00014200
+         TITLE 'REGISTER EQUATES'                                       00014300
+*********************************************************************** 00014400
+*   REGISTER EQUATES                                                  * 00014500
+*********************************************************************** 00014600
+R0       EQU   0                                                        00014700
+R1       EQU   1                                                        00014800
+R2       EQU   2                                                        00014900
+R3       EQU   3                                                        00015000
+R4       EQU   4                                                        00015100
+R5       EQU   5                                                        00015200
+R6       EQU   6                                                        00015300
+R7       EQU   7                                                        00015400
+R8       EQU   8                                                        00015500
+R9       EQU   9                                                        00015600
+R10      EQU   10                                                       00015700
+R11      EQU   11                                                       00015800
+R12      EQU   12                                                       00015900
+R13      EQU   13                                                       00016000
+R14      EQU   14                                                       00016100
+R15      EQU   15                                                       00016200
+         TITLE 'MAIN : MAINLINE LOGIC'                                  00016300
+*********************************************************************** 00016400
+*   MAINLINE LOGIC                                                    * 00016500
+*********************************************************************** 00016600
+C1UEXT06 CSECT                                                          00016700
+         SAVE  (14,12),,'EXAMPLE OF EXIT 6'                             00016800
+         LR    R12,R15                 POINT AT THIS PROGRAM            00016900
+        USING  C1UEXT06,R12                                             00017000
+         L     R7,0(R1)                POINT AT $ECBDS                  00018000
+        USING  $ECBDS,R7                                                00018100
+         ICM   R6,B'1111',ECBUEXT      Q: HAS TABLE BEEN LOADED?        00019400
+         BZ    MAINEXIT                A: NO, RETURN TO CALLER          00019500
+        USING  CCIDS,R6                                                 00019600
+         CLC   CCIDEYE,=CL4'CCID'      Q: IS THIS THE CCID TABLE ?      00019700
+         BNE   MAINEXIT                A: NO, THEN DON'T DELETE IT      00019800
+         DELETE EP=CCIDTBL             DELETE THE TABLE                 00019900
+         XC    ECBUEXT,ECBUEXT           CLEAR ITS ADDRESS IN THE ECB   00044800
+         SPACE                                                          00044900
+*********************************************************************** 00045000
+*   RETURN TO CALLER                                                  * 00045100
+*********************************************************************** 00045200
+MAINEXIT DS    0H                                                       00045300
+         XR    R15,R15                 CLEAR R15 FOR NEATNESS           00045400
+         RETURN (0,12)                   AND RETURN                     00045500
+         END                                                            00045600

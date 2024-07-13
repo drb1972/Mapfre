@@ -1,0 +1,38 @@
+      *****************************************************************
+      *
+      *            CAST A PACKAGE - REQUEST BLOCK
+      *
+      *  P003550 MODIFY APCAS-RQ-EWT-TIME FROM X(7) TO X(5) .
+      *****************************************************************
+       01  APCAS-RQ.
+           05  APCAS-RQ-HEADER.
+               10  APCAS-RQ-LEN        PIC 9(04) COMP VALUE 544.
+               10  APCAS-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APCAS-RQ-ID         PIC 9(04) COMP VALUE 1584.
+               10  APCAS-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  APCAS-RQ-EYE        PIC X(04)      VALUE 'PCAQ'.
+           05  APCAS-RQ-DATAAREA.
+               10  APCAS-RQ-PKGID      PIC X(16) VALUE SPACES.
+      *  LEAVING THE REMAINING FIELDS BLANK, CAUSES THE API TO USE
+      *  THE EXISTING VALUES FROM THE PKG HEADER.
+               10  APCAS-RQ-VALCMP     PIC X(01) VALUE SPACES.
+                   88  APCAS-RQ-VALCMP-YES       VALUE 'Y'.
+                   88  APCAS-RQ-VALCMP-NO        VALUE 'N'.
+                   88  APCAS-RQ-VALCMP-WRN       VALUE 'W'.
+               10  APCAS-RQ-BOENABLED  PIC X(01) VALUE SPACES.
+                   88  APCAS-RQ-BOENABLED-YES    VALUE 'Y'.
+                   88  APCAS-RQ-BOENABLED-NO     VALUE 'N'.
+      *  EXECUTION FROM/TO WINDOW FORMAT: DATE=>DDMMMYY TIME=>HH:MM
+               10  APCAS-RQ-EWF-DATE   PIC X(07) VALUE SPACES.
+               10  APCAS-RQ-EWF-TIME   PIC X(05) VALUE SPACES.
+               10  APCAS-RQ-EWT-DATE   PIC X(07) VALUE SPACES.
+               10  APCAS-RQ-EWT-TIME   PIC X(05) VALUE SPACES.
+      *  RESERVED AREA
+               10  APCAS-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.
+      *  VERSION 2 FIELDS
+               10  APCAS-RQ-UPDT-NOTES PIC X(01) VALUE SPACES.
+                   88  APCAS-RQ-UPDT-NOTES-YES   VALUE 'Y'.
+                   88  APCAS-RQ-UPDT-NOTES-NO    VALUE 'N' ' '.
+               10  APCAS-RQ-NOTES      PIC X(480) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

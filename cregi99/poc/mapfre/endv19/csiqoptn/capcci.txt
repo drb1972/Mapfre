@@ -1,0 +1,22 @@
+********************************************************************    00000100
+**                                                                      00000110
+* CCI SERVICE STATEMENTS FOR ENDEVOR                                    00000111
+**                                                                      00000112
+********************************************************************    00000120
+ENDEVOR        SERVICE SERVER_NAME=MVS_START_SERVER,                    00000300
+                   DEALLOCATE=TERMINATE,                                00000400
+                   LOST_CLIENT=DEALLOCATE,                              00000500
+                   MAX#_SERVICES=100,                                   00000600
+                   MAX#_CLIENTS=1,                                      00000700
+                   MAX#_PROCESSES=100,                                  00000800
+                   SERVICE_UNAVAILABLE=START_SERVICE,                   00000900
+                   START=SPAWN_ONLY,                                    00001000
+                   SIGNON/NOPASSCHK=SERVICE                             00001100
+********************************************************************    00001110
+**                                                                      00001120
+* CCI PROCESS STATEMENTS FOR ENDEVOR                                    00001130
+**                                                                      00001140
+********************************************************************    00001150
+                   PROCESS PROCESS_TYPE=MVS_STC,                        00001200
+                   PROCNAME=ENDEVOR,                                    00001300
+                   PARM='BC1PCPS0'                                      00001400

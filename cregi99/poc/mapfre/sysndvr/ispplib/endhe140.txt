@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++The Action Options fields allow you to further define your
++action request.
++
+%CCID+- The CCID associated with this request. The CCID must
++   conform to CCID syntax rules.
++
+%Comment+- The comment associated with this request. Comments can
++   be up to 40 characters and cannot include imbedded single
++   quotation marks.
++
+%Processor Group+- The processor group to be associated with the
++   element. If you do not specify a group, the default processor for
++   the type will be assigned.  See the User's Manual for information.
++
+%Preserve VB record length+- The options are either Y or N. If Y is
++   specified the trailing spaces of any record in a variable record
++   edit session will be preserved. If N is specified the trailing
++   spaces will be removed.
++                              (%ENTER+to continue,%END+to return)
+)PROC
+   &ZCONT = endhe141
+)END

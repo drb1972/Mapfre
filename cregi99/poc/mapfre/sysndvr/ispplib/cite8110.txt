@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ About Approver Groups \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Packages can be approved or denied by people identified
++as approvers. An approver group is a set of approvers.
++
++You can specify for approver groups:
+  *%Quorum size.+This is the number of approvers from a group that
++     must approve a package before it can be executed.
+  *%Required approvers.+Required approvers must approve a package
++     before it can be executed.
++Even if quorum requirements are met, a package cannot be executed
++until all required approvers have approved it.
++
++Approver groups can be related to inventory areas.
++ * Multiple approver groups can be related to one inventory area.
++ * A single group can be related to many inventory areas.
++Once an approver group has been related to an inventory area, all
++actions against that area must be included in packages.
++
++
++\ \ (%PF3+to return) \ \
+)END

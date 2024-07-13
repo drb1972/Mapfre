@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete NDVR DV1 DV2 after Merge \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++This new Merge Output option is available in both foreground and batch.
++
++When used, it directs PDM to delete the Derivation 1 and Derivation 2
++elements from CA Endevor SCM after a successful merge. After an element is
++merged at a new location, this option can be used for cleanup purposes.
++
++The delete will not occur if the merge completes with errors. Also, if
++the target location happens to be the same location as one of the
++derivations, that element will not be deleted.
++
+)END

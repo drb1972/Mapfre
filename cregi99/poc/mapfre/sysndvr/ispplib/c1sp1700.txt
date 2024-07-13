@@ -1,0 +1,37 @@
+)ATTR
+  /*-----------------------------------------------------------------*/
+  /*                                                                 */
+  /* Copyright (C) 1986-2013 CA. All Rights Reserved.                */
+  /*                                                                 */
+  /* Panel: C1SP1700                                                 */
+  /*                                                                 */
+  /*-----------------------------------------------------------------*/
+ $ TYPE(INPUT) CAPS(ON) JUST(LEFT)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_) JUST(ASIS) INTENS(LOW)
+)BODY
++-----------------------------%Package Note Text+-------------------------------
++ Command ==>$VARWKCMD                                                         +
++
++        .........1.........2.........3.........4.........5.........6
++    1. `VPHNOTE1                                                    +
++    2. `VPHNOTE2                                                    +
++    3. `VPHNOTE3                                                    +
++    4. `VPHNOTE4                                                    +
++    5. `VPHNOTE5                                                    +
++    6. `VPHNOTE6                                                    +
++    7. `VPHNOTE7                                                    +
++    8. `VPHNOTE8                                                    +
++
++
++    Press ENTER to process the Package Notes.  When all the note
++    text has been entered, press ENTER and then enter the END
++    command.
++
++    To cancel the Package Notes, enter the END command.
++
++
++
+)INIT
+  .HELP = citp1700
+)PROC
+)END

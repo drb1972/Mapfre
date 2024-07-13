@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Merge Summary Report \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Merge Summary Report contains:
++
++ * A%header+identifying the WIP and Merge Output data sets.
++
++ * A%tabular summary+of each processed WIP member, including:
++     - The WIP and associated Merge Output member name..
++     - The MERGE action return code.
++     - The number of WIP, Merge, and invalid records processed.
++     - The disposition of the WIP member.
++
++ * A%summary+ at the end of the report identifying:
++     - The number of members selected for processing.
++     - The number of members successfully processed.
++     - The number of members deleted from the WIP data set.
++     - The number of Merge members not created due to REPLACE conflicts.
++     - The number of members not processed because of errors.
++     - The highest return code from Merge processing.
++
+)END

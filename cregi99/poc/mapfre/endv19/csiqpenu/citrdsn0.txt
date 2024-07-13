@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Remote Data Set Name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++A 1 to 44 character name or mask for a data set at a remote site.
++
++If you do not want package outputs in a host data set to be transmitted,
++leave the REMOTE DATA SET NAME blank. If you want to identify a host data set
++as a SCRIPT data set, specify the value%(SCRIPT-FILE)+in the REMOTE DATA SET
++NAME field. SCRIPT data sets are shipped but not copied to remote target data
++sets.
++
++Remote data set names can have any number of qualifiers. When the
++number of qualifiers is not the same as the HOST DATA SET NAME:
++
++  1. Both data set names are aligned to the right.
++                    example 1                      example 2
++       host:       TESTAP.*.*                  TESTAP.  * .*
++     remote:  PROD.  AP  .*.*                         PROD.*
++
++  2. Target data set names are built using the mask.
++                    example 1                      example 2
++       host:       TESTAP.PROGRAM.LOADLIB      TESTAP.PROGRAM.LOADLIB
++     remote:  PROD.  AP  .PROGRAM.LOADLIB                PROD.LOADLIB
++                                           (%PF3+to return)
+)END

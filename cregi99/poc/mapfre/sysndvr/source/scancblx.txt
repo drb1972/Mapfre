@@ -1,0 +1,32 @@
+************************************************************************00033400
+**                                                                    **
+** SAMPLE SYNTAX FOR THE ENDEVOR CONSCAN PROCESSOR PROGRAM            **
+**                                                                    **
+************************************************************************00033400
+* REJECT COMMENTS.
+          COMMENT                                                       00034100
+          FIND1 STRING='*',POS=7
+          END1  CARD                                                    00034100
+*
+* REJECT STATIC CALL THAT USES SINGLE QUOTES ACM SHOULD FIND THIS ONE.
+*
+          SCANTYPE OBJECT
+          FIND1 STRING=' CALL ',POS=ANY
+          FIND2 REJECT,STRING='''',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC
+*
+* REJECT STATIC CALL THAT USES DOUBLE QUOTES ACM SHOULD FIND THIS ONE.
+*
+          SCANTYPE OBJECT
+          FIND1 STRING=' CALL ',POS=ANY
+          FIND2 REJECT,STRING='"',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC
+*
+* SELECT ONLY DYNAMIC CALLS.
+*
+          SCANTYPE OBJECT
+          FIND1 STRING=' CALL ',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC

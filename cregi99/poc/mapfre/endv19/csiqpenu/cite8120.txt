@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Definition - Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                  +Page 1 of 2+
+%
+%Approver Group+- The name of the approver group.
++
+%Environment+- The environment to which the approver group is defined.
++
+%Title+- The 1- to 50-character approver group description.
++
+%Quorum size+- The number of approvers in this approver group that must
++  approve a package before it can be executed. Acceptable values are 0-16.
++
+%Disqualification+- This setting has no effect%if+ENCOPTBL
++  option%&LIT1                +is ON:
++  Y - Disqualification processing for approvers will take place.
++  N - Disqualification processing for approvers will not take place.
++  Approvers can be disqualified (prevented from approving a package)
++  if they have updated the package or an element within the package.
++
++
++
++
++  ---- Press%ENTER+to continue to the next panel or%END+to exit ----
+)INIT
+  &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+  &ZCONT = 'CITE8121'
+)END

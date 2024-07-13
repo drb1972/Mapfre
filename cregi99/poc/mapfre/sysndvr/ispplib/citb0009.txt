@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Stoprc field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field is used to insert a SET STOPRC nn value in your SCL.
++Values must be between 4 and 99.
++Action processing will stop when an action has a RETURN
++CODE equal to or higher than the defined STOPRC.
++
++Note: In case you append SCL to existing SCL and this existing SCL already
++      contains a SET STOPRC card, then this option will not modify the
++      existing SET STOPRC card.
++
++\ \ (%PF3+to return) \ \
+)END

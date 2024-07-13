@@ -1,0 +1,20 @@
+%TUTORIAL  --------------  ENVIRONMENT SELECTION LIST  ---------------  TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
++The ENVIRONMENT SELECTION LIST appears when you first access
+ Endevor from an ISPF/PDF PRIMARY OPTIONS MENU, if:
+
+    - More than one environment is defined at your site.
+
+       AND
+
+    - Your TSO userid is authorized to use more than one.
+
+ A list of all environments available within the C1DEFLTS Table is dis-
+ played.  Each environment is identified by a 1-8 character name,
+ followed by a brief description.
+
+ Select the environment you want to use by typing the appropriate option
+ number in the%option+field at the top of the panel.
+
+)END

@@ -1,0 +1,9 @@
+/*
+/*--------------------------------------------------------------------*
+/*  The following message(s) are issued by Endevor exit DLGEXT02.     *
+/*--------------------------------------------------------------------*
+/*
+CIUU701E 'Storage unavailable'                           .ALARM=YES
+'Unable to obtain working storage - please contact Endevor Support'
+CIUU702E 'Not permitted'                                 .ALARM=YES
+'Delete with ONLY COMPONENT is not allowed'

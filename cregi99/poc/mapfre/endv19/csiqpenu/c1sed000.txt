@@ -1,0 +1,23 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%----------------  DESTINATION REQUEST (PACKAGE SHIPMENT)  ---------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display destination definition
++  %#+- Delete destination definition
++  %C+- Create destination definition
++  %U+- Update destination definition
++
++DESTINATION%===>_VARDSTID+
++
+)INIT
+  .HELP = CITRQST0
+)PROC
+)END

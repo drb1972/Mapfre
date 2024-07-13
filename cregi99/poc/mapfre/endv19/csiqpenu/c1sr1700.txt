@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ ARCHIVED PACKAGE REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT ARCHIVE REPORTS:
+ _Z%56 +Package summary  _Z%57 +Package Approver  _Z%58 +Package detail
++
++FROM ARCHIVE TAPE:  (enter tape information in JCL format)
+%===> +//ARCINPT DD_ARCHJCL1
+%===> _ARCHJCL2
+%===> _ARCHJCL3
++
++   PACKAGE ID  %===>_VARSPPKG        +APPROVER GROUP %===>_RGROUP          +
++                                  +   APPROVER       %===>_RAPPROVE+
++   STATUS: (Y/N)
++    In-Edit...._Z+  Executed...._Z+  In-Approval...._Z+  Aborted......_Z+
++    Denied....._Z+  Committed..._Z+  Approved......._Z+  Backed-Out..._Z+
++
++   SELECT WHERE DATE :    (MMDDYYYY format only)
++       WINDOW STARTS AFTER%===>_WADTE   + BEFORE%===>_WBDTE   +
++       CREATED       AFTER%===>_CADTE   + BEFORE%===>_CBDTE   +
++       EXECUTED      AFTER%===>_EADTE   + BEFORE%===>_EBDTE   +
++       CAST          AFTER%===>_TADTE   + BEFORE%===>_TBDTE   +
++       BACKED OUT    AFTER%===>_BADTE   + BEFORE%===>_BBDTE   +
+%
+)INIT
+ .ZVARS = '(RPT56 RPT57 RPT58  +
+            VNBPKGS0 VNBPKGS4 VNBPKGS1 VNBPKGS5  +
+            VNBPKGS2 VNBPKGS6 VNBPKGS3 VNBPKGS7  )'
+ .HELP = CITR1700
+)PROC
+)END

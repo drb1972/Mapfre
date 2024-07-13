@@ -1,0 +1,29 @@
+startdef
+tag % sh
+tag + s
+TAG _ MUH CMD ENV SYS SBS ELEMENT TYPE STAGE
+tag _ muh ccid wpgrp wuser
+tag # muh override signto
+TAG | SH MSG S1ID S2ID
+TAG ¢ S S1NAME S2NAME dislist
+%------------------------------  Signin Elements  ------------------------------
+%OPTION  ===>_   +
+|
+%                             +Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse  %H+- History
+%   SI+- Sign-in element         %M+- Master   %C+- Changes
++
++FROM LOCATION:                      ACTION OPTIONS:
++  ENVIRONMENT %===>_        +          OVERRIDE SIGNOUT%===>#N+ (Y/N)
++  SYSTEM      %===>_        +          SIGNOUT TO      %===>#        +
++  SUBSYSTEM   %===>_        +
++  ELEMENT     %===>_          +
++  TYPE        %===>_        +
++  STAGE       %===>_ +      | +-¢            | +-¢            +
++
++LIST OPTIONS:
++  DISPLAY LIST     %===>¢Y+ (Y/N)
++  WHERE CCID EQ    %===>_            +
++  WHERE PROC GRP EQ%===>_        +
++  WHERE USER EQ    %===>_        +
+enddef

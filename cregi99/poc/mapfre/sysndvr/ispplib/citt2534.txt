@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Storage Formats - continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Log delta format+- The element base is the current and only image of the
++   element. If you choose this type, you will not be able to view prior
++   source levels or be able to display source changes or history. With
++   this type, source changes by level are not kept.
++
++   Elements with forward/reverse/image delta formats cannot change to
++   log format when moved (or transferred). Likewise, elements with log
++   delta format cannot change to forward/reverse/image when moved
++   (or transferred).
++
++   Elements with forward/reverse/image delta formats can be changed to
++   log when restored or transferred from an unload or archived file.
++
++
++
++
++
++          (%PF3+to return,%ENTER+for more information on%log delta+)
++
+)proc
+   &ZCONT = CITT2535
+)END

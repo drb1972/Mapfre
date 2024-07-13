@@ -1,0 +1,85 @@
+//**********************************************************************
+//* CONRELE READS INPUT RELATE COMMANDS AND BUILDS THESE RELATIONSHIPS *
+//* INTO THE COMPONENT LIST OF THE ELEMENT BEING PROCESSED.            *
+//* BELOW IS AN EXAMPLE OF CONRELE INPUT COMMANDS.                     *
+//**********************************************************************
+//*
+//CONRELE EXEC PGM=CONRELE                                              00070000
+//NDVRIPT  DD  *
+ SET ERROR RETURN CODE 16.
+ RELATE ELEMENT OESQL600
+        LOCATION
+         ENVIRONMENT = FIN
+         SYSTEM      = OE2
+         SUBSYSTEM   = OE2
+         TYPE        = OELOAD2
+         STAGE       = 1
+        OUTPUT
+        .
+ RELATE ELEMENT OESQL630
+        LOCATION
+         ENVIRONMENT = FIN
+         SYSTEM      = OE2
+         SUBSYSTEM   = OE2
+         TYPE        = OECOBOL
+         STAGE       = 1
+        OUTPUT
+        VALIDATE
+        .
+ RELATE ELEMENT OESQL64
+        LOCATION
+         ENVIRONMENT = FIN
+         SYSTEM      = OE2
+         SUBSYSTEM   = OE2
+         TYPE        = DB2COB3
+         STAGE       = 1
+        INPUT
+        .
+ RELATE ELEMENT OESQL65
+        LOCATION
+         ENVIRONMENT = FIN
+         SYSTEM      = OE2
+         SUBSYSTEM   = OE2
+         TYPE        = DB2COB
+         STAGE       = 1
+        INPUT
+        VALIDATE
+        .
+ RELATE MEMBER  BOEPSQL1
+        DATASET = 'FINOE10.SRCLIB'
+        OUTPUT
+        .
+ RELATE MEMBER  OESQL60
+        DATASET = 'FINOE10.DBRMLIB'
+        OUTPUT
+        VALIDATE
+        INCLUDE FOOTPRINTS
+        .
+ RELATE MEMBER  OESQL70
+        DATASET = 'FINOE10.DBRMLIB'
+        INPUT
+        VALIDATE
+        INCLUDE FOOTPRINTS
+        .
+ RELATE OBJECT  'D:\EMVS37\TEMP.DOC'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.AVI'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.BMP'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.INI'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.TXT'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.OBJ'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.EXE'.
+ RELATE OBJECT  'D:\EMVS37\TEMP.DLL'.
+ RELATE OBJECT
+'<-------------------------------------------------------------------->'
+ .
+ RELATE COMMENT 'THIS IS FREE FORM TEXT'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT2'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT3'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT4'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT5'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT6'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT7'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT8'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT9'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT10'.
+ RELATE COMMENT 'THIS IS FREE FORM TEXT11'.

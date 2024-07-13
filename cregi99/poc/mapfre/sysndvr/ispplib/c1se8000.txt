@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%-----------------------  APPROVER GROUP REQUEST  ------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display Approver Group definition
++  %#+- Delete Approver Group definition
++  %C+- Create Approver Group definition
++  %U+- Update Approver Group definition
++
++ENVIRONMENT    %===>_VAREVNME+
++
++APPROVER GROUP %===>_VARAGNME        +
++
+)INIT
+  .HELP = CITRQST0
+)PROC
+)END

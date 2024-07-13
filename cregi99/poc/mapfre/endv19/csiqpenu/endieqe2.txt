@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*                                                                       */
+/* This panel is used by ENDIE101 during Quick Edit Recovery if the      */
+/*    target (base) or backup(delta) data set can not be found.          */
+/*-----------------------------------------------------------------------*/
+ @ TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(OUTPUT) INTENS(HIGH)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Recovery \-\
+%Command ===>_VARWKCMD                                                         +
++
++ %QUICK EDIT RECOVERY FAILURE +
++
++  Quick Edit Recovery has failed for one of the following reasons:
++  The target dataset^ZEDTDSN                                     +
++     which held the element is not available, OR
++  The backup dataset^ZEDBDSN                                     +
++     which held the text changes is not available, OR
++  There was a problem reading the PROFILE member from ISPF.
++
++  Quick Edit Recovery will be bypassed.
++  Hit ENTER to proceed to the main Quick Edit panel.
++
++
++
++
++
++
+)INIT
+  .HELP = ENDHE400
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+)END

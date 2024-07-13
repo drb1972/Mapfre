@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Apporx Host Members/Cylinder \-\ Tutorial
+%Option ===>_ZCMD                                                              +
++
++Contains an approximation of the average number of members that can
++be contained in one cylinder for datasets which map to this rule.
++Valid values are .01 thru .99 in increments of .01; 1.0 thru 9.9 in
++increments of .1; and 10 thru 999 in increments of 1. If omitted or 0,
++a default of 16 members/cyl is used.
++
++Examples of values less than 1 convert as follows:
++
++  .01 member/cyl = 100 cyls/member
++  .02 member/cyl =  50 cyls/member
++  .05 member/cyl =  20 cyls/member
++  .10 member/cyl =  10 cyls/member
++  .20 member/cyl =   5 cyls/member
++  .50 member/cyl =   2 cyls/member
++
++When packages are staged for shipment or collection, the actual number
++of members being staged is divided by this value and the result plus 1
++cylinder of primary and secondary space will be allocated for the
++staging data set.
++
++                                            ( PF3 to return)
+)END

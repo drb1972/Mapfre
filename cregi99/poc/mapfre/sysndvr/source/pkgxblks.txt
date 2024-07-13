@@ -1,0 +1,797 @@
+           EJECT
+      *****************************************************************
+      *    PACKAGE-EXIT-BLOCK - BLOCK TO DESCRIBE THE PACKAGE EXIT    *
+      *    INTERFACE EXIT CONTROL BLOCK                               *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-BLOCK.
+           05  PECB-LENGTH             PIC 9(4) COMP SYNC.
+           05  PECB-CURRENT-VERSION    PIC 9(4) COMP SYNC.
+           05  PECB-BLOCK-ID           PIC X(4).
+           05  PECB-PACKAGE-ID         PIC X(16).
+      *
+      *****************************************************************
+      * THE FOLLOWING SIX FIELDS ARE FILLED IN BY ENDEVOR.
+      * THEY CONTAIN THE FUNCTION CODE AND LITERAL NECESSARY FOR
+      * A USER EXIT TO DETERMINE THE CALLING EXIT POINT.
+      *
+           05  PECB-FUNCTION-CODE      PIC 9(4) COMP SYNC.
+      *
+      * EQUATES FOR THE PACKAGE FUNCTION CODE
+      *
+               88  SETUP-EXIT-OPTIONS  VALUE  0.
+               88  BACK-IN-PACKAGE     VALUE  1.
+               88  BACK-OUT-PACKAGE    VALUE  2.
+               88  CAST-PACKAGE        VALUE  3.
+               88  COMMIT-PACKAGE      VALUE  4.
+               88  CREATE-PACKAGE      VALUE  5.
+               88  DELETE-PACKAGE      VALUE  6.
+               88  DISPLAY-PACKAGE     VALUE  7.
+               88  EXECUTE-PACKAGE     VALUE  8.
+               88  EXPORT-PACKAGE      VALUE  9.
+               88  GENERATE-PACKAGE-ID VALUE 10.
+               88  LIST-GENERATION     VALUE 11.
+               88  REPLACE-SCL         VALUE 12.
+               88  RESET-PACKAGE       VALUE 13.
+               88  REVIEW-PACKAGE      VALUE 14.
+               88  SHIP-THE-PACKAGE    VALUE 15.
+               88  ARCHIVE-PACKAGE     VALUE 16.
+               88  DISTRIB-COLLECT     VALUE 17.
+               88  DYNAMIC-APPROVER    VALUE 18.
+
+           05  PECB-SUBFUNCTION-CODE   PIC 9(4) COMP SYNC.
+      *
+      * EQUATES FOR THE PACKAGE SUB-FUNCTION CODE
+      *
+               88  PECB-APPROVE        VALUE  0.
+               88  PECB-DENY           VALUE  1.
+               88  PECB-BUILD          VALUE  2.
+               88  PECB-COPY           VALUE  3.
+               88  PECB-EDIT           VALUE  4.
+               88  PECB-IMPORT         VALUE  5.
+               88  PECB-DISP-APPRVER   VALUE  6.
+               88  PECB-DISP-BACKOUT   VALUE  7.
+               88  PECB-DISP-SCL       VALUE  8.
+               88  PECB-DISP-PKG       VALUE  9.
+               88  PECB-DISP-ELMSUM    VALUE 10.
+               88  PECB-DISP-REPORTS   VALUE 11.
+               88  PECB-SHIP-XMIT      VALUE 12.
+               88  PECB-SHIP-CONFIRM   VALUE 13.
+               88  PECB-LIST-BUILD     VALUE 14.
+               88  PECB-LIST-CAST      VALUE 15.
+               88  PECB-LIST-REVIEW    VALUE 16.
+               88  PECB-LIST-EXECUTE   VALUE 17.
+               88  PECB-LIST-SHIP      VALUE 18.
+               88  PECB-LIST-BACKOUT   VALUE 19.
+               88  PECB-LIST-COMMIT    VALUE 20.
+               88  PECB-LIST-UTILITY   VALUE 21.
+               88  PECB-LIST-DISPLAY   VALUE 22.
+               88  PECB-DISP-CORRINFO  VALUE 23.
+               88  PECB-LIST-ARCHIVE   VALUE 24.
+               88  PECB-LIST-COLLECT   VALUE 25.
+               88  PECB-COLLECT-STAGE  VALUE 26.
+               88  PECB-COLL-CONFIRM   VALUE 27.
+               88  PECB-LIST-INSPECT   VALUE 28.
+               88  PECB-PKG-BACKIN     VALUE 29.
+               88  PECB-PKG-BACKOUT    VALUE 30.
+               88  PECB-PKG-DELETE     VALUE 31.
+               88  PECB-PKG-EXPORT     VALUE 32.
+               88  PECB-PKG-RESET      VALUE 33.
+               88  PECB-PKG-CAST       VALUE 34.
+               88  PECB-PKG-COMMIT     VALUE 35.
+               88  PECB-PKG-EXECUTE    VALUE 36.
+               88  PECB-DYNAMIC-ADD    VALUE 37.
+               88  PECB-DYNAMIC-UPDATE VALUE 38.
+               88  PECB-DYNAMIC-DELETE VALUE 39.
+               88  PECB-ELEMENT-BACKOUT VALUE 40.
+               88  PECB-ELEMENT-BACKIN  VALUE 41.
+
+           05  PECB-BEFORE-AFTER-CODE  PIC  9(4) COMP SYNC.
+      *
+      * EQUATES FOR THE PACKAGE BEFORE-MID-AFTER CODE
+      *
+               88  PECB-BEFORE         VALUE 0.
+               88  PECB-AFTER          VALUE 1.
+               88  PECB-MID            VALUE 2.
+
+           05  PECB-FUNCTION-LITERAL   PIC X(8).
+           05  PECB-SUBFUNC-LITERAL    PIC X(8).
+           05  PECB-BEF-AFTER-LITERAL  PIC X(8).
+      *
+      *****************************************************************
+      * THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP
+      * PROCESSING.  THE USER EXIT SHOULD MODIFY THESE FIELDS TO
+      * DISABLE EXIT POINTS.  THIS SETUP IS DONE ONCE PER ENDEVOR
+      * SESSION. TO DISABLE AN EXIT POINT, PUT AN 'N' IN THE
+      * APPROPIATE FLAG. THESE FLAGS FOLLOW.
+      *
+           05  PECB-BEFORE-BACKIN      PIC X(1).
+           05  PECB-AFTER-BACKIN       PIC X(1).
+           05  PECB-BEFORE-BACKOUT     PIC X(1).
+           05  PECB-AFTER-BACKOUT      PIC X(1).
+           05  PECB-BEFORE-CAST        PIC X(1).
+           05  PECB-MID-CAST           PIC X(1).
+           05  PECB-AFTER-CAST         PIC X(1).
+           05  PECB-BEFORE-COMMIT      PIC X(1).
+           05  PECB-AFTER-COMMIT       PIC X(1).
+           05  PECB-BEFORE-CREATE-BLD  PIC X(1).
+           05  PECB-AFTER-CREATE-BLD   PIC X(1).
+           05  PECB-BEFORE-CREATE-COPY PIC X(1).
+           05  PECB-AFTER-CREATE-COPY  PIC X(1).
+           05  PECB-BEFORE-CREATE-EDIT PIC X(1).
+           05  PECB-AFTER-CREATE-EDIT  PIC X(1).
+           05  PECB-BEFORE-CREATE-IMPT PIC X(1).
+           05  PECB-AFTER-CREATE-IMPT  PIC X(1).
+           05  PECB-BEFORE-DELETE      PIC X(1).
+           05  PECB-AFTER-DELETE       PIC X(1).
+           05  PECB-BEFORE-DSPLY-APPR  PIC X(1).
+           05  PECB-BEFORE-DSPLY-BKOUT PIC X(1).
+           05  PECB-BEFORE-DSPLY-SCL   PIC X(1).
+           05  PECB-BEFORE-DSPLY-ELMSM PIC X(1).
+           05  PECB-BEFORE-DSPLY-PKG   PIC X(1).
+           05  PECB-BEFORE-DSPLY-RPT   PIC X(1).
+           05  PECB-BEFORE-EXEC        PIC X(1).
+           05  PECB-AFTER-EXEC         PIC X(1).
+           05  PECB-BEFORE-EXPORT      PIC X(1).
+           05  PECB-AFTER-EXPORT       PIC X(1).
+           05  PECB-BEFORE-GENPID      PIC X(1).
+           05  PECB-AFTER-GENPID       PIC X(1).
+           05  PECB-BEFORE-LIST        PIC X(1).
+           05  PECB-AFTER-LIST         PIC X(1).
+           05  PECB-BEFORE-MOD-BLD     PIC X(1).
+           05  PECB-AFTER-MOD-BLD      PIC X(1).
+           05  PECB-BEFORE-MOD-CPY     PIC X(1).
+           05  PECB-AFTER-MOD-CPY      PIC X(1).
+           05  PECB-BEFORE-MOD-EDIT    PIC X(1).
+           05  PECB-AFTER-MOD-EDIT     PIC X(1).
+           05  PECB-BEFORE-MOD-IMPT    PIC X(1).
+           05  PECB-AFTER-MOD-IMPT     PIC X(1).
+           05  PECB-BEFORE-RESET       PIC X(1).
+           05  PECB-AFTER-RESET        PIC X(1).
+           05  PECB-BEFORE-REV-APPR    PIC X(1).
+           05  PECB-AFTER-REV-APPR     PIC X(1).
+           05  PECB-BEFORE-REV-DENY    PIC X(1).
+           05  PECB-AFTER-REV-DENY     PIC X(1).
+           05  PECB-BEFORE-SHIP-XMIT   PIC X(1).
+           05  PECB-AFTER-SHIP-XMIT    PIC X(1).
+           05  PECB-BEFORE-SHIP-CON    PIC X(1).
+           05  PECB-AFTER-SHIP-CON     PIC X(1).
+      *
+      *****************************************************************
+      * THE FOLLOWING FIELDS PERTAIN TO REQUEST FOR DATA PROCESSING.
+      *
+      ***   THE FOLLOWING THREE FIELDS ARE INFORMATIONAL FIELDS FOR
+      ***   THE USER EXIT TO VERIFY WHETHER OR NOT A REQUEST TYPE IS
+      ***   AVAILABLE.  THESE FLAGS ARE SET BY ENDEVOR EXIT
+      ***   PROCESSING PRIOR TO INVOKING THE FIRST USER EXIT MODULE.
+      *
+           05  PECB-ACT-REC-EXIST-FLAG PIC X(1).
+           05  PECB-APP-REC-EXIST-FLAG PIC X(1).
+           05  PECB-BAC-REC-EXIST-FLAG PIC X(1).
+      *
+      *****************************************************************
+      ***   THE FOLLOWING FIVE FIELDS ARE REQUESTS FOR DATA FLAGS.
+      ***   TO REQUEST A RECORD TO BE SENT, MOVE A 'Y' INTO THE
+      ***   APPROPIATE FIELD.  CHECK USER DOC TO MAKE SURE THAT THE
+      ***   DATA REQUESTED EXISTS AT THE POINT THE REQUEST IS BEING
+      ***   MADE.
+      *
+           05  PECB-REQ-ACTION-ID-REC  PIC X(1).
+           05  PECB-REQ-APPROVER-REC   PIC X(1).
+           05  PECB-REQ-BACKOUT-REC    PIC X(1).
+           05  PECB-REQ-SHIP-RECORDS   PIC X(1).
+           05  PECB-REQ-SCL-RECORDS    PIC X(1).
+      *
+      * THE FIELD PECB-AUTOCAST IS USED BY ENDEVOR TO INFORM THE
+      * USER EXIT WHETHER THE EXIT IS BEING IBVOKED DURING THE POST
+      * EXECUTION PROCESSING OF A PROMOTION PACKAGE (AUTOCAST).
+      *
+           05  PECB-AUTOCAST           PIC X(1).
+               88  PECB-AUTOCAST-YES            VALUE  'Y'.
+      *
+      * THE PECB-REQUEST-RETURNCODE IS USED BY ENDEVOR TO TELL THE
+      * USER EXIT OF THE RESULT OF THE REQUEST FOR DATA ATTEMPT
+      *
+           05  PECB-REQUEST-RETURNCODE PIC 9(4) COMP SYNC.
+
+               88  PECB-SUCCESSFUL-RECORD-SENT  VALUE  1.
+               88  PECB-END-OF-FILE-FOR-REC-TYP VALUE  2.
+               88  PECB-NO-RECORDS-FOUND        VALUE  3.
+               88  PECB-SEVERE-ERROR            VALUE 12.
+      *
+      * THE PECB-NDVR-XXXX FIELDS ARE USED BY ENDEVOR TO TELL THE
+      * USER EXIT ABOUT HIGH RETURN CODES, ERROR TEXT, AND ABEND
+      * CODES.  THESE FIELDS ARE ONLY APPLICABLE FOR AFTER CALLS.
+      *
+           05  PECB-NDVR-HIGH-RC       PIC S9(4) COMP SYNC.
+           05  PECB-NDVR-ABEND-CODE    PIC X(6).
+           05  PECB-NDVR-MESSAGE-TEXT  PIC X(133).
+           05  PECB-NDVR-MESSTEXT-LEN  PIC S9(4) COMP SYNC.
+           05  PECB-NDVR-EXIT-RC       PIC  9(8) COMP SYNC.
+
+               88  PECB-ALL-IS-OK           VALUE 0.
+               88  PECB-ALL-IS-OK-WITH-MODS VALUE 4.
+               88  PECB-ABORT-RC            VALUE 8.
+
+           05  PECB-USER-BATCH-JOBNAME PIC X(8).
+           05  PECB-MODE               PIC X(1).
+
+               88  PECB-TSO-MODE       VALUE 'T'.
+               88  PECB-BATCH-MODE     VALUE 'B'.
+
+           05  PECB-MESSAGE-ID         PIC X(4).
+           05  PECB-ERROR-MESS-LENGTH  PIC S9(4) COMP SYNC.
+           05  PECB-MESSAGE            PIC X(132).
+           05  PECB-CALLER-ORIGIN      PIC X(1).
+               88  CALLER-ENDEVOR      VALUE 'E'.
+               88  CALLER-QUICKEDIT    VALUE 'Q'.
+           05  PECB-ENTERPRISE-PKG-FLAG  PIC X(1).
+               88  PECB-ENTERPRISE-PGK-FLAG-YES   VALUE 'Y'.
+               88  PECB-ENTERPRISE-PKG-FLAG-NO    VALUE 'N'.
+      *
+      * THE FOLLOWING FIELD CAN BE USED TO REQUEST ELEMENT ACTION
+      * BACKIN OR BACKOUT EXIT CALLS. WHEN SET TO Y, IF BACKOUT OR
+      * BACKIN EXIT CALLS ARE REQUESTED, THE EXIT WILL ALSO BE
+      * CALLED FOR EACH ELEMENT ACTION BACKOUT ACTION.
+      *
+           05  PECB-REQ-ELEMENT-ACTION-BIBO
+                                       PIC X(1).
+      *
+           05  PECB-UEXIT-HOLD-FIELD   PIC S9(8) COMP SYNC.
+           05  PECB-HIGH-PREV-RC       PIC S9(8) COMP SYNC.
+      *
+      * THE FOLLOWING TWO FIELDS ARE UDPATE FLAGS FOR THE USER
+      * CONTROL BLOCKS.  THESE FLAGS REPLACE THE RETURN CODE OF
+      * ($MOK) ($) IN THE OLD EXITS.
+      *
+           05  PECB-MODS-MADE-TO-PECB  PIC X(1).
+           05  PECB-MODS-MADE-TO-PREQ  PIC X(1).
+           05  PECB-MODS-MADE-TO-PFIL  PIC X(1).
+           05  PECB-USENDING-APP-GRPS  PIC X(1).
+           05  PECB-NBR-APPR-GRPS-SENT PIC S9(4) COMP SYNC.
+
+      *
+      *  ARCHIVE PACKAGE EXIT ENABLE/DISABLE FLAGS
+      *
+      *
+           05  PECB-BEFORE-ARCHIVE     PIC X(1).
+           05  PECB-AFTER-ARCHIVE      PIC X(1).
+      *
+      *  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP
+      *  PROCESSING AT SETUP TIME, THE INITIAL VALUES ARE AS SHOWN
+      *  UNLESS OVERRIDDEN IN THE C1UEXITS TABLE
+      *  (@C1UEXIT TYPE=START,XIT7BATX=Y).
+      *
+           05  PECB-TSO-EXECUTE        PIC X(1).
+           05  PECB-BATCH-EXECUTE      PIC X(1).
+      *
+      *  COLLECT PRODUCT EXIT ENABLE/DISABLE FLAGS
+      *             (USED IN SETUP PROCESSING)
+      *
+           05  PECB-BEFORE-COLLECT     PIC X(1).
+           05  PECB-AFTER-COLLECT      PIC X(1).
+      *
+      *  COLLECT PRODUCT REQUEST FIR DATA FLAG
+      *
+           05  PECB-REQ-COLL-RECORDS    PIC X(1).
+      *
+      *  DYNAMIC APPROVER EXIT ENABLE/DISABLE FLAGS
+      *
+      *
+           05  PECB-BEFORE-DYNAMIC-ADD    PIC X(1).
+           05  PECB-AFTER-DYNAMIC-ADD     PIC X(1).
+           05  PECB-BEFORE-DYNAMIC-UPDATE PIC X(1).
+           05  PECB-AFTER-DYNAMIC-UPDATE  PIC X(1).
+           05  PECB-BEFORE-DYNAMIC-DELETE PIC X(1).
+           05  PECB-AFTER-DYNAMIC-DELETE  PIC X(1).
+
+      *
+      *          ECBAPI ORIGIN FIELD - PKG EXIT INVOKED BY API
+      *                                  W - WORKSTATION, A - API
+      *                                  N, NULL OR SPACE, NOT API
+      *
+
+           05  PECB-API                PIC X(1).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-REQUEST-BLOCK - BLOCK FOR REQUEST PARMS            *
+      *    ASSOCIATED  WITH A PACKAGE.                                *
+      *****************************************************************
+
+       01  PACKAGE-REQUEST-BLOCK.
+           05  PREQ-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PREQ-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PREQ-BLOCK-ID           PIC X(4).
+           05  PREQ-PACKAGE-COMMENT    PIC X(50).
+           05  PREQ-SPECIAL-FLAGS      PIC S9(8) COMP SYNC.
+           05  PREQ-BACKOUT-ENABLED    PIC X(1).
+               88  PREQ-BACKOUT-YES    VALUE 'Y'.
+               88  PREQ-BACKOUT-NO     VALUE 'N'.
+           05  PREQ-DELETE-ENABLED     PIC X(1).
+               88  PREQ-DELETE-YES     VALUE 'Y'.
+               88  PREQ-DELETE-NO      VALUE 'N'.
+           05  PREQ-SHARE-ENABLED      PIC X(1).
+               88  PREQ-SHARED-YES     VALUE 'Y'.
+               88  PREQ-SHARED-NO      VALUE 'N'.
+           05  PREQ-APPEND-PACKAGE     PIC X(1).
+               88  PREQ-APPEND-YES     VALUE 'Y'.
+               88  PREQ-APPEND-NO      VALUE 'N'.
+           05  PREQ-EXEC-START-DATE    PIC X(7).
+           05  PREQ-EXEC-START-TIME    PIC X(5).
+           05  PREQ-EXEC-END-DATE      PIC X(7).
+           05  PREQ-EXEC-END-TIME      PIC X(5).
+           05  PREQ-SOURCE-PACKAGE     PIC X(16).
+           05  PREQ-SHIP-DESTINATION   PIC X(8).
+           05  PREQ-SHIPMENT-TYPE.
+               10  FILLER              PIC X(1).
+               88  PREQ-PACKAGE-SHIP   VALUE 'P'.
+               88  PREQ-BACKOUT-SHIP   VALUE 'B'.
+               10  FILLER              PIC X(2).
+           05  PREQ-SHIP-COMPLEMENTS.
+               10  FILLER              PIC X(1).
+               88  PREQ-COMPLEMENTS    VALUE 'Y'.
+               88  PREQ-NO-COMPLEMENTS VALUE 'N'.
+               10  FILLER              PIC X(2).
+           05  PREQ-SHIP-COMPLE-TYPE   PIC X(4).
+               88  PREQ-HOST-TRANSMIT  VALUE 'HXMT'.
+               88  PREQ-REMOTE-COPIED  VALUE 'RCPY'.
+           05  PREQ-SHIP-CONFIRM-RESUL PIC X(2).
+               88  PREQ-SHIP-EXECUTED  VALUE 'EX'.
+               88  PREQ-SHIP-ABENDED   VALUE 'AB'.
+               88  PREQ-SHIP-GT-SRVC   VALUE 'GT'.
+               88  PREQ-SHIP-LESS-THAN VALUE 'LT'.
+               88  PREQ-SHIP-EQUAL     VALUE 'EQ'.
+               88  PREQ-SHIP-MORE-EQUA VALUE 'GE'.
+               88  PREQ-SHIP-LESS-EQUA VALUE 'LE'.
+           05  PREQ-SHIP-CONF-RETURN-CODE.
+               10  FILLER              PIC X(1).
+               88  PREQ-SHIP-NO-RC     VALUE '*'.
+               10  FILLER              PIC X(3).
+           05  PREQ-OVERRIDE-APPR-GRP  PIC X(16).
+           05  PREQ-OVERRIDE-APPR-ID   PIC X(8).
+           05  PREQ-DELETE-PKG-ARCH    PIC X(1).
+               88  ARCHIVE-WITH-DELETE VALUE 'Y'.
+               88  ARCHIVE-NO-DELETE   VALUE 'N'.
+           05  PREQ-NOTES              PIC X(1).
+               88  PREQ-NOTES-YES      VALUE 'Y'.
+               88  PREQ-NOTES-NO       VALUE 'N'.
+           05  PREQ-PROMPKG            PIC X(1).
+               88  PREQ-PROMPKG-YES        VALUE 'Y'.
+               88  PREQ-PROMPKG-NO         VALUE 'N'.
+           05  PREQ-COMMIT-DELPH       PIC X(1).
+               88  PREQ-COMMIT-DELPH-YES   VALUE 'Y'.
+               88  PREQ-COMMIT-DELPH-NO    VALUE 'N'.
+      *****************************************************************
+      *    PREQ-PKG-CAST-COMPVAL CAN BE CHANGED BY THE BEFORE CAST    *
+      *                          EXIT PROGRAM                         *
+      *****************************************************************
+           05  PREQ-PKG-CAST-COMPVAL   PIC X(1).
+           05  FILLER                  PIC X(3).
+           05  PREQ-COLLECT-BEF-AFT    PIC X(8).
+           05  PREQ-COLLECT-TYPE       PIC X(3).
+
+               88 PREQ-COLLECT-PKG     VALUE 'P'.
+               88 PREQ-COLLECT-BACKOUT VALUE 'B'.
+
+           05  PREQ-COLLECT-SDSBAPI-RC PIC X(4).
+           05  PREQ-COLLECT-PRODUCT-NAME PIC X(20).
+           05  FILLER                  PIC X(4).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-HEADER-BLOCK - PACKAGE EXIT HEADER CONTROL    *
+      *    BLOCK.                                                     *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-HEADER-BLOCK.
+           05  PHDR-LENGTH             PIC 9(4) COMP SYNC.
+           05  PHDR-CURRENT-VERSION    PIC 9(4) COMP SYNC.
+           05  PHDR-BLOCK-ID           PIC X(4).
+           05  PHDR-PACKAGE-TYPE       PIC X(10).
+           05  PHDR-PACKAGE-STATUS     PIC X(12).
+           05  PHDR-PKG-BACKOUT-STATUS PIC X(10).
+           05  PHDR-PKG-CREATION-DATE  PIC X(7).
+           05  PHDR-PKG-CREATION-TIME  PIC X(5).
+           05  PHDR-PKG-EXEC-RC        PIC X(5).
+           05  PHDR-PSCL-LAST-UPD-DATE PIC X(7).
+           05  PHDR-PSCL-LAST-UPD-TIME PIC X(5).
+           05  PHDR-PKG-CAST-DATE      PIC X(7).
+           05  PHDR-PKG-CAST-TIME      PIC X(5).
+           05  PHDR-PKG-FIN-APPR-DATE  PIC X(7).
+           05  PHDR-PKG-FIN-APPR-TIME  PIC X(5).
+           05  PHDR-PKG-EXEC-STRT-DATE PIC X(7).
+           05  PHDR-PKG-EXEC-STRT-TIME PIC X(5).
+           05  PHDR-PKG-EXEC-END-DATE  PIC X(7).
+           05  PHDR-PKG-EXEC-END-TIME  PIC X(5).
+           05  PHDR-PKG-EXECUTION-DATE PIC X(7).
+           05  PHDR-PKG-EXECUTION-TIME PIC X(5).
+           05  PHDR-PKG-COMMIT-DATE    PIC X(7).
+           05  PHDR-PKG-COMMIT-TIME    PIC X(5).
+           05  PHDR-PKG-BACKOUT-DATE   PIC X(7).
+           05  PHDR-PKG-BACKOUT-TIME   PIC X(5).
+           05  PHDR-PKG-BACKIN-DATE    PIC X(7).
+           05  PHDR-PKG-BACKIN-TIME    PIC X(5).
+           05  PHDR-PKG-END-EXEC-DATE  PIC X(7).
+           05  PHDR-PKG-END-EXEC-TIME  PIC X(5).
+           05  PHDR-PKG-CREATE-USER    PIC X(8).
+           05  PHDR-PKG-UPDATE-USER    PIC X(8).
+           05  PHDR-PKG-CAST-USER      PIC X(8).
+           05  PHDR-PKG-EXEC-USER      PIC X(8).
+           05  PHDR-PKG-BACKOUT-USER   PIC X(8).
+           05  PHDR-PKG-BACKIN-USER    PIC X(8).
+           05  PHDR-PKG-COMMIT-USER    PIC X(8).
+           05  PHDR-PKG-NOTE-WDATA-CT  PIC 9(4) COMP SYNC.
+           05  FILLER                  PIC X(2).
+           05  PHDR-PKG-NOTE1          PIC X(60).
+           05  PHDR-PKG-NOTE2          PIC X(60).
+           05  PHDR-PKG-NOTE3          PIC X(60).
+           05  PHDR-PKG-NOTE4          PIC X(60).
+           05  PHDR-PKG-NOTE5          PIC X(60).
+           05  PHDR-PKG-NOTE6          PIC X(60).
+           05  PHDR-PKG-NOTE7          PIC X(60).
+           05  PHDR-PKG-NOTE8          PIC X(60).
+           05  PHDR-PKG-CAST-COMPVAL   PIC X(1).
+           05  PHDR-PKG-SHR-OPTION     PIC X(1).
+               88  PHDR-PKG-SHR        VALUE 'Y'.
+               88  PHDR-PKG-NONSHR     VALUE 'N'.
+           05  PHDR-PKG-PROMOTION      PIC X(1).
+               88  PHDR-PKG-PROMY      VALUE 'Y'.
+               88  PHDR-PKG-PROMN      VALUE 'N'.
+           05  PHDR-PKG-ORIG-PKGID     PIC X(16).
+           05  PHDR-PKG-PREV-PKGID     PIC X(16).
+           05  PHDR-PKG-ENV            PIC X(08).
+           05  PHDR-PKG-STGID          PIC X(01).
+           05  FILLER                  PIC X(08).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-FILE-BLOCK - FOR INFORMATION ASSOCIATED WITH  *
+      *    PACKAGE FUNCTIONS.                                         *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-FILE-BLOCK.
+           05  PFIL-LENGTH             PIC 9(4) COMP SYNC.
+           05  PFIL-CURRENT-VERSION    PIC 9(4) COMP SYNC.
+           05  PFIL-BLOCK-ID           PIC X(4).
+           05  PFIL-DATASET-NAME       PIC X(44).
+           05  PFIL-MEMBER-NAME        PIC X(10).
+           05  PFIL-DD-NAME            PIC X(8).
+           05  PFIL-DATASET-TYPE       PIC X(3).
+           05  FILLER                  PIC X(21).
+      *****************************************************************
+      * OFFSET (FROM BEGINNING OF PACKAGE-EXIT-FILE-BLOCK) TO THE     *
+      * PATH AND FILE NAME AREA.                                      *
+      *    THE FIRST 2 BYTES IN AN AREA = THE LENGTH OF THE NAME.     *
+      *    THE NAME VALUE THEN FOLLOWS                                *
+      *****************************************************************
+           05  PFIL-PATH-AREA-OFFSET   PIC 9(4) COMP SYNC.
+           05  PFIL-NAME-AREA-OFFSET   PIC 9(4) COMP SYNC.
+           05  PFIL-AREA-BUFFER        PIC X(1027).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-ACTION-BLOCK                                  *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-ACTION-BLOCK.
+           05  PACT-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PACT-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PACT-BLOCK-ID           PIC X(4).
+
+      *
+      *    BLOCK TOTAL DATA
+      *
+
+           05  PACT-SEQ-NBR-FOR-ENTRY  PIC S9(4) COMP SYNC.
+
+      *
+      *    FORMATTED ACTION FIELDS
+      *
+
+           05  PACT-C1-ACTION          PIC X(8).
+           05  PACT-ACTION-CCID        PIC X(12).
+           05  PACT-COMMENT            PIC X(40).
+           05  PACT-HIGH-NDVR-RC       PIC X(5).
+           05  PACT-HIGH-PROCESSOR-RC  PIC X(5).
+           05  PACT-BEGIN-EXEC-DATE    PIC X(7).
+           05  PACT-BEGIN-EXEC-TIME    PIC X(5).
+           05  PACT-END-EXEC-DATE      PIC X(7).
+           05  PACT-END-EXEC-TIME      PIC X(5).
+
+      *******************************************
+      *    SOURCE ELEMENT/MEMBER ID FIELDS      *
+      *******************************************
+
+           05  PACT-S-SITE-ID          PIC X(1).
+           05  PACT-S-ENVIRONMENT      PIC X(8).
+           05  PACT-S-SYSTEM           PIC X(8).
+           05  PACT-S-SUBSYSTEM        PIC X(8).
+           05  PACT-S-ELEMENT          PIC X(10).
+           05  PACT-S-TYPE             PIC X(8).
+           05  PACT-S-STAGE-NAME       PIC X(8).
+           05  PACT-S-STAGE-ID         PIC X(1).
+
+           05  PACT-S-VERSION-LEVEL    PIC X(5).
+           05  PACT-S-DELTA-DATE       PIC X(7).
+           05  PACT-S-DELTA-TIME       PIC X(5).
+           05  PACT-S-GENERATE-DATE    PIC X(7).
+           05  PACT-S-GENERATE-TIME    PIC X(5).
+           05  PACT-S-LST-PROCESS-DATE PIC X(7).
+           05  PACT-S-LST-PROCESS-TIME PIC X(5).
+
+      *
+      *    EXTERNAL DATASET ID FIELDS
+      *
+
+           05  PACT-S-DATASET-NAME     PIC X(44).
+           05  PACT-S-MEMBER-NAME      PIC X(10).
+
+           05  PACT-S-PREV-PKG-ASSOC   PIC X(16).
+           05  PACT-S-CAST-TIMESTAMP   PIC X(8).
+
+      *******************************************
+      *    TARGET ELEMENT/MEMBER ID FIELDS      *
+      *******************************************
+
+           05  PACT-T-SITE-ID          PIC X(1).
+           05  PACT-T-ENVIRONMENT      PIC X(8).
+           05  PACT-T-SYSTEM           PIC X(8).
+           05  PACT-T-SUBSYSTEM        PIC X(8).
+           05  PACT-T-ELEMENT          PIC X(10).
+           05  PACT-T-TYPE             PIC X(8).
+           05  PACT-T-STAGE-NAME       PIC X(8).
+           05  PACT-T-STAGE-ID         PIC X(1).
+
+           05  FILLER                  PIC X(1).
+           05  PACT-SCL-STMT-NBR       PIC S9(4) COMP SYNC.
+           05  FILLER                  PIC X(38).
+
+      ****************************************************************
+      *  THE FOLLOWING FIELDS WERE REMOVED AS THEY DO NOT EXIST IN   *
+      *  THE ASSEMBLER VERSION, NOR ARE THEY USED IN THE CODE        *
+      ****************************************************************
+      *    05  PACT-T-VERSION-LEVEL    PIC X(5).                     *
+      *    05  PACT-T-DELTA-DATE       PIC X(7).                     *
+      *    05  PACT-T-DELTA-TIME       PIC X(5).                     *
+      *    05  PACT-T-GENERATE-DATE    PIC X(7).                     *
+      *    05  PACT-T-GENERATE-TIME    PIC X(5).                     *
+      *    05  PACT-T-LST-PROCESS-DATE PIC X(7).                     *
+      *    05  PACT-T-LST-PROCESS-TIME PIC X(5).                     *
+      ****************************************************************
+      *
+      *    EXTERNAL DATASET ID FIELDS
+      *
+
+           05  PACT-T-DATASET-NAME     PIC X(44).
+           05  PACT-T-MEMBER-NAME      PIC X(10).
+
+           05  PACT-T-PREV-PKG-ASSOC   PIC X(16).
+           05  PACT-T-CAST-TIMESTAMP   PIC X(8).
+
+      ****************************************************************
+      * SOURCE AND TARGET AREA OFFSET FIELDS                         *
+      ****************************************************************
+           05  PACT-S-FILE-TYPE        PIC X(1).
+               88  PACT-SF-NONE        VALUE ' '.
+               88  PACT-SF-DSN         VALUE 'D'.
+               88  PACT-SF-PATH        VALUE 'P'.
+
+           05  PACT-T-FILE-TYPE        PIC X(1).
+               88  PACT-TF-NONE        VALUE ' '.
+               88  PACT-TF-DSN         VALUE 'D'.
+               88  PACT-TF-PATH        VALUE 'P'.
+
+      ****************************************************************
+      * OFFSETS ARE CALCULATED FROM THE BEGINNING OF                 *
+      * PACKAGE-EXIT-ACTION-BLOCK.                                   *
+      * OFFSET VALUE + PACKAGE-EXIT-ACTION-BLOCK ADDRESS = AREA ADDR.*
+      *                                                              *
+      * FIRST TWO BYTES W/IN AREA = THE BINARY LENGTH OF THE DATA.   *
+      * THE DATA FOLLOWS IMMEDIATELY AFTER THE LENGTH FIELD.         *
+      ****************************************************************
+
+           05  PACT-SRC-ELM-AREA-OFFSET   PIC 9(4) COMP SYNC.
+           05  PACT-SRC-PATH-AREA-OFFSET  PIC 9(4) COMP SYNC.
+           05  PACT-SRC-NAME-AREA-OFFSET  PIC 9(4) COMP SYNC.
+
+           05  PACT-TGT-ELM-AREA-OFFSET   PIC 9(4) COMP SYNC.
+           05  PACT-TGT-PATH-AREA-OFFSET  PIC 9(4) COMP SYNC.
+           05  PACT-TGT-NAME-AREA-OFFSET  PIC 9(4) COMP SYNC.
+
+           05  PACT-AREA-BUFFER           PIC X(2600).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-APPROVER-MAP                                  *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-APPROVER-MAP.
+           05  PAPP-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PAPP-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PAPP-BLOCK-ID           PIC X(4).
+           05  PAPP-SEQUENCE-NUMBER    PIC S9(4) COMP SYNC.
+           05  PAPP-GROUP-NAME         PIC X(16).
+           05  PAPP-ENVIRONMENT        PIC X(8).
+           05  PAPP-QUORUM-COUNT       PIC S9(4) COMP SYNC.
+           05  PAPP-APPROVER-FLAG      PIC X(8).
+           05  PAPP-APPR-GRP-TYPE      PIC X(1).
+           05  PAPP-FILLER             PIC X(7).
+           05  PAPP-APPROVER-NUMBER    PIC S9(4) COMP SYNC.
+           05  PAPP-APPROVAL-DATA OCCURS 0 TO 16 TIMES
+                          DEPENDING ON PAPP-APPROVER-NUMBER.
+               10  PAPP-APPROVAL-ID    PIC X(8).
+               10  PAPP-APPR-DEN-DATE  PIC X(7).
+               10  PAPP-APPR-DEN-TIME  PIC X(5).
+               10  PAPP-APPROVAL-FLAG  PIC X(8).
+               10  PAPP-APPR-REQUIRED  PIC X(8).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-BACKOUT-BLOCK.                                *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-BACKOUT-BLOCK.
+           05  PBOR-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PBOR-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PBOR-BLOCK-ID           PIC X(4).
+           05  PBOR-SEQUENCE-NUMBER    PIC S9(4) COMP SYNC.
+           05  PBOR-BACKOUT-FLAG1      PIC  9(4) COMP SYNC.
+
+               88  PBOR-BO-REC-ASSOC-WITH-SOURCE VALUE 1.
+               88  PBOR-BO-REC-ASSOC-WITH-TARGET VALUE 2.
+               88  PBOR-BO-FILES-ON-USS-FILES    VALUE 4.
+
+           05  PBOR-BACKOUT-FLAG2      PIC  9(4) COMP SYNC.
+
+               88  PBOR-MEMBER-BEEN-BACKED-OUT   VALUE 1.
+               88  PBOR-MEMBER-BEEN-BACKED-IN    VALUE 2.
+
+           05  PBOR-DATASET-NAME       PIC X(44).
+           05  PBOR-CURRENT-MEMBER     PIC X(8).
+           05  PBOR-NEW-MEMBER         PIC X(8).
+           05  PBOR-SAVE-MEMBER        PIC X(8).
+
+
+           05  PBOR-USS-SAVE-NAME         PIC X(8).
+
+      * THE FOLLOWING 3 DATA AREAS CONTAIN OFFSETS FROM THE BEGINNING
+      * OF THE PACKAGE-EXIT-BACKOUT-BLOCK, POINTING TO A LENGTH AND A
+      * NAME IN THE PBOR-USS-BUFFER-AREA.
+
+           05  PBOR-USS-CURR-NAME-OFFSET  PIC 9(4) COMP SYNC.
+           05  PBOR-USS-NEW-NAME-OFFSET   PIC 9(4) COMP SYNC.
+           05  PBOR-USS-PATH-OFFSET       PIC 9(4) COMP SYNC.
+
+      * THE PBOR-USS-BUFFER-AREA CONTAINS THE CURRENT NAME, THE
+      * NEW NAME AND THE PATH NAME, EACH PRECEDED BY THEIR LENGTH IN
+      * PIC 9(4) COMP SYNC FORMAT.
+      * (LENGTH1-NAME1, LENGTH2-NAME2, LENGTH3-NAME3)
+
+           05  PBOR-USS-BUFFER-AREA       PIC X(1300).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-SHIPMENT-BLOCK.                               *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-SHIPMENT-BLOCK.
+           05  PSHP-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PSHP-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PSHP-BLOCK-ID           PIC X(4).
+           05  PSHP-SEQUENCE-NUMBER    PIC S9(4) COMP SYNC.
+           05  PSHP-PACKAGE-ID         PIC X(16).
+           05  PSHP-DATE-SUBMITTED     PIC X(7).
+           05  PSHP-TIME-SUBMITTED     PIC X(8).
+           05  PSHP-DESTINATION-NUMBER PIC S9(4) COMP SYNC.
+           05  PSHP-DESTINATION-DATA   OCCURS 0 TO 10 TIMES
+                          DEPENDING ON PSHP-DESTINATION-NUMBER.
+               10  PSHP-SHIP-DESTINATION   PIC X(8).
+               10  PSHP-SHIPMENT-TYPE.
+                   20  FILLER              PIC X(1).
+                   88  PSHP-PACKAGE-SHIPPED     VALUE 'P'.
+                   88  PSHP-BACKOUT-SHIPPED     VALUE 'B'.
+                   20  FILLER              PIC X(2).
+               10  PSHP-COMPLEMENT-FILES-FLAG.
+                   20  FILLER              PIC X(1).
+                   88  PSHP-COMPLEMENT-REQUIRED    VALUE 'Y'.
+                   88  PSHP-NO-COMPLEMENT-REQUIRED VALUE 'N'.
+                   20  FILLER              PIC X(2).
+
+      *
+      *      COMPLETION CODES:
+      *
+      *      FUNCTION COMPLETED:  RC=##  - RC=###  - R=####
+      *      CANCELLED BY EXIT:   XC=##  - XC=###  = X=####
+      *      GENERIC COMPLETION:  EXEC'D - ABEND
+      *
+
+               10  PSHP-STAGING-COMPL-CODE  PIC X(6).
+               10  PSHP-TRANSMI-COMPL-CODE  PIC X(6).
+               10  PSHP-REMOTE-CPY-DEL-CODE PIC X(6).
+
+               88  PSHP-CC-IS-A-RETURN-CODE     VALUE 'R'.
+               88  PSHP-CC-IS-AN-EXIT-CANCEL    VALUE 'X'.
+               88  PSHP-CC-IS-A-SYSTEM-ABEND    VALUE 'S'.
+               88  PSHP-CC-IS-A-USER-ABEND      VALUE 'U'.
+               88  PSHP-FUNCTION-EXECUTED       VALUE 'E'.
+               88  PSHP-FUNCTION-ABENDED        VALUE 'A'.
+
+               10  FILLER                   PIC X(18).
+
+           EJECT
+
+      *****************************************************************
+      *    PACKAGE-EXIT-SCL-BLOCK.                                    *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-SCL-BLOCK.
+           05  PSCL-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PSCL-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PSCL-BLOCK-ID           PIC X(4).
+           05  PSCL-SEQUENCE-NUMBER    PIC S9(4) COMP SYNC.
+           05  PSCL-SCL-STATEMENT-NBR  PIC S9(4) COMP SYNC.
+           05  PSCL-SCL-DATA           OCCURS 0 TO 36 TIMES
+                          DEPENDING ON PSCL-SCL-STATEMENT-NBR.
+               10  PSCL-STATEMENT      PIC X(80).
+           EJECT
+      *****************************************************************
+      *    PACKAGE-EXIT-COLLECT-BLOCK.                                *
+      *****************************************************************
+
+       01  PACKAGE-EXIT-COLLECT-BLOCK.
+           05  PCOL-LENGTH             PIC 9(4)  COMP SYNC.
+           05  PCOL-CURRENT-VERSION    PIC 9(4)  COMP SYNC.
+           05  PCOL-BLOCK-ID           PIC X(4).
+           05  PCOL-SEQUENCE-NUMBER    PIC S9(4) COMP SYNC.
+           05  PCOL-PACKAGE-ID         PIC X(16).
+           05  PCOL-TYPE-COLLECTD      PIC X(3).
+
+                   88  PCOL-PACKAGE-COLLECTD    VALUE 'P'.
+                   88  PCOL-BACKOUT-COLLECTD    VALUE 'B'.
+
+      *****************************************************************
+      *  COMPLETION CODES:                                            *
+      *      FUNCTION COMPLETED:           RC=##  - RC=###  - R=####  *
+      *      CANCELLED BY EXIT:            XC=##  - XC=###  - X=####  *
+      *      ABEND DETECTED:               S/###  - U####             *
+      *****************************************************************
+
+           05  PCOL-STAGING-COMP-CODE  PIC X(6).
+           05  PCOL-REQUEST-COMP-CODE  PIC X(6).
+
+                   88  PCOL-CC-RETURN-CODE      VALUE 'R'.
+                   88  PCOL-CC-EXIT-CANCELLD    VALUE 'X'.
+                   88  PCOL-CC-SYSTEM-ABEND     VALUE 'S'.
+                   88  PCOL-CC-USER-ABEND       VALUE 'U'.
+
+           05  PCOL-DATE-SUBMITTED           PIC X(7).
+           05  PCOL-TIME-SUBMITTED           PIC X(5).
+           05  PCOL-CONNECT-ID               PIC X(8).
+           05  PCOL-START-COLLECT-DATE       PIC X(8).
+           05  PCOL-START-COLLECT-TIME       PIC X(8).
+           05  PCOL-COLLECT-PRODUCT-NAME     PIC X(20).
+           05  PCOL-COLLECT-PRODUCT-DESC     PIC X(30).
+           05  PCOL-COLLECT-PRODUCT-VERSION  PIC X(15).
+           05  PCOL-COLLECT-PRODUCT-NUMBER   PIC X(15).
+           05  PCOL-COLLECT-PRODUCT-VENDOR   PIC X(15).
+           05  PCOL-COLLECT-PRODUCT-OPSYS    PIC X(15).
+           05  PCOL-COLLECT-PRODUCT-ESC-TYPE PIC X(1).
+           05  PCOL-COLLECT-PRODUCT-TYPE     PIC X(1).
+
+                   88  PCOL-PROD-TYPE-EXTERNAL  VALUE 'E'.
+                   88  PCOL-PROD-TYPE-GENERATN  VALUE 'G'.
+                   88  PCOL-PROD-TYPE-NORMAL    VALUE 'N'.
+
+           05  PCOL-COLLECT-PRODUCT-WHEN     PIC X(1).
+
+                   88  PCOL-PROD-DELIVERED      VALUE 'D'.
+                   88  PCOL-PROD-INSTALLED      VALUE 'I'.
+

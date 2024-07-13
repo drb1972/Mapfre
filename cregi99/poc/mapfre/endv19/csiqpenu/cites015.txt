@@ -1,0 +1,6 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls \-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 6 of 6)
+%
+%MFA Appl Name+ - The SAF application name for MFA support.
+)END

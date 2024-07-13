@@ -1,0 +1,35 @@
+         MACRO
+         ENHAPRES &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        RESET PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APRES_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APRES_RQ$EYE    EQU C'PREQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APRES_RQ
+         SPACE ,
+APRES_RQ_DATA     DS XL1               BEGINNING OF DATA AREA
+         ORG      APRES_RQ_DATA
+APRES_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+APRES_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APRES_RQ_VER#1_DATADSLN EQU *-APRES_RQ_DATA
+APRES_RQ_VER#1_DSLN     EQU *-APRES_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APRES_RQ_DATADSLN EQU *-APRES_RQ_DATA
+APRES_RQ_DSLN     EQU *-APRES_RQ
+         ORG      APRES_RQ_DATA
+APRES_RQ_DATAAREA DS XL(APRES_RQ_DATADSLN)    DATA AREA
+         MEND

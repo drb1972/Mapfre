@@ -1,0 +1,22 @@
+      *****************************************************************
+      *
+      *            DENY A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APDEN-RQ.
+           05  APDEN-RQ-HEADER.
+               10  APDEN-RQ-LEN        PIC 9(04) COMP VALUE 516.
+               10  APDEN-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APDEN-RQ-ID         PIC 9(04) COMP VALUE 1664.
+               10  APDEN-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  APDEN-RQ-EYE        PIC X(04)      VALUE 'PDNQ'.
+           05  APDEN-RQ-DATAAREA.
+               10  APDEN-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APDEN-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.
+      *  VERSION 2 FIELDS
+               10  APDEN-RQ-UPDT-NOTES PIC X(01) VALUE SPACES.
+                   88  APCAS-RQ-UPDT-NOTES-YES   VALUE 'Y'.
+                   88  APCAS-RQ-UPDT-NOTES-NO    VALUE 'N' ' '.
+               10  APDEN-RQ-NOTES      PIC X(480) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

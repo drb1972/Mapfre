@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Selection List Filter for Exec-failed Status \-\
+%Option ===>_ZCMD                                                 %Version 17.0+
+%
+%Package Selection List Filter for Exec-failed Status +
++
+ You can filter the Package selection list to easily identify those packages
+ that failed to execute. The selection list options on the Package Foreground
+ Options menu include the Exec-failed status.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT17030
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Generate Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Generate Action Mode+- Indicates whether the generate action
++       should be executed in foreground or batch.
++
+%          F+- Execute the generate in the foreground session.
++
+%          B+- Submit a batch job to execute the generate action.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%\-\ Package Ship using CMEW \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%CMEW Support for Package Shipments+
+
++ Users of AllFusion Endevor Change Manager Enterprise Workbench (CMEW)
+  r7.1 who upgrade to Endevor r7 SP02 can use the CMEW interface to execute
+  Package shipments, as long as Package Ship functionality is already
+  operational at their site, and configured to allow CMEW to make shipments.
+
+ \*\ For details, see technical note "How to Install the AllFusion Endevor \*\
+ \*\ Change Manager API SCL Package Ship Feature" available with CMEW r7.1 \*\
+                                               %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7190
+)END

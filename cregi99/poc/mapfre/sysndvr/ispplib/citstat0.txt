@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Status \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The STATUS field displays the status of a package.
++
++    Status             Possible actions
++
+%    In-edit+           Modify or Cast
+%    In-approval+       Review (and approve or deny)
+%    Denied+            Reset
+%    Approved+          Execute
+%    In-execution+      none, package is being executed
+%    Executed+          Back out, Back in, Ship, or Commit
+%    Exec-failed+       Re-execute, Back out, Back in, Reset
+%    Committed+         Reset or Delete
++
++On the Package Options Menu, and the Package Specification Panel
++status fields can be used to limit the package selection list when
++displaying package information or using package utilities.
++
++                                            (%PF3+to return)
+)END

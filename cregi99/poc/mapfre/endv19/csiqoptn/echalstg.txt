@@ -1,0 +1,49 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST STAGE - REQUEST BLOCK                         *
+      *                                                               *
+      *****************************************************************
+       01  ALSTG-RQ.
+           05  ALSTG-RQ-HEADER.
+               10  ALSTG-RQ-LEN        PIC 9(4) COMP VALUE 36.
+               10  ALSTG-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSTG-RQ-ID         PIC 9(4) COMP VALUE 1040.
+               10  ALSTG-RQ-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALSTG-RQ-EYE        PIC X(4)      VALUE 'LSTQ'.
+           05  ALSTG-RQ-DATAAREA.
+               10  ALSTG-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALSTG-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALSTG-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALSTG-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALSTG-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSTG-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALSTG-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALSTG-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  FILLER              PIC XX        VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST STAGE - RESPONSE BLOCK                        *
+      *                                                               *
+      *****************************************************************
+       01  ALSTG-RS.
+           05  ALSTG-RS-HEADER.
+               10  ALSTG-RS-LEN        PIC 9(4) COMP VALUE 109.
+               10  ALSTG-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSTG-RS-ID         PIC 9(4) COMP VALUE 1041.
+               10  ALSTG-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALSTG-RS-EYE        PIC X(4)      VALUE 'LSTS'.
+           05  ALSTG-RS-DATAAREA.
+               10  ALSTG-RS-SITE       PIC X         VALUE SPACE.
+               10  ALSTG-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSTG-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALSTG-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALSTG-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALSTG-RS-TITLE      PIC X(20)     VALUE SPACES.
+               10  ALSTG-RS-DSN        PIC X(44)     VALUE SPACES.
+               10  FILLER              PIC X         VALUE SPACE.
+               10  ALSTG-RS-ENTRY      PIC X         VALUE SPACE.
+               10  ALSTG-RS-STG-PSAS   PIC X         VALUE SPACE.
+               10  FILLER              PIC X(2)      VALUE SPACES.
+               10  ALSTG-RS-NXT-ENV    PIC X(8)      VALUE SPACES.
+               10  ALSTG-RS-NXT-STG-NUM PIC X         VALUE SPACE.

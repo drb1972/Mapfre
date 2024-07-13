@@ -1,0 +1,152 @@
+C1RPUX00 TITLE 'Sample ROSCOE Signout ID extract exit routine'
+*---------------------------------------------------------------------*
+*                                                                     *
+* COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.                    *
+*                                                                     *
+* Program: C1RPUX00                                                   *
+*                                                                     *
+* Function: C1RPUX00 is an initialization exit called by C1RPUSER     *
+*  during its initialization processing.  The function of the exit    *
+*  is to obtain the eight character userid to be associated with the  *
+*  ENDEVOR user.  The userid is used primarily for the SIGNOUT func-  *
+*  tion of the foreground RETRIEVE action.  The signout ID is returned*
+*  in an eight byte field that is passed by the caller.               *
+*  This version of the exit obtains the logonid from the SCBACFB.     *
+*  This field is initialized by ACF$EXIT. (ACF2 EXIT)                 *
+*                                                                     *
+* Input:                                                              *
+*  On entry, R1 has the address of the following parameter list.      *
+*  The parameter list is defined as follows:                          *
+*   Word 1: The address of an 8 byte field in which the exit will     *
+*           place the signout ID.  The field is initialized to blanks.*
+*                                                                     *
+* Exit:                                                               *
+*  On Exit, R15 will have one of the following values:                *
+*   R15=0 -> The exit placed the signout ID in the output field       *
+*   R15=4 -> An error occurred during exit processing.                *
+*                                                                     *
+* Attributes: Reentrant, Reusable                                     *
+*             AMODE(31), RMODE(ANY)                                   *
+*                                                                     *
+*---------------------------------------------------------------------*
+C1RPUX00 CSECT
+C1RPUX00 AMODE 31
+C1RPUX00 RMODE ANY
+*---------------------------------------------------------------------*
+* Save the callers registers, obtain a reentrant work area and chain  *
+* the callers and callees save areas.                                 *
+*---------------------------------------------------------------------*
+         SAVE  (14,12),,'C1RPUX00-&SYSDATE-&SYSTIME'
+         LR    R12,R15                 Use R12 as the CSECT
+         USING C1RPUX00,R12             base register
+         LR    R2,R1                   Save the parameter address in R1
+         GETMAIN R,LV=EWALEN#,         Getmain a reentrant workarea    X
+               LOC=(ANY)                from 31 bit storage
+         ST    R13,4(R1)               Chain the two
+         ST    R1,8(R13)                saveareas
+         LR    R13,R1                  Use R13 as the Exit Work Area
+         USING EWADSECT,R13             base register
+         L     R5,0(R2)                R5 has the userid return area   X
+                                        address
+         SPACE 1
+*---------------------------------------------------------------------*
+* Initialize the return code to zero.  Use the ROETSAPI service to    *
+* obtain addressability to the ROSCOE Session Control Block (SCB).    *
+* Use R3 as the SCB base register.                                    *
+*---------------------------------------------------------------------*
+UX001000 DS    0H
+         XC    EWARETCD,EWARETCD       Set the return code to zero
+         CALL  ROETSAPI,                                               X
+               (=CL4'QENV',=CL4'ENV;',EWAENV,=CL4'SCB;',EWASCB),       X
+               VL,                                                     X
+               MF=(E,EWAPLIST)
+         LTR   R15,R15                 If the API call failed,
+         BNZ   UX008000                 return an error indicator
+         L     R3,EWASCB               Else, use R3 as the SCB
+         USING SCB,R3                   base register
+         SPACE 1
+*---------------------------------------------------------------------*
+*  ACF2 Specific code follows                                         *
+*---------------------------------------------------------------------*
+         ICM   R4,B'1111',SCBACFB      R4 has the address of the SCB
+         BZ    UX008000                If zero, exit with an error
+         USING ARI@IWA,R4              Use R4 as the IWA Base
+         L     R4,IWAACMCB             Get the user ACF2 ACMCB Addr
+         USING ACMCB,R4
+*
+COPYUSRI MVC   0(8,R5),ACMLID          Move in the ACMLID to return
+         B     UX00EXIT                area. When done, exit
+*---------------------------------------------------------------------*
+*  An error occurred during exit processing. Set RC=04 and exit.      *
+*---------------------------------------------------------------------*
+UX008000 DS    0H
+         LA    R15,4                   Set the return code to
+         ST    R15,EWARETCD             four and exit
+         B     UX00EXIT
+*---------------------------------------------------------------------*
+* Processing is complete.  exit processing.  Set the return code to   *
+* zero and exit.                                                      *
+*---------------------------------------------------------------------*
+UX00EXIT DS    0H
+         L     R2,EWARETCD             R2 has the exit return code
+         LR    R1,R13                  R1 has the exit work area       X
+                                        address
+         L     R13,4(,R13)             R13 has the callers savearea    X
+                                        address
+         FREEMAIN R,LV=EWALEN#,A=(R1)  Free the exit work area
+         LR    R15,R2                  R15 has the exit return code
+         RETURN (14,12),,RC=(15)       Return to the caller
+         DROP  R13                     (EWADSECT)
+         TITLE 'Program literals and constants'
+*---------------------------------------------------------------------*
+* Program literals and constants                                      *
+*---------------------------------------------------------------------*
+         LTORG
+         TITLE 'ARI@IWA - ACF2 Control Block'
+ARI@IWA  DSECT                         Exit work area
+         DS    0H
+IWAEYE   DS    CL4
+IWAMSG   DS    AL4
+IWAACMCB DS    AL4
+IWAACUCB DS    AL4
+         TITLE 'EWADSECT - Exit Work Area'
+*---------------------------------------------------------------------*
+* Exit work area DSECT.  This work area is addressed by R13.          *
+*---------------------------------------------------------------------*
+EWADSECT DSECT                         Exit work area
+EWASAVE  DS    18F                     Register save area
+EWARETCD DS    F                       Exit return code
+EWASCB   DS    A                       Address of the Session Control  X
+                                        Block (SCB)
+EWAENV   DS    CL4                     ROSCOE environment indicator
+EWAPLIST DS    5F                      ROETSAPI parameter list
+         DS    0D                      Double word align
+EWALEN#  EQU   *-EWADSECT              Length of the DSECT
+         TITLE 'Register EQUate definitions'
+*---------------------------------------------------------------------*
+* Register EQUate definitions                                         *
+*---------------------------------------------------------------------*
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+*---------------------------------------------------------------------*
+         TITLE 'SCB - ROSCOE Session Control Block (SCB)'
+*---------------------------------------------------------------------*
+         SCB
+         ACUCB
+         ACMCB
+         MLAREC
+         END

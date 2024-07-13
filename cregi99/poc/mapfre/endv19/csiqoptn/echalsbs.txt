@@ -1,0 +1,64 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST SUBSYSTEM - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  ALSBS-RQ.
+           05  ALSBS-RQ-HEADER.
+               10  ALSBS-RQ-LEN        PIC 9(4) COMP VALUE 52.
+               10  ALSBS-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSBS-RQ-ID         PIC 9(4) COMP VALUE 1072.
+               10  ALSBS-RQ-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALSBS-RQ-EYE        PIC X(4)      VALUE 'LSBQ'.
+           05  ALSBS-RQ-DATAAREA.
+               10  ALSBS-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALSBS-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALSBS-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALSBS-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALSBS-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSBS-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALSBS-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALSBS-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  ALSBS-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALSBS-RQ-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC XX        VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST SUBSYSTEM - RESPONSE BLOCK                    *
+      *                                                               *
+      *****************************************************************
+       01  ALSBS-RS.
+           05  ALSBS-RS-HEADER.
+               10  ALSBS-RS-LEN        PIC 9(4) COMP VALUE 152.
+               10  ALSBS-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSBS-RS-ID         PIC 9(4) COMP VALUE 1073.
+               10  ALSBS-RS-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALSBS-RS-EYE        PIC X(4)      VALUE 'LSBS'.
+           05  ALSBS-RS-DATAAREA.
+               10  ALSBS-RS-SITE       PIC X         VALUE SPACE.
+               10  ALSBS-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-SUBSYS     PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALSBS-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALSBS-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALSBS-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALSBS-RS-UPD-BDTE REDEFINES ALSBS-RS-UPD-DATE.
+                   15  ALSBS-RS-UPD-YYYY   PIC 9(4).
+                   15  ALSBS-RS-UPD-MM     PIC 9(2).
+                   15  ALSBS-RS-UPD-DD     PIC 9(2).
+               10  ALSBS-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALSBS-RS-UPD-BTME REDEFINES ALSBS-RS-UPD-TIME.
+                   15  ALSBS-RS-UPD-HH     PIC 9(2).
+                   15  ALSBS-RS-UPD-MI     PIC 9(2).
+                   15  ALSBS-RS-UPD-SS     PIC 9(2).
+                   15  ALSBS-RS-UPD-TH     PIC 9(2).
+               10  ALSBS-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-TITLE      PIC X(50)     VALUE SPACES.
+               10  ALSBS-RS-NXT-SBS    PIC X(8)      VALUE SPACES.
+               10  ALSBS-RS-FMID       PIC 9(5)      VALUE ZEROS.
+               10  FILLER              PIC X(3)      VALUE SPACES.
+               10  ALSBS-RS-PREGEXC    PIC X         VALUE SPACE.
+               10  FILLER              PIC X(3)      VALUE SPACES.

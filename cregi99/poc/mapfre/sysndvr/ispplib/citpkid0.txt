@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Identification Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You specify this information when creating or updating a package.
++You can modify a package description or a package type.  On all other
++panels this information is display only.
++
+%Package ID+-   The 1-16 character package name.
+%Description+-  The 1-50 character package description.
++
+%Package Type+- The type of package: STANDARD or EMERGENCY.
++  The definition of Standard and Emergency packages is site specific.
++  Only STANDARD approver groups can approve Standard packages.
++  Only EMERGENCY approver groups can approve Emergency packages.
++
+%Promotion Package+- Promotion packages allow the package to be reused
++  without having to manually reset the package, edit the SCL and CAST
++  the package. At the time of a successful execution of a package, the
++  package will automatically be reset, the SCL will be updated to point
++  to the next location and the package will be CAST. Promotion packages
++  can only contain MOVE actions.
++                                            (%PF3+to return)
+)END

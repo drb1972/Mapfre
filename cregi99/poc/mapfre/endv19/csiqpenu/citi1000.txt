@@ -1,0 +1,64 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+ @ TYPE(ET)                  /* Emphasised Text */
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++
++These panels provide information about features and enhancements
++introduced in%Endevor Version 18.1+as they are published.
++
++Enter one of the following options for more information:             Delivery:
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+{ 1}Quick Edit Batch Actions Queue Feature+                 %&DISQEENA +CD18101
+{ 2}Quick Edit User Routines Feature+                       %&DISQEURA +CD18102
+{ 3}Deferred File Creation Feature+                         %&DISDFCOP +CD18103
+{ 4}Quick Edit Sync Action Feature+                         %&DISQSYNA +CD18104
+{ 5}Admin Actions in Processors Feature+                    %&DISQADMA +CD18105
+{ 6}Dynamic Environment Feature+                            %&DISDYNEN +CD18106
+{ 7}End-to-End Package Logging by Action+                   %&DISE2ELG +CD18107
+{ 8}Processor Utility Program CONMOVE+                      %AVAILABLE +CD18108
++
++
++
++      For more details, See the@Endevor+documentation at
++             @&VNTUIDOC                                +
++
++\ \(Press}ENTER+to continue or}END+to return)\ \
+)INIT
+ &VNTUIDOC = 'https://techdocs.broadcom.com/endevor'
+ &DISQEENA = TRANS(&VNTQUENA E,'ENABLED ' D,'DISABLED')
+ &DISQEURA = TRANS(&VNTQUSRA E,'ENABLED ' D,'DISABLED')
+ &DISDFCOP = TRANS(&VNTDFCOP E,'ENABLED ' D,'DISABLED')
+ &DISQSYNA = TRANS(&VNTQSYNA E,'ENABLED ' D,'DISABLED')
+ &DISQADMA = TRANS(&VNTQADMA E,'ENABLED ' D,'DISABLED')
+ &DISDYNEN = TRANS(&VNTDYNEN E,'ENABLED ' D,'DISABLED')
+ &DISE2ELG = TRANS(&VNTE2ELG E,'ENABLED ' D,'DISABLED')
+)PROC
+ &ZSEL = TRANS(&ZCMD 1,CITI1010
+                     2,CITI1020
+                     3,CITI1030
+                     4,CITI1040
+                     5,CITI1050
+                     6,CITI1060
+                     7,CITI1070
+                     8,CITI1080
+                 /*  9,CITI1090 */
+                 /* 10,CITI1100 */
+                  *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(6)
+FIELD(ZPS01007) VAR(ZCMD) VAL(7)
+FIELD(ZPS01008) VAR(ZCMD) VAL(8)
+FIELD(ZPS01009) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01010) VAR(ZCMD) VAL(END)
+)END

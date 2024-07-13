@@ -1,0 +1,85 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST SITE - REQUEST BLOCK                          *
+      *                                                               *
+      *****************************************************************
+       01  ALSIT-RQ.
+           05  ALSIT-RQ-HEADER.
+               10  ALSIT-RQ-LEN        PIC 9(4) COMP VALUE 16.
+               10  ALSIT-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSIT-RQ-ID         PIC 9(4) COMP VALUE 1120.
+               10  ALSIT-RQ-VERS       PIC 9(4) COMP VALUE 6.
+               10  ALSIT-RQ-EYE        PIC X(4)      VALUE 'LSIQ'.
+           SKIP1
+           05  ALSIT-RQ-DATAAREA.
+               10  FILLER              PIC X(4)      VALUE SPACES.
+      *****************************************************************
+      *                                                               *
+      *            LIST SITE - RESPONSE BLOCK                         *
+      *                                                               *
+      *****************************************************************
+       01  ALSIT-RS.
+           05  ALSIT-RS-HEADER.
+               10  ALSIT-RS-LEN        PIC 9(4) COMP VALUE 440.
+               10  ALSIT-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSIT-RS-ID         PIC 9(4) COMP VALUE 1121.
+               10  ALSIT-RS-VERS       PIC 9(4) COMP VALUE 6.
+               10  ALSIT-RS-EYE        PIC X(4)      VALUE 'LSIS'.
+           05  ALSIT-RS-DATAAREA.
+               10  ALSIT-RS-NDVRREL    PIC X(6)      VALUE SPACES.
+               10  ALSIT-RS-SITEID     PIC X         VALUE SPACE.
+               10  ALSIT-RS-SITENAME   PIC X(50)     VALUE SPACES.
+               10  ALSIT-RS-DFLTDATE   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-DFLTTIME   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-APPRREQD   PIC X         VALUE SPACE.
+               10  ALSIT-RS-EXITAUTH   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-ELNKXTBL   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-LINESPP    PIC 9(2)      VALUE ZEROS.
+               10  ALSIT-RS-MACLIB     PIC X(44)     VALUE SPACES.
+               10  ALSIT-RS-PKGCSEC    PIC X         VALUE SPACE.
+               10  ALSIT-RS-PKGCVAL    PIC X         VALUE SPACE.
+               10  ALSIT-RS-PKGTSO     PIC X         VALUE SPACE.
+               10  ALSIT-RS-MFMTCCID   PIC X         VALUE SPACE.
+               10  ALSIT-RS-MFMTCMNT   PIC X         VALUE SPACE.
+               10  ALSIT-RS-MFMTDESC   PIC X         VALUE SPACE.
+               10  ALSIT-RS-PKGDSN     PIC X(44)     VALUE SPACES.
+               10  ALSIT-RS-CCIDVAL    PIC X(44)     VALUE SPACES.
+               10  ALSIT-RS-MODHLI     PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-ACCSTABL   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-ACMOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-PKGISEC    PIC X         VALUE SPACE.
+               10  ALSIT-RS-DB2OPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-ELKOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-ESIOPT     PIC X         VALUE SPACE.
+               10  FILLER              PIC X         VALUE SPACE.
+               10  ALSIT-RS-JRNLGRP    PIC X(14)     VALUE SPACES.
+               10  ALSIT-RS-LPVOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-PDMOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-PRCOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-QEDOPT     PIC X         VALUE SPACE.
+               10  ALSIT-RS-SOFETCH    PIC X         VALUE SPACE.
+               10  FILLER              PIC X         VALUE SPACE.
+               10  ALSIT-RS-SMFRECNUM  PIC 9(3)      VALUE ZERO.
+               10  ALSIT-RS-RACFUID    PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-E2ELOGMBR  PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-LIBENV     PIC X(2)      VALUE SPACES.
+               10  ALSIT-RS-LIBPGM     PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-RJCLROOT   PIC X(4)      VALUE SPACES.
+               10  ALSIT-RS-SPFEDIT    PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-SYSIEWLP   PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-TSOE       PIC X         VALUE SPACE.
+               10  ALSIT-RS-WRKUNIT    PIC X(8)      VALUE SPACES.
+               10  ALSIT-RS-WRKVOL     PIC X(6)      VALUE SPACES.
+               10  ALSIT-RS-BATCHID    PIC 9         VALUE 1.
+               10  ALSIT-RS-UIDLOCO    PIC 9         VALUE ZERO.
+               10  ALSIT-RS-UIDLOCL    PIC 9         VALUE ZERO.
+               10  ALSIT-RS-VIOUNIT    PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC X         VALUE SPACE.
+               10  ALSIT-RS-PARMLIB    PIC X(44)     VALUE SPACE.
+               10  ALSIT-RS-TYPESEQMBR PIC X(8)      VALUE SPACE.
+               10  ALSIT-RS-LISTSTR    PIC X(8)      VALUE SPACE.
+               10  ALSIT-RS-SYNCCHK    PIC X         VALUE SPACE.
+               10  ALSIT-RS-SYNCMSV    PIC X         VALUE SPACE.
+               10  FILLER              PIC XX        VALUE SPACE.
+               10  ALSIT-RS-DESTCFGMBR PIC X(8)      VALUE SPACE.

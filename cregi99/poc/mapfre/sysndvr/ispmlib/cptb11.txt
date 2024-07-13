@@ -1,0 +1,21 @@
+CPTB110 'Allocation error'                .ALARM=YES .HELP=BC1TM110
+'CPTB110 An unrecoverable allocation error occurred. Press PFK1 for info.'
+
+CPTB111 'Dataset not Catalogued'                    .ALARM=YES
+'CPTB111 To allocate ''&PTBDADSN'', enter the allocation info below.'
+
+CPTB112 'Specify DV File count'                     .ALARM=YES
+'CPTB112 Indicate whether 1 or 2 derivition files will be used during WIP Build'
+
+CPTB114 'Invalid value'                             .ALARM=YES
+'CPTB114 Specify A(ll), S(ummary) or N(o) to identify the level of reports.'
+
+CPTB116 'Unsupported ISPF/PDF'                      .ALARM=YES
+'CPTB116 PDM requires ISPF/PDF Version 2.3 or greater.'
+
+CPTB117 'Invalid Attributes'                        .ALARM=YES
+'CPTB117 The statistics dataset is allocated with the incorrect attributes'
+
+CPTB119 'Change ID Specified'                       .ALARM=YES
+'CPTB119 The MERGE BROWSE dataset may contain a change identifier.'
+

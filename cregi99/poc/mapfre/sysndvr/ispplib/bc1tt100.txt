@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ What is Parallel Development? \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Parallel development is a term used to describe the concurrent
++development activities necessitated by the complexity of today's
++applications and the pace at which these applications are developed.
++Aspects of parallel development include:
++
++ * Several programmers working on the same application or programs.
++ * Identifying and resolving conflicts in programs that have been
++       independently updated by more than one programmer.
++ * The time-consuming, resource-intensive, and error-prone process
++       of manually integrating independent changes to a program.
++ * Reconciling differences between customized vendor software
++       packages and vendor release updates.
++ * Assessing project complexity, duration, and resource requirements.
++
++    Select%1-4+for information about:
++
+%    1+- Simple parallel development   %3+- Vendor application updates
+%    2+- Complex parallel development  %4+- Integrating concurrently
++                                             developed software
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TT110 2,BC1TT120 3,BC1TT130 4,BC1TT140)
+)END

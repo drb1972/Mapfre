@@ -1,0 +1,118 @@
+         MACRO                                                          00010000
+         $PACTREQ &DSCT=YES                                             00020003
+.********************************************************************** 00030000
+.*  $PACTREQ - PACKAGE EXIT SOURCE/TARGET ID RECORDS                 ** 00040000
+.*                                                                   ** 00050000
+.********************************************************************** 00030000
+         AIF ('&DSCT' EQ 'YES').DSCT1                                   00280000
+$PACTREQ     DS   0D                                                    00290000
+         AGO .START1                                                    00300000
+.DSCT1   ANOP                                                           00310000
+$PACTREQ     DSECT                                                      00320000
+.START1  ANOP                                                           00330000
+***                                                                     00670011
+***  BLOCK INITIALIZATION DATA                                          00680011
+***                                                                     00690011
+PACTLEN      DC  AL2(PACTSIZE)               BLOCK SIZE
+PACTVERS     DC  AL2(PACT$VER)              BLOCK VERSION
+PACT$VER     EQU 1
+PACTID       DC  CL4'PACT'                   BLOCK ID
+***                                                                     00670011
+***  BLOCK TOTAL DATA                                                   00680011
+***                                                                     00690011
+PACTSEQ#     DS  H                           SEQ NUM OF THIS ENTRY
+***                                                                     01750004
+***  FORMATTED ACTION FIELDS                                            01750000
+***                                                                     01770004
+PACTACTN     DS  CL8                   C1 ACTION                        01780012
+PACTCCID     DS  CL12                  ACTION CCID                      01780012
+PACTCOMM     DS  CL40                  ACTION COMMENT                   01780012
+PACTNDRC     DS  CL5                   HIGH ENDEVOR/MVS RETURN CODE     01790012
+PACTPRRC     DS  CL5                   HIGH PROCESSOR   RETURN CODE     01800012
+PACTBEXD     DS  CL7                   BEGIN EXECUTION DATE             01800000
+PACTBEXT     DS  CL5                   BEGIN EXECUTION TIME             01810000
+PACTEEXD     DS  CL7                   END   EXECUTION DATE             01820000
+PACTEEXT     DS  CL5                   END   EXECUTION TIME             01830000
+***                                                                     00670011
+***  SOURCE ELEMENT/MEMBER ID FIELDS                                    00680011
+***                                                                     00690011
+PACTSSIT    DS  CL1                   SITE ID                           00840011
+PACTSENV    DS  CL8                   ENVIRONMENT                       00850011
+PACTSSYS    DS  CL8                   SYSTEM                            00860011
+PACTSSBS    DS  CL8                   SUBSYSTEM                         00870011
+PACTSELM    DS  CL10                  ELEMENT                           00880011
+PACTSTYP    DS  CL8                   TYPE                              00890011
+PACTSSTG    DS  CL8                   STAGE NAME                        00900011
+PACTSSTI    DS  CL1                   STG ID (TEMPORARY)                00910012
+         SPACE ,                                                        00980000
+PACTSVL      DS  CL5                   VERSION.LEVEL NUMBER             01810011
+PACTSDD      DS  CL7                   DELTA DATE (OR BASE IF LVL 0)    01820016
+PACTSDT      DS  CL5                   DELTA TIME (OR BASE IF LVL 0)    01830016
+PACTSGD      DS  CL7                   GENERATE DATE                    01840011
+PACTSGT      DS  CL5                   GENERATE TIME                    01850011
+PACTSPD      DS  CL7                   LAST PROCESS DATE                01860011
+PACTSPT      DS  CL5                   LAST PROCESS TIME                01870011
+         SPACE ,                                                        00980000
+***                                                                     01000000
+***  EXTERNAL DATA SET ID FIELDS                                        01010011
+***                                                                     01020000
+PACTSDSN     DS  CL44                  EXTERNAL DATA SET NAME           01030011
+PACTSMBR     DS  CL10                  EXTERNAL MEMBER NAME             01040011
+             SPACE ,                                                    01080023
+PACTSPPI     DS  CL16                  PREV PKG ID ASSOCIATED W/SRC     01090023
+PACTSCTS     DS  FL8                   CAST TIMESTAMP ASSOCIATED W/TGT  01530023
+         SPACE 2                                                        01110011
+*           ************************************                        01120011
+*           **    PACKAGE TARGET ID FIELDS    **                        01130011
+*           ************************************                        01140011
+***                                                                     01160011
+***  TARGET ELEMENT/MEMBER ID FIELDS                                    01170011
+***                                                                     01180011
+PACTTSIT    DS  CL1                   SITE ID                           01260011
+PACTTENV    DS  CL8                   ENVIRONMENT                       01270011
+PACTTSYS    DS  CL8                   SYSTEM                            01280011
+PACTTSBS    DS  CL8                   SUBSYSTEM                         01290011
+PACTTELM    DS  CL10                  ELEMENT                           01300011
+PACTTTYP    DS  CL8                   TYPE                              01310011
+PACTTSTG    DS  CL8                   STAGE NAME                        01320011
+PACTTSTI    DS  CL1                   STG ID (TEMPORARY)                01330012
+            DS  CL1                   RESERVED FOR FUTURE USE           01910011
+PACTSTM#    DS  H                     ACTION'S STATEMENT NUMBER         01910011
+            DS  CL38                  RESERVED FOR FUTURE USE           01910011
+***                                                                     01430011
+***  EXTERNAL DATA SET ID FIELDS                                        01440011
+***                                                                     01450011
+PACTTDSN     DS  CL44                  EXTERNAL DATA SET NAME           01460011
+PACTTMBR     DS  CL10                  EXTERNAL MEMBER NAME             01470011
+PACTTPPI     DS  CL16                  PREV PKG ID ASSOCIATED W/TGT     01520023
+PACTTCTS     DS  FL8                   CAST TIMESTAMP ASSOCIATED W/TGT  01530023
+***                                                                     01430011
+***  SOURCE AND TARGET AREA OFFSET FIELDS                               01430011
+***                                                                     01430011
+PACTSFLAG    DS  CL1                   SRC FILE TYPE INDICATOR
+PACTSF_NA    EQU C' '                      - N/A  (NONE)
+PACTSF_DSN   EQU C'D'                      - DSN
+PACTSF_PATH  EQU C'P'                      - PATH
+*
+PACTTFLAG    DS  CL1                   TGT FILE TYPE INDICATOR
+PACTTF_NA    EQU C' '                      - N/A  (NONE)
+PACTTF_DSN   EQU C'D'                      - DSN
+PACTTF_PATH  EQU C'P'                      - PATH
+*
+*    OFFSET ARE CALCULATED FROM THE BEGINNING OF $PACTREQ
+*    OFFSET VALUE + $PACREQ ADDRESS = AREA ADDRESS.
+*
+*    FIRST TWO BYTES W/IN THE AREA = THE HEX LENGTH OF THE DATA.
+*    THE DATA FOLLOWS IMMEDIATELY AFTER THE LENGTH FIELD.
+*
+PACTSEAOFF   DS  H                     SRC ELEMENT AREA OFFSET
+PACTSPAOFF   DS  H                     SRC PATH AREA OFFSET
+PACTSNAOFF   DS  H                     SRC FILE NAME AREA OFFSET
+         SPACE 1
+PACTTEAOFF   DS  H                     TGT ELEMENT AREA OFFSET
+PACTTPAOFF   DS  H                     TGT PATH AREA OFFSET
+PACTTNAOFF   DS  H                     TGT FILE NAME AREA OFFSET
+         SPACE 1
+PACTBFAREA   DS  XL2600                AREA BUFFER SPACE
+PACTSIZE     EQU  *-$PACTREQ           LENGTH OF BLOCK
+         MEND                                                           02080008

@@ -1,0 +1,29 @@
+         MACRO
+         ENHOPTSU &A
+         GBLC   &AIGUSR
+         GBLC   &TABUSR(256)
+         GBLA   &NBRU
+         LCLA   &K
+         LCLA     &N,&I
+         LCLC     &C
+&N       SETA     N'&A
+&I       SETA     1
+.LOOP    ANOP
+&C       SETC     '&A(&I)'
+&K       SETA   K'&C
+         AIF    (&K  LT 9).K
+         MNOTE  8,'USERID MUST BE 8 CHARACTERS (&C)'
+         MEXIT
+.K       ANOP
+         AIF    ('&AIGUSR' EQ 'Y').GENER
+         ENHOPT SUPER_USER=ON
+&NBRU    SETA   0
+&AIGUSR  SETC   'Y'
+.GENER   ANOP
+&NBRU    SETA   &NBRU+1
+&TABUSR(&NBRU) SETC '&C'
+         AIF      (&I EQ &N).MEXIT
+&I       SETA     &I+1
+         AGO      .LOOP
+.MEXIT   ANOP
+         MEND

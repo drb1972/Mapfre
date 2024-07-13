@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Root Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Root Specification Panel to define the Root library (and members)
++or the Root inventory location (and elements) you want to use when building
++the WIP file. You can specify one or the other, but not both.
++You must also type numbers in the%Compare Columns+fields.
++
+%Build Root From+- Indicates whether you want to build the Root from a
++   data set, option%D,+or from an inventory location, option%E.+
++
+%Root Library+- Identifies the library containing the Root files, using
++   standard ISPF naming conventions.
++
+%Root Other Partitioned or Sequential Data Set+- This is an alternative field
++   for specifying a Root library, using standard ISPF conventions.
++
++    Select%1-5+for information about:
++
+%    1+- Specifying a Root member   %4+- Specifying a Root inventory location
+%    2+- Compare column fields      %5+- Accessing a Summary of Levels panel
+%    3+- List option fields
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TRMEM 2,BC1TCMPR 3,BC1TLOP0 4,BC1TNDV0
+                    5,BC1TSLV0)
+)END

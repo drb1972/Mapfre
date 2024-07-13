@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The LOCATE Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The LOCATE command positions the matrix to a specified row value. Locate
++command syntax is:
++
+%      LOCATE row-value column-name+
++
++Optionally you can specify the appropriate column name for PDM to
++search for the row value.  Valid values for column names include:
++
+%  WIPSEQ    +To search on sequence number.
+%  WIP       +To search on WIP member name.
+%  ROOT      +To search on root member name.
+%  DER1      +To search on Derivation 1 member name
+%  DER2      +To search on Derivation 2 member name.
++
+%Note:+The default LOCATE column is the WIP member name. After you issue
++      a SORT command, the column parameter you provide becomes the default
++      column for the next LOCATE command.
++
++                                             (%ENTER+for examples )
+)PROC
+   &ZCONT = BC1TLOC1
+)END

@@ -1,0 +1,28 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  Insurance PRO-IV Migration \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                       @
+)AREA SAREA1
++  This panel will build a job to extract the Pro-IV members from
++  a dataset specified on the panel and create a unique bootstrap member
++  and parm member for each change.
++
++  It will then add the add the members to Endevor so they can be used
++  to promote the Pro-IV elements to production
++
++  The following fields must be completed:
++
++  Pro-IV applicaton:            LIFE,LOAN,SAVG,CALL
++
++  Endevor Subsystem:            LN1,LN2,LN3,LN4,LNA
++
++  Infoman CMR:                  C0nnnnnn
++
++  Implementation Type:          STD or EMER
++
++  Pro-IV Cntl Dataset:          This should be the dataset name without
++                                quotes.
+)PROC
+)END

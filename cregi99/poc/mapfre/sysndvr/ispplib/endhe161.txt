@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Move Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Move Action Mode+- Indicates whether the move action will be
++       executed in foreground or batch.
++
+%          F+- Execute the move action in the Foreground session.
++
+%          B+- Submit a batch job to execute the move action.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

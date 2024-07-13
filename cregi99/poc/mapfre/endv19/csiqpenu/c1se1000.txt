@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+%----------------------------- STAGE INFORMATION -------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++CURRENT ENV%===>_VAREVNME+
++NEXT    ENV:    ¢VARNXENV+  STAGE ID:¢VARNXSTG
++
++STAGE 1 INFORMATION:
++   ID:                ¢VARS1ID              +Entry Stage:  ¢VARS1ENT
++   Name:              ¢VARS1NME             +Stop at Stage:¢VARS1SAS
++   Title:             ~VARS1TTL
++   MCF data set name: ¢VARS1VSM
++
++STAGE 2 INFORMATION:
++   ID:                ¢VARS2ID              +Entry Stage:  ¢VARS2ENT
++   Name:              ¢VARS2NME             +Stop at Stage:¢VARS2SAS
++   Title:             ~VARS2TTL
++   MCF data set name: ¢VARS2VSM
++
++
++
++
++
++
++
+)INIT
+  .HELP = CITE1000
+)END

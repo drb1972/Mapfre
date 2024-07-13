@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY EXPAND(\\)
+%------------------------ Site Information from|CIDFLTNM%-----------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++ ------------------------- Package Processing Options -------------------------
++ Approval Required.....¢Z+  Cast Security.........¢Z+ Security..¢VARPKSEC
++ Foreground Execution..¢Z+  Inspect Security......¢Z+ Comp Validation..¢Z+
++ High-level Index for Generated Remote Pkg Ship JCL...¢Z   +
++ Package Admin Actions SMF Recording...¢Z+
++
++ --------------------------- Control Data Set Names ---------------------------
++ Element Catalog..........¢VARECTLG                                    +
++ Element Catalog Eindex...¢VARECTLE                                    +
++ Package Control File.....¢VARSIPKD                                    +
++ ENDEVOR Macro Library....¢VARSIMAC                                    +
++ CCID Validation Data Set.¢VARSICIP                                    +
++ ACM Index Root Data Set..¢VARACMRD                                    +
++ ACM Index Xref Data Set..¢VARACMXD                                    +
++ Action Log Data Set......¢VARLOGDS                                    +
++ Global Control Data Set..¢VARGLBCF                                    +
++\-\ Parameter Library Information \-\
++ Parmlib Data Set.....¢VARDSPRM                                    +
++ Type Sequence Mbr....¢VARTSMBR+   Destination Cfg Mbr........¢VARDCMBR+
++ End to End Log Mbr...¢DFVEEMBR+   Deferred File Creation Mbr.¢VARDFMBR+
+                                                (Press Enter for Next Panel)
+)INIT
+  .ZVARS = '(VARSIAPV DFVPKGCS VARSIPKF DFVPKGIS VARSICVF VARRJCLR  +
+             VARSFPKG)'
+  .HELP = CITES000
+)END

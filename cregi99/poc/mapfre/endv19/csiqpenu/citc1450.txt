@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ AUTOGEN Generate Option \-\
+%Option ===>_ZCMD                                                   %Release 14+
+%
+%AUTOGEN Generate Option +
++
+ This feature, when specified for an element, will automatically generate the
+ elements that use this component element.  For example, specifying AUTOGEN for
+ an element of type MACRO would automatically generate the SOURCE elements that
+ use the macro, which would in turn generate the appropriate LNK elements.
+ NoSource option is enabled for all the Generate actions built by Autogen.
+ Autogen is available only if the option Endevor Automated
+ Configuration Manager is enabled at your site.
+
+ This feature is a "batch only" option. It cannot be specified on actions
+ that are defined in a package. This feature is supported on the ADD, UPDATE
+ and GENERATE actions and can be enabled by specifying a new action option
+ named AUTOGEN.
+
+
+
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT17000
+)END

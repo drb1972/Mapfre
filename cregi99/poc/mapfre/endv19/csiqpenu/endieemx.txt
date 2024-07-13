@@ -1,0 +1,93 @@
+)ATTR
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+   % TYPE(TEXT) INTENS(HIGH)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+   @ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) JUST(ASIS)
+ $ AREA(SCRL)   EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Master Display for Element \-\
+%Command ===>_ZCMD                                            %Scroll ===>_AMT +
+$SCRAREA                                                                       $
+)AREA SCRAREA
++
++Element.....@ENTEN255                                                    ¢Z  +
++Environment.¢EMENV   + Processor Group¢EPRGRP  + Locked Pkg..¢ECPKGID         +
++System......¢EMSYS   + Last Action....¢ELSTACT + Source Pkg..¢ESPKGID         +
++Subsystem...¢EMSBS   + VVLL...........¢ECVL +    Output Pkg..¢EOPKGID         +
++Type........¢EMTYPE  + Signout ID.....@EOWNRID +
++Stage ID....¢Z+        NoSource.......¢EMSRCD  +
++Description.@EMBCOM                                  +
++
++---------------------- Last Element Action -¢ELMODACT+-------------------------
++UserID......@ELAUID  +  Date/Time...¢ELADATE¢Z    +   CCID......@ELACCID     +
++Action RC...¢EMRC+      Processor...¢EMLPRON +¢EMLPROF +
++Processor RC¢EPRC ¢EMPFLAG
++Comment.....@ELACOMM                                 +
++
++\-\ Current Source \-\
++UserID......@EMLUID  +  Date/Time...¢EMLDTE ¢EMLT +   Delta Fmt.¢Z+
++Comment.....@EMCCOM                                  +CCID......@ECTL#       +
++From Loc....@VNT2LOC1                                                ¢Z  +
++
++\-\ Generate \-\
++UserID......@EMPUID  +  Date/Time...¢EMPD   ¢EMPT +   CCID......@EGCCID      +
++Comment.....@EMPCOM                                  +
++Component List VVLL..¢Z       +Component List Delta Format......¢Z+
++
++\-\ Retrieve \-\
++UserID......@EMRUID  +  Date/Time.....¢EMRD   ¢EMRT + CCID......@ERCCID      +
++Comment.....@EMRCOM                                  +
++To Loc......@VNT2LOC2                                                ¢Z  +
++
++\-\ Base \-\
++UserID......@EMBUID  +  Date/Time.....¢EMBDTE ¢EMBT + Internal Name¢EMNAME    +
++
++\-\ From Location \-\
++Element.....@VNT2ENME                                                    ¢Z  +
++Environment.¢EFENV   +  Date/Time.....¢EFD    ¢EFT  +
++System......¢EFSYS   +  Action........¢ELFRACT +
++Subsystem...¢EFSBS   +  VVLL..........¢EFVVLL+
++Type........¢EFTYPE  +  UserID........@EFUID   +
++Stage ID....¢Z+
++
++\-\ User Data \-\
++Columns:   ----|----1----|----2----|----3----|----40
++  01-40   @EMUSRDA1
++           ----|----5----|----6----|----7----|----80
++  41-80   @EMUSRDA2
++
++\-\ Alter \-\
++First Date/Time.... ¢EMAFTSD¢EMAFTST  +Cumulative # of fields altered ¢EMAFCNT
++Last  Date/Time.... ¢EMALTSD¢EMALTST  +Last UserID....................¢EMALUID
++Fields updated by last Alter action:
++  Generate CCID......¢Z+   Last Action CCID...¢Z+     Retrieve CCID...¢Z+
++  Description........¢Z+   Processor Group....¢Z+     Signout UserID..¢Z+
++  User Data..........¢Z+
++
+)INIT
+  .ZVARS = '(VNTIND EMSTGID ELATIME EMELMFMT VNTIND1 +
+             ECMPVL EMCMPFMT +
+             VNTIND2 VNTIND3 EFSTG# +
+             EMA1CCG EMA1CCL EMA1CCR EMA1DES EMA1PRG EMA1SGN EMA1USR)'
+  .HELP = CITSED00
+  &SWITCH1 = 'OFF'
+  IF (&VNTENLNG > 60)
+     &SWITCH1 = 'ON '
+  &SWITCH2 = 'OFF'
+  IF (&VNT2LO1L > 56)
+     &SWITCH2 = 'ON '
+  &SWITCH3 = 'OFF'
+  IF (&VNT2LO2L > 56)
+     &SWITCH3 = 'ON  '
+  &SWITCH4 = 'OFF'
+  IF (&VNT2ENML > 60)
+     &SWITCH4 = 'ON  '
+)FIELD
+ FIELD(ENTEN255) IND(VNTIND)  SCROLL(SWITCH1)
+ FIELD(VNT2LOC1) IND(VNTIND1) SCROLL(SWITCH2)
+ FIELD(VNT2LOC2) IND(VNTIND2) SCROLL(SWITCH3)
+ FIELD(VNT2ENME) IND(VNTIND3) SCROLL(SWITCH4)
+)END

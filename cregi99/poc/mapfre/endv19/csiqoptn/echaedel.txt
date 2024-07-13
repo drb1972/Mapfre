@@ -1,0 +1,35 @@
+      *****************************************************************
+      *                                                               *
+      *            DELETE ELEMENT - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  AEDEL-RQ.
+           05  AEDEL-RQ-HEADER.
+               10  AEDEL-RQ-LEN        PIC 9(04) COMP VALUE 284.
+               10  AEDEL-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEDEL-RQ-ID         PIC 9(04) COMP VALUE 1232.
+               10  AEDEL-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEDEL-RQ-EYE        PIC X(04)      VALUE 'EDEQ'.
+           05  AEDEL-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEDEL-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEDEL-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEDEL-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEDEL-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEDEL-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEDEL-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AEDEL-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AEDEL-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEDEL-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AEDEL-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AEDEL-RQ-ONLY-CMP   PIC X(01)      VALUE SPACES.
+               10  AEDEL-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AEDEL-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AEDEL-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AEDEL-WCCID         PIC X(12)      VALUE SPACES.
+               10  AEDEL-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AEDEL-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AEDEL-WPROGRO-2-8   PIC X(56)      VALUE SPACES.

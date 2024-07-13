@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls \-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 5 of 5)+
+%
+%PITR Journal Grp+ - The name of the Point-In-Time Recovery Journal
++     file Group.
+
+%CA-LSERV JRNL SBS+ - The L-SERV journal group subsystem ID.
+
+%SYMBOLICS Table+ - The name of the User Symbolics Table defined in
++     the C1DEFLTS Table.
+
+%Signout on fetch+ - The default Signout value (Y/N) setting for those
++     elements that are Fetched back for processing.
+
+%Alternate ID+ - The RACFUID used as alternate ID.
+
+%Source Sync Check+ - Enable out-of-sync source code checking at this site.
+
+%Sync Sev Msg+ - Severity code when logging out-of-sync elements:
+                 I for informational, W for warning, C for caution.
+)END

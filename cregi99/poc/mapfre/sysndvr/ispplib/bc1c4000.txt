@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Reporting \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++In PDM Release 3.6.1, reports were redesigned to provide users with
++more information, presented more clearly.
++
++A SAS reporting system has also been added.
++
++    Select%1-3+for information about specific enhancements
++
+%    1+- Build WIP summary report   %3+- SAS reporting
+%    2+- Merge Summary Report
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1C4100 2,BC1C4200 3,BC1C4300)
+)END

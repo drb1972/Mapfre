@@ -1,0 +1,18 @@
+ENIP060E 'Packages not Available'                        .ALARM=YES
+'The C1DEFLTS table does not contain a Package Data Set'
+
+ENIP061E 'Invalid Member'                                .ALARM=YES
+'The member name is too long or contains invalid characters'
+
+ENIP062E 'Member Specified'                              .ALARM=YES
+'A member was specified for a sequential data set'
+
+ENIP063E 'Dataset Validation Error'                     .ALARM=YES
+'The SCL data set failed the validation criteria'
+
+ENIP064E 'Wild Card not Allowed'                         .ALARM=YES
+'The SCL data set member name can not be wild carded'
+
+ENIP065E 'Member Name Required'                          .ALARM=YES
+'A partitioned data set requires a member name'
+

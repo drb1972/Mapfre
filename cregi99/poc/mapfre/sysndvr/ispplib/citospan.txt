@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ AUTOGEN SPAN OPTION \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++  Specify the%Span+option to automatically generate "using" elements found in
++systems and subsystems outside the logical map of the Autogen'ed component.
++"Using" elements are generated at the target environment and stage specified
++in the Autogen request, but in the system and subsystem of the using element.
++Any of the generated elements not currently located at the target location
++will be brought back as sourceless elements. The Span option is ignored unless
++Autogen is enabled. Acceptable values are:
++
+%Autogen or Autogen Span None:+Generates only those "using" elements that are
++in the same logical map of the component specified.
++
+%Autogen Span All:+Generates "using" elements from all systems and subsystems.
++
+%Autogen Span Systems:+Generates "using" elements from all systems with the
++same-named subsystem of the component specified.
++
+%Autogen Span Subsystems:+Generates "using" elements from all subsystems with
++the same-named system of the component specified.
++
++\ \ (Press%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITOAUTG
+)END

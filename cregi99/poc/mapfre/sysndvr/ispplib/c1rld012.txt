@@ -1,0 +1,35 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag & sh elm env sys sbs type
+TAG $ SH PGRP STAGE VVLL ACTION BCOM SIGNID
+TAG ¢ SH PKGSID PKGOID PKGLOCK NS
+TAG # SH LUID LDATE LTIME LCCID LCOM LACT CRC PRON PROF PRC
+tag ^ sh cuid cdate ctime cccid ccom cdlt fdsn
+TAG ~ SH GUID GDATE GTIME GCCID GCOM GDLT GCMPLVL
+%------------------------------  Element Master  -------------------------------
+%COMMAND ===>_                                                + (PANEL 1 OF 2)
+|
++ELEMENT:&           +ENV:&         +SYS:&        +SUB:&        +TYPE:&        +
++PROC GRP:$          +STG:$       + VVLL:$               +LAST ACTION:$        +
++DESCRIPTION:$                                            +SIGNOUT ID:$        +
++PKG ID (SOURCE):¢                   +PKG ID (OUTPUT) :¢                       +
++LOCKED FOR PKG:¢                +                               +N/S:¢        +
++--------------------------  LAST ELEMENT ACTION  -----------------------------
++USERID:#          +DATE/TIME:#         #             +CCID:#            +
++COMMENT:#                                          +ACTION:#        +
++NDVR RC:#         +PROCESSOR:#          +#        +PROC RC:#        +
++
++-----------------------------  CURRENT SOURCE  -------------------------------
++USERID:^         + DATE/TIME:^         ^             +CCID:^
++COMMENT:^                                        +DELTA FMT:^ +
++ADD/UPDATE FROM DSN:^                                                        +
++
++--------------------------------  GENERATE  ----------------------------------
++USERID:~          +DATE/TIME:~         ~             +CCID:~
++COMMENT:~                                        +DELTA FMT:~ +
++COMPONENT LIST VVLL:~                                                  +
++                                              (Press ENTER for next panel)
+enddef

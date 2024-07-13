@@ -1,0 +1,27 @@
+%TUTORIAL  ---------------  USER DEFAULTS (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %LIST DATA SET ALLOCATION INFORMATION FIELDS:+ Contain data to define
+   the primary and secondary allocations for your foreground print
+   requests.
+
+    %Primary Quantity+- The number of units of space in the primary
+                        allocation.
+    %Secondary+-        The number of units of space in the secondary
+    %Quantity+          allocation.
+    %Record Length+-    The record length of the list dataset. Values
+                        are numeric, 0-32756. Zero means default (Record
+                        length will be counted based on the block size
+                        of the listing library).
+
+  %PRINT OPTIONS FIELDS:+ Contain data to define the default printer
+   output class and page size.
+
+    %SYSOUT Class+-     The default SYSOUT class to which your printed
+                        output is routed.
+    %Lines per Page+-   The number of lines per page for printed output.
+
+                           %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITO0025
+)END

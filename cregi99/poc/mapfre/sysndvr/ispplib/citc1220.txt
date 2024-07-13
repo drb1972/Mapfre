@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Automatic Element Version Rolling \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Automatic Element Version Rolling +
+
++ With this feature, the first step towards the removal of the concept of
+  element versions has taken place.  Element versions have been incorporated
+  into the level of an element, allowing an element to add levels up to
+ %9996,+starting at level%0100.+ The transition from level%0199+to%0200+(and
+  then 0299 to 0300, etc.) happens automatically.  No user intervention is
+  required.  This feature is automatically enabled with the installation of this
+  release.  Elements containing more than%100+levels (the element level is
+  greater than 0199) are not backward compatible with prior CA Endevor SCM
+  releases.
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1230
+)END

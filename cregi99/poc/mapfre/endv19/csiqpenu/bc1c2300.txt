@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - WIP Header Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIP header includes information allowing a user to reduce the number
++of report copies required for the programming staff by providing the
++information to the developer who is responsible for the WIP member. An
++example of a WIP header is shown below.
++
++   ** ROOT:         BST.PDM361.ROOT
++   ** DERIVATION 1: BST.PDM361.DV1
++   ** DERIVATION 2: BST.PDM361.DV2
++   **
++   ** ROOT:PROG3200          DER1:PROG3200          DER2:PROG3200
++   **
++   ** NUMBER OF WIP RECORDS......    3784
++   ** NUMBER OF DELETED RECORDS...     35,DER1     0,DER2    32,COM       3
++   ** NUMBER OF INSERTED RECORDS..     63,DER1     0,DER2    45,COM      18
++   ** NUMBER OF CONFLICTS............   0
++   ** COMPLEXITY FACTOR................ 1
++   ** BUILD RETURN CODE...............  0
++
+)END

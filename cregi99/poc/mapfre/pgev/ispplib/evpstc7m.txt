@@ -1,0 +1,19 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY Window(40,10) EXPAND(||)
+| | CA7 MISMATCH | |
+| |
+| | CA7ALL cannot be set to Y | |
+| | if one or more individual | |
+| | CA7's have been set to Y  | |
+| | %HIT PF3 or ENTER to return | |
+| | +and correct inputs | |
+)proc
+  if (.resp = END  OR .resp = ENTER)
+     &term = 'YES'
+)END

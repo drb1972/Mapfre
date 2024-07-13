@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Add/Update Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return a list of members in the source
+     library. This only applies if DISPLAY LIST=Y.
++
+%A+- Use this option to add one or more members.
++
+%U+- Use this option to update an element in Stage 1. This only applies
++    if UPDATE IF PRESENT=Y.
++
++
++
++
++
++
++
++
++
+)END

@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%---------------------------  TYPE DEFINITION  ---------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++*******************************************************************************
++*                                                                             *
++*% NONSTANDARD "TO" AND "FROM" FIELDS WERE SPECIFIED FOR A STANDARD LANGUAGE.+*
++*                                                                             *
++*%   PLEASE ENSURE THAT THE FOLLOWING SPECIFICATIONS ARE CORRECT:            +*
++*                                                                             *
++*                  LANGUAGE: ¢Z       +                                       *
++*            COMPARE "FROM": ¢Z    +                                          *
++*                      "TO": ¢Z    +                                          *
++*                                                                             *
++*                                                                             *
++* PRESS THE%END+KEY TO%CANCEL+THE OPERATION.                                  *
++* OTHERWISE, PRESS THE%ENTER+KEY TO%CONTINUE.+                                *
++*                                                                             *
++*******************************************************************************
++
++
+)INIT
+  .HELP = CITE4099
+  .CURSOR = VARWKCMD
+  .ZVARS = '(VARTYLAI VARTYCPF VARTYCPT)'
+)PROC
+)END

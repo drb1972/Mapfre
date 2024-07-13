@@ -1,0 +1,46 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%------------------------------ RETRIEVE ELEMENTS ------------------------------
+%OPTION  ===>_ZCMD                                                             +
++                               ELEMENT DISPLAY OPTIONS:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   R+- Retrieve element         %M+- Master   %C+- Changes
++
++CCID%===>^CTLNBR      +  COMMENT%===>`DESCRPT1                                +
++
++FROM LOCATION:                         ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             EXPAND INCLUDES %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             SIGNOUT ELEMENT %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             OVERRIDE SIGNOUT%===>_Z+(Y/N)
++  ELEMENT    %===>_CIELM     +           REPLACE MEMBER  %===>_R+(Y/N)
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +   LIST OPTIONS:
++                      ¢Z+-|CLU2ID  +     DISPLAY LIST      %===>_Z+(Y/N)
++TO ISPF LIBRARY:                         APPLY LIST FILTERS%===>_Z+(Y/N)
++  PROJECT%===>_PRJ0    +                 BUILD USING MAP   %===>_Z+(Y/N)
++  LIBRARY%===>_LIB0    +                 FIRST FOUND       %===>_Z+(Y/N)
++  TYPE   %===>_TYP0    +
++  MEMBER %===>_ISPFMB    +
++TO OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++  DATA SET NAME%===>_OTHDSN                                                  +
+)INIT
+  .HELP = CITF2000
+  .ZVARS = '(VAREXPIN C1SISOCP C1SISOFR CLU1I CLU2I +
+             VARWKLST VARWHPNL VARSHMAP VARRTNFF)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+)PROC
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

@@ -1,0 +1,7 @@
+         MACRO                                                          00001
+         $$AMODE &ROL=,&NUM=                                            00020001
+.*  NUM= 24 | 31 - THE ADDRESSING MODE                                  00030001
+         AIF   ('&NUM' EQ '').DONE                                      00040001
+.GEN     $$ABSEXP ROL=&ROL,ARG=&NUM,TYPE=OT$$AMOD,FMT=N                 00050001
+.DONE    ANOP                                                           00006
+         MEND                                                           00007

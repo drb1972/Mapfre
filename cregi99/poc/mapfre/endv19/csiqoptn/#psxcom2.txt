@@ -1,0 +1,12 @@
+@REM ****************************************************** #PSXCOM2 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: CA-XCOM
+@REM *     PURPOSE: CREATE CONTROL CARDS TO TRANSMIT A PDS
+@REM *******************************************************************
+@REM
+@PASS=10
+@INCLUDE=P
+@PASS=20
+@IF HDISP=DELETE
+@INCLUDE=#
+@ENDIF

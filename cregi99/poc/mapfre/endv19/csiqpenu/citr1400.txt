@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprint Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel:
++
++  1. Type an alphanumeric character in the selection field for the
++       reports you want to generate.
++
++  2. Specify the data set against which you want to run the report(s).
++      * Use the MEMBER and THRU MEMBER fields to include only certain
++          members in the report.
++
++  3. Specify FOOTPRINT EXTRACT FILE=Y if the file against which the
++       report is to be run contains only footprints.
++
++  4. Exclude specific members or CSECTs in the EXCLUDE INFORMATION fields.
++
++  5. Specify an environment to which to correlate the footprint
++       information (Report 83 only).
++
++                                            (%PF3+to return)
+)END

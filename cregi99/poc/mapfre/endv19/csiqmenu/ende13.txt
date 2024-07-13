@@ -1,0 +1,30 @@
+ENDE130I 'JCL Submitted'                                .ALARM=YES
+'ENDE130I JCL has been submitted to generate the element'
+
+ENDE131E 'Request Cancelled'                            .ALARM=YES
+'ENDE131E The request to generate the element in batch mode was cancelled'
+
+ENDE132I 'Element Edited'                               .ALARM=YES
+'ENDE132I The element was saved and JCL was submitted to generate the element'
+
+ENDE133I 'Element Saved'                                .ALARM=YES
+'ENDE133I The element was saved but the user cancelled the batch generate'
+
+ENDE134I 'Element Copied'                               .ALARM=YES
+'ENDE134I The element was copied into the current EDIT session'
+
+ENDE135I 'COPYELM Cancelled'                            .ALARM=YES
+'ENDE135I The request to copy the element was cancelled'
+
+ENDE136I 'JCL Submitted'                                .ALARM=YES
+'ENDE136I JCL has been submitted to delete the element'
+
+ENDE137E 'Request Cancelled'                            .ALARM=YES
+'ENDE137E The request to delete the element in batch mode was cancelled'
+
+ENDE138I 'JCL Submitted'                                .ALARM=YES
+'ENDE138I JCL has been submitted to move the element'
+
+ENDE139E 'Request Cancelled'                            .ALARM=YES
+'ENDE139E The request to move the element in batch mode was cancelled'
+

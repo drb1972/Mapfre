@@ -1,0 +1,21 @@
+********************************************************************
+**
+* CCI SERVICE STATEMENTS FOR CA ENDEVOR ENTERPRISE WORKBENCH (CMEW)
+**
+********************************************************************
+EAPISVR        SERVICE SERVER_NAME=MVS_START_SERVER,
+                   DEALLOCATE=TERMINATE,
+                   LOST_CLIENT=DEALLOCATE,
+                   MAX#_SERVICES=100,
+                   MAX#_CLIENTS=1,
+                   MAX#_PROCESSES=100,
+                   SERVICE_UNAVAILABLE=START_SERVICE,
+                   START=SPAWN_ONLY,
+                   SIGNON=SERVICE
+********************************************************************
+**
+* CCI PROCESS STATEMENTS FOR CA ENDEVOR ENTERPRISE WORKBENCH (CMEW)
+**
+********************************************************************
+               PROCESS PROCESS_TYPE=MVS_STC,
+                   PROCNAME=EAPISVR

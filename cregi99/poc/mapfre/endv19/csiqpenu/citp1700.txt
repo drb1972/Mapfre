@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Note Text Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to add any notes you want to associate with the package.
++You can enter or modify eight text lines of up to 60 characters each.
++You can modify text by deleting, inserting, and overtyping.  When you
++have finished entering the text press ENTER to process the notes and
++the END command to return to the previous panel.
++
++
++
++
++
+)END

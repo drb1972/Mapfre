@@ -1,0 +1,16 @@
+      *****************************************************************
+      *
+      *            BACKOUT A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APBKO-RQ.
+           05  APBKO-RQ-HEADER.
+               10  APBKO-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APBKO-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APBKO-RQ-ID         PIC 9(04) COMP VALUE 1568.
+               10  APBKO-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APBKO-RQ-EYE        PIC X(04)      VALUE 'PBOQ'.
+           05  APBKO-RQ-DATAAREA.
+               10  APBKO-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APBKO-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

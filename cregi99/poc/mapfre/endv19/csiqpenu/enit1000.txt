@@ -1,0 +1,36 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Specification Panel \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use this panel to either define a package or build a list of packages on which
++you will perform batch package processing.  Select action 0, Display List, to
++generate a list of packages against which you can perform batch package
++processing or select action 1, Define, to create a new or update an existing
++package.
++
++A selection list of packages is built, based on entries in the Package ID,
++the Status fields and the Additional Selection Criteria field.
++
++
++Select 1 - 3 for information about:
++
+%    1+- Package ID field
+%    2+- Status fields
+%    3+- Additional selection criteria
++
++ Select a Help topic, or Press%End+to exit Help
++
++
++
++
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1, enit1020
+                 2, CITSTAT0
+                 3, ENIT1010
+                )
+)END

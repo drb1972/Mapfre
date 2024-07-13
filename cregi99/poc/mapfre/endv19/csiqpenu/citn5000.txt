@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Member Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the List Member action to create lists of members or to browse
++a member online.
++
++
++
++
++    Select%1+-%5+for information about specific fields
++
+%    1+- Panel options              %4+- Text string/scan columns
+%    2+- ISPF fields                %5+- Output options
+%    3+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITN5001 2,CITISPF0 3,CITLOPT0 4,CITTXSC0
+                  5,CITLSOP0)
+)END

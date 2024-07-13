@@ -1,0 +1,229 @@
+PROC 10 DBSUB DBSUBP C1ELE DBISO DBOWN +
+        DBQUAL DBCOLL TDYPLN TDYPKG BINDTYP
+  CONTROL NOCONLIST  NOSYMLIST     MSG
+
+/************************************************************
+/*** ALLOCATE THE REPORT FILE, WRITE HEADER, SET RC VARIABLES
+/************************************************************
+
+  OPENFILE SUMMARY OUTPUT
+
+  SELECT (&BINDTYP)
+   WHEN (SYST OR UNIT) SET &SUMMARY = BIND BACK TO &DBQUAL. FOR &C1ELE.
+   OTHERWISE           SET &SUMMARY = BIND TO &DBQUAL. FOR &C1ELE.
+  END
+
+  PUTFILE SUMMARY
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+
+  SET &DSNRC  = 0
+  SET &PLANRC = 0
+  SET &FREERC = 0
+  SET &BINDRC = 0
+
+/***********************************
+/*** SWITCH TO THE ALTERNATE USERID
+/***********************************
+
+  ALLOC FILE(LGNT$$$I) DUMMY
+  ALLOC FILE(LGNT$$$O) DUMMY
+  OPENFILE LGNT$$$I
+  CLOSFILE LGNT$$$I
+
+/*******************************************
+/*** TRAP ERROR (UNABLE TO CONNECT TO DB2!)
+/*******************************************
+
+  ERROR DO
+     SET &DSNRC = &LASTCC
+     ERROR OFF
+     SET &SUMMARY = STEP#1: RC WAS &DSNRC
+     PUTFILE SUMMARY
+     SET &SUMMARY = STEP#1: A SERIOUS ERROR HAS OCCURED
+     PUTFILE SUMMARY
+     GOTO TRAP4
+  END
+
+/*****************************
+/*** CONNECT TO DB2 SUBSYSTEM
+/*****************************
+
+  SET &SUMMARY = STEP#1: CONNECTING TO &DBSUB.
+  PUTFILE SUMMARY
+
+  DATA
+     DSN SYSTEM(&DBSUB.)
+  ENDDATA
+
+  SET &DSNRC = &LASTCC
+  SET &SUMMARY = STEP#1: RC WAS &DSNRC
+  PUTFILE SUMMARY
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+
+/****************************************************************
+/*** TRAP SERIOUS ERRORS AND END-OF-FILE (WHEN FREEING PACKAGES)
+/****************************************************************
+
+  IF &TDYPKG = NO THEN DO
+     SET &SUMMARY = STEP#2: PACKAGE FREE NOT EXECUTED
+     PUTFILE SUMMARY
+     SET &SUMMARY = STEP#2: DUE TO SYSMBOLIC OVERRIDES
+     PUTFILE SUMMARY
+     GOTO SKIP1
+  END
+
+  ERROR DO
+     SET &RC = &LASTCC
+     IF  &RC EQ 400 THEN DO
+        CLOSFILE PKGLIST
+        SET &EOF = Y
+        RETURN
+     END
+     ELSE DO
+        ERROR OFF
+        SET &FREERC = &RC
+        CLOSFILE PKGLIST
+        GOTO TRAP1
+     END
+  END
+
+/*********************************************
+/*** PROCESS THE LIST OF PACKAGES TO BE FREED
+/*********************************************
+
+  SET &FREE# = 0
+  SET &SUMMARY = STEP#2: FREE OLD VERSIONS OF PACKAGE &C1ELE.           .
+  PUTFILE SUMMARY
+
+  OPENFILE PKGLIST INPUT
+  GETFILE  PKGLIST
+
+  DO UNTIL &EOF EQ Y
+     IF &SUBSTR(19:21,&PKGLIST) = &STR(_|) THEN DO
+         SET &FREE# = &FREE# + 1
+         SET &VERSION = &SUBSTR(54:67,&PKGLIST)
+         DATA
+            FREE PACKAGE (&DBCOLL..&C1ELE..(&VERSION.))
+         ENDDATA
+         IF &LASTCC GT &FREERC THEN SET &FREERC = &LASTCC
+      END
+  GETFILE  PKGLIST
+  END
+
+TRAP1: SET &SUMMARY = STEP#2: RC WAS &FREERC, &FREE# PACKAGES FREED
+  PUTFILE SUMMARY
+SKIP1: SET &SUMMARY =
+  PUTFILE SUMMARY
+
+/***********************************************************
+/*** DELETE OLD ROWS FROM THE PLAN TABLE (BY RUNNING SPUFI)
+/***********************************************************
+
+ IF &PLANDEL = NO THEN DO
+     SET &SUMMARY = STEP#3: DELETE FROM PLAN TABLE NOT EXECUTED
+     PUTFILE SUMMARY
+     SET &SUMMARY = STEP#3: DUE TO SYSMBOLIC OVERRIDES
+     PUTFILE SUMMARY
+     GOTO SKIP2
+  END
+
+ ERROR DO
+    SET &PLANRC = &LASTCC
+    ERROR OFF
+    GOTO TRAP2
+  END
+
+  SET &SUMMARY = STEP#3: DELETING ROWS FROM PLAN_TABLE
+  PUTFILE SUMMARY
+
+   DATA
+      RUN PROGRAM(RBSTEPT) PLAN(RBSTEPT) LIB('PGEV.BASE.LOAD')
+   ENDDATA
+
+  SET &PLANRC = &LASTCC
+
+TRAP2: SET &SUMMARY = STEP#3: RC WAS &PLANRC
+  PUTFILE SUMMARY
+SKIP2: SET &SUMMARY =
+  PUTFILE SUMMARY
+
+/**********************************
+/* TRAP ERRORS FROM THE BIND STEP *
+/**********************************
+
+  ERROR DO
+     SET &BINDRC = &LASTCC
+     ERROR OFF
+     GOTO TRAP3
+  END
+
+  SET &SUMMARY = STEP#4: PACKAGE BIND FOR MEMBER &C1ELE.
+  PUTFILE SUMMARY
+
+  WRITE
+  WRITE =======================
+  WRITE !    BIND STATEMENT   !
+  WRITE =======================
+  WRITE
+  WRITE BIND PACKAGE(&DBCOLL.)
+  WRITE      MEMBER(&C1ELE.)
+  WRITE      OWNER(&DBOWN.)
+  WRITE      QUALIFIER(&DBQUAL.)
+  WRITE      VALIDATE(BIND)
+  WRITE      ISOLATION (&DBISO.)
+  WRITE      CURRENTDATA(NO)
+  WRITE      RELEASE(COMMIT)
+  WRITE      ACTION(REPLACE)
+  WRITE      EXPLAIN(YES)
+  WRITE
+
+  DATA
+      BIND PACKAGE(&DBCOLL.)       -
+           MEMBER(&C1ELE.)         -
+           OWNER(&DBOWN.)         -
+           QUALIFIER(&DBQUAL.)     -
+           VALIDATE(BIND)          -
+           ISOLATION (&DBISO.)     -
+           CURRENTDATA(NO)         -
+           RELEASE(COMMIT)         -
+           ACTION(REPLACE)         -
+           EXPLAIN(YES)
+  ENDDATA
+
+  SET &BINDRC = &LASTCC
+TRAP3: ERROR OFF
+  SET &SUMMARY = STEP#4: RC WAS &BINDRC
+  PUTFILE SUMMARY
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+
+TRAP4: OPENFILE LGNT$$$O
+  CLOSFILE LGNT$$$O
+  UNALLOC FILE (LGNT$$$I)
+  UNALLOC FILE (LGNT$$$O)
+
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+  SET &SUMMARY = < < < PROCESSING COMPLETE > > >
+  PUTFILE SUMMARY
+
+  SET &MAXRC = &DSNRC
+
+  IF  &FREERC GT &MAXRC  THEN SET &MAXRC = &FREERC
+  IF  &PLANRC GT &MAXRC  THEN SET &MAXRC = &PLANRC
+  IF  &BINDRC GT &MAXRC  THEN SET &MAXRC = &BINDRC
+
+  SET &SUMMARY = < < <   MAXIMUM RC WAS &MAXRC  > > >
+  PUTFILE SUMMARY
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+  SET &SUMMARY = &C1ELE. WILL USE ... &DBSUBP ... IN PRODUCTION
+  PUTFILE SUMMARY
+  SET &SUMMARY =
+  PUTFILE SUMMARY
+
+  CLOSFILE SUMMARY
+
+EXIT CODE(&MAXRC)

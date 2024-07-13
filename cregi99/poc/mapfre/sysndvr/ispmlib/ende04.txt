@@ -1,0 +1,33 @@
+ENDE041I 'Map Searched'                                .ALARM=YES
+'ENDE041I The element was located by searching the environment map   '
+
+ENDE042I 'CCID Required'                               .ALARM=YES
+'ENDE042I System &EEVSYTSY requires a CCID'
+
+ENDE043I 'Comment Required'                            .ALARM=YES
+'ENDE043I System &EEVSYTSY requires a comment'
+
+ENDE044I 'Use Same CCID?  '                            .ALARM=YES
+'ENDE044I System &EEVSYTSY requires a CCID. Should this CCID be used? '
+
+ENDE045I 'Use Same Comment?'                           .ALARM=YES
+'ENDE045I System &EEVSYTSY requires a comment. Should this CCID be used? '
+
+ENDE046E 'Request Cancelled'                           .ALARM=YES
+'ENDE046E The request was cancelled by the user'
+
+ENDE046I 'Request Cancelled'                           .ALARM=YES
+'ENDE046I The request was cancelled by the CANCEL command'
+
+ENDE047I 'Element Saved'
+'ENDE047I Element &EEVELMNM was changed but the generate processor was NOT run'
+
+ENDE048I 'Element Generated'
+'ENDE048I Element &EEVELMNM/&EEVXENV/&EEVXSTI was successfully generated'
+
+ENDE048E 'Generate failed'
+'ENDE048E Element &EEVELMNM/&EEVXENV/&EEVXSTI failed generation'
+
+ENDE049E 'Element Signed Out'
+'ENDE049E Element &EEVELMNM is signed out to another user'
+

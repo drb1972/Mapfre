@@ -1,0 +1,58 @@
+//*--SKELETON CMSBCKR  - ARCHIVE CODE FROM PROD                      --
+//*
+//*****************************************************************
+//** IDCAMS - LISTCAT THE ARCHIVE SCL DATASET
+//*****************************************************************
+//ARCCHCK2 EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+ LISTC ENT(&SHIPHLQC..ARCHIVE.PKGSCL) NAME
+ IF MAXCC >> 0 THEN SET MAXCC = 1
+/*
+//@PS00I   IF (ARCCHCK2.RC EQ 0) THEN
+//*
+//BPLEXQ1X EXEC PGM=ICEGENER
+//SYSUT1   DD DATA,DLM=##
+//*********************************************************************
+//** NDVRC1 - TRANSFER BACK PREVIOUSLY DELETED ELEMENTS FROM ARCHIVE **
+//*********************************************************************
+//XFRARCH  EXEC PGM=NDVRC1,PARM=ENBP1000,DYNAMNBR=1500
+//C1MSGS1  DD SYSOUT=*
+//C1MSGS2  DD SYSOUT=*
+//APIPRINT DD SYSOUT=*
+//HLAPILOG DD SYSOUT=*
+//SYSABEND DD SYSOUT=C
+//JCLOUT   DD SYSOUT=(A,INTRDR),LRECL=80,
+//             RECFM=F
+//ENPSCLIN DD *
+##
+//         DD DSN=&SHIPHLQC..ARCHIVE.PKGSCL,DISP=SHR
+//         DD DATA,DLM=##
+/*
+//SCL      DD *
+##
+//         DD DSN=&SHIPHLQC..ARCHIVE.RSTSCL,DISP=SHR
+//         DD DATA,DLM=##
+/*
+//CHECKIT  IF XFRARCH.RC GT 4 THEN
+//*
+//SPWARN   EXEC @SPWARN,COND=EVEN
+//CHECKIT  ENDIF
+//*
+##
+//SYSUT2   DD DSN=&SHIPHLQC..ARCHIVE.ARCHREST,
+//             DISP=(NEW,CATLG),SPACE=(TRK,(15,15),RLSE),
+//             LRECL=80,RECFM=FB
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//*
+//@PS10I   IF (BPLEXQ1X.RC EQ 0) THEN
+//*
+//DSETDEL  EXEC PGM=IEFBR14
+//PKGSCL   DD DSN=&SHIPHLQC..ARCHIVE.PKGSCL,DISP=(OLD,DELETE)
+//RSTSCL   DD DSN=&SHIPHLQC..ARCHIVE.RSTSCL,DISP=(OLD,DELETE)
+//*
+//@PS10X   ENDIF
+//*
+//@PS00X   ENDIF
+//*

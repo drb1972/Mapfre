@@ -1,0 +1,6 @@
+If Envname = AdministratorEnv then $SkipRow = 'Y'
+If Envname = UnclaimedEnv then $SkipRow = 'Y'
+If Envname = ArchiveEnv then $SkipRow = 'Y'
+If Envname = ' ' then $SkipRow = 'Y'
+TranAction = 'MOVE'
+MoveAction = 'MOVE'

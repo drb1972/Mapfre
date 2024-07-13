@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Signin Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Signin Action Mode+- Indicates whether the SIGNIN action
++       should be executed in foreground or batch.
++
+%          F+- Execute the signin action in the foreground session.
++
+%          B+- Submit a batch job to execute the signin action.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

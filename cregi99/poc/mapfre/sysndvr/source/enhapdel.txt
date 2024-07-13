@@ -1,0 +1,35 @@
+         MACRO
+         ENHAPDEL &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        DELETE PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APDEL_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APDEL_RQ$EYE    EQU C'PDEQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APDEL_RQ
+         SPACE ,
+APDEL_RQ_DATA     DS XL1               BEGINNING OF DATA AREA
+         ORG      APDEL_RQ_DATA
+APDEL_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+APDEL_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APDEL_RQ_VER#1_DATADSLN EQU *-APDEL_RQ_DATA
+APDEL_RQ_VER#1_DSLN     EQU *-APDEL_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APDEL_RQ_DATADSLN EQU *-APDEL_RQ_DATA
+APDEL_RQ_DSLN     EQU *-APDEL_RQ
+         ORG      APDEL_RQ_DATA
+APDEL_RQ_DATAAREA DS XL(APDEL_RQ_DATADSLN)    DATA AREA
+         MEND

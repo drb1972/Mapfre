@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API-CSV Promotion Packages Filtering Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 3 of 3+
+% API-CSV Promotion Package Filtering Enhancement (Continued)+
+
+  The Package Display panel now displays the promotion
+  package target environment and stage ID fields, provided
+  that data exists for these fields. This information was
+  already displayed on the Package Selection List and the
+  Package History Selection List.
+
+  The default STOPRC value for CSV actions was increased
+  from 12 to 16, to be consistent with batch element and
+  package action processing.
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E8
+)END

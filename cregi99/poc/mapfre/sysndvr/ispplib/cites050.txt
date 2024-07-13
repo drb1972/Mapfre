@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--CA-7 Interface Values \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%CA-7 Region CCI Nodename +-  CCI Nodename assigned to the CA-7 address space
+
+%JCL Data Set Index Number+-  Sequence number associated with the CA-7 DEMAND
+      JCL library.
+
+%JCL Data Set Index Symbol+-  Symbol associated with the CA-7 DEMAND JCL
+      library.
+
+%JCL Data Set Name+        -  Data Set name of the CA-7 JCL DEMAND library
+)END

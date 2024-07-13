@@ -1,0 +1,13 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM FILTER COMPONENTS  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++
++You may tailor the list of components by including only those components
++whose FOOTPRINT information match the specified criteria.
++
++Either an explicit or masked name specifcation may be entered for each
++field.  The stage number specication must contain either a 1, 2 or a
++mask character.
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ WIP Build Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Number of Derivative files+- Required.%2+is the default. Indicates how many
++   derivation files (2 or 1) are to be compared against the Root.
++
+%Create WIP+- Required.%Y+is the default.%N+ causes PDM to bypass writing
++   the WIP file, while still producing the requested reports and statistics.
++
+%Automatically Merge+- Required.%N+is the default.%Y+causes PDM to
++   automatically merge the WIP dataset if no conflicts are detected.
++
+%Generate WIP Reports+- Required. Acceptable values are%A+(summary and
++   detail reports),%S+(summary reports only), and%N+(no reports).
++
+%Write stats to data set+- Optional. Specifies a data set to which PDM
++   is to write Build WIP and Merge statistics. The name must conform
++   to standard ISPF/PDF naming conventions. Refer to Appendix D of the
++   PDM User's Guide for information on the generation and use of these
++   statistics.
++
+)END

@@ -1,0 +1,26 @@
+%TUTORIAL  ----------  LIBRARY SELECTION LIST (continued)  -----------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %Selection Field+-   %Please note:+ Except for option%I,+the footprint
+   (cont)               information must be displayed for a member in
+                        order to request one of these displays.
+
+                       %Select         To See+
+
+                         %I+           The LOAD MODULE IDR DISPLAY
+                                       showing the footprint for each
+                                       (footprinted) CSECT.
+
+                         %L+           An ISPF BROWSE panel showing the
+                                       contents of the libray member.
+
+                       %S,B,H,C,M+     One of the Display Element
+                                       panels:  Summary of Levels (S),
+                                       Element Browse (B), Element His-
+                                       tory (H), Element Changes (C), or
+                                       Element Master (M).
+
+                           %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITD4120
+)END

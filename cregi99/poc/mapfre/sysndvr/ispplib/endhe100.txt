@@ -1,0 +1,27 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++The Quick Edit dialog uses the standard ISPF/PDF Edit services to
++allow you to make changes to an existing element, generate an
++existing element, create a new element, and change the Quick Edit
++dialog defaults.
++
++  Select one of the options below for more information:
++   %1+- Commands and Options
++   %2+- Location fields
++   %3+- List Options
++   %4+- Action Options
++
++
++
++
++
++
++
++
++
++ \ \ (%END+to return) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,ENDHE110 2,ENDHE120 3,ENDHE130 4,ENDHE140)
+)END

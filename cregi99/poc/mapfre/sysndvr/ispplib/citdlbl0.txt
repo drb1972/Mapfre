@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Batch LU \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Batch LU+- 1- to 8-character LU6.2 name which the DistribuLink batch
++   interface program (SDSBAPI) uses to transfer the "Add Product"
++   request to a DistribuLink MVS Server.  This is a required field.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

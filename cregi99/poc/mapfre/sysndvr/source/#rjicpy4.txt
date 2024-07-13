@@ -1,0 +1,21 @@
+@REM ****************************************************** #RJICPY4 ***
+@REM *    CONTENTS: ENDEVOR/MVS - PROCESS MEMBERS TO BE DELETED
+@REM *     PURPOSE: GENERATE AN IDCAMS DELETE STATEMENT FOR A MEMBER
+@REM *              TO BE DELETED FROM THE REMOTE PRODUCTION DATA SET
+@REM *              (SEE #RJICPY1 FOR DETAILS)
+@REM *******************************************************************
+@REM *
+@REM *  P002868 CORRECT DUPLICATE DD NAMES.
+@REM *
+@SECTION=03   <=======================================================
+@REM @IF &ANY2DELETE
+@REM //&RDDN  DD  DISP=SHR,  REMOTE PRODUCTION DATA SET
+@REM //         DSN=&RDSN
+@REM @ENDIF
+@SECTION=04   <=======================================================
+@IF &ANY2DELETE
+@IFAND &RDDN
+ DELETE -
+ '&RDSN(&DMEMBER)' -
+ NONVSAM FILE(&RDDN)
+@ENDIF

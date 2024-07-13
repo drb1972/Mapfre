@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Merge ---------------- Merge Output Specification Panel -----------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Enter the Endevor%MERGE OUTPUT+location below, then press%ENTER+key.
++
++Location:+                              Merge Options:+
++   Environment%===>_PTBOTENV+             Generate Element   %===>_Z+ (Y/N)
++   System     %===>_PTBOTSYS+             Delete NDVR DV1 DV2%===>_Z+ (Y/N)
++   Subsystem  %===>_PTBOTSUB+             Delete WIP member  %===>_Z+ (Y/N)
++   Element    %===>_PTBOTELM  +           Processor Group    %===>_PTBMRPGN+
++   Type       %===>_PTBOTTYN+             Update if present  %===>_Z+ (Y/N)
++   Stage ID   %===>_Z+   ¢Z+-|PTBOTSN1+   SYNC               %===>_Z+ (Y/N)
++                         ¢Z+-|PTBOTSN2+
++
++(Pattern for element name overlay)+
++
++   Generate MERGE reports         %===>_Z+   (All/Summary/No)
++   Write stats to data set%===>_PTBMRSDS                                      +
+)INIT
+   .ZVARS = '(PTBMRGEN PTBMRDVS PTBMRDWP PTBMRUPD      +
+              PTBOTSTG PTBOTSI1 PTBMRSYN PTBOTSI2 PTBMSTAT)'
+   .HELP = BC1T4500
+)PROC
+)END

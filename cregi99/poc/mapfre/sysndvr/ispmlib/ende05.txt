@@ -1,0 +1,29 @@
+ENDE050E 'Element Length too Long '                    .ALARM=YES
+'ENDE050E The Source Element Length for type &EEVETKTY is greater than 255 '
+
+ENDE051E 'No Component Information'                    .ALARM=YES
+'ENDE051E There is no component information associated with the element'
+
+ENDE052E 'No Change Levels Exist'                      .ALARM=YES
+'ENDE052E There are no element or component change levels for the element'
+
+ENDE053E 'Proc. Group not Found'                       .ALARM=YES
+'ENDE053E The specified processor group could not be found          '
+
+ENDE054I 'No Changes Detected'                         .ALARM=YES
+'ENDE054I No changes were found.  A new level was NOT created'
+
+ENDE055I 'No Changes Made'                             .ALARM=YES
+'ENDE055I No changes were made to the element.  Source Management was NOT done'
+
+ENDE056E 'Element in Use '                             .ALARM=YES
+'ENDE056E The element is currently being used by another user'
+
+ENDE057E 'Element Unavailable'                         .ALARM=YES
+'ENDE057E Endevor system &EEVSYTSY is currently locked for backup'
+
+ENDE058E 'Not Authorized'                              .ALARM=YES
+'ENDE058E You are not authorized to perform the action against the element  '
+
+ENDE059E 'F/G Execution ^ Allowed'                     .ALARM=YES
+'ENDE059E Generate processor for group &EEVAPGRP cannot execute in foreground'

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Map and Actions \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++ Select%1+-%5+for information about the impact of the map on the
++ following actions
++
+%    1+- Retrieve                   %4+- Move
+%    2+- Add                        %5+- Display/Print
+%    3+- Generate
++
++
++
++
++
++
++
++
++
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT3510 2,CITT3520 3,CITT3530 4,CITT3540
+                  5,CITT3550)
+)END

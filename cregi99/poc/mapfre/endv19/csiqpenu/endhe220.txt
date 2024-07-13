@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Subsystem Selection List to specify a subsystem associated
++an element you want to edit or to associate with an element you
++want to create.
++
++Select a subsystem by typing%S+next to the subsystem you want
++to select and pressing%ENTER+.
++
++The subsystem name you select appears on the Quick Edit panel
++the next time the panel is accessed.
++
++
++
++
++
++
++
++
++
++                                      (%END+to return)
+)END

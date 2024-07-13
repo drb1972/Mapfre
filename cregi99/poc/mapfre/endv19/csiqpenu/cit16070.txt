@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Ship Post-Ship Script Execution \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Package Ship Post-Ship Script Execution +
++
+ This feature enables the conditional execution of job steps, called
+ scripts, at a remote destination before or after the package
+ shipment process has completed. Script files are created by normal
+ processor execution and identified as%(SCRIPT-FILES)+through mapping
+ rules. Custom script job steps are created by the Administrator by
+ editing the shipment JCL models based on your site's requirements.
+ In addition, a new Script Execution status can be returned and
+ displayed in the%Shipment Status+view by scrolling right.
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16080
+)END

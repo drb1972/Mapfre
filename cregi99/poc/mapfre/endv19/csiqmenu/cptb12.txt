@@ -1,0 +1,30 @@
+CPTB120 'THRU Column > LRECL'                       .ALARM=YES
+'CPTB120 The COMPARE THRU column value is greater than the dataset LRECL.'
+
+CPTB121 'Specify DER number'                        .ALARM=YES
+'CPTB121 A derivation number is required on the INCLUDE command.'
+
+CPTB122 'Invalid DER number'                        .ALARM=YES
+'CPTB122 A derivation number specified is invalid.  Specify either "1" or "2".'
+
+CPTB123 'No DER2 File'                              .ALARM=YES
+'CPTB123 The BUILD WIP is not using a Derivation 2 file.'
+
+CPTB124 '&PTBLINCT Members Included'                .ALARM=YES
+'CPTB124 The INCLUDE command processed &PTBLINCT members.'
+
+CPTB125 'Enter LOCATE Value'                        .ALARM=YES
+'CPTB125 The LOCATE command requires a data value for which to search.'
+
+CPTB126 'Invalid Column Name'                       .ALARM=YES
+'CPTB126 The column name specified on the command is invalid'
+
+CPTB127 'Invalid LOCATE value'                      .ALARM=YES
+'CPTB127 The LOCATE value entered is invalid for the column specified.'
+
+CPTB128 'Invalid SYSOUT Class'                      .ALARM=YES
+'CPTB128 The PRTMAT sysout class specified is invalid.'
+
+CPTB129 'Matrix Printed'                            .ALARM=YES
+'CPTB129 The WIP Selection Matrix has been printed to the specified location.'
+

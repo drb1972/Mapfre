@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
++TUTORIAL%\-\ Concurrent Action Processing \-\+TUTORIAL
++OPTION%===>_ZCMD                                                              +
+%
+%Concurrent Action Processing+allows you to process multiple actions at
++the same time.
+
++The fields on the panel allow you to specify whether or not you want to
++use concurrent action processing and how many simultaneous actions you
++would like to process:
+
+%Concurrent Action Processing+- Valid values are%Y+and%N.+
++  Use this field to indicate whether or not you want to use concurrent
++  action processing.  The%default value+when you enter the panel is%N.+
+
+%Concurrent Number+- Valid values are%02+through the maximum number as
++  specified with the%C1DEFLTS+parameter%SPAWNMAX.+ The maximum value is
++  displayed on the panel.
++  The value contained in this field when you enter the panel is the
++  value specified with the%C1DEFLTS+parameter%SPAWNCNT.+ This value
++  can be restored and used by%blanking out+this field.
+
+
++\ \ ** Hit%Enter+to return,%END+to terminate Help ** \ \
+)END

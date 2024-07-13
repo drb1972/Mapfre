@@ -1,0 +1,1919 @@
+         MACRO
+.**********************************************************************
+.* Revision History:                                                  *
+.**********************************************************************
+.* Date: By: Issue #: Description                                     *
+.* ----- --- -------- -----------------------------------------------**
+.* 04/02 PhG         Major structural change                          *
+.* 03/96 RAD         Initial creation.                                *
+.**********************************************************************
+         ENHOPTNS &DO,                                                 X
+               &MSGSEVERITY_SMGR116=,        INDEX=01                  X
+               &XFER_COMMENTS=,              Index=02                  X
+               &QE_CMDCHAR=,                 Index=03                  X
+               &QE_MIXED=,                   Index=04                  X
+               &UNLOAD_NOSHARE=,             Index=05                  X
+               &INCLUDE_COB=,                Index=06                  X
+               &NO_PROC_PRINT=,              Index=07                  X
+               &NO_LMOD_FP=,                 Index=08                  X
+               &ATTACH_BM3000=,              Index=09                  X
+               &BANNER_PAGES=,               Index=10                  X
+               &MSGSEVERITY_C1G0275=,        INDEX=11                  X
+               &MSGSEVERITY_C1G0295=,        INDEX=12                  X
+               &C1SORTIO_SMALL=,             Index=13                  X
+               &C1SORTIO_MODE=,              Index=14                  X
+               &NO_EXCP=,                    Index=15                  X
+               &USE_CONCOMP1=,               Index=16                  X
+               &NO_ALTID_EXIT=,              Index=17                  X
+               &PARSER_HEAP_SIZE=,           Index=18                  X
+               &VALIDATE_PVLB=,              Index=19                  X
+               &NEW_COMPARE=,                Index=20                  X
+               &UNUSED21=,                   INDEX=21                  X
+               &VSAM_INPUT_OK=,              Index=22                  X
+               &BC1PSRVL_USE=,               Index=23                  X
+               &ALLOW_NON_PKG_ACTIONS=,      Index=24                  X
+               &RESERVE_OPSYS_STG=,          Index=25                  X
+               &BYPASS_C1G0501=,             INDEX=26                  X
+               &GEN_WHERE_SCL=,              Index=27                  X
+               &FIXED_PANEL_OPT#S=,          Index=28                  X
+               &VFY_FP_FAILURES=,            Index=29                  X
+               &PKG_ELEMENT_LOCK=,           Index=30                  X
+               &ALTID_SYSOUT=,               Index=31                  X
+               &BLKSIZE_CONCAT=,             Index=32                  X
+               &CCID_LST_LAST_ACT=,          Index=33                  X
+               &CCID_WHERE_ALL=,             Index=34                  X
+               &PKGID_PROMPT=,               Index=35                  X
+               &ELMNM_PROMPT=,               Index=36                  X
+               &UNUSED37=,                   INDEX=37                  X
+               &REGISTER_ACROSS_SYSTEMS=,    INDEX=38                  X
+               &SUPER_USER=,                 Index=39                  X
+               &DS_C1TEMPR1_SUFFX=,          Index=40                  X
+               &DS_INTERNAL_TEMP=,           Index=41                  X
+               &MONOCASE_SEARCH=,            Index=42                  X
+               &IGNORE_SKIP_ALLOC=,          Index=43                  X
+               &SHIP_DEST_LIST_MAP_RULE_ONLY=, Index=44                X
+               &UNUSED45=,                   Index=45                  X
+               &UNUSED46=,                   Index=46                  X
+               &RESTRICT_BACKOUT=,           Index=47                  X
+               &LB_CNTL_CHAR=,               Index=48                  X
+               &LB_SEQNUM=,                  Index=49                  X
+               &LB_SUPPRESS_AUDIT=,          Index=50                  X
+               &PKG_ACTIONS_NO_APPRVR=,      Index=51                  X
+               &ISSUE_ELEMENT_REFERENCED_MSGS=, index=52               X
+               &PROC_MOVE_DFLT=,             Index=53                  X
+               &PV_CNTL_CHAR=,               Index=54                  X
+               &SEC_BYP_LST_PRT=,            Index=55                  X
+               &SEC_MOVE_TARGET=,            Index=56                  X
+               &SHP_DISP_SHR=,               Index=57                  X
+               &SHP_EXEC_FAIL=,              Index=58                  X
+               &ALLOW_DUP_SYMBOLS=,          Index=59                  X
+               &UNLOCK_FAILED_ACTION=,       Index=60                  X
+               &SYMB_UNDERSCORE=,            Index=61                  X
+               &TRANSFER_NO_VVLL=,           Index=62                  X
+               &BYPASS_GENERATE_XFER=,       Index=63                  X
+               &DEFAULT_REVERSE=,            Index=64                  X
+               &RESTORE_GENERATE_DATE=,      Index=65                  X
+               &DONT_SAVE_AO=,               Index=66                  X
+               &SCAN_STOP=,                  Index=67                  X
+               &KEEP_PDM_OTHERDSN=,          Index=68                  X
+               &DYNAM_PANELS_UPPER=,         Index=69                  X
+               &BYPASS_C1G0333W=,            Index=70                  X
+               &SET_STOPRC12=,               Index=71                  X
+               &BYPASS_C1G0147E=,            Index=72                  X
+               &BYPASS_C1G0334W=,            Index=73                  X
+               &NO_SECURITY_USERID=,         Index=74                  X
+               &ACM_USE_ELEMENT_NAME=,       Index=75                  X
+               &NO_VERSION_LEVEL=,           Index=76                  X
+               &NO_SYS_SBS_SELECTION_LIST=,  Index=77                  X
+               &EXIT_LOAD=,                  Index=78                  X
+               &DO_NOT_SAVE_CCIDCOMM=,       Index=79                  X
+               &EXIT2_FAIL_EXIT3=,           Index=80                  X
+               &MSGSEVERITY_C1X0103=,        INDEX=81                  X
+               &MSGSEVERITY_IMGR009=,        INDEX=82                  X
+               &MSGSEVERITY_C1G0296=,        INDEX=83                  X
+               &MSGSEVERITY_C1G0272=,        INDEX=84                  X
+               &MSGSEVERITY_C1G0231=,        INDEX=85                  X
+               &MSGSEVERITY_ENBX043=,        INDEX=86                  X
+               &MSGSEVERITY_FPVL004=,        INDEX=87                  X
+               &MSGSEVERITY_C1G0507=,        INDEX=88                  X
+               &MSGSEVERITY_C1G0336=,        INDEX=89                  X
+               &LIBR_INC_STMT=,              INDEX=90                  X
+               &MSGSEVERITY_ENBE027=,         INDEX=91                 X
+               &ALWAYS_CALL_GENPKGID=,        INDEX=92                 X
+               &MSG_C1G0208=,                 INDEX=93                 X
+               &QE_BUILD_MAP=,                INDEX=94                 X
+               &RESERVED_OTHERDSN=,           INDEX=95                 X
+               &BYPASS_CIIO0092=,             INDEX=96                 X
+               &BYPASS_PKMR514E=,             INDEX=97                 X
+               &COPY_COBOL2_REPLACE=,         INDEX=98                 X
+               &AUTO_ACMQ_FILE_REORG=,        INDEX=99                 X
+               &SCL_IN_CAST_REPORT=,          INDEX=100                X
+               &CAST_INSPECT_EXIT02=,         INDEX=101                X
+               &BACKOUT_PROMPT=,              INDEX=102                X
+               &MSGSEVERITY_C1BMX21=,         INDEX=103                X
+               &MSGSEVERITY_ENBP001=,         INDEX=104                X
+               &INCLUDE_ORIGINAL_COPY=,       INDEX=105                X
+               &DYNAMIC_APPROVERS=,           INDEX=106                X
+               &SUPPRESS_OVERRIDE_EMAIL=,     INDEX=107                X
+               &DO_NOT_SYNC_AT_TARGET=,       INDEX=108                X
+               &UPPERCASE_TEXT=,              INDEX=109                X
+               &INTRDR_ALTID=,                INDEX=110                X
+               &SUPPRESS_LLACOPY=,            INDEX=111                X
+               &PKG_CAST_IGNORE_JUMP=,        INDEX=112                X
+               &GEN_DO_NOT_CHK_SIGNOUT=,      INDEX=113                X
+               &GEN_INPLACE_DO_NOT_SET_SIGNOUT=, INDEX=114             X
+               &GEN_COPYBCK_DO_NOT_SET_SIGNOUT=, INDEX=115             X
+               &PKG_NOT_REQUIRED=,            INDEX=116                X
+               &PROCESSOR_DISP_OLD_DDNS=,     INDEX=117                X
+               &ELM_REG_CHK_OUTPTYPE_ACROSS_SYSTEMS=,  INDEX=118       X
+               &USE_C1#TMPL_LIST=,            INDEX=119                X
+               &SYMBOL_CASE_UPLOW=,           INDEX=120                X
+               &SUPPRESS_SHIPCONF_EMAIL=,     INDEX=121                X
+               &MSGSEVERITY_C1G0119=,         INDEX=122                X
+               &IMPLICIT_DELETE_APPROVAL_CHECK=, INDEX=123             X
+               &ACMQ_CMNT_QUERY_PERF=,        INDEX=124                X
+               &UNUSED125=,                   INDEX=125                X
+               &MSGSEVERITY_SMGR117=,         INDEX=126                X
+               &LB_ARC=,                      INDEX=127                X
+               &LB_ARC_NORESEQ=,              INDEX=128                X
+               &RACF_TEMPDSN_OPTION=,         INDEX=129                X
+               &PROM_PKG_SUPPRESS_AUTOCAST=,  INDEX=130                X
+               &CCID_VAL_IF_NOT_REQ=,         INDEX=131                X
+               &KEEP_SYMDATA_TRAILING_SPACE=, INDEX=132                X
+               &SUPPRESS_FPVL007=,            INDEX=133                X
+               &PROCESS_DELETE_ACTIONS_FIRST=,  INDEX=134              X
+               &ALLOW_SHIP_AFTER_ELEMENT_DELETE=,  INDEX=135           X
+               &ENABLE_ALTID_USS_SECURITY=,   INDEX=136                X
+               &COMPONENT_SEARCH=,            INDEX=137                X
+               &MSGSEVERITY_FPVL002=,         INDEX=138                X
+               &ACMQ_REORG_BY_WTO=,           INDEX=139                X
+               &MSGSEVERITY_JRCV011=,         INDEX=140                X
+               &PACKAGE_SHIP_WITH_ALTID=,     INDEX=141                X
+               &AUTOGEN_SOURCE=,              INDEX=142                X
+               &MSGSEVERITY_PKMR632=,         INDEX=143                X
+               &SHIP_OUTPUTS_ASIS=,           INDEX=144                X
+               &EINE_ACTIVE=,                 INDEX=145                X
+               &EXCLUDE_SITEID_FROM_FP_VERIFY=,  INDEX=146             X
+               &SPAN_NONE_ALWAYS=,            INDEX=147                X
+               &APPROVER_DISQUALIFIED=,       INDEX=148                X
+               &MSGSEVERITY_C1X0503=,         INDEX=149                X
+               &PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP=, INDEX=150         X
+               &CD18101_QE_QUE_BATCH_ACT=,    INDEX=151                X
+               &CD18102_QE_USER_ROUTINES=,    INDEX=152                X
+               &SYNC_NOTIF_EMAIL_TO_LAST_LVL_USER=, INDEX=153          X
+               &CD18104_SYNC_ACTION=,         INDEX=154                X
+               &CD18105_ADMIN_ACT_IN_PROCESSOR=, INDEX=155             X
+               &ALWAYS_CALL_ENUXSITE=,        INDEX=156                X
+               &SEC_ALTERNATIVE_MENUAUTH=,    INDEX=157                X
+               &QE_DEPLOY_FOR_TEST=,          INDEX=158                X
+               &SEC_RETRIEVE_WITH_SIGNOUT=,   INDEX=159                X
+               &CD19002_QE_CCOLS=,            INDEX=160                X
+               &CD19003_TEXT_SEARCH=,         INDEX=161                X
+               &UNUSED162=,                   INDEX=162                X
+               &UNUSED163=,                   INDEX=163                X
+               &UNUSED164=,                   INDEX=164                X
+               &UNUSED165=,                   INDEX=165                X
+               &UNUSED166=,                   INDEX=166                X
+               &UNUSED167=,                   INDEX=167                X
+               &UNUSED168=,                   INDEX=168                X
+               &UNUSED169=,                   INDEX=169                X
+               &UNUSED170=,                   INDEX=170                X
+               &UNUSED171=,                   INDEX=171                X
+               &UNUSED172=,                   INDEX=172                X
+               &UNUSED173=,                   INDEX=173                X
+               &UNUSED174=,                   INDEX=174                X
+               &UNUSED175=,                   INDEX=175                X
+               &UNUSED176=,                   INDEX=176                X
+               &UNUSED177=,                   INDEX=177                X
+               &UNUSED178=,                   INDEX=178                X
+               &UNUSED179=,                   INDEX=179                X
+               &UNUSED180=,                   INDEX=180                X
+               &UNUSED181=,                   INDEX=181                X
+               &UNUSED182=,                   INDEX=182                X
+               &UNUSED183=,                   INDEX=183                X
+               &UNUSED184=,                   INDEX=184                X
+               &UNUSED185=,                   INDEX=185                X
+               &UNUSED186=,                   INDEX=186                X
+               &UNUSED187=,                   INDEX=187                X
+               &UNUSED188=,                   INDEX=188                X
+               &UNUSED189=,                   INDEX=189                X
+               &UNUSED190=,                   INDEX=190                X
+               &UNUSED191=,                   INDEX=191                X
+               &UNUSED192=,                   INDEX=192                X
+               &UNUSED193=,                   INDEX=193                X
+               &UNUSED194=,                   INDEX=194                X
+               &UNUSED195=,                   INDEX=195                X
+               &UNUSED196=,                   INDEX=196                X
+               &UNUSED197=,                   INDEX=197                X
+               &UNUSED198=,                   INDEX=198                X
+               &UNUSED199=,                   INDEX=199                X
+               &UNUSED200=,                   INDEX=200                X
+               &UNUSED201=,                   INDEX=201                X
+               &UNUSED202=,                   INDEX=202                X
+               &UNUSED203=,                   INDEX=203                X
+               &UNUSED204=,                   INDEX=204                X
+               &UNUSED205=,                   INDEX=205                X
+               &UNUSED206=,                   INDEX=206                X
+               &UNUSED207=,                   INDEX=207                X
+               &UNUSED208=,                   INDEX=208                X
+               &UNUSED209=,                   INDEX=209                X
+               &UNUSED210=,                   INDEX=210                X
+               &UNUSED211=,                   INDEX=211                X
+               &UNUSED212=,                   INDEX=212                X
+               &UNUSED213=,                   INDEX=213                X
+               &UNUSED214=,                   INDEX=214                X
+               &UNUSED215=,                   INDEX=215                X
+               &UNUSED216=,                   INDEX=216                X
+               &UNUSED217=,                   INDEX=217                X
+               &UNUSED218=,                   INDEX=218                X
+               &UNUSED219=,                   INDEX=219                X
+               &UNUSED220=,                   INDEX=220                X
+               &UNUSED221=,                   INDEX=221                X
+               &UNUSED222=,                   INDEX=222                X
+               &UNUSED223=,                   INDEX=223                X
+               &UNUSED224=,                   INDEX=224                X
+               &UNUSED225=,                   INDEX=225                X
+               &UNUSED226=,                   INDEX=226                X
+               &UNUSED227=,                   INDEX=227                X
+               &UNUSED228=,                   INDEX=228                X
+               &UNUSED229=,                   INDEX=229                X
+               &UNUSED230=,                   INDEX=230                X
+               &UNUSED231=,                   INDEX=231                X
+               &UNUSED232=,                   INDEX=232                X
+               &UNUSED233=,                   INDEX=233                X
+               &UNUSED234=,                   INDEX=234                X
+               &UNUSED235=,                   INDEX=235                X
+               &UNUSED236=,                   INDEX=236                X
+               &UNUSED237=,                   INDEX=237                X
+               &UNUSED238=,                   INDEX=238                X
+               &UNUSED239=,                   INDEX=239                X
+               &UNUSED240=,                   INDEX=240                X
+               &UNUSED241=,                   INDEX=241                X
+               &UNUSED242=,                   INDEX=242                X
+               &UNUSED243=,                   INDEX=243                X
+               &UNUSED244=,                   INDEX=244                X
+               &UNUSED245=,                   INDEX=245                X
+               &UNUSED246=,                   INDEX=246                X
+               &UNUSED247=,                   INDEX=247                X
+               &UNUSED248=,                   INDEX=248                X
+               &UNUSED249=,                   INDEX=249                X
+               &UNUSED250=,                   INDEX=250                X
+               &UNUSED251=,                   INDEX=251                X
+               &UNUSED252=,                   INDEX=252                X
+               &UNUSED253=,                   INDEX=253                X
+               &UNUSED254=,                   INDEX=254                X
+               &UNUSED255=,                   INDEX=255                X
+               &UNUSED256=,                   INDEX=256                X
+               &TRACE=NO               Trace option
+.*
+         LCLA  &I
+         LCLC &ACMREORG
+         LCLA &N
+         GBLA  &NDXMAX
+         GBLC  &INDEXTBL(256)
+         GBLC  &VALTBL(256)
+         GBLC  &TYPTBL(256)
+         GBLC  &VALPARM(256)
+         GBLC  &PARMACMQ
+         GBLC  &TITLE
+         GBLC &PARMFCTN
+         GBLC &PARMUSSN
+         GBLA &ENHOLIST
+         GBLA &ENHOREST
+         GBLA &ENHOCOPY
+         GBLA &ENHOADD
+         GBLA &ENHOUPDT
+         GBLA &ENHOARCH
+         GBLA &ENHOGEN
+         GBLA &ENHOMOVE
+         GBLA &ENHODEL
+         GBLA &ENHORET
+         GBLA &ENHOPRNT
+         GBLA &ENHOXFER
+         GBLA &ENHOSIGN
+         GBLA &ENHOALTR
+         GBLA &ENHONONE
+&ENHOLIST SETA  1                       LIST
+&ENHOREST SETA  2                       restore
+&ENHOCOPY SETA  4                       COPY
+&ENHOADD  SETA  8                       ADD
+&ENHOUPDT SETA  16                      UPDATE
+&ENHOARCH SETA  32                      ARCHIVE
+&ENHOGEN  SETA  64                      GENERATE
+&ENHOMOVE SETA  128                     MOVE
+&ENHODEL  SETA  256                     DELETE
+&ENHORET  SETA  512                     RETRIEVE
+&ENHOPRNT SETA  1024                    PRINT
+&ENHOXFER SETA  2048                    TRANSFER
+&ENHOSIGN SETA  4096                    SIGNIN
+&ENHOALTR SETA  7919                    ALTER (1000TH PRIME NUMBER!)
+&ENHONONE SETA  8192                    NONE
+.**********************************************************************
+.*  Start of option index table. add 1 to the NDXMAX variable that
+.*  defines the last used index number.  Add an entry to the table
+.*  using that index number.
+.**********************************************************************
+&NDXMAX  SETA 256
+.*
+&INDEXTBL(01)   SETC 'MSGSEVERITY_SMGR116'
+&VALTBL(01)     SETC '(W,E,C)'
+&TYPTBL(01)     SETC 'CHAR'
+.*
+&INDEXTBL(02)   SETC 'XFER_COMMENTS'
+&VALTBL(02)     SETC '(1)'
+&TYPTBL(02)     SETC 'HEX'
+.*
+&INDEXTBL(03)   SETC 'QE_CMDCHAR'
+&VALTBL(03)     SETC '(!,|)'
+&TYPTBL(03)     SETC 'HEXCHAR'
+.*
+&INDEXTBL(04)   SETC 'QE_MIXED'
+&VALTBL(04)     SETC '(1)'
+&TYPTBL(04)     SETC 'HEX'
+.*
+&INDEXTBL(05)   SETC 'UNLOAD_NOSHARE'
+&VALTBL(05)     SETC '(1)'
+&TYPTBL(05)     SETC 'HEX'
+.*
+&INDEXTBL(06)   SETC 'INCLUDE_COB'
+&VALTBL(06)     SETC '(1)'
+&TYPTBL(06)     SETC 'HEX'
+.*
+&INDEXTBL(07)   SETC 'NO_PROC_PRINT'
+&VALTBL(07)     SETC '(RANGE,1,7)'
+&TYPTBL(07)     SETC 'HEX'
+.*
+&INDEXTBL(08)   SETC 'NO_LMOD_FP'
+&VALTBL(08)     SETC '(1)'
+&TYPTBL(08)     SETC 'HEX'
+.*
+&INDEXTBL(09)   SETC 'ATTACH_BM3000'
+&VALTBL(09)     SETC '(1)'
+&TYPTBL(09)     SETC 'HEX'
+.*
+&INDEXTBL(10)   SETC 'BANNER_PAGES'
+&VALTBL(10)     SETC '(RANGE,1,2)'
+&TYPTBL(10)     SETC 'HEX'
+.*
+&INDEXTBL(11)   SETC 'MSGSEVERITY_C1G0275'
+&VALTBL(11)     SETC '(I,W)'
+&TYPTBL(11)     SETC 'CHAR'
+.*
+&INDEXTBL(12)   SETC 'MSGSEVERITY_C1G0295'
+&VALTBL(12)     SETC '(I,W,C)'
+&TYPTBL(12)     SETC 'CHAR'
+.*
+&INDEXTBL(13)   SETC 'C1SORTIO_SMALL'
+&VALTBL(13)     SETC '(1)'
+&TYPTBL(13)     SETC 'HEX'
+.*
+&INDEXTBL(14)   SETC 'C1SORTIO_MODE'
+&VALTBL(14)     SETC '(1)'
+&TYPTBL(14)     SETC 'HEX'
+.*
+&INDEXTBL(15)   SETC 'NO_EXCP'
+&VALTBL(15)     SETC '(1)'
+&TYPTBL(15)     SETC 'HEX'
+.*
+&INDEXTBL(16)   SETC 'USE_CONCOMP1'
+&VALTBL(16)     SETC '(1)'
+&TYPTBL(16)     SETC 'HEX'
+.*
+&INDEXTBL(17)   SETC 'NO_ALTID_EXIT'
+&VALTBL(17)     SETC '(1)'
+&TYPTBL(17)     SETC 'HEX'
+.*
+&INDEXTBL(18)   SETC 'PARSER_HEAP_SIZE'
+&VALTBL(18)     SETC '(RANGE,1,16383)'
+&TYPTBL(18)     SETC 'HEX'
+.*
+&INDEXTBL(19)   SETC 'VALIDATE_PVLB'
+&VALTBL(19)     SETC '(NN,YY,NY,YN)'
+&TYPTBL(19)     SETC 'CHAR'
+.*
+&INDEXTBL(20)   SETC 'NEW_COMPARE'
+&VALTBL(20)     SETC '(1)'
+&TYPTBL(20)     SETC 'HEX'
+.*
+&INDEXTBL(21)   SETC 'UNUSED21'
+&VALTBL(21)     SETC '(1)'
+&TYPTBL(21)     SETC 'HEX'
+.*
+&INDEXTBL(22)   SETC 'VSAM_INPUT_OK'
+&VALTBL(22)     SETC '(1)'
+&TYPTBL(22)     SETC 'HEX'
+.*
+&INDEXTBL(23)   SETC 'BC1PSRVL_USE'
+&VALTBL(23)     SETC '(1)'
+&TYPTBL(23)     SETC 'HEX'
+.*
+&INDEXTBL(24)   SETC 'ALLOW_NON_PKG_ACTIONS'
+&VALTBL(24)     SETC '(RANGE,1,4095)'
+&TYPTBL(24)     SETC 'HEX'
+.*
+&INDEXTBL(25)   SETC 'RESERVE_OPSYS_STG'
+&VALTBL(25)     SETC '(RANGE,1,250)'
+&TYPTBL(25)     SETC 'HEX'
+.*
+&INDEXTBL(26)   SETC 'BYPASS_C1G0501'
+&VALTBL(26)     SETC '(1)'
+&TYPTBL(26)     SETC 'HEX'
+.*
+&INDEXTBL(27)   SETC 'GEN_WHERE_SCL'
+&VALTBL(27)     SETC '(1,2)'
+&TYPTBL(27)     SETC 'HEX'
+.*
+&INDEXTBL(28)   SETC 'FIXED_PANEL_OPT#S'
+&VALTBL(28)     SETC '(1)'
+&TYPTBL(28)     SETC 'HEX'
+.*
+&INDEXTBL(29)   SETC 'VFY_FP_FAILURES'
+&VALTBL(29)     SETC '(1)'
+&TYPTBL(29)     SETC 'HEX'
+.*
+&INDEXTBL(30)   SETC 'PKG_ELEMENT_LOCK'
+&VALTBL(30)     SETC '(Y,N)'
+&TYPTBL(30)     SETC 'CHAR'
+.*
+&INDEXTBL(31)   SETC 'ALTID_SYSOUT'
+&VALTBL(31)     SETC '(1)'
+&TYPTBL(31)     SETC 'HEX'
+.*
+&INDEXTBL(32)   SETC 'BLKSIZE_CONCAT'
+&VALTBL(32)     SETC '(1)'
+&TYPTBL(32)     SETC 'HEX'
+.*
+&INDEXTBL(33)   SETC 'CCID_LST_LAST_ACT'
+&VALTBL(33)     SETC '(1)'
+&TYPTBL(33)     SETC 'HEX'
+.*
+&INDEXTBL(34)   SETC 'CCID_WHERE_ALL'
+&VALTBL(34)     SETC '(1)'
+&TYPTBL(34)     SETC 'HEX'
+.*
+&INDEXTBL(35)   SETC 'PKGID_PROMPT'
+&VALTBL(35)     SETC '(1)'
+&TYPTBL(35)     SETC 'HEX'
+.*
+&INDEXTBL(36)   SETC 'ELMNM_PROMPT'
+&VALTBL(36)     SETC '(1)'
+&TYPTBL(36)     SETC 'HEX'
+.*
+&INDEXTBL(37)   SETC 'UNUSED37'
+&VALTBL(37)     SETC '(1)'
+&TYPTBL(37)     SETC 'HEX'
+.*
+&INDEXTBL(38)   SETC 'REGISTER_ACROSS_SYSTEMS'
+&VALTBL(38)     SETC '(W,C,E)'
+&TYPTBL(38)     SETC 'CHAR'
+.*
+&INDEXTBL(39)   SETC 'SUPER_USER'
+&VALTBL(39)     SETC '(1)'
+&TYPTBL(39)     SETC 'HEX'
+.*
+&INDEXTBL(40)   SETC 'DS_C1TEMPR1_SUFFX'
+&VALTBL(40)     SETC '(1)'
+&TYPTBL(40)     SETC 'HEX'
+.*
+&INDEXTBL(41)   SETC 'DS_INTERNAL_TEMP'
+&VALTBL(41)     SETC '(1)'
+&TYPTBL(41)     SETC 'HEX'
+.*
+&INDEXTBL(42)   SETC 'MONOCASE_SEARCH'
+&VALTBL(42)     SETC '(1)'
+&TYPTBL(42)     SETC 'HEX'
+.*
+&INDEXTBL(43)   SETC 'IGNORE_SKIP_ALLOC'
+&VALTBL(43)     SETC '(1)'
+&TYPTBL(43)     SETC 'HEX'
+.*
+&INDEXTBL(44)   SETC 'SHIP_DEST_LIST_MAP_RULE_ONLY',
+&VALTBL(44)     SETC '(1)'
+&TYPTBL(44)     SETC 'HEX'
+.*
+&INDEXTBL(45)   SETC 'UNUSED45'
+&VALTBL(45)     SETC '(1)'
+&TYPTBL(45)     SETC 'HEX'
+.*
+&INDEXTBL(46)   SETC 'UNUSED46'
+&VALTBL(46)     SETC '(1)'
+&TYPTBL(46)     SETC 'HEX'
+.*
+&INDEXTBL(47)   SETC 'RESTRICT_BACKOUT'
+&VALTBL(47)     SETC '(1)'
+&TYPTBL(47)     SETC 'HEX'
+.*
+&INDEXTBL(48)   SETC 'LB_CNTL_CHAR'
+&VALTBL(48)     SETC '(1)'
+&TYPTBL(48)     SETC 'HEX'
+.*
+&INDEXTBL(49)   SETC 'LB_SEQNUM'
+&VALTBL(49)     SETC '(1)'
+&TYPTBL(49)     SETC 'HEX'
+.*
+&INDEXTBL(50)   SETC 'LB_SUPPRESS_AUDIT'
+&VALTBL(50)     SETC '(1)'
+&TYPTBL(50)     SETC 'HEX'
+.*
+&INDEXTBL(51)   SETC 'PKG_ACTIONS_NO_APPRVR'
+&VALTBL(51)     SETC '(RANGE,1,255)'
+&TYPTBL(51)     SETC 'HEX'
+.*
+&INDEXTBL(52)   SETC 'ISSUE_ELEMENT_REFERENCED_MSGS'
+&VALTBL(52)     SETC '(RANGE,1,4)'
+&TYPTBL(52)     SETC 'HEX'
+.*
+&INDEXTBL(53)   SETC 'PROC_MOVE_DFLT'
+&VALTBL(53)     SETC '(1)'
+&TYPTBL(53)     SETC 'HEX'
+.*
+&INDEXTBL(54)   SETC 'PV_CNTL_CHAR'
+&VALTBL(54)     SETC '(1)'
+&TYPTBL(54)     SETC 'HEX'
+.*
+&INDEXTBL(55)   SETC 'SEC_BYP_LST_PRT'
+&VALTBL(55)     SETC '(1)'
+&TYPTBL(55)     SETC 'HEX'
+.*
+&INDEXTBL(56)   SETC 'SEC_MOVE_TARGET'
+&VALTBL(56)     SETC '(1)'
+&TYPTBL(56)     SETC 'HEX'
+.*
+&INDEXTBL(57)   SETC 'SHP_DISP_SHR'
+&VALTBL(57)     SETC '(1)'
+&TYPTBL(57)     SETC 'HEX'
+.*
+&INDEXTBL(58)   SETC 'SHP_EXEC_FAIL'
+&VALTBL(58)     SETC '(1)'
+&TYPTBL(58)     SETC 'HEX'
+.*
+&INDEXTBL(59)   SETC 'ALLOW_DUP_SYMBOLS'
+&VALTBL(59)     SETC '(1)'
+&TYPTBL(59)     SETC 'HEX'
+.*
+&INDEXTBL(60)   SETC 'UNLOCK_FAILED_ACTION'
+&VALTBL(60)     SETC '(1)'
+&TYPTBL(60)     SETC 'HEX'
+.*
+&INDEXTBL(61)   SETC 'SYMB_UNDERSCORE'
+&VALTBL(61)     SETC '(1)'
+&TYPTBL(61)     SETC 'HEX'
+.*
+&INDEXTBL(62)   SETC 'TRANSFER_NO_VVLL'
+&VALTBL(62)     SETC '(1)'
+&TYPTBL(62)     SETC 'HEX'
+.*
+&INDEXTBL(63)   SETC 'BYPASS_GENERATE_XFER'
+&VALTBL(63)     SETC '(1)'
+&TYPTBL(63)     SETC 'HEX'
+.*
+&INDEXTBL(64)   SETC 'DEFAULT_REVERSE'
+&VALTBL(64)     SETC '(1)'
+&TYPTBL(64)     SETC 'HEX'
+.*
+&INDEXTBL(65)   SETC 'RESTORE_GENERATE_DATE'
+&VALTBL(65)     SETC '(1)'
+&TYPTBL(65)     SETC 'HEX'
+.*
+&INDEXTBL(66)   SETC 'DONT_SAVE_AO'
+&VALTBL(66)     SETC '(1)'
+&TYPTBL(66)     SETC 'HEX'
+.*
+&INDEXTBL(67)   SETC 'SCAN_STOP'
+&VALTBL(67)     SETC '(1)'
+&TYPTBL(67)     SETC 'HEX'
+.*
+&INDEXTBL(68)   SETC 'KEEP_PDM_OTHERDSN'
+&VALTBL(68)     SETC '(1)'
+&TYPTBL(68)     SETC 'HEX'
+.*
+&INDEXTBL(69)   SETC 'DYNAM_PANELS_UPPER'
+&VALTBL(69)     SETC '(1)'
+&TYPTBL(69)     SETC 'HEX'
+.*
+&INDEXTBL(70)   SETC 'BYPASS_C1G0333W'
+&VALTBL(70)     SETC '(1)'
+&TYPTBL(70)     SETC 'HEX'
+.*
+&INDEXTBL(71)   SETC 'SET_STOPRC12'
+&VALTBL(71)     SETC '(1)'
+&TYPTBL(71)     SETC 'HEX'
+.*
+&INDEXTBL(72)   SETC 'BYPASS_C1G0147E'
+&VALTBL(72)     SETC '(1)'
+&TYPTBL(72)     SETC 'HEX'
+.*
+&INDEXTBL(73)   SETC 'BYPASS_C1G0334W'
+&VALTBL(73)     SETC '(1)'
+&TYPTBL(73)     SETC 'HEX'
+.*
+&INDEXTBL(74)   SETC 'NO_SECURITY_USERID'
+&VALTBL(74)     SETC '(1)'
+&TYPTBL(74)     SETC 'HEX'
+.*
+&INDEXTBL(75)   SETC 'ACM_USE_ELEMENT_NAME'
+&VALTBL(75)     SETC '(1)'
+&TYPTBL(75)     SETC 'HEX'
+.*
+&INDEXTBL(76)   SETC 'NO_VERSION_LEVEL'
+&VALTBL(76)     SETC '(1)'
+&TYPTBL(76)     SETC 'HEX'
+.*
+&INDEXTBL(77)   SETC 'NO_SYS_SBS_SELECTION_LIST'
+&VALTBL(77)     SETC '(1)'
+&TYPTBL(77)     SETC 'HEX'
+.*
+&INDEXTBL(78)   SETC 'EXIT_LOAD'
+&VALTBL(78)     SETC '(1)'
+&TYPTBL(78)     SETC 'HEX'
+.*
+&INDEXTBL(79)   SETC 'DO_NOT_SAVE_CCIDCOMM'
+&VALTBL(79)     SETC '(1)'
+&TYPTBL(79)     SETC 'HEX'
+.*
+&INDEXTBL(80)   SETC 'EXIT2_FAIL_EXIT3'
+&VALTBL(80)     SETC '(1)'
+&TYPTBL(80)     SETC 'HEX'
+.*
+&INDEXTBL(81)   SETC 'MSGSEVERITY_C1X0103'
+&VALTBL(81)     SETC '(W,C)'
+&TYPTBL(81)     SETC 'CHAR'
+.*
+&INDEXTBL(82)   SETC 'MSGSEVERITY_IMGR009'
+&VALTBL(82)     SETC '(W,E)'
+&TYPTBL(82)     SETC 'CHAR'
+.*
+&INDEXTBL(83)   SETC 'MSGSEVERITY_C1G0296'
+&VALTBL(83)     SETC '(W,E)'
+&TYPTBL(83)     SETC 'CHAR'
+.*
+&INDEXTBL(84)   SETC 'MSGSEVERITY_C1G0272'
+&VALTBL(84)     SETC '(C,E)'
+&TYPTBL(84)     SETC 'CHAR'
+.*
+&INDEXTBL(85)   SETC 'MSGSEVERITY_C1G0231'
+&VALTBL(85)     SETC '(W,E)'
+&TYPTBL(85)     SETC 'CHAR'
+.*
+&INDEXTBL(86)   SETC 'MSGSEVERITY_ENBX043'
+&VALTBL(86)     SETC '(W,C)'
+&TYPTBL(86)     SETC 'CHAR'
+.*
+&INDEXTBL(87)   SETC 'MSGSEVERITY_FPVL004'
+&VALTBL(87)     SETC '(W,E)'
+&TYPTBL(87)     SETC 'CHAR'
+.*
+&INDEXTBL(88)   SETC 'MSGSEVERITY_C1G0507'
+&VALTBL(88)     SETC '(W,E,C)'
+&TYPTBL(88)     SETC 'CHAR'
+.*
+&INDEXTBL(89)   SETC 'MSGSEVERITY_C1G0336'
+&VALTBL(89)     SETC '(W,E)'
+&TYPTBL(89)     SETC 'CHAR'
+.*
+&INDEXTBL(90)   SETC 'LIBR_INC_STMT'
+&VALTBL(90)     SETC '(1)'
+&TYPTBL(90)     SETC 'HEX'
+.*
+&INDEXTBL(91)   SETC 'MSGSEVERITY_ENBE027'
+&VALTBL(91)     SETC '(I)'
+&TYPTBL(91)     SETC 'CHAR'
+.*
+&INDEXTBL(92)   SETC 'ALWAYS_CALL_GENPKGID'
+&VALTBL(92)     SETC '(1)'
+&TYPTBL(92)     SETC 'HEX'
+.*
+&INDEXTBL(93)   SETC 'MSG_C1G0208'
+&VALTBL(93)     SETC '(RANGE,1,3)'
+&TYPTBL(93)     SETC 'HEX'
+.*
+&INDEXTBL(94)   SETC 'QE_BUILD_MAP'
+&VALTBL(94)     SETC '(1)'
+&TYPTBL(94)     SETC 'HEX'
+.*
+&INDEXTBL(95)   SETC 'RESERVED_OTHERDSN'
+&VALTBL(95)     SETC '(1)'
+&TYPTBL(95)     SETC 'HEX'
+.*
+&INDEXTBL(96)   SETC 'BYPASS_CIIO0092'
+&VALTBL(96)     SETC '(1)'
+&TYPTBL(96)     SETC 'HEX'
+.*
+&INDEXTBL(97)   SETC 'BYPASS_PKMR514E'
+&VALTBL(97)     SETC '(1)'
+&TYPTBL(97)     SETC 'HEX'
+.*
+&INDEXTBL(98)   SETC 'COPY_COBOL2_REPLACE'
+&VALTBL(98)     SETC '(1)'
+&TYPTBL(98)     SETC 'HEX'
+.*
+&INDEXTBL(99)   SETC 'AUTO_ACMQ_FILE_REORG'
+&VALTBL(99)     SETC '(RANGE,1,32767)'
+&TYPTBL(99)     SETC 'HEX'
+.*
+&INDEXTBL(100)  SETC 'SCL_IN_CAST_REPORT'
+&VALTBL(100)    SETC '(1)'
+&TYPTBL(100)    SETC 'HEX'
+.*
+&INDEXTBL(101)  SETC 'CAST_INSPECT_EXIT02'
+&VALTBL(101)    SETC '(1)'
+&TYPTBL(101)    SETC 'HEX'
+.*
+&INDEXTBL(102)  SETC 'BACKOUT_PROMPT'
+&VALTBL(102)    SETC '(1)'
+&TYPTBL(102)    SETC 'HEX'
+.*
+&INDEXTBL(103)  SETC 'MSGSEVERITY_C1BMX21'
+&VALTBL(103)    SETC '(W,E)'
+&TYPTBL(103)    SETC 'CHAR'
+.*
+&INDEXTBL(104)  SETC 'MSGSEVERITY_ENBP001'
+&VALTBL(104)    SETC '(W,E)'
+&TYPTBL(104)    SETC 'CHAR'
+.*
+&INDEXTBL(105)  SETC 'INCLUDE_ORIGINAL_COPY'
+&VALTBL(105)    SETC '(1)'
+&TYPTBL(105)    SETC 'HEX'
+.*
+&INDEXTBL(106)  SETC 'DYNAMIC_APPROVERS'
+&VALTBL(106)    SETC '(1)'
+&TYPTBL(106)    SETC 'HEX'
+.*
+&INDEXTBL(107)  SETC 'SUPPRESS_OVERRIDE_EMAIL'
+&VALTBL(107)    SETC '(RANGE,1,16183)'
+&TYPTBL(107)    SETC 'HEX'
+.*
+&INDEXTBL(108)  SETC 'DO_NOT_SYNC_AT_TARGET'
+&VALTBL(108)    SETC '(1)'
+&TYPTBL(108)    SETC 'HEX'
+.*
+&INDEXTBL(109)  SETC 'UPPERCASE_TEXT'
+&VALTBL(109)    SETC '(1)'
+&TYPTBL(109)    SETC 'HEX'
+.*
+&INDEXTBL(110)  SETC 'INTRDR_ALTID'
+&VALTBL(110)    SETC '(1)'
+&TYPTBL(110)    SETC 'HEX'
+.*
+&INDEXTBL(111)  SETC 'SUPPRESS_LLACOPY'
+&VALTBL(111)    SETC '(1)'
+&TYPTBL(111)    SETC 'HEX'
+.*
+&INDEXTBL(112)  SETC 'PKG_CAST_IGNORE_JUMP'
+&VALTBL(112)    SETC '(1)'
+&TYPTBL(112)    SETC 'HEX'
+.*
+&INDEXTBL(113)  SETC 'GEN_DO_NOT_CHK_SIGNOUT'
+&VALTBL(113)    SETC '(1)'
+&TYPTBL(113)    SETC 'HEX'
+.*
+&INDEXTBL(114)  SETC 'GEN_INPLACE_DO_NOT_SET_SIGNOUT'
+&VALTBL(114)    SETC '(1)'
+&TYPTBL(114)    SETC 'HEX'
+.*
+&INDEXTBL(115)  SETC 'GEN_COPYBCK_DO_NOT_SET_SIGNOUT'
+&VALTBL(115)    SETC '(1)'
+&TYPTBL(115)    SETC 'HEX'
+.*
+&INDEXTBL(116)  SETC 'PKG_NOT_REQUIRED'
+&VALTBL(116)    SETC '(1)'
+&TYPTBL(116)    SETC 'HEX'
+.*
+&INDEXTBL(117)  SETC 'PROCESSOR_DISP_OLD_DDNS'
+&VALTBL(117)    SETC '(1)'
+&TYPTBL(117)    SETC 'HEX'
+.*
+&INDEXTBL(118)  SETC 'ELM_REG_CHK_OUTPTYPE_ACROSS_SYSTEMS'
+&VALTBL(118)    SETC '(1)'
+&TYPTBL(118)    SETC 'HEX'
+.*
+&INDEXTBL(119)  SETC 'USE_C1#TMPL_LIST'
+&VALTBL(119)    SETC '(1)'
+&TYPTBL(119)    SETC 'HEX'
+.*
+&INDEXTBL(120)  SETC 'SYMBOL_CASE_UPLOW'
+&VALTBL(120)    SETC '(1)'
+&TYPTBL(120)    SETC 'HEX'
+.*
+&INDEXTBL(121)  SETC 'SUPPRESS_SHIPCONF_EMAIL'
+&VALTBL(121)    SETC '(1)'
+&TYPTBL(121)    SETC 'HEX'
+.*
+&INDEXTBL(122)  SETC 'MSGSEVERITY_C1G0119'
+&VALTBL(122)    SETC '(W,E)'
+&TYPTBL(122)    SETC 'CHAR'
+.*
+&INDEXTBL(123)  SETC 'IMPLICIT_DELETE_APPROVAL_CHECK'
+&VALTBL(123)    SETC '(1)'
+&TYPTBL(123)    SETC 'HEX'
+.*
+&INDEXTBL(124)  SETC 'ACMQ_CMNT_QUERY_PERF'
+&VALTBL(124)    SETC '(1)'
+&TYPTBL(124)    SETC 'HEX'
+.*
+&INDEXTBL(125)  SETC 'UNUSED125'
+&VALTBL(125)    SETC '(1)'
+&TYPTBL(125)    SETC 'HEX'
+.*
+&INDEXTBL(126)  SETC 'MSGSEVERITY_SMGR117'
+&VALTBL(126)    SETC '(I,W,C)'
+&TYPTBL(126)    SETC 'CHAR'
+.*
+&INDEXTBL(127)  SETC 'LB_ARC'
+&VALTBL(127)    SETC '(1)'
+&TYPTBL(127)    SETC 'HEX'
+.*
+&INDEXTBL(128)  SETC 'LB_ARC_NORESEQ'
+&VALTBL(128)    SETC '(1)'
+&TYPTBL(128)    SETC 'HEX'
+.*
+&INDEXTBL(129)  SETC 'RACF_TEMPDSN_OPTION'
+&VALTBL(129)    SETC '(1)'
+&TYPTBL(129)    SETC 'HEX'
+.*
+&INDEXTBL(130)  SETC 'PROM_PKG_SUPPRESS_AUTOCAST'
+&VALTBL(130)    SETC '(1)'
+&TYPTBL(130)    SETC 'HEX'
+.*
+&INDEXTBL(131)  SETC 'CCID_VAL_IF_NOT_REQ'
+&VALTBL(131)    SETC '(1)'
+&TYPTBL(131)    SETC 'HEX'
+.*
+&INDEXTBL(132)  SETC 'KEEP_SYMDATA_TRAILING_SPACE'
+&VALTBL(132)    SETC '(1)'
+&TYPTBL(132)    SETC 'HEX'
+.*
+&INDEXTBL(133)  SETC 'SUPPRESS_FPVL007'
+&VALTBL(133)    SETC '(1)'
+&TYPTBL(133)    SETC 'HEX'
+.*
+&INDEXTBL(134)  SETC 'PROCESS_DELETE_ACTIONS_FIRST'
+&VALTBL(134)    SETC '(1)'
+&TYPTBL(134)    SETC 'HEX'
+.*
+&INDEXTBL(135)  SETC 'ALLOW_SHIP_AFTER_ELEMENT_DELETE'
+&VALTBL(135)    SETC '(1)'
+&TYPTBL(135)    SETC 'HEX'
+.*
+&INDEXTBL(136)  SETC 'ENABLE_ALTID_USS_SECURITY'
+&VALTBL(136)    SETC '(RANGE,0,77)'
+&TYPTBL(136)    SETC 'CHAR'
+.*
+&INDEXTBL(137)  SETC 'COMPONENT_SEARCH'
+&VALTBL(137)    SETC '(RANGE,1,6)'
+&TYPTBL(137)    SETC 'HEX'
+.*
+&INDEXTBL(138)  SETC 'MSGSEVERITY_FPVL002'
+&VALTBL(138)    SETC '(W,E)'
+&TYPTBL(138)    SETC 'CHAR'
+.*
+&INDEXTBL(139)  SETC 'ACMQ_REORG_BY_WTO'
+&VALTBL(139)    SETC '(1)'
+&TYPTBL(139)    SETC 'HEX'
+.*
+&INDEXTBL(140)  SETC 'MSGSEVERITY_JRCV011'
+&VALTBL(140)    SETC '(W,E)'
+&TYPTBL(140)    SETC 'CHAR'
+.*
+&INDEXTBL(141)  SETC 'PACKAGE_SHIP_WITH_ALTID'
+&VALTBL(141)    SETC '(1)'
+&TYPTBL(141)    SETC 'HEX'
+.*
+&INDEXTBL(142)  SETC 'AUTOGEN_SOURCE'
+&VALTBL(142)    SETC '(1)'
+&TYPTBL(142)    SETC 'HEX'
+.*
+&INDEXTBL(143)  SETC 'MSGSEVERITY_PKMR632'
+&VALTBL(143)    SETC '(W,C)'
+&TYPTBL(143)    SETC 'CHAR'
+.*
+&INDEXTBL(144)  SETC 'SHIP_OUTPUTS_ASIS'
+&VALTBL(144)    SETC '(1)'
+&TYPTBL(144)    SETC 'HEX'
+.*
+&INDEXTBL(145)  SETC 'EINE_ACTIVE'
+&VALTBL(145)    SETC '(1)'
+&TYPTBL(145)    SETC 'HEX'
+.*
+&INDEXTBL(146)  SETC 'EXCLUDE_SITEID_FROM_FP_VERIFY'
+&VALTBL(146)    SETC '(1)'
+&TYPTBL(146)    SETC 'HEX'
+.*
+&INDEXTBL(147)  SETC 'SPAN_NONE_ALWAYS'
+&VALTBL(147)    SETC '(1)'
+&TYPTBL(147)    SETC 'HEX'
+.*
+&INDEXTBL(148)  SETC 'APPROVER_DISQUALIFIED'
+&VALTBL(148)    SETC '(A,S,E)'
+&TYPTBL(148)    SETC 'CHAR'
+.*
+&INDEXTBL(149)  SETC 'MSGSEVERITY_C1X0503'
+&VALTBL(149)    SETC '(E,W)'
+&TYPTBL(149)    SETC 'CHAR'
+.*
+&INDEXTBL(150)  SETC 'PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP'
+&VALTBL(150)    SETC '(1)'
+&TYPTBL(150)    SETC 'HEX'
+.*
+&INDEXTBL(151)  SETC 'CD18101_QE_QUE_BATCH_ACT'
+&VALTBL(151)    SETC '(1)'
+&TYPTBL(151)    SETC 'HEX'
+.*
+&INDEXTBL(152)  SETC 'CD18102_QE_USER_ROUTINES'
+&VALTBL(152)    SETC '(1)'
+&TYPTBL(152)    SETC 'HEX'
+.*
+&INDEXTBL(153)  SETC 'SYNC_NOTIF_EMAIL_TO_LAST_LVL_USER'
+&VALTBL(153)    SETC '(1)'
+&TYPTBL(153)    SETC 'HEX'
+.*
+&INDEXTBL(154)  SETC 'CD18104_SYNC_ACTION'
+&VALTBL(154)    SETC '(1)'
+&TYPTBL(154)    SETC 'HEX'
+.*
+&INDEXTBL(155)  SETC 'CD18105_ADMIN_ACT_IN_PROCESSOR'
+&VALTBL(155)    SETC '(1)'
+&TYPTBL(155)    SETC 'HEX'
+.*
+&INDEXTBL(156)  SETC 'ALWAYS_CALL_ENUXSITE'
+&VALTBL(156)    SETC '(1)'
+&TYPTBL(156)    SETC 'HEX'
+.*
+&INDEXTBL(157)  SETC 'SEC_ALTERNATIVE_MENUAUTH'
+&VALTBL(157)    SETC '(1)'
+&TYPTBL(157)    SETC 'HEX'
+.*
+&INDEXTBL(158)  SETC 'QE_DEPLOY_FOR_TEST'
+&VALTBL(158)    SETC '(1)'
+&TYPTBL(158)    SETC 'HEX'
+.*
+&INDEXTBL(159)  SETC 'SEC_RETRIEVE_WITH_SIGNOUT'
+&VALTBL(159)    SETC '(1)'
+&TYPTBL(159)    SETC 'HEX'
+.*
+&INDEXTBL(160)  SETC 'CD19002_QE_CCOLS'
+&VALTBL(160)    SETC '(1)'
+&TYPTBL(160)    SETC 'HEX'
+.*
+&INDEXTBL(161)  SETC 'CD19003_TEXT_SEARCH'
+&VALTBL(161)    SETC '(RANGE,1,999)'
+&TYPTBL(161)    SETC 'HEX'
+.*
+&INDEXTBL(162)  SETC 'UNUSED162'
+&VALTBL(162)    SETC '(1)'
+&TYPTBL(162)    SETC 'HEX'
+.*
+&INDEXTBL(163)  SETC 'UNUSED163'
+&VALTBL(163)    SETC '(1)'
+&TYPTBL(163)    SETC 'HEX'
+.*
+&INDEXTBL(164)  SETC 'UNUSED164'
+&VALTBL(164)    SETC '(1)'
+&TYPTBL(164)    SETC 'HEX'
+.*
+&INDEXTBL(165)  SETC 'UNUSED165'
+&VALTBL(165)    SETC '(1)'
+&TYPTBL(165)    SETC 'HEX'
+.*
+&INDEXTBL(166)  SETC 'UNUSED166'
+&VALTBL(166)    SETC '(1)'
+&TYPTBL(166)    SETC 'HEX'
+.*
+&INDEXTBL(167)  SETC 'UNUSED167'
+&VALTBL(167)    SETC '(1)'
+&TYPTBL(167)    SETC 'HEX'
+.*
+&INDEXTBL(168)  SETC 'UNUSED168'
+&VALTBL(168)    SETC '(1)'
+&TYPTBL(168)    SETC 'HEX'
+.*
+&INDEXTBL(169)  SETC 'UNUSED169'
+&VALTBL(169)    SETC '(1)'
+&TYPTBL(169)    SETC 'HEX'
+.*
+&INDEXTBL(170)  SETC 'UNUSED170'
+&VALTBL(170)    SETC '(1)'
+&TYPTBL(170)    SETC 'HEX'
+.*
+&INDEXTBL(171)  SETC 'UNUSED171'
+&VALTBL(171)    SETC '(1)'
+&TYPTBL(171)    SETC 'HEX'
+.*
+&INDEXTBL(172)  SETC 'UNUSED172'
+&VALTBL(172)    SETC '(1)'
+&TYPTBL(172)    SETC 'HEX'
+.*
+&INDEXTBL(173)  SETC 'UNUSED173'
+&VALTBL(173)    SETC '(1)'
+&TYPTBL(173)    SETC 'HEX'
+.*
+&INDEXTBL(174)  SETC 'UNUSED174'
+&VALTBL(174)    SETC '(1)'
+&TYPTBL(174)    SETC 'HEX'
+.*
+&INDEXTBL(175)  SETC 'UNUSED175'
+&VALTBL(175)    SETC '(1)'
+&TYPTBL(175)    SETC 'HEX'
+.*
+&INDEXTBL(176)  SETC 'UNUSED176'
+&VALTBL(176)    SETC '(1)'
+&TYPTBL(176)    SETC 'HEX'
+.*
+&INDEXTBL(177)  SETC 'UNUSED177'
+&VALTBL(177)    SETC '(1)'
+&TYPTBL(177)    SETC 'HEX'
+.*
+&INDEXTBL(178)  SETC 'UNUSED178'
+&VALTBL(178)    SETC '(1)'
+&TYPTBL(178)    SETC 'HEX'
+.*
+&INDEXTBL(179)  SETC 'UNUSED179'
+&VALTBL(179)    SETC '(1)'
+&TYPTBL(179)    SETC 'HEX'
+.*
+&INDEXTBL(180)  SETC 'UNUSED180'
+&VALTBL(180)    SETC '(1)'
+&TYPTBL(180)    SETC 'HEX'
+.*
+&INDEXTBL(181)  SETC 'UNUSED181'
+&VALTBL(181)    SETC '(1)'
+&TYPTBL(181)    SETC 'HEX'
+.*
+&INDEXTBL(182)  SETC 'UNUSED182'
+&VALTBL(182)    SETC '(1)'
+&TYPTBL(182)    SETC 'HEX'
+.*
+&INDEXTBL(183)  SETC 'UNUSED183'
+&VALTBL(183)    SETC '(1)'
+&TYPTBL(183)    SETC 'HEX'
+.*
+&INDEXTBL(184)  SETC 'UNUSED184'
+&VALTBL(184)    SETC '(1)'
+&TYPTBL(184)    SETC 'HEX'
+.*
+&INDEXTBL(185)  SETC 'UNUSED185'
+&VALTBL(185)    SETC '(1)'
+&TYPTBL(185)    SETC 'HEX'
+.*
+&INDEXTBL(186)  SETC 'UNUSED186'
+&VALTBL(186)    SETC '(1)'
+&TYPTBL(186)    SETC 'HEX'
+.*
+&INDEXTBL(187)  SETC 'UNUSED187'
+&VALTBL(187)    SETC '(1)'
+&TYPTBL(187)    SETC 'HEX'
+.*
+&INDEXTBL(188)  SETC 'UNUSED188'
+&VALTBL(188)    SETC '(1)'
+&TYPTBL(188)    SETC 'HEX'
+.*
+&INDEXTBL(189)  SETC 'UNUSED189'
+&VALTBL(189)    SETC '(1)'
+&TYPTBL(189)    SETC 'HEX'
+.*
+&INDEXTBL(190)  SETC 'UNUSED190'
+&VALTBL(190)    SETC '(1)'
+&TYPTBL(190)    SETC 'HEX'
+.*
+&INDEXTBL(191)  SETC 'UNUSED191'
+&VALTBL(191)    SETC '(1)'
+&TYPTBL(191)    SETC 'HEX'
+.*
+&INDEXTBL(192)  SETC 'UNUSED192'
+&VALTBL(192)    SETC '(1)'
+&TYPTBL(192)    SETC 'HEX'
+.*
+&INDEXTBL(193)  SETC 'UNUSED193'
+&VALTBL(193)    SETC '(1)'
+&TYPTBL(193)    SETC 'HEX'
+.*
+&INDEXTBL(194)  SETC 'UNUSED194'
+&VALTBL(194)    SETC '(1)'
+&TYPTBL(194)    SETC 'HEX'
+.*
+&INDEXTBL(195)  SETC 'UNUSED195'
+&VALTBL(195)    SETC '(1)'
+&TYPTBL(195)    SETC 'HEX'
+.*
+&INDEXTBL(196)  SETC 'UNUSED196'
+&VALTBL(196)    SETC '(1)'
+&TYPTBL(196)    SETC 'HEX'
+.*
+&INDEXTBL(197)  SETC 'UNUSED197'
+&VALTBL(197)    SETC '(1)'
+&TYPTBL(197)    SETC 'HEX'
+.*
+&INDEXTBL(198)  SETC 'UNUSED198'
+&VALTBL(198)    SETC '(1)'
+&TYPTBL(198)    SETC 'HEX'
+.*
+&INDEXTBL(199)  SETC 'UNUSED199'
+&VALTBL(199)    SETC '(1)'
+&TYPTBL(199)    SETC 'HEX'
+.*
+&INDEXTBL(200)  SETC 'UNUSED200'
+&VALTBL(200)    SETC '(1)'
+&TYPTBL(200)    SETC 'HEX'
+.*
+&INDEXTBL(201)  SETC 'UNUSED201'
+&VALTBL(201)    SETC '(1)'
+&TYPTBL(201)    SETC 'HEX'
+.*
+&INDEXTBL(202)  SETC 'UNUSED202'
+&VALTBL(202)    SETC '(1)'
+&TYPTBL(202)    SETC 'HEX'
+.*
+&INDEXTBL(203)  SETC 'UNUSED203'
+&VALTBL(203)    SETC '(1)'
+&TYPTBL(203)    SETC 'HEX'
+.*
+&INDEXTBL(204)  SETC 'UNUSED204'
+&VALTBL(204)    SETC '(1)'
+&TYPTBL(204)    SETC 'HEX'
+.*
+&INDEXTBL(205)  SETC 'UNUSED205'
+&VALTBL(205)    SETC '(1)'
+&TYPTBL(205)    SETC 'HEX'
+.*
+&INDEXTBL(206)  SETC 'UNUSED206'
+&VALTBL(206)    SETC '(1)'
+&TYPTBL(206)    SETC 'HEX'
+.*
+&INDEXTBL(207)  SETC 'UNUSED207'
+&VALTBL(207)    SETC '(1)'
+&TYPTBL(207)    SETC 'HEX'
+.*
+&INDEXTBL(208)  SETC 'UNUSED208'
+&VALTBL(208)    SETC '(1)'
+&TYPTBL(208)    SETC 'HEX'
+.*
+&INDEXTBL(209)  SETC 'UNUSED209'
+&VALTBL(209)    SETC '(1)'
+&TYPTBL(209)    SETC 'HEX'
+.*
+&INDEXTBL(210)  SETC 'UNUSED210'
+&VALTBL(210)    SETC '(1)'
+&TYPTBL(210)    SETC 'HEX'
+.*
+&INDEXTBL(211)  SETC 'UNUSED211'
+&VALTBL(211)    SETC '(1)'
+&TYPTBL(211)    SETC 'HEX'
+.*
+&INDEXTBL(212)  SETC 'UNUSED212'
+&VALTBL(212)    SETC '(1)'
+&TYPTBL(212)    SETC 'HEX'
+.*
+&INDEXTBL(213)  SETC 'UNUSED213'
+&VALTBL(213)    SETC '(1)'
+&TYPTBL(213)    SETC 'HEX'
+.*
+&INDEXTBL(214)  SETC 'UNUSED214'
+&VALTBL(214)    SETC '(1)'
+&TYPTBL(214)    SETC 'HEX'
+.*
+&INDEXTBL(215)  SETC 'UNUSED215'
+&VALTBL(215)    SETC '(1)'
+&TYPTBL(215)    SETC 'HEX'
+.*
+&INDEXTBL(216)  SETC 'UNUSED216'
+&VALTBL(216)    SETC '(1)'
+&TYPTBL(216)    SETC 'HEX'
+.*
+&INDEXTBL(217)  SETC 'UNUSED217'
+&VALTBL(217)    SETC '(1)'
+&TYPTBL(217)    SETC 'HEX'
+.*
+&INDEXTBL(218)  SETC 'UNUSED218'
+&VALTBL(218)    SETC '(1)'
+&TYPTBL(218)    SETC 'HEX'
+.*
+&INDEXTBL(219)  SETC 'UNUSED219'
+&VALTBL(219)    SETC '(1)'
+&TYPTBL(219)    SETC 'HEX'
+.*
+&INDEXTBL(220)  SETC 'UNUSED220'
+&VALTBL(220)    SETC '(1)'
+&TYPTBL(220)    SETC 'HEX'
+.*
+&INDEXTBL(221)  SETC 'UNUSED221'
+&VALTBL(221)    SETC '(1)'
+&TYPTBL(221)    SETC 'HEX'
+.*
+&INDEXTBL(222)  SETC 'UNUSED222'
+&VALTBL(222)    SETC '(1)'
+&TYPTBL(222)    SETC 'HEX'
+.*
+&INDEXTBL(223)  SETC 'UNUSED223'
+&VALTBL(223)    SETC '(1)'
+&TYPTBL(223)    SETC 'HEX'
+.*
+&INDEXTBL(224)  SETC 'UNUSED224'
+&VALTBL(224)    SETC '(1)'
+&TYPTBL(224)    SETC 'HEX'
+.*
+&INDEXTBL(225)  SETC 'UNUSED225'
+&VALTBL(225)    SETC '(1)'
+&TYPTBL(225)    SETC 'HEX'
+.*
+&INDEXTBL(226)  SETC 'UNUSED226'
+&VALTBL(226)    SETC '(1)'
+&TYPTBL(226)    SETC 'HEX'
+.*
+&INDEXTBL(227)  SETC 'UNUSED227'
+&VALTBL(227)    SETC '(1)'
+&TYPTBL(227)    SETC 'HEX'
+.*
+&INDEXTBL(228)  SETC 'UNUSED228'
+&VALTBL(228)    SETC '(1)'
+&TYPTBL(228)    SETC 'HEX'
+.*
+&INDEXTBL(229)  SETC 'UNUSED229'
+&VALTBL(229)    SETC '(1)'
+&TYPTBL(229)    SETC 'HEX'
+.*
+&INDEXTBL(230)  SETC 'UNUSED230'
+&VALTBL(230)    SETC '(1)'
+&TYPTBL(230)    SETC 'HEX'
+.*
+&INDEXTBL(231)  SETC 'UNUSED231'
+&VALTBL(231)    SETC '(1)'
+&TYPTBL(231)    SETC 'HEX'
+.*
+&INDEXTBL(232)  SETC 'UNUSED232'
+&VALTBL(232)    SETC '(1)'
+&TYPTBL(232)    SETC 'HEX'
+.*
+&INDEXTBL(233)  SETC 'UNUSED233'
+&VALTBL(233)    SETC '(1)'
+&TYPTBL(233)    SETC 'HEX'
+.*
+&INDEXTBL(234)  SETC 'UNUSED234'
+&VALTBL(234)    SETC '(1)'
+&TYPTBL(234)    SETC 'HEX'
+.*
+&INDEXTBL(235)  SETC 'UNUSED235'
+&VALTBL(235)    SETC '(1)'
+&TYPTBL(235)    SETC 'HEX'
+.*
+&INDEXTBL(236)  SETC 'UNUSED236'
+&VALTBL(236)    SETC '(1)'
+&TYPTBL(236)    SETC 'HEX'
+.*
+&INDEXTBL(237)  SETC 'UNUSED237'
+&VALTBL(237)    SETC '(1)'
+&TYPTBL(237)    SETC 'HEX'
+.*
+&INDEXTBL(238)  SETC 'UNUSED238'
+&VALTBL(238)    SETC '(1)'
+&TYPTBL(238)    SETC 'HEX'
+.*
+&INDEXTBL(239)  SETC 'UNUSED239'
+&VALTBL(239)    SETC '(1)'
+&TYPTBL(239)    SETC 'HEX'
+.*
+&INDEXTBL(240)  SETC 'UNUSED240'
+&VALTBL(240)    SETC '(1)'
+&TYPTBL(240)    SETC 'HEX'
+.*
+&INDEXTBL(241)  SETC 'UNUSED241'
+&VALTBL(241)    SETC '(1)'
+&TYPTBL(241)    SETC 'HEX'
+.*
+&INDEXTBL(242)  SETC 'UNUSED242'
+&VALTBL(242)    SETC '(1)'
+&TYPTBL(242)    SETC 'HEX'
+.*
+&INDEXTBL(243)  SETC 'UNUSED243'
+&VALTBL(243)    SETC '(1)'
+&TYPTBL(243)    SETC 'HEX'
+.*
+&INDEXTBL(244)  SETC 'UNUSED244'
+&VALTBL(244)    SETC '(1)'
+&TYPTBL(244)    SETC 'HEX'
+.*
+&INDEXTBL(245)  SETC 'UNUSED245'
+&VALTBL(245)    SETC '(1)'
+&TYPTBL(245)    SETC 'HEX'
+.*
+&INDEXTBL(246)  SETC 'UNUSED246'
+&VALTBL(246)    SETC '(1)'
+&TYPTBL(246)    SETC 'HEX'
+.*
+&INDEXTBL(247)  SETC 'UNUSED247'
+&VALTBL(247)    SETC '(1)'
+&TYPTBL(247)    SETC 'HEX'
+.*
+&INDEXTBL(248)  SETC 'UNUSED248'
+&VALTBL(248)    SETC '(1)'
+&TYPTBL(248)    SETC 'HEX'
+.*
+&INDEXTBL(249)  SETC 'UNUSED249'
+&VALTBL(249)    SETC '(1)'
+&TYPTBL(249)    SETC 'HEX'
+.*
+&INDEXTBL(250)  SETC 'UNUSED250'
+&VALTBL(250)    SETC '(1)'
+&TYPTBL(250)    SETC 'HEX'
+.*
+&INDEXTBL(251)  SETC 'UNUSED251'
+&VALTBL(251)    SETC '(1)'
+&TYPTBL(251)    SETC 'HEX'
+.*
+&INDEXTBL(252)  SETC 'UNUSED252'
+&VALTBL(252)    SETC '(1)'
+&TYPTBL(252)    SETC 'HEX'
+.*
+&INDEXTBL(253)  SETC 'UNUSED253'
+&VALTBL(253)    SETC '(1)'
+&TYPTBL(253)    SETC 'HEX'
+.*
+&INDEXTBL(254)  SETC 'UNUSED254'
+&VALTBL(254)    SETC '(1)'
+&TYPTBL(254)    SETC 'HEX'
+.*
+&INDEXTBL(255)  SETC 'UNUSED255'
+&VALTBL(255)    SETC '(1)'
+&TYPTBL(255)    SETC 'HEX'
+.*
+&INDEXTBL(256)  SETC 'UNUSED256'
+&VALTBL(256)    SETC '(1)'
+&TYPTBL(256)    SETC 'HEX'
+.*
+         AIF  ('&DO' EQ '').OPT0100
+&VALPARM(1)   SETC '&MSGSEVERITY_SMGR116'
+.*
+&VALPARM(2)   SETC '&XFER_COMMENTS'
+.*
+&VALPARM(3)   SETC '&QE_CMDCHAR'
+.*
+&VALPARM(4)   SETC '&QE_MIXED'
+.*
+&VALPARM(5)   SETC '&UNLOAD_NOSHARE'
+.*
+&VALPARM(6)   SETC '&INCLUDE_COB'
+.*
+&VALPARM(7)   SETC '&NO_PROC_PRINT'
+.*
+&VALPARM(8)   SETC '&NO_LMOD_FP'
+.*
+&VALPARM(9)   SETC '&ATTACH_BM3000'
+.*
+&VALPARM(10)   SETC '&BANNER_PAGES'
+.*
+&VALPARM(11)   SETC '&MSGSEVERITY_C1G0275'
+.*
+&VALPARM(12)   SETC '&MSGSEVERITY_C1G0295'
+.*
+&VALPARM(13)   SETC '&C1SORTIO_SMALL'
+.*
+&VALPARM(14)   SETC '&C1SORTIO_MODE'
+.*
+&VALPARM(15)   SETC '&NO_EXCP'
+.*
+&VALPARM(16)   SETC '&USE_CONCOMP1'
+.*
+&VALPARM(17)   SETC '&NO_ALTID_EXIT'
+.*
+&VALPARM(18)   SETC '&PARSER_HEAP_SIZE'
+.*
+&VALPARM(19)   SETC '&VALIDATE_PVLB'
+.*
+&VALPARM(20)   SETC '&NEW_COMPARE'
+.*
+&VALPARM(21)   SETC '&UNUSED21'
+.*
+&VALPARM(22)   SETC '&VSAM_INPUT_OK'
+.*
+&VALPARM(23)   SETC '&BC1PSRVL_USE'
+.*
+&VALPARM(24)   SETC '&ALLOW_NON_PKG_ACTIONS'
+.*
+&VALPARM(25)   SETC '&RESERVE_OPSYS_STG'
+.*
+&VALPARM(26)   SETC '&BYPASS_C1G0501'
+.*
+&VALPARM(27)   SETC '&GEN_WHERE_SCL'
+.*
+&VALPARM(28)   SETC '&FIXED_PANEL_OPT#S'
+.*
+&VALPARM(29)   SETC '&VFY_FP_FAILURES'
+.*
+&VALPARM(30)   SETC '&PKG_ELEMENT_LOCK'
+.*
+&VALPARM(31)   SETC '&ALTID_SYSOUT'
+.*
+&VALPARM(32)   SETC '&BLKSIZE_CONCAT'
+.*
+&VALPARM(33)   SETC '&CCID_LST_LAST_ACT'
+.*
+&VALPARM(34)   SETC '&CCID_WHERE_ALL'
+.*
+&VALPARM(35)   SETC '&PKGID_PROMPT'
+.*
+&VALPARM(36)   SETC '&ELMNM_PROMPT'
+.*
+&VALPARM(37)   SETC '&UNUSED37'
+.*
+&VALPARM(38)   SETC '&REGISTER_ACROSS_SYSTEMS'
+.*
+&VALPARM(39)   SETC '&SUPER_USER'
+.*
+&VALPARM(40)   SETC '&DS_C1TEMPR1_SUFFX'
+.*
+&VALPARM(41)   SETC '&DS_INTERNAL_TEMP'
+.*
+&VALPARM(42)   SETC '&MONOCASE_SEARCH'
+.*
+&VALPARM(43)   SETC '&IGNORE_SKIP_ALLOC'
+.*
+&VALPARM(44)   SETC '&SHIP_DEST_LIST_MAP_RULE_ONLY'
+.*
+&VALPARM(45)   SETC '&UNUSED45'
+.*
+&VALPARM(46)   SETC '&UNUSED46'
+.*
+&VALPARM(47)   SETC '&RESTRICT_BACKOUT'
+.*
+&VALPARM(48)   SETC '&LB_CNTL_CHAR'
+.*
+&VALPARM(49)   SETC '&LB_SEQNUM'
+.*
+&VALPARM(50)   SETC '&LB_SUPPRESS_AUDIT'
+.*
+&VALPARM(51)   SETC '&PKG_ACTIONS_NO_APPRVR'
+.*
+&PARMACMQ SETC ''
+         ENHOPTAC PARM=&ISSUE_ELEMENT_REFERENCED_MSGS
+&VALPARM(52)   SETC '&PARMACMQ'
+.*
+&VALPARM(53)   SETC '&PROC_MOVE_DFLT'
+.*
+&VALPARM(54)   SETC '&PV_CNTL_CHAR'
+.*
+&VALPARM(55)   SETC '&SEC_BYP_LST_PRT'
+.*
+&VALPARM(56)   SETC '&SEC_MOVE_TARGET'
+.*
+&VALPARM(57)   SETC '&SHP_DISP_SHR'
+.*
+&VALPARM(58)   SETC '&SHP_EXEC_FAIL'
+.*
+&VALPARM(59)   SETC '&ALLOW_DUP_SYMBOLS'
+.*
+&VALPARM(60)   SETC '&UNLOCK_FAILED_ACTION'
+.*
+&VALPARM(61)   SETC '&SYMB_UNDERSCORE'
+.*
+&VALPARM(62)   SETC '&TRANSFER_NO_VVLL'
+.*
+&VALPARM(63)   SETC '&BYPASS_GENERATE_XFER'
+.*
+&VALPARM(64)   SETC '&DEFAULT_REVERSE'
+.*
+&VALPARM(65)   SETC '&RESTORE_GENERATE_DATE'
+.*
+&VALPARM(66)   SETC '&DONT_SAVE_AO'
+.*
+&VALPARM(67)   SETC '&SCAN_STOP'
+.*
+&VALPARM(68)   SETC '&KEEP_PDM_OTHERDSN'
+.*
+&VALPARM(69)   SETC '&DYNAM_PANELS_UPPER'
+.*
+&VALPARM(70)   SETC '&BYPASS_C1G0333W'
+.*
+&VALPARM(71)   SETC '&SET_STOPRC12'
+.*
+&VALPARM(72)   SETC '&BYPASS_C1G0147E'
+.*
+&VALPARM(73)   SETC '&BYPASS_C1G0334W'
+.*
+&VALPARM(74)   SETC '&NO_SECURITY_USERID'
+.*
+&VALPARM(75)   SETC '&ACM_USE_ELEMENT_NAME'
+.*
+&VALPARM(76)   SETC '&NO_VERSION_LEVEL'
+.*
+&VALPARM(77)   SETC '&NO_SYS_SBS_SELECTION_LIST'
+.*
+&VALPARM(78)   SETC '&EXIT_LOAD'
+.*
+&VALPARM(79)   SETC '&DO_NOT_SAVE_CCIDCOMM'
+.*
+&VALPARM(80)   SETC '&EXIT2_FAIL_EXIT3'
+.*
+&VALPARM(81)   SETC '&MSGSEVERITY_C1X0103'
+.*
+&VALPARM(82)   SETC '&MSGSEVERITY_IMGR009'
+.*
+&VALPARM(83)   SETC '&MSGSEVERITY_C1G0296'
+.*
+&VALPARM(84)   SETC '&MSGSEVERITY_C1G0272'
+.*
+&VALPARM(85)   SETC '&MSGSEVERITY_C1G0231'
+.*
+&VALPARM(86)   SETC '&MSGSEVERITY_ENBX043'
+.*
+&VALPARM(87)   SETC '&MSGSEVERITY_FPVL004'
+.*
+&VALPARM(88)   SETC '&MSGSEVERITY_C1G0507'
+.*
+&VALPARM(89)   SETC '&MSGSEVERITY_C1G0336'
+.*
+&VALPARM(90)   SETC '&LIBR_INC_STMT'
+.*
+&VALPARM(91)   SETC '&MSGSEVERITY_ENBE027'
+.*
+&VALPARM(92)   SETC '&ALWAYS_CALL_GENPKGID'
+.*
+&VALPARM(93)   SETC '&MSG_C1G0208'
+.*
+&VALPARM(94)   SETC '&QE_BUILD_MAP'
+.*
+&VALPARM(95)   SETC '&RESERVED_OTHERDSN'
+.*
+&VALPARM(96)   SETC '&BYPASS_CIIO0092'
+.*
+&VALPARM(97)   SETC '&BYPASS_PKMR514E'
+.*
+&VALPARM(98)   SETC '&COPY_COBOL2_REPLACE'
+.*
+&ACMREORG      SETC  '&AUTO_ACMQ_FILE_REORG'
+               AIF (T'&AUTO_ACMQ_FILE_REORG EQ 'O').AFTER
+&N             SETA N'&AUTO_ACMQ_FILE_REORG
+               AIF  ('&AUTO_ACMQ_FILE_REORG(1)' EQ  'OFF').AFTER
+               AIF  (&N EQ 2).AFTER
+&ACMREORG      SETC '(ON,5000)'
+.AFTER         ANOP
+&VALPARM(99)   SETC '&ACMREORG'
+.*
+&VALPARM(100)  SETC '&SCL_IN_CAST_REPORT'
+.*
+&VALPARM(101)  SETC '&CAST_INSPECT_EXIT02'
+.*
+&VALPARM(102)  SETC '&BACKOUT_PROMPT'
+.*
+&VALPARM(103)  SETC '&MSGSEVERITY_C1BMX21'
+.*
+&VALPARM(104)  SETC '&MSGSEVERITY_ENBP001'
+.*
+&VALPARM(105)  SETC '&INCLUDE_ORIGINAL_COPY'
+.*
+&VALPARM(106)  SETC '&DYNAMIC_APPROVERS'
+.*
+&PARMFCTN SETC ''
+       AIF   (T'&SUPPRESS_OVERRIDE_EMAIL(1) EQ 'O').VALEND107
+       AIF   ('&SUPPRESS_OVERRIDE_EMAIL(1)' NE 'OFF').VALENDCALL
+&PARMFCTN SETC '(OFF)'
+        AGO   .VALEND107
+.VALENDCALL ANOP
+&PARMFCTN SETC '(ON,'
+&TITLE    SETC 'SUPPRESS_OVERRIDE_EMAIL'
+         ENHOPARQ SPECIFIED=&SUPPRESS_OVERRIDE_EMAIL(2),               *
+               ALLOWED=(ADD,                                           *
+               ARCHIVE,                                                *
+               DELETE,                                                 *
+               GENERATE,                                               *
+               SIGNIN,                                                 *
+               TRANSFER,                                               *
+               RETRIEVE,                                               *
+               UPDATE)
+.VALEND107 ANOP
+&VALPARM(107)  SETC '&PARMFCTN'
+.*
+&VALPARM(108)  SETC '&DO_NOT_SYNC_AT_TARGET'
+.*
+&VALPARM(109)  SETC '&UPPERCASE_TEXT'
+.*
+&VALPARM(110)  SETC '&INTRDR_ALTID'
+.*
+&VALPARM(111)  SETC '&SUPPRESS_LLACOPY'
+.*
+&VALPARM(112)  SETC '&PKG_CAST_IGNORE_JUMP'
+.*
+&VALPARM(113)  SETC '&GEN_DO_NOT_CHK_SIGNOUT'
+.*
+&VALPARM(114)  SETC '&GEN_INPLACE_DO_NOT_SET_SIGNOUT'
+.*
+&VALPARM(115)  SETC '&GEN_COPYBCK_DO_NOT_SET_SIGNOUT'
+.*
+&VALPARM(116)  SETC '&PKG_NOT_REQUIRED'
+.*
+&VALPARM(117)  SETC '&PROCESSOR_DISP_OLD_DDNS'
+.*
+&VALPARM(118)  SETC '&ELM_REG_CHK_OUTPTYPE_ACROSS_SYSTEMS'
+.*
+&VALPARM(119)  SETC '&USE_C1#TMPL_LIST'
+.*
+&VALPARM(120)  SETC '&SYMBOL_CASE_UPLOW'
+.*
+&VALPARM(121)  SETC '&SUPPRESS_SHIPCONF_EMAIL'
+.*
+&VALPARM(122)  SETC '&MSGSEVERITY_C1G0119'
+.*
+&VALPARM(123)  SETC '&IMPLICIT_DELETE_APPROVAL_CHECK'
+.*
+&VALPARM(124)  SETC '&ACMQ_CMNT_QUERY_PERF'
+.*
+&VALPARM(125)  SETC '&UNUSED125'
+.*
+&VALPARM(126)  SETC '&MSGSEVERITY_SMGR117'
+.*
+&VALPARM(127)  SETC '&LB_ARC'
+.*
+&VALPARM(128)  SETC '&LB_ARC_NORESEQ'
+.*
+&VALPARM(129)  SETC '&RACF_TEMPDSN_OPTION'
+.*
+&VALPARM(130)  SETC '&PROM_PKG_SUPPRESS_AUTOCAST'
+.*
+&VALPARM(131)  SETC '&CCID_VAL_IF_NOT_REQ'
+.*
+&VALPARM(132)  SETC '&KEEP_SYMDATA_TRAILING_SPACE'
+.*
+&VALPARM(133)  SETC '&SUPPRESS_FPVL007'
+.*
+&VALPARM(134)  SETC '&PROCESS_DELETE_ACTIONS_FIRST'
+.*
+&VALPARM(135)  SETC '&ALLOW_SHIP_AFTER_ELEMENT_DELETE'
+.*
+&PARMUSSN SETC ''
+       AIF   (T'&ENABLE_ALTID_USS_SECURITY  EQ 'O').VALEND136
+       AIF   ('&ENABLE_ALTID_USS_SECURITY'  NE 'OFF').VALCAL136
+&PARMUSSN SETC '(OFF)'
+        AGO   .VALEND136
+.VALCAL136  ANOP
+&PARMUSSN SETC '(ON,'
+          MNOTE 'ENHOPTNS A PARMUSSN IS &PARMUSSN'
+&TITLE    SETC 'ENABLE_ALTID_USS_SECURITY'
+         ENHOPUSS SPECIFIED=&ENABLE_ALTID_USS_SECURITY(2)
+          MNOTE 'ENHOPTNS B PARMUSSN IS &PARMUSSN'
+.VALEND136 ANOP
+&VALPARM(136)  SETC '&PARMUSSN'
+.*
+&VALPARM(137)  SETC '&COMPONENT_SEARCH'
+.*
+&VALPARM(138)  SETC '&MSGSEVERITY_FPVL002'
+.*
+&VALPARM(139)  SETC '&ACMQ_REORG_BY_WTO'
+.*
+&VALPARM(140)  SETC '&MSGSEVERITY_JRCV011'
+.*
+&VALPARM(141)  SETC '&PACKAGE_SHIP_WITH_ALTID'
+.*
+&VALPARM(142)  SETC '&AUTOGEN_SOURCE'
+.*
+&VALPARM(143)  SETC '&MSGSEVERITY_PKMR632'
+.*
+&VALPARM(144)  SETC '&SHIP_OUTPUTS_ASIS'
+.*
+&VALPARM(145)  SETC '&EINE_ACTIVE'
+.*
+&VALPARM(146)  SETC '&EXCLUDE_SITEID_FROM_FP_VERIFY'
+.*
+&VALPARM(147)  SETC '&SPAN_NONE_ALWAYS'
+.*
+&VALPARM(148)  SETC '&APPROVER_DISQUALIFIED'
+.*
+&VALPARM(149)  SETC '&MSGSEVERITY_C1X0503'
+.*
+&VALPARM(150)  SETC '&PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP'
+.*
+&VALPARM(151)  SETC '&CD18101_QE_QUE_BATCH_ACT'
+.*
+&VALPARM(152)  SETC '&CD18102_QE_USER_ROUTINES'
+.*
+&VALPARM(153)  SETC '&SYNC_NOTIF_EMAIL_TO_LAST_LVL_USER'
+.*
+&VALPARM(154)  SETC '&CD18104_SYNC_ACTION'
+.*
+&VALPARM(155)  SETC '&CD18105_ADMIN_ACT_IN_PROCESSOR'
+.*
+&VALPARM(156)  SETC '&ALWAYS_CALL_ENUXSITE'
+.*
+&VALPARM(157)  SETC '&SEC_ALTERNATIVE_MENUAUTH'
+.*
+&VALPARM(158)  SETC '&QE_DEPLOY_FOR_TEST'
+.*
+&VALPARM(159)  SETC '&SEC_RETRIEVE_WITH_SIGNOUT'
+.*
+&VALPARM(160)  SETC '&CD19002_QE_CCOLS'
+.*
+&VALPARM(161)  SETC '&CD19003_TEXT_SEARCH'
+.*
+&VALPARM(162)  SETC '&UNUSED162'
+.*
+&VALPARM(163)  SETC '&UNUSED163'
+.*
+&VALPARM(164)  SETC '&UNUSED164'
+.*
+&VALPARM(165)  SETC '&UNUSED165'
+.*
+&VALPARM(166)  SETC '&UNUSED166'
+.*
+&VALPARM(167)  SETC '&UNUSED167'
+.*
+&VALPARM(168)  SETC '&UNUSED168'
+.*
+&VALPARM(169)  SETC '&UNUSED169'
+.*
+&VALPARM(170)  SETC '&UNUSED170'
+.*
+&VALPARM(171)  SETC '&UNUSED171'
+.*
+&VALPARM(172)  SETC '&UNUSED172'
+.*
+&VALPARM(173)  SETC '&UNUSED173'
+.*
+&VALPARM(174)  SETC '&UNUSED174'
+.*
+&VALPARM(175)  SETC '&UNUSED175'
+.*
+&VALPARM(176)  SETC '&UNUSED176'
+.*
+&VALPARM(177)  SETC '&UNUSED177'
+.*
+&VALPARM(178)  SETC '&UNUSED178'
+.*
+&VALPARM(179)  SETC '&UNUSED179'
+.*
+&VALPARM(180)  SETC '&UNUSED180'
+.*
+&VALPARM(181)  SETC '&UNUSED181'
+.*
+&VALPARM(182)  SETC '&UNUSED182'
+.*
+&VALPARM(183)  SETC '&UNUSED183'
+.*
+&VALPARM(184)  SETC '&UNUSED184'
+.*
+&VALPARM(185)  SETC '&UNUSED185'
+.*
+&VALPARM(186)  SETC '&UNUSED186'
+.*
+&VALPARM(187)  SETC '&UNUSED187'
+.*
+&VALPARM(188)  SETC '&UNUSED188'
+.*
+&VALPARM(189)  SETC '&UNUSED189'
+.*
+&VALPARM(190)  SETC '&UNUSED190'
+.*
+&VALPARM(191)  SETC '&UNUSED191'
+.*
+&VALPARM(192)  SETC '&UNUSED192'
+.*
+&VALPARM(193)  SETC '&UNUSED193'
+.*
+&VALPARM(194)  SETC '&UNUSED194'
+.*
+&VALPARM(195)  SETC '&UNUSED195'
+.*
+&VALPARM(196)  SETC '&UNUSED196'
+.*
+&VALPARM(197)  SETC '&UNUSED197'
+.*
+&VALPARM(198)  SETC '&UNUSED198'
+.*
+&VALPARM(199)  SETC '&UNUSED199'
+.*
+&VALPARM(200)  SETC '&UNUSED200'
+.*
+&VALPARM(201)  SETC '&UNUSED201'
+.*
+&VALPARM(202)  SETC '&UNUSED202'
+.*
+&VALPARM(203)  SETC '&UNUSED203'
+.*
+&VALPARM(204)  SETC '&UNUSED204'
+.*
+&VALPARM(205)  SETC '&UNUSED205'
+.*
+&VALPARM(206)  SETC '&UNUSED206'
+.*
+&VALPARM(207)  SETC '&UNUSED207'
+.*
+&VALPARM(208)  SETC '&UNUSED208'
+.*
+&VALPARM(209)  SETC '&UNUSED209'
+.*
+&VALPARM(210)  SETC '&UNUSED210'
+.*
+&VALPARM(211)  SETC '&UNUSED211'
+.*
+&VALPARM(212)  SETC '&UNUSED212'
+.*
+&VALPARM(213)  SETC '&UNUSED213'
+.*
+&VALPARM(214)  SETC '&UNUSED214'
+.*
+&VALPARM(215)  SETC '&UNUSED215'
+.*
+&VALPARM(216)  SETC '&UNUSED216'
+.*
+&VALPARM(217)  SETC '&UNUSED217'
+.*
+&VALPARM(218)  SETC '&UNUSED218'
+.*
+&VALPARM(219)  SETC '&UNUSED219'
+.*
+&VALPARM(220)  SETC '&UNUSED220'
+.*
+&VALPARM(221)  SETC '&UNUSED221'
+.*
+&VALPARM(222)  SETC '&UNUSED222'
+.*
+&VALPARM(223)  SETC '&UNUSED223'
+.*
+&VALPARM(224)  SETC '&UNUSED224'
+.*
+&VALPARM(225)  SETC '&UNUSED225'
+.*
+&VALPARM(226)  SETC '&UNUSED226'
+.*
+&VALPARM(227)  SETC '&UNUSED227'
+.*
+&VALPARM(228)  SETC '&UNUSED228'
+.*
+&VALPARM(229)  SETC '&UNUSED229'
+.*
+&VALPARM(230)  SETC '&UNUSED230'
+.*
+&VALPARM(231)  SETC '&UNUSED231'
+.*
+&VALPARM(232)  SETC '&UNUSED232'
+.*
+&VALPARM(233)  SETC '&UNUSED233'
+.*
+&VALPARM(234)  SETC '&UNUSED234'
+.*
+&VALPARM(235)  SETC '&UNUSED235'
+.*
+&VALPARM(236)  SETC '&UNUSED236'
+.*
+&VALPARM(237)  SETC '&UNUSED237'
+.*
+&VALPARM(238)  SETC '&UNUSED238'
+.*
+&VALPARM(239)  SETC '&UNUSED239'
+.*
+&VALPARM(240)  SETC '&UNUSED240'
+.*
+&VALPARM(241)  SETC '&UNUSED241'
+.*
+&VALPARM(242)  SETC '&UNUSED242'
+.*
+&VALPARM(243)  SETC '&UNUSED243'
+.*
+&VALPARM(244)  SETC '&UNUSED244'
+.*
+&VALPARM(245)  SETC '&UNUSED245'
+.*
+&VALPARM(246)  SETC '&UNUSED246'
+.*
+&VALPARM(247)  SETC '&UNUSED247'
+.*
+&VALPARM(248)  SETC '&UNUSED248'
+.*
+&VALPARM(249)  SETC '&UNUSED249'
+.*
+&VALPARM(250)  SETC '&UNUSED250'
+.*
+&VALPARM(251)  SETC '&UNUSED251'
+.*
+&VALPARM(252)  SETC '&UNUSED252'
+.*
+&VALPARM(253)  SETC '&UNUSED253'
+.*
+&VALPARM(254)  SETC '&UNUSED254'
+.*
+&VALPARM(255)  SETC '&UNUSED255'
+.*
+&VALPARM(256)  SETC '&UNUSED256'
+.*
+         AGO   .MEND
+.****************************************************************
+.OPT0100 ANOP
+ENHOLIST  EQU   &ENHOLIST               LIST
+ENHOREST  EQU   &ENHOREST               RESTORE
+ENHOCOPY  EQU   &ENHOCOPY               COPY
+ENHOADD   EQU   &ENHOADD                ADD
+ENHOUPDT  EQU   &ENHOUPDT               UPDATE
+ENHOARCH  EQU   &ENHOARCH               ARCHIVE
+ENHOGEN   EQU   &ENHOGEN                GENERATE
+ENHOMOVE  EQU   &ENHOMOVE               MOVE
+ENHODEL   EQU   &ENHODEL                DELETE
+ENHORET   EQU   &ENHORET                RETRIEVE
+ENHOPRNT  EQU   &ENHOPRNT               PRINT
+ENHOXFER  EQU   &ENHOXFER               TRANSFER
+ENHOSIGN  EQU   &ENHOSIGN               SIGNIN
+ENHOALTR  EQU   &ENHOALTR               ALTER
+ENHONONE  EQU   &ENHONONE               NONE
+&I       SETA  1
+.OPT0200 ANOP
+         AIF   (&I  GT &NDXMAX).MEND
+OPTIONAL_PTF_&INDEXTBL(&I)         EQU  &I
+&I       SETA  &I+1
+         AGO   .OPT0200
+.MEND    ANOP
+         MEND

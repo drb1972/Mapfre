@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Override Signout \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether to process an element if it is not signed
++out to you. Acceptable values are:
++
+%   N+- Default. Do not process the element.
++
+%   Y+- Process the element. The element is signed out to you
++       if you specify this option.
++
++You must be authorized to use this option.
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

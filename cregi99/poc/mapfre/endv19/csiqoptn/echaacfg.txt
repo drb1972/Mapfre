@@ -1,0 +1,24 @@
+      *****************************************************************
+      *                                                               *
+      *            CONFIG REQUEST BLOCK                               *
+      *                                                               *
+      *****************************************************************
+       01  AACFG-RQ.
+           05  AACFG-RQ-HEADER.
+               10  AACFG-RQ-LEN        PIC 9(04) COMP VALUE 23.
+               10  AACFG-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AACFG-RQ-ID         PIC 9(04) COMP VALUE 2004.
+               10  AACFG-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AACFG-RQ-EYE        PIC X(04)      VALUE 'CFGQ'.
+           05  AACFG-RQ-DATAAREA.
+               10  AACFG-RQ-FUNC       PIC X(01)   VALUE SPACES.
+                   88  AACFG-RQ-FUNC-TYP           VALUE 'T'.
+                   88  AACFG-RQ-FUNC-OPT           VALUE 'O'.
+                   88  AACFG-RQ-FUNC-SYM           VALUE 'S'.
+                   88  AACFG-RQ-FUNC-DIAL          VALUE 'D'.
+                   88  AACFG-RQ-FUNC-C1DEF         VALUE 'C'.
+               10  AACFG-RQ-DDN        PIC X(08)   VALUE SPACES.
+               10  AACFG-RQ-QUAL       PIC X(01)   VALUE SPACES.
+                   88  AACFG-RQ-QUAL-DEF           VALUE '"'.
+               10  AACFG-RQ-ESC        PIC X(01)   VALUE SPACES.
+                   88  AACFG-RQ-ESC-DEF            VALUE '\'.

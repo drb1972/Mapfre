@@ -1,0 +1,23 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SCL Import Data Set Name \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The SCL Import Data Set Name fields directs the Define action to copy the SCL
++from the specified data set name or DD statement into the package that is
++being created or updated.  The fields are standard data set specification
++fields used to identify an external data set and member.  The data set can be
++a PDS or a sequential file.
++
++Use the Other Partitioned or Sequential Data Set field as an alternative to
++SCL Import Data Set Name fields.  Type the data set and member specification
++in 'data set(member)' format.
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2100
+)END

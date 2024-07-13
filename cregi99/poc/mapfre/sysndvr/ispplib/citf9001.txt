@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Transfer - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Blank+- Use this option to return an element selection list. This only
+         applies when DISPLAY LIST=Y.
+
+%T+- To generate a Transfer action request.
++    The transfer action cannot be used when the From element is a
++    source-less element. Source-less elements are created by the
++    Generate NOSOURCE action.
++
++
++
++
++
++
++
++
++
++                          (%PF3+ to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

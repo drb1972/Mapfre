@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Working With Elements \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You manipulate elements by executing commands called actions.
++Some actions are available in both foreground and in batch, while
++others are available only in batch..  Batch actions are also available
++when you build packages.
++
++  * The User's Guide explains how to execute actions in
++    foreground and submit batch action requests.
++
++  * The SCL Reference Manual contains the syntax for
++    Software Control Language (SCL). SCL allows you to code
++    batch action requests.
++
++
++
++
++
++                  (%PF3+to return,%ENTER+for%action summary table+)
+)PROC
+   &ZCONT = CITT4100
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Consistent Report Formats \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
+%
+%Consistent Report Formats +
+
+ Some reports have been reformatted for consistency. On all reports, the
+ following now look the same:  the format of the date and the location
+ of the date and page number in the heading.
+
+
+
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15150
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ With History \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to move the element with history. By default,
++elements move without history. This means that all change levels
++at the source location are combined into a single level and appended
++to the current level at the target location.
+
++When you specify WITH HISTORY=Y, all change levels are moved from
++the source to the target location and appends them to the current level
++at the target.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Delete Connection \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++Use this panel to delete a DistribuLink connection and its mapping
++rules. The connection's mapping rules can be displayed from this panel.
++
+%     D+- Display data set mapping rules for this connection.
+%     #+- Delete the connection and all its mapping rules.
++
++
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Connection ID/Description  %3+- Staging Data Set Info
+%    2+- Server LU Name             %4+- Created/Updated Fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCONN0 2,CITSLUN0
+                  3,CITSTDS0 4,CITPDBTM)
+)END

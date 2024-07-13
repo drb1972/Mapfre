@@ -1,0 +1,45 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Extended Element Name Masking \-\
+%Option ===>~ZCMD                                                 %Version 19.0
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Extended Element Name Masking+                           \ \+Enabled:%AVAILABLE
++
++
++  CD19005   Extended Element Name Masking
++
++  This enhancement enables%extended masking+in the%Element Name field
++  on the Quick Edit Option Menu and the Classic Endevor interface.
++
++ %Standard name masking+allows only one wildcard character asterisk (*)
++  at the end of the search string or as the only character in the
++  search string (full wildcard).
++
++ %Extended name masking+has no restrictions on the placement of the
++  wildcard character asterisk in the search string. The asterisk does
++  not have to be placed at the end of the search string and multiple
++  asterisks within the search string are allowed.
++
++  For example, the specification of the search string%U*PD*,+which
++  would be invalid for standard masking, is valid in the Element Name
++  field because of extended masking. This search string would return
++  all elements that begin with U and contain the characters PD anywhere
++  else in the element name, such as UPD, U1PD2ATE, U123PDT or UABCDXPD.
++
++  Extended name masking has no effect on the use of placeholder
++  characters.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+&VARC1LR = '        '
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (.RESP = END) &VARC1LR = PASSTHRU
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

@@ -1,0 +1,66 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Endevor Text Search \-\
+%Option ===>~ZCMD                                               %Version 19.0
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Endevor Text Search Feature                              \ \+Enabled:%&VNTFTXTS
++
++
++  CD19003   Endevor Text Search
++
++  This feature enables a full text search in the following interfaces:
++
++   %Quick Edit+Command 'ESEARCH' on the Element Selection List panel
++   %CSV Utility+WHERE TEXT clause on a LIST ELEMENT request
++   %Endevor API+New fields in the ALELM_RQ (list element) request block
++
++  The search can be performed on any of the following:
++
++      Element Source
++      Element History
++      Element Summary of Levels
++      Element Changes
++      Component List
++      Component List Summary of Levels
++      Component List History
++      Component List Changes
++
++  When performing the search, Endevor will need to access the content
++  of each element in the list. This can lead to significant resource
++  usage when the list includes a large number of elements, so narrowing
++  down the list using other criteria like map location, type or ccid
++  is recommended.
++
++  Any elements that cannot be accessed for security or other reasons
++  will be skipped and considered as not a match.
++
++  By default, only elements whose Type definition specifies
++  DATA FORMAT = TEXT are searched.
++  This can be changed using one of the text search options (specific to
++  each interface where the text search is available)
++
++  This feature is enabled by adding the following option to your optional
++  feature table:
++
++      ENHOPT%CD19003_TEXT_SEARCH=ON+                +DEFAULT IS OFF
++
++  The following topics will be presented only if selected by number:
++
++  { 1}Element Text Search dialog+
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+)PROC
+&ZSEL = TRANS(&ZCMD,
+                  1,*ENDHE165
+                  *,'?')
+IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01003) VAR(ZCMD) VAL(END)
+)END

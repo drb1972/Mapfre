@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Building a WIP File \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++PDM builds a work in process file by comparing a base program and one or
++two files derived from the base. PDM annotates the WIP File to
++clearly mark all insertions, deletions, and conflict areas.
++
++The Build WIP process also produces reports and statistical data which
++allow a manager to estimate the time and resources that will be
++required to resolve the conflicts.
++
++    Select%1-3+for information about:
++
+%    1+- Building a WIP file        %3+- PDM Reports
+%    2+- WIP file annotations
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T2000 2,BC1T1520 3,BC1TT600)
+)END

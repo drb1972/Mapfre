@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Selecting Members from Lists \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM displays an Member Selection List when you must explicitly specify
++a member and have not done so. PDM allows you to select only one
++member from this list.
++
++After you have selected a member you can:
++
++ * Press PF3 to return to the original panel, deselecting the member.
++
++ * Press ENTER to display the next panel in the Build WIP sequence.
++
++
+)END

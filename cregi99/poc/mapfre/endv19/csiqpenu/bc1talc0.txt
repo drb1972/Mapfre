@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Data Set Allocation Panels \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++If the WIP or request data set that you specify does not exist, PDM
++displays a WIP or Request Data Set Allocation panel that allows you
++to allocate the data set.
++
++The%Management Class, Storage Class, Volume Serial+and%Data Class+ fields
++are all optional. The default is the site specified values. If you specify
++a value that is not defined, the allocation fails with a recoverable
++application error.
++
+%Space Units+- Acceptable values are%BLKS+(blocks),%TRKS+(tracks), or
+%   CYLS+(cylinders).
++
+%Primary+and%Secondary Quantity+- Must be numeric. Space is allocated in
++   the units specified in the Space Units field.
++
++
++                                 (%ENTER+for other allocation fields )
+)PROC
+   &ZCONT = BC1TALC1
+)END

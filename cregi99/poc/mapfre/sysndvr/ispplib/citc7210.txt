@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%\-\ New Quick-Edit pop-ups \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%New pop-ups in Quick-Edit.
+
++ Two new pop-up panels have been added in Quick-Edit.
+
+  A pop-up panel will be presented when trying to edit an element which is not
+  synchronized with the next occurrence of that element in the map.
+
+  A pop-up will also be presented when a MOVE action gets initiated in Quick-
+  Edit and the%SIGNOUT TO+field on the Action Options does not contain spaces.
+  The purpose is to avoid the inadvertant signing out of the element at the
+  target location of the MOVE action.
+
+  In both cases the user can decide either to cancel the action by hitting pf3,
+  or to ignore the warning by hitting the enter key.
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7220
+)END

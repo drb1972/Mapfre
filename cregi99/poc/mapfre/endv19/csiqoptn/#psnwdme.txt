@@ -1,0 +1,7 @@
+@REM ****************************************************** #PSNWDME ***
+@REM *    CONTENTS: ENDEVOR/MVS - RUN THE REMOTE COPY/DELETE JOB
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: ADD A RUN JOB COMMAND TO THE NDM PROCESS
+@REM *******************************************************************
+@REM *
+STEPNWDM RUN JOB (SNODE DSN=&ARJOBDSN)

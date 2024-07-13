@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "TO" Member Name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Retrieve new name panel appears when you select the RN option
++from the Element Selection panel.
++
+%From Element+- The Element name you selected on the previous panel
+        carries forward and is displayed. If the name is greater than
+        51 characters you can use the scroll keys or the%ZEXPAND+command
+        to display the entire value.
+
+%To Member+- The 1 to 10 character name of the To Member. If the
+        Element name is a valid member name, the Element name is placed
+        into the member name field. You can then modify the value.
++
++
++
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

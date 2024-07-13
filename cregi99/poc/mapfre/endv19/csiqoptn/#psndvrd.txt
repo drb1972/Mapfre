@@ -1,0 +1,10 @@
+@REM ****************************************************** #PSNDVRD ***
+@REM *    CONTENTS: ENDEVOR/MVS - HOST DATASET DELETION JCL
+@REM * TRANSMITTER: ALL
+@REM *     PURPOSE: JCL TO EXECUTE IDCAMS TO DELETE HOST STAGING
+@REM *              DATASETS.
+@REM *******************************************************************
+@REM
+//JSHD&D4  EXEC PGM=IDCAMS
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *

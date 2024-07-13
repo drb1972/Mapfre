@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Utilities Action Options\-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++There are several action options that are displayed on the Utilities
++panel. Each option is described below.
+%  RELACE MEMBER+- This option is used in conjuction with the Export
++     action. When exporting a package, you must specify the name of
++     the target data set. If the data set you specify is a PDS and
++     the member name you specify already exists, the REPLACE MEMBER
++     option determines if the member can be replaced.
++
++
++
++
++
++
++
+)PROC
+)END

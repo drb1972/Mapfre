@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Synchronization Notification Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Synchronization Notification Enhancement +
+
++ The Synchronization Notification feature immediately sends an email
+  to the element change owner, when an element is changed or added
+  higher in the software life cycle map and is found to be out-of-sync
+  with the element located lower in the map.
+
+  Out-of-sync elements are instances of the same element with the
+  element at the higher location in the software life cycle map having
+  change levels that are not reflected in the element located lower in
+  the element located lower in the map. These elements are out of
+  synchronization.
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E9
+)END

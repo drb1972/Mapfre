@@ -1,0 +1,20 @@
+IMGR240E 'PROC TYPE INVALID'                             .ALARM=YES
+'&VARWLTXT'
+IMGR241E 'NO DATA FOR SYMBOL'                            .ALARM=YES
+'&VARWLTXT'
+IMGR242E 'PROC NAME INVALID'                             .ALARM=YES
+'&VARWLTXT'
+IMGR243E 'TDF ENTRY MISSING'                             .ALARM=YES
+'&VARWLTXT'
+IMGR244E 'CATL SEG NOT FOUND'                            .ALARM=YES
+'&VARWLTXT'
+IMGR245E 'CATL/MCF SYNC PROB'                            .ALARM=YES
+'&VARWLTXT'
+IMGR246E 'CATL SEG EXISTS'                               .ALARM=YES
+'&VARWLTXT'
+IMGR247E '$IMR FAILURE'                                  .ALARM=YES
+'&VARWLTXT'
+IMGR248I 'CATL SEG EXISTS'                               .ALARM=YES
+'&VARWLTXT'
+IMGR249I 'CATL SEG NOT FOUND'                            .ALARM=YES
+'&VARWLTXT'

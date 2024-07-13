@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY EXPAND(\\)
+%\-\  Environment and Element Not Specified  \-\
+%COMMAND ===>_ZCMD                                                             +
++
++   ************************************************************************
++   *                                                                      *
++   *   The%environment and element names+were not specified on the        *
++   *   previous panel.  A%significant delay+can occur if there are        *
++   *   a large number of elements that meet the selection criteria.       *
++   *                                                                      *
++   *   When an element selection list is generated with the environment   *
++   *   not specified, the%(E)dit+and%(G)enerate with Copyback+functions   *
++   *   will cause the element to be fetched to the%entry stage+of the     *
++   *   environment where the selected element existed when the list was   *
++   *   generated.                                                         *
++   *                                                                      *
++   *   The%Build Using Map+and%Return First Found+options are ignored     *
++   *   when generating the element selection list.                        *
++   *                                                                      *
++   *   To return and refine your search, enter the%END+command.           *
++   *   To continue with your search, press the%ENTER+key.                 *
++   *                                                                      *
++   ************************************************************************
+)INIT
+)PROC
+)END

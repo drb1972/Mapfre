@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Reporting Interface \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to build report jobstreams in foreground.
++
++Options%1+-%7+access panels that allow you to build JCL for specific
++reports. Options%E+(EDIT) and%S+(SUBMIT) allow you to edit this JCL
++and submit report jobs. The job card is created by entering the
++appropriate data in the%Job statement information+field.
++
++Each report option builds one JCL job step.  When you specify multiple
++reports, JOB steps are automically appended.  This enables you to submit
++all report requests in a single jobstream.
++
++In the%option+field, type the option number corresponding to the type
++of reports for which you want to build JCL.  Then, press ENTER.
++
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\  APPROVER GROUP RELATION REQUEST  \-\
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display relationships between inventory areas and Approver Groups
++  %#+- Delete relationship between an inventory area and an Approver Group
++  %C+- Relate an inventory area to an Approver Group
++  %U+- Change the Approver Group for an inventory area
++
++ENVIRONMENT      %===>_VAREVNME+
++
++APPROVER TYPE    %===>_VARGJTYP  +  (EMERGENCY/STANDARD)
++
++INVENTORY AREA TO WHICH APPROVER GROUP IS RELATED:
++
++   SYSTEM        %===>_VARSYNME+
++   SUBSYSTEM     %===>_VARSBNME+
++   TYPE          %===>_VARTYNME+
++   STAGE NUMBER  %===>_Z+
++
++   Note: For DISPLAY only, leaving the SYSTEM, SUBSYSTEM, TYPE or
++         STAGE NUMBER field blank will cause selection list display.
++         To build an inventory rule denoting all SYSTEMS, SUBSYSTEMS, TYPES
++         or STAGE NUMBERS, place an asterisk (*) in the desired field.
++
+)INIT
+  .ZVARS = '(VARGJDS#)'
+  .HELP = CITAGRQ0
+)PROC
+)END

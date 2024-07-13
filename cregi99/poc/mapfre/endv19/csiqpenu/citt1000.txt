@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Implementation Overview \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++    Select%1+-%4+for information about
++
+%    1+- General functionality
+%    2+- Organizing the software life cycle
+%    3+- Using the inventory structure
+%    4+- Functions by job role
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT1100 2,CITLCYC0 3,CITQINV0 4,CITFUNC0)
+)END

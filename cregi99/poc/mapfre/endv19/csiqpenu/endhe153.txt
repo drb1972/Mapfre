@@ -1,0 +1,25 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Generate in Place \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Generate in Place+- Indicates whether the element will be
++       generated in place.
++
+%          Y+- Element will be generated in the stage where it is found.
++
+%          N+- (Default) The Element will be copied back into the entry
++              stage.
++
++
++
++
++
++
++
++
++
++
++
++
++\ \(%END+to return) \ \
+)END

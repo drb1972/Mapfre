@@ -1,0 +1,133 @@
+)PANEL KEYLIST(ISRSNAB,ISR)
+)ATTR DEFAULT() FORMAT(MIX)            /* ISREMCLS - ENGLISH - 7.3 */
+ 0D TYPE(PS)
+ 05 TYPE(PT)
+ 06 TYPE(PIN)
+ 09 TYPE(FP)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+ 10 TYPE(ET)
+ 27 TYPE(NEF) CAPS(ON) PADC(USER)
+ 28 AREA(SCRL) EXTEND(ON)
+)BODY WINDOW(76,22) EXPAND() CMD(ZCMD)
+	 Model Classes 
+Option ===>Z                                                          
+
+Enter number or Class of model.
+EnterENDcommand to cancel MODEL command.
+SAREA40                                                                   
+)AREA SAREA40
+1 CLIST   - ISPF services in CLIST commands                             
+2 COBOL   - ISPF services in COBOL programs                             
+3 EXEC    - ISPF services in EXEC commands                              
+4 FORTRAN - ISPF services in FORTRAN programs                           
+5 MSGS    - Message format                                              
+6 PANELS  - Panel formats and statements                                
+7 PLI     - ISPF services in PLI programs                               
+8 SKELS   - File tailoring control statements                           
+9 PASCAL  - ISPF services in PASCAL programs                            
+10REXX    - ISPF services in TSO/REXX commands                          
+11DTL     - ISPF Dialog Tag Language formats and statements             
+12C       - ISPF services in C/370 programs                             
+13SCLM    - SCLM Project Definition Macros                              
+14ARCHDEF - SCLM Architecture Definition templates                      
+15SCL     - Endevor SCL for Batch Actions                               
+)INIT
+.ZVARS = '(ZCMD)'
+&ZWINTTL = ' '
+.HELP = ISR2P100
+.MSG = '        '                  /*   BLANK MSG INITIALLY           */
+&ISRMCLAS = '        '             /*   AND THE CLASS HOLDER VARIABLE */
+.CURSOR = 'ZCMD'
+)PROC
+IF (&ISRMONCL = 'Y')               /* ARE WE ONLY OBTAINING A CLASS ? */
+    &ISRMCLAS = TRANS(TRUNC(&ZCMD,'.')  1,CLIST 2,COB 3,EXEC 4,FORT
+       5,MSGS 6,PANELS 7,PLI 8,SKELS 9,PASCAL 10,REXX 11,DTL 12,C
+       13,SCLM 14,ARCHDEF 15,SCL *,*)
+                                   /*                         @H1C@H5C*/
+    &TMPTRAIL = .TRAIL             /* Save any remaining          @H1A*/
+IF (&ISRMONCL ^= 'Y')       /* ARE WE ONLY OBTAINING A CLASS ? OZ83844*/
+     &ISRMDSPL = '        '
+&ZCMD = TRUNC (&ZCMD,'.')
+&ZTMPTRL = .TRAIL
+IF (&ZCMD = 'COBOL') &ZCMD = TRUNC(&ZCMD,3)
+IF (&ZCMD = 'EXEC') &ZCMD = TRUNC(&ZCMD,4)
+&ZCMD = TRANS (&ZCMD
+CLIST,1 COB,2 EXEC,3 FORTRAN,4 FTN,4A FORT,4B MSGS,5 ISPMLIB,5A PANELS,6
+MENUS,6A ISPPLIB,6B PLI,7 PL1,7A PLIOPT,7B PLS,7C SKELS,8 PROCS,8A ISPSLIB,8B
+PASCAL,9 REXX,10 DTL,11 C,12 CPP,1C SCLM,13 ARCHDEF,14 SCL,15 ' ',' ' *,*)
+IF (&ZCMD ^= ' ') &ZCMD = '&ZCMD..&ZTMPTRL'
+&ZSEL = TRANS (TRUNC (&ZCMD,'.')
+  1,'PANEL(ISREMCMF)'
+  2,'PANEL(ISREMCOB)'
+  3,'PANEL(ISREMEXC)'
+  4,'PANEL(ISREMFTN)'
+ 4A,'PANEL(ISREMFTN)'
+ 4B,'PANEL(ISREMFTN)'
+  5,'PGM(ISRECMBR) PARM(ISREMMSG NOSEQ)'
+ 5A,'PGM(ISRECMBR) PARM(ISREMMSG NOSEQ)'
+  6,'PANEL(ISREMPNL)'
+ 6A,'PANEL(ISREMPNL)'
+ 6B,'PANEL(ISREMPNL)'
+  7,'PANEL(ISREMPLI)'
+ 7A,'PANEL(ISREMPLI)'
+ 7B,'PANEL(ISREMPLI)'
+ 7C,'PANEL(ISREMPLI)'
+  8,'PANEL(ISREMSKL)'
+ 8A,'PANEL(ISREMSKL)'
+ 8B,'PANEL(ISREMSKL)'
+  9,'PANEL(ISREMPAS)'
+ 10,'PANEL(ISREMRXC)'
+ 11,'PANEL(ISREMDTL)'
+ 12,'PANEL(ISREMWLN)'
+ 1C,'PANEL(ISREMWLN)'
+ 13,'PANEL(ISREMFLM)'
+ 14,'PANEL(ISREMARC)'
+ 15,'PANEL(ENMDLSCL)'
+ ' ',' '
+   *,'?')
+IF (&ZSEL = '?')
+                 /* IF (&ISRMDSPL ^= 'RETURN' ) ** REPLACED BY OY33372*/
+  IF (&ZMACRO = 'N' )                /*                        0Y33372*/
+    &ZEMTEMP = &ZCMD                 /* SET VARIABLE FOR MSG   OZ91267*/
+    .MSG = ISRYM012
+    &ZCMD = ' '                      /* RESET CMD LINE = BLANK OZ91267*/
+    .RESP = 'ENTER'                  /* WANT TO RESET RESP FOR RE-ENT */
+                  /* IF (&ISRMDSPL = 'RETURN' ) ** REPLACED BY OY33372*/
+  ELSE                               /*                        OY33372*/
+    .RESP = 'END'
+    &ISRMCLAS = '?'
+    .MSG = ISRYM012                  /* INVALID CLASS          OY33372*/
+&ISRMMEND = 'N'                      /* SET THE END INDICATOR TO NO   */
+IF (.RESP = END)                     /* DID WE GET AN END FROM WHERE  */
+    IF (&ISRMDSPL ^= 'RETURN  ')     /* WAS IT BECAUSE WE HAVE MEMBER */
+      &ISRMMEND = 'Y'                /* ITS BECAUSE USER HIT END KEY  */
+IF (&ISRMONCL = 'Y')                 /* ARE WE ONLY OBTAINING A CLASS */
+   IF (.RESP ^= 'RETURN  ')          /* Has user hit extended return  */
+     IF (&ISRMCLAS ^= '        ')    /* Make sure we have some class  */
+        IF (&TMPTRAIL = ' ')         /* Just class entered        @H1A*/
+           .RESP = END              /* ONLY WANT CLASS, NO OTHER DISP.*/
+        IF (&TMPTRAIL ^= ' ')        /* More than class entered   @H1A*/
+           &ZEMTEMP = &ZCMD          /* Set variable for message  @H1A*/
+           .MSG = ISRYM012           /* Set message number        @H1A*/
+           &ZCMD = ' '               /* Reset cmd lint = blank    @H1A*/
+           .RESP = 'ENTER'           /* Reset RESP to Re-enter    @H1A*/
+&ZMSG = .MSG                         /* SET MESSAGE VARIABLE      @L1A*/
+VPUT(ZMSG) PROFILE                   /* SAVE MESSAGE IN PROF POOL @L1A*/
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(6)
+FIELD(ZPS01007) VAR(ZCMD) VAL(7)
+FIELD(ZPS01008) VAR(ZCMD) VAL(8)
+FIELD(ZPS01009) VAR(ZCMD) VAL(9)
+FIELD(ZPS01010) VAR(ZCMD) VAL(10)
+FIELD(ZPS01011) VAR(ZCMD) VAL(11)
+FIELD(ZPS01012) VAR(ZCMD) VAL(12)
+FIELD(ZPS01013) VAR(ZCMD) VAL(13)
+FIELD(ZPS01014) VAR(ZCMD) VAL(14)
+FIELD(ZPS01015) VAR(ZCMD) VAL(15)
+)END

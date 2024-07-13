@@ -1,0 +1,63 @@
+         MACRO                                                          00034401
+         $NTFXMTM &TYPE=W,&PRIM=10,&SEC=5                                0003450
+         LCLC &N
+&N       SETC '&SYSNDX'
+.*
+.*   MACRO $NTFXMTM COMES IN ADDITION TO THE $NOTIFY MACRO
+.*            IT IS INTENDED TO BE USED WITH THE NEW XMITM PROTOCOL
+.*            AND BC1PNTFY MODULE IN ORDER TO TRANSMIT SEVERAL LINES
+.*            OF MESSAGES.
+.*
+.*   TYPE=I : ALLOCATES CPOOL TO CREATE ROOM  FOR MESSAGE LINES
+.*            PRIM : NUMBER OF CELLS (ONE CELL EACH LINE)
+.*            SEC  : WHEN THE NUMBER OF LINES GETS GREATER THAN PRIM,
+.*                   ADDS MORE CELLS .
+.*
+.*   TYPE=W : ACQUIRES A CELL
+.*            MOVES NOTMSGXT IN THIS CELL (MESSAGE FOR XMIT)
+.*
+.*   TYPE=C : FREES THE CPOOL
+.*
+.*
+         AIF  ('&TYPE' EQ 'W').WRITE                                    00034601
+         AIF  ('&TYPE' EQ 'I').INIT                                     00034701
+         AIF  ('&TYPE' EQ 'C').CLOSE                                    00034801
+         MNOTE 8,'*** ERROR PARAM TYPE INVALID'                         00034901
+         MEXIT                                                          00035001
+.INIT    ANOP                                                           00036001
+*                                                                       00037001
+         XC    NOTMSGLP,NOTMSGLP       INIT MSG TEXT CHAIN POINTER
+         XC    NOTMSGCP,NOTMSGCP       INIT MSG TEXT CHAIN POINTER
+         MVC   CPOOLR(LGTCPOOL),CP&SYSNDX                               00038001
+         CPOOL BUILD,PCELLCT=&PRIM,SCELLCT=&SEC,CSIZE=84,MF=(E,CPOOLR)  00039001
+         ST    R0,NOTCPID                                               00040001
+         B     $I&SYSNDX                                                00050001
+CP&N     CPOOL BUILD,PCELLCT=2500,SCELLCT=500,CSIZE=84,LOC=BELOW,MF=L, *00060001
+               HDR='CPOOL BC1PNTFY'
+LGTCPOOL EQU   *-CP&SYSNDX
+$I&SYSNDX DS   0H                                                       00070001
+         MEXIT                                                          00080001
+.CLOSE   ANOP                                                           00090001
+         OC    NOTCPID,NOTCPID
+         BZ    $R&SYSNDX
+         CPOOL DELETE,CPID=NOTCPID                                      00100001
+         XC    NOTCPID,NOTCPID
+         XC    NOTMSGTX,NOTMSGTX                                        00280001
+$R&SYSNDX  DS  0H                                                       00270001
+         MEXIT                                                          00110001
+.WRITE   ANOP                                                           00120001
+         CPOOL GET,CPID=NOTCPID        ACQUIRE STORAGE FOR TABLE        00130001
+         XC    0(4,R1),0(R1)           INITIALIZE NEXT-IN-LIST PTR      00140001
+         OC    NOTMSGLP,NOTMSGLP       IS FIRST MESSAGE IN THE LIST?    00150001
+         BNZ   $S&SYSNDX               NO...                            00160001
+         ST    R1,NOTMSGCP             SAVE CURRENT MESSAGE ADDR        00170001
+         ST    R1,NOTMSGLP             SET FIRST MSG IN LIST ADDR
+         B     $R&SYSNDX               GO COPY MESSAGE TEXT             00200001
+$S&SYSNDX  DS  0H                                                       00210001
+         L     R15,NOTMSGCP            HOLD "OLD" CURRENT MSG PTR       00220001
+         ST    R1,NOTMSGCP             UPDATE FIELD WITH NEW MSG PTR    00230001
+         ST    R1,0(R15)               UPDATE LAST MSG WITH PTR TO NEW  00250001
+         SPACE ,                                                        00260001
+$R&SYSNDX  DS  0H                                                       00270001
+         MVC   4(80,R1),NOTMSGTX                                        00280001
+         MEND

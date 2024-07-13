@@ -1,0 +1,34 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (T) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Transfer - Build Batch Transfer SCL for Element
++
++  This sample user routine (NDUSRXT) builds SCL to perform a batch transfer
++  of the selected element.  The SCL can then be edited to confirm the
++  target location for the transfer.
++
+%  Intended Use:+
++  Use this routine to assist when building batch requests for a single
++  element.  When you have built/edited the SCL you can use the%SQ SUB+command
++  to submit the batch request queue.
++
+%  Note:+
++  Optional feature%CD18101+- Quick Edit Batch Action Feature must be enabled
++  to use this routine.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

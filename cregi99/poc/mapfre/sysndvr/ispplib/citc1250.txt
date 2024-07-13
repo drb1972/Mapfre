@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Processor Map Allocation \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Processor Map Allocation +
+
++ A new keyword%ALLOC=LMAP|PMAP+can be used on a processor DD statement to
+  automatically expand the DD statement allocation according to the CA Endevor
+  SCM mapping structure starting at the current location. %LMAP+is for logical
+  map,%PMAP+is for physical map.  The keyword can be placed on a DD statement
+  containing inventory location symbolics for environment, stage, system and/or
+  subsystem and have that DD expanded to allocate all libraries in the
+  CA Endevor SCM map in concatenation from the current location to the end of
+  the map.  The number of datasets in the concatenation will vary based on the
+  starting position within the map.
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1260
+)END

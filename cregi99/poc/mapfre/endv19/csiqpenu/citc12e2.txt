@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Option to Process Deletes First \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Option to Process Deletes First +
+
++ This%optional feature+allows you to specify that%Delete Actions+are
+  processed%first+in a%package+or a%batch job+when%Global Type
+  Sequencing+is%active.+ This option may be important to you if you have
+  a delete and other actions for the same element in a package or a
+  batch job and need to ensure that the delete takes place before any
+  other action.
+
+
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E3
+)END

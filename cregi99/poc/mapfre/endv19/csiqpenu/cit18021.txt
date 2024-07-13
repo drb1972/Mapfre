@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Approver Disqualification Option\-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 2 of 2
+%Approver Disqualification Option
++
++The%&LIT1                +parameter in the Optional Features table,
++ENCOPTBL,+activates the option. Three choices are supported: activate
++the option for both Standard and Emergency Package types; only
++activate the option for Standard Packages; or only activate the option
++for Emergency Packages.
++
++Approvers in internal approver groups can be disqualified during Cast
++processing. Dynamic approvers and approvers in external approver groups
++can be disqualified when they attempt to approve or deny a Package.
++
++   During Cast processing, each approver in the Package's internal
++   approver groups is validated.
++
++   For dynamic approver groups and external approver groups, the approver
++   IDs are not known at Cast time. Therefore, the approver is validated
++   when the user attempts to perform the Approve or Deny action.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZCONT = CIT18030
+)END

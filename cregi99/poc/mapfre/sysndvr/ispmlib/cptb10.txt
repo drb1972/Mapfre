@@ -1,0 +1,30 @@
+CPTB100 'Enter Required Field'                      .ALARM=YES
+'CPTB100 Please enter the appropriate information in the identified field.
+
+CPTB101 'Invalid Space Unit'                        .ALARM=YES
+'CPTB101 The space unit specified, &PTBDASPC, is invalid.'
+
+CPTB102 'Unsupported Parameter'                     .ALARM=YES
+'CPTB102 The allocation parameter identified is not supported.'
+
+CPTB103 'Invalid Numeric'                           .ALARM=YES
+'CPTB103 The identified field contains an invalid numeric value.'
+
+CPTB104 'Directory Blocks Req''d'                   .ALARM=YES
+'CPTB104 Directory blocks are required when a member name is specified.'
+
+CPTB105 'LRECL must be > 0'                         .ALARM=YES
+'CPTB105 The LRECL specified must be greater than zero.'
+
+CPTB106 'Invalid Value'                             .ALARM=YES
+'CPTB106 The identified field is incorrectly specified.'
+
+CPTB107 'BLKSIZE must be > 0'                       .ALARM=YES
+'CPTB107 The Block Size specified must be greater than zero.'
+
+CPTB108 'Invalid BLKSIZE'                           .ALARM=YES
+'CPTB108 The BLKSIZE specified is inappropriate for the LRECL.'
+
+CPTB109 'Dataset Allocated'                         .ALARM=NO
+'CPTB109 Dataset ''&PTBDADSN'' has been allocated.'
+

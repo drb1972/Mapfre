@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Type Processing Sequence \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to review the processing sequence for types defined
++to your site.
++
++To resequence a type, the administrator must edit the Site Type
++Sequence member and change the placement of the type statement. The
++type statements are arranged in its processing sequence.
++
++The Category value does not affect the type sequencing order and is only used
++when Concurrent Action processing is activated. When multiple types are defined
++with the same category value, those actions will execute simultaneously.
++
++
++
++
++
++
++
++
++
++
+)PROC
+)END

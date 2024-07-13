@@ -1,0 +1,17 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package to be Copied Field \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Package to be Copied field directs the Define action to copy the SCL from
++the package specified into the package you are creating or updating.  The
++The Package to be Copied field must be a fully qualified, existing package ID.
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2100
+)END

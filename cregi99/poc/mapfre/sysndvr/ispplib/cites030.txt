@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Package Processing \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                      %(Screen 1 of 2)+
+%Approval+- Indicates whether packages need to be approved at your site.
+
+%Foreground Execution+- Indicates whether packages may be executed in
+      foreground.
+
+%Cast Security+- Indicates whether to check security authorizations for
++     every action in the package for the user ID requesting package cast.
+
+%Inspect Security+- Indicates whether to check security authorizations for
++     every action in the package for the user ID requesting package inspect.
+
+%Component Validation+- Indicates whether component validation is enabled for
+      packages.
+%High-level Index for Generated Remote Pkg Ship JCL+- This is the high-level
+      dsname index that will be used when allocating remote Package Ship
+      data sets.
++                                         (%ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITES031
+)END

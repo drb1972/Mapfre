@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ PRODUCT TUTORIAL \-\
+%OPTION  ===>_ZCMD                                                             +
+
+
+
+
+
+
+
+
+        TUTORIALS ARE NOT AVAILABLE FOR THIS PANEL
+
+     REFER TO THE APPROPRIATE PRODUCT MANUAL FOR INFORMATION
+)INIT
+)END

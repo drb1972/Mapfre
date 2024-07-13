@@ -1,0 +1,40 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Batch Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%    Batch Action Mode+- Indicates whether the BATCH requests will be
++       executed one at a time, or saved in a queue for later processing.
++       This option applies to all actions where the%action mode+is set to
++       Batch%(B).+ Foreground%(F)+mode actions are not affected.
++
++       Queue actions for Batch:
+%          Y+- Save batch requests in a queue for later processing or...
++
+%          N+- Submit each batch request as a separate job immediately.
++
++       Note: When Batch requests are queued, you must manually submit the
++       queue of requests using the%SQ+command.
++
++    The following topic will be presented only if selected by number:
++
++     { 1}Using the SQ command+
++     { 2}Prompt after Edit+
++
++
++                                 (Press}END+to return)
+)PROC
+&ZUP = ENDHE150
+&ZSEL = TRANS(&ZCMD,
+  1,*ENDHE159
+  2,*ENDHE162
+   *,'?')
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(END)
+)END

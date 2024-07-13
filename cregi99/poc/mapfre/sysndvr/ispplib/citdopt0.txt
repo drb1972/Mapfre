@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Display Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+   %S+- Summary of Levels panel, showing a summary of change history for
++       an element.  From this panel you can display a specific level of the
++       element using option B, C, or H.
+   %M+- Element Master panel, showing Master Control File (MCF)
++       information for an element.
+   %B+- Element Browse panel, showing all statements in the current
++       level of the element, and the level at which each statement was
++       inserted.
+   %C+- Element Changes panel, showing all inserts and deletions made
++       to the element as of the current level.
+   %H+- Element History panel, showing all statements in all levels of
++       the element, and the level at which each insert/deletion occurred.
++
++   Options S, B, C, and H are not supported for source-less elements.
+
++   To view component list information with ACM, append an "X"
++   to option S, B, C, or H.
++\ \ (%PF3+ to return) \ \
+)END

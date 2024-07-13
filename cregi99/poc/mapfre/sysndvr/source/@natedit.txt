@@ -1,0 +1,24 @@
+         MACRO                                                          00010000
+         @NATEDIT                                                       00020000
+         GBLC  &EDITOUT                                                 00030002
+         GBLA  &EDITLNG                                                 00040000
+         LCLC  &TV                                                      00041002
+         LCLA  &LC                                                      00042002
+.*                                                                      00050002
+.*  CHECK &EDITOUT (LENGTH &EDITLNG) FOR NATIONAL CHARACTERS            00060003
+.*  THE STRING AND LENGTH HAVE BEEN SET BY DEFEDIT.                     00061003
+.*                                                                      00070002
+&LC      SETA  1                   COUNT OF CHARACTERS TO CHECK         00110002
+.ED1     ANOP                                                           00120002
+&TV      SETC  '&EDITOUT'(&LC,1)                                        00130002
+         AIF   (('&TV' GE 'A') AND ('&TV' LE 'Z')).ED2                  00140003
+         AIF   (('&TV' GE '0') AND ('&TV' LE '9')).ED2                  00160003
+         AIF   ('&TV' EQ '$').ED2                                       00162003
+         AIF   ('&TV' EQ '@').ED2                                       00163003
+         AIF   ('&TV' EQ '#').ED2                                       00164003
+         MNOTE 12,'INVALID NAME &EDITOUT. (NOT A-Z, $,# OR @)'          00165004
+         MEXIT                                                          00167002
+.ED2     ANOP                                                           00169303
+&LC      SETA  &LC+1               BUMP THE COUNT                       00169402
+         AIF   (&EDITLNG GE &LC).ED1   TRY NEXT CHARACTER               00169502
+         MEND                                                           00170000

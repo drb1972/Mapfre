@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Delete Action Mode \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Delete Action Mode+- Indicates whether the delete action will be
++       executed in foreground or batch.
++
+%          F+- Execute the delete action in the Foreground session.
++
+%          B+- Submit a batch job to execute the delete action.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

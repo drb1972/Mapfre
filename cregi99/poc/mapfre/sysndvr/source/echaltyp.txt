@@ -1,0 +1,99 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST TYPE - REQUEST BLOCK                          *
+      *                                                               *
+      *****************************************************************
+       01  ALTYP-RQ.
+           05  ALTYP-RQ-HEADER.
+               10  ALTYP-RQ-LEN        PIC 9(4) COMP VALUE 52.
+               10  ALTYP-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALTYP-RQ-ID         PIC 9(4) COMP VALUE 1088.
+               10  ALTYP-RQ-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALTYP-RQ-EYE        PIC X(4)      VALUE 'LTYQ'.
+           05  ALTYP-RQ-DATAAREA.
+               10  ALTYP-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALTYP-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALTYP-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALTYP-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALTYP-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALTYP-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALTYP-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALTYP-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  ALTYP-RQ-SYSTEM     PIC X(8)      VALUE SPACE.
+               10  ALTYP-RQ-TYPE       PIC X(8)      VALUE SPACE.
+               10  FILLER              PIC XX        VALUE SPACE.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST TYPE - RESPONSE BLOCK                         *
+      *                                                               *
+      *****************************************************************
+       01  ALTYP-RS.
+           05  ALTYP-RS-HEADER.
+               10  ALTYP-RS-LEN        PIC 9(4) COMP VALUE 408.
+               10  ALTYP-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALTYP-RS-ID         PIC 9(4) COMP VALUE 1089.
+               10  ALTYP-RS-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALTYP-RS-EYE        PIC X(4)      VALUE 'LTYS'.
+           05  ALTYP-RS-DATAAREA.
+               10  ALTYP-RS-SITE       PIC X         VALUE SPACE.
+               10  ALTYP-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-TYPE       PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-TYPENBR    PIC XX        VALUE SPACES.
+               10  ALTYP-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALTYP-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALTYP-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALTYP-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALTYP-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALTYP-RS-UPD-BDTE REDEFINES ALTYP-RS-UPD-DATE.
+                   15  ALTYP-RS-UPD-YYYY   PIC 9(4).
+                   15  ALTYP-RS-UPD-MM     PIC 9(2).
+                   15  ALTYP-RS-UPD-DD     PIC 9(2).
+               10  ALTYP-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALTYP-RS-UPD-BTME REDEFINES ALTYP-RS-UPD-TIME.
+                   15  ALTYP-RS-UPD-HH     PIC 9(2).
+                   15  ALTYP-RS-UPD-MI     PIC 9(2).
+                   15  ALTYP-RS-UPD-SS     PIC 9(2).
+                   15  ALTYP-RS-UPD-TH     PIC 9(2).
+               10  ALTYP-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-FMID       PIC 9(5)      VALUE ZEROS.
+               10  ALTYP-RS-NXT-TYP    PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-DESC       PIC X(50)     VALUE SPACES.
+               10  ALTYP-RS-DPGRPNME   PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-FILEEXT    PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-HOOP       PIC X         VALUE SPACE.
+               10  ALTYP-RS-DATAFMT  REDEFINES ALTYP-RS-HOOP
+                                       PIC X.
+                   88  ALTYP-RS-DATAFMTB                VALUE 'B'.
+                   88  ALTYP-RS-DATAFMTT                VALUE 'T'.
+               10  ALTYP-RS-EXTLANG    PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-INTLANG    PIC X(8)      VALUE SPACES.
+               10  ALTYP-RS-REPCT      PIC XX        VALUE SPACES.
+               10  ALTYP-RS-RESEV      PIC X         VALUE SPACE.
+               10  ALTYP-RS-SLEN       PIC X(5)      VALUE SPACES.
+               10  ALTYP-RS-CMPFR      PIC X(5)      VALUE SPACES.
+               10  ALTYP-RS-CMPTO      PIC X(5)      VALUE SPACES.
+               10  ALTYP-RS-AUCON      PIC X         VALUE SPACE.
+               10  ALTYP-RS-AULTC      PIC X(3)      VALUE SPACES.
+               10  ALTYP-RS-AUCLE      PIC X(3)      VALUE SPACES.
+               10  ALTYP-RS-CAUCO      PIC X         VALUE SPACE.
+               10  ALTYP-RS-CULTC      PIC X(3)      VALUE SPACES.
+               10  ALTYP-RS-CAUCL      PIC X(3)      VALUE SPACES.
+               10  ALTYP-RS-SOEXI      PIC X         VALUE SPACE.
+               10  ALTYP-RS-DELTY      PIC X         VALUE SPACE.
+               10  ALTYP-RS-CDELTY     PIC X         VALUE SPACE.
+               10  ALTYP-RS-CMPBA      PIC X         VALUE SPACE.
+               10  ALTYP-RS-NNCR       PIC X         VALUE SPACE.
+               10  ALTYP-RS-ODSTYP     PIC XX        VALUE SPACES.
+               10  ALTYP-RS-ODSNME     PIC X(44)     VALUE SPACES.
+               10  ALTYP-RS-IDSTYP     PIC XX        VALUE SPACES.
+               10  ALTYP-RS-IDSNME     PIC X(44)     VALUE SPACES.
+               10  ALTYP-RS-BDSTYP     PIC XX        VALUE SPACES.
+               10  ALTYP-RS-BDSNME     PIC X(44)     VALUE SPACES.
+               10  ALTYP-RS-UDSTYP     PIC XX        VALUE SPACES.
+               10  ALTYP-RS-UDSNME     PIC X(44)     VALUE SPACES.
+               10  ALTYP-RS-ELRECFM    PIC X         VALUE SPACES.
+               10  FILLER              PIC X(1)      VALUE SPACES.
+               10  ALTYP-RS-HFSD       PIC X(4)      VALUE SPACES.

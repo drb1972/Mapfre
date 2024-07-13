@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+)BODY
+%DISPLAY ---------------  ELEMENT TYPE DEFINITIONS  ----------------------------
+%COMMAND INPUT ===>_ZCMD                                                       +
++
++
++
++    ENVIRONMENT:     |C1CENV  +
++    SYSTEM      %===>_SYS     +                                              +
++    TYPE        %===>_TYPEN   + (Leave blank to display all element types)   +
++
++    STAGE       %===>_A+   ¢CLU1I+-|CLU1ID  ¢CLU2I+-|CLU2ID
++
+)INIT
+  .HELP = C1SSHELP /*CITD2000 TUTORIAL */
+)PROC
+)END

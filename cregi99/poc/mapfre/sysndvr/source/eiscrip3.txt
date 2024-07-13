@@ -1,0 +1,644 @@
+TABLE NAME (ENDEVOR);
+CTRL;
+  IPKG (TS0B06I);         /* INQUIRY CHANGE TABLE FOR PACKAGES       */
+  IPKGA(TS0B07I);         /* INQUIRY ACTIVITY  TABLE FOR PKG ACTIONS */
+  RPKG (TS0B06R);         /* RETRIEVE CHANGE TABLE FOR PACKAGES      */
+  RPKGA(TS0B07R);         /* RETRIEVE ACTIVITY TABLE FOR PKG ACTIONS */
+  CPKG (TS0B06C);         /* CREATE CHANGE TABLE FOR PACKAGES        */
+  CPKGA(TS0B07C);         /* CREATE ACTIVITY TABLE FOR PKG ACTIONS   */
+  UPKG (TS0B06U);         /* UPDATE CHANGE TABLE FOR PACKAGES        */
+  UPKGA(TS0B07U);         /* UPDATE ACTIVITY TABLE FOR PKG ACTIONS   */
+  AACT (TS0B06A);         /* ADD CHANGE ACTIVITY TABLE FOR PKG ACTION*/
+ECTRL;
+
+
+/************************************************
+ * EXIT POINTS: CREATE/AFTER   MODIFY/ AFTER    *
+ ************************************************/
+USE ((CREATE, AFTER),
+     (MODIFY, AFTER));
+
+NOTFOUND (CREATE,CMD0010);
+FOUND    (CMD0020);
+
+LABEL CMD0010;       /* CHANGE RECORD NOT FOUND: CREATE ONE */
+  CRITERIA;
+  ECRITERIA;
+     POPULATE;
+                     /***************************************
+                      * PECBUSER:  CURRENT USER ID          *
+                      ***************************************/
+       FIELD PANEL(BLG6REQN) INDEX(S0B59) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6STAT) INDEX(S0BEE) VALUE('OPEN');
+     EPOPULATE;
+  CPASS CMD0020;
+ELABEL;
+
+LABEL CMD0020;
+  RC (0);
+  CRITERIA;
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PREQCOMM:  PACKAGE COMMENT             *
+                      * PREQEWSD:  EXECUTION WINDOW START DATE *
+                      * PREQEWST:  EXECUTION WINDOW START TIME *
+                      * PREQEWED:  EXECUTION WINDOW END DATE   *
+                      * PREQEWET:  EXECUTION WINDOW END TIME   *
+                      * PECBUSER:  CURRENT USER ID             *
+                      * PECBFNNM:  PACKAGE FUNCTION            *
+                      * PECBBANM:  BEFORE OR AFTER             *
+                      * PECBNDRC:  NDVR HIGH RETURN CODE       *
+                      * PHDRSTAT:  PACKAGE STATUS              *
+                      * PHDRCRD:   PACKAGE CREATION DATE       *
+                      * PHDRCRT:   PACKAGE CREATION TIME       *
+                      ******************************************/
+       FIELD PANEL(BLG6DSAB) INDEX(S0E0F) VALUE(=PREQCOMM);
+       FIELD PANEL(BLG6SCHD) INDEX(S0C41) VALUE(=PREQEWSD);
+       FIELD PANEL(BLG6SCHT) INDEX(S0C6E) VALUE(=PREQEWST);
+       FIELD PANEL(BLG6TARD) INDEX(S0C42) VALUE(=PREQEWED);
+       FIELD PANEL(BLG6TART) INDEX(S0C6F) VALUE(=PREQEWET);
+       FIELD PANEL(BLG600CN) INDEX(S0B5C) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6PHAC) INDEX(S0C0B) VALUE(=PECBFNNM);
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('PACKAGE PROCESSING COMPLETED RC = =PECBNDRC')
+        TEXT ('INFO ACCESSED FROM PACKAGE EXIT =PECBBANM / =PECBFNNM')
+        TEXT ('PKG STATUS:  =PHDRSTAT  USER: =PECBUSER')
+        TEXT ('CREATE DATE: =PHDRCRD   TIME: =PHDRCRT');
+     EPOPULATE;
+ELABEL;
+EUSE;
+
+
+/************************************************
+ * EXIT POINTS: CAST/AFTER                      *
+ ************************************************/
+
+USE (CAST, AFTER);
+
+FOUND    (CST0020);
+NOTFOUND (CREATE, CST0010);
+
+LABEL CST0010;       /* CHANGE RECORD NOT FOUND:  CREATE ONE.  */
+   CRITERIA;
+   ECRITERIA;
+     POPULATE;
+                     /***************************************
+                      * PECBUSER:  CURRENT USER ID          *
+                      ***************************************/
+       FIELD PANEL(BLG6REQN) INDEX(S0B59) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6STAT) INDEX(S0BEE) VALUE('OPEN');
+     EPOPULATE;
+   CPASS CST0020;
+ELABEL;
+
+LABEL CST0020;
+  RC (0);
+  CRITERIA;
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PREQCOMM:  PACKAGE COMMENT             *
+                      * PREQEWSD:  EXECUTION WINDOW START DATE *
+                      * PREQEWST:  EXECUTION WINDOW START TIME *
+                      * PREQEWED:  EXECUTION WINDOW END DATE   *
+                      * PREQEWET:  EXECUTION WINDOW END TIME   *
+                      * PECBUSER:  CURRENT USER ID             *
+                      * PECBFNNM:  PACKAGE FUNCTION            *
+                      * PECBBANM:  BEFORE OR AFTER             *
+                      * PECBNDRC:  NDVR HIGH RETURN CODE       *
+                      * PHDRSTAT:  PACKAGE STATUS              *
+                      * PHDRCRD:   PACKAGE CREATION DATE       *
+                      * PHDRCRT:   PACKAGE CREATION TIME       *
+                      * PHDRCD:    PACKAGE CAST DATE           *
+                      * PHDRCT:    PACKAGE CAST TIME           *
+                      ******************************************/
+       FIELD PANEL(BLG6DSAB) INDEX(S0E0F) VALUE(=PREQCOMM);
+       FIELD PANEL(BLG6SCHD) INDEX(S0C41) VALUE(=PREQEWSD);
+       FIELD PANEL(BLG6SCHT) INDEX(S0C6E) VALUE(=PREQEWST);
+       FIELD PANEL(BLG6TARD) INDEX(S0C42) VALUE(=PREQEWED);
+       FIELD PANEL(BLG6TART) INDEX(S0C6F) VALUE(=PREQEWET);
+       FIELD PANEL(BLG600CN) INDEX(S0B5C) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6PHAC) INDEX(S0C0B) VALUE(=PECBFNNM);
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('PACKAGE PROCESSING COMPLETED RC = =PECBNDRC')
+        TEXT ('INFO ACCESSED FROM PACKAGE EXIT =PECBBANM / =PECBFNNM')
+        TEXT ('PKG STATUS:  =PHDRSTAT  USER: =PECBUSER')
+        TEXT ('CREATE DATE: =PHDRCRD   TIME: =PHDRCRT')
+        TEXT ('CAST   DATE: =PHDRCD    TIME: =PHDRCT');
+     EPOPULATE;
+ELABEL;
+
+EUSE;
+
+
+/************************************************
+ * EXIT POINT:  CREATE/ACTIVITY. INVOKED AFTER  *
+ * THE CAST AFTER EXIT. THIS INFO EXIT WILL     *
+ * CREATE AN ACTIVITY RECORD PER PACKAGE ACTION *
+ * BY CCID.                                     *
+ ************************************************/
+
+USE (CREATE, ACTIVITY);
+
+LABEL CRT0010;       /* MAINLINE - ALL PKG ACTION POINTS.      */
+   CRITERIA;
+   ECRITERIA;
+     POPULATE;
+                     /***************************************
+                      * PECBUSER:  CURRENT USER ID          *
+                      ***************************************/
+       FIELD PANEL(BLG6REQN) INDEX(S0B59) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6STAT) INDEX(S0BEE) VALUE('OPEN');
+       FIELD PANEL(BLG6DSAB) INDEX(S0E0F)
+             TEXT ('CCID: =PACTCCID IN PACKAGE: =PECBPKID');
+     EPOPULATE;
+   CPASS CRT0020;
+ELABEL;
+
+LABEL CRT0020;       /* LOOKING FOR ACTION: ADD             */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('ADD     ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0010;
+  CFAIL CRT0025;
+ELABEL;
+
+LABEL CRT0025;       /* LOOKING FOR ACTION: UPDATE          */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('UPDATE  ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0010;
+  CFAIL CRT0030;
+ELABEL;
+
+LABEL CRT0030;       /* LOOKING FOR ACTION: RESTORE         */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('RESTORE ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0010;
+  CFAIL CRT0035;
+ELABEL;
+
+LABEL CRT0035;       /* LOOKING FOR ACTION: GENERATE        */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('GENERATE');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0020;
+  CFAIL CRT0040;
+ELABEL;
+
+LABEL CRT0040;       /* LOOKING FOR ACTION: DELETE          */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('DELETE  ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0020;
+  CFAIL CRT0045;
+ELABEL;
+
+LABEL CRT0045;       /* LOOKING FOR ACTION: RETRIEVE        */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('RETRIEVE');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0030;
+  CFAIL CRT0050;
+ELABEL;
+
+LABEL CRT0050;       /* LOOKING FOR ACTION: ARCHIVE         */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('ARCHIVE ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0020;
+  CFAIL CRT0055;
+ELABEL;
+
+LABEL CRT0055;       /* LOOKING FOR ACTION: MOVE            */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('MOVE    ');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0040;
+  CFAIL CRT0060;
+ELABEL;
+
+LABEL CRT0060;       /* LOOKING FOR ACTION: TRANSFER        */
+  CRITERIA;
+    FIELD (=PACTACTN) VALUE('TRANSFER');
+  ECRITERIA;
+     POPULATE;
+     EPOPULATE;
+
+  CPASS GRP0040;
+ELABEL;
+
+
+LABEL GRP0010;       /* FOR PACKAGE ACTION: ADD             */
+  RC (0);            /*                     UPDATE          */
+  CRITERIA;          /*                     RESTORE         */
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PACTACTN:  ACTION NAME                 *
+                      * PACTCOMM:  ACTION COMMENT              *
+                      * PACTSDSN:  DATA SET NAME               *
+                      * PACTSMBR:  MEMBER                      *
+                      * PACTTENV:  ENVIRONMENT NAME            *
+                      * PACTTSYS:  SYSTEM NAME                 *
+                      * PACTTSBS:  SUBSYSTEM NAME              *
+                      * PACTTTYP:  TYPE                        *
+                      * PACTTSTG:  STAGE NAME                  *
+                      * PACTTELM:  ELEMENT NAME                *
+                      ******************************************/
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('ACTION:  =PACTACTN  =PACTCOMM')
+        TEXT ('ELEMENT: =PACTTENV / =PACTTSYS / =PACTTSBS / ') -
+             ('=PACTTTYP / =PACTTSTG / =PACTTELMFN ');
+     EPOPULATE;
+  CPASS GRP0050;
+ELABEL;
+
+
+LABEL GRP0020;       /* FOR PACKAGE ACTIONS: GENERATE          */
+  RC (0);            /*                      DELETE            */
+  CRITERIA;          /*                      ARCHIVE           */
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PACTACTN:  ACTION NAME                 *
+                      * PACTCOMM:  ACTION COMMENT              *
+                      * PACTSENV:  ENVIRONMENT NAME            *
+                      * PACTSSYS:  SYSTEM NAME                 *
+                      * PACTSSBS:  SUBSYSTEM NAME              *
+                      * PACTSTYP:  TYPE                        *
+                      * PACTSSTG:  STAGE NAME                  *
+                      * PACTSELM:  ELEMENT NAME                *
+                      ******************************************/
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('ACTION:  =PACTACTN  =PACTCOMM')
+        TEXT ('ELEMENT: =PACTSENV / =PACTSSYS / =PACTSSBS / ') -
+             ('=PACTSTYP / =PACTSSTG / =PACTSELMFN ');
+     EPOPULATE;
+ELABEL;
+
+
+LABEL GRP0030;       /* FOR PACKAGE ACTIONS: RETRIEVE          */
+  RC (0);            /*                                        */
+  CRITERIA;
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PACTACTN:  ACTION NAME                 *
+                      * PACTCOMM:  ACTION COMMENT              *
+                      * PACTTDSN:  DATA SET NAME               *
+                      * PACTTMBR:  MEMBER                      *
+                      * PACTSENV:  ENVIRONMENT NAME            *
+                      * PACTSSYS:  SYSTEM NAME                 *
+                      * PACTSSBS:  SUBSYSTEM NAME              *
+                      * PACTSTYP:  TYPE                        *
+                      * PACTSSTG:  STAGE NAME                  *
+                      * PACTSELM:  ELEMENT NAME                *
+                      ******************************************/
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('ACTION:  =PACTACTN  =PACTCOMM')
+        TEXT ('ELEMENT: =PACTSENV / =PACTSSYS / =PACTSSBS / ') -
+             ('=PACTSTYP / =PACTSSTG / =PACTSELMFN ');
+     EPOPULATE;
+  CPASS GRP0070;
+ELABEL;
+
+
+LABEL GRP0040;       /* FOR PACKAGE ACTIONS: MOVE              */
+  RC (0);            /*                      TRANSFER          */
+  CRITERIA;
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PACTACTN:  ACTION NAME                 *
+                      * PACTCOMM:  ACTION COMMENT              *
+                      * PACTSENV:  ENVIRONMENT NAME            *
+                      * PACTSSYS:  SYSTEM NAME                 *
+                      * PACTSSBS:  SUBSYSTEM NAME              *
+                      * PACTSTYP:  TYPE                        *
+                      * PACTSSTG:  STAGE NAME                  *
+                      * PACTSELM:  ELEMENT NAME                *
+                      * PACTTENV:  ENVIRONMENT NAME            *
+                      * PACTTSYS:  SYSTEM NAME                 *
+                      * PACTTSBS:  SUBSYSTEM NAME              *
+                      * PACTTTYP:  TYPE                        *
+                      * PACTTSTG:  STAGE NAME                  *
+                      * PACTTELM:  ELEMENT NAME                *
+                      ******************************************/
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('ACTION:  =PACTACTN  =PACTCOMM')
+        TEXT ('SOURCE:  =PACTSENV / =PACTSSYS / =PACTSSBS / ') -
+             ('=PACTSTYP / =PACTSSTG / =PACTSELMFN ')
+        TEXT ('TARGET:  =PACTTENV / =PACTTSYS / =PACTTSBS / ') -
+             ('=PACTTTYP / =PACTTSTG / =PACTTELMFN ');
+     EPOPULATE;
+ELABEL;
+
+LABEL GRP0050;        /* ADD PATH  INFO FOR  ADD, UPDATE        */
+  RC (0);             /*                                        */
+  CRITERIA;
+    FIELD (=PACTSFLAG) VALUE('P');
+  ECRITERIA;
+     POPULATE;
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('SOURCE:  =PACTSPANM  =PACTSFINM ');
+     EPOPULATE;
+
+  CFAIL GRP0060;
+ELABEL;
+
+LABEL GRP0060;        /* ADD DATA SET INFO FOR  ADD, UPDATE     */
+  RC (0);             /*                        RESTORE         */
+  CRITERIA;
+    FIELD (=PACTSDSN) VALUE(NONBLANK);
+  ECRITERIA;
+     POPULATE;
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('SOURCE:  =PACTSDSN  =PACTSMBR ');
+     EPOPULATE;
+ELABEL;
+
+LABEL GRP0070;        /* ADD PATH  INFO FOR  RETRIEVE           */
+  RC (0);             /*                                        */
+  CRITERIA;
+    FIELD (=PACTTFLAG) VALUE('P');
+  ECRITERIA;
+     POPULATE;
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('TARGET:  =PACTTPANM  =PACTTFINM ');
+     EPOPULATE;
+
+  CFAIL GRP0080;
+ELABEL;
+
+LABEL GRP0080;        /* ADD DATA SET INFO FOR  RETRIEVE        */
+  RC (0);             /*                        RESTORE         */
+  CRITERIA;
+    FIELD (=PACTTDSN) VALUE(NONBLANK);
+  ECRITERIA;
+     POPULATE;
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('TARGET:  =PACTTDSN  =PACTTMBR ');
+     EPOPULATE;
+ELABEL;
+EUSE;
+
+
+/************************************************
+ * EXIT POINTS: REVIEW/AFTER  EXECUTE/AFTER     *
+ *              SHIP/AFTER    CONFIRM/AFTER     *
+ *              BACKOUT/AFTER BACKIN/AFTER      *
+ *              COMMIT/AFTER                    *
+ ************************************************/
+
+USE ((REVIEW, AFTER),
+     (EXECUTE, AFTER),
+     (SHIP, AFTER),
+     (CONFIRM, AFTER),
+     (BACKOUT,AFTER),
+     (BACKIN,AFTER),
+     (COMMIT,AFTER));
+
+LABEL GRP0010;       /* MAINLINE - ALL POINTS                  */
+   RC(0);
+   CRITERIA;
+   ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PREQCOMM:  PACKAGE COMMENT             *
+                      * PREQEWSD:  EXECUTION WINDOW START DATE *
+                      * PREQEWST:  EXECUTION WINDOW START TIME *
+                      * PREQEWED:  EXECUTION WINDOW END DATE   *
+                      * PREQEWET:  EXECUTION WINDOW END TIME   *
+                      * PECBUSER:  CURRENT USER ID             *
+                      * PECBFNNM:  PACKAGE FUNCTION            *
+                      * PECBBANM:  BEFORE OR AFTER             *
+                      * PECBNDRC:  NDVR HIGH RETURN CODE       *
+                      * PHDRSTAT:  PACKAGE STATUS              *
+                      ******************************************/
+       FIELD PANEL(BLG6DSAB) INDEX(S0E0F) VALUE(=PREQCOMM);
+       FIELD PANEL(BLG6SCHD) INDEX(S0C41) VALUE(=PREQEWSD);
+       FIELD PANEL(BLG6SCHT) INDEX(S0C6E) VALUE(=PREQEWST);
+       FIELD PANEL(BLG6TARD) INDEX(S0C42) VALUE(=PREQEWED);
+       FIELD PANEL(BLG6TART) INDEX(S0C6F) VALUE(=PREQEWET);
+       FIELD PANEL(BLG600CN) INDEX(S0B5C) VALUE(=PECBUSER);
+       FIELD PANEL(BLG6PHAC) INDEX(S0C0B) VALUE(=PECBFNNM);
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('PACKAGE PROCESSING COMPLETED RC = =PECBNDRC')
+        TEXT ('INFO ACCESSED FROM PACKAGE EXIT =PECBBANM / =PECBFNNM')
+        TEXT ('PKG STATUS: =PHDRSTAT  USER: =PECBUSER');
+     EPOPULATE;
+
+   CPASS EXE0010;
+ELABEL;
+
+LABEL EXE0010;       /* EXECUTE AFTER - LOG SECTION            */
+  CRITERIA;
+    FIELD (=PECBFNNM) VALUE ('EXECUTE ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PHDRXD:    EXECUTION DATE              *
+                      * PHDRXT:    EXECUTION TIME              *
+                      * PHDREEXD:  END EXECUTION DATE          *
+                      * PHDREEXT:  END EXECUTION TIME          *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('EXECUTION:     =PHDRXD  =PHDRXT')
+        TEXT ('END EXECUTION: =PHDREEXD  =PHDREEXT');
+     EPOPULATE;
+
+     CFAIL BKO0010;
+ELABEL;
+
+LABEL BKO0010;       /* BACKOUT AFTER - LOG SECTION            */
+  CRITERIA;
+    FIELD (=PECBFNNM) VALUE ('BACKOUT ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PHDRBOST:  BACKOUT STATUS              *
+                      * PHDRBOD:   BACKOUT DATE                *
+                      * PHDRBOT:   BACKOUT TIME                *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('BACKOUT:       =PHDRBOD  =PHDRBOT  STATUS: =PHDRBOST');
+     EPOPULATE;
+
+     CFAIL BKI0010;
+ELABEL;
+
+LABEL BKI0010;       /* BACKIN  AFTER - LOG SECTION            */
+  CRITERIA;
+    FIELD (=PECBFNNM) VALUE ('BACKIN  ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PHDRBID:   BACKIN DATE                 *
+                      * PHDRBIT:   BACKIN TIME                 *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('BACKIN:        =PHDRBID  =PHDRBIT');
+     EPOPULATE;
+
+     CFAIL COM0010;
+ELABEL;
+
+LABEL COM0010;       /* COMMIT  AFTER - LOG SECTION            */
+  CRITERIA;
+    FIELD (=PECBFNNM) VALUE ('COMMIT  ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PHDRCMD:   COMMIT DATE                 *
+                      * PHDRCMT:   COMMIT TIME                 *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('COMMIT:        =PHDRCMD  =PHDRCMT');
+     EPOPULATE;
+
+     CFAIL SHP0010;
+ELABEL;
+
+
+LABEL SHP0010;       /* SHIP XMIT AFTER - LOG SECTION          */
+  CRITERIA;
+    FIELD (=PECBSFNM) VALUE ('XMIT    ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PREQDEST:  SHIP DESTINATION            *
+                      * PREQSTYP:  SHIPMENT TYPE               *
+                      * PREQSCMP:  SHIP COMPLEMENTS (Y/N)      *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('SHIP:   DESTINATION =PREQDEST  TYPE =PREQSTYP  ') -
+             ('COMPLEMENTS =PREQSCMP');
+     EPOPULATE;
+
+     CFAIL CFM0010;
+ELABEL;
+
+LABEL CFM0010;       /* SHIP CONFIRM AFTER - LOG SECTION       */
+  CRITERIA;
+    FIELD (=PECBSFNM) VALUE ('CONFIRM ');
+  ECRITERIA;
+     POPULATE;
+                     /******************************************
+                      * PREQDEST:  SHIP DESTINATION            *
+                      * PREQSCNF:  SHIP CONFIRMATIN TYPE       *
+                      * PREQSRES:  SHIP CONFIRMATION RESULTS   *
+                      * PREQSRCV:  SHIP CONFIRM RC VALUE       *
+                      ******************************************/
+       FIELD PANEL(BLG0C010) INDEX(S0E01)
+        TEXT ('SHIP:   DESTINATION =PREQDEST  CONFIRM TYPE =PREQSCNF') -
+             ('        CONFIRMATION RESULTS  =PREQSRES =PREQSRCV');
+     EPOPULATE;
+
+ELABEL;
+
+EUSE;
+
+
+/************************************************
+ * EXIT POINTS: ADD/BEFORE     UPDATE/BEFORE    *
+ *              RESTORE/BEFORE RETRIEVE/BEFORE  *
+ *              ARCHIVE/BEFORE GENERATE/BEFORE  *
+ *              DELETE/BEFORE  MOVE/BEFORE      *
+ *              TRANSFER/BEFORE                 *
+ ************************************************/
+
+USE ((ADD, BEFORE),
+     (UPDATE, BEFORE),
+     (RESTORE, BEFORE),
+     (RETRIEVE, BEFORE),
+     (ARCHIVE, BEFORE),
+     (GENERATE, BEFORE),
+     (DELETE, BEFORE),
+     (MOVE, BEFORE),
+     (TRANSFER, BEFORE));
+
+NOTFOUND (RETURN);
+FOUND (RETURN);      /* GREAT -- JUST RETURN                   */
+
+EUSE;
+
+
+/************************************************
+ * ON PACKAGE ACTIONS - JUST BEFORE EXECUTION.  *
+ * PURPOSE:  RECORD ACTION RETURN CODE ON       *
+ *           THE CCID ACTIVITY RECORD.          *
+ ************************************************/
+
+USE ((ADD, AFTER),
+     (UPDATE, AFTER),
+     (RESTORE, AFTER),
+     (RETRIEVE, AFTER),
+     (ARCHIVE, AFTER),
+     (GENERATE, AFTER),
+     (DELETE, AFTER),
+     (MOVE, AFTER),
+     (TRANSFER, AFTER));
+
+NOTFOUND (ERR0010);
+FOUND (GRP0010);
+
+LABEL GRP0010;       /* ALL PKG ACTION POINTS                  */
+   RC(0);
+   CRITERIA;
+   ECRITERIA;
+     POPULATE;
+       FIELD PANEL(BLG0C030) INDEX(S0E01)
+        TEXT ('ACTION: =ACTION  =DATE =TIME  USER: =USER  RC: =ACTRC')
+        TEXT ('COMMENT: =COMM');
+     EPOPULATE;
+
+ELABEL;
+
+LABEL ERR0010;       /* TELL USER                              */
+  MSG ('ACTIVITY CCID =CCID RECORD NOT FOUND');
+ELABEL;
+
+EUSE;
+
+
+/************************************************
+ * EXIT POINT:  DELETE AFTER                    *
+ * PURPOSE:  DELETE CHANGE AND ACTIVITY PKG     *
+ *           RECORDS, THEN RETURN.              *
+ ************************************************/
+
+USE (PDELETE, AFTER);
+
+NOTFOUND (RETURN);
+FOUND (DELETE,RETURN);
+
+EUSE;
+
+ETABLE;

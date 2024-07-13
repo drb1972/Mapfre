@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ INFORMATION MANAGEMENT CORRELATION \-\ TUTORIAL
+%SELECTION ===>_ZCMD
+%
++THE INFORMATION MANAGEMENT CORRELATION panel displays
++information stored in Info/Man about:
++
++  *  The package identified in the co-requisite field if you
++     accessed the panel from a package panel.
++
++  *  The CCID identified in the RNID field if you accessed the
++     panel from an action request panel.
++
++See your Info/Man administrator for information about the other
++fields on the correlation panel.
+
+)END

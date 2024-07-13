@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Print Element - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%PX+- To print an component explode report showing all the components of
++     the element. Component, location in the inventory, and level.
+%PL+- To print the element's current output listing.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++                          (%PF3+ to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

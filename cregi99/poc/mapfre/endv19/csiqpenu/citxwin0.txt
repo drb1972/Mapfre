@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Execution Window Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When creating, casting,or executing a package you can establish a range
++of dates and times within which the package must be executed.
++
+%     Date+- 23JUL93
+%     Time+- 09:23
++
++On all other panels these fields are display only.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

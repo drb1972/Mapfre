@@ -1,0 +1,73 @@
+         MACRO
+         ENHAAREB &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*        REQUEST EXTENSION BLOCK
+* THIS DSECT MAPS ALL THE FIELDS NECESSARY FOR LONG NAME SUPPORT. IF
+* YOU ARE NOT USING THE LONG NAME FEATURE, THIS MACRO IS NOT NECESSARY.
+* NOT ALL THE FIELDS ARE REQUIRED FOR ALL FUNCTIONS. SEE THE MATRIX
+* BELOW TO DETERMINE WHICH FILES ARE REQUIRED BY WHICH FUNCTIONS.
+*
+*                     LONG NAME FIELD / FUNCTION MATRIX
+*             |----------------------------------------------------
+*             | A | D | G | M | P | P | R | S | T | U | E | L | D |
+* FUNCTION--> | D | E | E | O | R | R | E | I | R | P | E | E | I |
+*             | D | L | N | V | E | M | T | G | A | D | L | L | R |
+*             |---------------------------------------------------|
+* ELM     --> | X | X | X | X | X |   | X | X | X | X | X | X |   |
+* ELM_THRU--> | X | X | X | X | X |   | X | X | X | X |   | X |   |
+* TELM    --> |   |   |   |   |   |   |   |   | X |   |   |   |   |
+* PATH    --> | X |   |   |   |   | X | X |   |   | X |   |   | X |
+* USSFILE --> | X |   |   |   |   | X | X |   |   | X |   |   | X |
+* USSFILE_THRU->  |   |   |   |   | X |   |   |   |   |   |   | X |
+*             |---------------------------------------------------|
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=1,                  CONTROL BLOCK VERSION           X
+               EYE='AREB',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AAREB_RQ
+         SPACE ,
+AAREB_RQ_DATA      DS X                BEGINNING OF DATA AREA
+         ORG       AAREB_RQ_DATA
+********************************************************************
+*                  ELEMENT DATA
+********************************************************************
+AAREB_RQ_ELMDATA   DS 0X               BEGINNING OF ELEMENT NAME
+AAREB_RQ_ELM       DC CL255' '         ELEMENT NAME
+                   DC CL1' '           ALIGNMENT
+AAREB_RQ_ELM_THRU  DC CL255' '         THRU ELEMENT NAME
+                   DC CL1' '           ALIGNMENT
+AAREB_RQ_TELM      DC CL255' '         TARGET ELEMENT NAME
+                   DC CL1' '           ALIGNMENT
+********************************************************************
+*        PATH AND USS FILE DATA
+********************************************************************
+         ORG       AAREB_RQ_TELM
+AAREB_RQ_HFSF_THRU DS CL255            THRU HFS FILE NAME
+         ORG       AAREB_RQ_TELM+L'AAREB_RQ_TELM+1
+*
+         ORG       AAREB_RQ_TELM
+AAREB_RQ_USSFILE_THRU DS CL255         THRU USS FILE NAME
+         ORG       AAREB_RQ_TELM+L'AAREB_RQ_TELM+1
+*
+AAREB_RQ_PATH      DS CL768            PATH NAME
+AAREB_RQ_HFSF      DC CL255' '         HFS FILE NAME
+                   DC CL1' '           ALIGNMENT
+         ORG       AAREB_RQ_HFSF
+AAREB_RQ_USSFILE   DC CL255' '         USS FILE NAME
+         ORG       AAREB_RQ_HFSF+L'AAREB_RQ_HFSF+1
+*
+AAREB_RQ_LFSEXT    DC CL1' '           LOCAL FILE SYSTEM = Y
+*                                      BYPASS ELM NAME EDIT = E
+AAREB_RQ_RESERVE   DC CL1' '           ** RESERVED **
+                   DS CL2' '           ALIGNMENT
+                   DS 0X
+                   DS 0F               LABEL NEEDED FOR CHDR GEN
+AAREB_RQ_DATADSLN  EQU *-AAREB_RQ_DATA
+AAREB_RQ_DSLN      EQU *-AAREB_RQ
+         ORG       AAREB_RQ_DATA
+AAREB_RQ_DATAAREA  DS XL(AAREB_RQ_DATADSLN)     DATA AREA
+         MEND

@@ -1,0 +1,78 @@
+)ATTR DEFAULT(%+_)
+ ¢ TYPE(OUTPUT) INTENS(HIGH)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+)BODY  EXPAND(@@) LMSG(LMSG)
+%-@-@ ACM Create GENERATE SCL @-@-
+¢LMSG                                                                 +
+%COMMAND ===>_ZCMD                                                     +
++
++Action Options:
++  CCID ===>_arbccid     +COMMENT ===>_arbccom                                 +
++  COPYBACK ===>_Z+ (Y/N)+
++  NOSOURCE ===>_Z+ (Y/N)+
++
++To GENERATE W/COPYBACK or NOSOURCE specify ENV/STG and optionally SYS/SBS:
+  +ENVIRONMENT  ===>_wrbseenv+
+  +STAGE NUMBER ===>_Z+
+  +SYSTEM       ===>_wrbsesys+SUBSYSTEM ===>_wrbsesbs+
++
++REQUEST DATA SET:
++  PROJECT  ===>_VNBRPRO +         APPEND ===>_Z+ (Y/N - F/G only)
++  GROUP    ===>_VNBRGRP +         STOPRC ===>_Z + (4/99)
++  TYPE     ===>_VNBRTYP +
++  MEMBER   ===>_VNBRMBR +
++
++OTHER PARTITIONED OR SEQUENTIAL DATA SET:
++  DSNAME ===>_EEVDSNX                                                   +
+)INIT
+  .HELP = TACMS
+  VGET (arbccid,arbccom,varstprc) PROFILE
+  VGET (EEVCPY EEVNSC) PROFILE
+  VGET (VNBRPRO,VNBRGRP,VNBRTYP,VNBINCA) PROFILE
+  VGET (wrbseenv,wrbsest#,wrbsesys,wrbsesbs) profile
+  .ZVARS = '(EEVCPY EEVNSC WRBSEST#,VNBINCA,VARSTPRc)'
+  &FILTER = 'N'
+  IF  (&VNBINCA ^= 'Y' AND &VNBINCA ^= 'N')
+    &VNBINCA = 'N'
+  IF  (&EEVCPY ^= 'Y' AND &EEVCPY ^='N')
+    &EEVCPY = 'N'
+  IF  (&EEVNSC ^= 'Y' AND &EEVNSC ^='N')
+    &EEVNSC = 'N'
+)PROC
+ &arbsesys = &wrbsesys
+ &arbsesbs = &wrbsesbs
+ &arbseenv = &wrbseenv
+ &arbsest# = &wrbsest#
+ VER(&VNBINCA,NB,LIST,'Y','N')
+ VER(&FILTER,NB,LIST,'Y','N')
+ VER (&VARSTPRc,nb,RANGE,4,99)
+  IF (&EEVDSNX = '')
+    VER(&VNBRPRO,NB,DSNAME)
+    VER(&VNBRGRP,NB,DSNAME)
+    VER(&VNBRTYP,NB,DSNAME)
+    VER(&VNBRMBR,NAME)
+    &EEVDSN = '&VNBRPRO..&VNBRGRP..&VNBRTYP'
+    &EEVMBR =&VNBRMBR
+  ELSE
+    VER(&EEVDSNX,NB,DSNAME)
+    &F  =  TRUNC(&EEVDSNX,1)
+    IF  (&F = '''')
+      &EEVDSN = .TRAIL
+      &EEVDSN = TRUNC(&EEVDSN,'''')
+    ELSE
+      &EEVDSN = &EEVDSNX
+      IF (&ZPREFIX NE '')
+        &EEVDSN = '&ZPREFIX..&EEVDSN'
+    &EEVDSN = TRUNC(&EEVDSN,'(')
+    &EEVMBR = .TRAIL
+    IF  (&EEVMBR NE '')
+      &EEVMBR = TRUNC(&EEVMBR,')')
+/*  VER(&wrbsest#,list,*,1,2) */
+/* &EEVCPY = 'N'  */
+/*  &EEVSRC = 'N' */
+  VPUT (arbccid,arbccom) PROFILE
+  VPUT (EEVCPY EEVNSC) PROFILE
+  VPUT (VNBRPRO,VNBRGRP,VNBRTYP VNBINCA) PROFILE
+  VPUT (wrbseenv,wrbsest#,wrbsesys,wrbsesbs) profile
+)END

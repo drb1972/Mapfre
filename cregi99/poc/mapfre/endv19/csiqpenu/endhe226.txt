@@ -1,0 +1,22 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++This screen is shown when Endevor cannot determine in which specific target
++inventory location the Edit or Generate action should be performed.
++This can happen when:
++ - The element selection list was built using wildcards in one or more
++   of the Environment, System and Subsystem fields, AND
++ - More than one inventory location maps to the element that was selected
++   for the Edit or Generate action.
++
++Select the target Subsystem by typing an%S+next to the Subsystem in which
++you want to perform the Edit or Generate action and then press%ENTER+.
++You can also return to the previous panel by pressing %pf3+.
++
++
++
++
++
++                                      (%END+to return)
+)END

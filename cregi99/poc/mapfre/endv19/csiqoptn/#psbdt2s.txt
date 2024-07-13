@@ -1,0 +1,64 @@
+@REM ****************************************************** #PSBDT2P ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: "Q" THE SEQUENTIAL FILES FOR TRANSMISSION.  NETREL
+@REM *              WILL DECREMENT THE NETHOLD COUNT FOR THE REMOTE
+@REM *              COPY/DELETE JOB (#PSBDT2E).
+@REM *******************************************************************
+@REM *
+@IF &CHJOBDSN
+ Q JOBNAME(J&D4.CH)
+   NETID(T&SHIPTIME)
+   NETREL(J&D4.AR)
+   FROM DATASET('&CHJOBDSN')
+        DAP(SEQ)
+        SHR
+        DISP(&HDISP,KEEP)
+   TO   DATASET('&CRJOBDSN')
+        LOCATION(&NODENAME)
+        NEW
+        DSORG(PS)
+        RECFM(FB)
+        LRECL(80)
+        BLKSIZE(3120)
+        SPACE(1,1)
+        CYLINDERS
+        UNIT(&RUNIT)
+/EOT
+@ENDIF
+ Q JOBNAME(J&D4.AH)
+   NETID(T&SHIPTIME)
+   NETREL(J&D4.AR)
+   FROM DATASET('&AHJOBDSN')
+        DAP(SEQ)
+        SHR
+        DISP(&HDISP,KEEP)
+   TO   DATASET('&ARJOBDSN')
+        LOCATION(&NODENAME)
+        NEW
+        DSORG(PS)
+        RECFM(FB)
+        LRECL(80)
+        BLKSIZE(3120)
+        SPACE(1,1)
+        CYLINDERS
+        UNIT(&RUNIT)
+/EOT
+ Q JOBNAME(J&D4.AHR)
+   NETID(T&SHIPTIME)
+   NETREL(J&D4.AR)
+   FROM DATASET('&AHREFDSN')
+        DAP(SEQ)
+        SHR
+        DISP(&HDISP,KEEP)
+   TO   DATASET('&ARREFDSN')
+        LOCATION(&NODENAME)
+        NEW
+        DSORG(PS)
+        RECFM(FB)
+        LRECL(80)
+        BLKSIZE(3120)
+        SPACE(1,1)
+        CYLINDERS
+        UNIT(&RUNIT)
+/EOT

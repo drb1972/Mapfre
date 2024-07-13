@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Job Statement Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields allow you to provide job card settings for submitting
++batch jobs.
++
++Here is a sample jobcard:
++   //TTyyxxxx JOB 0,'+440207063nnnn',CLASS=3,NOTIFY=&&SYSUID
++   //*            SCHENV=DOA0,
++   //*            REGION=64M
++   //*
++The SCHENV and REGION parameters can be uncommented as neccessary
++
++   N.B. Class 3 is for Endevor jobs only
+
+
+
+
++
++                                            (%PF3+to return)
+)END

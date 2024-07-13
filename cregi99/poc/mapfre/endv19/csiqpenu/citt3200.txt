@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Two Route Map - Example \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Route R1 (DEV, QA, and PROD) for production applications.
++Route R2 (QFIX, PROD) to handle emergency fixes to the applications.
++
++       *****************      *****************      *****************
++       *      DEV      *      *      QA       *      *      PROD     *
++       *****************      *****************      *****************
++       * UNIT *  INT   *      *  QA   *  HOLD *      *  FIX  *  PROD *
++       *      *        *      *       *       *      *       *       *
+%  R1+  *    ----->   ----------->   ----->  --------------------> ,  *
++       *****************      *****************      *************|***
++                                                                  |
++                                     ********************         |
++                                     *       QFIX       *         |
++                                     ********************         |
++                                     * TSTFIX * PREPROD *         |
+%                             R2+     *       ----->   ------------
++                                     ********************
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Panvalet/Librarian Language \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This optional field associates a Panvalet or The Librarian type
++identifier with the merge output member. PDM ignores this field unless
++the merge file is a Panvalet or a Librarian file.
++
++Selections include:
++
++Panvalet: ALC, ANSCOBOL, AUTOCODE, BAL, COBOL, COBOL-72, DATA,
++   FORTRAN, JCL, OBJECT, PL/1, RPG, USER180, USER780, OTHER.
++
++Librarian: ASM, COB, DAT, FOR, FRG, FRS, GIF, GOF, JCL, PLF, PLI, RPG,
++   TXT, VSB.
++
++If left blank, the default value is DATA for Panvalet, and DAT for
++Librarian.
++
++
+)END

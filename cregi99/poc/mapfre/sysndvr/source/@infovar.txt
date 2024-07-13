@@ -1,0 +1,182 @@
+         MACRO                                                          00010000
+         @INFOVAR  &ENTRY=,&NAME=,&SIZE=,&FORMAT=,&DSECT=,&BASEFMID=    00020001
+.********************************************************************** 00030000
+.*                                                                    * 00040000
+.*   THIS MACRO GENERATES A VARIABLE TABLE USED TO COPY VARIABLES     * 00050000
+.*   DEFINED TO INFORMATION/MANAGEMENT'S PROFILE (I.E., BLG0).        * 00060000
+.*                                                                    * 00220000
+.*   ENTRY= START             - INDICATES THE BEGINNING OF THIS       * 00230000
+.*                              OF THIS TABLE.  ** REQUIRED **        * 00240000
+.*        = VARIABLE          - INDICATES THAT A VARIABLE NAME TO BE  * 00250000
+.*                              DEFINED.  ** REQUIRED **              * 00260000
+.*        = END               - INDICATES THE END OF THIS TABLE.      * 00300000
+.*        = DSECT             - GENERATE A DSECT STATEMENT            * 00300000
+.*        = CSECT             - GENERATE A CSECT STATEMENT            * 00300000
+.*                              ** REQUIRED **                        * 00310000
+.*   NAME = VARIABLE NAME     - SPECIFIES THE ISPF VARIABLE NAME.     * 00320001
+.*                              ** REQUIRED **                        * 00350101
+.*   SIZE = FIELD SIZE        - FIELD SIZE  ** REQUIRED **            * 00351001
+.*   FORMAT= FIELD FORMAT     - VALID VALUES ARE:  CHAR, FIXED,       * 00360000
+.*                              BIT, AND HEX.  SEE ISPF VDEFINE       * 00370000
+.*                              COMMAND FOR A DESCRIPTION OF EACH     * 00380000
+.*                              OPTION.  ** REQUIRED **               * 00390000
+.*   DSECT= @INVHDS           - HEADER DSECT                          * 00360000
+.*   DSECT= @INVEDS           - ENTRY DSECT                           * 00360000
+.*   BASEFMID=                - FMID FOR NEW MODULES                  * 00360000
+.*                              FOR MODULES ADDED AFTER R14.0, SET    * 00360000
+.*                               BASEFMID TO FMID OF RELEASE WHEN     * 00360000
+.*                               ADDED                                * 00360000
+.********************************************************************** 00600000
+         GBLA  &GCNT                                                    00610000
+         GBLB  &GEND                                                    00620000
+         GBLB  &GSTART                                                  00630000
+         GBLB  &GVBL                                                    00640000
+         LCLA  &LFMT
+.********************************************************************** 00710000
+.*                                                                    * 00720000
+.*   CHECK ENTRY= SPECIFICATION                                       * 00730000
+.*                                                                    * 00740000
+.********************************************************************** 00750000
+         AIF   ('&ENTRY' EQ 'START').RTN1000                            00760000
+         AIF   ('&ENTRY' EQ 'VARIABLE').RTN2000                         00770000
+         AIF   ('&ENTRY' EQ 'END').RTN3000                              00780000
+         AIF   ('&ENTRY' EQ 'CSECT').RTN4000                            00780000
+         AIF   ('&ENTRY' EQ 'DSECT').RTN4100                            00780000
+         AGO   .RTN8010                                                 00790000
+.********************************************************************** 00800000
+.*                                                                    * 00810000
+.*   ENTRY=START SPECIFIED                                            * 00820000
+.*                                                                    * 00830000
+.********************************************************************** 00840000
+.RTN1000 ANOP                                                           00850000
+         AIF   (&GEND).RTN8000                                          00860000
+         AIF   (&GSTART).RTN8040                                        00870000
+         @INFOVAR ENTRY=CSECT,DSECT=@INVHDS                             01440000
+         MEXIT                                                          01470000
+.********************************************************************** 01480000
+.*                                                                    * 01490000
+.*   ENTRY=VARIABLE SPECIFIED                                         * 01500000
+.*                                                                    * 01510000
+.********************************************************************** 01520000
+.RTN2000 ANOP                                                           01530000
+         AIF   (&GEND).RTN8030                                          01540000
+         AIF   (&GSTART).RTN8050                                        01550000
+         AIF   (&GVBL).RTN2010                                          01560000
+&GVBL    SETB  1                                                        01570000
+         SPACE ,                                                        01580000
+*********************************************************************** 01590000
+*  ENTRY=VARIABLE                                                     * 01600000
+*********************************************************************** 01610000
+         ORG   ,                                                        01620000
+INVBL     EQU   *                                                       01630000
+         AGO   .RTN2020
+.RTN2010 ANOP                                                           01640000
+         ORG   ,                                                        01930000
+.RTN2020 ANOP                                                           01640000
+&LFMT    SETA  1
+         AIF   ('&FORMAT' EQ 'CHAR').RTN2030
+&LFMT    SETA  2
+         AIF   ('&FORMAT' EQ 'FIXED').RTN2030
+&LFMT    SETA  3
+         AIF   ('&FORMAT' EQ 'BIT').RTN2030
+&LFMT    SETA  4
+         AIF   ('&FORMAT' EQ 'HEX').RTN2030
+         AGO   .RTN8060
+.RTN2030 ANOP                                                           01640000
+&GCNT    SETA  &GCNT+1                                                  01920000
+         DC    CL8'&NAME'              VARIABLE NAME                    01950000
+         DC    H'&SIZE'                FIELD SIZE                       01960000
+         DC    H'&LFMT'                FORMAT                           01970000
+         DS    0F                      ALIGN                            01980000
+         MEXIT                                                          02010000
+.********************************************************************** 02020000
+.*                                                                    * 02030000
+.*   ENTRY=END SPECIFIED                                              * 02040000
+.*                                                                    * 02050000
+.********************************************************************** 02060000
+.RTN3000 ANOP                                                           02070000
+         AIF   (&GEND).RTN8020                                          02080000
+         AIF   (&GSTART).RTN8050                                        02090000
+&GEND    SETB  1                                                        02100000
+         TITLE 'ENTRY=END'                                              02110000
+*********************************************************************** 02120000
+*  ENTRY=END                                                          * 02130000
+*********************************************************************** 02140000
+         ORG   INVH@VBL                                                 02150000
+         DC    A(INVBL)                                                 02200000
+         ORG   INVHCNT                                                  02220000
+         DC    A(&GCNT)                                                 02230000
+         ORG   ,
+PATCH    DC    128S(*)
+         $#MODID BASEFMID=&BASEFMID
+         LTORG ,                                                        02270000
+         END                                                            02280000
+         MEXIT                                                          02290000
+.********************************************************************** 02020000
+.*                                                                    * 02030000
+.*   ENTRY=CSECT/DSECT SPECIFIED                                      * 02040000
+.*                                                                    * 02050000
+.********************************************************************** 02060000
+.RTN4000 ANOP                                                           02070000
+BC1TINVB CSECT                                                          02150000
+        USING  BC1TINVB,11
+@INVHDS   EQU   *
+         AGO   .RTN4210
+.RTN4100 ANOP
+         AIF   ('&DSECT' EQ '@INVHDS').RTN4200
+         AIF   ('&DSECT' EQ '@INVEDS').RTN4300
+         AGO   .RTN8070
+.RTN4200 ANOP
+@INVHDS  DSECT
+.RTN4210 ANOP
+INVHEYE  DC    CL4'INVH'               EYECATCHER
+INVHEYEV  EQU   C'INVH'                 VALUE OF EYECATCHER
+INVH@VBL DC    F'0'                    A(VARIABLE ENTRIES)
+INVHCNT  DC    F'0'                    NUMBER OF VARIABLE ENTRIES
+INVHLNG   EQU   *-@INVHDS               DSECT LENGTH
+         MEXIT
+.RTN4300 ANOP
+@INVEDS  DSECT
+INVENAME DS    CL8                     VARIABLE NAME
+INVESIZE DS    H                       FIELD SIZE
+INVEFMT  DS    H                       FIELD FORMAT
+INVECHAR  EQU   1                       CHAR
+INVEFIX   EQU   2                       FIXED
+INVEBIT   EQU   3                       BIT
+INVEHEX   EQU   4                       HEX
+INVELNG  EQU   *-@INVEDS               DSECT LENGTH
+         MEXIT
+.********************************************************************** 02300000
+.*                                                                    * 02310000
+.*   ERRORS                                                           * 02320000
+.*                                                                    * 02330000
+.********************************************************************** 02340000
+.RTN8000 ANOP                                                           02350000
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=START SX02360000
+               TATEMENT'                                                02370000
+         MEXIT                                                          02380000
+.RTN8010 ANOP                                                           02390000
+         MNOTE 12,'** ERROR: INVALID VALUE SPECIFIED ON ENTRY= STATEMEN'02400000
+               T'                                                       02410000
+         MEXIT                                                          02420000
+.RTN8020 ANOP                                                           02430000
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT WAS SPECIFIED TWICE'   02440000
+         MEXIT                                                          02450000
+.RTN8030 ANOP                                                           02460000
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=CALL STX02470000
+               ATEMENT'                                                 02480000
+         MEXIT                                                          02490000
+.RTN8040 ANOP                                                           02500000
+         MNOTE 12,'** ERROR: ENTRY=START HAS ALREADY BEEN SPECIFIED'    02510000
+         MEXIT                                                          02520000
+.RTN8050 ANOP                                                           02530000
+         MNOTE 12,'** ERROR: ENTRY=START MUST BE FIRST STATEMENT SPECIF'02540000
+               IED'                                                     02550000
+         MEXIT                                                          02560000
+.RTN8060 ANOP                                                           02601000
+         MNOTE 12,'** ERROR: INVALID FORMAT= PARAMETER SPECIFIED'       02602000
+         MEXIT                                                          02604000
+.RTN8070 ANOP                                                           02601000
+         MNOTE 12,'** ERROR: INVALID VALUE ON DSECT= PARAMETER'         02602000
+         MEXIT                                                          02604000
+         MEND                                                           02610000

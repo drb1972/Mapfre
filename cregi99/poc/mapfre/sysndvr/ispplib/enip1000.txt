@@ -1,0 +1,45 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP1000                                                     */
+ /*-----------------------------------------------------------------------*/
+  _ TYPE(INPUT) PADC(_) JUST(LEFT) CAPS(ON)
+  # TYPE(INPUT)         JUST(LEFT) CAPS(ON)
+ 01 TYPE(DATAOUT) INTENS(LOW)  CAPS(OFF)
+ 02 TYPE(DATAOUT) INTENS(HIGH) CAPS(OFF)
+ 03 TYPE(DATAIN)  INTENS(LOW)
+ 04 TYPE(DATAIN)  INTENS(HIGH)
+  $ AREA(DYNAMIC) EXTEND(OFF)
+)BODY
++------------------------%Package Specification Panel+--------------------------
++ Command ==>#ZCMD                                                             +
++
++  Enter a Package identifier below and select an action:
++   _Z+0  Display List           1  Define
++
++  Package ID.._PDVPKGID        +
++
++  List Packages with the following status:
++    In-edit.........._Z+ (Y/N)
++    In-approval......_Z+ (Y/N)
++    Denied..........._Z+ (Y/N)
++    Approved........._Z+ (Y/N)
++    In-execution....._Z+ (Y/N)
++    Executed........._Z+ (Y/N)
++    Committed........_Z+ (Y/N)
++    Enterprise Pkg..._Z+ (A/E/X)
++    Promotion Pkg...._Z+ (A/P/X)
++    Tgt Environment.._Z       +
++    Tgt Stage ID....._Z+
++
++  Additional selection criteria:
++    Where older than_Z  +days
++
+)INIT
+  .HELP = ENIT1000
+  .ZVARS = '(VARWKCMD, PDVSTIED, PDVSTIAP, PDVSTDNY,  +
+             PDVSTAPP, PDVSTIEX, PDVSTEXC, PDVSTCMT,  +
+             PDVSTENT, PDVSTPRO, VNBTGENV, VNBTGSTG,  +
+             PDVWHOLD)'
+)PROC
+)END

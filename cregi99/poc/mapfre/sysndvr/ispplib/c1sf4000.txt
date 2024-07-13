@@ -1,0 +1,46 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%-------------------------------- MOVE ELEMENTS --------------------------------
+%OPTION  ===>_ZCMD                                                             +
++                               ELEMENT DISPLAY OPTIONS:
+%   blank+- Element list         %S+- Summary  %B+- Browse  %H+- History
+%   O+- Move element             %M+- Master   %C+- Changes
++
++CCID%===>^CTLNBR      +  COMMENT%===>`DESCRPT1                                +
++
++FROM LOCATION:                         ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             SYNC                 %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             WITH HISTORY         %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             RETAIN SIGNOUT       %===>_Z+(Y/N)
++  ELEMENT    %===>_CIELM     +           SIGNOUT TO           %===>_VARSETSO+
++  TYPE       %===>_TYPEN   +             ACKNOWLEDGE ELM JUMP %===>_Z+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +     DELETE 'FROM' ELEMENT%===>_Z+(Y/N)
++                      ¢Z+-|CLU2ID  +
++                                       LIST OPTIONS:
++                                         DISPLAY LIST      %===>_Z+(Y/N)
++                                         APPLY LIST FILTERS%===>_Z+(Y/N)
++                                         BUILD USING MAP   %===>_Z+(Y/N)
++
++
+)INIT
+  .HELP = CITF4000
+  .ZVARS = '(VARSYNC VARMOVWH VARRTNSO VARJMPEL CLU1I +
+             VNBF9NOD CLU2I VARWKLST VARWHPNL +
+             VARSHMAP)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+)PROC
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

@@ -1,0 +1,745 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA - REQUEST BLOCK                      *
+      *                                                               *
+      *****************************************************************
+       01  ALSMF-RQ.
+           05  ALSMF-RQ-HEADER.
+               10  ALSMF-RQ-LEN        PIC 9(4) COMP VALUE 28.
+               10  ALSMF-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSMF-RQ-ID         PIC 9(4) COMP VALUE 1952.
+               10  ALSMF-RQ-VERS       PIC 9(4) COMP VALUE 6.
+               10  ALSMF-RQ-EYE        PIC X(4)      VALUE 'SMFQ'.
+           05  ALSMF-RQ-DATAAREA.
+               10  ALSMF-RQ-FUNC       PIC X         VALUE SPACE.
+                   88  ALSMF-RQ-FUNC-ACT             VALUE 'A'.
+                   88  ALSMF-RQ-FUNC-SEC             VALUE 'S'.
+                   88  ALSMF-RQ-FUNC-ADM             VALUE 'E'.
+               10  ALSMF-RQ-DDN        PIC X(8)      VALUE SPACES.
+               10  ALSMF-RQ-RECID      PIC X(3)      VALUE SPACES.
+               10  ALSMF-RQ-OBJTYPE    PIC X         VALUE SPACE.
+                   88  ALSMF-RQ-OBJ-APPRGRP          VALUE 'A'.
+                   88  ALSMF-RQ-OBJ-APPRREL          VALUE 'B'.
+                   88  ALSMF-RQ-OBJ-PROCGRP          VALUE 'C'.
+                   88  ALSMF-RQ-OBJ-PROCSYM          VALUE 'D'.
+                   88  ALSMF-RQ-OBJ-SYSTEM           VALUE 'E'.
+                   88  ALSMF-RQ-OBJ-SUBSYS           VALUE 'F'.
+                   88  ALSMF-RQ-OBJ-TYPE             VALUE 'G'.
+                   88  ALSMF-RQ-OBJ-TYPEDSN          VALUE 'H'.
+                   88  ALSMF-RQ-OBJ-DEST             VALUE 'I'.
+                   88  ALSMF-RQ-OBJ-DSNMAP           VALUE 'J'.
+                   88  ALSMF-RQ-OBJ-USSMAP           VALUE 'K'.
+                   88  ALSMF-RQ-OBJ-CLONE            VALUE 'L'.
+                   88  ALSMF-RQ-OBJ-DYNENV           VALUE 'M'.
+               10  ALSMF-RQ-RESERVE    PIC X(3)      VALUE SPACE.
+      *
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA SECURITY - RESPONSE BLOCK            *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFS-RS.
+           05  ALSMFS-RS-HEADER.
+               10  ALSMFS-RS-LEN       PIC 9(4) COMP VALUE 550.
+               10  ALSMFS-RS-FLAGS     PIC 9(4) COMP VALUE 0.
+               10  ALSMFS-RS-ID        PIC 9(4) COMP VALUE 1953.
+               10  ALSMFS-RS-VERS      PIC 9(4) COMP VALUE 6.
+               10  ALSMFS-RS-EYE       PIC X(4)      VALUE 'SMFS'.
+           05  ALSMFS-RS-DATAAREA.
+               10  ALSMFS-RS-RTYPE     PIC X(1)      VALUE 'S'.
+               10  ALSMFS-RS-RECID     PIC X(3)      VALUE SPACES.
+               10  ALSMFS-RS-DATE      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-TIME      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-CPUID     PIC X(4)      VALUE SPACES.
+               10  ALSMFS-RS-USER      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ACTION    PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ERR       PIC X(4)      VALUE SPACES.
+               10  ALSMFS-RS-MSG       PIC X(132)    VALUE SPACES.
+               10  ALSMFS-RS-SITE      PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-ENV       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-STG       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-STGID     PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-STG-NUM   PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-SYS       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-SBS       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ELM       PIC X(10)     VALUE SPACES.
+               10  ALSMFS-RS-TYPE      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-DSN       PIC X(44)     VALUE SPACES.
+               10  ALSMFS-RS-MBR       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-LELML     PIC 9(4) COMP VALUE 0.
+               10  ALSMFS-RS-LELM      PIC X(255)    VALUE SPACES.
+      *
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA ACTIVITY - RESPONSE BLOCK            *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFA-RS.
+      * API HEADER INFORMATION
+           05  ALSMFA-RS-HEADER.
+               10  ALSMFA-RS-LEN       PIC 9(4) COMP VALUE 961.
+               10  ALSMFA-RS-FLAGS     PIC 9(4) COMP VALUE 0.
+               10  ALSMFA-RS-ID        PIC 9(4) COMP VALUE 1953.
+               10  ALSMFA-RS-VERS      PIC 9(4) COMP VALUE 6.
+               10  ALSMFA-RS-EYE       PIC X(4)      VALUE 'SMFS'.
+      * SMF RECORD HEADER INFORMATION
+           05  ALSMFA-RS-DATAAREA.
+               10  ALSMFA-RS-RTYPE     PIC X(1)      VALUE 'A'.
+               10  ALSMFA-RS-RECID     PIC X(3)      VALUE SPACES.
+               10  ALSMFA-RS-DATE      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TIME      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-CPUID     PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-USER      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-ACTION    PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-SITE      PIC X(1)      VALUE SPACE.
+      * ENVIRONMENT INFORMATION (FIRST ENVIRONMENT BLOCK)
+               10  ALSMFA-RS-ENV       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-STG       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-STGID     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-STG-NUM   PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-SYS       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-SBS       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-ELM       PIC X(10)     VALUE SPACES.
+               10  ALSMFA-RS-TYPE      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-VV        PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-LVL       PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-DSN       PIC X(44)     VALUE SPACES.
+               10  ALSMFA-RS-MBR       PIC X(8)      VALUE SPACES.
+      * LAST LEVEL INFORMATION
+               10  ALSMFA-RS-LLDT      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLTM      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLUS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLAC      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLST      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLCM      PIC X(40)     VALUE SPACES.
+      * LAST PROCESSOR INFORMATION
+               10  ALSMFA-RS-LPRNM     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRDT     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRTM     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRUSR    PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRRC     PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-LPRNRC    PIC X(4)      VALUE SPACES.
+      * ACTION OPTIONS
+               10  ALSMFA-RS-PCCID     PIC X(12)     VALUE SPACES.
+               10  ALSMFA-RS-PCOMM     PIC X(40)     VALUE SPACES.
+               10  ALSMFA-RS-PSOOV     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PRCO      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PXINC     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PREPL     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PDEL      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PIGF      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PBYPG     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PBYPD     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PSYNC     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PDOC      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PHIST     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PUPD      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PPGOV     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-PSOTO     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-PRC       PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-PRGRP     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-SRCHR     PIC X(1)      VALUE SPACES.
+                   88  ALSMFA-RS-SRCHR-ELEM          VALUE 'E'.
+                   88  ALSMFA-RS-SRCHR-COMP          VALUE 'O'.
+               10  ALSMFA-RS-EMCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-SYCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-CMCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TMSGS     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTOGEN   PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTOGENX  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-NOSOURCE  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTGSPAN  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AEXACT    PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-NODOC     PIC X(1)      VALUE SPACE.
+               10  FILLER              PIC X(4)      VALUE SPACE.
+      * ENVIRONMENT INFORMATION (SECOND ENVIRONMENT BLOCK)
+               10  ALSMFA-RS-TENV      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSTG      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSTGID    PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TSTG-NUM  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TSYS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSBS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TELM      PIC X(10)     VALUE SPACES.
+               10  ALSMFA-RS-TTYPE     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TVV       PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-TLVL      PIC X(2)      VALUE SPACES.
+               10  FILLER              PIC X(4)      VALUE SPACE.
+      * ALTER ACTION INFORMATION
+               10  ALSMFA-RS-AFLDID    PIC X(01)     VALUE SPACES.
+                   88  ALSMFA-RS-ARCCG               VALUE '1'.
+                   88  ALSMFA-RS-ARCCL               VALUE '2'.
+                   88  ALSMFA-RS-ARCCR               VALUE '3'.
+                   88  ALSMFA-RS-ARDES               VALUE '4'.
+                   88  ALSMFA-RS-ARPRG               VALUE '5'.
+                   88  ALSMFA-RS-ARSGN               VALUE '6'.
+                   88  ALSMFA-RS-ARUSR               VALUE '7'.
+               10  ALSMFA-RS-AUPDT     PIC X(01)     VALUE SPACES.
+                   88  ALSMFA-RS-AUPDY               VALUE 'Y'.
+                   88  ALSMFA-RS-AUPDN               VALUE 'N'.
+               10  FILLER              PIC X(02)     VALUE SPACES.
+      *
+      *        ALTER FIELDS - BEFORE/AFTER/MASK VALUES
+      *        CCID - GENERATE
+               10  ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-ACCGB   PIC X(12)     VALUE SPACES.
+                 15  ALSMFA-RS-ACCGA   PIC X(12)     VALUE SPACES.
+                 15  ALSMFA-RS-ACCGM   PIC X(12)     VALUE SPACES.
+                 15  FILLER            PIC X(215)    VALUE SPACES.
+      *        CCID - LAST ACTION
+               10  ALSMFA-RS-ADAT2 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-ACCLB   PIC X(12).
+                 15  ALSMFA-RS-ACCLA   PIC X(12).
+                 15  ALSMFA-RS-ACCLM   PIC X(12).
+                 15  FILLER            PIC X(215).
+      *        CCID - RETRIEVE
+               10  ALSMFA-RS-ADAT3 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-ACCRB   PIC X(12).
+                 15  ALSMFA-RS-ACCRA   PIC X(12).
+                 15  ALSMFA-RS-ACCRM   PIC X(12).
+                 15  FILLER            PIC X(215).
+      *        DESCRIPTION
+               10  ALSMFA-RS-ADAT4 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-ADESB   PIC X(40).
+                 15  ALSMFA-RS-ADESA   PIC X(40).
+                 15  ALSMFA-RS-ADESM   PIC X(40).
+                 15  FILLER            PIC X(131).
+      *        PROCESSOR GROUP
+               10  ALSMFA-RS-ADAT5 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-APRGB   PIC X(08).
+                 15  ALSMFA-RS-APRGA   PIC X(08).
+                 15  ALSMFA-RS-APRGM   PIC X(08).
+                 15  FILLER            PIC X(227).
+      *        SIGNOUT ID
+               10  ALSMFA-RS-ADAT6 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-ASGNB   PIC X(08).
+                 15  ALSMFA-RS-ASGNA   PIC X(08).
+                 15  ALSMFA-RS-ASGNM   PIC X(08).
+                 15  FILLER            PIC X(227).
+      *        USER DATA
+               10  ALSMFA-RS-ADAT7 REDEFINES ALSMFA-RS-ADATA.
+                 15  ALSMFA-RS-AUSRB   PIC X(80).
+                 15  ALSMFA-RS-AUSRA   PIC X(80).
+                 15  ALSMFA-RS-AUSRM   PIC X(80).
+                 15  ALSMFA-RS-AUSR-FPOS PIC 9(4)    COMP.
+                 15  ALSMFA-RS-AUSR-FTXL PIC 9(4)    COMP.
+                 15  ALSMFA-RS-AUSR-TPOS PIC 9(4)    COMP.
+                 15  ALSMFA-RS-AUSR-TLEN PIC 9(4)    COMP.
+                 15  ALSMFA-RS-AUSR-TTXL PIC 9(4)    COMP.
+                 15  ALSMFA-RS-AUSR-TPAD PIC X(01).
+      *
+               10   FILLER             PIC X(01)     VALUE SPACES.
+      * ELEMENT LENGTH AND NAME
+               10  ALSMFA-RS-LELML     PIC 9(4)      COMP VALUE 0.
+               10  ALSMFA-RS-LELM      PIC X(255)    VALUE SPACES.
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - DEST RESPONSE BLOCK             *
+      *         NOTE: THIS BLOCK IS THE LONGEST OF THE ADMIN          *
+      *         RESPONSE BLOCKS SO IT IS LISTED FIRST AND REDEFINED.  *
+      *****************************************************************
+       01  ALSMFEI-RS.
+           05  ALSMFEI-RS-HEADER.
+               10  ALSMFEI-RS-LEN         PIC 9(4) COMP VALUE 2006.
+               10  ALSMFEI-RS-FLAGS       PIC 9(4) COMP VALUE 0.
+               10  ALSMFEI-RS-ID          PIC 9(4) COMP VALUE 1953.
+               10  ALSMFEI-RS-VERS        PIC 9(4) COMP VALUE 6.
+               10  ALSMFEI-RS-EYE         PIC X(4)   VALUE 'SMFS'.
+           05  ALSMFEI-RS-DATAAREA.
+               10  ALSMFEI-RS-RTYPE       PIC X(1)   VALUE 'E'.
+               10  ALSMFEI-RS-RECID       PIC X(3)   VALUE SPACES.
+               10  ALSMFEI-RS-DATE        PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-TIME        PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-CPUID       PIC X(4)   VALUE SPACES.
+               10  ALSMFEI-RS-USER        PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-OBJECT      PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-FUNCTION    PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-SITE        PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-ENV         PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-WRITR       PIC X(1)   VALUE SPACES.
+      *
+      * OBJECT SPECIFIC FIELDS FOR DEST
+      *
+               10  ALSMFEI-RS-DST-DEST-ID PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-DESC    PIC X(30)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-XMIT-CD PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-NOD PIC X(16)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-COMPLEM PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-HST-PFX PIC X(14)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-HST-DSP PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-HST-UNT PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-HST-VOL PIC X(6)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-PFX PIC X(14)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-DSP PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-UNT PIC X(8)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-VOL PIC X(6)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-IP-NAME PIC X(63)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-IP-PORT PIC X(5)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-HUSSPFX PIC X(732) VALUE SPACES.
+               10  ALSMFEI-RS-DST-HUSSDSP PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RUSSPFX PIC X(732) VALUE SPACES.
+               10  ALSMFEI-RS-DST-RUSSDSP PIC X(1)   VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-JC1 PIC X(72)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-JC2 PIC X(72)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-JC3 PIC X(72)  VALUE SPACES.
+               10  ALSMFEI-RS-DST-RMT-JC4 PIC X(72)  VALUE SPACES.
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - APPRGRP RESPONSE BLOCK          *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEA-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEA-RS-HEADER.
+               10  ALSMFEA-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEA-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEA-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEA-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEA-RS-EYE         PIC X(4).
+           05  ALSMFEA-RS-DATAAREA.
+               10  ALSMFEA-RS-RTYPE       PIC X(1).
+               10  ALSMFEA-RS-RECID       PIC X(3).
+               10  ALSMFEA-RS-DATE        PIC X(8).
+               10  ALSMFEA-RS-TIME        PIC X(8).
+               10  ALSMFEA-RS-CPUID       PIC X(4).
+               10  ALSMFEA-RS-USER        PIC X(8).
+               10  ALSMFEA-RS-OBJECT      PIC X(8).
+               10  ALSMFEA-RS-FUNCTION    PIC X(8).
+               10  ALSMFEA-RS-SITE        PIC X(1).
+               10  ALSMFEA-RS-ENV         PIC X(8).
+               10  ALSMFEA-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR APPRGRP
+      *
+               10  ALSMFEA-RS-AGR-NAME    PIC X(16).
+               10  ALSMFEA-RS-AGR-QUORUM  PIC X(5).
+               10  ALSMFEA-RS-AGR-GRP-DSQ PIC X(1).
+               10  ALSMFEA-RS-AGR-DESC    PIC X(50).
+               10  ALSMFEA-RS-TOT-USER    PIC X(128).
+               10  ALSMFEA-RS-AGR-USER REDEFINES ALSMFEA-RS-TOT-USER
+                          OCCURS 16 TIMES PIC X(8).
+               10  ALSMFEA-RS-TOT-REQ     PIC X(16).
+               10  ALSMFEA-RS-AGR-USR-REQ REDEFINES ALSMFEA-RS-TOT-REQ
+                          OCCURS 16 TIMES PIC X.
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - APPRREL RESPONSE BLOCK          *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEB-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEB-RS-HEADER.
+               10  ALSMFEB-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEB-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEB-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEB-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEB-RS-EYE         PIC X(4).
+           05  ALSMFEB-RS-DATAAREA.
+               10  ALSMFEB-RS-RTYPE       PIC X(1).
+               10  ALSMFEB-RS-RECID       PIC X(3).
+               10  ALSMFEB-RS-DATE        PIC X(8).
+               10  ALSMFEB-RS-TIME        PIC X(8).
+               10  ALSMFEB-RS-CPUID       PIC X(4).
+               10  ALSMFEB-RS-USER        PIC X(8).
+               10  ALSMFEB-RS-OBJECT      PIC X(8).
+               10  ALSMFEB-RS-FUNCTION    PIC X(8).
+               10  ALSMFEB-RS-SITE        PIC X(1).
+               10  ALSMFEB-RS-ENV         PIC X(8).
+               10  ALSMFEB-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR APPRREL
+      *
+               10  ALSMFEB-RS-AGJ-SYSTEM  PIC X(8).
+               10  ALSMFEB-RS-AGJ-SUBSYS  PIC X(8).
+               10  ALSMFEB-RS-AGJ-TYPE    PIC X(8).
+               10  ALSMFEB-RS-AGJ-STGID   PIC X(1).
+               10  ALSMFEB-RS-AGJ-STGNUM  PIC X(1).
+               10  ALSMFEB-RS-AGJ-REL-TYP PIC X(9).
+               10  ALSMFEB-RS-AGJ-AGRNAME PIC X(16).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - PROCGRP RESPONSE BLOCK          *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEC-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEC-RS-HEADER.
+               10  ALSMFEC-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEC-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEC-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEC-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEC-RS-EYE         PIC X(4).
+           05  ALSMFEC-RS-DATAAREA.
+               10  ALSMFEC-RS-RTYPE       PIC X(1).
+               10  ALSMFEC-RS-RECID       PIC X(3).
+               10  ALSMFEC-RS-DATE        PIC X(8).
+               10  ALSMFEC-RS-TIME        PIC X(8).
+               10  ALSMFEC-RS-CPUID       PIC X(4).
+               10  ALSMFEC-RS-USER        PIC X(8).
+               10  ALSMFEC-RS-OBJECT      PIC X(8).
+               10  ALSMFEC-RS-FUNCTION    PIC X(8).
+               10  ALSMFEC-RS-SITE        PIC X(1).
+               10  ALSMFEC-RS-ENV         PIC X(8).
+               10  ALSMFEC-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR PROCGRP
+      *
+               10  ALSMFEC-RS-PGR-SYSTEM  PIC X(8).
+               10  ALSMFEC-RS-PGR-TYPE    PIC X(8).
+               10  ALSMFEC-RS-PGR-NAME    PIC X(8).
+               10  ALSMFEC-RS-PGR-NXT-PGR PIC X(8).
+               10  ALSMFEC-RS-PGR-DESC    PIC X(50).
+               10  ALSMFEC-RS-PGR-OUT-TYP PIC X(16).
+               10  ALSMFEC-RS-PGR-PMOVE   PIC X(1).
+               10  ALSMFEC-RS-PGR-PXFER   PIC X(1).
+               10  ALSMFEC-RS-PGR-GEN-PRO PIC X(8).
+               10  ALSMFEC-RS-PGR-GEN-FG  PIC X(1).
+               10  ALSMFEC-RS-PGR-DEL-PRO PIC X(8).
+               10  ALSMFEC-RS-PGR-DEL-FG  PIC X(1).
+               10  ALSMFEC-RS-PGR-MOV-PRO PIC X(8).
+               10  ALSMFEC-RS-PGR-MOV-FG  PIC X(1).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - PROCSYM RESPONSE BLOCK          *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFED-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFED-RS-HEADER.
+               10  ALSMFED-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFED-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFED-RS-ID          PIC 9(4) COMP.
+               10  ALSMFED-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFED-RS-EYE         PIC X(4).
+           05  ALSMFED-RS-DATAAREA.
+               10  ALSMFED-RS-RTYPE       PIC X(1).
+               10  ALSMFED-RS-RECID       PIC X(3).
+               10  ALSMFED-RS-DATE        PIC X(8).
+               10  ALSMFED-RS-TIME        PIC X(8).
+               10  ALSMFED-RS-CPUID       PIC X(4).
+               10  ALSMFED-RS-USER        PIC X(8).
+               10  ALSMFED-RS-OBJECT      PIC X(8).
+               10  ALSMFED-RS-FUNCTION    PIC X(8).
+               10  ALSMFED-RS-SITE        PIC X(1).
+               10  ALSMFED-RS-ENV         PIC X(8).
+               10  ALSMFED-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR PROCSYM
+      *
+               10  ALSMFED-RS-PSY-SYSTEM  PIC X(8).
+               10  ALSMFED-RS-PSY-TYPE    PIC X(8).
+               10  ALSMFED-RS-PSY-PG-NAME PIC X(8).
+               10  ALSMFED-RS-PSY-PRO-NAM PIC X(8).
+               10  ALSMFED-RS-PSY-PRO-TYP PIC X(3).
+               10  ALSMFED-RS-PSY-SYM-NAM PIC X(8).
+               10  ALSMFED-RS-PSY-DEF-VAL PIC X(70).
+               10  ALSMFED-RS-PSY-OVR-VAL PIC X(70).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - SYSTEM RESPONSE BLOCK           *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEE-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEE-RS-HEADER.
+               10  ALSMFEE-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEE-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEE-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEE-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEE-RS-EYE         PIC X(4).
+           05  ALSMFEE-RS-DATAAREA.
+               10  ALSMFEE-RS-RTYPE       PIC X(1).
+               10  ALSMFEE-RS-RECID       PIC X(3).
+               10  ALSMFEE-RS-DATE        PIC X(8).
+               10  ALSMFEE-RS-TIME        PIC X(8).
+               10  ALSMFEE-RS-CPUID       PIC X(4).
+               10  ALSMFEE-RS-USER        PIC X(8).
+               10  ALSMFEE-RS-OBJECT      PIC X(8).
+               10  ALSMFEE-RS-FUNCTION    PIC X(8).
+               10  ALSMFEE-RS-SITE        PIC X(1).
+               10  ALSMFEE-RS-ENV         PIC X(8).
+               10  ALSMFEE-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR SYSTEM
+      *
+               10  ALSMFEE-RS-SYS-SYSTEM  PIC X(8).
+               10  ALSMFEE-RS-SYS-NXT-SYS PIC X(8).
+               10  ALSMFEE-RS-SYS-DESC    PIC X(50).
+               10  ALSMFEE-RS-SYS-COMM-RQ PIC X(1).
+               10  ALSMFEE-RS-SYS-CCID-RQ PIC X(1).
+               10  ALSMFEE-RS-SYS-SISO    PIC X(1).
+               10  ALSMFEE-RS-SYS-SO-DSN  PIC X(1).
+               10  ALSMFEE-RS-SYS-ELM-JMP PIC X(1).
+               10  ALSMFEE-RS-SYS-DUP-ELM PIC X(1).
+               10  ALSMFEE-RS-SYS-DUP-EML PIC X(1).
+               10  ALSMFEE-RS-SYS-DUP-OUT PIC X(1).
+               10  ALSMFEE-RS-SYS-DUP-OSB PIC X(1).
+               10  ALSMFEE-RS-SYS-DUP-OML PIC X(1).
+               10  ALSMFEE-RS-SYS-ELM-AGE PIC X(1).
+               10  ALSMFEE-RS-SYS-ELM-LVL PIC X(3).
+               10  ALSMFEE-RS-SYS-CMP-AGE PIC X(1).
+               10  ALSMFEE-RS-SYS-CMP-LVL PIC X(3).
+               10  ALSMFEE-RS-SYS-S1-LOAD PIC X(44).
+               10  ALSMFEE-RS-SYS-S1-LIST PIC X(44).
+               10  ALSMFEE-RS-SYS-S2-LOAD PIC X(44).
+               10  ALSMFEE-RS-SYS-S2-LIST PIC X(44).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - SUBSYS RESPONSE BLOCK           *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEF-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEF-RS-HEADER.
+               10  ALSMFEF-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEF-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEF-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEF-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEF-RS-EYE         PIC X(4).
+           05  ALSMFEF-RS-DATAAREA.
+               10  ALSMFEF-RS-RTYPE       PIC X(1).
+               10  ALSMFEF-RS-RECID       PIC X(3).
+               10  ALSMFEF-RS-DATE        PIC X(8).
+               10  ALSMFEF-RS-TIME        PIC X(8).
+               10  ALSMFEF-RS-CPUID       PIC X(4).
+               10  ALSMFEF-RS-USER        PIC X(8).
+               10  ALSMFEF-RS-OBJECT      PIC X(8).
+               10  ALSMFEF-RS-FUNCTION    PIC X(8).
+               10  ALSMFEF-RS-SITE        PIC X(1).
+               10  ALSMFEF-RS-ENV         PIC X(8).
+               10  ALSMFEF-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR SUBSYS
+      *
+               10  ALSMFEF-RS-SBS-SYSTEM  PIC X(8).
+               10  ALSMFEF-RS-SBS-SUBSYS  PIC X(8).
+               10  ALSMFEF-RS-SBS-NXT-SBS PIC X(8).
+               10  ALSMFEF-RS-SBS-DESC    PIC X(50).
+               10  ALSMFEF-RS-SBS-EXC-OUT PIC X(1).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - TYPE RESPONSE BLOCK             *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEG-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEG-RS-HEADER.
+               10  ALSMFEG-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEG-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEG-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEG-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEG-RS-EYE         PIC X(4).
+           05  ALSMFEG-RS-DATAAREA.
+               10  ALSMFEG-RS-RTYPE       PIC X(1).
+               10  ALSMFEG-RS-RECID       PIC X(3).
+               10  ALSMFEG-RS-DATE        PIC X(8).
+               10  ALSMFEG-RS-TIME        PIC X(8).
+               10  ALSMFEG-RS-CPUID       PIC X(4).
+               10  ALSMFEG-RS-USER        PIC X(8).
+               10  ALSMFEG-RS-OBJECT      PIC X(8).
+               10  ALSMFEG-RS-FUNCTION    PIC X(8).
+               10  ALSMFEG-RS-SITE        PIC X(1).
+               10  ALSMFEG-RS-ENV         PIC X(8).
+               10  ALSMFEG-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR TYPE
+      *
+               10  ALSMFEG-RS-TYP-SYSTEM  PIC X(8).
+               10  ALSMFEG-RS-TYP-TYPE    PIC X(8).
+               10  ALSMFEG-RS-TYP-NXT-TYP PIC X(8).
+               10  ALSMFEG-RS-TYP-DESC    PIC X(50).
+               10  ALSMFEG-RS-TYP-DFLT-PG PIC X(8).
+               10  ALSMFEG-RS-TYP-BASE    PIC X(44).
+               10  ALSMFEG-RS-TYP-DELTA   PIC X(44).
+               10  ALSMFEG-RS-TYP-INCLUDE PIC X(44).
+               10  ALSMFEG-RS-TYP-SOL     PIC X(44).
+               10  ALSMFEG-RS-TYP-EXP-INC PIC X(1).
+               10  ALSMFEG-RS-TYP-DLT-FMT PIC X(1).
+               10  ALSMFEG-RS-TYP-CMP-FMT PIC X(1).
+               10  ALSMFEG-RS-TYP-COMPR   PIC X(1).
+               10  ALSMFEG-RS-TYP-RGR-PCT PIC X(2).
+               10  ALSMFEG-RS-TYP-RGR-SEV PIC X(1).
+               10  ALSMFEG-RS-TYP-SRC-LNG PIC X(5).
+               10  ALSMFEG-RS-TYP-CMPR-FR PIC X(5).
+               10  ALSMFEG-RS-TYP-CMPR-TO PIC X(5).
+               10  ALSMFEG-RS-TYP-ELM-LVL PIC X(1).
+               10  ALSMFEG-RS-TYP-ELM-AT  PIC X(3).
+               10  ALSMFEG-RS-TYP-ELM-NUM PIC X(3).
+               10  ALSMFEG-RS-TYP-CMP-LVL PIC X(1).
+               10  ALSMFEG-RS-TYP-CMP-AT  PIC X(3).
+               10  ALSMFEG-RS-TYP-CMP-NUM PIC X(3).
+               10  ALSMFEG-RS-TYP-USS-RFM PIC X(4).
+               10  ALSMFEG-RS-TYP-LANG    PIC X(8).
+               10  ALSMFEG-RS-TYP-PL-LANG PIC X(8).
+               10  ALSMFEG-RS-TYP-DAT-FMT PIC X(1).
+               10  ALSMFEG-RS-TYP-ELM-RFM PIC X(1).
+               10  ALSMFEG-RS-TYP-FIL-EXT PIC X(8).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - TYPEDSN RESPONSE BLOCK          *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEH-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEH-RS-HEADER.
+               10  ALSMFEH-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEH-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEH-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEH-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEH-RS-EYE         PIC X(4).
+           05  ALSMFEH-RS-DATAAREA.
+               10  ALSMFEH-RS-RTYPE       PIC X(1).
+               10  ALSMFEH-RS-RECID       PIC X(3).
+               10  ALSMFEH-RS-DATE        PIC X(8).
+               10  ALSMFEH-RS-TIME        PIC X(8).
+               10  ALSMFEH-RS-CPUID       PIC X(4).
+               10  ALSMFEH-RS-USER        PIC X(8).
+               10  ALSMFEH-RS-OBJECT      PIC X(8).
+               10  ALSMFEH-RS-FUNCTION    PIC X(8).
+               10  ALSMFEH-RS-SITE        PIC X(1).
+               10  ALSMFEH-RS-ENV         PIC X(8).
+               10  ALSMFEH-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR TYPEDSN
+      *
+               10  ALSMFEH-RS-DSN-SYSTEM  PIC X(8).
+               10  ALSMFEH-RS-DSN-REC-ID  PIC X(2).
+               10  ALSMFEH-RS-DSN-DSN-TYP PIC X(2).
+               10  ALSMFEH-RS-DSN-DSN     PIC X(44).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - DSNMAP RESPONSE BLOCK           *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEJ-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEJ-RS-HEADER.
+               10  ALSMFEJ-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEJ-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEJ-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEJ-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEJ-RS-EYE         PIC X(4).
+           05  ALSMFEJ-RS-DATAAREA.
+               10  ALSMFEJ-RS-RTYPE       PIC X(1).
+               10  ALSMFEJ-RS-RECID       PIC X(3).
+               10  ALSMFEJ-RS-DATE        PIC X(8).
+               10  ALSMFEJ-RS-TIME        PIC X(8).
+               10  ALSMFEJ-RS-CPUID       PIC X(4).
+               10  ALSMFEJ-RS-USER        PIC X(8).
+               10  ALSMFEJ-RS-OBJECT      PIC X(8).
+               10  ALSMFEJ-RS-FUNCTION    PIC X(8).
+               10  ALSMFEJ-RS-SITE        PIC X(1).
+               10  ALSMFEJ-RS-ENV         PIC X(8).
+               10  ALSMFEJ-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR DSNMAP
+      *
+               10  ALSMFEJ-RS-DMR-DEST    PIC X(8).
+               10  ALSMFEJ-RS-DMR-DESC    PIC X(40).
+               10  ALSMFEJ-RS-DMR-HST-DSN PIC X(44).
+               10  ALSMFEJ-RS-DMR-HMBRCYL PIC X(3).
+               10  ALSMFEJ-RS-DMR-RMT-DSN PIC X(44).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - USSMAP RESPONSE BLOCK           *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEK-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEK-RS-HEADER.
+               10  ALSMFEK-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEK-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEK-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEK-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEK-RS-EYE         PIC X(4).
+           05  ALSMFEK-RS-DATAAREA.
+               10  ALSMFEK-RS-RTYPE       PIC X(1).
+               10  ALSMFEK-RS-RECID       PIC X(3).
+               10  ALSMFEK-RS-DATE        PIC X(8).
+               10  ALSMFEK-RS-TIME        PIC X(8).
+               10  ALSMFEK-RS-CPUID       PIC X(4).
+               10  ALSMFEK-RS-USER        PIC X(8).
+               10  ALSMFEK-RS-OBJECT      PIC X(8).
+               10  ALSMFEK-RS-FUNCTION    PIC X(8).
+               10  ALSMFEK-RS-SITE        PIC X(1).
+               10  ALSMFEK-RS-ENV         PIC X(8).
+               10  ALSMFEK-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR USSMAP
+      *
+               10  ALSMFEK-RS-UMR-DEST    PIC X(8).
+               10  ALSMFEK-RS-UMR-DESC    PIC X(40).
+               10  ALSMFEK-RS-UMR-HST-PTH PIC X(768).
+               10  ALSMFEK-RS-UMR-RMT-PTH PIC X(768).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - CLONE RESPONSE BLOCK            *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEL-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEL-RS-HEADER.
+               10  ALSMFEL-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEL-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEL-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEL-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEL-RS-EYE         PIC X(4).
+           05  ALSMFEL-RS-DATAAREA.
+               10  ALSMFEL-RS-RTYPE       PIC X(1).
+               10  ALSMFEL-RS-RECID       PIC X(3).
+               10  ALSMFEL-RS-DATE        PIC X(8).
+               10  ALSMFEL-RS-TIME        PIC X(8).
+               10  ALSMFEL-RS-CPUID       PIC X(4).
+               10  ALSMFEL-RS-USER        PIC X(8).
+               10  ALSMFEL-RS-OBJECT      PIC X(8).
+               10  ALSMFEL-RS-FUNCTION    PIC X(8).
+               10  ALSMFEL-RS-SITE        PIC X(1).
+               10  ALSMFEL-RS-ENV         PIC X(8).
+               10  ALSMFEL-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR CLONE
+      *
+               10  ALSMFEL-RS-CSY-SYSTEM  PIC X(8).
+               10  ALSMFEL-RS-CSY-DESC    PIC X(50).
+               10  ALSMFEL-RS-CSY-FRM-ENV PIC X(8).
+               10  ALSMFEL-RS-CSY-FRM-SYS PIC X(8).
+               10  ALSMFEL-RS-CSY-INC-SBS PIC X(1).
+               10  ALSMFEL-RS-CSY-INC-TYP PIC X(1).
+      *****************************************************************
+      *                                                               *
+      *         LIST SMF DATA ADMIN - DYNENV RESPONSE BLOCK           *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFEM-RS REDEFINES ALSMFEI-RS.
+           05  ALSMFEM-RS-HEADER.
+               10  ALSMFEM-RS-LEN         PIC 9(4) COMP.
+               10  ALSMFEM-RS-FLAGS       PIC 9(4) COMP.
+               10  ALSMFEM-RS-ID          PIC 9(4) COMP.
+               10  ALSMFEM-RS-VERS        PIC 9(4) COMP.
+               10  ALSMFEM-RS-EYE         PIC X(4).
+           05  ALSMFEM-RS-DATAAREA.
+               10  ALSMFEM-RS-RTYPE       PIC X(1).
+               10  ALSMFEM-RS-RECID       PIC X(3).
+               10  ALSMFEM-RS-DATE        PIC X(8).
+               10  ALSMFEM-RS-TIME        PIC X(8).
+               10  ALSMFEM-RS-CPUID       PIC X(4).
+               10  ALSMFEM-RS-USER        PIC X(8).
+               10  ALSMFEM-RS-OBJECT      PIC X(8).
+               10  ALSMFEM-RS-FUNCTION    PIC X(8).
+               10  ALSMFEM-RS-SITE        PIC X(1).
+               10  ALSMFEM-RS-ENV         PIC X(8).
+               10  ALSMFEM-RS-WRITR       PIC X(1).
+      *
+      * OBJECT SPECIFIC FIELDS FOR DYNENV
+      *
+               10  ALSMFEM-RS-ENV-DESC    PIC X(40).
+               10  ALSMFEM-RS-ENV-LIKE    PIC X(8).
+               10  ALSMFEM-RS-ENV-NXTE    PIC X(8).
+               10  ALSMFEM-RS-ENV-NXTS    PIC X(1).
+               10  ALSMFEM-RS-ENV-ENTS    PIC X(1).
+               10  ALSMFEM-RS-ENV-LJGR    PIC X(1).
+               10  ALSMFEM-RS-ENV-LJSI    PIC X(1).
+               10  ALSMFEM-RS-ENV-SMFE    PIC X(1).
+               10  ALSMFEM-RS-ENV-SMFA    PIC X(1).
+               10  ALSMFEM-RS-ENV-SMFS    PIC X(1).
+               10  ALSMFEM-RS-ENV-DBAV    PIC X(1).
+               10  ALSMFEM-RS-ENV-DBAC    PIC X(1).
+               10  ALSMFEM-RS-ENV-SYNC    PIC X(1).
+               10  ALSMFEM-RS-ENV-S1ID    PIC X(1).
+               10  ALSMFEM-RS-ENV-S1NM    PIC X(8).
+               10  ALSMFEM-RS-ENV-S1TI    PIC X(40).
+               10  ALSMFEM-RS-ENV-S1MC    PIC X(44).
+               10  ALSMFEM-RS-ENV-S1ST    PIC X(1).
+               10  ALSMFEM-RS-ENV-S2ID    PIC X(1).
+               10  ALSMFEM-RS-ENV-S2NM    PIC X(8).
+               10  ALSMFEM-RS-ENV-S2TI    PIC X(40).
+               10  ALSMFEM-RS-ENV-S2MC    PIC X(44).
+               10  ALSMFEM-RS-ENV-S2ST    PIC X(1).

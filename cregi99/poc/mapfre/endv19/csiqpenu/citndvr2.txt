@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Inventory Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Environment+- The 1 to 8 character name of the environment that is
+      the source, target, or location of the action.
+
+%System+- The 1 to 8 character name of the system associated with
+      the element(s) to be processed.
+
+%Subsystem+- The 1 to 8 character name of the subsystem associated
+      with the element(s) to be processed.
+
+%Element+- The 1 to 8 character name of the element(s) you want to
+      process. Panvalet 10-character names are also supported.
+
+%Type+- The 1 to 8 character name of the type associated with the
+      element(s) to be processed.
++
++
++
++
++\ \ (Hit%ENTER+for acceptable value information) \ \
+)PROC
+   &ZCONT = CITNDVR1
+)END

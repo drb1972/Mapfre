@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Replacing Like-Named Members \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++If you specify a WIP data set that contains a member with the same name
++as a corresponding Root member in the selection matrix and if the value
++in the%IF PARTITIONED REPLACE LIKE-NAMED MEMBERS+field on the WIP
++Specification Panel is
+%   Y+- PDM will replace the existing member with the new member.
+%   N+- PDM will not process the like-named member. If PDM does not
++       replace the existing member, it displays the message *NO-REPL
++       in the RENAME column.
++
++In this situation, you have three options:
++  * Leave the member name as is, meaning that PDM will not process it.
++  * In foreground, INCLUDE the member and rerun the Build WIP process.
++       to override the *NO-REPL condition.
++  * In batch, you can keep both members by including the *NO-REPL member
++       and renaming it.
++
++    Select%1-2+for information about:
++
+%    1+- The INCLUDE command        %2+- The RENAME command
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TINC0 2,BC1TREN0)
+)END

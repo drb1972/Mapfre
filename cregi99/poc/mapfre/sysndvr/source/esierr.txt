@@ -1,0 +1,35 @@
+         MACRO                                                          00000001
+&LABEL   ESIERR &CODE,&MSG,&TYPE=                                       00000002
+         COPY  ESIGLBL
+         LCLA  &RC
+         AIF   ('&TYPE' EQ 'END').ESI0800
+         AIF   ('&CODE' EQ '*').ESI0100
+         AIF   ('&CODE'(1,1) EQ '''').ESI0100
+&RC      SETA  &CODE
+&ESIECNT SETA  &ESIECNT+1
+         AIF   (&RC LE &ESIQUAL).ESI0100
+&ESIQUAL SETA  &RC
+.ESI0100 ANOP
+         MNOTE &CODE,&MSG
+         MEXIT
+.ESI0800 ANOP
+         AIF   (NOT (&FUNCEND AND &NAMEEND)).ESI0880
+&ESIQLBL EQU   &ESIQUAL
+         AIF   (&ESIQUAL GT 0).ESI0880
+         MNOTE '****************************************************'
+         MNOTE '*                                                   '
+         MNOTE '*       NO ERRORS WERE ENCOUNTERED DURING TABLE     '
+         MNOTE '*       GENERATION.                                 '
+         MNOTE '*                                                   '
+         MNOTE '****************************************************'
+         MEXIT
+.ESI0880 ANOP
+         MNOTE '****************************************************'
+         MNOTE '*                                                   '
+         MNOTE '*       &ESIECNT ERROR(S) WERE ENCOUNTERED.         '
+         MNOTE '*       THE MAXIMUM RETURN CODE WAS &ESIQUAL..      '
+         MNOTE '*       THE NAME EQUATE TABLE MAY BE FAULTY.        '
+         MNOTE '*                                                   '
+         MNOTE '****************************************************'
+         MEXIT
+         MEND

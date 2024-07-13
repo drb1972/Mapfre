@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%\-\ Element Action SCL Syntax Allows Blanks in Element and USS Names \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 2 of 2
++new method follows;
++
++      ADD ELEMENT 'This is an example ',
++                  'of the way you might',
++                  ' code your element name'
++
++   This new syntax method was created so that blanks can be inserted
++   at the end and/or beginning of a line and have them retained in the
++   name. When specifying the value for the name it must begin and end
++   with a quote. If the name will span multiple lines, there needs
++   to be a comma after the ending quote to indicate continuation of
++   the name value. The last line containing the name value without a
++   comma after the ending quote indicates the end of the name value.
++   This new syntax needs to be coded in columns 1-72. Any characters
++   in columns 73-80 are treated as a comment and ignored.
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+)PROC
+   &ZCONT = CIT18040
+)END

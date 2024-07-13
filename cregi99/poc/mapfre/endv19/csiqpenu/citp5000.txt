@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Execute/Submit Package \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to execute packages in foreground, or to submit them for
++batch execution, with these options:
++
+%   E+- Execute the package in foreground.
++
+%   S+- Submit the package for batch execution.
++
+%  CI+- To view correlation information.
++
++
++
++    Select%1+-%6+for information about
++
+%    1+- Package ID fields          %4+- Execution window
+%    2+- Package status             %5+- Package events
+%    3+- Sharable package           %6+- Submit package panel
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITXWIN0
+                  5,CITPKEV0 6,CITP5100)
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Matrix Commands \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The WIP Member Selection Matrix panel provides commands for manipulating
++the entire matrix.  Specifically, you can:
++
++  * Print the matrix using the%PRTMAT+command.
++
++  * Position the matrix on a line using the%LOCATE+command.
++
++  * Sort the matrix using the%SORT+command.
++
++  * Create WIP files or build SCL using the%CREATE+command.
++
++    Select%1-4+for information about:
++
+%    1+- The PRTMAT command         %3+- The SORT command
+%    2+- The LOCATE command         %4+- The CREATE command
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TPRT0 2,BC1TLOC0 3,BC1TSOR0 4,BC1TCRE0)
+)END

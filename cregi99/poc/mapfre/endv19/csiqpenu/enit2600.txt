@@ -1,0 +1,33 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Commit Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Commit Package panel to commit a package.  If the package is a
++promotion package, indicate whether you want to delete promotion history
++(Y) or not (N).  To commit a package select action 1 and press enter. You can
++cancel the Commit Package action by selecting action 2 and pressing enter.
++
++
++Select 1 - 5 for information about:
+%   1+- Package identification fields
+%   2+- Promotion package
+%   3+- Sharable package
+%   4+- Enable backout
+%   5+- Package event fields
+%
+%
++Select a Help topic, or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citprom0
+                 3,citshpk0
+                 4,citbken0
+                 5,citpkev0
+                )
+)END

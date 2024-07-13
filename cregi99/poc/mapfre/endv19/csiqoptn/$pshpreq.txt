@@ -1,0 +1,62 @@
+         MACRO
+         $PSHPREQ &DSCT=YES
+         AIF ('&DSCT' EQ 'YES').DSCT1
+$PSHPREQ  DS   0D
+         AGO .START1
+.DSCT1   ANOP
+$PSHPREQ DSECT
+.START1  ANOP
+.*         **********************************************
+.*         *  BLOCK INTIALIZATION DATA                  *
+.*         **********************************************
+PSHPLEN    DC    AL2(PSHPSIZE)         LENGTH OF BOD TABLE ENTRY
+PSHPVERS   DC    AL2(PSHP$VER)        VERSION OF BOD TABLE BLK
+PSHP$VER   EQU   1                     RELEASE 1
+PSHPID     DC    CL4'PSHP'             ID OF CONTROL BLOCK
+.*         **********************************************
+.*         *  BLOCK TOTAL DATA                          *
+.*         **********************************************
+PSHPSEQ#     DS  H                  SEQUENTIAL # OF THIS ENTRY
+.*         **********************************************
+.*         *  SHIPMENT DATA FIELDS                      *
+.*         **********************************************
+PSHPPKID    DS  CL16                ID OF PACKAGE SHIPPED
+PSHPDSUB    DS  CL7                   DATE SUBMITTED (DDMONYY)
+PSHPTSUB    DS  CL8                   TIME SUBMITTED (HH:MM:SS)
+PSHP#DST    DS  H                   # OF DESTINATIONS IN RECORD
+***
+***  THE FOLLOWING FIELDS OCCUR PSHP#DST TIMES
+***
+PSHPDEST     DS  CL8                   SHIPMENT DESTINATION
+PSHPTYPE     DS  CL3                   SHIPMENT TYPE
+PSHP$PKG     EQU C'P'                  PKG = PACKAGE SHIPPED
+PSHP$BKT     EQU C'B'                  BKO = BACKOUT SHIPPED
+PSHPCOMP     DS  CL3                   COMPLEMENTARY FILES INDICATOR
+PSHPC$YS     EQU C'Y'                  YES = COMPLEMENT FILES REQ'ED
+PSHPC$NO     EQU C'N'                  NO  = NO COMPLEMENTARY FILES
+.*
+*---------------------------------------------------------------------*
+*  COMPLETION CODES:                                                  *
+*      FUNCTION COMPLETED:           RC=##  - RC=###  - R=####        *
+*      CANCELLED BY EXIT:            XC=##  - XC=###  - X=####        *
+*      ABEND DETECTED:               S/###  - U####                   *
+*      GENERIC COMPLETION:           EXEC'D - ABEND                   *
+*---------------------------------------------------------------------*
+PSHPC$RC    EQU C'R'                  CC IS A RETURN CODE
+PSHPC$XX    EQU C'X'                  CC IS AN EXIT CANCELLATION
+PSHPC$SA    EQU C'S'                  CC IS A SYSTEM ABEND
+PSHPC$UA    EQU C'U'                  CC IS A USER ABEND
+PSHPC$EX    EQU C'E'                  FUNCTION EXEC'D (RC UNAVAILABLE)
+PSHPC$AB    EQU C'A'                  FUNCTION ABND'D (RC UNAVAILABLE)
+PSHPCCST    DS  CL6                   SHIPMENT STAGING COMPLETION CODE
+PSHPCCTR    DS  CL6                   SHIPMENT TRANSMISSION COMPL CODE
+PSHPCCRM     DS  CL6                   REMOTE COPY/DELETE COMPL'TN CODE
+             DS  3CL6                  ** RESERVED **
+PSHPD$LN     EQU *-PSHPDEST           LENGTH OF A SINGLE DEST ENTRY
+             DS  9CL(PSHPD$LN)        UP TO NINE MORE ENTRIES IN LIST
+PSHP$TLN     EQU *-PSHPDEST           TOTAL LENGTH OF DEST INFO LIST
+.*
+         SPACE ,
+.*
+PSHPSIZE  EQU    *-$PSHPREQ            LNG OF BOD TABLE ENTRY
+         MEND

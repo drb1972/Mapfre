@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%\-\ Package Display Panel Package Shipment Information \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Package Display Panel Package Shipment Information +
+
++ The Package Display panel now displays the date and destination ID of the
+  most recent shipment record and allows direct access to the Package Shipment
+  Status panel for the displayed package.
+
++ This enhancement adds two new display only fields to the Package Display
+  panel, LAST SHIPPED and DEST-ID. If applicable, these fields will contain
+  the date, time and destination ID of the most current shipment record for
+  the displayed package. This enhancement also adds a new option to the
+  Package Display panel, SH - Display Ship Status Information. This option
+  will only be available if ship records exist for the displayed package
+  selecting this option will bring the user to the Package Shipment Status
+  panel for the selected package.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7090
+)END

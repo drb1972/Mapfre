@@ -1,0 +1,32 @@
+STARTDEF
+tag % sh
+tag + s
+tag _ uh cmd
+tag | sh msg
+tag ^ sh sysprof1
+tag & s  sysprof2
+%------------------ CA Endevor SCM Primary Options Panel       -----------------
+%OPTION ===>_   +                                                              +
+|
+%   1+ DISPLAY ELEMENT   - Display element/component list information
+%   2+ DISPLAY FOOTPRINT - Display footprinted members and compressed listings
+%   3+ BATCH             - Perform Batch action processing
+%   4+ RETRIEVE          - Perform foreground Retrieve processing
+%
+^   S& SYSTEM PROFILE    - Update system profile information
+%
+%
+%
+%
+%
++
++
++
++
++
++
++       COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.
++
++ Enter%END+command to terminate
++
+enddef

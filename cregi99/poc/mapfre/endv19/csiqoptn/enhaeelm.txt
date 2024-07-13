@@ -1,0 +1,88 @@
+         MACRO
+         ENHAEELM &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        EXTRACT ELEMENT - REQUEST BLOCK                              *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+AEELM_VER       EQU 1                  CONTROL BLOCK VERSION
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=AEELM_VER,          CONTROL BLOCK VERSION           X
+               EYE='EELQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AEELM_RQ
+         SPACE ,
+AEELM_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEELM_RQ_DATA
+AEELM_RQ_FORMAT   DC CL1' '            BLANK - NO FORMAT, EXTRACT -OR- X
+                                       (B)ROWSE -OR- (C)HANGE -OR      X
+                                       (H)ISTORY -OR- (S)UMMARY
+AEELM_RQ_RTYPE    DC CL1'E'            (E)LEMENT -OR- (C)OMPONENT
+AEELM_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+AEELM_RQ_RESERVE2 DC CL1' '            ** RESERVED **
+AEELM_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEELM_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEELM_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEELM_RQ_TYPE     DC CL8' '            TYPE NAME
+AEELM_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEELM_RQ_STG_ID   DC CL1' '            STAGE ID
+AEELM_RQ_VERSION  DC CL2' '            VERSION
+AEELM_RQ_LEVEL    DC CL2' '            LEVEL
+                  DC CL1' '            RESERVED
+                  DS 0X
+AEELM_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AEELM_RQ_VER#1_DATADSLN EQU *-AEELM_RQ_DATA
+AEELM_RQ_VER#1_DSLN     EQU *-AEELM_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEELM_RQ_DATADSLN EQU *-AEELM_RQ_DATA
+AEELM_RQ_DSLN     EQU *-AEELM_RQ
+         ORG      AEELM_RQ_DATA
+AEELM_RQ_DATAAREA DS XL(AEELM_RQ_DATADSLN)  DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        EXTRACT ELEMENT - RESPONSE BLOCK                             *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=AEELM_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='EELS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AEELM_RS
+         SPACE ,
+AEELM_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEELM_RS_DATA
+AEELM_RS_SITE     DC CL1' '            SITE ID
+AEELM_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+AEELM_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+AEELM_RS_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEELM_RS_ELM      DC CL10' '           ELEMENT NAME
+AEELM_RS_TYPE     DC CL8' '            TYPE NAME
+AEELM_RS_STG_ID   DC CL1' '            STAGE ID
+AEELM_RS_RECCNT   DC ZL8'0'            RECORD COUNT (BLOCK HEADER)
+                  ORG AEELM_RS_RECCNT
+AEELM_RS_REC#     DC ZL8'0'            RECORD NUMBER(FILE  HEADER)
+                  SPACE ,
+AEELM_RS_MAXLEN   DC ZL8'0'            MAXIMUM RCD LEN (BLOCK HEADER)
+                  ORG AEELM_RS_MAXLEN
+AEELM_RS_RECLEN   DC ZL8'0'            RECORD LENGTH   (FILE  HEADER)
+                  SPACE ,
+                  DS 0X
+AEELM_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AEELM_RS_VER#1_DATADSLN EQU *-AEELM_RS_DATA
+AEELM_RS_VER#1_DSLN     EQU *-AEELM_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEELM_RS_DATADSLN EQU *-AEELM_RS_DATA
+AEELM_RS_DSLN     EQU *-AEELM_RS
+         ORG      AEELM_RS_DATA
+AEELM_RS_DATAAREA DS XL(AEELM_RS_DATADSLN)    DATA AREA
+         MEND

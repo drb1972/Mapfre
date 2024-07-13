@@ -1,0 +1,9 @@
+DBSP000E  'Duplicate name'                                  .ALARM = YES
+'Duplicate variable name not added, see varlist.'
+
+DBSP001E  'Invalid SP name'                                 .ALARM = YES
+'First 2 characters of program name must = system id.'
+
+DBSP002E  'Discarded'                                       .ALARM = YES
+'Create procedure discarded.'
+

@@ -1,0 +1,72 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY EXPAND(\\)
+%\-\ Apply List Filters \-\
+%OPTION  ===>_ZCMD                                                             +
++
++Apply List Filters %===>_Z+(Y/N)
++
++Filter Options:
++  Where CCID EQ    %===>^VARWHCCI    +
++  Where USERID EQ  %===>_VARWHUID+
++  Where PROC GRP EQ%===>_VARWPGRP+
++
++For Where CCID/USERID, compare to:     For Where CCID, compare to:
++  Current    %===>_Z+(Y/N)               All Element Change Lvls%===>_Z+(Y/N)
++  Generate   %===>_Z+(Y/N)
++  Last Action%===>_Z+(Y/N)
++  Retrieve   %===>_Z+(Y/N)
++
++
++
++
++
++
++\ \** Hit%ENTER+to process,%END+to return **\ \
++
+)INIT
+  .HELP = CITD1000
+  .ZVARS = '(VARWHPNL VARCCIT1 VARCCIT5 VARCCIT2 VARCCIT3 VARCCIT4)'
+  &LIST2 = 'Y N'
+  IF (&VARCCIT1 = ' ')
+    &VARCCIT1 = 'Y'
+  IF (&VARCCIT2 = ' ')
+    &VARCCIT2 = 'Y'
+  IF (&VARCCIT3 = ' ')
+    &VARCCIT3 = 'Y'
+  IF (&VARCCIT4 = ' ')
+    &VARCCIT4 = 'Y'
+  IF (&ETMPCIT5 = ' ')
+    &VARCCIT5 = 'N'
+    &ETMPCIT5 = 'N'
+)PROC
+  VER (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&VARCCIT1,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&VARCCIT2,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&VARCCIT3,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&VARCCIT4,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&VARCCIT5,NB,LISTV,&LIST2,MSG=CIFV005)
+  IF (&VARWHCCI ^= ' ')
+    IF (&VARCCIT2 = 'N')
+      IF (&VARCCIT3 = 'N')
+        IF (&VARCCIT4 = 'N')
+          IF (&VARCCIT5 = 'N')
+            IF (&VARCCIT1 = 'N')
+              .MSG = CIFV012
+  IF (&VARWHUID ^= ' ')
+    IF (&VARCCIT2 = 'N')
+      IF (&VARCCIT3 = 'N')
+        IF (&VARCCIT4 = 'N')
+          IF (&VARCCIT1 = 'N')
+            .MSG = CIFV012
+)END

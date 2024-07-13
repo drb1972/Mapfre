@@ -1,0 +1,13 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%3+for information about Delete action options
++
+%    1+- CCIDs and Comments     %3+- Only component
+%    2+- Override signout
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITORSO0 3,CITONLC0)
+)END

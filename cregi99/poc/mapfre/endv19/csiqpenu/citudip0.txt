@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Update If Present \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates to Add a member when an element with the same name exists
++at the target Stage 1. Acceptable values are:
++
+%   N+- Default. Do not add the member
++
+%   Y+- Add the member.
++
++If you have specified U (update) on the Add panel, you must specify
++UPDATE IF PRESENT=Y.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

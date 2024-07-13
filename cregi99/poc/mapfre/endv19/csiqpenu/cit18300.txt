@@ -1,0 +1,52 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Eclipse Based UI Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Eclipse Based UI Enhancements
++
+%  Add or Retrieve from or to local file system
++  You can add or update Elements from your local file system to Endevor.
++  You can also retrieve Elements to your local file system from Endevor.
++  There is no longer a need to upload (or download) local files outside of
++  Endevor.
++
+%  Add or Retrieve from or to PDS and USS
++  You can add or retrieve an Element from or to a PDS or USS file. This enables
++  management of Endevor elements as part of a z/OS Project in IBM Developer for
++  z Systems, and Broadcom Development for z Systems.
++
+%  Merge changes to an Element in an entry stage
++  If a local Element is edited or a synchronization conflict occurs between the
++  local and the corresponding Endevor Element, you can compare the
++  differences between the local and Endevor Element. The Eclipse Compare
++  and Merge action lets you compare the files and then edit and save the local
++  Element to resolve the conflict.
++
+%  Inclusion of non-project Elements into Endevor package
++  An Endevor package that contains Elements from outside a corresponding
++  project location can now be used at any stage of the lifecycle.
++
+%  Dynamic resolution of COBOL copybooks managed by Endevor in Broadcom
+%  Development Environment for z Systems editor
++  Where copybooks are managed as an Endevor element, you can utilize Broadcom
++  Development Environment for z Systems functionality for displaying a copybook
++  when editing a COBOL member.
++
+%  Prompt user to override signout of an Element during Add-to-project and
+%  Add-to-Endevor workflows
++  To avoid the failure of an add-to-project or an add-to-Endevor request caused
++  by a signout state, you are prompted to override the signout of an Element
++  when the current signout status would prevent it from being added.
++
+%  Visual improvements to the Eclipse based UI
++  Enhanced status indicator icons and a revised local and remote project
++  subtree structure make it easier to understand the status and location of
++  Elements. For more information, see Project View and Element Status.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18310
+)END

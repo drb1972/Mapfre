@@ -1,0 +1,34 @@
+)ATTR  DEFAULT(%+¢)
+ ! TYPE(TEXT) COLOR(RED)
+ # AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  User id issue \-\
+%COMMAND ===>¢ZCMD
+#SAREA1                                                                       #
+)AREA SAREA1
+!  Your mainframe userid is not set up correctly to use all features of
+!  Endevor and to receive important email alerts.
++
++  * Due to the large number of requests, the deadline has been extended.
+!  * Once your userid is corrected you will no longer get this screen.
++
++  Please could you fill in this IT Security form to correct the issue.
+%  **** TO BE DEFINED AFTER THE MIGRATION PROCESS ****
++
++  N.B. The form has to be authorised before it is actioned.
++
+!  ** If you do not correct the problem by filling in the above form    **
+!  ** then your Endevor access will be revoked in the future.           **
++
++  N.B. There is a field on the form for salary/contractor reference number.
++  If you work for a third party then leave the salary reference number blank
++  and explain that you work for a third party in the business justification.
++
+%  *** Press <PF3> to enter Endevor (There will be a 1 minute delay) ***
+)PROC
+*REXX
+call syscalls('ON')
+address syscall "sleep" '60'
+call syscalls('OFF')
+*ENDREXX
+)END

@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+ /*------------------------------------------------------------------*/
+ /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR            */
+ /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY                  */
+ /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)                   */
+ /*------------------------------------------------------------------*/
+ ! TYPE(INPUT)    INTENS(LOW) PAD(NULLS)
+ ¢ TYPE(OUTPUT)   INTENS(LOW)
+ | TYPE(OUTPUT)   INTENS(HIGH)
+ 01 TYPE(DATAOUT) INTENS(LOW)  CAPS(OFF)
+ 02 TYPE(DATAOUT) INTENS(HIGH) CAPS(OFF)
+ 03 TYPE(DATAIN)  INTENS(LOW)
+ 04 TYPE(DATAIN)  INTENS(HIGH)
+ $  AREA(DYNAMIC) EXTEND(OFF)
+)BODY
+%---------------------- Package Foreground Options Menu ------------------------
+% Option  ===>_VARWKCMD                                                        +
++
++  %1+ DISPLAY        - Display Package Information
++  %2+ CREATE/MODIFY  - Create or Modify Package
++  %3+ CAST           - Prepare Package for Review
++  %4+ REVIEW         - Approve or Deny Package
++  %5+ EXECUTE        - Submit or Execute Package
++  %6+ SHIP           - Ship Packages
++  %7+ BACKOUT        - Perform Backout or Backin Processing
++  %8+ COMMIT         - Clear Backout Information
++  %9+ UTILITIES      - Reset, Delete, or Export Package
++  %PKU B            +- Build package by CCID
++       %Package ID ===>_VARSPPKG        +
++
++ Limit selection list options. These options are used by the
++ DISPLAY and UTILITIES functions:
++
++   In-Edit........._Z+   In-Execution...._Z+   Promotion Pkg....._Z+
++   In-Approval....._Z+   Executed........_Z+   Tgt Environment..._Z       +
++   Denied.........._Z+   Committed......._Z+   Tgt Stage ID......_Z+
++   Approved........_Z+   Enterprise Pkg.._Z+
++
+)INIT
+  .HELP = CITP0000
+    .ZVARS = '( VNBPKGS0 VNBPKGS4 VNBPKGS8  +
+                VNBPKGS1 VNBPKGS5 VNBTGENV  +
+                VNBPKGS2 VNBPKGS6 VNBTGSTG  +
+                VNBPKGS3 VNBPKGS7 )'
+
+)PROC
+  vput (VARSPPKG) profile
+)END

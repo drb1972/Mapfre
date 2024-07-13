@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Note Text Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel appears when you select option N on the Package Display Panel.
++Use the panel to review any notes associated with the package.  When you
++have finished reviewing the package notes select the END command to return
++to the Package Display panel.
++
++
++
++
++
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Relation Request \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the Approver Group Request panel to access existing or to create
++new approver group relationships.
++
+%Environment+- Specify the environment to which the relationship is
++   defined. Default is the current environment.
++
+%Approver type+- The approver type for the approver group for which this
++   relationship is defined. Acceptable values are EMERGENCY and
++   STANDARD.
++
+%Inventory area to which approver group is related+
++   The system, subsystem, type, and stage number within the named
++   environment to which the approver group will be related. An
++   asterisk (*) in the system, subsystem, type, or stage fields
++   will build an inventory rule for all instances of that entity.
++   To display a system, subsystem, type, or stage list
++   from this panel, leave the desired field blank.
++
++                   (%PF3+to return,%ENTER+ for request options)
+)PROC
+   &ZCONT = CITROPT0
+)END

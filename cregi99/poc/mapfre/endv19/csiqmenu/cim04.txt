@@ -1,0 +1,20 @@
+CIM040   'INVALID OPTION'                                .ALARM=YES
+'OPTIONS ARE: (BX)BROWSE, (CX)CHANGES, (HX)HISTORY WITH COMPONENTS.'
+CIM041   'INVALID OPTION'                                .ALARM=YES
+'CIM041 Options are: (B)rowse, (C)hanges, (H)istory, (S)ummary and (M)aster'
+CIM042   'I/O ERROR'                                     .ALARM=YES
+'&VARWLTXT'
+CIM043   'Bracketed Names N/A'                           .ALARM=YES
+'Bracketed names are not available for ISPF dialog processing.'
+CIM044   'INVALID OPTION'                                .ALARM=YES
+'THE ONLY VALID OPTION FOR THIS PANEL IS (L)IST.'
+CIM045   'LONG NAME ELEMENTS N/A'                          .ALARM=YES
+'Long name elements are not available for ISPF dialog processing.'
+CIM046   'Path Not Found'                                .ALARM=NO
+'The End-2-End Logging Path was not found, logging skipped'
+CIM047   'Error Opening File'                            .ALARM=NO
+'Error opening the End-2-End Logging output file, logging skipped'
+CIM048   'Log Write Error'                               .ALARM=NO
+'Error writing to the End-2-End logging file, logging skipped'
+CIM049   'Error Closing File'                            .ALARM=NO
+'Error closing the End-2-End Logging output file'

@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Quick Edit COPYELM support for Summary of levels & Browse \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Quick Edit COPYELM support for Summary of levels & Browse
++
+%  COPYELM is now more consistent.
++  With this change,%COPYELM+now supports%S+(Summary of levels) to allow a
++  specific version of an element to be selected. To initiate the actual
++  copy you must use the%CO+(Copy) line command.
++
++  You can also issue%B+(Browse),%C+(Changes),%H+(History) and%M+(Master) line
++  commands to view information about the element before selecting%CO.+
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18360
+)END

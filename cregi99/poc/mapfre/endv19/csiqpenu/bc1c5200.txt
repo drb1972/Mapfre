@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Version and Level Numbers \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Endevor Version and Level number for all elements taken
++from an inventory location is included on all PDM output, including
++PDM Build WIP Summary Report, the Build WIP Detail report, and in the
++WIP file header.
++
++
++
+)END

@@ -1,0 +1,39 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+TAG & SH ENV SYS SBS ELEMENT TYPE STAGE TITLE
+TAG ( S  SYNC
+tag @ uh lvlsel
+tag ¢ sh lvlvvll
+tag ~ sh lvluser
+tag ` sh lvldate
+tag ^ sh lvltime
+tag $ sh lvlstmt
+tag ) sh lvlins
+tag ! sh lvldel
+tag # sh lvlsync
+%-----------------------------  Summary Of Levels  -----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++        Environment:&            +System:&             +Subsystem:&
++        Element:    &            +Type:  &             +Stage:    &
++
++------------------------&                           +--------------------------
++     VVLL     USER     DATE     TIME         STMTS INSERTS   DELETES  (    +
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+  @  ¢        ~        `        ^         $         )         !        #
+enddef

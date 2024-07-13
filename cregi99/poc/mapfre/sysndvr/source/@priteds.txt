@@ -1,0 +1,136 @@
+         MACRO                                                          00000001
+.**********************************************************************
+.* NAME:        @PRITEDS                                              *
+.* DESCRIPTION: IF-THEN-ELSE (ITE) definition                         *
+.* FUNCTION:    Define the ITE processor block                        *
+.*                                                                    *
+.**********************************************************************
+         @PRITEDS &PREFIX=PRI                                           00000002
+         @PRHDRDS ,                                                     00000014
+         GBLB   &@PRITEDS
+         AIF   (&@PRITEDS).ITE9900
+&@PRITEDS SETB 1
+         LCLC  &P,&DS
+&P       SETC  '&PREFIX'               MAKE LIFE EASY.
+&DS      SETC  '@&P.TEDS'              MAKE LIFE EASY.
+         EJECT                                                          00000015
+*********************************************************************** 00000052
+* ITE Equates                                                         * 00000053
+*********************************************************************** 00000054
+&P.RC      EQU 1001                    ELEM1=RC
+&P.ABEND   EQU 1002                    ELEM1=RC
+&P.ABENDCC EQU 1003                    ELEM1=RC
+&P.RUN     EQU 1004                    ELEM1=RC
+&P.TRUE    EQU 1                       True value
+&P.FALSE   EQU 0                       False value
+&P.PRRC    EQU 1010                    Process return code
+&P.PRABEND EQU 1011                    Process ABEND
+&P.PRABCC  EQU 1012                    Process ABENDCC
+&P.PRRUN   EQU 1013                    Process RUN
+*********************************************************************** 00000016
+*           I F - T H E N - E L S E   D E F I N I T I O N             * 00000017
+*********************************************************************** 00000018
+&DS      DSECT                                                          00000020
+**********************************************************************  00000021
+*  Information about this block                                         00000022
+**********************************************************************  00000023
+&P.TEEQU EQU  1000                                                      00000024
+&P.TEVER EQU   372                                                      00000025
+&P.STGID DS    0Y                      @PRITEDS block storage ID        00000026
+&P.TYPE  DC    Y(&P.TEEQU)             THIS IS A HEADER RECORD          00000026
+&P.LEN   DC    Y(&P.$LN)               LENGTH OF THIS BLOCK             00000027
+&P.VERS  DC    Y(&P.TEVER)             ENDEVOR VERSION GENERATING PROC  00000028
+         DC    Y(0)                    NUMBER OF VARIABLE FIELDS        00000029
+         SPACE 2                                                        00000030
+**********************************************************************  00000031
+*  Processor data fields                                                00000032
+**********************************************************************  00000033
+         DS    0F
+&P.NODE  DC    YL1(&P.FSTART)          Flag byte 1
+&P.FSTART EQU  128
+&P.FENDIF EQU  64
+&P.FELSE  EQU  32
+&P.FEND   EQU  16
+&P.FNODE  EQU  8
+&P.FLEAF  EQU  4
+&P.FLAGS DC    AL1(0)                  IF block flags
+&P.FSEL  EQU   X'80'                     Selected for evaluation
+&P.FSET  EQU   X'40'                     block has been tested already
+         DC    AL1(0)                  Reserved
+&P.TRUTH DC    AL1(0)                  Truth indicator
+&P.PRNOD DC    A(0)                    A(first node)
+&P.PRITE DC    A(0)                    A(Next ITE node)
+&P.PRNXT DC    A(0)                    During processor execution, point
+                                       to the next pushed-down ITE entry
+                                       in the ITE stack.
+&P.LINE# DC    A(0)                    ReseA(ITE stmt number)
+&P.TVAL1 DC    AL1(0)                  For step inclusion/exclusion
+&P.TVAL2 DC    AL1(0)                  For step inclusion/exclusion
+         DC    AL2(0)                  Reserved
+         DC    3F'0'                   Reserved
+&P.BLKSIZE EQU *-&DS                                                    00000045
+&P.$LN   EQU   *-&DS                   LENGTH OF BLOCK                  00000057
+         SPACE 3
+**********************************************************************  00000042
+* ITE node entry map                                                    00000043
+**********************************************************************  00000044
+@&P.NODEDS DSECT                                                        00000045
+&P.NSTGID DS   0Y                                                       00000045
+         DC    Y(&P.TEEQU)             Identify ITE block               00000026
+&P.NLEN  DC    Y(&P.NODEDSLN)          Length of this block             00000027
+         DC    Y(&P.TEVER)             Endevor version generating proc  00000028
+         DC    Y(0)                    Reserved                         00000029
+         SPACE 2                                                        00000030
+&P.NTYPE  DC    AL1(0)                 Node entry type
+&P.NSTART EQU  128
+&P.NENDIF EQU  64
+&P.NELSE  EQU  32
+&P.NEND   EQU  16
+&P.NNODE  EQU  8
+&P.NLEAF  EQU  4
+          DC    AL3(0)                 Reserved
+&P.NLEFT  DC    A(0)                   A(Left branch)
+&P.NRIGHT DC    A(0)                   A(right branch)
+&P.NBOOL  DC    AL1(0)                 Boolean operator
+&P.NBOOL_AND EQU 128                     Boolean AND
+&P.NBOOL_OR  EQU 64                      Boolean OR
+&P.NBOOL_NOT EQU 1                       Boolean NOT
+&P.INVOPT DC    AL1(0)                 Truth inversion option
+&P.INVYES EQU   255                      Invert the truth value
+          DC    AL2(0)                 Reserved
+&P.NODEDSLN EQU *-@&P.NODEDS           LENGTH OF BLOCK                  00000057
+**********************************************************************  00000042
+* ITE node entry map                                                    00000043
+**********************************************************************  00000044
+@&P.LEAFDS DSECT                                                        00000045
+&P.LSTGID DS    0Y                      @PRITEDS block storage ID       00000026
+&P.LEQU  DC    Y(&P.TEEQU)             Identify ITE block               00000026
+&P.LLEN  DC    Y(&P.LEAFDSLN)          Length of this block             00000027
+&P.LVER  DC    Y(&P.TEVER)             Endevor version generating proc  00000028
+&P.VFLD# DC    Y(0)                   Number of variable fields         00000029
+         SPACE 2                                                        00000030
+&P.LTYPE DC    AL1(0)                  Node entry type
+&P.LSTART EQU  128
+&P.LENDIF EQU  64
+&P.LELSE  EQU  32
+&P.LEND   EQU  16
+&P.LNODE  EQU  8
+&P.LLEAF  EQU  4
+&P.LETYP DC    AL1(0)                  Entry type
+&P.LKWD  EQU  0                          Entry is a keyword
+&P.LSYMB EQU  128                        Entry is a symbol
+         DC    AL2(0)                  Reserved
+&P.LFLDS DC    A(&P.FLDS)              A(Element 1)
+         DC    A(0)
+         DC    A(0)                    Reserved
+         DS    0D                      Gotta be here for $VAREXTR       00000045
+&P.FLDS  DS    0F                                                       00000057
+         $PRFLD FIELD=ITEE1            Field for first element
+         $PRFLD FIELD=ITEE2            Field for second element
+         $PRFLD FIELD=ITECC            Field for condition operator
+         $PRFLD FIELD=ITE1T            Field for element type
+         $PRFLD FIELD=ITERB            Field for step refer back
+&P.LEAFDSLN EQU *-@&P.LEAFDS           LENGTH OF BLOCK                  00000057
+.ITE9900 ANOP
+         MEXIT                                                          00000058
+         MEND                                                           00000058

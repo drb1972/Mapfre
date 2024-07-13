@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ RESTful Web Services API \-\
+%Option ===>_ZCMD                                                 %Version 17.0+
+%
+%RESTful Web Services API +
++
+ The Endevor RESTful Web Services API (RESTful API) is an extension of
+ the existing SOAP based web services feature. The RESTful API provides the
+ Representational State Transfer (REST) architectural style of web services,
+ which uses HTTP 1.1 and Uniform Resource Identifiers (URI). This architectural
+ style provides a simpler, more lightweight API, scalability, improved
+ performance and easier adoption due to a better known distributed/server-client
+ application development model based on the HTTP protocol.
+
+ In the RESTful architectural style, data and functionality are considered
+ resources and are represented and accessed by URIs. These resources can be
+ manipulated by a set of well-defined operations: Create, Read, Update and
+ Delete. In the case of HTTP, these operations are the Request methods GET, PUT,
+ POST, and DELETE.
+
+ The current RESTful API functions focus on package processing actions
+ and supporting actions for list operations.
+
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16000
+)END

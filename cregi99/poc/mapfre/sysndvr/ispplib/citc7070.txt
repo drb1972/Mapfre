@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%\-\ Type Definition Enhanced For Enterprise Workbench \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Type Definition Enhanced For Enterprise Workbench +
+
++ The Type Definition function is enhanced for use with the companion product
+  Change Manager Enterprise Workbench (Workbench), which provides a web
+  interface to Endevor.
+
++ The Endevor create and update Type Definition panels and the display Type
+  Definition panel now include the fields DATA FORMAT and FILE EXT. These
+  replace the fields WS HOME OPSYS and WS EXT FILE, which previously were
+  visible only if the Workbench product was installed.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7080
+)END

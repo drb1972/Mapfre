@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprints \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++A footprint is a set of encrypted data placed in generated source,
++object, or load modules created by processors.  Chapter 5 of the
++Administrator's Guide tells how to activate this capability.
++
++Footprints contain location and event information from the Master
++Control File record for the element associated with the output:
++site ID, environment, stage number, system, subsystem, type, element
++name, version and level, and the date and time the output was
++created.
++
++By relating outputs to elements, footprints allow you to:
++  * Keep source synchronized with executables
++  * Display source information from executables
++
++    Select%1+-%2+for more on
++
+%    1+- Synchronizing source       %2+- Displaying source
++          with executables                from executables
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT6100 2,CITT6200)
+)END

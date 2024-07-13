@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Package Ship of Outputs ASIS after Backout \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Package Ship of Outputs ASIS after Backout +
++
+ This enhancement to the Package Shipment feature lets you ship
+ outputs and backout members according to the package's backout status.
+
+ This feature is enabled by the%&LIT             +entry in the
+ ENCOPTBL Optional Features Table. With this feature enabled, the
+ Release Manager needs to take charge of synchronizing shipments
+ to destination sites when the package is partially or fully backed
+ out. Packages may need to be reshipped, because the backout or
+ backin action changes the package outputs.
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)INIT
+   &LIT = 'SHIP_OUTPUTS_ASIS'
+)PROC
+   &ZCONT = CIT16060
+)END

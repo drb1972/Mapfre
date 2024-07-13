@@ -1,0 +1,25 @@
+startdef
+tag % sh
+tag + s
+TAG _ MUH CMD
+tag | sh msg
+tag & sh reqccid reqcomm action element env sys sbs type stage
+TAG $ MUH ACCID COMMENT
+%-------------------------------  Action Prompt  -------------------------------
+%COMMAND ===>_   +
+|
++
++   Specification Required:
++        CCID:   & + (Y/N)
++        COMMENT:& + (Y/N)
++
++   Action: &         +          Element: &          +
++
++   Environment: &        +       System: &        +      Subsystem: &        +
++   Type:        &        +       Stage:  & +
++
++
++
++   CCID    %===>$            +
++   COMMENT %===>$                                        +
+enddef

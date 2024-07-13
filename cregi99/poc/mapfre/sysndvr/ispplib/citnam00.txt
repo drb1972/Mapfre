@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Inventory Structure Names/Descriptions \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Names are 1- to 8-characters. Descriptions/titles are 1- to 50-characters.
++
++The following names and descriptions may:
++ * Be provided as selection criteria on request panels
++ * Appear, with description, as possible selections on a list
++ * Identify, with description, a definition panel.
++
++                  Request        Selection        Definition
+%Environment+        X
+%Stage+              X
+%System+             X               X                 X
+%Subsystem+          X               X                 X
+%Type+               X               X                 X
+%Group+              X
+%Processor group+                    X                 X
+%Approver group+     X               X                 X
++
++                                            (%PF3+to return)
+)END

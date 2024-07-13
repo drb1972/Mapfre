@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Create/Modify Package Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to build or modify packages, with these options:
+%  B+- To create a package.
+%  E+- To edit an existing package.
+%  N+- To add notes you want to associate with the package.
+%  I+- To import SCL for use in a new or existing package from a PDS
++        or sequential file.  Specify the import dataset and member
++        in the FROM ISPF or OTHER fields.
+%  C+- To copy the contents of one package for use in another. Specify
++        the package to be copied in the INPUT PACKAGE ID field.
+%  CI+- To view correlation information.
++
++For options%C+and%I+, specify APPEND TO PACKAGE=Y to append imported or
++copied SCL to an existing package.
++
++Select%1+-%10+for information about the following
+%  1+- Package ID fields          %6+- Append to package
+%  2+- Package status             %7+- Stoprc field
+%  3+- Sharable package           %8+- Input package ID
+%  4+- Backout enabled            %9+- ISPF fields
+%  5+- Execution window          %10+- Notes exist for package
+%
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITBKEN0
+                  5,CITXWIN0 6,CITAPPK0 7,CITb0009
+                  8,CITINPK0 9,CITISPF0 10,CITNEFP0)
+)END

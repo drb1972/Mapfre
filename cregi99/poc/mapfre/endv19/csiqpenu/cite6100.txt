@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Data Sets \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel lists the data sets defined for types within the current
++system.
++
++To change a data set name, overtype a name and press ENTER.
++
++
++
++
++
++
++
++
++
++    Select%1+-%3+for more information
++
+%    1+- Current location           %3+- Data set name and type fields
+%    2+- Next location
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITE6110)
+)END

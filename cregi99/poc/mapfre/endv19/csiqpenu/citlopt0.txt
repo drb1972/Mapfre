@@ -1,0 +1,71 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Options Fields \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++Use the%LEFT+and%RIGHT+commands (usually PF10 and PF11) to scroll through the
++information on this panel.
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Display List+- Indicates whether or not to display an element
++     list:  Y (yes) or N (no).  The default is Y.
++
+%Apply List Filters+- Specify Y (yes) to display the list filter panel.
++     When N (no) is specified, the panel is not displayed and filters
++     are%not+applied.  The list filter panel allows you to enter
++     options to filter your element list.  Data entered for the
++     Apply List Filters option and panel is retained across sessions.
++
+%Build Using Map+- Type Y (yes) if you want to search the map,
++     starting at the FROM location, when building a selection list.
+%     Warning:+ Avoid using BUILD USING MAP = Y in combination with
++               DISPLAY LIST = N.
++
+%Display SYS/SBS List+- Display action only. Indicates whether you
++     want to go directly to the Element Selection list from the
++     Display Elements panel. Y (yes), N (No). Default is N.
++
+%First Found+- Retrieve action only. Indicates whether the Element
++     Selection list should include only the first occurrence of
++     specified elements found when searching the map. Y (yes), N (no).
++     The default is Y.
++
+%Where Signout Eq+- Signin action only. Builds a list of elements
++     signed out to a specified user id. The default user id is the
++     current logon id.  Wildcarding is allowed without placeholders.
++
+%Case-Sensitive Elm Name+- Indicates if the match on the Element name
++     should be case-sensitive. This field works with the%Uppercase+
++     field to build the element selection list.
+%     Y+- Match on Element name exactly as coded after interpreting
++         the Uppercase field setting.
+%     N+- Name entered is not case-sensitive. Regardless of the
++         Uppercase field setting and whether the value was entered
++         in upper, lower or mixed case, all element names that match
++         the mask are returned in the element selection list.
++         For example, entering an Element name of ABC*, abc*, AbC*,
++         or aBc* will return the same list of elements.
++
++     The initial value for this field is set from the%&LIT1         +
++     ENDICNFG Configuration Table parameter. Once the action
++     panel is displayed the value entered by the user is saved
++     and restored each time the panel is re-displayed.
++
++    %Note+-the%Uppercase+and the%Case-Sensitive Elm Name+fields are
++     hidden if the short layout is selected in the User
++     Defaults panel. (See User Defaults below for more information).
++
++Select one of the options below for more information:
+%     1+- More about mapping
+%     2+- Applying list filters
+%     3+- User Defaults (layout)
++
+)INIT
+   &LIT1 = 'CASE_SENSITIVE'
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT3000 2,CITLOPT2 3,CITO0040)
+)END

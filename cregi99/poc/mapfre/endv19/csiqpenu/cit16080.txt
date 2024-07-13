@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Ship Host Job Name for Remote Job \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Package Ship Host Job Name for Remote Job +                                   +
++
+ Support is added to enable remote package shipment jobs to execute
+ under the same name as the jobs on the host system. On the Create
+ and Modify Destination panel, Administrators can specify the job
+ name with the symbol%$HOSTJNM+in the remote job statement
+ information field. This symbol takes the remote job name from the
+ host job.
+
+
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16090
+)END

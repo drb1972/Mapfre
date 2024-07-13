@@ -1,0 +1,37 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag & sh env sys sbs tofile
+TAG @ UH ELMSEL1
+tag ¢ sh element
+tag ~ sh tblname
+tag ^ sh elmtyns
+tag ` sh elmstage
+tag $ sh elmvvll
+%--------------------------  Element Selection List  ---------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++FROM    Environment:&            +System:&             +Subsystem:&
++TO      File:       &
++
++  ELEMENT               TYPE    NS  STG   VVLL
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+@ ¢          ~          ^            `    $
+enddef

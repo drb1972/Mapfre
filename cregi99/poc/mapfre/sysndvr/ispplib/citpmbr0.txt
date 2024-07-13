@@ -1,0 +1,25 @@
+%TUTORIAL  -----------------  MEMBER SELECTION LIST  -----------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++The MEMBER SELECTION LIST appears when you leave the member field blank
+ with either the%external data set+field or the%other partitioned or
+ sequential data set+field (if a library).  Use this list to select the
+ member whose SCL you want to import.
+
+ Panel fields are described below.  With the exception of the%selection+
+ field, all fields are display only.
+
+  %Data Set Name+-      The name of the data set in which these members
+                        reside.  This is the data set specified on the
+                        CREATE/MODIFY PACKAGE panel.
+
+  %Selection+-          Type an%S+in this field next to the member you
+                        want.
+
+  %Member+-             A list of each member in the specified data set.
+
+ When you select a member and press ENTER, an ISPF Edit panel is
+ returned immediately.  You can edit the data for your package, as
+ necessary.  Press PF3 to return to the CREATE/MODIFY PACKAGE panel.
+
+)END

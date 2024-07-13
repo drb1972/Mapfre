@@ -1,0 +1,187 @@
+         MACRO
+&LABEL  $ESYMBOL &DSECT=NO,            DROP TABLE DSECT (OR NOT)       X
+               &SYMNAME=,     (REQ'D)   SYMBOL NAME                    X
+               &SYMDATA=ÚÚÕÕSYMDATA-MISSINGÕÕÚÚ,                       X
+               &CALL=         (REQ'D)   SPECIFY "END" FOR TO END TABLE
+.**********************************************************************
+.*                                                                    *
+.* COPYRIGHT (C) 2022 BROADCOM. ALL RIGHTS RESERVED.                  *
+.*                                                                    *
+.*                                                                    *
+.*  NAME:      $ESYMBOL                                               *
+.*                                                                    *
+.*  FUNCTION:  $ESYMBOL IS USED TO DEFINE SITE-WIDE USER SYMBOLICS.   *
+.*                                                                    *
+.*             SYMBOLIC NAMES MUST BEGIN A "#" FOLLOWED BY 1-11       *
+.*             CHARACTERS.  (WHEN SITE SYMBOLS ARE REFERENCED,        *
+.*             THE "#" MUST BE PRECEDED BY A AMPERSAND - &#SYMBOL.)   *
+.*                                                                    *
+.*             THE MAXIMUM SIZE OF THE DATA ASSOCIATED WITH THE       *
+.*             SYMBOL IS SEVENTY CHARACTERS.                          *
+.*                                                                    *
+.*             NOTE THAT THE SYMDATA VALUE MAY CONTAIN REFERENCES     *
+.*             TO ENDEVOR OR OTHER SITE SYMBOLICS.                    *
+.*             IF A SYMBOLIC IS SPECIFIED THEN THE LEADING            *
+.*             AMPERSAND(S) MUST BE DOUBLED UP AND THE SYMDATA=       *
+.*             VALUE MUST BE ENCLOSED IN QUOTES                       *
+.*             NULL SYMBOLICS CAN BE DEFINED BY SETTING THE SYMDATA   *
+.*             VALUE TO TWO SINGLE QUOTES.                            *
+.*                                                                    *
+.*             EXAMPLES:                                              *
+.*                                                                    *
+.*              SYMDATA='&&C1SYSTEM'     FOR ONE LEADING AMPERSAND    *
+.*              SYMDATA='&&&&C1SYSTEM'   FOR TWO LEADING AMPERSANDS   *
+.*              SYMDATA=''               NULL SYMBOLIC VALUE          *
+.*                                                                    *
+.*             IF A QUOTE IS PART OF THE VARIABLE THEN THE QUOTE      *
+.*             MUST BE DOUBLED UP AND THE VARIABLE ENCLOSED IN        *
+.*             QUOTES.                                                *
+.*                                                                    *
+.*             EXAMPLE:                                               *
+.*                                                                    *
+.*             SYMDATA='CICS(''SP''),NODBCS,NSYMBOL(DBCS)'            *
+.*              RESULTS IN                                            *
+.*             CICS('SP'),NODBCS,NSYMBOL(DBCS)                        *
+.*                                                                    *
+.*                                                                    *
+.*  NORMAL USAGE:                                                     *
+.*                                                                    *
+.*       $ESYMBOL SYMNAME=#HOST,SYMDATA='IEULE44'         X           *
+.*       $ESYMBOL SYMNAME=#TARGET,SYMDATA=WAYOVERTHERE    X           *
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       $ESYMBOL CALL=END                                            *
+.*                                                                    *
+.*                                                                    *
+.*                                                                    *
+.**********************************************************************
+         GBLB  &HDRDONE
+         GBLC  &EDITIN,&EDITOUT,&TABLE1(500)
+         GBLA  &EDITLNG,&#SYMNS,&SYMDL,&USERSUB
+         GBLC  &RELNUM,&TAPSER
+         LCLA  &LNG,&LOOPCTR
+         LCLC  &STR1,&STR2
+         ACTR  9999999
+         $RELEASE ,
+         AIF   ('&CALL' EQ 'END').TBLEND
+         AIF   ('&DSECT' EQ 'YES').DSECT
+         AIF   (&HDRDONE).SYMBOLDEF
+&HDRDONE SETB  1
+ESYMBTBL CSECT
+ESYMBOLSTP DC  A(ESYMBOLHDR)           ADDR OF SORTED ID LIST
+         DC    CL24'-- &SYSDATE -*- &SYSTIME --'
+         DC    CL4'&RELNUM'  ENDEVOR VERSION NUMBER
+         DC    CL6'&TAPSER'
+.*
+.SYMBOLDEF ANOP
+&HEXIN   SETC '&SYMDATA'
+&HEXLNG  SETA  K'&HEXIN
+         AIF   ('&HEXLNG' NE '23' ).HEXJUMP1
+         AIF   ('&HEXIN' EQ 'ÚÚÕÕSYMDATA-MISSINGÕÕÚÚ').SYMDATAREQ
+.HEXJUMP1 ANOP
+         AIF   ('&SYMNAME' EQ '').SYMNAMEREQ
+         AIF   ('&SYMNAME'(1,1) NE '#').SYMNAMEINV
+         AIF   (K'&SYMNAME GT 12).SYMNAMELONG
+ESYMBTBL CSECT
+&#SYMNS  SETA  &#SYMNS+1
+         AIF   ('&SYSNDX' GT '9999').JUMP1
+&TABLE1(&#SYMNS) SETC 'SYN0&SYSNDX'.'&SYMNAME'
+         AGO   .CONT1
+.JUMP1   ANOP
+&TABLE1(&#SYMNS) SETC 'SYN&SYSNDX'.'&SYMNAME'
+.CONT1   ANOP
+&EDITIN  SETC '&SYMDATA'
+&EDITLNG SETA K'&EDITIN
+.*
+         AIF   ('&SYMDATA' NE '').NULJUMP1
+&EDITLNG SETA  0
+&EDITOUT SETC  'NULL'
+         AGO   .NULJUMP2
+.NULJUMP1 ANOP
+.*
+.QUOTE03 ANOP
+         DEFEDIT REMOVEBLANKS=N        SET EDITLNG TO FIELD LENGTH
+&LNG     SETA  K'&EDITOUT
+         AIF   (K'&EDITOUT GT 0).NEXT1
+&EDITOUT SETC  'NULL'
+.NEXT1   ANOP
+         AIF   (&EDITLNG GT 70).SYMDATALONG
+.NULJUMP2 ANOP
+         AIF   ('&SYSNDX' GT '9999').JUMP2
+SYN0&SYSNDX DC  F'&EDITLNG'            LENGTH OF SYMBOL DATA
+            DC  A(SYD0&SYSNDX)         ADDR OF SYMBOL DATA SPEC
+         AGO   .CONT2
+.JUMP2   ANOP
+SYN&SYSNDX DC  F'&EDITLNG'            LENGTH OF SYMBOL DATA
+            DC  A(SYD&SYSNDX)         ADDR OF SYMBOL DATA SPEC
+.CONT2   ANOP
+DATAPOOL CSECT
+         AIF   ('&SYSNDX' GT '9999').JUMP3
+SYD0&SYSNDX DC C'&EDITOUT'
+         AGO   .CONT3
+.JUMP3   ANOP
+SYD&SYSNDX DC C'&EDITOUT'
+.CONT3   ANOP
+         AGO   .MACEND
+ESYMBTBL CSECT
+.TBLEND  ANOP
+ESYMBOLHDR DS  0D
+         DC    H'&#SYMNS',H'16',H'11'  NBR OF SYMBOLS,
+*                                      LENGTH OF SORTED TABLE ENTRY,
+*                                      LENGTH OF KEY-1
+.*
+.*
+.* TABLE DEFINITIONS ARE COMPLETE - NOW SORT THE USERID LIST
+.*
+&USERSUB SETA  &#SYMNS                 SET GLOBAL VARIABLE FOR MSORT
+         MSORT KEYSTRT=9,KEYLEN=12,SORT=D  SORT TABLE IN DESC SEQ
+.*
+.* TABLE  IS SORTED, NOW DROP THE SORTED LIST
+.*
+&LOOPCTR SETA  1
+.*
+.GENLOOP ANOP
+&STR1    SETC  '&TABLE1(&LOOPCTR)'(1,8)
+&STR2    SETC  '&TABLE1(&LOOPCTR)'(9,12)
+         DC    CL12'&STR2',AL4(&STR1)
+&LOOPCTR SETA  &LOOPCTR+1
+         AIF   (&LOOPCTR LE &#SYMNS).GENLOOP
+         END
+         AGO   .MACEND
+.SYMDATAREQ MNOTE 12,'SYMDATA PARAMETER IS REQUIRED.'
+         AGO   .MACEND
+.SYMNAMEREQ MNOTE 12,'SYMNAME PARAMETER IS REQUIRED.'
+         AGO   .MACEND
+.SYMNAMELONG MNOTE 12,'SYMNAME PARAMETER LENGTH EXCEEDS 8 CHARACTERS.'
+         AGO   .MACEND
+.SYMNAMEINV  MNOTE 12,'SYMNAME PARAMETER MUST BEGIN WITH A #.'
+         AGO   .MACEND
+.SYMDATALONG MNOTE 12,'SYMDATA PARAMETER LENGTH EXCEEDS 70 CHARACTERS.'
+         AGO   .MACEND
+.*
+.DSECT   ANOP
+@SYMHDS   DSECT
+SYMBOLTP  DS   A             ADDR OF SORTED SYMBOL TABLE
+          DS   CL24          DATE/TIMESTAMP
+SYMHDSL   EQU  *-@SYMHDS     LENGTH OF HEADER ENTRY
+         SPACE ,
+@SYMTHDS  DSECT
+SYM#TE    DS   H             NUMBER OF TABLE ENTRIES
+SYMTEL    DS   H             TABLE ENTRY LENGTH
+SYMTEKL   DS   H             TABLE ENTRY KEY LENGTH MINUS ONE
+SYMTHDSL  EQU  *-@SYMTHDS
+         SPACE ,
+@SYMTEDS  DSECT
+SYMTESYMN DS   CL12          SYMBOL NAME
+SYMTESYMP DS   A             POINTER TO SYMBOL DATA (H'LNG',C'DATA')
+SYMTEDSL  EQU  *-@SYMTEDS
+         SPACE ,
+@SYMBDEF DSECT               TABLE ENTRY ADDRESS
+SYMBOLDL  DS   F             LENGTH OF SYMBOL DATA
+SYMBOLDA  DS   A             ADDR OF SYMBOL DATA
+SYMBDEFL  EQU  *-@SYMBDEF    LENGTH OF TABLE ENTRY
+         AGO   .MACEND
+.MACEND  ANOP
+         MEND

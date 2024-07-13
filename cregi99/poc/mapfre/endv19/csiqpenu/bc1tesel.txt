@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Selecting Elements from Lists \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM displays an Element Selection List when you must explicitly specify
++an element and have not done so. The selection list contains the current
++level of the listed elements at the specified location. PDM allows you
++to select only one element from this list.
++
++To access a Summary of Levels panel for an element, type%S+in the command
++field, type%S+next to the desired element, then press ENTER. (If the Root
++Specification Panel appears with the message "Type "S" for Levels," and
++S preloaded in the command field, press ENTER to access a Summary of
++Levels panel.
++
++After you have selected an element you can:
++
++ * Press PF3 to return to the original panel, deselecting the element.
++
++ * Press ENTER to display the next panel in the Build WIP sequence.
++
++
+)END

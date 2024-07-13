@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Casting Packages \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Casting a package prepares the package for review and subsequent
++execution.  When you cast a package, the following checks occur:
++
++  * Determines whether approvers have been assigned to the inventory
++      area(s) included in the package.
++  * Makes sure that any approvers have authority to perform the
++      package actions against the package inventory areas.
++  * Checks the integrity of the package components.
++  * Makes sure that the package contains the most recent versions
++      of all components.
++
++A package cannot be edited once it is cast.
++
++    Select%1+-%4+for information about
++
+%    1+- Determining approvers      %3+- Security checking
+%    2+- Component validation       %4+- Integrity checking
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT7210 2,CITT7220 3,CITT7230 4,CITT7240)
+)END

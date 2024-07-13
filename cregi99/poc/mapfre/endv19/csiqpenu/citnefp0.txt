@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Notes Exist for Package \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates that user supplied notes exist for this package.
++To review the notes or add additional notes select option N on the
++Review Package panel and press ENTER.  The Package Note Text panel
++appears.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

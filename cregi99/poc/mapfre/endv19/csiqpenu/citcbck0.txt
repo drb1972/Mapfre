@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Copyback \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to copy the element to the FROM stage and
++generate it at that stage. Acceptable values are:
++
+%   N+- Default. Do not copy the element back.
++
+%   Y+- Copy the element back and generate it.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

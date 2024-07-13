@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ "Remember" CCID/Comment \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Optional Feature to "remember" CCID/Comment Across Sessions +
+
++ By default, CCID and Comments will be remembered across Endevor and Quick
+  Edit sessions on the CCID/Comment prompt panel.
+
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7140
+)END

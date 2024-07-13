@@ -1,0 +1,32 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2012 CA. All Rights Reserved.                      */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Batch Submit \-\
+%Command ===>_VARWKCMD                                                         +
++
++ Complete the JCL JOB card and press%ENTER+to submit the jobstream.
++ Enter the%END+command to terminate the submit.
++
++  _C1BJC1                                                                  +
++  _C1BJC2                                                                  +
++  _C1BJC3                                                                  +
++  _C1BJC4                                                                  +
++
++ Include additional JCL?_Z+(Y/N)
++ Another panel will be presented if additional JCL is desired.
++
++
+)INIT
+  .ZVARS = '(EEVINJCL)'
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)PROC
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

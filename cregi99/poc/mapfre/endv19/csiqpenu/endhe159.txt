@@ -1,0 +1,64 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Using the SQ Command \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%    The SQ Command+is used to manage the request queue and perform actions
++       with the queue.  Entering the command%SQ+alone will bring up the
++       job submit confirmation panel, where you can press ENTER to submit
++       all currently queued requests, or one of the following commands
++       to perform alternative options.
++
++       The available SQ commands are;
+%          BLANK   +or%SUB+To submit the queue, using the current
++                   JOB card options
++
+%          CANCEL  +To reset the queue (discarding any pending requests)
++                   and exit.
++
+%          EDIT    +To invoke an EDIT session where you can edit or modify
++                   the requests.
++
+%          EDITJCL +To invoke an EDIT session with the Endevor Batch JCL
++                   expanded along with your SCL.  Use this option if you
++                   need to add custom JCL statements or just want to save
++                   off a copy of JCL for use later.
++                   Note: If you do this, you should use the EDIT SUB
++                   command to submit the JCL.
++
+%          VALIDATE+or%VAL+to validate the SCL syntax of requests in the
++                   Queue. If there are any syntax errors a report is shown.
++
+%          NEW     +To invoke an EDIT session with NO CONTENT so you can
++                   add your own SCL.  For example using the%MODel+command.
++
+%          BUILD   +or%BLD <ACTION>+to Build "ACTION" SCL for all elements
++                   in the current element selection list.
++                   The generated SCL is built using%&&&&ACTION ELEment+
++                   commands so you can easily change the request to any
++                   valid request; MOVe, TRAnsfer, etc.  If the optional
++                   parameter%<ACTION>+is omitted, the default is Generate.
++                   SET OPTION SCL is inserted as appropriate from the
++                   ACTION OPTIONS depending on the request.
++
++    If you use%END+to leave Quick Edit, with active requests pending, you
++    will be prompted to either%SUBMIT+the requests or%CANCEL+to Discard them.
++
++    Note: The%SQ+command can be entered with an optional parameter, the
++          sub-command. For example, use%SQ SUB+to bypass the confirmation
++          panel and just submit the job, or%SQ ED+to Edit the SCL requests.
++
++
++                                 (Press}END+to return)
+)PROC
+&ZUP = ENDHE158
+&ZSEL = TRANS(&ZCMD,
+   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(END)
+)END

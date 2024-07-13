@@ -1,0 +1,78 @@
+         MACRO
+         ENHALDSN &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST DATA SETS - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+ALDSN_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+ALDSN_RQ$EYE    EQU C'LDSQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALDSN_RQ
+         SPACE ,
+ALDSN_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALDSN_RQ_DATA
+ALDSN_RQ_RESERVE1 DC CL1' '             ** RESERVED **
+ALDSN_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALDSN_RQ_RESERVE2 DC CL1' '            ** RESERVED **
+ALDSN_RQ_RESERVE3 DC CL1' '            ** RESERVED **
+ALDSN_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALDSN_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+ALDSN_RQ_STG_ID   DC CL1' '            STAGE ID
+ALDSN_RQ_DSNID    DC CL2' '            DATA SET RECORD ID
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALDSN_RQ_VER#1_DATADSLN EQU *-ALDSN_RQ_DATA
+ALDSN_RQ_VER#1_DSLN     EQU *-ALDSN_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALDSN_RQ_DATADSLN EQU *-ALDSN_RQ_DATA
+ALDSN_RQ_DSLN     EQU *-ALDSN_RQ
+         ORG      ALDSN_RQ_DATA
+ALDSN_RQ_DATAAREA DS XL(ALDSN_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST DATA SET - RESPONSE BLOCK                               *
+*                                                                     *
+***********************************************************************
+ALDSN_RS$VER    EQU ALDSN_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALDSN_RS$EYE    EQU C'LDSS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALDSN_RS
+         SPACE ,
+ALDSN_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALDSN_RS_DATA
+ALDSN_RS_SITE     DC CL1' '            SITE ID
+ALDSN_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALDSN_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALDSN_RS_STG_NAME DC CL8' '            STAGE NAME
+ALDSN_RS_STG_ID   DC CL1' '            STAGE ID
+ALDSN_RS_STG_NUM  DC CL1' '            STAGE NUMBER
+ALDSN_RS_DSNID    DC CL2' '            DATA SET RECORD ID
+ALDSN_RS_DSNTY    DC CL2' '            DATA SET TYPE (PO,PV,LB)
+ALDSN_RS_DSN      DC CL44' '           DATA SET NAME
+ALDSN_RS_UPD_DATE DC ZL8'0'            RECORD UPDATE DATE 'YYYYMMDD'
+ALDSN_RS_UPD_TIME DC ZL8'0'            RECORD UPDATE TIME 'HHMMSSTH'
+ALDSN_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALDSN_RS_UPD_USER DC CL8' '            UPDATE USER ID
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALDSN_RS_VER#1_DATADSLN EQU *-ALDSN_RS_DATA
+ALDSN_RS_VER#1_DSLN     EQU *-ALDSN_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALDSN_RS_DATADSLN EQU *-ALDSN_RS_DATA
+ALDSN_RS_DSLN     EQU *-ALDSN_RS
+         ORG      ALDSN_RS_DATA
+ALDSN_RS_DATAAREA DS XL(ALDSN_RS_DATADSLN)     DATA AREA
+         MEND

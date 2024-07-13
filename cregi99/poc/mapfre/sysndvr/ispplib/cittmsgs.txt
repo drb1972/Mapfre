@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE - Terse Messages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Terse Messages+- All action output produced by the VALIDATE action is
++   written to the C1MSGS1 report file. The terse messages option
++   controls the amount of message detail that is written to that file.
++
+%      N+- Use the Verbose format of the messages. Write all messages
++          to the report file.
+%      Y+- Use the Terse format of the messages. Only write key I level
++          messages and non-I level messages to the report file.
++
++The default terse messages panel field value is obtained from the
+%&LIT              +parameter in the Endevor Configuration Table
++(ENDICNFG). If this parameter is not coded in the table a value of N
++is assumed.
++
++
++
++
++
++
++                           (%PF3+to return)
+)INIT
+    &LIT   = 'VALIDATE_ACT_TERSE'
+)END

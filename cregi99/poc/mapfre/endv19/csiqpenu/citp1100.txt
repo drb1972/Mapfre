@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Element Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel provides summary information about the elements in a
++package that has been CAST but not executed.
+
++The panel provides:
++  - Package identifying information.
++  - The name of each action in the package.
++  - The source and target locations of the action.
++  - The name of the member or element at each location.
++  - The CCID and comment information, if these are specified in the
++    package.
++
++  Select from the following options for more information:
+%    1+- Package ID fields          %2+- Package status
+%    3+- Panel options
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITDOPT0)
+)END

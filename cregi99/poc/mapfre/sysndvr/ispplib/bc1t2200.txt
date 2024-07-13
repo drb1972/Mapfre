@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Derivation 1 Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Derivation 1 Specification Panel to define the Derivation 1 library
++(and members) or inventory location (and elements) you want to use when
++building the WIP file. You can specify one or the other, but not both.
++
+%Build Derivation 1 from+- Indicates whether you want to build Derivation 1
++   from a data set, option%D,+or from an inventory location, option%E.+
++
+%Derivation 1 Library+- Identifies the library containing the Derivation 1
++   files, using standard ISPF naming conventions.
++
+%Derivation 1 Other Partitioned or Sequential Data Set+- This is an alternative
++   for specifying a Root library, using standard ISPF conventions.
++
++    Select%1-4+for information about:
++
+%    1+- Specifying a Derivation 1 member     %3+- List option fields
+%    2+- Specifying a Derivation 1            %4+- Accessing a Summary of
++          inventory location                        Levels panel
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TD1MM 2,BC1TNDV0 3,BC1TLOP0 4,BC1TSLV0)
+)END

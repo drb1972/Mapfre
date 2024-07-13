@@ -1,0 +1,26 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage
+tag # muh ccid wpgrp bypassl
+tag | sh msg s1id s2id
+tag ¢ s dislist s1name s2name
+tag ^ s ascm1 ascm3 ascm5
+tag & sh ascm2 ascm4
+%-------------------  Display Elements/Component Lists  ------------------------
+%OPTION  ===>_   +
+|
+%   blank+- Display selection list     %B+- Browse element current level
+%   S+- Display summary of levels      %C+- Display changes current level
+%   M+- Display element master info    %H+- Display history current level
++
+^   Enter&SX, BX, CX^or&HX^to display component list information
++
++ FROM LOCATION:                     LIST OPTIONS:
++   ENVIRONMENT %===>_        +         DISPLAY LIST      %===>¢Y+ (Y/N)
++   SYSTEM      %===>_        +         WHERE CCID EQ     %===>#            +
++   SUBSYSTEM   %===>_        +         WHERE PROC GRP EQ %===>#        +
++   ELEMENT     %===>_          +       BYPASS SYS/SBS SEL LIST %===># +
++   TYPE        %===>_        +
++   STAGE       %===>_ +         | +-¢            | +-¢        +
+enddef

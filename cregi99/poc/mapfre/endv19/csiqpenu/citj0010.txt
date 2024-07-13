@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+ @ TYPE(ET)                  /* Emphasised Text */
+)BODY EXPAND(\\)
+%\-\ Endevor Verion 19.0 GA release \-\
+%Option ===>~ZCMD                                                 %Version 19.0
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Endevor Version 19.0 GA release
++
++  Changes included in the Endevor Version 19.0 GA release:
++
++  - Base FMID CSIQJ00 now contains Endevor Web Services.
++  - Base FMID CSIQJ00 now contains MF Webhook server binary.
++  - BATCHID values 0 and 2 are no longer supported, defaulted to 1.
++  - Package "Superusers" can now perform any package action against
++    a package with the possible exception of the review action. To be
++    able to review (approve/deny) a package, a Superuser must be an
++    approver of that package.
++    Superusers can be defined in the Optional Feature table, ENCOPTBL.
++  - Product rebranded from "CA Endevor SCM" to "Endevor".
++
++\ \ For more details, see the@Endevor+documentation at \ \
++\ \ %https://techdocs.broadcom.com/endevor \ \
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01003) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01004) VAR(ZCMD) VAL(END)
+)END

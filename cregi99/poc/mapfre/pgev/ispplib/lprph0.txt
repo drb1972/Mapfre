@@ -1,0 +1,117 @@
+)Attr Default(@+_)
+/* _ type( input) intens(high) caps(on ) just(left )               */
+   ! type(text) intens(high) caps(off) just(asis ) color(white)
+      hilite(reverse)
+   $ type(output) intens(high) caps(off) just(asis ) color(white)
+      hilite(reverse)
+   ` type(text) intens(high) caps(off) just(asis ) color(yellow)
+   ~ type(text) intens(high) caps(off) just(asis ) color(turq)
+   @ type(text) intens(high)
+   + type(text  ) intens(low )
+     skip(on)
+   # area(SCRL) Extend(ON)
+)Body
++------------------! Print Data via TCP/IP LPR Information +--------------------
+@Command ===>_zcmd
+@
++
+#help -------------------------------------------------------------------------#
+)Area Help
+`    Information on Printing to TCP/IP Connected Printers using LPR
+~
+~    This ISPF application provides an easy to use interface for printing
+~    user data on printers that are remotely attached via the TCP/IP network.
+~
+~    LPR is the TCP/IP Line Printer client command that prints the user
+~    information on a remote printer connected via the TCP/IP network.  It
+~    communicates to the LPD (Line Printer server) on a remote Host on
+~    which the requested printer is attached.
+~
+~    The information that is asked for on the panel is:
+~
+`    Input Data Set      ===>
+~
+~    This is the data set name that contains the information that is to be
+~    printed on the remote printer.  The format is:
+~
+~              user.data
+~              user.data(member)
+~              'prefix.user.data'
+~
+`    Printer Name        ===>
+~
+~    This is the name of the printer as it is identified to the Host
+~    on which the printer is attached.
+~
+~       e.g.   lpt1
+~              IBM4019L
+~
+`    Host Name (node)    ===>
+~
+~    This is the TCP/IP Host Name on which the LPD (Line Printer server)
+~    is active that owns the specified printer.
+~
+~       e.g.   iscprint.rockwell.com
+~
+`    Binary              ===>
+~
+~    Used to specify if the user data is to be translated from EBCDIC
+~    to ASCII.  Specify`Yes~if the data is already in ASCII format and
+~    is not to be translated by the LPR command.
+~
+`    Carriage Control    ===>
+~
+~    Specify`Yes~if the data to be printed contains carriage control
+~    and the DCB of the data set does not indicate this fact.  Otherwise
+~    specify`No~.  If the DCB contains carriage control then it will be
+~    used.
+~
+`    Copies              ===>
+~
+~    Indicates the number of copies of the data to be printed.
+~
+`    Lines per Page      ===>
+~
+~    Indicates the number of lines of data per page to be printed before
+~    a new page is forced.  By specifying 0 the maximum number of lines
+~    per page allowed by the printer will be printed.
+~
+`    Header Info         ===>
+~
+~    Indicates if you want a header printed with the name of the data set
+~    being printed on the top of every page.  Only for No Binary and No CC.
+~
+`    Burst Page          ===>
+~
+~    Indicates if you want a banner page to be printed before your
+~    data.  This page is used as a separator page between multiple
+~    print requests and contains the ISPF Host Name, TSO Userid, and
+~    the data set name being printed.
+~
+`    Notify Complete     ===>
+~
+~    This option will request that an electronic mail message be generated
+~    to you when the data has completed printing on the printer.
+~    !Note:`this is not supported by all versions of LPD so even if you
+~          `request the message, you may not receive it.
+~
+`    PostScript          ===>
+~
+~    This option may be Portrait, Landscape, or No.  If 'no' is specified then
+~    no Postscript control headers will be generated for printing on a Postscrpt
+~    printer.  Portrait and Landscape will cause the appropriate headers to be
+~    inserted into the data stream. `Do not use this on a true Postscript file.
+~
+`    Other Options       ===>
+~
+~    This option will allow the user to enter other LPR options that are not
+~    directly supported by this dialog.
++
+!Note:`Use the Enter key to just scroll down this tutorial or
+`      Use key $LEFT`to scroll down and key $RIGHT`to scroll up.
+)Init
+  .cursor = zcmd
+  &left  = PFK(LEFT)
+  &right = PFK(RIGHT)
+)Proc
+)end

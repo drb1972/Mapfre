@@ -1,0 +1,30 @@
+ENDE150I 'Signin Complete'
+'ENDE150I Element &EEVELMNM was successfully signed in'
+
+ENDE151I 'JCL Submitted'                                .ALARM=YES
+'ENDE151I JCL has been submitted to signin the element'
+
+ENDE152E 'Request Cancelled'                            .ALARM=YES
+'ENDE152E The request to signin the element in batch mode was cancelled'
+
+ENDE153I 'Signout Complete'
+'ENDE153I Element &EEVELMNM was successfully signed out'
+
+ENDE154I 'JCL Submitted'                                .ALARM=YES
+'ENDE154I JCL has been submitted to signout the element'
+
+ENDE155E 'Request Cancelled'                            .ALARM=YES
+'ENDE155E The request to signout the element in batch mode was cancelled'
+
+ENDE156E 'Recovery Conflict'                            .ALARM=YES
+'ENDE156E Cannot start another Quick Edit while recovery in progress'
+
+ENDE157I 'Recovery Cancelled'
+'ENDE157I Quick Edit Recovery was cancelled '
+
+ENDE158I 'Quick-Edit Cancelled'
+'ENDE158I Quick Edit was terminated and recovery was bypassed'
+
+ENDE159I 'Element Recovered'
+'ENDE159I QuickEdit element has been recovered. Continue with QuickEdit'
+

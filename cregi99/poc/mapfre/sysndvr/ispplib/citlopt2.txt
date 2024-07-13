@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Applying List Filters \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Filter Options: (All options are retained across sessions)
+%  Where CCID EQ   +- This option allows you to filter the element list
+     by CCID.  Wildcarding is allowed with placeholders.
+%  Where USERID EQ +- This option allows you to filter the element list
+     by USERID.  Wildcarding is allowed with placeholders.
+%  Where PROCGRP EQ+- This option allows you to filter the element list
+     by processor group.  Wildcarding is allowed without placeholders.
++
+%For Where CCID/USERID, compare to:+- The options here allow you to
++  select how the%Where CCID EQ+and %Where USERID EQ+filters compare
++  the CCID/USERID against the elements to be displayed in the element
++  list.  The CCID/USERID specified is compared to the CCID/USERID types
++  listed below.  If a match is found, the element is displayed in the
++  list.  Default for all options is Y (yes).  N (no) indicates this
++  CCID/USERID type will not be used to match the specified CCID/USERID.
+%    Current    +- Match against CCID/USERID of Current Source
+%    Generate   +- Match against CCID/USERID of last Generate
+%    Last Action+- Match against CCID/USERID of Last Action
+%    Retrieve   +- Match against CCID/USERID of last Retrieve
+)END

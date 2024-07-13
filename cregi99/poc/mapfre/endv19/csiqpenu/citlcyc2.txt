@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Basic Life Cycle Operations \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Emergency change procedures include:
++  * Retrieving from production.
++  * Making changes.
++  * Adding/updating into the emergency stage.
++  * Moving to Production.
++
++                                      +---- move ------->+
++    ********       ********       ****|***           ****|***
++    * TEST *       *  QA  *       * EMER *           * PROD *
++    *      *       *      *       *      *           *      *
++    ********       ********       ***|****           **|*****
++                                     |                 |
++                                   add     $$$$|$$$  retrieve
++                                     |     $  dev $    |
++                                     +<-----      <----+
++                                           $$$$$$$$
++
++
++                                            (%PF3+to return)
+)END

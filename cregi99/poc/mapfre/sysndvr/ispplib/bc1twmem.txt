@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Specifying a WIP Member \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When specifying a WIP member, you can:
++
++ * Leave the field blank. PDM then builds a WIP library member list
++   that is identical to the Root library member list.
++
++ * Type an explicit member name. PDM then builds a WIP file for that
++   member only.
++
++ * Type an overlay mask.  An overlay mask differs from a standard name
++   mask in that the characters specified before the asterisk overlay
++   the corresponding characters in the Root member name. For example,
++   if you provide an overlay mask of W*, every WIP member name will begin
++   with the letter W. This means that Root member BC1PAL00 will appear
++   in the WIP library as member WC1PAL00.
++
++
+)END

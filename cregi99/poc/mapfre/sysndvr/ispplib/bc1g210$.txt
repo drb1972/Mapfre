@@ -1,0 +1,27 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+       /* | TYPE(OUTPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)            */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%BUILD WIP ---------------  ROOT SPECIFICATION PANEL  --------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Specify%"ROOT"+location below, then press%ENTER+key.
++
++ROOT LIBRARY:+                                       COMPARE COLUMNS:+
++   PROJECT %===>_PTBROPRJ+                              FROM     %===>_Z  +
++   GROUP   %===>_PTBROLIB+                              THROUGH  %===>_Z  +
++   TYPE    %===>_PTBROTYP+
++   MEMBER  %===>_PTBROMEM  +     THRU MEMBER%===>_PTBROTMB  +
++
++ROOT OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_PTBROOTH
+)INIT
+   .ZVARS = '(PTBCMPFR PTBCMPTO)'
+   .HELP = bctg2100
+)END

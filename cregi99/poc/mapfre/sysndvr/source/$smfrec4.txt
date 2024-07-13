@@ -1,0 +1,47 @@
+          MACRO                                                         00010000
+&NAME     $SMFREC4          &DSCT=YES                                   00020000
+          AIF   ('&DSCT' NE 'YES').NODSCT                               00030000
+$SMFREC4  DSECT                                                         00040000
+          AGO   .START                                                  00050000
+.NODSCT   ANOP                                                          00060000
+$SMFREC4  DS    0D                 ALIGN IT                             00070000
+.START    ANOP                                                          00080000
+**********************************************************************  00090000
+*                                                                    *  00100000
+*         $SMFREC4 - DESCRIPTION FOR THE ENVIRONMENT RECORD          *  00110006
+*                                                                    *  00120000
+*                                                                    *  00130000
+**********************************************************************  00140000
+SM4REC4   EQU   *                  START OF THE SMF 1 RECORD            00150000
+SM4RECLN  DS    H                  LENGTH OF THE ENVIRONMENT RECORD     00160006
+SM4RECVN  DS    H                  VERSION OF THE RECORD                00170000
+SM4$VERS  EQU   X'01'                   VERSION 1                       00180000
+SM4FUNC   DS    F                  FUNCTION CODE                        00190001
+SM4$FCRE  EQU   1                  . CREATE NEW RECORD                  00191007
+SM4$FERA  EQU   2                  . ERASE RECORD                       00192007
+SM4$FUPD  EQU   3                  . UPDATE EXISTING RECORD             00193007
+**********************************************************************  00200000
+*                                                                    *  00210000
+*         ENVIRONMENT INFORMATION                                    *  00220000
+*                                                                    *  00230000
+**********************************************************************  00240000
+SM4TYPE   DS    CL3                RECORD TYPE                          00250004
+SM4T$AGR   EQU  C'AGR'             - APPROVER GROUP RECORD              00260005
+SM4T$AGJ   EQU  C'AGJ'             - APPROVER GROUP JUNCTION            00270005
+SM4T$DSR   EQU  C'DSR'             - DATA SET RECORD                    00280005
+SM4T$ELE   EQU  C'ELE'             - ELEMENT RECORD                     00290005
+SM4T$PGR   EQU  C'PGR'             - PROCESSOR GROUP RECORD             00300005
+SM4T$SBS   EQU  C'SBS'             - SUBSYSTEM RECORD                   00310005
+SM4T$SYS   EQU  C'SYS'             - SYSTEM RECORD                      00320005
+SM4T$TSQ   EQU  C'TSQ'             - TYPE SEQUENCE RECORD               00330005
+SM4T$TYP   EQU  C'TYP'             - TYPE RECORD                        00340005
+SM4SITE   DS    CL1                SITE CODE                            00350004
+SM4ENV    DS    CL8                ENVIRONMENT NAME                     00360001
+SM4STAGE  DS    CL8                STAGE NAME                           00370000
+SM4MCF    DS    CL44               MCF FILE DATA SET NAME               00380001
+          DS    0D                                                      00390000
+          DS    3H                 ** RESERVED **                       00400003
+SM4DLEN   DS    H                  LENGTH OF SUBSEQUENT DATA BLOCK      00410002
+SM4DATA   DS    0X                                                      00420003
+SM4SIZ    EQU   *-$SMFREC4         SIZE OF THE RECORD                   00430000
+          MEND                                                          00440000

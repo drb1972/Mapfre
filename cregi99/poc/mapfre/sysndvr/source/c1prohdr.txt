@@ -1,0 +1,21 @@
+         MACRO
+&LABEL   C1PROHDR &SYS,&PROC,                                          X
+               &DSECT=NO
+         AIF   ('&DSECT' EQ 'YES').DODSECT
+         GBLA  &RLSTEP#
+         GBLC  &RLSTP#L
+&RLSTEP# SETA  0 NBR OF PROCESSOR STEPS
+&RLSTP#L SETC 'STP#&SYSNDX' LABEL FOR STEP COUNT FIELD
+.*
+         DC    CL8'&SYS'               SYSTEM NAME
+         DC    CL8'&PROC'              PROCESS NAME
+STP#&SYSNDX DC AL1(0)                  NBR OF STEPS IN PROCESSOR
+         MEXIT
+.*
+.DODSECT ANOP
+C1PROHDR DSECT
+C1PROHDR#SYSTEM  DS  CL8               SYSTEM NAME
+C1PROHDR#PROCESS DS  CL8               PROCESSOR NAME
+C1PROHDR#STEP#   DS  AL1               NUMBER OF STEPS IN PROCESSOR
+C1PROHDR#DSLN    EQU *-C1PROHDR        DSECT LENGTH
+         MEND

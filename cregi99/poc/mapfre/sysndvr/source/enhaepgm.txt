@@ -1,0 +1,683 @@
+ENHAEPGM TITLE 'ENDEVOR - API SAMPLE ASSEMBLER PROGRAM'
+***********************************************************************
+*   DESCRIPTION: THIS SAMPLE PROGRAM ISSUES REQUESTS TO THE
+*                ENDEVOR API TO EXERCISE EACH OF THE ELEMENT ACTIONS.
+*
+*                ADD, DELETE, GENERATE, MOVE, PRINT ELEMENT, PRINT
+*                MEMBER, RETRIEVE, SIGNIN, TRANSFER AND UPDATE.
+*
+*   HOW TO USE:  POPULATE THE CONTROL AND REQUEST BLOCKS WITH THE
+*                DESIRED VALUES.
+*                ASSEMBLE AND LINK-EDIT THIS MODULE.
+*
+*   LINK EDIT:   AMODE=31,RMODE=24,RENT,REUS (RECOMMENDED)
+*                OR
+*                AMODE=24,RMODE=24,RENT,REUS
+*
+*   REGISTERS ON ENTRY:
+*
+*   REGISTER USAGE:
+*                R2     -> SAVE RETURN CODE
+*                R3     -> SAVE REASON CODE
+*                R12    -> BASE PROGRAM
+*                R13    -> STANDARD USAGE........
+*                R15    -> RETURN CODE FROM CALL
+*   ==>                 -> WE USE STANDARD STACK SAVEAREA USAGE
+*
+*   THIS TEST PROGRAM PERFORMS THE FOLLOWING ACTIONS;
+*         -- ADD      APIB (BASE), APIU (UPDATE) AND APIR (RETRIEVE)
+*                     TO THE ENV1/SYS1/SUBSYS1/TYPE1/1.
+*         -- DELETE   APIR FROM ENV1/SYS1/SUBSUS1/TYPE1/1.
+*         -- GENERATE APIB AT ENV1/SYS1/SUBSUS1/TYPE1/1.
+*         -- MOVE     APIB TO ENV1/SYS1/SUBSUS1/TYPE1/2.
+*         -- PRNT ELM APIB FROM ENV1/SYS1/SUBSUS1/TYPE1/2.
+*         -- PRNT MBR APIB FROM UPRFX.UQUAL.SRCLIB.
+*         -- RETRIEVE APIB FROM ENV1/SYS1/SUBSUS1/TYPE1/2
+*                     TO UPRFX.UQUAL.SRCLIB, REPLACE EXISTING MBR.
+*         -- SIGNIN   APIA THRU APIZ AT ENV1/SYS1/SUBSUS1/TYPE1/2,
+*                     RESULTING IN APIB BEING SIGNED IN.
+*         -- TRANSFER APIB FROM ENV1/SYS1/SUBSUS1/TYPE1/2
+*                     TO ENV2/SYS1/SUBSYS1/TYPE1/1.
+*         -- UPDATE   APIT AT ENV2/SYS1/SUBSUS1/TYPE1/1
+*                     FROM UPRFX.UQUAL.SRCLIB, MEMBER APIU.
+*         REQUIRED MODIFICATIONS TO MAKE THIS EXECUTE:
+*         -- CHANGE UPRFX.UQUAL.SRCLIB TO A LIBRARY NAME THAT EXISTS
+*            AT YOUR SITE.
+*         -- ADD MEMBERS APIB, APIU AND APIR TO UPRFX.UQUAL.SRCLIB.
+*         -- CHANGE ENV1, ENV2, SYS1, SUBSYS1 AND TYPE1 TO NAMES THAT
+*            EXIST AT YOUR SITE.
+*         -- NOTE: THERE ARE LINES OF CODE THAT ARE COMMENTED OUT.
+*            THEY EXIST AS PLACE HOLDERS TO OTHER FEATURES OR OPTIONS
+*            NOT USED BY THIS EXAMPLE. THEY CAN BE IDENTIFIED BY
+*            THE **CMT IN COLUMNS 1 THROUGH 5.
+***********************************************************************
+*   WORKAREA
+***********************************************************************
+WORKAREA DSECT
+SAVEAREA DS    18F
+WPARMLST DS    3A                      PARAMETER LIST
+WCNT     DS    H                       ACTION COUNTER
+         DS     0D
+***********************************************************************
+* API CONTROL BLOCK
+***********************************************************************
+         ENHAACTL DSECT=NO
+***********************************************************************
+* API ACTION REQUEST BLOCKS
+***********************************************************************
+         ENHAEADD DSECT=NO
+         ENHAEDEL DSECT=NO
+         ENHAEGEN DSECT=NO
+         ENHAEMOV DSECT=NO
+         ENHAEPRE DSECT=NO
+         ENHAEPRM DSECT=NO
+         ENHAERET DSECT=NO
+         ENHAESIG DSECT=NO
+         ENHAETRA DSECT=NO
+         ENHAEUPD DSECT=NO
+WORKLN   EQU   *-WORKAREA
+***********************************************************************
+*   REQISTER EQUATES
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+***********************************************************************
+ENHAEPGM CSECT
+ENHAEPGM AMODE 31
+ENHAEPGM RMODE ANY
+***********************************************************************
+*   HOUSEKEEPING
+***********************************************************************
+         SAVE  (14,12)                 SAVE CALLERS REG 12(13)
+         LR    R12,R15                 POINT TO THIS PROGRAM
+        USING ENHAEPGM,R12
+***********************************************************************
+*   GET STORAGE FOR WORKAREA
+***********************************************************************
+         L     R0,=A(WORKLN)           GET SIZE OF W.A
+         GETMAIN R,LV=(0)              GET WORKING STORAGE
+         ST    R1,8(R13)               STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)               STORE OLD STACK +4(NEW)
+         LR    R13,R1                  POINT R13 TO OUR STACK
+        USING SAVEAREA,R13             ESTABLISH ADDRESSIBILIY
+         SPACE ,
+************************************************************
+*        INITIALIZE AND POPULATE THE CONTROL STRUCTURE
+*        NOTE: IF ANY INVENTORY MANAGEMENT MESSAGES ARE ISSUED, THEY
+*        ARE WRITTEN TO THE MSG DATA SET. THE OUTPUT FROM THIS REQUEST
+*        IS WRITTEN TO THE LIST DATA SET.
+************************************************************
+         API$INIT STG=AACTL,BLOCK=AACTL
+         MVI   AACTL_SHUTDOWN,C'N'
+         MVC   AACTL_MSG_DDN,=CL8'APIMSGS '
+         MVC   AACTL_LIST_DDN,=CL8'       '
+         MVC   AACTL_STOPRC,=H'16'
+*        THIS PROGRAM IS A LARGE LOOP TO PROCESS ALL 10 ELEMENT
+*        ACTIONS.  WCNT DETERMINES WHICH ACTION THE PROGRAM SHOULD
+*        START THE PROCESSING WITH. CHANGING THE VALUE MAYBE DESIRED
+*        FOR RESTARTING THIS PROGRAM IF AN ERROR OCCURS.
+         MVC   WCNT,=H'1'                START PROCESS WITH 1ST ACTION
+************************************************************
+XLOOP    DS    0H
+         CLC   WCNT,=H'1'                ACTION COUNTER MATCH?
+         BH    XLOOP2                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'ADDMSG  '
+         B     XADD000                   ADD ACTION LOGIC
+XLOOP2   DS    0H
+         CLC   WCNT,=H'2'                ACTION COUNTER MATCH?
+         BH    XLOOP3                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'DELMSG  '
+         B     XDEL000                   DELETE ACTION LOGIC
+XLOOP3   DS    0H
+         CLC   WCNT,=H'3'                ACTION COUNTER MATCH?
+         BH    XLOOP4                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'GENMSG  '
+         B     XGEN000                   GENERATE ACTION LOGIC
+XLOOP4   DS    0H
+         CLC   WCNT,=H'4'                ACTION COUNTER MATCH?
+         BH    XLOOP5                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'MOVMSG  '
+         B     XMOV000                   MOVE ACTION LOGIC
+XLOOP5   DS    0H
+         CLC   WCNT,=H'5'                ACTION COUNTER MATCH?
+         BH    XLOOP6                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'PREMSG  '
+         B     XPRE000                   PRINT ELEMENT ACTION LOGIC
+XLOOP6   DS    0H
+         CLC   WCNT,=H'6'                ACTION COUNTER MATCH?
+         BH    XLOOP7                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'PRMMSG  '
+         B     XPRM000                   PRINT MEMBER ACTION LOGIC
+XLOOP7   DS    0H
+         CLC   WCNT,=H'7'                ACTION COUNTER MATCH?
+         BH    XLOOP8                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'RETMSG  '
+         B     XRET000                   RETRIEVE ACTION LOGIC
+XLOOP8   DS    0H
+         CLC   WCNT,=H'8'                ACTION COUNTER MATCH?
+         BH    XLOOP9                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'SIGMSG  '
+         B     XSIG000                   SIGNIN ACTION LOGIC
+XLOOP9   DS    0H
+         CLC   WCNT,=H'9'                ACTION COUNTER MATCH?
+         BH    XLOOP10                   NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'TRAMSG '
+         B     XTRA000                   TRANSFER ACTION LOGIC
+XLOOP10  DS    0H
+         MVC   AACTL_MSG_DDN,=CL8'UPDMSG '
+         CLC   WCNT,=H'10'               ACTION COUNTER MATCH?
+         BE    XUPD000                   UPDATE ACTION LOGIC
+         B     XSHUTDWN                  TIME TO SHUTDOWN
+*
+************************************************************
+* ADD ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XADD000  DS    0H
+         API$INIT STG=AEADD_RQ,BLOCK=AEADD_RQ
+* ELEMENT DATA
+         MVC   AEADD_RQ_ELM,=CL10'APIB      '
+         MVC   AEADD_RQ_ELM_THRU,=CL10'APIU      '
+* FROM LOCATION DATA
+         MVC   AEADD_RQ_DDN,=CL8'ADDDDNMI'
+**CMT    MVC   AEADD_RQ_DSN,=CL44'UPRFX.UQUAL.SRCLIB'
+**CMT    MVC   AEADD_RQ_MBR,=CL10'APIM      '
+* TARGET LOCATION DATA
+         MVC   AEADD_RQ_ENV,=CL8'ENV1     '
+         MVC   AEADD_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEADD_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEADD_RQ_TYPE,=CL8'TYPE1   '
+* ACTION OPTIONS
+         MVC   AEADD_RQ_CCID,=CL12'CCIDVALUEADD'
+         MVC   AEADD_RQ_COMM,=CL40'COMMENTADD12345678901234567890'
+**CMT    MVC   AEADD_RQ_NEWVER,=CL2'02'
+         MVI   AEADD_RQ_UPDT,C'Y'
+         MVI   AEADD_RQ_DEL,C'N'
+         MVI   AEADD_RQ_OVESIGNO,C'Y'
+         MVI   AEADD_RQ_BYP_GEN,C'N'
+**CMT    MVC   AEADD_RQ_PROGRO,=CL8'*NOPROC*'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEADD_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* DELETE ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XDEL000  DS    0H
+         API$INIT STG=AEDEL_RQ,BLOCK=AEDEL_RQ
+* ELEMENT DATA
+         MVC   AEDEL_RQ_ELM,=CL10'APIR      '
+**CMT    MVC   AEDEL_RQ_ELM_THRU,=CL10'API4567890'
+* FROM LOCATION DATA
+         MVC   AEDEL_RQ_ENV,=CL8'ENV1     '
+         MVC   AEDEL_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEDEL_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEDEL_RQ_TYPE,=CL8'TYPE1   '
+         MVI   AEDEL_RQ_STG_ID,C'1'
+**CMT    MVI   AEDEL_RQ_STG_NUM,C'1'
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AEDEL_RQ_WCCID_TYP,C'A'
+         MVC   AEDEL_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AEDEL_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+**CMT    MVC   AEDEL_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+**CMT    MVC   AEDEL_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+**CMT    MVC   AEDEL_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AEDEL_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AEDEL_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AEDEL_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AEDEL_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AEDEL_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVC   AEDEL_RQ_CCID,=CL12'CCIDVALUEDEL'
+         MVC   AEDEL_RQ_COMM,=CL40'COMMENTDELETE45678901234567890'
+         MVI   AEDEL_RQ_OVESIGNO,C'Y'
+         MVI   AEDEL_RQ_ONLY_CMP,C'N'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEDEL_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* GENERATE ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XGEN000  DS    0H
+         API$INIT STG=AEGEN_RQ,BLOCK=AEGEN_RQ
+* ELEMENT DATA
+         MVC   AEGEN_RQ_ELM,=CL10'APIB      '
+         MVC   AEGEN_RQ_ELM_THRU,=CL10'APIU      '
+* FROM LOCATION DATA
+         MVC   AEGEN_RQ_ENV,=CL8'ENV1     '
+         MVC   AEGEN_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEGEN_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEGEN_RQ_TYPE,=CL8'TYPE1   '
+**CMT    MVI   AEGEN_RQ_STG_ID,C'1'
+         MVI   AEGEN_RQ_STG_NUM,C'1'
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AEGEN_RQ_WCCID_TYP,C'A'
+         MVC   AEGEN_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AEGEN_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AEGEN_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+         MVC   AEGEN_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+         MVC   AEGEN_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AEGEN_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AEGEN_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AEGEN_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AEGEN_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AEGEN_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVC   AEGEN_RQ_CCID,=CL12'CCIDVALUEGEN'
+         MVC   AEGEN_RQ_COMM,=CL40'COMMENTGENERATE678901234567890'
+         MVI   AEGEN_RQ_COPYBACK,C'N'
+         MVI   AEGEN_RQ_SEARCH,C'N'
+         MVI   AEGEN_RQ_OVESIGNO,C'Y'
+**CMT    MVC   AEGEN_RQ_PROGRO,=CL8'PROCGRP8'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEGEN_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* MOVE ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XMOV000  DS    0H
+         API$INIT STG=AEMOV_RQ,BLOCK=AEMOV_RQ
+* ELEMENT DATA
+         MVC   AEMOV_RQ_ELM,=CL10'APIB      '
+**CMT    MVC   AEMOV_RQ_ELM_THRU,=CL10'APIT567890'
+* FROM LOCATION DATA
+         MVC   AEMOV_RQ_ENV,=CL8'ENV1     '
+         MVC   AEMOV_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEMOV_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEMOV_RQ_TYPE,=CL8'TYPE1   '
+**CMT    MVI   AEMOV_RQ_STG_ID,C'1'
+         MVI   AEMOV_RQ_STG_NUM,C'1'
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AEMOV_RQ_WCCID_TYP,C'C'
+         MVC   AEMOV_RQ_WCCID,=CL12'CCIDVALUEGEN'
+         MVC   AEMOV_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AEMOV_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+         MVC   AEMOV_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+         MVC   AEMOV_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AEMOV_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AEMOV_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AEMOV_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AEMOV_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AEMOV_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVC   AEMOV_RQ_CCID,=CL12'CCIDVALUEMOV'
+         MVC   AEMOV_RQ_COMM,=CL40'COMMENTMOVE2345678901234567890'
+         MVI   AEMOV_RQ_SYN,C'N'
+         MVI   AEMOV_RQ_WIT_HIS,C'Y'
+         MVI   AEMOV_RQ_BYP_DEL,C'Y'
+         MVI   AEMOV_RQ_SIGNIN,C'N'
+         MVI   AEMOV_RQ_RETA_SIGNO,C'Y'
+         MVC   AEMOV_RQ_SIGNO_TO,=CL8'MCCPE01 '
+         MVI   AEMOV_RQ_JUMP,C'N'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEMOV_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* PRINT ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XPRE000  DS    0H
+         API$INIT STG=AEPRE_RQ,BLOCK=AEPRE_RQ
+* ELEMENT DATA
+         MVC   AEPRE_RQ_ELM,=CL10'APIB      '
+**CMT    MVC   AEPRE_RQ_ELM_THRU,=CL10'APIT567890'
+         MVC   AEPRE_RQ_VERSION,=CL2'1 '
+**CMT    MVC   AEPRE_RQ_LEVEL,=CL2' L'
+* FROM LOCATION DATA
+         MVC   AEPRE_RQ_ENV,=CL8'ENV1     '
+         MVC   AEPRE_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEPRE_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEPRE_RQ_TYPE,=CL8'TYPE1   '
+**CMT    MVI   AEPRE_RQ_STG_ID,C'2'
+         MVI   AEPRE_RQ_STG_NUM,C'2'
+* TARGET LOCATION DATA
+         MVC   AEPRE_RQ_DDN,=CL8'PREDDNMO'
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AEPRE_RQ_WCCID_TYP,C'A'
+         MVC   AEPRE_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AEPRE_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AEPRE_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+         MVC   AEPRE_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+         MVC   AEPRE_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AEPRE_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AEPRE_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AEPRE_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AEPRE_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AEPRE_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVI   AEPRE_RQ_NOCC,C'Y'
+         MVI   AEPRE_RQ_COMP,C'N'
+         MVI   AEPRE_RQ_PRT_OPT,C'B'
+         MVI   AEPRE_RQ_SEARCH,C'N'
+*
+************************************************************
+*        INITIALIZE THE RESPONSE STRUCTURE AND BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEPRE_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* PRINT MEMBER REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XPRM000  DS    0H
+         API$INIT STG=AEPRM_RQ,BLOCK=AEPRM_RQ
+* MEMBER DATA
+         MVC   AEPRM_RQ_MBR,=CL10'APIB      '
+**CMT    MVC   AEPRM_RQ_MBR_THRU,=CL10'ENAPIN7890'
+* FROM LOCATION DATA
+         MVC   AEPRM_RQ_DDN,=CL8'PRMDDNMI'
+**CMT    MVC   AEPRM_RQ_DSN,=CL44'UPRFX.UQUAL.SRCLIB'
+* TARGET LOCATION DATA
+         MVC   AEPRM_RQ_TDDN,=CL8'PRMDDNMO'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEPRM_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* RETRIEVE ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XRET000  DS    0H
+         API$INIT STG=AERET_RQ,BLOCK=AERET_RQ
+* ELEMENT DATA
+         MVC   AERET_RQ_ELM,=CL10'APIB      '
+**CMT    MVC   AERET_RQ_ELM_THRU,=CL10'APIU      '
+         MVC   AERET_RQ_VERSION,=CL2' 1'
+**CMT    MVC   AERET_RQ_LEVEL,=CL2' L'
+* FROM LOCATION DATA
+         MVC   AERET_RQ_ENV,=CL8'ENV1     '
+         MVC   AERET_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AERET_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AERET_RQ_TYPE,=CL8'TYPE1   '
+         MVI   AERET_RQ_STG_ID,C'2'
+**CMT    MVI   AERET_RQ_STG_NUM,C'N'
+* TARGET LOCATION DATA
+         MVC   AERET_RQ_DDN,=CL8'RETDDNMO'
+**CMT    MVC   AERET_RQ_DSN,=CL44'UPRFX.UQUAL.SRCLIB                '
+         MVC   AERET_RQ_MBR,=CL10'APIR      '
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AERET_RQ_WCCID_TYP,C'A'
+         MVC   AERET_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AERET_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AERET_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+**CMT    MVC   AERET_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+**CMT    MVC   AERET_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AERET_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AERET_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AERET_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AERET_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AERET_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVC   AERET_RQ_CCID,=CL12'CCIDVALUERET'
+         MVC   AERET_RQ_COMM,=CL40'COMMENTRETRIEVE678901234567890'
+         MVI   AERET_RQ_REPLACE,C'Y'
+         MVI   AERET_RQ_NO_SIGNO,C'N'
+         MVI   AERET_RQ_EXPAND,C'Y'
+         MVI   AERET_RQ_OVESIGNO,C'Y'
+         MVI   AERET_RQ_SEARCH,C'N'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AERET_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* SIGNIN ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XSIG000  DS    0H
+         API$INIT STG=AESIG_RQ,BLOCK=AESIG_RQ
+* ELEMENT DATA
+         MVC   AESIG_RQ_ELM,=CL10'APIA      '
+         MVC   AESIG_RQ_ELM_THRU,=CL10'APIZ      '
+* FROM LOCATION DATA
+         MVC   AESIG_RQ_ENV,=CL8'ENV1     '
+         MVC   AESIG_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AESIG_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AESIG_RQ_TYPE,=CL8'TYPE1   '
+**CMT    MVI   AESIG_RQ_STG_ID,C'2'
+         MVI   AESIG_RQ_STG_NUM,C'2'
+* WHERE CLAUSE SELECTION CLAUSE
+         MVI   AESIG_RQ_WCCID_TYP,C'A'
+         MVC   AESIG_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AESIG_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AESIG_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+         MVC   AESIG_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+         MVC   AESIG_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AESIG_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AESIG_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AESIG_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AESIG_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AESIG_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVI   AESIG_RQ_OVESIGNO,C'Y'
+         MVC   AESIG_RQ_SIGNO_TO,=CL8'        '
+         MVI   AESIG_RQ_SEARCH,C'Y'
+*
+************************************************************
+*        INITIALIZE THE RESPONSE STRUCTURE AND BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AESIG_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* TRANSFER ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XTRA000  DS    0H
+         API$INIT STG=AETRA_RQ,BLOCK=AETRA_RQ
+* ELEMENT DATA
+         MVC   AETRA_RQ_ELM,=CL10'APIB      '
+         MVC   AETRA_RQ_VERSION,=CL2'1 '
+**CMT    MVC   AETRA_RQ_LEVEL,=CL2'L '
+**CMT    MVC   AETRA_RQ_ELM_THRU,=CL10'APIT567890'
+* FROM LOCATION DATA
+         MVC   AETRA_RQ_ENV,=CL8'ENV1     '
+         MVC   AETRA_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AETRA_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AETRA_RQ_TYPE,=CL8'TYPE1   '
+**CMT    MVI   AETRA_RQ_STG_ID,C'2'
+         MVI   AETRA_RQ_STG_NUM,C'2'
+* TARGET LOCATION DATA
+         MVC   AETRA_RQ_TENV,=CL8'ENV2     '
+         MVC   AETRA_RQ_TSYSTEM,=CL8'SYS1    '
+         MVC   AETRA_RQ_TSUBSYS,=CL8'SUBSYS1 '
+         MVC   AETRA_RQ_TTYPE,=CL8'TYPE1   '
+**CMT    MVI   AETRA_RQ_TSTG_ID,C'1'
+         MVI   AETRA_RQ_TSTG_NUM,C'1'
+         MVC   AETRA_RQ_TELM,=CL10'APIT      '
+* WHERE CLAUSE SELECTION CRITERIA
+         MVI   AETRA_RQ_WCCID_TYP,C'A'
+         MVC   AETRA_RQ_WCCID,=CL12'CCIDVALUEADD'
+         MVC   AETRA_RQ_WCCID+12,=CL12'W2CIDVALUE12'
+         MVC   AETRA_RQ_WCCID+24,=CL12'W3CIDVALUE12'
+         MVC   AETRA_RQ_WCCID+36,=CL12'W4CIDVALUE12'
+         MVC   AETRA_RQ_WCCID+48,=CL12'W5CIDVALUE12'
+**CMT    MVC   AETRA_RQ_WPROGRO,=CL8'W1ROGRO8'
+**CMT    MVC   AETRA_RQ_WPROGRO+8,=CL8'W2ROGRO8'
+**CMT    MVC   AETRA_RQ_WPROGRO+16,=CL8'W3ROGRO8'
+**CMT    MVC   AETRA_RQ_WPROGRO+24,=CL8'W4ROGRO8'
+**CMT    MVC   AETRA_RQ_WPROGRO+32,=CL8'W5ROGRO8'
+* ACTION OPTIONS
+         MVC   AETRA_RQ_CCID,=CL12'CCIDVALUETRA'
+         MVC   AETRA_RQ_COMM,=CL40'COMMENTTRANSFER678901234567890'
+**CMT    MVC   AETRA_RQ_NEWVER,=CL2'NV'
+         MVI   AETRA_RQ_IGN_GFAIL,C'N'
+         MVI   AETRA_RQ_BYP_GENPRO,C'N'
+**CMT    MVC   AETRA_RQ_PROGRO,=CL8'*NOPROC*'
+         MVI   AETRA_RQ_OVESIGNO,C'Y'
+         MVI   AETRA_RQ_BYP_ELEDEL,C'Y'
+         MVI   AETRA_RQ_BYP_DELPRO,C'N'
+         MVI   AETRA_RQ_WIT_HIS,C'Y'
+         MVI   AETRA_RQ_SYN,C'N'
+         MVI   AETRA_RQ_SIGNIN,C'N'
+**CMT    MVI   AETRA_RQ_RETA_SIGNO,C'Y'
+         MVC   AETRA_RQ_SIGNO_TO,=CL8'MCCPE01 '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AETRA_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* UPDATE ELEMENT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XUPD000  DS    0H
+         API$INIT STG=AEUPD_RQ,BLOCK=AEUPD_RQ
+* ELEMENT DATA
+         MVC   AEUPD_RQ_ELM,=CL10'APIT      '
+**CMT    MVC   AEUPD_RQ_ELM_THRU,=CL10'APIU      '
+* FROM LOCATION DATA
+         MVC   AEUPD_RQ_DDN,=CL8'UPDDDNMI'
+**CMT    MVC   AEUPD_RQ_DSN,=CL44'UPRFX.UQUAL.SRCLIB'
+         MVC   AEUPD_RQ_MBR,=CL10'APIU      '
+* TARGET LOCATION DATA
+         MVC   AEUPD_RQ_ENV,=CL8'ENV2     '
+         MVC   AEUPD_RQ_SYSTEM,=CL8'SYS1    '
+         MVC   AEUPD_RQ_SUBSYS,=CL8'SUBSYS1 '
+         MVC   AEUPD_RQ_TYPE,=CL8'TYPE1   '
+* ACTION OPTIONS
+         MVC   AEUPD_RQ_CCID,=CL12'CCIDVALUEUPD'
+         MVC   AEUPD_RQ_COMM,=CL40'COMMENTUPDATE45678901234567890'
+         MVI   AEUPD_RQ_DEL,C'N'
+         MVI   AEUPD_RQ_OVESIGNO,C'Y'
+         MVI   AEUPD_RQ_BYP_GEN,C'N'
+**CMT    MVC   AEUPD_RQ_PROGRO,=CL8'*NOPROC*'
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,AEUPD_RQ
+         ST    R14,4(0,R1)
+         OI    4(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+*        CALL THE ENDEVOR API INTERFACE PROGRAM
+************************************************************
+XCALLAPI DS    0H
+         L     R15,=V(ENA$NDVR)
+         BALR  R14,R15
+         LR    R2,R15                    HOLD ONTO THE RETURN CODE
+         LR    R3,R0                     HOLD ONTO THE REASON CODE
+         CH    R15,=H'8'                 RETURN CODE GT THAN CAUTION?
+         BH    XSHUTDWN                  YES, ISSUE API SHUTDOWN
+         CLC   WCNT,=H'10'               ALL ACTIONS PROCESSED?
+**CMT    CLC   WCNT,=H'2'                ALL 2 TEST ACTIONS PROCESSED?
+         BNL   XSHUTDWN                  YES, ISSUE API SHUTDOWN
+         LH    R1,WCNT                   GET CURRENT COUNT
+         LA    R1,1(R1)                  ADD ONE TO COUNT
+         STH   R1,WCNT                   SAVE UPDATED COUNT
+         B     XLOOP                     NO, PROCESS NEXT ACTION
+************************************************************
+* SHUTDOWN THE API SERVER. ONLY THE AACTL BLOCK IS REQUIRED.
+************************************************************
+XSHUTDWN DS    0H
+         API$INIT STG=AACTL,BLOCK=AACTL
+         MVI   AACTL_SHUTDOWN,C'Y'
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         OI    0(R1),X'80'
+         L     R15,=V(ENA$NDVR)
+         BALR  R14,R15
+***********************************************************************
+* PROGRAM EXIT
+***********************************************************************
+         LR    R5,R13                  SAVE SAVEAREA ADDRESS
+         L     R13,4(R13)              POINT TO PREVIOUS SAVEAREA
+*   CLEAN UP THIS PROGRAM'S STORAGE
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(R5),LV=(R0)          FREE STORAGE
+         LR    R15,R2                       SET RETURN CODE FROM CALL
+         L     R14,12(R13)
+         LM    R0,R12,20(R13)
+         BSM   0,R14                        RETURN
+         END

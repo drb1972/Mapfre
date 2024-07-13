@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Add/Update Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Add action to put a PDS member, Panvalet, Librarian,
++sequential data set, USS file or load module under control of
++Endevor.
++
++Leave the ELEMENT field blank if the element name is to be the same
++as the member/USS file name, or if you are adding multiple members/
++USS files.
++
++Make sure that all elements with the same name elsewhere on the map
++are signed out to you.
++
++Make sure that you are adding into Stage 1 of the target environment,
++and that no elements with the same name reside in Stage 1. Use UPDATE
++IF PRESENT to update a Stage 1 element with the same name.
++
++Select one of the options below for more information:
++
+%   1+- Panel options                    %4+- From Data Set Type
+%   2+- Inventory fields                 %5+- Action options
+%   3+- Element and Uppercase fields     %6+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF1001 2,CITNDVR0 3,CITNDVRL
+                       4,CITNDVR3, 5,CITF1002 6,CITLOPT0)
+)END

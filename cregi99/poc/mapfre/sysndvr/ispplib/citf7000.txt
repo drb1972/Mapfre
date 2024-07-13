@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signin Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Signin action to remove the signout userid associated with an
++element. Signin is only available for systems where signin-signout is
++in effect.
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Panel options              %3+- Action options
+%    2+- Inventory fields           %4+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF7001 2,CITNDVR0 3,CITF7002 4,CITLOPT0)
+)END

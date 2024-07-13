@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink FileList LU \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%FileList LU+- 1- to 8-character name of a VTAM LU which exists on the
++   computer from which the filelist and product datasets will be
++   collected.  This is a required field.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

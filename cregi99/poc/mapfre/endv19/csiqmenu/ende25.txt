@@ -1,0 +1,7 @@
+ENDE251E 'CCOLS values error'                           .ALARM=Y
+'ENDE251E Member &MEM is corrupted. Input correct values'
+
+ENDE253E 'SAVE ERROR'                                   .ALARM=Y
+'ENDE253E Save return code : &XRC. Does you profile dataset need to be ' +
+'compressed? Try issuong the builtin save command to see ' +
+'detailed messages.'

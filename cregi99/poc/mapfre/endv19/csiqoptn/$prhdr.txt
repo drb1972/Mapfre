@@ -1,0 +1,98 @@
+         MACRO                                                          00000001
+&LABEL   $PRHDR &ENV=,                 ENVIRONMENT NAME                X00000002
+               &SYS=,                  SYSTEM NAME                     X00000003
+               &SBS=,                  SUBSYSTEM NAME                  X00000004
+               &ELE=,                  ELEMENT NAME (PROCESSOR NAME)   X00000005
+               &STG=,                  STAGE NAME                      X00000006
+               &TYP=,                  TYPE NAME                       X00000007
+               &VV=,                   ELEMENT VERSION                 X00000008
+               &LL=,                   ELEMENT LEVEL                   X00000009
+               &DATE=,                 DATE                            X00000010
+               &TIME=,                 TIME                            X00000011
+               &SITE=,                 SITE ID                         X00000012
+               &STG#=,                 RELATIVE STAGE NUMBER           X00000013
+               &MAXRC=65535,           MAXRC FOR PROCESSOR             +00000014
+               &AMODE=31,              PROCESSOR MODULE ADDRESSING MODE+00000014
+               &RMODE=ANY,             PROCESSOR MODULE RESIDENCE MODE +00000014
+               &PRINT=GEN
+.********************************************************************** 00000015
+.*                                                                    * 00000016
+.*       PROCESSOR HEADER DEFINITION BLOCK                            * 00000017
+.*                                                                    * 00000018
+.*       CREATED BY C1GJTRNS                                          * 00000019
+.*                                                                    * 00000020
+.*       CONTAINS:  1)  PROCESSOR ENVIRONMENTAL INFORMATION.          * 00000021
+.*                  2)  POINTER TO THE FIRST PROCESSOR STEP           * 00000022
+.*                      DEFINITION BLOCK.                             * 00000023
+.*                  3)  POINTER TO THE FIRST SYMBOLIC DEFINITION      * 00000024
+.*                      BLOCK.                                        * 00000025
+.*                  4)  PROCESSOR WIDE "MAXRC".                       * 00000026
+.*                                                                    * 00000027
+.********************************************************************** 00000028
+         COPY  $PRGLBLS                COPY GLOBAL VARIABLES
+         LCLC  &PRNT
+         AIF   ('&PRINT' EQ 'GEN'   OR '&PRINT' EQ 'YES').HDR0020
+         AIF   ('&PRINT' EQ 'NOGEN' OR '&PRINT' EQ 'NO' ).HDR0020
+         MNOTE 8,'INVALID PRINT OPTION: &PRINT'
+.HDR0020 ANOP
+&PRCSECT SETC  '&ELE'                  USE ELEMENT NAME                 00000034
+         AIF   ('&LABEL' EQ '').CONT   . .                              00000035
+&PRCSECT SETC  '&LABEL'                . UNLESS LABEL IS PRESENT        00000036
+.CONT    ANOP                                                           00000037
+         AIF   (&PRLSTPR GT 0).NOT1ST  ENSURE THIS IS THE FIRST STMT    00000038
+&PRLSTPR SETA  100                     THIS IS A HEADER BLOCK           00000039
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS    00000040
+&PRCSECT CSECT                                                          00000041
+&PRCSECT AMODE &AMODE
+&PRCSECT RMODE &RMODE
+         PUSH PRINT
+         PRINT &PRINT                                                   00000042
+         @PRHDRDS ,                                                     00000043
+         @PRCCDS ,                                                      00000044
+         @PRDDADS ,                                                     00000045
+         @PRDDBDS ,                                                     00000046
+         @PRPGMDS ,                                                     00000047
+         @PRSINDS ,                                                     00000048
+         @PRSYMDS ,                                                     00000049
+         @PRJCLDS ,                                                     00000048
+         @PRITEDS ,                                                     00000048
+         POP PRINT                                                      00000050
+&PRGEN   SETB  (1)                     FORCE FIELDS TO EXPAND           00000051
+         SPACE ,                                                        00000052
+&PRCSECT CSECT                                                          00000053
+HEADER   DS    0D                                                       00000054
+         DC    Y(PRHDREQU)             THIS IS A HEADER RECORD          00000055
+         DC    Y(PRHDR$LN)             LENGTH OF THIS BLOCK             00000056
+         DC    Y(PRHDRVER)             ENDEVOR VERSION GENERATING PROC  00000057
+         DC    Y(0)                    NUMBER OF VARIABLE FIELDS        00000058
+         SPACE ,                                                        00000059
+         DC    CL1'&SITE'              PROCESSOR                        00000060
+         DC    CL8'&ENV'               . FOOTPRINT                      00000061
+         DC    CL8'&SYS'               . . INFORMATION                  00000062
+         DC    CL8'&SBS'               . . .                            00000063
+         DC    CL10'&ELE'              . . .                            00000064
+         DC    CL8'&TYP'               . . .                            00000065
+         DC    CL8'&STG'               . . .                            00000066
+         DC    CL4'&VV'                . . .                            00000067
+         DC    CL4'&LL'                . . .                            00000068
+         DC    CL5'&DATE'              . . .                            00000069
+         DC    CL4'&TIME'              . . .                            00000070
+         DC    CL1'&STG#'              . . .                            00000071
+         DC    XL3'00'                 ** RESERVED **                   00000072
+         SPACE ,                                                        00000073
+         DS    0F                                                       00000074
+         DC    Y(PRSTEP#)              TOTAL NUMBER OF STEPS            00000075
+         DC    AL2(&MAXRC)             PROCESSOR MAXRC                  00000076
+         DC    A(&PRFIRST)             POINT TO 1ST PROCESSOR ENTITY    00000077
+         DC    A(&PRSYM)               POINT TO 1ST SYMBOL              00000078
+         DC    A(&PRJCL)               POINT TO 1ST JCL IMAGE           00000079
+         DC    A(0)                    ITE STACK                        00000079
+         DC    8F'0'                   ** RESERVED **                   00000080
+         ORG   HEADER+PRHDR$LN                                          00000080
+         AGO   .MEXIT                                                   00000081
+.NOT1ST  ANOP                                                           00000082
+         MNOTE 8,'LOGICAL ERROR, $PRHDR MUST BE FIRST IN THIS MODULE'   00000083
+         AGO   .MEXIT                                                   00000084
+.MEXIT   ANOP                                                           00000085
+         SPACE 2                                                        00000086
+         MEND                                                           00000087

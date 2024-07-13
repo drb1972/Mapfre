@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE - Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%4+for information about action options
++
+%    1+- Element Master
+%    2+- Synchronization
+%    3+- Component Validation
+%    4+- Terse Messages
++
++
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITEMCHK 2,CITSYCHK 3,CITCMCHK 4,CITTMSGS)
+)END

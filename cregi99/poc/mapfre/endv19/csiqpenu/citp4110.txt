@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ About Dynamic Approver Groups \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++The Dynamic Approver Group option allows package approvers
++to add additional approvers to a package while it is in
++the 'In-Approval' state. These additional approvers will be
++dynamically defined as one-time approvers for the package.
++
++The Dynamic Approver group is removed from the package when it is
++executed or reset.
++
++You can specify for the Dynamic Approver Group:
++ *%Quorum size.+This is the number of approvers from a group that
++     must approve a package before it can be executed.
++ *%Approvers.+These are the TSO Userids of approvers who can
++     approve or deny the package. Required dynamic approvers must
++     approve a package before it can be executed.
++Even if quorum requirements are met, a package cannot be executed
++until all required dynamic approvers have approved it.
++
++
++
++                                            (%PF3+to return)
+)END

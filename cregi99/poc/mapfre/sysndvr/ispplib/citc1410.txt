@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Alternate ID Support for Unix System Services (USS) Files \-\
+%Option ===>_ZCMD                                                   %Release 14+
+%
+%Alternate ID Support for UNIX System Services (USS) Files+
++
+ This enhancement enables CA Endevor SCM to extend alternate ID protection to
+ base libraries, include libraries, and source output files that are under the
+ control of CA Endevor SCM and are defined as USS directories. Very limited
+ support is provided for UNIX files accessed in processors and user exits.
+ HFS and ZFS files are supported. To enable this feature, the following new
+ option must be set in the Optional Features Table (ENCOPTBL):
+%&VAR1
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)INIT
+ &VAR1 = 'ENABLE_USS_ALTID_SECURITY'
+)PROC
+   &ZCONT = CITC1420
+)END

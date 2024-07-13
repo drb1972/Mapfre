@@ -1,0 +1,38 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag & sh env sys sbs
+tag @ uh elmsel
+tag ¢ sh element
+tag ~ sh tblname
+tag $ sh elmstage
+tag ` sh elmtyns
+tag ^ sh elmvvll
+tag ) sh elmsouid
+%-------------------------  Element Selection List  ----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++FROM   Environment:&           +System:&        +Subsystem:&
++
++                                                      SIGN-OUT
++   ELEMENT                TYPE    NS STG  VVLL        USER ID
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+@  ¢          ~           `           $   ^           )
+enddef

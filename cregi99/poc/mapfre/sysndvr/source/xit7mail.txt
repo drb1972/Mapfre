@@ -1,0 +1,815 @@
+XIT7MAIL TITLE 'ENDEVOR/MVS SAMPLE PACKAGE EXIT - EMAIL APPROVERS'
+***********************************************************************
+*   DESCRIPTION: THIS PACKAGE EXIT PROGRAM WILL EXTRACT               *
+*                APPROVER GROUPS AND THEN NOTIFY EACH USER            *
+*                VIA THE NOTIFICATION FACILITY.                       *
+*                                                                     *
+*   SETUP        THE SETUP ROUTINE ENABLES THIS PROGRAM               *
+*                AT THE FOLLOWING EXIT POINTS:                        *
+*                                                                     *
+*       =====>   1. POST CAST                                         *
+*                2. PRE  DYNAMIC APPROVER ADD                         *
+*                3. POST DYNAMIC APPROVER ADD                         *
+*                4. PRE  DYNAMIC APPROVER UPDATE                      *
+*                5. POST DYNAMIC APPROVER UPDATE                      *
+*                6. POST BACKOUT                                      *
+*                                                                     *
+*                                                                     *
+*   REGISTERS ON ENTRY:                                               *
+*                                                                     *
+*                0(R1) --> $PECBDS     EXIT CONTROL BLOCK             *
+*                4(R1) --> $PREQPDS    EXIT REQUEST BLOCK             *
+*                8(R1) --> $PHDRDS     EXIT HEADER BLOCK              *
+*               12(R1) --> $PFILDS     EXIT FILE BLOCK                *
+*               16(R1) --> $PACTREQ    EXIT ACT SUMMARY REQUEST       *
+*               20(R1) --> $PAPPREQ    EXIT APPROVER REQUEST, OR ZERO *
+*               24(R1) --> $PBODREQ    EXIT BACKOUT REQUEST           *
+*                                                                     *
+*   REGISTER USAGE:                                                   *
+*                                                                     *
+*                R6     -> $PECBDS                                    *
+*                R7     -> $PREQPDS                                   *
+*                R8     -> WORKAREA                                   *
+*                R9     -> $PAPPREQ                                   *
+*                R10    -> LAPPMAP (APPROVER SEGMENTS)                *
+*                R12    -> BASE PROGRAM                               *
+*                R13    -> STACK USED FOR STANDARD IBM USAGE          *
+*                                                                     *
+*   SUBROUTINES:                                                      *
+*                                                                     *
+*                FDYNRUTN: lookup dynamic user to see if email        *
+*                          already sent to this user in previous life *
+*                FUSRRUTN: lookup user in chain of users or approver  *
+*                          groups to see if they have already been    *
+*                          serviced for mail. (don't send twice)      *
+*                AUSRRUTN: Add user or approver group to list of      *
+*                          already serviced users.                    *
+*                SCANRUTN: call BC1PNTFY to return UID, DOMAIN & URL  *
+*                CRE$NTFY: Build notify block and email message       *
+*                          chain notify blocks with each other        *
+*                                                                     *
+***********************************************************************
+*   PACKAGE EXIT CONTROL BLOCK                                        *
+***********************************************************************
+         $PECBDS
+***********************************************************************
+*   PACKAGE EXIT REQUEST BLOCK                                        *
+***********************************************************************
+         $PREQPDS
+***********************************************************************
+*   PACKAGE EXIT HEADER  BLOCK                                        *
+***********************************************************************
+         $PHDRDS
+***********************************************************************
+*   PACKAGE EXIT REQUEST FOR APPROVER GROUP BLOCK                     *
+***********************************************************************
+         $PAPPREQ
+***********************************************************************
+*   $NOTIFY BLOCK                                                     *
+***********************************************************************
+         $NOTIFY
+***********************************************************************
+*   LOCAL MAP FOR APPROVER LIST DATA AREA                             *
+***********************************************************************
+LAPPMAP  DSECT                         LOCAL MAP FOR APPROVER ID LIST
+*                                      Maps each of the 16 occurrences
+LAPPAPID DS    CL8                     Approver ID
+LAPPAPDA DS    CL7                     Approved date DD/MON/YY
+LAPPAPTI DS    CL5                     Approved Time HH:MM
+LAPPAFLG DS    CL8                     "APPROVED", "DENIED" or blank
+LAPPAREQ DS    CL8                     "REQUIRED" or blank
+LAPPLN   EQU   *-LAPPMAP
+*        $ESMTP DSECT=YES
+ADDRLIST DSECT
+AEYE     DS    CL16
+NTFYADDR DS    A                       ADDR OF BC1PNTFY
+CCIDUSR  DS    A                       CPOOL FOR USERID
+CCIDUSRF DS    A                       FIRST IN CHAIN
+CCIDUSRL DS    A                       LAST IN CHAIN
+#TOSEND  DS    H                       NBR OF EMAILS SENT
+DYNAPPBE DS    XL(PAPPSIZE)            COPY OF 'BEFORE' DYN APPR LIST
+ADDRLISTL EQU  *-ADDRLIST
+         SPACE ,
+***********************************************************************
+*   REGISTER EQUATES                                                  *
+***********************************************************************
+         YREGS
+***********************************************************************
+*   THIS PROGRAM'S WORKAREA MAP                                       *
+***********************************************************************
+WORKAREA DSECT
+*
+SAVEAREA DS    18F                     primary function's save-area
+SAVEARE1 DS    18F                     secondary function's save-area
+PLIST    DS    8F
+WNTFYADDR DS   A                       ADDR OF BC1PNTFY
+WMSGSAVE DS    16F                     REGISTER SAVEAREA
+         DS    0D
+WNOTIFY  DS    CL(NOTSIZE)             $NOTIFY BLOCK
+WFROM    DS    CL50                    EMAIL "FROM" FREEFORM
+CPOOLR   CPOOL BUILD,PCELLCT=2500,SCELLCT=500,CSIZE=80,                X*0003410
+               LOC=ANY,MF=L                                              0003420
+BLKLAST  DS    F                      CURRENT ADDRESS OF $NOTIFY BLOCK
+WNOTRC   DS    A                      SAVE NOTRC (RETURN CODE FROM
+WNOTCPID DS    A                      SAVE CCID FOR $NOTIFY BLOCK
+*                               BC1PNTFY (SCANRUTN)
+WPKGUID  DS    CL16             SAVE USERID (APPROVER GRP/APPROVER)
+WPKGID   DS    CL16             SAVE PACKAGE ID
+WAPPID   DS    CL16             APPROVER GROUP NAME
+WURL     DS    CL82             save URL
+BLKNTFY  DS    CL(17*NOTSIZE)   CHAIN OF $NOTIFY BLOCK
+WORKLN   EQU   *-WORKAREA
+         TITLE 'XIT7MAIL: NOTIFY APPROVERS'
+***********************************************************************
+*   MAINLINE LOGIC                                                    *
+***********************************************************************
+XIT7MAIL CSECT
+XIT7MAIL AMODE 31
+XIT7MAIL RMODE ANY
+         SAVE  (14,12),,'NOTIFY APPROVERS'  SAVE CALLERS REG 12(13)
+         LR    R12,R15                      POINT TO THIS PROGRAM
+         USING XIT7MAIL,R12
+         L     R6,0(,R1)                    POINT TO THE $PECBDS
+         USING $PECBDS,R6
+         L     R7,4(,R1)                    POINT TO THE $PREQPDS
+         USING $PREQPDS,R7
+         L     R9,20(,R1)                   POINT TO THE $PAPPREQ
+         USING $PAPPREQ,R9
+***********************************************************************
+*   GET STORAGE FOR SAVEAREA AND $NOTIFY                              *
+***********************************************************************
+         L     R0,=A(WORKLN)                GET SIZE OF W.A
+         GETMAIN R,LV=(0),LOC=BELOW         GET WORKING STORAGE
+         LR    R2,R1                        SAVE REG 1
+         LR    R14,R2                       ADDR OF OUR LOCAL WORKAREA
+         ICM   R15,B'1111',=A(WORKLN)       IT'S SIZE
+         SLR   R1,R1
+         MVCL  R14,R0                       INITIALIZE IT
+*
+         ST    R2,8(R13)                    STORE NEW STACK +8(OLD)
+         ST    R13,4(R2)                    STORE OLD STACK +4(NEW)
+         LR    R13,R2                       POINT R13 TO OUR STACK
+         LR    R8,R2
+        USING  WORKAREA,R8
+***********************************************************************
+*        CHECK FOR SETUP CALL                                        *
+***********************************************************************
+         CLC    PECBFNNM,=CL8'SETUP'        ARE WE AT SETUP
+         BNE    MAIN0010                    NO GO CHECK FOR FUNCTION
+**********************************************************************
+*        ENABLE THE EXIT POINTS FOR THIS PROGRAM                     *
+*                                                                    *
+*                                                                    *
+*  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP PROCESSING.*
+*  THE USER EXIT SHOULD MODIFY THESE FIELDS TO ENABLE EXIT POINTS.   *
+*  THIS SETUP IS DONE ONCE PER ENDEVOR SESSION.                      *
+*  THE DEFAULT IS 'N'. TO ENABLE SET FIELD TO 'Y'.                   *
+*                                                                    *
+**********************************************************************
+*
+         MVI   PECBCAAF,C'Y'                ENABLE AFTER CAST  EXIT
+*
+         MVI   PECBD1BE,C'Y'                ENABLE BEFORE DYNAMIC ADd
+         MVI   PECBD1AF,C'Y'                ENABLE AFTER DYNAMIC Add
+         MVI   PECBDUBE,C'Y'                ENABLE BEFORE DYNAMIC UPD
+         MVI   PECBDUAF,C'Y'                ENABLE AFTER DYNAMIC UPD
+         B     MAIN9000                     RETURN TO ENDEVOR
+***********************************************************************
+*   CHECK FUNCTION                                                            *
+***********************************************************************
+MAIN0010 DS    0H
+         CLC   PECBFNNM,=CL8'CAST'          'CAST'?
+         BE    MAIN0020
+         CLC   PECBFNNM,=CL8'DYNAMIC'       'DYNAMIC APPROVERS'?
+         BE    MAIN0030
+         B     MAIN9000                     RETURN TO ENDEVOR
+***********************************************************************
+*   HAVE WE ALREADY  BEEN HERE?                                       *
+***********************************************************************
+MAIN0020 DS    0H
+         LH    R15,PECBRQRC                 LOAD RETURN CODE FROM NDVR
+         C     R15,=A(PECBRROK)             READ SUCCESSFUL
+         BE    MAIN0030
+         C     R15,=A(PECBRNFD)             READ NOT FOUND
+         BE    MAIN0500
+         C     R15,=A(PECBREOF)             READ EOF
+         BE    MAIN0500
+         LTR   R15,R15                      FIRST TIME THRU
+         BNZ   MAINEXIT
+***********************************************************************
+*   SET FLAG FOR REQUESTING APPROVER GROUPS                           *
+***********************************************************************
+         MVI   PECBAPPR,C'Y'                 SET APPROVER REQUEST FLAG
+         B     MAIN9000
+         SPACE                                                          00400000
+MAIN0030 DS    0H
+***********************************************************************
+*   LOAD NOTIFY PROGRAM IF NOT ALREADY DONE                           *
+*   NOTE: OTHER PACKAGE EXITS MAY HAVE USED THIS ANCHOR WORD FOR      *
+*         SOMETHING ELSE. CHECK WITH YOUR ENDEVOR TECHNICIAN TO MAKE  *
+*         SURE THIS WORD IS AVAILABLE.                                *
+***********************************************************************
+         ICM   R5,B'1111',PECBUEXT          SEE IF BC1PNTFY IS LOADED
+         BNZ   MAIN0050                     YES, NO NEED TO LOAD AGAIN
+         L     R0,=A(ADDRLISTL)             LENGTH OF our
+*                                              ADDRESS LIST BLOCK
+         GETMAIN R,LV=(0)
+         ST    R1,PECBUEXT                  ANCHOR IT
+         LR    R5,R1
+        USING  ADDRLIST,R5
+         LR    R0,R1
+         ICM   R1,B'1111',=A(ADDRLISTL)
+         XR    R14,R14
+         XR    R15,R15
+         MVCL  R0,R14
+         MVC   AEYE(16),=CL16'** ADDRLIST **'
+*
+         LOAD  EP=BC1PNTFY,ERRET=MAIN8000
+         ST    R0,NTFYADDR
+***********************************************************************
+*   ObtAIN CELL pool to store the names of the users who have already *
+*   received an email                                                 *
+***********************************************************************
+         CPOOL BUILD,PCELLCT=100,SCELLCT=100,                          *
+               CSIZE=20,MF=(E,CPOOLR)
+         ST    R0,CCIDUSR
+         SPACE ,
+********************************************************************
+*   IF THIS IS AN 'BEFORE DYNAMIC APPROVER' CALL, THEN SAVE THE
+*      CONTENTS OF THE APPROVER RECORD (IF PASSED) AND EXIT.
+********************************************************************
+         CLC   PECBFNNM,=CL8'DYNAMIC'       'DYNAMIC APPROVER' FUNC?
+         BNE   MAIN0040                     NO
+         CLC   PECBBANM,=CL8'BEFORE'        'BEFORE' POINT?
+         BNE   MAIN0040                     NO
+         LA    R14,DYNAPPBE                 A(SAVED DYNAMIC APP GROU
+         L     R15,=A(PAPPSIZE)             LENGTH OF AREA
+         XR    R2,R2                        INIT SOURCE AND TARGET
+         XR    R3,R3                         TO ZEROES
+         LTR   R9,R9                        WAS THE GROUP REC PASSED
+         BZ    MAIN0035                     YES, GO CLEAR SAVE DYN A
+         LR    R2,R9                        NO, SET SOURCE TO INPUT
+         LR    R3,R15
+MAIN0035 DS    0H
+         MVCL  R14,R2                       UPDATE SAVED DYN APP GRO
+         B     MAIN9000                     AND EXIT
+         SPACE ,
+MAIN0040 DS    0H
+         LTR   R9,R9                   IF NO APPROVER REQ (PROBABLY
+         BZ    MAIN9000                 BECAUSE ADD FAILED) JUST EXI
+MAIN0050 DS    0H
+         XC    #TOSEND,#TOSEND         INIT COUNT OF EMAILS TO SEND
+         MVC   WNTFYADDR,NTFYADDR      SAVE BC1PNTFY ADDR IN LOCAL STG
+         LA    R1,WNOTIFY              $NOTIFY BLOCK
+         USING $NOTIFY,R1
+***********************************************************************
+*   OBTAIN CPOOL FOR THE MESSAGE AREA                                 *
+***********************************************************************
+         $NTFXMTM TYPE=I,PRIM=210,SEC=5
+         MVC   WNOTCPID,NOTCPID        GET CPID
+         MVC   WPKGID,PECBPKID         SAVE PACKAGE ID
+         DROP  R1
+*********************************************************************
+**      IF THIS IS A DYNAMIC APPROVER CALL, SEE IF THE APPROVER ID
+**         BEING EXAMINED EXISTED IN THE 'BEFORE' RECORD.  IF SO,
+**         BYPASS IT.
+*********************************************************************
+***********************************************************************
+*   Prepare to send build email to approvers in group.                *
+*   - build notify block for each approver that was not referenced    *
+*     previously                                                      *
+*   - call BC1PNTFY when notify blocks have been built for all users  *
+*     in this group.                                                  *
+***********************************************************************
+*   See if user already referenced in previous emails.                *
+***********************************************************************
+         LA    R10,PAPPAPID            POINTER TO FIRST USERID
+        USING  LAPPMAP,R10
+         LH    R3,PAPPAPP#             #NUMBER OF APPROVERS IN GRP DEF
+         CLC   PECBFNNM,=CL8'DYNAMIC'  IF 'DYNAMIC APPROVER' EXIT
+         BE    MAIN0100
+         SPACE ,
+         MVC   WPKGUID(16),PAPPGPNM    Used by FUSRRUTN
+         MVC   WAPPID(16),PAPPGPNM     Used by SCANRUTN
+*----------------------------------------------------------------*
+*     See if group was already serviced.                         *
+*----------------------------------------------------------------*
+         L     R15,=A(FUSRRUTN)        SCAN ALREADY MAILED LIST
+         BALR  R14,R15
+         LTR   R15,R15                 FOUND IN CHAIN?
+         BNZ   MAIN0300                Yes, do not send mail again.
+*----------------------------------------------------------------*
+*     Perform SCANRUTN routine to lookup this group in ESMTPTBL  *
+*----------------------------------------------------------------*
+         L     R15,=A(SCANRUTN)        SCAN ESMTPTBL
+         BALR  R14,R15
+         LTR   R15,R15                 ERROR?
+         BNZ   MAIN8100                YES
+         L     R15,=A(AUSRRUTN)        ADD GROUP to table
+         BALR  R14,R15
+***********************************************************************
+*   SCANRUTN can set 3 different return codes in WNOTRC:              *
+*   - RC00 Group found in ESMTPTBL                                    *
+*          Send message to group, not to users.                       *
+*   - RC04 Group not found and DFTID=USERID was defined in ESMTPTBL   *
+*          Internal approver group: Send to individual users          *
+*          External approver group: Send to group                     *
+*   - RC08 Group not found and DFTID=USERID not defined in ESMTPTBL   *
+*          Internal approver group: Try individual users              *
+*          External approver group: Do not send email                 *
+*                                                                     *
+*   IN OTHER WORDS:                                                   *
+*   External group - RC00 or RC04 send email to group                 *
+*                    RC08, do not send email                          *
+*                                                                     *
+*   Internal group - RC00 send email to group                         *
+*                    RC04, RC08: try users in group.                  *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   Note: SCANRUTN can search for USERs or GROUPs in ESMTPTBL, what-  *
+*         ever WPKGUID/WAPPID contains.                               *
+*         Here below we test for Approver Groups, WPKGUID and WAPPID  *
+*         have been set to the Approver Group name.                   *
+*                                                                     *
+***********************************************************************
+         LTR   R3,R3                   (PAPPAPP#) Approvers in group?
+         BZ    MAIN0060                No: External group
+* INTERNAL approver group (with individual users in group):
+         CLC   WNOTRC,=A(0)            GROUP in table?
+         BE    MAIN0080                 Yes, Send email to group
+         B     MAIN0100                 No, Send message to users
+MAIN0060 DS    0H
+* EXTERNAL approver group (without individual users defined):
+         CLC   WNOTRC,=A(4)            GROUP in table?
+         BH    MAIN0300                 No, so no emails.
+         BNH   MAIN0080                 Yes, or, DFTID=USERID used.
+*----------------------------------------------------------------*
+*     Create $notify block for the group                         *
+*----------------------------------------------------------------*
+MAIN0080 DS    0H
+         L     R15,=A(CRE$NTFY)        CREATE BLOCK
+         BALR  R14,R15
+         B     MAIN0200                go send mail
+MAIN0100 DS    0H
+*********************************************************************
+**      IF THIS IS A DYNAMIC APPROVER CALL, SEE IF THE APPROVER ID  *
+**         BEING EXAMINED EXISTED IN THE 'BEFORE' RECORD.  IF SO,   *
+**         BYPASS IT.                                               *
+*********************************************************************
+         CLC   PECBFNNM,=CL8'DYNAMIC'  IF 'DYNAMIC APPROVER' EXIT
+         BNE   MAIN0105
+         BAL   R14,FDYNRUTN            TRY TO FIND ID IN 'BEFORE' REC
+         LTR   R15,R15                 FOUND?
+         BZ    MAIN0200                YES, GO GET NEXT ID
+MAIN0105 DS    0H
+*
+***********************************************************************
+*    The INTERNAL APPROVER GROUP was not defined in ESMTPTBL:         *
+*    - We'll try to send emails to the individual users.              *
+***********************************************************************
+         XC    WAPPID(16),WAPPID       SET WAPPID TO ZERO
+         LTR   R3,R3                   Are there any approvers
+         BZ    MAIN0300                No, exit.
+MAIN0110 DS    0H
+         MVC   WPKGUID(16),LAPPAPID    SAVE APPROVER GROUP NAME
+*----------------------------------------------------------------*
+*     for each user see if he/she has already received mail      *
+*----------------------------------------------------------------*
+         L     R15,=A(FUSRRUTN)        SCAN USERID CHAIN
+         BALR  R14,R15
+         LTR   R15,R15                 FOUND IN CHAIN?
+         BNZ   MAIN0150                YES, don't send again
+*----------------------------------------------------------------*
+*     Add USERID in CPOOL                                        *
+*----------------------------------------------------------------*
+         L     R15,=A(AUSRRUTN)        ADD USERID IN CHAIN
+         BALR  R14,R15
+*----------------------------------------------------------------*
+*     lookup user in ESMTPTBL
+*----------------------------------------------------------------*
+         L     R15,=A(SCANRUTN)        SCAN ESMTPTBL
+         BALR  R14,R15
+         LTR   R15,R15                 ERROR?
+         BNZ   MAIN8200                YES
+         CLC   WNOTRC,=A(4)            USERID FOUND?
+         BH    MAIN0150                NO
+*
+* OPTIONAL LOGIC.
+*   UNCOMMENT THE FOLLOWING 4 LINES OF CODE IF YOU WANT TO
+*   APPLY THIS RESTRICTION TO EMAIL NOTIFCATION:
+*    EMAIL IS NOT SENT TO NONREQUIRED APPROVERS IF THE APPROVER
+*    GROUP QUORUM IS ZERO.
+*    NOTE REGARDING DYNAMIC APPROVERS:
+*         IF THE DYNAMIC APPROVER OPTION IS ENABLED,
+*         THEN THIS PROGRAM CAN BE USED TO SEND EMAIL
+*         TO A DYNAMIC APPROVER WHEN HE OR SHE IS
+*         ADDED TO THE DYNAMIC APPROVER GROUP.  HOWEVER, IF THE
+*         FOLLOWING 4 LINES ARE UNCOMMENTED, THEN AN
+*         APPROVER WILL EMAILED IF HE OR SHE IS ADDED
+*         ONLY IF THE QUORUM IS ZERO AND HE OR SHE IS A
+*         REQUIRED APPROVER. IF, SUBSEQUENTLY, THE
+*         APPROVER ID STATUS IS CHANGED TO REQUIRED, OR
+*         IF THE QUORUM VALUE IS CHANGED, NO EMAIL
+*         NOTIFICATION WILL BE SENT TO THAT APPROVER.
+*
+*        CLC   LAPPAREQ,=CL8'REQUIRED' IF APPROVER IS REQUIRED
+*        BE    MAIN0130                  GO ATTEMPT TO SEND EMAIL
+*        OC    PAPPQUOR,PAPPQUOR       ELSE, IF QUORUM IS ZERO
+*        BZ    MAIN0150                  DON'T EMAIL THIS USER
+*----------------------------------------------------------------*
+*     Create $notify block in chain of $notify blocks            *
+*----------------------------------------------------------------*
+MAIN0130 DS    0H
+         L     R15,=A(CRE$NTFY)        CREATE MAIL MESSAGE
+         BALR  R14,R15
+MAIN0150 DS    0H
+         LA    R10,PAPPAPLN(R10)       POINT TO NEXT APPROVER IN GROUP
+         BCT   R3,MAIN0110              and build next notify block
+         B     MAIN0200                no more users in group
+*                                       go send email(s)
+MAIN0200 DS    0H
+***********************************************************************
+*    When here, we have built $NOTIFY blocks and messages for all     *
+*    users in a group or for the group as a whole.                    *
+*    Now send the email(s).                                           *
+***********************************************************************
+         ICM   R15,B'1111',WNTFYADDR   GET ADDRESS OF BC1PNTFY
+         BZ    MAIN8300                NO LONGER FOUND ??
+         XR    R1,R1
+         ICM   R1,B'0011',#TOSEND      Do we have anything to send
+         BZ    MAIN0300                NO
+***********************************************************************
+** CALL BC1PNTFY WITH THE $NOTIFY BLOCK CHAIN, TO SEND EMAILS.
+***********************************************************************
+         LA    R1,PLIST                POINT TO PARAM LIST
+         LA    R14,BLKNTFY             POINT TO FIRST CONTROL BLOCK
+         ST    R14,0(,R1)              store in parmlist
+         OI    0(R1),X'80'             set V.L. switch
+         BALR  R14,R15                 call bc1pntfy
+         LTR   R15,R15                 check rc
+         BNZ   MAIN8400                NO GOOD
+         SPACE ,
+MAIN0300 DS    0H
+***********************************************************************
+** IF 'DYNAMIC APPROVER' EXIT, WE'RE DONE
+***********************************************************************
+         CLC   PECBFNNM,=CL8'DYNAMIC'  IF 'DYNAMIC APPROVER' EXIT
+         BE    MAIN0500
+**********************************************************************
+** IF THIS IS THE 'CAST' EXIT, GO GET NEXT APPROVER GROUP.
+**    IF ANOTHER ONE EXISTS.
+**********************************************************************
+         MVI   PECBAPPR,C'Y'           RESET REQUEST FLAG
+         LA    R11,WNOTIFY
+         USING $NOTIFY,R11
+         MVC   NOTCPID,WNOTCPID
+         $NTFXMTM TYPE=C               FREE MESSAGE CPOOL
+         DROP  R11
+         B     MAIN9000
+***********************************************************************
+** NOT FOUND OR END OF FILE HAS BEEN ENCOUNTERED.
+** CLEAR ALL REQUEST FLAGS AND RETURN TO ENDEVOR.
+***********************************************************************
+MAIN0500 DS    0H
+         MVI   PECBAPPR,C'N'           CLEAR REQUEST FLAG
+         L     R5,PECBUEXT             FREE LOCAL STORAGE BLOCK
+         LTR   R5,R5                   IS THERE ANY STORAGE TO FREE
+         BZ    MAINEXIT                NO - NO CLEANUP REQUIRED
+*------------------------------------------------------------------*
+*        delete CPOOL msg                                          *
+*------------------------------------------------------------------*
+*
+         SPACE ,
+         OC    CCIDUSR,CCIDUSR         get chain of referenced users
+         BZ    MAIN0520                none, next
+         CPOOL DELETE,CPID=CCIDUSR     free storage
+MAIN0520 DS    0H
+         CLC   PECBFNNM,=CL8'DYNAMIC'  IF 'DYNAMIC APPROVER' EXIT
+         BNE   MAIN0530
+         CLC   PECBBANM,=CL8'BEFORE'        'BEFORE' POINT?
+         BE    MAINEXIT                     NO
+MAIN0530 DS    0H
+         L     R0,=A(ADDRLISTL)        free earlier getmained storage
+         FREEMAIN R,LV=(0),A=(5)
+         XC    PECBUEXT,PECBUEXT       clear out pointer
+         DELETE EP=BC1PNTFY            delete program
+         DROP  R5
+         B     MAINEXIT                and LEAVE
+MAIN8000 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)   LOAD BAD RC
+         MVC   PECBMSG,=CL132'XIT7MAIL ERROR - LOAD FAILED FOR BC1PNTFYX
+               '
+         B     MAINEXIT
+MAIN8100 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)        LOAD BAD RC
+         MVC   PECBMSG,=CL132'XIT7MAIL ERROR - ERROR IN BC1PNTFY - SCANX
+                ESMTPTBL (MAIN8100)'
+         B     MAINEXIT
+MAIN8200 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)        LOAD BAD RC
+         MVC   PECBMSG,=CL132'XIT7MAIL ERROR - ERROR IN BC1PNTFY - SCANX
+                ESMTPTBL (MAIN8200)'
+         B     MAINEXIT
+MAIN8300 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)        LOAD BAD RC
+         MVC   PECBMSG,=CL132'XIT7MAIL ERROR - ERROR IN BC1PNTFY - SCANX
+                ESMTPTBL (MAIN8300)'
+         B     MAINEXIT
+MAIN8400 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)        LOAD BAD RC
+         MVC   PECBMSG,=CL132'XIT7MAIL ERROR - ERROR IN BC1PNTFY - SCANX
+                ESMTPTBL (MAIN8400)'
+         B     MAINEXIT
+MAIN9000 DS    0H
+         XC    PECBRTCD,PECBRTCD            CLEAR RETURN CODE
+MAINEXIT DS    0H
+*
+         LR    R5,R13                        SAVE NEW STACK POINTER
+*
+         L     R13,4(R13)                    POINT TO OLD STACK
+***********************************************************************
+*   CLEAN UP THIS PROGRAM'S STORAGE                                   *
+*   NOTE: THIS HAS TO BE DONE BEFORE THE "LOAD MULTIPLE" IS           *
+*   DONE BECAUSE YOU LOSE THE POINTER TO YOUR STORAGE                 *
+***********************************************************************
+*
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(5),LV=(0)            FREE STORAGE
+MAINRTRN DS    0H
+         RETURN (14,12)
+         SPACE ,
+FDYNRUTN DS    0H
+*
+* SUBROUTINE TO CHECK WHETHER AN APPROVER ID THAT
+*    EXISTED ON THE APPROVER RECORD PASSED AT 'BEFORE' TIME
+*    STILL EXISTS ON THE RECORD PASSED AT 'AFTER' TIME
+*
+* INPUT  R10 -> APPROVER ID IN THE 'AFTER' RECORD
+*        R6  -> $PECBDS  AREA
+*        R13 -> WORKAREA
+* OUTPUT R15 -> RETURN CODE
+*               0 - APPROVER ID FOUND
+*               8 - APPROVER ID NOT FOUND
+*
+         STM   R14,R12,WMSGSAVE             SAVE INPUT REGISTERS
+         USING ADDRLIST,R5
+         LA    R2,DYNAPPBE                  R2 -> SAVED 'BEFORE' REC
+BEFORE   USING $PAPPREQ,R2
+         XR    R15,R15                      INIT RC TO 'ID FOUND'
+         XR    R3,R3                        GET NUMBER OF APPROVERS
+         ICM   R3,B'0011',BEFORE.PAPPAPP#      IN THE RECORD
+         BZ    FDYNRC08                     IF NONE, EXIT RC = 8
+         LA    R2,BEFORE.PAPPAPID             R2 -> FIRST APPROVER ID
+         DROP  BEFORE
+FDYN0010 DS    0H
+         CLC   0(8,R10),0(R2)               DOES THE INPUT ID MATCH
+         BE    FDYNEXIT                      AN ID ON THE BEFORE REC?
+         LA    R2,PAPPAPLN(,R2)             IF NOT, CHECK NEXT ID
+         BCT   R3,FDYN0010
+FDYNRC08 DS    0H
+         LA    R15,8                        ID NOT FOUND, EXIT RC = 8
+FDYNEXIT DS    0H
+         L     R14,WMSGSAVE
+         LM    R0,R12,WMSGSAVE+8            RESTORE INPUT REGISTERS
+         BR    R14                          RETURN TO CALLER
+         LTORG
+***********************************************************************
+*   FIND USERID/GROUP NAME IN CHAIN OF USERIDS ALREADY FOUND*
+*    INPUT : R8=WORKAREA                                              *
+*     RC=0 : NOT FOUND IN CHAIN                                       *
+*     RC=4 : FOUND IN CHAIN (don't service again)                     *
+*                                                                     *
+***********************************************************************
+FUSRRUTN CSECT
+         SAVE  (14,12),,'FIND USER'
+         LR    R12,R15
+         USING FUSRRUTN,R12
+         USING WORKAREA,R8
+         USING ADDRLIST,R5
+*        ICM   R8,B'1111',0(R1)
+         LA    R2,SAVEARE1
+         ST    R13,4(R2)
+         ST    R2,8(R13)
+         LR    R13,R2
+         ICM   R4,B'1111',CCIDUSRF              GET FIRST IN CHAIN
+         BZ    FUSRRC00                         chain empty
+FUSR0010 DS    0H
+         CLC   WPKGUID(16),4(R4)                NAME ALREADY FOUND?
+         BE    FUSRRC04                         Yes
+         ICM   R4,B'1111',0(R4)                 NEXT in chain
+         BNZ   FUSR0010                         loop
+         B     FUSRRC00                         not found
+FUSRRC00 DS    0H
+         XR    R15,R15                          USERID NOT FOUND
+         B     FUSREXIT
+FUSRRC04 DS    0H
+         LA    R15,4                            USERID FOUND
+         B     FUSREXIT
+FUSREXIT DS    0H
+         L     R13,4(R13)
+         RETURN (14,12),RC=(15)
+         LTORG
+***********************************************************************
+*   ADD Userid/Groups IN CHAIN OF Userids/Groups already treated      *
+*      INPUT : R8=WORKAREA                                            *
+*                                                                     *
+***********************************************************************
+AUSRRUTN CSECT
+         SAVE  (14,12),,'ADD USER'
+         LR    R12,R15
+         USING AUSRRUTN,R12
+         USING WORKAREA,R8
+         USING ADDRLIST,R5
+         USING LAPPMAP,R10
+*        ICM   R8,B'1111',0(R1)
+         LA    R2,SAVEARE1
+         ST    R13,4(R2)
+         ST    R2,8(R13)
+         LR    R13,R2
+         CPOOL GET,CPID=CCIDUSR        ACQUIRE STORAGE FOR TABLE ENTRY
+         XC    0(4,R1),0(R1)           INITIALIZE NEXT-IN-LIST PTR
+         OC    CCIDUSRF,CCIDUSRF       get 1st user in list
+         BNZ   ADDU0010                None there
+*                                      So create 1st chain entry here
+         ST    R1,CCIDUSRL             SAVE CURRENT USER ADDR
+         ST    R1,CCIDUSRF             SET FIRST USER IN LIST ADDR
+         B     ADDU0020                GO COPY USER NAME
+ADDU0010 DS  0H
+         L     R15,CCIDUSRL            HOLD "OLD" CURRENT USER PTR
+         ST    R1,CCIDUSRL             UPDATE FIELD WITH NEW USER PTR
+         ST    R1,0(R15)               UPDATE LAST USER WITH PTR TO NEW
+         SPACE ,
+ADDU0020 DS    0H
+         MVC   4(16,R1),WPKGUID        SAVE USERID IN CHAIN
+ADDUEXIT DS    0H
+         L     R13,4(R13)
+         RETURN (14,12),RC=0
+         LTORG
+***********************************************************************
+*   SCAN ESMTPTBL: CALL BC1PNTFY WITH FUNCTION 'SMTPF'
+*                  (which means: find userid in ESMTPTBL)             *
+*      INPUT : $NOTIFY BLOCK                                          *
+*      RETURN CODE IN $NOTIFY BLOCK: NOTRC                            *
+*      RC=0  : USERID FOUND                                           *
+*      RC=4  : USERID NOT FOUND,BUT DFLTID DEFINED IN ESMTPTBL        *
+*      RC=8  : USERID NOT FOUND                                       *
+*                                                                     *
+***********************************************************************
+SCANRUTN CSECT
+         SAVE  (14,12),,'SCANRUTN'
+         LR    R12,R15
+         USING SCANRUTN,R12
+         USING WORKAREA,R8
+         USING ADDRLIST,R5
+         USING $NOTIFY,R7
+         LA    R2,SAVEARE1
+         ST    R13,4(R2)
+         ST    R2,8(R13)
+         LR    R13,R2
+*
+*        initialize $notify block contents
+*
+         XC    WURL,WURL                INIT URL address with zeroes
+         LA    R7,WNOTIFY               $NOTIFY BLOCK
+         MVC   NOTFTYPE,=CL8'SMTPF'     set function code
+         MVC   NOTFUSER,WPKGUID         set USERID
+         MVC   NOTAPGID,WAPPID          set APPROVER GROUP NAME
+         LA    R1,WURL                  get URL area
+         ST    R1,NOTURL@               set in $notify block
+***********************************************************************
+** CALL NOTIFY PROGRAM with THE $NOTIFY BLOCK
+***********************************************************************
+         LA    R1,PLIST                 POINT TO PARAM LIST
+         LA    R14,$NOTIFY              POINT TO CONTROL BLOCK
+         ST    R14,0(,R1)               POINT TO CONTROL BLOCK
+         OI    0(R1),X'80'                SET V.L. SWITCH
+         ICM   R15,B'1111',WNTFYADDR    ADDR OF BC1PNTFY
+         BALR  R14,R15                  call it
+         LTR   R15,R15                  get RC
+         BNZ   SCANEXIT                 something went wrong.
+***
+SCAN0010 DS    0H
+         MVC   WNOTRC,NOTRC             save RETURN code from $NOTIFY
+*                                         remember RC00, RC04 or RC08.
+SCANEXIT DS    0H
+         L     R13,4(R13)
+         RETURN (14,12),RC=(15)
+         LTORG
+***********************************************************************
+**  CREATE $NOTIFY BLOCK IN WNOTIFY AREA
+***********************************************************************
+CRE$NTFY CSECT
+         SAVE  (14,12),,'CRE$NTFY'
+         LR    R12,R15
+         USING CRE$NTFY,R12
+         USING WORKAREA,R8
+         USING ADDRLIST,R5
+         USING $NOTIFY,R7
+         LA    R2,SAVEARE1
+         ST    R13,4(R2)
+         ST    R2,8(R13)
+         LR    R13,R2
+*
+         XR    R1,R1                    scrub R1
+         ICM   R1,B'0011',#TOSEND       get # of $notify blocks
+         LA    R1,1(R1)                 add 1
+         STCM  R1,B'0011',#TOSEND       store
+*
+         ICM   R7,B'1111',BLKLAST       get Last $NOTIFY block in chain
+         BNZ   CRE$0010                   there is already a 1st one
+         LA    R1,BLKNTFY               point to 1st $notify block
+         ST    R1,BLKLAST               which is now the last in chain
+         B     CRE$0020
+CRE$0010 DS    0H
+         LA    R1,NOTSIZE(R7)           point to next $notify block
+         ST    R1,NOTPTR@               chain with previous
+         ST    R1,BLKLAST               this one is NOW the last
+CRE$0020 DS    0H
+         LR    R7,R1                    get last block (to be created)
+         MVC   NOTFTYPE,=CL8'SMTP'      fill in block's fields
+         MVC   NOTFUSER,WPKGUID         UID
+*********************************************************************
+** There are 3 options for adjusting the FROM email address.       **
+** NOTE: Using multiple options is not supported.                  **
+**                                                                 **
+** 1) Use the DEFAULT:                                             **
+**    No changes to the XIT7MAIL program are needed.               **
+**    The "FROM:" location looks like:                             **
+**      CAEndevorSoftwareChangeManager@USILCA11.CAI.COM            **
+**          where HOSTNAME=USILCA11 DOMAIN=CAI.COM                 **
+**                                                                 **
+** 2) Use the PECBUSER field:                                      **
+**    See the comments after label CRE$0025 to enable option 2.    **
+**    The "FROM:" location looks like:                             **
+**      GOLED01@USILCA11.CAI.COM                                   **
+**          where GOLED01 is the contents of PECBUSER              **
+**          where HOSTNAME=USILCA11 DOMAIN=CAI.COM                 **
+**                                                                 **
+** 3) User choice:                                                 **
+**    See the comments after label CRE$0030 to enable option 3.    **
+**    Change the value within the apostrophes where you see        **
+**                                                                 **
+**      =CL38'towhatever@something.something        '              **
+**                                                                 **
+**    To any preferred value, as follows:                          **
+**                                                                 **
+**    EXAMPLES:                                                    **
+**                                                                 **
+**      =CL38'GOL1234@ca.com                        '              **
+**      =CL38' from ENDEVOR email notify            '              **
+**                                                                 **
+**-----------------------------------------------------------------**
+         MVI   NOTFOPT,C'1'         option 1 (default)
+         SPACE 1
+**-----------------------------------------------------------------**
+CRE$0025 DS    0H        OPTION 2 - UNCOMMENT THE FOLLOWING 5 LINES
+*        MVI   NOTFOPT,C'2'         using option 2
+*        MVC   WFROM,BLANKS          INIT THE TSO/BATCH USERID
+*        MVC   WFROM(8),PECBUSER      FILL NOTIFY FIELD WITH USER
+*        LA    R1,WFROM               and then populate the $notify
+*        ST    R1,NOTFOPTA             field to point to it
+*  END OF OPTION 2 - DO NOT CHANGE THIS LINE
+**-----------------------------------------------------------------**
+CRE$0030 DS    0H        OPTION 3 - UNCOMMENT THE FOLLOWING 5 LINES
+*        MVI   NOTFOPT,C'3'         using option 3
+*        MVC   WFROM,BLANKS          init the field
+*        LA    R1,WFROM               and then populate the $notify
+*        MVC   0(38,R1),=CL38'towhatever@something.something        '
+*        ST    R1,NOTFOPTA           point to user field
+*  END OF OPTION 3 - DO NOT CHANGE THIS LINE
+**-----------------------------------------------------------------**
+         MVC   NOTAPGID,WAPPID          APPROVER GROUP NAME
+         MVC   NOTCPID,WNOTCPID         CPOOL ID
+         MVC   NOTSMTPS,SUBJECT         Email's SUBJECT field
+*
+         MVC   NOTMSGTX,BLANKS
+         MVC   NOTMSGTX,SMTPTXT1        store 1st message line
+         $NTFXMTM TYPE=W                chain this MSG text in CPOOL
+         MVC   NOTMSGTX,BLANKS
+         MVC   NOTMSGTX,SMTPTXT2        store 2nd message line
+         LA    R1,NOTMSGTX+SMTP2L       determine end of content
+         MVC   0(16,R1),WPKGID          add PKGID to text line 2
+         $NTFXMTM TYPE=W                chain this MSG text in CPOOL
+         MVC   NOTMSGTX,BLANKS
+*                                          as well
+         CLI   WURL+2,C' '              anything in URL area
+         BNH   CRE$EXIT                 No
+         ICM   R1,B'0011',WURL          Get URL LENGTH
+         BCTR  R1,0                     decrease by one
+         EX    R1,CRE$MVC               Move URL content
+         $NTFXMTM TYPE=W                add third line to MSG (CPOOL)
+         MVC   NOTMSGTX,BLANKS
+CRE$EXIT DS    0H                       The $NOTIFY block is now ready
+         L     R13,4(R13)                 for future use
+         RETURN (14,12),RC=(15)
+CRE$MVC  MVC   NOTMSGTX(0),WURL+2       Executed instruction: move URL
+         LTORG
+*
+***********************************************************************
+*   PROGRAM CONSTANTS                                                 *
+***********************************************************************
+SUBJECT  DC    CL50'CASCM for Mainframe PACKAGE REVIEW NOTIFICATION'
+SMTPTXT1 DC    CL80'THE FOLLOWING PACKAGE IS NOW READY'
+SMTPTXT2 DC    C'FOR YOUR REVIEW/APPROVAL: '
+SMTP2L   EQU   *-SMTPTXT2
+BLANKS   DC    CL132' '
+         END

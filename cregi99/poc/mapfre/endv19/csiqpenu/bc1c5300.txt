@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - New Compare Columns Feature \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM uses the type definition to determine the compare
++columns for WIP processing. If the Root element is taken from an
++inventory location, PDM uses the Compare Columns specified on the
++Element Type definition for the element. If the Root, Derivation 1, or
++Derivation 2 location is an external dataset, PDM validates the external
++data set record length (LRECL) against the Compare THROUGH value.
++If the compare THROUGH value is larger than the record length, PDM
++issues an error message and terminates processing.
++
++
+)END

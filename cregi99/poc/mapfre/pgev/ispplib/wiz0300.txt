@@ -1,0 +1,31 @@
+)ATTR DEFAULT(%+_)
+! TYPE(TEXT) COLOR(GREEN)
+@ TYPE(TEXT) COLOR(TURQ)
+¢ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF) INTENS(LOW)
+^ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+)BODY EXPAND({})
+%{-} Endevor Wizard {-}
+%Option ===>_ZCMD
++
+  %1  @EDITCNTL+Edit Wizard Control Members
+  %2  @DELETE  +Create delete only Wizard Control Members
+
+  +Type %===>_deltype + (for option 2 only)
+
+  %   @HELP    +Use PF1 for HELP
+
++
+)INIT
+ .help   = WIZ0300H
+ .cursor = ZCMD
+ &deltype = ''
+)PROC
+ IF (&ZCMD = 2)
+   VER(&deltype,NB,LEN,GT,2)
+&ZSEL=TRANS(TRUNC(&ZCMD,'.')
+         '','CMD(WIZ0300 &CHANGE &C1SYSTEM)'
+          1,'CMD(WIZ0300 &CHANGE &C1SYSTEM)'
+          2,'CMD(WIZ0301 &CHANGE &C1SYSTEM &DELTYPE)'
+          X,'EXIT'
+          *,'?' )
+)END

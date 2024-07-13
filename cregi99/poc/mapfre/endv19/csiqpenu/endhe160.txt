@@ -1,0 +1,62 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Batch Submit/Queue \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%The Quick Edit Batch Submit / Queue panel+allows you to build, edit,
++validate, and submit batch jobs%or+queue those requests for later.
++
++With the Quick Edit Batch Action feature enabled you can now process
++multiple SCL requests in a single job by queuing those requests and
++submitting them when you are ready using the%SQ SUBmit+command.  This
++enables Endevor to intelligently process the requests in type sequence
++order, and optionally, in parallel using the Concurrent action options
++for greater throughput.
++
+<SELECT Additional Option (to Save) if Queue Feature Enabled...
+<WHEN &VNTQUENA=E>
++Press%ENTER+to submit the request(s) using the supplied job cards, or
++set the Queue actions for Batch to 'Y' and press%ENTER+to enable the
++queue, and collect further requests to process later.
++If multiple requests are already queued, you can use%Edit+to modify them
++or%END+to save this request and submit the queue later.
++
++Enter%Cancel+to reset the queue and discard all requests.
+<OTHERWISE>
++Press%ENTER+to submit the request, or%END/CANCEL+to cancel the request.
+</SELECT>
++
++    Select one of the options below for more information:
+%     {1}Queue Actions for Batch
+%     {2}Job Statement
+%     {3}Include JCL
+%     {4}STOPRC
+%     {5}Concurrent Action Processing
++
++\ \(Press}ENTER+to continue or}END+to return)\ \
+)PROC
+&ZUP = ENDHE158
+&ZSEL = TRANS(&ZCMD,
+   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+ &ZSEL = TRANS(&ZCMD
+                1,ENDHE158
+                2,CITJBST0
+                3,CITB0008
+                4,CITB0009
+                5,CITB0010
+                *,'?')
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01007) VAR(ZCMD) VAL(END)
+)END

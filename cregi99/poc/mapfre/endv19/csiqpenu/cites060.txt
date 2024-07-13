@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--PARMLIB Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Parmlib Data Set+- Identifies the PARMLIB data set used at your site.
+      This library contains members that are usually optional and specified
+      by parameter in the C1DEFLTS table.
+
+%Type Sequence Mbr+- This is the name of the type sequence member within the
+      PARMLIB data set, which defines your type processing sequence.
+
+%Destination Cfg Mbr+- This is the name of the destination configuration member
+      within the PARMLIB data set. This member defines the symbols and their
+      values, unique for each package ship destination, that are used by script
+      data set members during the package shipment process.  Script data sets
+      are identified as such through the data set mapping rules for a
+      destination. Its members are created during package element processor
+      execution.
+
+
+
+
+
+
+\ \ (1 of 2) \ \
+)PROC
+&ZCONT = CITES061
+)END

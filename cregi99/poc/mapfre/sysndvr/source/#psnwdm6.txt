@@ -1,0 +1,14 @@
+@REM ****************************************************** #PSNWDM6 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING THE SEQ DATASETS
+@REM * TRANSMITTER: NEWWORK DATA MOVER
+@REM *     PURPOSE: ADD COPY COMMANDS FOR THE SEQUENTIAL DATASETS TO
+@REM *              THE NDM PROCESS.  ADD IDCAMS DELETE COMMANDS TO THE
+@REM *              HOST STAGING DATASET DELETION JOB.
+@REM *******************************************************************
+@REM
+@PASS=20
+@INCLUDE=S
+@PASS=30
+@IF HDISP=DELETE
+@INCLUDE=X
+@ENDIF

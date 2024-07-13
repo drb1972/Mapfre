@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Action Backout \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++  Use this panel to back out output members from an%individual element
++ %action+that was executed within a package. After the output members
++  have been backed out, you can back them in again.
++
++  You cannot use this feature for packages that have multiple actions
++  that produce the same output member.
++
++  Even after output members of an individual element action have been backed
++  out, you can still use the Backout Package (BP) or Backin Package (BI)
++  options to back out or in all remaining output members of the package.
++
++ %List options+available on this panel:
++   %EO+- Back out the output members of the specified element action.
++   %EI+- Back in the backed-out output members of the specified element action.
++
++  Select an option below for more information:
++   %1+- List fields  %2+- Package ID fields  %3+- Package status
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITP1910 2,CITPKID0 3,CITSTAT0)
+)END

@@ -1,0 +1,17 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package Additional JCL \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Batch Package Additional JCL panel appears when you select action 5,
++Build Additional JCL, on the Batch Package Panel.  Use this panel to build
++additional JCL statements to be submitted with the execution JCL.  Type the
++JCL statements you want to include with the execution JCL and press PF3 to
++return to the Batch Package Panel.
++
++
+)PROC
+)END

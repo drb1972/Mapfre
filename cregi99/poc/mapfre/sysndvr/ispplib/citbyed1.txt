@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete From Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to delete the element(s) at the
++source location after archiving them.
++
++Acceptable values:
++
+%  Y+- Delete the element(s) at the source location after
++        successful action execution.
+%  N+- Default - Do not delete the element(s).
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

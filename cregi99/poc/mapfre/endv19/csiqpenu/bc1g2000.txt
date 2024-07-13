@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Build WIP ----------------- WIP Specification Panel ---------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Specify%Work-in-Process ("WIP")+library below, then press the%ENTER+key.+
++
++WIP Library:+
++   Project %===>_PTBWPPRJ+
++   Group   %===>_PTBWPLIB+
++   Type    %===>_PTBWPTYP+
++   Member  %===>_PTBWPMEM  +
++
++WIP Other partitioned or sequential data set:+
++   Data Set Name %===>_PTBWPOTH
++                                                                         +
++Data set options:+
++   If partitioned, replace like-named members %===>_Z+    (Yes/No)
++
++WIP Build options:+
++   Number of Derivation files%===>_Z+        (1/2)
++   Create WIP                %===>_Z+        (Yes/No)
++   Automatically Merge       %===>_Z+        (Yes/No)
++   Generate WIP reports      %===>_Z+        (All/Summary/No)
++   Write stats to data set%===>_PTBWPSDS                                  +
++                                                                         +
+)INIT
+   .ZVARS='(PTBREPOP PTBWPDVC PTBWPCRT PTBWPMRG PTBWSTAT)'
+   .HELP= BC1T2000
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the WIP     */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VGET (PTBWPOTH) PROFILE                                        */
+)PROC
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the WIP     */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VPUT (PTBWPOTH) PROFILE                                        */
+)END

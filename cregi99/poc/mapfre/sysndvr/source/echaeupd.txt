@@ -1,0 +1,35 @@
+      *****************************************************************
+      *                                                               *
+      *            UPDATE ELEMENT - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  AEUPD-RQ.
+           05  AEUPD-RQ-HEADER.
+               10  AEUPD-RQ-LEN        PIC 9(04) COMP VALUE 196.
+               10  AEUPD-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEUPD-RQ-ID         PIC 9(04) COMP VALUE 1392.
+               10  AEUPD-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEUPD-RQ-EYE        PIC X(04)      VALUE 'EUPQ'.
+           05  AEUPD-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEUPD-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEUPD-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEUPD-RQ-DDN        PIC X(08)      VALUE SPACES.
+               10  AEUPD-RQ-DSN        PIC X(44)      VALUE SPACES.
+               10  AEUPD-RQ-MBR        PIC X(10)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AEUPD-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEUPD-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEUPD-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEUPD-RQ-TYPE       PIC X(08)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEUPD-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AEUPD-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  FILLER              PIC X(01)      VALUE SPACES.
+               10  AEUPD-RQ-DEL        PIC X(01)      VALUE SPACES.
+               10  AEUPD-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AEUPD-RQ-BYP-GEN    PIC X(01)      VALUE SPACES.      (Y/N)
+               10  AEUPD-RQ-PROGRO     PIC X(08)      VALUE SPACES.
+               10  AEUPD-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+               10  FILLER              PIC X(03)      VALUE SPACES.

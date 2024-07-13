@@ -1,0 +1,25 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package ID Field \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Package ID field appears on the Package Specification Panel.  You can use
++the Package ID field with both the Display List and the Define actions on the
++Package Specification Panel.  The Package ID field, if specified, can have a
++maximum length of 16 characters.
++
++The package ID can be wildcarded when used with the Display List action.
++A selection list of packages that match the wildcarded value is built.
++
++The package ID must be fully qualified or left blank when the Define action is
++selected.  If the Package ID field is left blank the GENPKGID exit is invoked
++(if installed) to generate a new package ID.
+
++ Press%PF3+or%End+to exit Help
++
+)PROC
+  &ZUP   = enit0000
+)END

@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ AUTOGEN \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++  Applicable for the Add, Update, and Generate actions. This option can be
++specified in batch requests only.%Autogen+cannot be executed in foreground, or
++in packages, and the option will be unavailable on these panels. If%Autogen+is
++enabled, then all "using" elements in the same logical map of the component are
++automatically generated at the location specified in the request. Elements
++not currently located at the target location, but located further up the map,
++will be brought back to the target location as sourceless elements.
++
++Acceptable values are:
+%   N+- Do not automatically generate "using" elements.
+%   Y+- Automatically generate "using" elements associated with this component.
++
++Note: For all Autogen and Autogen Span results, "using" elements located in
++unmapped environments and "using" elements located lower than the target
++location of the component, will not be generated.
++
++Select%1+-%2+for more information about additional%Autogen+options
++
+%  1+- Simulation Mode           %2+- Span Option
++
++\ \ (Press%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITOSIML 2,CITOSPAN)
+)END

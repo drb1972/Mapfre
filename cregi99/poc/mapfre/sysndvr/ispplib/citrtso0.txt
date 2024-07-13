@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Retain Signout \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether to retain the current signout at the target location
++of the Move. Acceptable values are:
++
+%  N+- Default. The element is signed in at the target location.
++
+%  Y+- The current signout value is retained at the target location.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

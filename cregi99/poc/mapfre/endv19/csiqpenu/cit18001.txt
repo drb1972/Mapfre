@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++                                                                 %Page 2 of 4+
++These panels provide information about features and enhancements
++introduced in%Endevor Version 18.0
++
++Enter one of the following options for more information:            Increment:
++
+%11+- ISPF Long-Named Element Uppercase Option                         18.0.07
+%12+- ISPF Long-Named Element Master Display                           18.0.07
+%13+- Quick Edit Support for Mixed-Case Long-Named Elements            18.0.08
+%14+- ISPF Add, Update, Retrieve & Transfer Panels Made Scrollable     18.0.08
+%15+- Package Action Summary Support for Long-Named Elements           18.0.08
+%16+- End-to-End Package Action Logging for ALC                        18.0.08
+%17+- Footprint Source Output Member With Generate Timestamp           18.0.09
+%18+- List SMF Admin Actions Via API and CSV                           18.0.09
+%19+- Deploy for Test Using the Quick Edit UI                          18.0.09
+%20+- Long-named and Mixed-case Element Enhancements                   18.0.09
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++
++\ \ (Press ENTER for more options or END to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 11,CIT18110 12,CIT18120,13,CIT18130 14,CIT18140
+                       15,CIT18150 16,CIT18160 17,CIT18170 18,CIT18180
+                       19,CIT18190 20,CIT18200)
+   &ZCONT = CIT18002
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Processor Group Selection List to select a processor
++group to associate with an element after the element is updated.
++
++Select a processor group by typing%S+next to the processor group
++you want to select and pressing%ENTER+.
++
++The processor group you select appears on the Quick Edit panel
++the next time the panel is accessed.
++
++The location information and the element name are included in the
++title lines of the panel along with the default group (default
++processor group in the TYPE definition) and the current group
++(current group of the selected element).
++
++The MESSAGE column indicates if a processor group in the list is
++the DEFAULT, CURRENT or both (CURR/DFLT) processor group.
++The message column is sortable.
++
++                                   (%END+to return)
+)END

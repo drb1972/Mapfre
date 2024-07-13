@@ -1,0 +1,73 @@
+          MACRO                                                         00010000
+&NAME     $SMFREC1          &DSCT=YES                                   00020000
+          AIF   ('&DSCT' NE 'YES').NODSCT                               00050000
+$SMFREC1  DSECT                                                         00060000
+          AGO   .START                                                  00070000
+.NODSCT   ANOP                                                          00080000
+$SMFREC1  DS    0D                 ALIGN IT
+.START    ANOP                                                          00100000
+**********************************************************************  00110000
+*                                                                    *  00111000
+*         $SMFREC1 - DESCRIPTION FOR THE SECURITY RECORD             *  00120000
+*                                                                    *  00130000
+*                                                                    *  00140000
+**********************************************************************  00140100
+SM1REC1   EQU   *                  START OF THE SMF 1 RECORD            00141000
+SM1RECLN  DS    H                  LENGTH OF THE SECURITY RECORD        00142000
+SM1RECVN  DS    H                  VERSION OF THE RECORD                00143000
+SM1$V1    EQU   X'01'                   VERSION 1                       00144000
+SM1$V2    EQU   X'02'                   VERSION 2                       00144000
+SM1$CURV  EQU   SM1$V2                  CURRENT VERSION                 00144000
+SM1FUNC   DS    F                  FUNCTION CODE ( CURRENT ACTION VERB) 00145000
+SM1FUNNM  DS    CL8                FUNCTION NAME                        00145103
+**********************************************************************  00145200
+*                                                                    *  00145300
+*         MESSAGE AREA                                               *  00145400
+*                                                                    *  00145500
+**********************************************************************  00145600
+SM1ERRCD  DS    CL4                SECURITY MESSAGE CODE                00146000
+SM1ERRLN  DS    H                  LENGTH OF SECURITY MESSAGE           00147000
+SM1MSGSZ  EQU   132                     LENGTH OF MESSAGE AREA MAX      00148000
+SM1ERMSG  DS    CL(SM1MSGSZ)       SIZE OF MESSAGE AREA                 00149000
+**********************************************************************  00149100
+*                                                                    *  00149200
+*         ENVIRONMENT INFORMATION                                    *  00149300
+*                                                                    *  00149400
+**********************************************************************  00149500
+SM1SITE   DS    CL1                SITE CODE                            00149400
+SM1STGID  DS    CL1                STAGE ID                             00149500
+SM1STGCD  DS    CL1                STAGE CODE                           00149500
+SM1IFUNC  DS    XL2                INTERNAL SECURITY FUNCTION           00149500
+*                                  SEE ECBFUNC OF $ECBDS FOR LIST OF
+*                                  ACTIONS
+          DS    CL3                ** RESERVED  **                      00149500
+SM1ENVM   DS    CL8                ENVIRONMENT NAME                     00149600
+SM1STAGE  DS    CL8                STAGE NAME                           00149700
+SM1SYSTM  DS    CL8                SYSTEM NAME                          00149800
+SM1SUBSY  DS    CL8                SUBSYSTEM NAME                       00149900
+SM1STYPE  DS    CL8                TYPE                                 00150000
+SM1ELEMT  DS    CL10               ELEMENT NAME  (VERSION 1)            00150100
+          ORG   SM1ELEMT           VERSION 2
+SM1EAOFF  DS    XL2                  V2: ELMT AREA OFFSET FROM $SMFREC1
+          DS    CL8                  V2: RESERVED
+**********************************************************************  00150400
+*                                                                    *  00150500
+*         ASSOCIATED FILE INFORMATION IF ANY                         *  00150600
+*                                                                    *  00150700
+**********************************************************************  00150800
+SM1DSNAM  DS    CL44               ASSOC DATA SET NAME   (VERSION 1)    00150600
+          ORG   SM1DSNAM           VERSION 2: (DSN/PATH)
+SM1FAOFF  DS    XL2                  V2: FILE AREA OFFSET FROM $SMFREC1
+          DS    CL42                 V2: RESERVED
+*
+SM1DSMEM  DS    CL10               ASSOC DATA SET MEMBER (VERSION 1)    00150700
+          ORG   SM1DSMEM           VERSION 2: (MBR/FILE NAME)
+SM1NAOFF  DS    XL2                  V2: NAME AREA OFFSET FROM $SMFREC1
+          DS    CL8                  V2: RESERVED
+SM1BSIZ   EQU   *-$SMFREC1         BASE SIZE OF THE RECORD              00150801
+*
+SM1BFAREA DS    XL(1030)           AREA BUFFER SPACE.
+*
+          DS    0D
+SM1SIZ    EQU   *-$SMFREC1         SIZE OF THE RECORD                   00150801
+          MEND                                                          00360000

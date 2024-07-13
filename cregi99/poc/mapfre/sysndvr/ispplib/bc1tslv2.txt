@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Clearing an Assigned Version/Level \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You can clear the version and level designated for an element on a:
++
++  *%Specification panel+by tabbing to the VERSION and LEVEL fields
++    and overwriting the entries with the spacebar. The current version
++    and level will now be used for the element. If you want to assign
++    a different version and level, type the new entries or select a
++    previous version/level using the Summary of Levels Panel.
++
++  *%Summary of Levels panel+by tabbing to the version/level displayed next
++    to the element name in the screen header, overwriting the entry with
++    the spacebar, then pressing ENTER. The Summary of Levels Panel
++    reappears with no version/level associated with the element. The
++    current version/level will be now be used, unless you select a different
++    version/level from the panel.
++
++    Press PF3 to return to your previous screen.
++
++
+)END

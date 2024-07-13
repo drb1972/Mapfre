@@ -1,0 +1,36 @@
+      *****************************************************************
+      *                                                               *
+      *            ADD ELEMENT - REQUEST BLOCK                        *
+      *                                                               *
+      *****************************************************************
+       01  AEADD-RQ.
+           05  AEADD-RQ-HEADER.
+               10  AEADD-RQ-LEN        PIC 9(04) COMP VALUE 196.
+               10  AEADD-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEADD-RQ-ID         PIC 9(04) COMP VALUE 1216.
+               10  AEADD-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEADD-RQ-EYE        PIC X(04)      VALUE 'EADQ'.
+           05  AEADD-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEADD-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEADD-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEADD-RQ-DDN        PIC X(08)      VALUE SPACES.
+               10  AEADD-RQ-DSN        PIC X(44)      VALUE SPACES.
+               10  AEADD-RQ-MBR        PIC X(10)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AEADD-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEADD-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEADD-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEADD-RQ-TYPE       PIC X(08)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEADD-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AEADD-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AEADD-RQ-NEWVER     PIC X(02)      VALUE SPACES.
+               10  AEADD-RQ-UPDT       PIC X(01)      VALUE SPACES.
+               10  AEADD-RQ-DEL        PIC X(01)      VALUE SPACES.
+               10  AEADD-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AEADD-RQ-BYP-GEN    PIC X(01)      VALUE SPACES.
+               10  AEADD-RQ-PROGRO     PIC X(08)      VALUE SPACES.
+               10  AEADD-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+               10  FILLER              PIC X(01)      VALUE SPACES.

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Usability \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 4 of 4+
+% Environment Name Masking +
+
++ Environment name masking (wildcarding) is now available on most CA Endevor SCM
+  and Quick Edit panels.  Masking can be used on the environment name just as
+  it can be used for the other inventory location fields.  On the Quick Edit
+  primary option panel, you still have the option of generating a list of
+  environments to choose from by setting the panel option
+ %DISPLAY ENV/SYS/SUBSYS LIST+to%Y,+which was updated to include environment.
+
+
+
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12A0
+)END

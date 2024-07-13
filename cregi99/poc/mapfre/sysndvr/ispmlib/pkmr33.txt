@@ -1,0 +1,20 @@
+PKMR330E 'Invalid Product Type '                       .ALARM=YES
+'DistribuLink Product Types are (blank, N, NORM), (G, GEN), or (E, EXT)'
+PKMR331E 'Inv "Mark Installed"'                        .ALARM=YES
+'Valid values are (blank, I, INSTALLED), (D, DELIVERED)'
+PKMR332E 'Inv Imbedded Blanks'                         .ALARM=YES
+'Imbedded blanks are not allowed in this field'
+PKMR333E 'Product Required '                           .ALARM=YES
+'The DistribuLink product is required'
+PKMR334E 'Product Invalid  '                           .ALARM=YES
+'The DistribuLink product can be wild only for STATUS displays'
+PKMR335E 'Invalid Apostrophe '                         .ALARM=YES
+'Apostrophes are not allowed in this field     '
+PKMR336E 'Filelist LU Required'                        .ALARM=YES
+'The DistribuLink product filelist LU is a required field'
+PKMR337E 'Filelist LU Invalid'                         .ALARM=YES
+'The DistribuLink product filelist LU contains an invalid character'
+PKMR338E 'Invalid Collect Date'                        .ALARM=YES
+'The Collection Start Date is not valid - use MM/DD/YY or DDMonYY'
+PKMR339E 'Invalid Collect Time'                        .ALARM=YES
+'The Collection Start Time is not valid - use HH:MM'

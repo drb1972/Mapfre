@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Concurrent Action Processing Type Groups \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Concurrent Action Processing Type Groups +
++
+ The Global Type Sequencing feature is enhanced to provide a
+ grouping capability that enables Concurrent Action Processing
+ (CAP) to execute multiple types simultaneously.
+
+ This enhancement is implemented using a new optional%Category+
+ keyword in the SCL statements specified in the Global Type
+ Sequencing member that defines the type processing order. This
+ keyword groups types for simultaneous processing.
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16050
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++List Data Set Allocation Information
+%   Primary Quantity+- The number of units of space in the
++      primary allocation. Values are numeric, 1-255.
+%   Secondary Quantity+- The number of units of space in the
++      secondary allocation. Values are numeric, 1-255.
+%   Space Units+- Units in which space is allocated (CYL or TRK).
++                 1 CYL = 15 TRK.
++ The Endevor administrator should set the minimum value of the
++ 'Primary Quantity + Secondary Quantity + Space Unit' combination.
++ User is not allowed to use a lower value than that.
+%   Record Length+- The record length of the list dataset. Values are
++      numeric, 0-32756. Zero means default (Record length will be
++      counted based on the block size of the listing library).
++
++Show messages when RC is greater than or equal to..
++
++   Required. This field tells the dialog to display messages
++   when the return code is greater than or equal to the
++   designated value.  Acceptable values are 00, 04, 08, 12, 16
++
++\ \ (Press%ENTER+to continue or%END+to exit)  \ \
+)END

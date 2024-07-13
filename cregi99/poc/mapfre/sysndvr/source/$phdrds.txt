@@ -1,0 +1,84 @@
+         MACRO
+&NAME    $PHDRDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PHDRDS  DSECT
+         AGO    .SKPEQU
+.SKPDSCT ANOP
+$PHDRDS  DS    0F
+.SKPEQU  ANOP
+*           **************************************************          01010000
+*           **                                              **          01020025
+*           **                                              **          01020025
+*           **   $PHDR - PACKAGE EXIT HEADER CONTROL BLOCK  **          01020025
+*           **                                              **          01020025
+*           **                                              **          01020025
+*           **************************************************          01030000
+PHDRLEN      DS  AL2(PHDRSIZE)         LENGTH OF PACKAGE HEADER BLOCK   01060025
+PHDRVERS     DS  AL2(PHDR$VER)         VERSION OF PACKAGE HEADER BLOCK  01060025
+PHDR$VER     EQU 1                     VERSION 1 PACKAGE EXIT HDR BLK   01060025
+PHDRID       DC  CL4'PHRD'             BLOCK ID                         01060025
+PHDRTYPE     DS  CL10                  PACKAGE TYPE (EMERGENCY/STD)     01130041
+PHDRSTAT     DS  CL12                  PACKAGE STATUS                   01140051
+PHDRBOST     DS  CL10                  PACKAGE BACK-OUT  STATUS         01160037
+PHDRCRD      DS  CL7                   PACKAGE CREATION DATE            01170045
+PHDRCRT      DS  CL5                   PACKAGE CREATION TIME            01180045
+PHDRXRC      DS  CL5                   EXEC RETURN CODE (READ-ONLY)     01190000
+PHDRPUD      DS  CL7                   DATE OF LAST UPDT TO PKG SCL     01200037
+PHDRPUT      DS  CL5                   TIME OF LAST UPDT TO PKG SCL     01210037
+PHDRCD       DS  CL7                   CAST DATE                        01220000
+PHDRCT       DS  CL5                   CAST TIME                        01230000
+PHDRAD       DS  CL7                   FINAL APPROVAL/DENIAL DATE       01240047
+PHDRAT       DS  CL5                   FINAL APPROVAL/DENIAL TIME       01250047
+PHDRWSD      DS  CL7                   EXECUTION WINDOW START DATE      01260000
+PHDRWST      DS  CL5                   EXECUTION WINDOW START TIME      01270000
+PHDRWED      DS  CL7                   EXECUTION WINDOW END DATE        01280000
+PHDRWET      DS  CL5                   EXECUTION WINDOW END TIME        01290000
+PHDRXD       DS  CL7                   EXECUTION DATE                   01300000
+PHDRXT       DS  CL5                   EXECUTION TIME                   01310000
+PHDRCMD      DS  CL7                   COMMIT DATE                      01320051
+PHDRCMT      DS  CL5                   COMMIT TIME                      01330051
+PHDRBOD      DS  CL7                   PACKAGE BACK-OUT DATE            01340000
+PHDRBOT      DS  CL5                   PACKAGE BACK-OUT TIME            01350000
+PHDRBID      DS  CL7                   PACKAGE BACK-IN DATE             01360000
+PHDRBIT      DS  CL5                   PACKAGE BACK-IN TIME             01370000
+PHDREEXD     DS  CL7                   END EXECUTION DATE               01420000
+PHDREEXT     DS  CL5                   END EXECUTION TIME               01430000
+PHDRCRUS     DS  CL8                   PKG CREATE USERID
+PHDRUPUS     DS  CL8                   PKG UPDATE USERID
+PHDRCAUS     DS  CL8                   PKG CAST USERID
+PHDREXUS     DS  CL8                   PKG EXEC USERID
+PHDRBOUS     DS  CL8                   PKG BACKOUT USERID
+PHDRBIUS     DS  CL8                   PKG BACKIN USERID
+PHDRCMUS     DS  CL8                   PKG COMMIT USERID
+*
+PHDR#NOTES   DS  H                     NUMBER OF PKG NOTES WITH DATA
+             DS  H                     RESERVED
+PHDRNOTE1    DS  CL60                  CAST/REVIEW NOTES SECTION
+PHDRNOTELEN  EQU *-PHDRNOTE1           LENGTH OF A NOTE
+PHDRNOTE2    DS  CL60
+PHDRNOTE3    DS  CL60
+PHDRNOTE4    DS  CL60
+PHDRNOTE5    DS  CL60
+PHDRNOTE6    DS  CL60
+PHDRNOTE7    DS  CL60
+PHDRNOTE8    DS  CL60
+PHDRMXNOTES  EQU (*-PHDRNOTE1)/PHDRNOTELEN  MAX NOTES
+             ORG PHDRNOTE1
+PHDRNOTE     DS  CL60                  NOTE ARRAY "CURSOR"              00920000
+             ORG PHDRNOTE1
+PHDRNOTES    DS  CL(PHDRNOTELEN*PHDRMXNOTES)  NOTE ARRAY
+             ORG
+PHDRCVAL     DS  CL1                   COMPVAL SETTING AT TIME OF CAST  01440000
+PHDRPSHR     DS  CL1                   PACKAGE EDIT/CAST SHARE OPTION   01440000
+PHDR$SHR     EQU C'Y'                  ANYONE MAY EDIT/CAST PACKAGE
+PHDR$NSHR    EQU C'N'                  ONLY OWNER MAY EDIT/CAST PACKAGE
+PHDRPROM     DS  CL1                   PROMOTION PACKAGE INIDCATOR      01440000
+PHDR$PROMY   EQU C'Y'                    PROMOTION PACKAGE
+PHDR$PROMN   EQU C'N'                    NOT A PROMOTION PACKAGE
+PHDROPKGID   DS  CL16                  ORIGINAL PKG ID (PROMOTION PKG)
+PHDRPPKGID   DS  CL16                  PREVIOUS PKG ID (PROMOTION PKG)
+PHDRENV      DS  CL8                   "TARGET LOC" ENV NAME            01440000
+PHDRSTGID    DS  CL1                   "TARGET LOC" STAGE ID            01440000
+             DS  CL8                   ** RESERVED **                   01440000
+PHDRSIZE     EQU *-$PHDRDS
+         MEND

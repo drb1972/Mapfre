@@ -1,0 +1,36 @@
+         MACRO
+         ENHAPCOM &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        COMMIT PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APCOM_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APCOM_RQ$EYE    EQU C'PCMQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APCOM_RQ
+         SPACE ,
+APCOM_RQ_DATA     DS XL1               BEGINNING OF DATA AREA
+         ORG      APCOM_RQ_DATA
+APCOM_RQ_PKGID    DC CL16' '           PACKAGE ID
+APCOM_RQ_DEL_PROMHIST DC CL1' '        DELETE PROMOTION HISTORY FLAG
+*                 RESERVED AREA
+APCOM_RQ_RESERVE  DC CL2' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APCOM_RQ_VER#1_DATADSLN EQU *-APCOM_RQ_DATA
+APCOM_RQ_VER#1_DSLN     EQU *-APCOM_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APCOM_RQ_DATADSLN EQU *-APCOM_RQ_DATA
+APCOM_RQ_DSLN     EQU *-APCOM_RQ
+         ORG      APCOM_RQ_DATA
+APCOM_RQ_DATAAREA DS XL(APCOM_RQ_DATADSLN)    DATA AREA
+         MEND

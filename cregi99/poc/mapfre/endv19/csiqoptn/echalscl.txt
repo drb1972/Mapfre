@@ -1,0 +1,49 @@
+      *****************************************************************
+      *
+      *  LIST PACKAGE SCL - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALSCL-RQ.
+           05  ALSCL-RQ-HEADER.
+               10  ALSCL-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALSCL-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALSCL-RQ-ID         PIC 9(04) COMP VALUE 1488.
+               10  ALSCL-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALSCL-RQ-EYE        PIC X(04)      VALUE 'LSCQ'.
+           05  ALSCL-RQ-DATAAREA.
+               10  ALSCL-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALSCL-RQ-PROMHIST   PIC X(01) VALUE SPACES.
+               10  ALSCL-RQ-RESERVE    PIC X(03) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST PACKAGE SCL - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALSCL-RS.
+           05  ALSCL-RS-HEADER.
+               10  ALSCL-RS-LEN        PIC 9(04) COMP VALUE 896.
+               10  ALSCL-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALSCL-RS-ID         PIC 9(04) COMP VALUE 1489.
+               10  ALSCL-RS-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALSCL-RS-EYE        PIC X(04)      VALUE 'LSCS'.
+           05  ALSCL-RS-DATAAREA.
+               10  ALSCL-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALSCL-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALSCL-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALSCL-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALSCL-RS-RUU        PIC X(08) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.
+               10  ALSCL-RS-NOSTMTS    PIC 9(04) COMP VALUE ZEROS.
+                   88  ALSCL-RS-NOST-MX    VALUE 10.
+               10  FILLER              PIC X(02) VALUE SPACES.
+      ***  ALSCL-RS-SCL OCCURS ALSCL-RS-NOST-MX TIMES.
+      ***  ALSCL-RS-NOSTMTS CONTAINS THE NUMBER OF SCL STATEMENTS
+      ***  CURRENTLY EXISTING IN THIS AREA.
+               10  ALSCL-RS-SCL        OCCURS 10 TIMES
+                                       PIC X(80).
+               10  FILLER              PIC X(02) VALUE SPACES.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALSCL-RS-IPKGID     PIC X(16) VALUE SPACES.
+               10  ALSCL-RS-PKGVER     PIC 9(04) COMP VALUE ZERO.
+               10  FILLER              PIC X(22) VALUE SPACES.

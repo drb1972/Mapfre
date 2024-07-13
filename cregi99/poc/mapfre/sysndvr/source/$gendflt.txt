@@ -1,0 +1,147 @@
+         MACRO
+&LABEL   $GENDFLT &VALUE,                                              X
+               &VALID_VALUES=(Y,N),                                    X
+               &INVALID_VALUES=,                                       X
+               &LENGTH=1
+.*--------------------------------------------------------------------*
+.*                                                                    *
+.* COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.                   *
+.*                                                                    *
+.* Macro: $GENDFLT                                                    *
+.*                                                                    *
+.* Purpose: The $GENDFLT macro is used to build an ENDEVOR/MVS ISPF   *
+.*  Configuration Table entry.                                        *
+.*                                                                    *
+.* Parameters:                                                        *
+.*   &LABEL:        The label to be assigned to the Configuration     *
+.*                  table.  Although not required, it is highly rec-  *
+.*                  commended that the &LABEL name be provided so that*
+.*                  the field can be symbolically addressed.  If the  *
+.*                  &LABEL is NOT provided, the macro will generate   *
+.*                  a warning level MNOTE message.                    *
+.*                                                                    *
+.*   &VALUE:        The user specified default value for the ISPF     *
+.*                  dialog variable field.  This field is required.   *
+.*                                                                    *
+.*   &VALID_VALUES: An optional list of values against which the      *
+.*                  &VALUE field will be compared during the macro    *
+.*                  expansion.  Note: This is an ASSEMBLY time valid- *
+.*                  ation.  It is used to validate the user specified *
+.*                  default value.                                    *
+.*                  Generally, VALID_VALUES should be used mutually   *
+.*                  exclusively with INVALID_VALUES.                  *
+.*                                                                    *
+.*   &INVALID_VALUES: An optional list of values against which the    *
+.*                  &VALUE field will be compared during the macro    *
+.*                  expansion.  If the value specified is equal to    *
+.*                  any of the values in INVALID_VALUES, and error    *
+.*                  message will be issued.  As with VALID_VALUES,    *
+.*                  this is an ASSEMBLY time validation only.         *
+.*                  Generally, INVALID_VALUES should be used mutually *
+.*                  exclusively with VALID_VALUES.                    *
+.*                                                                    *
+.*   &LENGTH:       The length of the dialog variable field.  This    *
+.*                  field is optional.  if not provided, a default    *
+.*                  value of 1 is used and a warning level MNOTE      *
+.*                  is issued.                                        *
+.*                                                                    *
+.*--------------------------------------------------------------------*
+         GBLB  &GENDSECT
+         LCLA &FLDLENGTH,&LOOPIX,&LBLLENGTH
+         LCLC &FLDVALUE,&ERRLABEL
+.*--------------------------------------------------------------------*
+.* If the field label is not provided, generate a warning message.    *
+.*--------------------------------------------------------------------*
+.GEND0000 ANOP
+         AIF   ('&LABEL' NE '').GEND0010
+         MNOTE 4,'$GENDFLT: A field label SHOULD be provided'
+.GEND0010 ANOP
+.*--------------------------------------------------------------------*
+.* If this macro is used to generate a DSECT definition, skip the     *
+.* parameter validation.                                              *
+.*--------------------------------------------------------------------*
+&LBLLENGTH SETA K'&LABEL-3
+&ERRLABEL  SETC '&LABEL'(4,&LBLLENGTH)  form displayable LABEL field
+&FLDVALUE  SETC ' '                     Set the field value to blanks
+         AIF   (&GENDSECT EQ 0).GEND1100
+.*--------------------------------------------------------------------*
+.* Verify that the field name was specified.  If not, generate an     *
+.* error.                                                             *
+.*--------------------------------------------------------------------*
+.GEND1000 ANOP
+         AIF   ('&VALUE' EQ '').NOVALUE
+.*--------------------------------------------------------------------*
+.* If the &VALID_VALUES parameter was specified, verify that the list *
+.* contains at least one entry.                                       *
+.*--------------------------------------------------------------------*
+         AIF   ('&VALID_VALUES' EQ '').GEND1100
+         AIF   ('&VALID_VALUES'(1,1) NE '(').BADVALUES
+         AIF   (N'&VALID_VALUES EQ 0).BADVALUES
+.*--------------------------------------------------------------------*
+.* Determine the length value to be used with the field.  If the      *
+.* &LENGTH parameter is not supplied, issue a warning message and     *
+.* use a default value of one.                                        *
+.*--------------------------------------------------------------------*
+.GEND1100 ANOP
+         AIF   ('&LENGTH' NE '').GEND1110
+         MNOTE 4,'$GENDFLT: The field length missing for &ERRLABEL. A v+
+               alue of one (1) will be used'
+&FLDLENGTH SETA 1
+         AGO   .GEND1120
+.GEND1110 ANOP
+&FLDLENGTH SETA &LENGTH
+.GEND1120 ANOP
+.*--------------------------------------------------------------------*
+.* If this is not part of a DSECT generation, validate the value that *
+.* the specified against the list of valid values. If the &VALID_VALUE*
+.* parameter was not specified, do not perform any validation.        *
+.*--------------------------------------------------------------------*
+.GEND1200 ANOP
+         AIF  ('&VALID_VALUES' EQ '').GEND1220
+&LOOPIX SETA 1
+.GEND1210 ANOP
+         AIF  ('&VALUE' EQ '&VALID_VALUES(&LOOPIX)').GEND1220
+&LOOPIX SETA &LOOPIX+1
+         AIF  (&LOOPIX LE N'&VALID_VALUES).GEND1210
+         MNOTE 12,'$GENDFLT: An invalid value, &VALUE, was specified'
+         MNOTE 12,'The valid values for the symbol &ERRLABEL are &VALID+
+               _VALUES'
+         AGO   .EXIT
+.*--------------------------------------------------------------------*
+.* Check also that the VALUE operand did not specify something which  *
+.* is not permitted by the INVALID_VALUES operand. If it did, then    *
+.* issue an error message and stop the assembly.                      *
+.*--------------------------------------------------------------------*
+.GEND1220 ANOP
+         AIF  ('&INVALID_VALUES' EQ '').GEND1240
+&LOOPIX SETA 1
+.GEND1230 ANOP
+         AIF  ('&VALUE' EQ '&INVALID_VALUES(&LOOPIX)').INVALID_VALUE
+&LOOPIX SETA &LOOPIX+1
+         AIF  (&LOOPIX LE N'&INVALID_VALUES).GEND1230
+.GEND1240 ANOP
+&FLDVALUE SETC '&VALUE'
+.*--------------------------------------------------------------------*
+.* Generate the field definition.                                     *
+.*--------------------------------------------------------------------*
+&LABEL             DC    CL&FLDLENGTH'&FLDVALUE '
+         AGO   .EXIT
+.*--------------------------------------------------------------------*
+.* Error messages                                                     *
+.*--------------------------------------------------------------------*
+.NOVALUE ANOP
+         MNOTE 12,'$GENDFLT: The field value is missing for &ERRLABEL'
+         AGO   .EXIT
+.BADVALUES ANOP
+         MNOTE 12,'$GENDFLT: The VALID_VALUES parameter must specify a X
+               LIST of values enclosed in parentheses; '
+         MNOTE 12,' the symbol in error is &ERRLABEL'
+         AGO   .EXIT
+.INVALID_VALUE ANOP
+         MNOTE 12,'$GENDFLT: An invalid value, &VALUE, was specified fox
+               r the operand:'
+         MNOTE *,'   &ERRLABEL.. The invalid values are &INVALID_VALUESX
+               ..'
+         AGO   .EXIT
+.EXIT    ANOP
+         MEND

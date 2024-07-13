@@ -1,0 +1,148 @@
+           EJECT
+      ***************************************************************** 00570000
+      *    NOTIFYDS - USER EXIT BLOCK FOR BUILDING NOTIFICATION       * 00570000
+      *               MESSAGES.  USER EXIT FILLS IN THE DATA AND      * 00570000
+      *               THEN CALLS THE ENDEVOR NOTIFICATION UTILITY     * 00570000
+      *               PROGRAM BC1PNTFY.                               * 00570000
+      ***************************************************************** 00570000
+
+       01  NOTIFY-BLOCK.                                                00010000
+           05  NOTI-LENGTH             PIC 9(4) COMP SYNC.              00020000
+           05  NOTI-CURRENT-VERSION    PIC 9(4) COMP SYNC.              00030000
+           05  NOTI-BLOCK-ID           PIC X(4).                        00040007
+      *                                                                 00570000
+      * SET MESSAGE TYPE                                                00570000
+      *                                                                 00570000
+           05  NOTI-NOTIFY-TYPE        PIC X(8).                        00050005
+               88  NOTI-NO-DEFAULT     VALUE SPACES.
+               88  NOTI-TSO-NOTIFY     VALUE 'TSO'.
+               88  NOTI-TPX-NOTIFY     VALUE 'TXP'.
+               88  NOTI-XMIT-NOTIFY    VALUE 'XMIT'.
+               88  NOTI-SMTP-NOTIFY    VALUE 'SMTP'.
+               88  NOTI-SMTPF-NOTIFY    VALUE 'SMTPF'.
+      *                                                                 00570000
+      * SET MESSAGE TEXT                                                00570000
+      *                                                                 00570000
+           05  NOTI-MESSAGE-TEXT       PIC X(80).
+      *                                                                 00570000
+      * GENERIC ID FIELD                                                00570000
+      *                                                                 00570000
+           05  NOTI-USER               PIC X(8).
+      *                                                                 00570000
+      * TSO SPECIFIC ATTRIBUTES                                         00570000
+      * MESSAGE ATTRIBUTE WILL BEFAULT TO NOW.                          00570000
+      *                                                                 00570000
+           05  NOTI-SET-ALL-USER-OPT   PIC X(1).
+
+               88  NOTI-ALL-USERS      VALUE 'Y'.
+
+           05  NOTI-SET-LOGON-OPT      PIC X(1).
+
+               88  NOTI-SET-LOGON      VALUE 'Y'.
+
+           05  NOTI-SET-SAVE-OPT       PIC X(1).
+
+               88  NOTI-SET-SAVE       VALUE 'Y'.
+      *                                                                 00570000
+      * TPX SPECIFIC ATTRIBUTES                                         00570000
+      * THE MESSAGE ID TYPE WILL DEFAULT TO USERID.                     00570000
+      * TO USER OTHER OPTION SET THE NTPXTYPE FIELD TO PROPER VALUE     00570000
+      * TO SEND TO ALL USERS, SET THE NTPXTYPE TO BLANSK, AND THE       00570000
+      * NTPXALL FIELD TO C'Y'.                                          00570000
+      *                                                                 00570000
+
+           05  NOTI-TPX-JOB-NAME       PIC X(8).
+
+           05  NOTI-USERID-OPTION      PIC X(1).
+
+               88  NOTI-UO-FOR-USERID  VALUE 'U'.
+               88  NOTI-UO-FOR-LISTID  VALUE 'L'.
+               88  NOTI-UO-FOR-TERMID  VALUE 'T'.
+               88  NOTI-UO-FOR-APPLID  VALUE 'A'.
+               88  NOTI-UO-FOR-SESSID  VALUE 'S'.
+
+           05  NOTI-ALL-OPTION         PIC X(1).
+
+               88  NOTI-AO-ALL         VALUE 'Y'.
+
+           05  NOTI-SAVE-OPTION        PIC X(1).
+
+               88  NOTI-SO-SAVE        VALUE 'Y'.
+
+           05  NOTI-BREAK-IN-OPTION    PIC X(1).
+
+               88  NOTI-BI-BREAK-IN    VALUE 'Y'.
+
+      *                                                                 00570000
+      * XMIT SPECIFIC VALUES                                            00570000
+      *                                                                 00570000
+           05  NOTI-NJE-NODE           PIC X(8).
+      *                                                                 00570000
+      * ERROR MESSAGE WILL BE BLANKS IF R15=00                          00570000
+      *                                                                 00570000
+           05  NOTI-XMIT-MESSAGE       PIC X(132).
+      *                                                                 00570000
+      * XMIT - USE NONOTIFY - NO/YES                                    00570000
+      *                                                                 00570000
+           05  NOTI-XMIT-NONOTIFY      PIC X(1) VALUE 'N'.
+      *                                                                 00570000
+      * SMTP CHANGES                                                    00570000
+      *                                                                 00570000
+           05  NOTI-MSG-RESERVED       PIC S9(8) COMP SYNC.
+           05  NOTI-MSG-FIRST-MSG      PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+           05  NOTI-MSG-CPID           PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * MSG FORMAT :       PIC S9(8) COMP (NEXT MSG TEXT) OR            00570000
+      *                    PIC S9(8) COMP VALUE 0                       00570000
+      *                    PIC C(80) MESSAGE TEXT.                      00570000
+      *                                                                 00570000
+           05  NOTI-MSG-SMTPM          PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * POINTER TO S9(4) COMP (LENGTH) FOLLOWED BY TXT.                 00570000
+      *                  (OVERRIDES NOTMSGTX * NOTMSGLP)                00570000
+      *                  (NOTSMTPM IS AVAILABLE FOR SMTP                00570000
+      *                  TRANSMISSION ONLY)                             00570000
+      *                                                                 00570000
+           05  NOTI-MSG-FORMAT         PIC X.
+               88  NOTI-MSG-VARIABLE   VALUE 'V'.
+           05  NOTI-MSG-MAX-LENGTH     PIC S9(4) COMP SYNC.
+      * MAX MSG LENGTH (IF VARIABLE)                                    00570000
+           05  NOTI-SMTP-TITLE         PIC X(50).
+      *                                                                 00570000
+      *                                                                 00570000
+      * EMAIL SUBJECT TEXT                                              00570000
+      *                                                                 00570000
+      *    05  NOTI-SMTP-FILL          PIC X(80).
+      *                                                                 00570000
+           05  FILLER                  PIC X(10).
+      *                                                                 00570000
+      * POINTER TO AREA CONTAINS @MAIL ADDRESS                          00570000
+      *                                                                 00570000
+           05  NOTI-MAIL-PTR           PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * POINTER TO AREA CONTAINS URL                                    00570000
+      *                                                                 00570000
+           05  NOTI-URL-PTR            PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * CONTAINS RETURN CODE FROM SMTPF FUNCTION                        00570000
+      * =0 : USER FOUND IN ESMTPTBL                                     00570000
+      * =4 : USER NOT FOUND IN ESMTPTBL                                 00570000
+      *       DFTID=USERID DEFINED                                      00570000
+      * =8 : USER NOT FOUND IN ESMTPTBL                                 00570000
+      *                                                                 00570000
+           05  NOTI-SMTPF-RC           PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * POINTER TO NEXT NOTIFYDS BLOCK                                  00570000
+      *                                                                 00570000
+           05  NOTI-BLK-PTR            PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      * APPROVER GROUP ID                                               00570000
+      *                                                                 00570000
+           05  NOTI-APGID              PIC X(16) .
+      *                                                                 00570000
+      * POINTER TO FROM TEXT                                            00570000
+      *                                                                 00570000
+           05  NOTI-FROM-PTR           PIC S9(8) COMP SYNC.
+      *                                                                 00570000
+      *                                                                 00570000

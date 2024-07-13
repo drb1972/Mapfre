@@ -1,0 +1,32 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++                                                                 %Page 1 of 4+
++These panels provide information about features and enhancements
++introduced in%Endevor Version 18.0
++
++Enter one of the following options for more information:            Increment:
++
+% 1+- Product Interfaces and Obsolete Feature Removal                  18.0.00
+% 2+- &LIT1                +Site-Wide Optional Feature                 18.0.04
+% 3+- Element Action SCL Syntax Allows Blanks in Element and USS Names 18.0.04
+% 4+- Alter Action Field Level Security Enhancement                    18.0.04
+% 5+- Web Services Configuration Enhancements                          18.0.04
+% 6+- Disqualification Option for Approver Group Definition            18.0.04
+% 7+- SMF Recording/Monitoring for Admin Action Activity               18.0.05
+% 8+- Conditional Allocation of Processor Data Sets                    18.0.06
+% 9+- ISPF Long-Named Element Support                                  18.0.07
+%10+- Eclipse-Based UI Package View                                    18.0.07
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++
++\ \ (Press%ENTER+for more options or%END+to exit) \ \
+)INIT
+  &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT18010 2,CIT18020 3,CIT18030 4,CIT18040
+                       5,CIT18050 6,CIT18060 7,CIT18070 8,CIT18080
+                       9,CIT18090 10,CIT18100)
+   &ZCONT = CIT18001
+)END

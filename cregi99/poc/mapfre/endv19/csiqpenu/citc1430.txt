@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Validate Element Action \-\
+%Option ===>_ZCMD                                                   %Release 14+
+%
+%Validate Element Action +
++
+ The Validate Element action performs element master, synchronization, and
+ component validation checks against the element you specify. These
+ inventory validation checks can be performed at any time, enabling
+ developers to ensure the integrity of elements before including them in a
+ package. This is a batch only action and is not supported in packages.
+
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1440
+)END

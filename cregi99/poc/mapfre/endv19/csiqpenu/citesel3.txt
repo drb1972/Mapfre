@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Retrieve \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Type%R+next to elements you want to retrieve. Press ENTER to retrieve them.
++
++Type%RN+next to elements you want to retrieve and rename. Press
++ENTER. A pop-up window will appear that allows you to enter an new
++name.
++
++To retrieve a prior level of an element, type%S+next to that element,
++them press ENTER to display a Summary of Levels panel for that element.
++Use the Summary of Levels panel to retrieve the prior level.
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

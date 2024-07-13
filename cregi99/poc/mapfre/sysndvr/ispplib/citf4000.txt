@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Move Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Move action moves elements from one inventory location (environment,
++stage) to the next location on a map route. By default, change history
++at the origin location is incorporated into a single delta at the
++target. To maintain origin deltas, specify the Move WITH HISTORY.
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- panel options              %3+- Action options
+%    2+- Inventory fields           %4+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF4001 2,CITNDVR0 3,CITF4002 4,CITLOPT0)
+)END

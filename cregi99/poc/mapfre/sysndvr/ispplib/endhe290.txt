@@ -1,0 +1,25 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++
++  The LC option lists all the input and output components associated
++  with an element. One line is displayed for each component. The
++  following information is provided:
++
++     MEMBER -- Member name of the component
++     STEP   -- Process STEP name where component was included
++     DDNAME -- DD name within the step where component was included
++     DSNAME -- DSN within the DD statement where component was included
++
++
++  By placing an L in the selection field, to the left of the member name,
++  you can view any of the components listed. A standard browse panel
++  displays the selected member.
++
++
++  Use the LI option if you only want input components displayed or
++  the LO option if you only want output components displayed.
++
++                                       (%END+to return)
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Historical (SMF) Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel
++
++  1.Type an alphanumeric character in the selection field for the
++     reports you want to generate.
++
++  2. Specify the data set containing the SMF information.
++
++  3. Specify the inventory location for which you want the report(s).
++
++      * ENVIRONMENT is required, all other fields are optional.
++        A FULLY or PARTIALLY wildcarded ENVIRONMENT name is acceptable
++
++  4. Specify the number of DAYS you want the report to cover.
++
++
++
++                                            (%PF3+to return)
+)END

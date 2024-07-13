@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to create, display, modify or delete destination
++definitions and access data set and USS mapping rule panels.
++
+%  blank+- Update destination information.
+%      C+- Create a data set mapping rule for a destination.
+%      D+- Display data set mapping rules for a destination.
+%      T+- Test data set mapping rules for a destination.
+%     CU+- Create a USS mapping rule for a destination.
+%     DU+- Display USS mapping rules for a destination.
+%     TU+- Test USS mapping rules for a destination.
++
++
++  Select from the following options for more information:
+%    1+- Destination name           %5+- Staging information
+%    2+- Complementary data sets    %6+- Remote job statement
+%    3+- Transmission method        %7+- Created/updated fields
+%    4+- Remote node name           %8+- Remote IPNAME/IPPORT
++
++
++                               %PF3+to return
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITCMDS0 3,CITTMTD0
+                  4,CITNODE0 5,CITSTDS0 6,CITJBST0 7,CITPDBTM
+                  8,CITIPNM0)
+)END

@@ -1,0 +1,16 @@
+      *****************************************************************
+      *
+      *            DELETE A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APDEL-RQ.
+           05  APDEL-RQ-HEADER.
+               10  APDEL-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APDEL-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APDEL-RQ-ID         PIC 9(04) COMP VALUE 1648.
+               10  APDEL-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APDEL-RQ-EYE        PIC X(04)      VALUE 'PDEQ'.
+           05  APDEL-RQ-DATAAREA.
+               10  APDEL-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APDEL-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

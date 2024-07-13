@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Approver Group+- On the Approver Group Request panel, the name of the
++  approver group you want to access or define.
++
++  On the Approver Group Selection list, the name of an approver group
++  eligible for selection.
++
++  On the Approver Group definition panel, the name of the approver
++  group defined on the panel.
++
+%Title+or%Approver group title+- The 1-50 character approver group
++  description.
++
++
++                                            (%PF3+to return)
+)END

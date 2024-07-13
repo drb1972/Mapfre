@@ -1,0 +1,30 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Merge ---------------- Merge Output Specification Panel------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Specify a%MERGE OUTPUT+location type, then press the%ENTER+Key. You will be
++prompted for more information based on your selection.
++
++
++             Merge to %===>_Z+      D - Data Set   E - Endevor
++
++
++
++
++
++
++
++
+)INIT
+   .ZVARS = '(PTBOTED)'
+   .HELP = BC1T4010
+)PROC
+)END

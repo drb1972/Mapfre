@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%Override Signout+- Indicates whether you can edit or generate this
++   element when it has been signed out to a user other than
++   yourself.
+%      Y+- Override the current signout and allow access to the
++          element.
+%      N+- (Default). Do not override the current signout.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
+)END

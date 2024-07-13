@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+_)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Override Components Maintenance -}-}-
+Option ===>_ZCMD                                             +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%
+%                          
+%           U UPDATE      -Add or Replace Override Components
+%
+%           D DELETE      -Delete an Override Component
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+ .ZVARS = 'ZSYSID STREAMID'
+)PROC
+  VER (&STREAMID,NB,PICT,'AC')
+  VPUT (STREAMID) PROFILE
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+         U,'CMD(%PPCUPDT OV)'
+        UD,'CMD(%PPCUPDT OV DEBUG)'
+         D,'CMD(%PPCUPDT OX)'
+        DD,'CMD(%PPCUPDT OX DEBUG)'
+       ' ',' '
+         *,'?' )
+)END

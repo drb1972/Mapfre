@@ -1,0 +1,30 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+)BODY
+%-------------------------------  PRINT MEMBERS  -------------------------------
+%OPTION  ===>_ZCMD                                                             +
++
++ %Blank+- Member list     %B+- Browse member     %P+- Print member
++
++FROM ISPF LIBRARY:+                 +LIST OPTIONS:
++  PROJECT%===>_PRJ0    +            +  DISPLAY LIST %===>_Z+(Y/N)
++  LIBRARY%===>_LIB0    +
++  TYPE   %===>_TYP0    +
++  MEMBER %===>_ISPFMB
++    THRU MEMBER%===>_C1DSPTNM  +
++
++FROM OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++  DATA SET NAME%===>_OTHDSN                                                  +
++
++
++
+)INIT
+  .HELP = CITN1000
+  .ZVARS = '(VARWKLST)'
+)END

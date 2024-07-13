@@ -1,0 +1,44 @@
+         MACRO
+         C1RMCNFG &SERVERS=2,&PPFX=,&SPFX=
+C1RPCNFG CSECT
+C1RPCNFG AMODE 31
+         AIF   ('&SERVERS' NE '').SERVER
+         MNOTE 12,'Error: The SERVERS parameter must be specified'
+         MEXIT
+.SERVER  ANOP
+         DC    A(&SERVERS)             Number of servers
+         AIF   (K'&PPFX EQ 2).PPFX2
+         AIF   (K'&PPFX EQ 3).PPFX3
+         MNOTE 12,'Error: PPFX must be 2-3 characters'
+         MEXIT
+.PPFX2   ANOP
+         DC    CL3' &PPFX'             Panel prefix
+         AGO   .CHKSPFX
+.PPFX3   ANOP
+         DC    CL3'&PPFX'              Panel prefix
+.CHKSPFX ANOP
+         AIF   ('&SPFX' EQ '').SPFXBLNK
+         AIF   (K'&SPFX EQ 2).SPFX2
+         AIF   (K'&SPFX EQ 3).SPFX3
+         MNOTE 12,'Error: SPFX must be 2-3 characters'
+         MEXIT
+.SPFXBLNK ANOP
+         DC    CL3'   '                Scratchpad work area prefix
+         AGO   .GENPFK
+.SPFX2   ANOP
+         DC    CL3'&SPFX '             Scratchpad work area prefix
+         AGO   .GENPFK
+.SPFX3   ANOP
+         DC    CL3'&SPFX'              Scratchpad work area prefix
+.GENPFK  DS    0CL8                    PFKEY Definitions
+         DC    XL1'7D'                 ...Enter key
+         DC    XL1'6D'                 ...Clear key
+         DC    XL1'F3'                 ...END function
+         DC    XL1'F4'                 ...RETURN function
+         DC    XL1'F7'                 ...Scroll up
+         DC    XL1'F8'                 ...Scroll down
+         DC    XL1'C7'                 ...Scroll top
+         DC    XL1'C8'                 ...Scroll bottom
+         DC    XL2'00'                 *** UNUSED ***
+         END
+         MEND

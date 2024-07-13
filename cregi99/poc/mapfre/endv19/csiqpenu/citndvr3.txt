@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ From/To Data Set Type(USS/ISPF)\-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Certain actions such as the%ADD, Update+and%Retrieve+require the name
+ of a%From+or%To+location in order to process the action.
+
+ The location can be a PDS, Librarian or Panvalet library, a sequential
+ file or a path and USS file. Enter the type of location and the desired
+ data set or path/USS file name in the%From/To+location fields.
+
+ Valid%Data Set Type(USS/ISPF)+values are:
+
+   %D    +- PDS, Librarian or Panvalet library, a sequential file
+
+   %U    +- Path and USS file
++
+%Note:+Both USS and ISPF Dataset fields can store values. However, only
++      the value that corresponds to the Data Set Type (USS or Data Set)
++      is used. This allows users who regularly work with both types of
++      data to avoid having to re-key these fields. These users only
++      have to modify the Data Set Type option.
+)PROC
+)END

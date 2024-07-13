@@ -1,0 +1,26 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(red)             INTENS(LOW) SKIP(ON)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+)BODY EXPAND({{)
+!-{-{- Shipment to Mplex confirmation -{-{-
++OPTION  ===>_ZCMD
++
++
++      Job name .........:¯trkid   +
++      Package id .......:¯pkgid          +
++      Schenv ...........:¯ppschenv+
++
++      Output will be directed to¯locn
++
+!      Press¢ENTER!to submit the job.
+!      Enter the¢END!command to terminate the submit.
+)INIT
+  &zcmd   = ''
+ .help   = ppcmpkgh
+ .cursor = &zcmd
+)REINIT
+)PROC
+   &PFK = .PFKEY
+)END

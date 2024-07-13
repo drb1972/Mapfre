@@ -1,0 +1,8 @@
+ENDE200E 'Not allowed'                                  .ALARM=YES
+'ENDE200E Element exists at lower stage, use Generate-in-place.'
+ENDE201E 'Invalid Value'                               .ALARM=YES
+'ENDE201E The value must be numeric and in the range 0 to 32756, inclusive.'
+ENDE202E 'Invalid Value'                               .ALARM=YES
+'ENDE202E Comment text cannot contain both single and double quotes.'
+ENDE203E 'Invalid Elm Column Width'                     .ALARM=YES
+'ENDE203E The value must be numeric and in the range 8 to 30, inclusive.'

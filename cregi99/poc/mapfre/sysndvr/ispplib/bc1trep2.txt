@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\Replace Like-Named Elements \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether PDM is to replace like-named elements in
++the merge output CA Endevor SCM location. This option is also known as Update
++if Present. Acceptable values are:
++
++   %Y+  The default. Replace (update) the element.
++
++   %N+  Do not replace (update) the element.
++
++
++
++
++
++
++
+)END

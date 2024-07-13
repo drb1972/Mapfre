@@ -1,0 +1,25 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ } TYPE(TEXT)  COLOR(YELLOW)    HILITE(REVERSE)
+)BODY EXPAND (\\) window (52,13)
+%\-\ Package Already Exists \-\
++
++
++    Package !PKGID          + already exists
++    Status  !PKGSTAT     +
++
++    Do you want to delete and rebuild it?
++                             ===>_Z+(Y/N)
++
+)INIT
+ .help = PKBUILDH
+ .ZVARS = '(DELPKG)'
+)REINIT
+  REFRESH(*)
+)PROC
+  VER (&DELPKG,NB,LIST,Y,N)
+)END

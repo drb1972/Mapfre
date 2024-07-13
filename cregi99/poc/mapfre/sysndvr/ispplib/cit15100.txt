@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ CA Endevor Software Change Manager Version 15.1 - New Features \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
++
++The following panels present information about the features and
++enhancements that were made available with V15.1 of CA Endevor SCM.
++Links are also provided for information about the features and
++enhancements that were made available with V15.0, r14.0 and R12.0.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- Package Backout & Ship Support for USS Files                        %base+
+% 2+- ELIB Support for z/OS VSAM Extended Addressability                  %base+
+% 3+- BSTCOPY Utility Improvements                                        %base+
+% 4+- Consistent Report Formats                                           %base+
+% 5+- Eclipse Based UI Enhancements                                       %base+
++
+% 6+- Link to CA Endevor SCM V15.0 Feature Tutorials
+% 7+- Link to CA Endevor SCM r14.0 Feature Tutorials
+% 8+- Link to CA Endevor SCM R12.0 Feature Tutorials
++
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT15110 2,CIT15120 3,CIT15130 4,CIT15140
+                       5,CIT15150 6,CITC1500 7,CITC1400 8,CITC1200)
+   &ZCONT = CIT15110
+)END

@@ -1,0 +1,198 @@
+         MACRO                                                          00010000
+&NAME    $SMFBKDS           &DSCT=YES                                   00020000
+*********************************************************************** 00140001
+*                                                                     * 00149801
+*        $SMFBKDS - DSECTS FOR EACH BLOCK OF SMF2 DATA                * 00120000
+*                                                                     * 00150001
+*  EACH BLOCK IS PRECEDED BY A HEADER:                                * 00130000
+*          TYPE 1 - ENVIRONMENT INFORMATION                           * 00130000
+*          TYPE 2 - LAST CHANGE INFORMATION                           * 00130000
+*          TYPE 3 - PROCESSOR INFORMATION                             * 00130000
+*          TYPE 4 - REQUEST PARAMETER INFORMATION                     * 00130000
+*********************************************************************** 00150101
+*                                                                     * 00130000
+*        BLOCK  HEADER                                                * 00150301
+*                                                                     * 00130000
+*********************************************************************** 00130000
+*                                                                     * 00130000
+* NOTE: IF THIS CONTROL BLOCK IS CHANGED, CHECK C1BR3020 (CONRPT42)   * 00130000
+*       TO SEE IF THAT PGM NEEDS TO CHANGE AS WELL.  SINCE C1BR3020   * 00130000
+*       DOES NOT INCLUDE THIS CONTROL BLOCK, IT IS EASY TO FORGET TO  * 00130000
+*       UPDATE IT.                                                    * 00130000
+*                                                                     * 00130000
+*********************************************************************** 00150201
+         AIF   ('&DSCT' NE 'YES').NODSCT                                00150500
+SM2BHDDS DSECT                                                          00150600
+         AGO   .START                                                   00150700
+.NODSCT  ANOP                                                           00150800
+SM2BHDDS DS    0D                  ALIGN IT
+.START   ANOP                                                           00151000
+SM2BLEN  DS    H                   LENGTH OF THE BLOCK                  00151100
+SM2BTYP  DS    H                   TYPE OF BLOCK                        00151200
+SM2BVER  DS    H                   VERSION OF BLOCK                     00151300
+SM2B$V1  EQU   1                    VERSION 1                           00151400
+SM2B$V2  EQU   2                    VERSION 2 (LONG NAME ELM)           00151400
+SM2B$V3  EQU   3                    VERSION 3 (PROC GROUP)              00151400
+SM2B$V4  EQU   4                    VERSION 4 (SEARCH)                  00151400
+SM2B$V5  EQU   5                    VERSION 5 (R14 BASE FEATURES)       00151400
+SM2BFLG1 DS    CL1                 FLAG 1 FOR BLOCK                     00151500
+SM2BFLG2 DS    CL1                 FLAG 2 FOR BLOCK                     00151600
+         DS    0D
+SM2BHDR  EQU   *-SM2BHDDS          LENGTH OF HEADER                     00151700
+*********************************************************************** 00151801
+*                                                                     * 00130000
+*        ENVIRONMENT BLOCK  TYPE 1                                    * 00151901
+*                                                                     * 00130000
+*********************************************************************** 00152001
+         AIF   ('&DSCT' NE 'YES').NODSCT1                               00152400
+SM2ENVDS DSECT                                                          00152500
+         AGO   .START1                                                  00152600
+.NODSCT1 ANOP                                                           00152700
+SM2ENVDS DS    0D                  ALIGN IT
+.START1  ANOP                                                           00152900
+         DS    0D            ** START OF HEADER
+SM2ELEN  DS    H                   LENGTH OF THE BLOCK                  00430001
+SM2ETYP  DS    H                   TYPE OF BLOCK                        00440001
+SM2EVER  DS    H                   VERSION OF BLOCK (SM2B$V1/V2)        00450001
+SM2EFLG1 DS    CL1                 FLAG 1 FOR BLOCK                     00460001
+SM2EFLG2 DS    CL1                 FLAG 2 FOR BLOCK                     00470001
+         DS    0D            ** END OF HEADER
+SM2SITE  DS    CL1                 SITE CODE                            00153000
+SM2STGCD DS    CL1                 STAGE SELECTION CODE FROM C1DEFLTS
+SM2STGID DS    XL1                 STAGE ID - 1 OR 2
+SM2SRCHR DS    CL1                 SRCHREPL UTILITY FLAG
+SM2$ELEM EQU   C'E'                 SRCHREPL PROCESSING AN ELEMENT
+SM2$COMP EQU   C'O'                 SRCHREPL PROCESSING OUTPT COMPONENT
+SM2VER   DS    H                   VERSION OF THE ELEMENT               00153204
+SM2LVL   DS    H                   LEVEL OF THE ELEMENT                 00153304
+SM2ENVM  DS    CL8                 ENVIRONMENT NAME                     00153200
+SM2STAGE DS    CL8                 STAGE NAME                           00153300
+SM2SYSTM DS    CL8                 SYSTEM NAME                          00153400
+SM2SUBSY DS    CL8                 SUBSYSTEM NAME                       00153500
+SM2STYPE DS    CL8                 TYPE                                 00153600
+SM2ELEMT DS    CL10                ELEMENT NAME   (VERSION 1)           00153700
+         ORG   SM2ELEMT            VERSION 2:                           00153700
+SM2EAOFF DS    XL2                   V2: ELE AREA OFFSET FROM SM2ENVDS
+SM2PRGRP DS    CL8                   V3: PROCESSOR GROUP
+*********************************************************************** 00154401
+*                                                                     * 00153800
+*        ASSOCIATED FILE INFORMATION IF ANY                           * 00153900
+*                                                                     * 00154000
+*********************************************************************** 00154401
+SM2DSNAM DS    CL44                ASSOC DATA SET NAME   (VERSION 1)    00154100
+         ORG   SM2DSNAM            VERSION 2:  (DSN/PATH)
+SM2FAOFF DS    XL2                   V2: FILE AREA OFFSET FROM SM2ENVDS
+         DS    CL42                  V2: RESERVED
+*
+SM2DSMEM DS    CL10                ASSOC DATA SET MEMBER (VERSION 1)    00154200
+         ORG   SM2DSMEM            VERSION 2:  (MBR/FILE NAME)
+SM2NAOFF DS    XL2                   V2: NAME AREA OFFSET FROM SM2ENVDS
+         DS    CL8                   V2: RESERVED
+SM2EBSIZ EQU   *-SM2ENVDS          ENV BASE SIZE
+SM2EAREA DS    XL(1030)            AREA BUFFER SPACE
+SM2EDATA DS    0D
+SM2ENVLN EQU   *-SM2ENVDS          LENGTH OF ENV BLOCK                  00690001
+*********************************************************************** 00154401
+*                                                                     *
+*        LAST CHANGE BLOCK  TYPE 2                                    * 00154501
+*                                                                     *
+*********************************************************************** 00154601
+         AIF   ('&DSCT' NE 'YES').NODSCT2                               00155000
+SM2LCGDS DSECT                                                          00155100
+         AGO   .START2                                                  00155200
+.NODSCT2 ANOP                                                           00155300
+SM2LCGDS DS    0D                  ALIGN IT
+.START2  ANOP                                                           00155500
+         DS    0D            ** START OF HEADER
+SM2LLEN  DS    H                   LENGTH OF THE BLOCK                  00820001
+SM2LTYP  DS    H                   TYPE OF BLOCK                        00830001
+SM2LVER  DS    H                   VERSION OF BLOCK (SM2B$V1)           00840001
+SM2LFLG1 DS    CL1                 FLAG 1 FOR BLOCK                     00850001
+SM2LFLG2 DS    CL1                 FLAG 2 FOR BLOCK                     00860001
+         DS    0D            ** END OF HEADER
+SM2CCOM  DS    CL40                LAST CHANGE COMMENT                  00155600
+SM2MLDTE DS    CL6                 LAST CHANGE LVL DATE(YYMMDD)         00155700
+SM2MLTME DS    CL4                 LAST CHANGE LVL TIME(HHHH)           00155800
+SM2LUSID DS    CL8                 LAST LEVEL - USERID                  00155900
+SM2MLACT DS    CL8                 LAST ACTION                          00156000
+         DS    CL2                 ** RESERVED **                       00156100
+SM2MLTOT DS    F                   LAST LEVEL TOTAL                     00156200
+SM2LDATA DS    0D
+SM2LCHLN EQU   *-SM2LCGDS          LENGTH OF LAST CHANGE BLOCK          00960001
+*********************************************************************** 00156401
+*                                                                     *
+*        PROCESSOR INFO BLOCK  TYPE 3                                 * 00156501
+*                                                                     *
+*********************************************************************** 00156601
+         AIF   ('&DSCT' NE 'YES').NODSCT3                               00157000
+SM2LPRDS DSECT                                                          00157100
+         AGO   .START3                                                  00157200
+.NODSCT3 ANOP                                                           00157300
+SM2LPRDS DS    0D                  ALIGN IT
+.START3  ANOP                                                           00157500
+         DS    0D            ** START OF HEADER
+SM2PLEN  DS    H                   LENGTH OF THE BLOCK                  01090001
+SM2PTYP  DS    H                   TYPE OF BLOCK                        01100001
+SM2PVER  DS    H                   VERSION OF BLOCK (SM2B$V1)           01110001
+SM2PFLG1 DS    CL1                 FLAG 1 FOR BLOCK                     01120001
+SM2PFLG2 DS    CL1                 FLAG 2 FOR BLOCK                     01130001
+         DS    0D            ** END OF HEADER
+SM2LPRON DS    CL10                PROCESSOR NAME                       00157600
+SM2LPROD DS    CL6                 GENERATE - LAST DATE                 00157700
+SM2LPROT DS    CL4                 GENERATE - LAST TIME                 00157800
+SM2LPROU DS    CL8                 GENERATE - LAST USERID               00157900
+SM2LPHRC DS    H                   GENERATE - HIGHEST RETURN CODE       00158002
+SM2LPRC1 DS    H                   GENERATE - C1 RETURN CODE            00158102
+SM2PDATA DS    0D
+SM2PRCLN EQU   *-SM2LPRDS          LENGTH OF PROCESSOR BLOCK            01220001
+*********************************************************************** 00159001
+*                                                                     *
+*        REQUEST PARAMETER INFORMATION  TYPE 4                        * 00160001
+*                                                                     *
+*********************************************************************** 00170001
+         AIF   ('&DSCT' NE 'YES').NODSCT4                               00180001
+SM2REQDS DSECT                                                          00190001
+         AGO   .START4                                                  00200001
+.NODSCT4 ANOP                                                           00210001
+SM2REQDS DS    0D                  ALIGN IT
+.START4  ANOP                                                           00230001
+         DS    0D            ** START OF HEADER
+SM2RLEN  DS    H                   LENGTH OF THE BLOCK                  01350001
+SM2RTYP  DS    H                   TYPE OF BLOCK                        01360001
+SM2RVER  DS    H                   VERSION OF BLOCK                     01370001
+SM2RFLG1 DS    CL1                 FLAG 1 FOR BLOCK                     01380001
+SM2RFLG2 DS    CL1                 FLAG 2 FOR BLOCK                     01390001
+         DS    0D            ** END OF HEADER
+SM2RCCID  DC    CL12' '            CCID ASSOC W/ ACTION
+SM2RCOMM  DC    CL40' '            COMMENT ASSOC W/ ACTION
+SM2RFLAG  DC    F'0'               ANY SPECIAL FLAGS                    00282001
+SM2RSISO  DC    CL1' '             SIGNIN/SIGNOUT FORCE ( Y OR N)       00283001
+SM2RSICO  DC    CL1' '             SIGNIN/SIGNOUT COPY ONLY ( Y OR N)   00286001
+SM2REXPN  DC    CL1' '             EXPAND INCLUDES ( Y OR N)            00287001
+SM2ROVER  DC    CL1' '             WRITE OVER EXISTING RETR MBR         00288001
+SM2RRTCD  DC    F'0'               ACTION RETURN CODE                   00288103
+SM2RDEL   DC    CL1' '             DELETE REQUEST FLAG
+*                                  BLANK IF N/A
+*                                  Y - YES, DELETE WAS REQUESTED
+*                                  N - NO, DELETE WAS NOT REQUESTED
+SM2RIGNF  DC    CL1' '             IGNORE GENERATE FAILED    (Y / N)
+SM2RBGNP  DC    CL1' '             BYPASS GENERATE PROCESSOR (Y / N)
+SM2RBDLP  DC    CL1' '             BYPASS DELETE PROCESSOR   (Y / N)
+SM2RSYNC  DC    CL1' '             SYNC OPTION SPECIFIED     (Y / N)
+SM2RONCP  DC    CL1' '             DELETE ONLY COMPONENTS    (Y / N)
+SM2RMVWH  DC    CL1' '             MOVE/TRANSFER W/ HISTORY  (Y / N)
+SM2RAWUP  DC    CL1' '             ADD W/ UPDATE OPTION      (Y / N)
+SM2RPGRP  DC    CL8' '             PROCESSOUR GROUP OVERRIDE
+SM2RSIUS  DC    CL8' '             SIGNOUT TO USERID
+SM2REMCH  DC    CL1' '             VALIDATE ACT - ELEMENT MASTER CHK
+SM2RSYCH  DC    CL1' '             VALIDATE ACT - SYNCHRONIZATION CHK
+SM2RCMCH  DC    CL1' '             VALIDATE ACT - COMP VALIDATION CHK
+SM2RTMSG  DC    CL1' '             VALIDATE ACT - TERSE MESSAGES
+SM2RAUTG  DC    CL1' '             AUTOGEN OPT FOR ADD, UPD, AND GEN
+SM2RAUTX  DC    CL1' '             AUTOGEN ON BEHALF OF A COMPONENT
+SM2RNSRC  DC    CL1' '             ELEMENT SOURCE-LESS FLAG
+SM2RSPAN  DC    CL1' '             AUTOGEN SPAN OPTION (N/A/S/B)
+          DC    CL12' '            ** RESERVED **
+SM2RDATA DS    0F
+SM2REQLN EQU   *-SM2REQDS          LENGTH OF PROCESS BLOCK              01550001
+          MEND                                                          00360000

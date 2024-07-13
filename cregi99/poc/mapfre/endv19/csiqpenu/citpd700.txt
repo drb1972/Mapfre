@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ USS Mapping Rule Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a USS mapping rule for display or update.
++
+%DESTINATION+- The destination for which the displayed mapping rule is defined.
++
+%STATUS+- Indicates the host path transmission status as follows:
+%  MAPPED  +- The host path name is mapped to a remote path name and files in
++             the host path will be transmitted to the remote destination.
+%  EXCLUDED+- The REMOTE PATH NAME is%blank+indicating that files in the host
++             path will be excluded from transmission.
++
+%HOST PATH NAME+- The host path name for this mapping rule.
++
+%UPDATED+- The date this mapping rule was last updated.
++
++
++
++
++
++
++                               %PF3+to return
+)END

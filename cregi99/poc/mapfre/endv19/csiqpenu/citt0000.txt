@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Tutorial \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Endevor provides an integrated set of management tools used
++to automate, control and monitor your application development process.
++
++This tutorial provides information about product concepts
++and functions.
++
++    Select one of the options listed below for more information:
++
+%    1+- Product usage ideas       %6+- Footprints
+%    2+- Inventory structure       %7+- Packages
+%    3+- Mapping                   %8+- Summary of changes for current release
+%    4+- Working with elements     %9+- Summary of changes for previous release
+%    5+- Signin/Signout
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT1000 2,CITT2000 3,CITT3000 4,CITT4000
+                  5,CITT5000 6,CITT6000 7,CITT7000 8,CITJ0000 9,CITORELS)
+)END

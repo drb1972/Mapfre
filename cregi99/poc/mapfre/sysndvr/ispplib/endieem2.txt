@@ -1,0 +1,40 @@
+)ATTR
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*-----------------------------------------------------------------------*/
+   % TYPE(TEXT) INTENS(HIGH)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+   @ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF)
+   ^ TYPE(OUTPUT) CAPS(OFF)       FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+%------------------- Master Display for Element¢EMNAME    %------+Panel 2 of 2
+%Command ===>_ZCMD                                                             +
++
++Environment..!EMENV   + Processor Group.!EPRGRP  + Signout ID.!EOWNRID +
++System.......!EMSYS   + VVLL............!ECVL +    N/S........!EMSRCD  +
++Subsystem....!EMSBS   + Last Action.....!ELSTACT +
++Type.........!EMTYPE  +
++Stage........!Z+
+%---------------------------------- Retrieve -----------------------------------
++UserID.......!EMRUID  + Date/Time..!EMRD   !EMRT +  CCID..........^ERCCID
++Comment......`EMRCOM                                 +
++To DS Name...@ETDSN                                              +
+%------------------------------------ Base -------------------------------------
++UserID.......!EMBUID  + Date/Time..!EMBDTE !EMBT +
++Comment......`EMBCOM                                 +
+%------------------------------- Component List --------------------------------
++VVLL............!Z    + Delta Format...!Z+
+%-------------------------------- From Location --------------------------------
++Environment..!EFENV   + Element..........!EFELM     +
++System.......!EFSYS   + VVLL.............!EFVVLL+
++Subsystem....!EFSBS   + Date/Time........!EFD    !EFT  +
++Type.........!EFTYPE  + Action...........!ELFRACT +
++Stage........!Z+        UserID...........!EFUID   +
++                      Press ENTER for the previous panel
+)INIT
+  .ZVARS = '(EMSTGID ECMPVL EMCMPFMT EFSTG#)'
+  .HELP = CITSED00
+)END

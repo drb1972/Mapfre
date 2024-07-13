@@ -1,0 +1,66 @@
+         MACRO
+         ENHAEPRE &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        PRINT ELEMENT - REQUEST BLOCK                                *
+*                                                                     *
+***********************************************************************
+AEPRE_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+AEPRE_RQ$EYE    EQU C'EPEQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AEPRE_RQ
+         SPACE ,
+AEPRE_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEPRE_RQ_DATA
+*                 ELEMENT DATA
+AEPRE_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEPRE_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+AEPRE_RQ_VERSION  DC CL2' '            VERSION (1-99)
+AEPRE_RQ_LEVEL    DC CL2' '            LEVEL (0-99)
+*                 FROM LOCATION DATA
+AEPRE_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEPRE_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEPRE_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEPRE_RQ_TYPE     DC CL8' '            TYPE NAME
+AEPRE_RQ_STG_ID   DC CL1' '            STAGE ID
+AEPRE_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 TARGET LOCATION DATA
+AEPRE_RQ_DDN      DC CL8' '            FILE OR DD NAME
+*                 ACTION OPTIONS
+AEPRE_RQ_NOCC       DC CL1' '          SUPPRESS PRINTING OF HDR (Y/N)
+AEPRE_RQ_COMP       DC CL1' '          PRINT COMPONENT DATA (Y/N)
+AEPRE_RQ_PRT_OPT    DC CL1' '          PRINT OPTION (B,C,H,M,S,L)
+AEPRE_RQ_SEARCH     DC CL1' '          SEARCH MAP (Y/N)
+AEPRE_RQ_INTRTST  DC CL1' '            FOR INTERTEST BATCH USE ONLY
+         ORG      AEPRE_RQ_INTRTST
+AEPRE_RQ_READONLY DS X                 FOR REQUESTING READ-ONLY ACCESS
+AEPRE_RQ_RESERVE    DC CL2' '          ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AEPRE_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AEPRE_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AEPRE_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AEPRE_RQ_VER#1_DATADSLN EQU *-AEPRE_RQ_DATA
+AEPRE_RQ_VER#1_DSLN     EQU *-AEPRE_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+AEPRE_RQ_LISTSTR  DC CL8' '            TEXT FOR DETERMINING LIST DSN
+         SPACE ,
+AEPRE_RQ_VER#2_DATADSLN EQU *-AEPRE_RQ_DATA
+AEPRE_RQ_VER#2_DSLN     EQU *-AEPRE_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+AEPRE_RQ_DATADSLN EQU *-AEPRE_RQ_DATA
+AEPRE_RQ_DSLN     EQU *-AEPRE_RQ
+         ORG      AEPRE_RQ_DATA
+AEPRE_RQ_DATAAREA DS XL(AEPRE_RQ_DATADSLN)     DATA AREA
+         MEND

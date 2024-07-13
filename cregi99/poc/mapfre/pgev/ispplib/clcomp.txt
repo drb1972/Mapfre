@@ -1,0 +1,114 @@
+)ATTR DEFAULT(%+_)
+ +   TYPE(TEXT) INTENS(LOW) SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(&VARQEPIN)
+ | TYPE(OUTPUT) INTENS(LOW)
+ ¯ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ _ TYPE(INPUT) INTENS(HIGH) CAPS(OFF)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ! TYPE(&VARQETY )  CAPS(ON) INTENS(&VARQEIN )
+ @ TYPE(&VARQETY )  CAPS(OFF) INTENS(&VARQEIN )
+)BODY EXPAND(\\)
+%\-\ Component List Compare \-\
+%Command ===>_ZCMD
++
++New Location
++  SUBSYSTEM¢===>!Z  +
++  ELEMENT  ¢===>@NEWELE                                              +
++  TYPE     ¢===>!NEWTYP  +
++  STAGE    ¢===>!Z+
++  VVLL     ¢===>!Z   +(nnnn, VVLL of Component List, Optional)
++
++Old Location (Leaving field blank will default to equivalent NEW field)
++  SUBSYSTEM¢===>!Z  +
++  ELEMENT  ¢===>@OLDELE                                              +
++  TYPE     ¢===>!OLDTYP  +
++  STAGE    ¢===>!Z+
++  VVLL     ¢===>!Z   +(nnnn, VVLL of Component List, Optional)
+
++Display Options:
++  Differences Only           :!Z+Input Components           :!Z+
++  Related Objects            :!Z+Output Components          :!Z+
++  Processor Group Information:!Z+Processor Group Symbolics  :!Z+
++Mode Foreground / Batch:!Z+(F/B)  Output Browse / View:!Z+(B/V)
+)INIT
+ .HELP = CLCOMPH
+ .ZVARS = '(NEWSBS NEWSTG NEWVVLL +
+            OLDSBS OLDSTG OLDVVLL +
+            CLDO CLIC CLRO CLOC CLPGI CLPGS MODE CLBV)'
+ VGET (NEWENV NEWSTG NEWSYS NEWSBS NEWTYP OLDENV OLDSTG OLDSYS OLDSBS OLDTYP)
+ IF  (&MODE EQ ' ')
+   &MODE = 'F'
+ IF  (&CLDO EQ ' ')
+   &CLDO = 'Y'
+ IF  (&CLBV EQ ' ')
+   &CLBV = 'B'
+ IF  (&CLPGI EQ ' ')
+   &CLPGI = 'N'
+ IF  (&CLPGS EQ ' ')
+   &CLPGS = 'N'
+ IF  (&CLRO EQ ' ')
+   &CLRO = 'Y'
+ IF  (&CLOC EQ ' ')
+   &CLOC = 'N'
+ IF  (&CLIC EQ ' ')
+   &CLIC = 'Y'
+ &STAGES = 'A B C D E F O P T U'
+ &ENVS   = 'UNIT SYST ACPT PROD UTIL'
+)PROC
+&NEWENV = TRANS (&NEWSTG A,UNIT B,UNIT C,SYST D,SYST *,&NEWENV)
+&NEWENV = TRANS (&NEWSTG E,ACPT F,ACPT *,&NEWENV)
+&NEWENV = TRANS (&NEWSTG O,PROD P,PROD T,UTIL U,UTIL *,&NEWENV)
+&NEWSYS = TRUNC (&NEWSBS,2)
+VER (&NEWELE,NB)
+IF  (VER (&NEWELE,LEN,'<',9) )
+  &NEWELE = UPPER(NEWELE)
+  VER (&NEWELE,NAME)
+VER (&NEWSTG,NB,LISTV,&STAGES)
+VER (&NEWSBS,NB,LEN,'=',3)
+VER (&NEWSBS,NAME)
+IF  (VER (&NEWVVLL,NB) )
+  VER (&NEWVVLL,LEN,'=',4)
+VER (&NEWVVLL,NUM)
+VER (&NEWTYP,NB,NAME)
+IF  (&OLDSBS EQ ' ')
+  &OLDSBS = &NEWSBS
+IF  (&OLDTYP EQ ' ')
+  &OLDTYP = &NEWTYP
+&OLDENV = TRANS (&OLDSTG A,UNIT B,UNIT C,SYST D,SYST *,&OLDENV)
+&OLDENV = TRANS (&OLDSTG E,ACPT F,ACPT *,&OLDENV)
+&OLDENV = TRANS (&OLDSTG O,PROD P,PROD T,UTIL U,UTIL *,&OLDENV)
+&OLDSYS = TRUNC (&OLDSBS,2)
+VER (&OLDSTG,NB,LISTV,&STAGES)
+IF  (&OLDELE EQ ' ')
+  &OLDELE = &NEWELE
+VER (&OLDELE,NB)
+IF  (VER (&OLDELE,LEN,'<',9) )
+  &OLDELE = UPPER(OLDELE)
+  VER (&OLDELE,NAME)
+VER (&OLDSBS,NB,LEN,'=',3)
+VER (&OLDSBS,NAME)
+IF  (VER (&NEWVVLL,NB) )
+  VER (&NEWVVLL,LEN,'=',4)
+VER (&OLDVVLL,NUM)
+VER (&OLDTYP,NB,NAME)
+&MODE = TRANS(TRUNC(&MODE,1) F,FOREGROUND B,BATCH *,*)
+&CLPGI = TRANS(TRUNC(&CLPGI,1) Y,YES N,NO *,*)
+&CLPGS = TRANS(TRUNC(&CLPGS,1) Y,YES N,NO *,*)
+&CLRO = TRANS(TRUNC(&CLRO,1) Y,YES N,NO *,*)
+&CLIC = TRANS(TRUNC(&CLIC,1) Y,YES N,NO *,*)
+&CLOC = TRANS(TRUNC(&CLOC,1) Y,YES N,NO *,*)
+&CLDO = TRANS(TRUNC(&CLDO,1) Y,YES N,NO *,*)
+&CLBV = TRANS(TRUNC(&CLBV,1) B,BROWSE V,VIEW *,*)
+VER (&CLDO,NB,LIST,YES,NO)
+VER (&CLIC,NB,LIST,YES,NO)
+VER (&CLRO,NB,LIST,YES,NO)
+VER (&CLOC,NB,LIST,YES,NO)
+VER (&CLPGI,NB,LIST,YES,NO)
+VER (&CLPGS,NB,LIST,YES,NO)
+VER (&MODE,NB,LIST,FOREGROUND,BATCH)
+VER (&CLBV,NB,LIST,BROWSE,VIEW)
+&ZTRAIL = .TRAIL
+VPUT (NEWENV NEWSTG NEWSYS NEWSBS NEWTYP +
+      OLDENV OLDSTG OLDSYS OLDSBS OLDTYP) PROFILE
+)END

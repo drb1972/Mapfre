@@ -1,0 +1,34 @@
+)ATTR DEFAULT(%+_)
+  @   TYPE(OUTPUT) INTENS(LOW)
+  %   TYPE(TEXT) INTENS(HIGH)
+  +   TYPE(TEXT) INTENS(LOW) SKIP(ON)
+  _   TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+  !   TYPE(INPUT)  INTENS(HIGH) CAPS(ON)  JUST(LEFT)
+      PAD(_)
+)BODY EXPAND(\\)
++\-\%RBS Gener/ol Object selection list+\-\
+%COMMAND ===>_ZCMD            \ \          %SCROLL = =>_AMT +
+%
++Press %PF3+ to exit
++
+%S+   to select Gener/OL objects to be promoted
+%S *+ to select all Gener/OL objects displayed on the screen
++
++Type %DONE+ on the command line to build promote job
++
+%                 OBJECT    TYPE      SUBLIB      SGTLIB    TEAM   CMR
++
+)MODEL
+!y+@w            @cmpnam   @cmptyp   @sublib     @sgtlib   @adt   @cmrno
+)INIT
+ &y = ' '  &zcmd = &z &d = ' '
+ .cursor = zcmd
+)REINIT
+ if (.msg = ' ')
+    &d = ' '
+    &y = ' '
+    refresh(y)
+)PROC
+  if (&ztdsels ^= '0000')
+       VER(&y,LIST,S,' ')
+)END

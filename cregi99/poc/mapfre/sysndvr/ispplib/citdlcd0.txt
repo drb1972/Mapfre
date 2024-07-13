@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Collect Date/Time \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Collect Date+- The date on which the DistribuLink MVS server
++   should start the collection process. The format can be mm/dd/yy
++   or ddMONyy (where MON is the first 3 characters of the month).
++   This field is optional. The default is current date.
++
+%Collect Time+- The time at which the DistribuLink MVS server
++   should start the collection process. The format must be hh:mm.
++   This field is optional. The default is current time.
++
++
++
++
++                                            (%PF3+to return)
+)END

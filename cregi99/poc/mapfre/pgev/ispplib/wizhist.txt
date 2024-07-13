@@ -1,0 +1,28 @@
+)ATTR default(%{_)
+@ type(output) intens(low) COLOR(green)
+} TYPE(TEXT) COLOR(YELLOW) SKIP(ON)
+% TYPE(TEXT) COLOR(TURQ)
+{ TYPE(TEXT) COLOR(BLUE) SKIP(ON)
+^ TYPE(TEXT) COLOR(RED) type(output) caps(off)
+¢ TYPE(INPUT) COLOR(PINK) PAD(_)
+Ý TYPE(text) COLOR(RED)
+)BODY WINDOW(80,20) EXPAND(!!)
+} !-! Change History !-!
+%Command ===>_ZCMD                                            %Scroll ===>_Z   +
+%
+%
+}   Select one of the changes listed or pressÝPF3}
+%  Sel  Name      Type       Sys   Date added  Action     CCID
+{  ---  --------  --------   --    ----------  ---------  --------
+)MODEL
+   ¢Z} @name     @type      @sys  @date       @act       @ccid
+)INIT
+ .ZVARS= '(Zamt SELECT)'
+ VGET (ZAMT) PROFILE
+ if (&zamt = ' ') &zamt = 'PAGE'
+ &SELECT = ' '
+)REINIT
+  refresh(select,zamt)
+)PROC
+ VPUT (ZAMT) PROFILE
+)END

@@ -1,0 +1,111 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PADC(_)
+   @ TYPE(OUTPUT) INTENS(LOW) CAPS(ON) JUST(LEFT)
+   ¬ AREA(SCRL)  EXTEND(ON)
+   { TYPE(PS)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Dialog Defaults \-\
+%Command ===>_VARWKCMD                                                         +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++Work Data Set Allocation Information:  List Data Set Allocation Information:
++  Primary Quantity. . . . ._Z  +         Primary Quantity . . . . . . ._Z  +
++  Secondary Quantity. . . ._Z  +         Secondary Quantity . . . . . ._Z  +
++  Unit Name . . . . . . . ._C1WU    +    Record length. . . . . . . . ._Z    +
++  Space Units . . . . . . ._C1W+
++  Volume Serial . . . . . ._C1WV  +
++
++Foreground Options:                    Dynamic Panel Options:
++  ISPF Browse/View Mode . ._Z+ (V/B)     Layout (L-Long/S-Short). . . ._Z+(L/S)
+<SELECT>
+<WHEN &VNTCCOLS=E>
++                                         Hide Dialog Prompt Text. . . ._Z+(Y/N)
+<OTHERWISE>
++  Element Column Width. . ._Z +(8-30)    Hide Dialog Prompt Text. . . ._Z+(Y/N)
+</SELECT>
++                                         Hide User Routine Prompt Text._Z+(Y/N)
++Component List Information:
++  Listing Dataset String. ._EEVLLCHR+
++
++Show messages when RC is greater than or equal to. ._Z +(0-16)
++
++Job Statement Information:
+% ===>_C1BJC1                                                                  +
+% ===>_C1BJC2                                                                  +
+% ===>_C1BJC3                                                                  +
+% ===>_C1BJC4                                                                  +
++
++
++
++\ \ (Press{ENTER+to continue or{END+to exit) \ \
+)INIT
+  .HELP= ENDHEO00
+<SELECT>
+<WHEN &VNTCCOLS=E>
+  .ZVARS = '(C1WP C1PP C1WS C1PS C1PL VARBRWVW +
+             VNTUIELM VNTUIHID VNTQUSRH C1MSGRC)'
+<OTHERWISE>
+  .ZVARS = '(C1WP C1PP C1WS C1PS C1PL VARBRWVW +
+             VNTUIELM VNTECOL VNTUIHID VNTQUSRH C1MSGRC)'
+</SELECT>
+  &CFGUIELM = '&VNTUIELM'   /* Save the CONFIG values and apply them if */
+  &CFGUIHID = '&VNTUIHID'   /* not saved in the profile yet...          */
+  VGET (VNTUIELM VNTUIHID) PROFILE
+  if (&VNTUIELM='')
+      &VNTUIELM='&CFGUIELM'
+  if (&VNTUIHID='')
+      &VNTUIHID='&CFGUIHID'
+  IF (&C1BJC1 = ' ' & &C1BJC2 = ' ' & &C1BJC3 = ' ' & &C1BJC4 = ' ')
+    &C1BJC1 = '&C1PJC1'
+    &C1BJC2 = '&C1PJC2'
+    &C1BJC3 = '&C1PJC3'
+    &C1BJC4 = '&C1PJC4'
+/* set a basic template to let the user fill in if jobcard still blanks */
+  IF (&C1BJC1 = ' ' & &C1BJC2 = ' ' & &C1BJC3 = ' ' & &C1BJC4 = ' ')
+    &C1BJC1 = '//&ZUSER.A JOB (&ZACCTNUM),''PGMR NAME'', '
+    &C1BJC2 = '//         CLASS=A,MSGCLASS=X,NOTIFY=&&SYSUID'
+    &C1BJC3 = '//*'
+    &C1BJC4 = '//*'
+)PROC
+   if (&VARWKCMD = 'END')
+       &VARWKCMD = ' '
+       .RESP = END
+
+   VGET (MYBYPASS) Shared /* Check current setting of bypass       */
+   if (&MYBYPASS = 'Y')   /* was bypass set on prompt panel?       */
+       &MYBYPASS = 'N'    /* Turn it off again because we're back  */
+       VPUT (MYBYPASS) Shared /* and user might change their mind  */
+
+   VER (&C1WP,NUM,MSG=ENDE070E)
+   VER (&C1WP,RANGE,1,255,MSG=ENDE071E)
+   VER (&VARBRWVW,LIST,B,V,MSG=CISO012)
+   VER (&C1WS,NUM,MSG=ENDE070E)
+   VER (&C1WS,RANGE,1,255,MSG=ENDE071E)
+
+   VER (&C1PP,NUM,MSG=ENDE070E)
+   VER (&C1PP,RANGE,1,255,MSG=ENDE071E)
+   VER (&C1PS,NUM,MSG=ENDE070E)
+   VER (&C1PS,RANGE,1,255,MSG=ENDE071E)
+   VER (&C1PL,NUM,MSG=ENDE070E)
+   VER (&C1PL,RANGE,0,32756,MSG=ENDE201E)
+
+   VER (&C1MSGRC,NUM,MSG=ENDE073E)
+   VER (&C1MSGRC,RANGE,0,16,MSG=ENDE073E)
+
+   VER (&VNTECOL,NUM,MSG=ENDE203E)
+   VER (&VNTECOL,RANGE,8,30,MSG=ENDE203E)
+   VER (&VNTUIELM,NB,LIST,L,S)
+   VER (&VNTUIHID,NB,LIST,Y,N)
+   VER (&VNTQUSRH,NB,LIST,Y,N)
+   VPUT (VNTUIELM VNTUIHID VNTQUSRH) PROFILE
+   VPUT (C1BJC1 C1BJC2 C1BJC3 C1BJC4) PROFILE
+)FIELD
+ FIELD(VARWKCMD) SCROLL(NO)  LEN(255)
+)PNTS
+ FIELD(ZPS01001) VAR(VARWKCMD) VAL(' ')
+ FIELD(ZPS01002) VAR(VARWKCMD) VAL(END)
+)END

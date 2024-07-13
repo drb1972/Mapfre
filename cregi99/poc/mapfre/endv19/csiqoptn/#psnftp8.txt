@@ -1,0 +1,11 @@
+@REM ****************************************************** #PSNFTP8 ***
+@REM *    CONTENTS: ENDEVOR/MVS - FINISH PROCESSING DESTINATION
+@REM * TRANSMITTER: NETVIEW FILE TRANSFER PROGRAM (FTP)
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO
+@REM *              AND EXECUTE THE HOST CONFIRMATION JCL.  FOR A
+@REM *              DETAILED FLOW DESCRIPTION, REFER TO #PSNFTP1.
+@REM *******************************************************************
+@REM
+@PASS=10
+@INCLUDE=(E)
+&HCONFJCL

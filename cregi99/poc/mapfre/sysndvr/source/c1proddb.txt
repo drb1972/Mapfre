@@ -1,0 +1,501 @@
+         MACRO
+&LABEL   C1PRODDB &DDN=,&DSN=,&MBR=,                                   X
+               &DISP1=,&DISP2=,&DISP3=,                                X
+               &UNIT=,&VOLSER=,&VOLDSN=,&SPCTYP=,&PRIM=,&SEC=,&DIR=,   X
+               &RECFM=,&LRECL=,&BLKSIZE=,&DSORG=,&BUFL=,&DCBDSN=,      X
+               &SYSOUT=,&COPIES=,&RLSE=,&FREE=,&ENQ=,&FCB=,            X
+               &CONTIG=,&MONITOR=NO,&BUFNO=,&KEYLEN=,&DEST=
+         LCLA  &WMONITR
+         LCLB  &BSYSOUT
+         LCLC  &CSECT
+         LCLC  &WDDN,&WDSN,&WMBR,&WDISP1,&WDISP2,&WDISP3,&WUNIT
+         LCLC  &WVOLSER,&WVOLDSN
+         LCLC  &WSPCTYP,&WPRIM,&WSEC,&WDIR,&WRECFM,&WLRECL
+         LCLC  &WBLKSIZ,&WDSORG,&WBUFL,&WSYSOUT,&WCOPIES,&WDCBDSN
+         LCLC  &WRLSE,&WFREE,&WNQDQ,&WFCB,&WINTRDR,&WALIGN,&WVERIFY
+         LCLC  &WCONTG,&WFORMS,&WBUFNO,&WDEST,&WKEYLEN,&WRITER
+         GBLC  &GPGM,&DDBSI#,&DDBSIP,&DSCNT#L                           00170001
+         GBLA  &DSCNT                                                   00180001
+.*                                                                      00190001
+.*  INCREMENT DSN COUNT AND ORG VALUE OVER C1PRODDA COUNT FIELD         00200001
+.*                                                                      00210001
+&DSCNT   SETA  &DSCNT+1                                                 00220001
+         ORG   &DSCNT#L                                                 00230001
+         DC    AL1(&DSCNT)                                              00240001
+         ORG                                                            00250001
+&CSECT   SETC  '&SYSECT'
+.*********************************************************
+.*  06/09/86 ADDITIONS - TNS -                           *
+.*                                                       *
+.*  1. RLSE= PARAM AND FREE=  PARAM USE SEPARATED BITS   *
+.*     IN THE SAME BYTE                                  *
+.*       BIT 0 - 0 ==> RLSE=N    1 ==> RLSE=Y            *
+.*       BIT 1 - 1 ==> ALIGN                             *
+.*       BIT 2 - 1 ==> VERIFY                            *
+.*       BIT 3 - 1 ==> INTRDR                            *
+.*       BIT 4 - 1 ==> CONTIG            07/06/87 - SMV  *
+.*       BIT 5 - 1 ==> PERFORM ENQ/DEQ   06/19/86 - PGM  *
+.*       BIT 6 - 1 ==> FREE=END                          *
+.*       BIT 7 - 1 ==> FREE=CLOSE                        *
+.*                                                       *
+.*   2. DIRECTORY BLOCK QUANTITY WILL BE 1 BYTE BINARY.  *
+.*      IF VALUE IS OVER 255, WE WILL SET IT TO 255      *
+.*      AND GENERATE A WARNING-LEVEL MNOTE.              *
+.*   3. UNTIL WE DEVELOP A FLEXIBLE-FORMAT TABLE SCHEME, *
+.*      WE WILL GENERATE AN ERROR-LEVEL MNOTE IF         *
+.*      VOLDSN= IS CODED.                                *
+.*                                                       *
+.*                                                       *
+.* 08/20/86 ADDITIONS - TNS --                           *
+.*  1. ADD SUPPORT FOR FCB AND SYSOUT=(-,INTRDR)         *
+.* 07/06/87           - S.VELLOFF --                     *
+.*  2. SUPPORT CONTIG OPTION ON SPACE PARAMETER          *
+.* 10/05/87           - S.VELLOFF --                     *
+.*  3. DEFAULT C1BANNER AND C1PRINT TO                   *
+.*     DCB=(RECFM=FBA,LRECL=121,BLKSIZE=6171,DSORG=PS)   *
+.*     IF NOT SPECIFIED                                  *
+.*  4. SCREENING SUPPORT (MONITOR=COMPONENTS)            *
+.* 03/30/88           - B.POCOCK --                      *
+.*  5. ADD SUPPORT FOR:                                  *
+.*        WRITER NAME IN SYSOUT                          *
+.*        FORMS IN SYSOUT                                *
+.*        DEST                                           *
+.*        BUFNO                                          *
+.*        KEYLEN                                         *
+.*                                                       *
+.*                                                       *
+.*********************************************************
+.*
+&WDDN    SETC  '&DDN'
+&WDSN    SETC  '&DSN'
+&WMBR    SETC  '&MBR'
+&WDISP1  SETC  '&DISP1'
+&WDISP2  SETC  '&DISP2'
+&WDISP3  SETC  '&DISP3'
+&BSYSOUT SETB  ('&SYSOUT' NE '')
+.**********************************************************************
+.*   DISP1                                                            *
+.**********************************************************************
+         AIF    ('&DISP1' EQ 'NEW').SETNEW
+         AIF    ('&DISP1' EQ '').SETNEW
+         AGO    .NOTNEW
+.*
+         ACTR  1000
+.*
+.*
+.**********************************************************************
+.*   DISP1 = NEW                                                      *
+.**********************************************************************
+.SETNEW  ANOP
+&WDISP1  SETC   'NEW'                      N
+.* IF HERE, DISP IS EXPLICITLY OR IMPLICITLY 'NEW'.
+.* IF DISP2 OMITTED, SET IT TO 'DELETE'.
+.* IF DISP3 OMITTED, SET IT TO 'DELETE'.
+         AIF    ('&DISP2' NE '').GTDISP2
+         AIF    ('&WDISP1' EQ 'NEW').GTDSP2A
+&WDISP2  SETC   'KEEP'                   ^ NEW ==> DEFAULT OF KEEP
+.* NO MNOTE IF THIS IS A SYSOUT STMT
+         AIF    (&BSYSOUT).GTDISP2
+         MNOTE  *,'DEFAULTING DISP2 TO KEEP DUE TO &WDISP1 ALLOCATION'
+         AGO    .GTDISP2
+.GTDSP2A ANOP
+&WDISP2  SETC   'DELETE'                   NEW ==> DEFAULT OF DELETE
+.* NO MNOTE IF THIS IS A SYSOUT STMT
+         AIF    (&BSYSOUT).GTDISP2
+         MNOTE  *,'DEFAULTING DISP2 TO DELETE DUE TO NEW ALLOCATION'
+.GTDISP2 ANOP
+         AIF    ('&WDISP2' NE 'DELETE').DIS3OK
+         AIF    ('&DISP3' NE '').DIS3OK
+&WDISP3  SETC   'DELETE'                   NEW ==> DEFAULT OF DELETE
+.* NO MNOTE IF THIS IS A SYSOUT STMT
+         AIF    (&BSYSOUT).DIS3OK
+         MNOTE  *,'DEFAULTING DISP3 TO DELETE DUE TO NEW ALLOCATION'
+.DIS3OK  ANOP
+.* UNLESS DISP1 IS EXPLICITLY 'NEW', OR DSN INDICATES TEMPORARY,
+.* DO NOT ALLOW DISP2/3 TO BE EITHER EXPLICITLY OR IMPLICITLY
+.* DELETE -- ERROR IF SO.
+         AGO   .NOTNEW                        GO CHECK IF DISP1 NOT NEW
+         AIF   ('&WDSN' EQ '').DISPSOK        SKIP IF NO DSN
+         AIF   ('&WDSN'(1,1) LT '$').DISPSOK  SKIP IF TEMP DSN
+         AIF   ('&WDISP1' EQ 'NEW').DISPSOK   NO CHK IF EXPLICITLY NEW
+         AIF ('&WDISP2' NE 'DELETE' AND '&WDISP3' NE 'DELETE').DISPSOK
+         MNOTE 12,'** ERROR - CANNOT SPECIFY OR DEFAULT DISP2/DISP3 **'
+         MNOTE 12,'**         TO -DELETE- WITH PERMANENT DATASET    **'
+         MNOTE 12,'**         UNLESS DISP1 PARAM EXPLICTLY -NEW-.   **'
+         AGO   .DISPSOK
+.**********************************************************************
+.*   DISP1 NOT = NEW                                                  *
+.**********************************************************************
+.NOTNEW  ANOP
+         AIF   ('&WDSN' EQ '').DISPSOK         SKIP IF NO DSN
+         AIF   ('&WDSN'(1,1) LT '$').DISPSOK   SKIP IF TEMP DSN
+         AIF   ('&DISP2' EQ '').NOTNW20        DISP2 NOT SPECIFIED
+.NOTNW10 ANOP
+         AIF   ('&DISP3' EQ '').NOTNW30        DISP3 NOT SPECIFIED
+         AGO   .DISPSOK                        FINISHED CHECKING DISP
+.NOTNW20 ANOP
+         AIF   ('&WDISP1' EQ 'NEW').NOTNW22    IF DISP1=NEW, DISP2=DEL
+&WDISP2  SETC  'KEEP'                          DEFAULT DISP2 TO KEEP
+         AGO   .NOTNW10                        CHECK FOR DISP3
+.NOTNW22 ANOP
+&WDISP2  SETC  'DELETE'                        DEFAULT DISP2 TO DELETE
+         AGO   .NOTNW10                        CHECK FOR DISP3
+.NOTNW30 ANOP
+&WDISP3  SETC  '&WDISP2'                       DEFAULT DISP3 TO KEEP
+         AGO   .DISPSOK                        FINISHED CHECKING DISP
+.*
+.**********************************************************************
+.*   FINISHED WITH DISP CHECKING                                      *
+.**********************************************************************
+.DISPSOK ANOP
+.*
+.* START OF MFS MODS                                                    01520001
+.*
+         AIF (('&WDISP1' EQ 'SHR') AND ('&DDN' EQ 'REFIN')).OLDDISP     01540001
+         AIF (('&WDISP1' EQ 'SHR') AND ('&DDN' EQ 'REFOUT')).OLDDISP    01550001
+         AIF (('&WDISP1' EQ 'SHR') AND ('&DDN' EQ 'REFRD')).OLDDISP     01560001
+         AGO   .NOTOLD                                                  01570001
+.OLDDISP ANOP                                                           01580001
+&WDISP1  SETC 'OLD'                                                     01590001
+.NOTOLD ANOP                                                            01600001
+.*                                                                      01610001
+.* END OF MFS MODS                                                      01620001
+.*                                                                      01630001
+&WUNIT   SETC  '&UNIT'
+&WVOLSER SETC  '&VOLSER'
+.*
+.*
+         AIF   ('&SPCTYP' EQ '').NOSPTCK
+.* ENSURE SPACE TYPE IS NUMERIC, OR TRK OR CYL
+         AIF   (T'&SPCTYP EQ 'N').SETSPCT  OK IF SPACE TYPE NUMERIC
+         AIF   ('&SPCTYP' EQ 'TRK' OR '&SPCTYP' EQ 'TRKS').SETSPCT
+         AIF   ('&SPCTYP' EQ 'CYL' OR '&SPCTYP' EQ 'CYLS').SETSPCT
+.* IF HERE, SPACE TYPE PARAM IS NO GOOD
+      MNOTE 12,'** ERROR - SPACE TYPE MUST BE NUMERIC, TRK OR CYL **'
+         AGO   .NOSPTCK
+.SETSPCT ANOP
+&WSPCTYP SETC  '&SPCTYP'
+.NOSPTCK ANOP
+.*
+.*
+&WPRIM   SETC  '&PRIM'
+&WSEC    SETC  '&SEC'
+&WRECFM  SETC  '&RECFM'
+&WLRECL  SETC  '&LRECL'
+&WBLKSIZ SETC '&BLKSIZE'
+&WDSORG  SETC  '&DSORG'
+&WBUFL   SETC  '&BUFL'
+&WBUFNO  SETC  '&BUFNO'
+&WKEYLEN SETC  '&KEYLEN'
+&WCOPIES SETC  '&COPIES'
+&WDCBDSN SETC  '&DCBDSN'
+&WDEST   SETC  '&DEST'
+.*
+.*
+.* DIR=   DIRECTORY BLKS
+&WDIR    SETC  '0'            IN CASE DIR NOT SPCFD
+         AIF   ('&DIR' EQ '').NODIR
+         AIF   (T'&DIR EQ 'N').CHKDIR
+         MNOTE 12,'** ERROR - DIR MUST SPECIFY NUMERIC VALUE **'
+         AGO   .NODIR
+.CHKDIR  ANOP  ENSURE NOT OVER 255, ELSE SET AT 255, MNOTE WARNING
+         AIF   ('&DIR' LE '255').SETDIR
+         MNOTE 4,'** WARNING - DIR VALUE SET TO MAX VALUE OF 255 **'
+&WDIR    SETC  '255'
+         AGO   .NODIR
+.SETDIR  ANOP
+&WDIR    SETC  '&DIR'
+.NODIR   ANOP
+.*
+.*
+.* VOLDSN=    FOR VOL=DSNAME....
+.* FOR THE MOMENT, WE WILL FLAG THIS OPERAND AND INVALID
+         AIF   ('&VOLDSN' EQ '').NOVOLD
+         MNOTE 12,'** ERROR - VOLDSN PARAM CURRENTLY UNSUPPORTED **'
+.NOVOLD  ANOP
+.*
+.*
+.* ENQ=     IF ENQ NOT = Y THEN NO ENQ/DEQ
+.*          IF ENQ=Y, SET &WNQDQ TO REPRESENT X'04' BIT
+&WNQDQ   SETC  '0'
+         AIF   ('&ENQ' NE 'Y').NOENQ
+&WNQDQ   SETC  '4'                  INDICATE ENQ/DEQ REQUIRED
+.*
+.NOENQ   ANOP
+.*
+.* RLSE=    MUST BE RLSE=N OR Y
+.*          IF RLSE=Y, SET &WRLSE TO REPRESENT X'80' BIT
+&WRLSE   SETC  '0'
+         AIF   ('&RLSE' EQ '' OR '&RLSE' EQ 'N').NORLSE
+&WRLSE   SETC  '128'                ASSUME RLSE=Y
+         AIF   ('&RLSE' EQ 'Y').NORLSE
+         MNOTE 12,'** ERROR - RLSE VALUE MUST BE Y OR N **'
+.NORLSE  ANOP
+.*
+.* CONTIG=  MUST BE RLSE=N OR Y
+.*          IF CONTIG=Y, SET &WRLSE TO REPRESENT X'08' BIT
+&WCONTG  SETC  '0'
+         AIF   ('&CONTIG' EQ '' OR '&CONTIG' EQ 'N').NOCONTG
+&WCONTG  SETC  '8'                  ASSUME CONTIG=Y
+         AIF   ('&CONTIG' EQ 'Y').NOCONTG
+         MNOTE 12,'** ERROR - CONTIG VALUE MUST BE Y OR N **'
+.NOCONTG ANOP
+.*
+.*
+.* FREE=    MUST BE FREE=END OR FREE=CLOSE
+.*          IF FREE=END,   SET &WFREE TO REPRESENT X'02' BIT
+.*          IF FREE=CLOSE, SET &WFREE TO REPRESENT X'01' BIT
+&WFREE   SETC  '0'
+         AIF   ('&FREE' EQ '').NOFREE
+         AIF   ('&FREE' EQ 'END').FREEEND
+         AIF   ('&FREE' EQ 'CLOSE').FREECLO
+         MNOTE 12,'** ERROR - FREE VALUE MUST BE END OR CLOSE **'
+         AGO   .NOFREE
+.FREEEND ANOP
+&WFREE   SETC  '2'
+         AGO   .NOFREE
+.FREECLO ANOP
+&WFREE   SETC  '1'
+.NOFREE  ANOP
+.*
+.*
+         AIF   ('&WDDN' NE '').DSNCHK
+&WDDN    SETC  ' '
+.DSNCHK  ANOP
+         AIF   ('&WDSN' NE '').MBRCHK
+&WDSN    SETC  ' '
+.MBRCHK  ANOP
+         AIF   ('&WMBR' NE '').DSP1CHK
+&WMBR    SETC  ' '
+.DSP1CHK ANOP
+         AIF   ('&WDISP1' NE '').DSP2CHK
+&WDISP1  SETC  ' '
+.DSP2CHK ANOP
+         AIF   ('&WDISP2' NE '').DSP3CHK
+&WDISP2  SETC  ' '
+.DSP3CHK ANOP
+         AIF   ('&WDISP3' NE '').UNITCHK
+&WDISP3  SETC  ' '
+.UNITCHK ANOP
+         AIF   ('&WUNIT' NE '').VOLCHK
+&WUNIT   SETC  ' '
+.VOLCHK  ANOP
+         AIF   ('&WVOLSER' NE '').SPCUCHK
+&WVOLSER SETC  ' '
+.SPCUCHK ANOP
+         AIF   ('&WSPCTYP' NE '').PRMCHK
+&WSPCTYP SETC  ' '
+.PRMCHK  ANOP
+         AIF   ('&WPRIM' NE '').SECCHK
+&WPRIM   SETC  ' '
+.SECCHK  ANOP
+         AIF   ('&WSEC' NE '').RCFMCHK
+&WSEC    SETC  ' '
+.RCFMCHK ANOP
+         AIF   ('&WRECFM' NE '').LRCLCHK
+&WRECFM  SETC  ' '
+.LRCLCHK ANOP
+         AIF   ('&WLRECL' NE '').BLKSCHK
+&WLRECL  SETC  ' '
+.BLKSCHK ANOP
+         AIF   ('&WBLKSIZ' NE '').DSRGCHK
+&WBLKSIZ SETC ' '
+.*
+.*
+.*
+.DSRGCHK ANOP
+         AIF   ('&DSORG' NE '').BUFLCHK
+.* IF THE DATASET IS NEW, THEN WE CANNOT JUST ALLOW DSORG TO
+.* DEFAULT TO SPACE.   IF DATASET IS NEW, WE WILL DEFAULT DSORG TO
+.* 'PS', UNLESS DIRECTORY BLOCKS WERE SPECIFIED, IN WHICH CASE WE
+.* DEFAULT DSORG TO 'PO'.
+&WDSORG  SETC  ' '
+         AIF   ('&DISP1' NE '' AND '&DISP1' NE 'NEW').BUFLCHK
+&WDSORG  SETC  'PS'
+         AIF   (T'&DIR NE 'N' OR  '&DIR' EQ '0').BUFLCHK SKIP
+&WDSORG  SETC  'PO'
+.*
+.*
+.*
+.BUFLCHK ANOP
+         AIF   ('&BUFL' NE '').BUFNOCK
+&WBUFL   SETC  ' '
+.BUFNOCK ANOP
+         AIF   ('&BUFNO' NE '').KEYLNCK
+&WBUFNO  SETC  '0'
+.KEYLNCK ANOP
+         AIF   ('&KEYLEN' NE '').SYSOCHK
+&WKEYLEN SETC  '0'
+.*
+.*
+.*
+.SYSOCHK ANOP
+&WSYSOUT SETC  ' '            IN CASE NULL SYSOUT PARAM VALUE
+&WINTRDR SETC  '0'            IN CASE NULL INTRDR PARAM VALUE
+&WFORMS  SETC  ''             IN CASE NULL FORM PARAM VALUE
+&WRITER  SETC  ''             IN CASE NULL FORM WRITER NAME
+         AIF   ('&SYSOUT' EQ '').FCB1
+         AIF   (N'&SYSOUT GT 3).BADSOUT
+         AIF   ('&SYSOUT(1)' EQ '').INTRCHK
+&WSYSOUT SETC  '&SYSOUT(1)'
+.INTRCHK ANOP
+         AIF   (N'&SYSOUT LT 2).FORMCHK
+         AIF   ('&SYSOUT(2)' EQ '').FORMCHK
+         AIF   ('&SYSOUT(2)' NE 'INTRDR').WTRNAME
+&WINTRDR SETC  '16'     SET &WINTRDR TO X'10' BIT
+         AGO   .FORMCHK
+.WTRNAME ANOP
+&WRITER  SETC  '&SYSOUT(2)'
+         AGO   .FORMCHK
+.BADSOUT ANOP
+         MNOTE 12,'** ERROR - SYSOUT PARAM HAS INVALID FORMAT **'
+         AGO   .FORMCHK
+.*
+.*
+.FORMCHK ANOP
+.*
+.* CHECK IF FORMS WERE SPECIFIED ON SYSOUT STATEMENT
+         AIF   (N'&SYSOUT LT 3).FCB1
+         AIF   ('&SYSOUT(3)' EQ '').FCB1
+&WFORMS  SETC  '&SYSOUT(3)'
+.*
+.FCB1    ANOP
+.* CAN HAVE FCB=----
+.*          FCB=(----,ALIGN)
+.*          FCB=(----,VERIFY)
+&WFCB    SETC  ' '            IN CASE NULL FCB PARAM VALUE
+&WALIGN  SETC  '0'
+&WVERIFY SETC  '0'
+         AIF   ('&FCB' EQ '').CPYSCHK
+         AIF   (K'&FCB(1) GT 4).BADFCB
+         AIF   ('&FCB(1)' EQ '').FCB2
+         AIF   (K'&FCB(1) LT 1).FCB2
+         AIF   (N'&FCB GT 2).BADFCB
+&WFCB    SETC  '&FCB(1)'
+.FCB2    ANOP
+         AIF   (N'&FCB LT 2).CPYSCHK
+         AIF   ('&FCB(2)' EQ '').CPYSCHK
+         AIF   ('&FCB(1)' EQ '').BADFCB
+         AIF   ('&FCB(2)' EQ 'ALIGN').FCBALGN
+         AIF   ('&FCB(2)' NE 'VERIFY').BADFCB
+.* IF HERE, HANDLE VERIFY SUB-PARAM OF FCB PARAM
+&WVERIFY SETC  '32'
+         AGO   .CPYSCHK
+.FCBALGN ANOP  IF HERE, HANDLE ALIGN SUB-PARAM OF FCB PARAM
+&WALIGN  SETC  '64'
+         AGO   .CPYSCHK
+.BADFCB  ANOP
+         MNOTE 12,'** ERROR - FCB PARAM HAS BAD FORMAT **'
+         AGO   .CPYSCHK
+.*
+.*
+.*
+.CPYSCHK ANOP
+         AIF    ('&SYSOUT' NE '').CPYSCH2
+&WMONITR SETA  0
+         AIF   ('&MONITOR' EQ 'NO').END
+&WMONITR SETA  128
+         AGO   .END
+.CPYSCH2 ANOP
+         AIF   ('&COPIES' NE '').END
+&WCOPIES SETC  ' '
+.END     ANOP
+.**********************************************************************
+.*   IF PGM=CONLIST,                                                  *
+.*       DEFAULT DCB OPTIONS IF NOT SPECIFIED FOR C1BANNER AND        *
+.*       C1PRINT.                                                     *
+.**********************************************************************
+         AIF   ('&GPGM' NE 'CONLIST').END0130
+         AIF   ('&WDDN' EQ 'C1BANNER').END0100
+         AIF   ('&WDDN' EQ 'C1PRINT').END0100
+         AGO   .END0900
+.END0100 ANOP
+         AIF   ('&WRECFM' NE ' ').END0110
+&WRECFM  SETC  'FBA'
+.END0110 ANOP
+         AIF   ('&WLRECL' NE ' ').END0120
+&WLRECL  SETC  '121'
+.END0120 ANOP
+         AIF   ('&WBLKSIZ' NE ' ').END0130
+&WBLKSIZ SETC '6171'
+.END0130 ANOP
+.**********************************************************************
+.*   CREATE ASSEMBLER OUTPUT                                          *
+.**********************************************************************
+.END0900 ANOP
+DDB&SYSNDX DC  CL180' '
+         ORG   DDB&SYSNDX
+         DC    CL8'&WDDN'              DDNAME
+         DC    CL44'&WDSN'             DSNAME
+         DC    CL8'&WMBR'              MEMBER
+         DC    CL3'&WDISP1'            STATUS DISPOSITION
+         DC    CL7'&WDISP2'            NORMAL TERMINATION DISPOSITION
+         DC    CL7'&WDISP3'            ABNORMAL TERMINATION DISPOSITION
+         DC    CL8'&WUNIT'              UNIT NAME
+         DC    CL6'&WVOLSER'           VOL SER
+         DC    CL5'&WSPCTYP'           SPACE UNIT TYPE
+         DC    CL5'&WPRIM'             PRIMARY SPACE QUANTITY
+         DC    CL5'&WSEC'              SECONDARY SPACE QUANTITY
+         DC    CL4'&WRECFM'            RECORD FORMAT
+         DC    CL5'&WLRECL'            LOGICAL RECORD SIZE
+         DC    CL5'&WBLKSIZ'           BLOCK SIZE
+         DC    CL2'&WDSORG'            DATA SET ORGANIZATION
+         DC    CL5'&WBUFL'             BUFFER LENGTH
+         DC    CL1'&WSYSOUT'           SYSOUT CLASS
+         AIF    ('&SYSOUT' EQ '').DSALLO
+         DC    CL2'&WCOPIES'           NBR OF SYSOUT COPIES
+         AGO   .CONTDF
+.DSALLO  ANOP
+         DC    AL1(&WMONITR)           SCREEN FLAG
+         DC    AL1(0)                  ** RESERVED **
+.CONTDF  ANOP
+         DC    AL1(&WDIR)              NBR OF DIRECTORY BLKS
+*              RLSE + ENQ/DEQ + INTRDR + FREE FLAGS + FCB-ALIGN
+*              + FCB-VERIFY FLAGS
+         DC    AL1(&WRLSE+&WNQDQ+&WINTRDR+&WFREE+&WALIGN+&WVERIFY+&WCONX
+               TG)
+         DC    CL4'&WFCB'              FCB
+         DC    X'FF00'             NEW FORMAT INDICATOR
+         DC    AL1(&WBUFNO)        BUFNO
+         DC    AL1(&WKEYLEN)       KEYLEN
+         AIF   ('&WRITER' EQ '').NOWRIT
+         DC    AL4(WTR&SYSNDX)     WRITER NAME
+DATAPOOL CSECT
+WTR&SYSNDX DC CL8'&WRITER'
+&CSECT   CSECT
+         AGO   .GOTWRIT
+.NOWRIT  DC    AL4(0)              WRITER NAME
+.GOTWRIT ANOP
+         AIF   ('&WDEST' EQ '').NODEST
+         DC    AL4(DEST&SYSNDX)    DESTINATION NAME
+DATAPOOL CSECT
+DEST&SYSNDX DC CL8'&WDEST'
+&CSECT   CSECT
+         AGO   .GOTDEST
+.NODEST  DC    AL4(0)              DESTINATION NAME
+.GOTDEST ANOP
+         AIF   ('&WFORMS' EQ '').NOFORM
+         DC    AL4(FORM&SYSNDX)    FORMS NAME
+DATAPOOL CSECT
+FORM&SYSNDX DC CL8'&WFORMS'
+&CSECT   CSECT
+         AGO   .GOTFORM
+.NOFORM  DC    AL4(0)              FORMS NAME
+.GOTFORM ANOP
+         AIF   ('&WDCBDSN' EQ '').NODCBD
+         DC    AL4(DCBD&SYSNDX)    DCB REFERENCE TO A DATASET
+DATAPOOL CSECT
+DCBD&SYSNDX DC CL8'&WDCBDSN'
+&CSECT   CSECT
+         AGO   .GOTDCBD
+.NODCBD  DC    AL4(0)              DCB REFERENCE TO A DATASET
+.GOTDCBD ANOP
+&DDBSI#   SETC 'SI#&SYSNDX'        LBL FOR SYSIN INPUT STMT COUNT       04930001
+&DDBSIP   SETC 'SIP&SYSNDX'        LBL FOR SYSIN INPUT STMT ADDR        04940001
+.DONE    ANOP                                                           04950001
+SI#&SYSNDX DC  HL2'0'              NBR OF SYSIN INPUT STMTS             04960001
+SIP&SYSNDX DC  AL4(0)              ADDR OF SYSIN INPUT STMT             04970001
+         DC    CL18' '                                                  04980001
+         ORG   DDB&SYSNDX+L'DDB&SYSNDX
+.*
+         MEND

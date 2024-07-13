@@ -1,0 +1,40 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Define Package Panel \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Define Package panel to define a new or update an existing package. Do
++so by typing or modifying package information as necessary, selecting action 1
++and pressing enter.  It is not possible to build the actions that make up a
++package through the Define Package panel.  You can do this by using the
++Batch Options Menu or by manually entering the SCL using the ISPF/PDF editor.
++
++The following actions also appear on the Define Package panel:
+%    2+-Use this action to cancel the define action.
+%    N+-Use this action to enter notes you want to associate with the package.
++
++Select 1 - 7 for information about the following:
+%    1+- Package Identification Fields
+%    2+- Sharable package
+%    3+- Enable backout
+%    4+- Append to package
+%    5+- Execution window
+%    6+- Package to be copied
+%    7+- SCL import data set name
++
++ Select a Help topic, or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citshpk0
+                 3,citbken0
+                 4,citappk0
+                 5,citxwin0
+                 6,enit2140
+                 7,enit2150
+                )
+)END

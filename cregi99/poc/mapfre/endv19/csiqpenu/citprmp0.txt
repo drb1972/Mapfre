@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Action Prompt Panel \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel appears when you have not provided either a CCID or a
++comment for an action against a system that requires CCIDs/comments.
++
++Provide the CCID and/or comment in the appropriate fields at the
++bottom of the panel.
++
++The other fields on the panel indicate
++  * Whether CCIDs, comments, or both are required.
++  * The action requested.
++  * The element specification.
++  * The inventory area against which the action has been requested.
++
++
++
+
++
++                                            (%PF3+to return)
+)END

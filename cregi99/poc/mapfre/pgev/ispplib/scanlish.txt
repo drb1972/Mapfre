@@ -1,0 +1,31 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  Endevor Listing Scan Help \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                  @
+)AREA SAREA1
++
++   Use the listing scan panel to scan through Endevor generate listings.
++
++   You can enter up to four search strings.
++
++   Search Mode
++     F - Fast scan using FileAid to search through the extracted
+          listings. The whole of each listing is scaned for the sting(s).
++     E - Expanded source only scan
++         This option is only available for assembler, COBOL and
++         Easytrieve listings.
++         Scans only the compile section of each listing.
++
++   Split Results
++     This option is only available for the Fast Scan mode.
++     When specifying multiple srings the output will be split into
++     one result file per search string.
++
++   Build SCL
++     When this option is selected, element RETRIEVE SCL is built for
++     each element whose listing contains the search string.
++
+)PROC
+)END

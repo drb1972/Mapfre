@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+ /*------------------------------------------------------------------*/
+ /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR            */
+ /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY                  */
+ /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)                   */
+ /*------------------------------------------------------------------*/
+ ! TYPE(INPUT)    INTENS(LOW) PAD(NULLS)
+ ¢ TYPE(OUTPUT)   INTENS(LOW)
+ | TYPE(OUTPUT)   INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+ ^ TYPE(TEXT) INTENS(&VARPKCIT)
+ \ TYPE(TEXT) INTENS(&VARPKCIO)
+)BODY
+%----------------------------- Package Utilities -------------------------------
+%Option ===>_VARWKCMD                                                          +
++
++  %D+- Display Package                  %R+ - Reset Package
++  %E+- Export Package                   %#+ - Delete Package
++                                        \CI^- Display Correlation Info
++
++PACKAGE ID:|VPHPKGID        +            STATUS:|VPHSTAT     +
++DESCRIPTION: ~VPHCOMM                                           +
++PACKAGE TYPE:|VPHTYPE   +                PROMOTION PACKAGE:|VPHPROM+
++
++
++TO ISPF LIBRARY:                         ACTION OPTIONS:
++   PROJECT %===>_VNBRPRO +               REPLACE MEMBER       %===>_R+(Y/N)
++   GROUP   %===>_VNBRGRP +
++   TYPE    %===>_VNBRTYP +
++   MEMBER  %===>_VNBRMBR +
++
++OTHER PARTITIONED OR SEQUENTIAL DATA SET:
++   DATA SET NAME  %===>_VNBROTH
++
++
++
++
+)INIT
+  .HELP = CITP8000
+)PROC
+)END

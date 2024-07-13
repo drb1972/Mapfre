@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ SCL changes \-\
+%Option ===>_ZCMD                                              %(Screen 2 of 4)+
+%
+%Abbreviation of the%PERCENTAGE+keyword.
+
++ The keyword%PERCENTAGE+can no longer be truncated to less than four
+  characters (PERC). Previously a truncation to 3 characters (PER) was allowed.
+
++ This keyword is used in the%REGRESSION PERCENTAGE+clauses of the DEFINE TYPE
+  SYNTAX.
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7202
+)END

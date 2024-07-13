@@ -1,0 +1,9 @@
+ENDE100E 'Allocation Failed'          .HELP=ENDIEH10   .ALARM=YES
+'ENDE100E Data set allocation failed. Enter HELP for more information'
+
+ENDE101E 'InPlace or NoSource?'       .HELP=ENDIEH10   .ALARM=YES
+'ENDE101E Generate In-Place and NoSource cannot both be set to Y'
+
+ENDE102E 'B,C,H,S Invalid'            .HELP=ENDIEH10   .ALARM=YES
+'ENDE102E B, C, H, and S options are invalid on a sourceless element'
+

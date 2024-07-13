@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build Batch SCL Requests \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this option to create batch requests and place them in request data
++sets. You must provide the following information:
+
+%Request Data Set+- Define the data set to which you want to write the
++   action requests, using ISPF naming conventions. This file must be
++   a partitioned data set or a sequential file, and must be allocated
++   prior to referencing it on this panel.
+
++   You can also specify the data set, in 'data set name(member name)'
++   format, in the%Other Partitioned or Sequential Data Set+field.
+
+%Append+- Indicate whether you want to append new requests to the end
++  of an existing data set or member (Y) or overwrite any data in the
++  the data set or member (N).  The default is N.
+
++Press ENTER to display the SCL Generation panel.
+
++
++                                            (%PF3+to return)
+)END

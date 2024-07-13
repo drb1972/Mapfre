@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Definition - Type Process \-\TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This Processor Group Definition panel allows you to display or change
++the description of the processor group called PROCESS. This is the
++processor group assigned to type PROCESS.
++
++Processor group PROCESS contains the processors GPPROCSS and DPPROCSS,
++the processors supplied with CA Endevor SCM to generate and
++delete processors.
++
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Current location           %3+- Processor names
+%    2+- Name and description       %4+- Foreground execution
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITNAM00 3,CITPGNM0 4,CITFGEX0)
+)END

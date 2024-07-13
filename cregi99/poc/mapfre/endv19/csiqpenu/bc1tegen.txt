@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether PDM is to generate the element after
++the merge. Acceptable values are:
++
++
+%     Y+- Default - Generate the element.
+%     N+- Do not generate the element.
++
++
++
++
++
++
++
++
++
++
+)END

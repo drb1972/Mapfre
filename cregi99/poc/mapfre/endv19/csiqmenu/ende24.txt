@@ -1,0 +1,54 @@
+
+ENDE240E 'Numeric value expected'                       .ALARM=Y NOKANA
+'ENDE240E Either input a numeric value, or use the RESET command. ' +
+'Row: "&BNWH" value: "&BNW"'
+
+ENDE241E 'Wrong attribute char'                         .ALARM=Y NOKANA
+'ENDE241E Input an attribute from the selection at the bottom of' +
+'the screen. ' +
+'Row: "&BATH" character: "&BAT"'
+
+ENDE242E 'Separator line missing'                       .ALARM=Y NOKANA
+'ENDE242E A separator line was deleted. Use the RESET command.'
+
+ENDE243E 'Missing/changed Heading'                       .ALARM=Y NOKANA
+'ENDE243E The "* Heading ..." row cannot be changed. Use the RESET command.'
+
+ENDE244E 'A line was deleted'                           .ALARM=Y NOKANA
+'ENDE244E A line is missing. Use the RESET command and comment out ' +
+'unwanted columns instead of deleting the rows.'
+
+ENDE245E 'Line was added'                               .ALARM=Y NOKANA
+'ENDE254E Line "&wrng" is not supported. Either delete it or use ' +
+'the RESET command.'
+
+ENDE246E 'More than one separator'                      .ALARM=Y NOKANA
+'ENDE245E The parser found a second fixed column separator. Either' +
+' delete it, or use the RESET command.'
+
+ENDE247E 'Duplicate row found'                          .ALARM=Y NOKANA
+'ENDE247E Only one of each column is allowed &Whead. ' +
+'Use the RESET command.'
+
+ENDE248E 'CCOLS - wrong parameter'                      .ALARM=Y NOKANA
+'ENDE248E CCOLS command supports the RESET parameter only.'
+
+ENDE249E 'No Records found'                             .ALARM=Y NOKANA
+'ENDE249E Default CCOLS member not found. Contact your Endevor administrator.'
+
+ENDE240I 'Press PF1 for Help'                           .ALARM=Y NOKANA
+'ENDE240I The Quick Edit CCOLS command will allow you to customize Element' +
+' selection list table columns. Specifically, you can arrange the column' +
+' sequence, modify colors, and change column width. You can fix the' +
+' selected columns in position while scrolling with the separator line' +
+' Issue the CCOLS command to open the customization panel.'
+
+ENDE241I 'CCOLS is not available'                       .ALARM=Y NOKANA
+'ENDE241I The CCOLS command is available only from the the main ' +
+'screen and the Element selection panel.'
+
+ENDE243I 'Member &Mem saved'                           .ALARM=Y NOKANA
+'ENDE243I &Mem was saved in &MyProf'
+
+ENDE244I 'Use RESET to set default.'                    .ALARM=Y NOKANA
+'ENDE244I You can use the RESET command to reset to default values.'

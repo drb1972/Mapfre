@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection - DISPLAY \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++To DISPLAY the current queue of packages selected for collection, type%2+
++in the Option field and press ENTER. No other data is needed.
++
++The scrollable list contains a line for each package selected for
++collection via a single DistribuLink connection.
++
++
++
++COLLECT PACKAGE <pkg-id> VIA CONNECTION <conn-id> (Option BACKOUT) .
++
++
++
++
++
++
++
++                                            (%PF3+to return)
++
+)END

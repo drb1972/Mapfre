@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+)BODY
+%----------------------------  ELEMENT MASTER INFO  ----------------------------
+%COMMAND ===>_ZCMD                                                             +
++
++Environment: ¢C1CENV    +System: ¢EMSYS    +Subsystem:¢EMSBS
++Element:     ¢EMNAME    +Type:   ¢EMTYPE   +Stage:    ¢Z      +VVLL: ¢ECVL
++
++Last action: ¢ELSTACT   +CCID:   ¢ECTL#        +C1-RC:  ¢EMRC
++                                               +PROC-RC:¢EPRC ¢EMPFLAG
++
++Add/Update from source data set:¢EFDSN
++
++             User ID  Date    Time    Comment
++Base:       ¢EMBUID  ¢EMBDTE ¢EMBT   ¢EMBCOM
++Current:    ¢EMLUID  ¢EMLDTE ¢EMLT   ¢EMCCOM
++Last Proc:  ¢EMLPUID ¢EMLPD  ¢EMLPT  +Processor:¢EMLPRON  +-¢EMLPROF +
++Last Gen:   ¢EMPUID  ¢EMPD   ¢EMPT   ¢EMPCOM
++                                     !C1MDSPL1           ¢EMFPESD +
++Move:       ¢EMUID   ¢EMMD   ¢EMMT
++Retrieve:   ¢EMRUID  ¢EMRD   ¢EMRT   ¢EMRCOM
++                             !Z      ¢ETDSN
++SIGN-OUT:   ¢EOWNRID
+)INIT
+  &AMT = PAGE
+  .ZVARS = '(EMSTGID C1MDSPL2)'
+  .HELP = CITSED00
+)END

@@ -1,0 +1,9 @@
+@REM ****************************************************** #PSNWDMC ***
+@REM *    CONTENTS: ENDEVOR/MVS - START A PROCESS
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: DEFINE A PROCESS TO TRANSMIT DATASETS, RUN THE
+@REM *              REMOTE COPY/DELETE JOB, AND DELETE HOST STAGING
+@REM *              DATASETS
+@REM *******************************************************************
+@REM *
+&DESTID.P PROCESS SNODE=&NODENAME

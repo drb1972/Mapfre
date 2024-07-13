@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ From Location \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields identify the originating location for an element that has
++been moved or transferred from another inventory location.
++
+%Userid+- Id of the user who requested the Move or Transfer.
+%Date/time+- Date and time when the element was moved or transferred.
+%Action+- Move or Transfer.
++
+%Element+- Element name at the originating location.
+%Sys+- System name at the originating environment.
+%Sub+- Subsystem name at the originating environment.
+%Type+- Type name at the originating environment.
+%Stg+- Stage ID at the originating environment.
+%VVLL+- Version and level at the originating environment.
++
++
++
++
++                                            (%PF3+to return)
+)END

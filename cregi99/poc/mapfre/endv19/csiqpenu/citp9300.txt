@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Shipment Status \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Shipment submitted+- Date and time when the shipment was submitted.
+%Dest-id+- ID of the shipment destination.
+%Package name+- Name of the package in the shipment.
++
+%PKG/BKO+-%PKG+indicates that package outputs were shipped.
+%          BKO+indicates that backout members were shipped.
+%CMP+- Indicates whether complementary data sets were shipped.
++
+%Host stage+- Return code from the host staging job.
+%Host trans+- Transmission step status: EXEC'D or ABEND.
++
+%Remote move+- Status of job that copies remote staging data sets to
++   production: EXEC'D or ABEND.
+%Remote jobname+- Job name of the remote copy/delete jobstream.
++
++
++                                            (%PF3+to return)
+)END

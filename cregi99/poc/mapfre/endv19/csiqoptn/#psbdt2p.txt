@@ -1,0 +1,27 @@
+@REM ****************************************************** #PSBDT2P ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: "Q" A PDS FOR TRANSMISSION.  NETREL WILL DECREMENT
+@REM *              THE NETHOLD COUNT FOR THE REMOTE COPY/DELETE JOB
+@REM *              (#PSBDT2E).
+@REM *******************************************************************
+@REM *
+@IF &FDSN
+ Q JOBNAME(J&F4.P)
+   NETID(T&SHIPTIME)
+   NETREL(J&D4.AR)
+   FROM DATASET('&FDSN')
+        DAP(PDS)
+        SHR
+        DISP(&HDISP,KEEP)
+   TO   DATASET('&TDSN')
+        LOCATION(&NODENAME)
+        NEW
+        DIR(&DIRBLKS)
+        DCBDS('&RDSN')
+        SPACE(&PRISPACE,&SECSPACE)
+        CYLINDERS
+        RELEASE
+        UNIT(&RUNIT)
+/EOT
+@ENDIF

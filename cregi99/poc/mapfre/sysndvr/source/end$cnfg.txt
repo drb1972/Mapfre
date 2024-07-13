@@ -1,0 +1,400 @@
+         MACRO
+         END$CNFG &TYPE=DSECT,                                         X
+               &ACKNOWLEDGE_ELEMENT_JUMP=N,                            X
+               &APPEND_SCL=N,                                          X
+               &APPEND_SCL_PKG=N,                                      X
+               &APPROVED=Y,                                            X
+               &AUTOGEN=N,                                             X
+               &AUTOGEN_SPAN=NONE,                                     X
+               &QE_AUTOGEN=N,                                          X
+               &QE_AUTOGEN_SPAN=NONE,                                  X
+               &BROWSE_VIEW_MODE=B,                                    X
+               &BUILD_USING_MAP=Y,                                     X
+               &COMMITTED=Y,                                           X
+               &COMPONENT_LIST_WORD=LIST,                              X
+               &COMPONENTS_ONLY=N,                                     X
+               &COPYBACK=N,                                            X
+               &DELETE_AFTER_ARCHIVE=N,                                X
+               &DELETE_AFTER_MOVE=Y,                                   X
+               &DELETE_AFTER_TRANSFER=Y,                               X
+               &DELETE_INPUT_SOURCE=N,                                 X
+               &DELETE_MODE=F,                                         X
+               &DELETE_PROMHIST=N,                                     X
+               &DENIED=Y,                                              X
+               &DISPLAY_PROC_GROUP=N,                                  X
+               &ENABLE_BACKOUT=Y,                                      X
+               &EXECUTED=Y,                                            X
+               &EXPAND_INCLUDES=N,                                     X
+               &GENERATE_ELEMENT=Y,                                    X
+               &QE_GENERATE_IN_PLACE=N,                                X
+               &GENERATE_MODE=F,                                       X
+               &IN_APPROVAL=Y,                                         X
+               &IN_EDIT=Y,                                             X
+               &IN_EXECUTION=Y,                                        X
+               &INCLUDE_JCL=N,                                         X
+               &INCREMENT_JOBNAME=Y,                                   X
+               &INTERCEPT_ISPF_RETURN=N,                               X
+               &JCL_PROCEDURE_NAME=ENDEVOR,                            X
+               &LIST_LRECL=0,                                          X
+               &MOVE_MODE=F,                                           X
+               &MULTIPLE_JOBSTREAMS=N,                                 X
+               &NOSOURCE=N,                                            X
+               &QE_NOSOURCE=N,                                         X
+               &PRESERVE_VB=Y,                                         X
+               &OVERRIDE_SIGNOUT=N,                                    X
+               &PROCESSOR_GROUP_DEFAULT_CHAR=D,                        X
+               &PROCESSOR_GROUP_OVERRIDE_CHAR=O,                       X
+               &PROMOTION=A,                                           X
+               &PROMOTION_PACKAGE=N,                                   X
+               &REPLACE_MEMBER=N,                                      X
+               &RETAIN_SIGNOUT=N,                                      X
+               &RETURN_FIRST_FOUND=Y,                                  X
+               &SHARABLE_PACKAGE=N,                                    X
+               &SHOW_TEXT=Y,                                           X
+               &SIGNIN_MODE=F,                                         X
+               &SIGNOUT_ELEMENT=N,                                     X
+               &SIGNOUT_MODE=F,                                        X
+               &SORT_BY_DESTINATION_ID=2,                              X
+               &SORT_BY_PACKAGE_ID=3,                                  X
+               &SORT_BY_SHIP_DATE=1,                                   X
+               &SYNCHRONIZE=N,                                         X
+               &UPDATE_IF_PRESENT=N,                                   X
+               &VALIDATE_ACT_COMPONENTS=Y,                             X
+               &VALIDATE_ACT_ELM_MASTER=Y,                             X
+               &VALIDATE_ACT_SYNC=Y,                                   X
+               &VALIDATE_ACT_TERSE=N,                                  X
+               &VALIDATE_COMPONENTS=Y,                                 X
+               &WITH_HISTORY=N,                                        X
+               &ENTERPRISE_PKG=A,                                      X
+               &QE_BUILD_USING_MAP=Y,                                  X
+               &QE_RETURN_FIRST_FOUND=Y,                               X
+               &WORKLIST_PRIMARY=1,                                    X
+               &WORKLIST_SECONDARY=1,                                  X
+               &TABLE_NAME=END$CNFG
+.*--------------------------------------------------------------------*
+.*                                                                    *
+.*       COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.             *
+.*                                                                    *
+.* Macro: END$CNFG                                                    *
+.*                                                                    *
+.* Purpose: This macro is used to generate the ENDEVOR/MVS ISPF       *
+.*  dialog configuration module.                                      *
+.*                                                                    *
+.*--------------------------------------------------------------------*
+         GBLB &GENDSECT
+         GBLC  &RELNUM,&TAPSER
+         LCLC  &ADR
+         $RELEASE
+         AIF   ('&TYPE' EQ 'CONFIG').ENCF0100
+&ADR     SETC  '0'
+&TABLE_NAME DSECT
+&GENDSECT SETB 1
+         AGO   .ENCF0200
+.ENCF0100 ANOP
+&ADR     SETC  'ICTLIBEL'
+&TABLE_NAME CSECT
+&TABLE_NAME AMODE 31
+&TABLE_NAME RMODE ANY
+&GENDSECT SETB 0
+.ENCF0200 ANOP
+ICTNAME  DC    CL8'&TABLE_NAME'        Table Name
+ICTDATE  DC    CL8'&SYSDATE '          Assembly Date
+ICTTIME  DC    CL8'&SYSTIME '          Assembly Time
+ICT$LEN  DC    AL4(ICT$LENGTH)         Table Length
+ICTGENERATE_ELEMENT      $GENDFLT &GENERATE_ELEMENT
+ICTDELETE_INPUT_SOURCE   $GENDFLT &DELETE_INPUT_SOURCE
+ICTOVERRIDE_SIGNOUT      $GENDFLT &OVERRIDE_SIGNOUT
+ICTUPDATE_IF_PRESENT     $GENDFLT &UPDATE_IF_PRESENT
+ICTEXPAND_INCLUDES       $GENDFLT &EXPAND_INCLUDES
+ICTSIGNOUT_ELEMENT       $GENDFLT &SIGNOUT_ELEMENT
+ICTREPLACE_MEMBER        $GENDFLT &REPLACE_MEMBER
+ICTBUILD_USING_MAP       $GENDFLT &BUILD_USING_MAP
+ICTRETURN_FIRST_FOUND    $GENDFLT &RETURN_FIRST_FOUND
+ICTCOPYBACK              $GENDFLT &COPYBACK
+ICTSYNCHRONIZE           $GENDFLT &SYNCHRONIZE
+ICTRETAIN_SIGNOUT        $GENDFLT &RETAIN_SIGNOUT
+ICTWITH_HISTORY          $GENDFLT &WITH_HISTORY
+ICTACK_ELEMENT_JUMP      $GENDFLT &ACKNOWLEDGE_ELEMENT_JUMP
+ICTDELETE_AFTER_ARCHIVE  $GENDFLT &DELETE_AFTER_ARCHIVE
+ICTDELETE_AFTER_MOVE     $GENDFLT &DELETE_AFTER_MOVE
+ICTDELETE_AFTER_TRANSFER $GENDFLT &DELETE_AFTER_TRANSFER
+ICTDELETE_PROMHIST       $GENDFLT &DELETE_PROMHIST,                    X
+               VALID_VALUES=(Y,N)
+ICTCOMPONENTS_ONLY       $GENDFLT &COMPONENTS_ONLY
+ICTSHOW_TEXT             $GENDFLT &SHOW_TEXT
+ICTIN_EDIT               $GENDFLT &IN_EDIT
+ICTIN_APPROVAL           $GENDFLT &IN_APPROVAL
+ICTDENIED                $GENDFLT &DENIED
+ICTAPPROVED              $GENDFLT &APPROVED
+ICTIN_EXECUTION          $GENDFLT &IN_EXECUTION
+ICTEXECUTED              $GENDFLT &EXECUTED
+ICTCOMMITTED             $GENDFLT &COMMITTED
+ICTENABLE_BACKOUT        $GENDFLT &ENABLE_BACKOUT
+ICTSHARABLE_PACKAGE      $GENDFLT &SHARABLE_PACKAGE
+ICTVALIDATE_COMPONENT    $GENDFLT &VALIDATE_COMPONENTS,                X
+               VALID_VALUES=(Y,N,W)
+ICTSORT_BY_SHIP_DATE     $GENDFLT &SORT_BY_SHIP_DATE,                  X
+               VALID_VALUES=(1,2,3)
+ICTSORT_BY_DESTINATION_ID $GENDFLT &SORT_BY_DESTINATION_ID,            X
+               VALID_VALUES=(1,2,3)
+ICTSORT_BY_PACKAGE_ID    $GENDFLT &SORT_BY_PACKAGE_ID,                 X
+               VALID_VALUES=(1,2,3)
+ICTINCREMENT_JOBNAME     $GENDFLT &INCREMENT_JOBNAME
+ICTMULTIPLE_JOBSTREAMS   $GENDFLT &MULTIPLE_JOBSTREAMS
+ICTJCL_PROCEDURE_NAME    $GENDFLT &JCL_PROCEDURE_NAME,                 X
+               VALID_VALUES=,                                          X
+               LENGTH=8
+ICTGENERATE_MODE         $GENDFLT &GENERATE_MODE,                      X
+               VALID_VALUES=(F,B)
+ICTPROCESSOR_GROUP_DEFAULT_CHAR $GENDFLT &PROCESSOR_GROUP_DEFAULT_CHAR,X
+               VALID_VALUES=,                                          X
+               INVALID_VALUES=(O,/,&PROCESSOR_GROUP_OVERRIDE_CHAR)
+ICTPROCESSOR_GROUP_OVERRIDE_CHAR $GENDFLT                              X
+               &PROCESSOR_GROUP_OVERRIDE_CHAR,                         X
+               VALID_VALUES=,                                          X
+               INVALID_VALUES=(D,/,&PROCESSOR_GROUP_DEFAULT_CHAR)
+ICTPROMOTION_PACKAGE     $GENDFLT &PROMOTION_PACKAGE,                  X
+               VALID_VALUES=(Y,N)
+ICTCOMPONENT_LIST_WORD  $GENDFLT &COMPONENT_LIST_WORD,                 X
+               VALID_VALUES=,                                          X
+               LENGTH=8
+ICTDELETE_MODE           $GENDFLT &DELETE_MODE,                        X
+               VALID_VALUES=(F,B)
+ICTMOVE_MODE             $GENDFLT &MOVE_MODE,                          X
+               VALID_VALUES=(F,B)
+ICTINTERCEPT_ISPF_RETURN $GENDFLT &INTERCEPT_ISPF_RETURN,              X
+               VALID_VALUES=(Y,N)
+ICTSIGNIN_MODE           $GENDFLT &SIGNIN_MODE,                        X
+               VALID_VALUES=(F,B)
+ICTSIGNOUT_MODE          $GENDFLT &SIGNOUT_MODE,                       X
+               VALID_VALUES=(F,B)
+ICTDISPLAY_PROC_GROUP    $GENDFLT &DISPLAY_PROC_GROUP,                 X
+               VALID_VALUES=(Y,N)
+ICTAPPEND_SCL            $GENDFLT &APPEND_SCL,                         X
+               VALID_VALUES=(Y,N)
+ICTAPPEND_SCL_PKG        $GENDFLT &APPEND_SCL_PKG,                     X
+               VALID_VALUES=(Y,N)
+ICTINCLUDE_JCL           $GENDFLT &INCLUDE_JCL,                        X
+               VALID_VALUES=(Y,N)
+ICTQE_GENERATE_IN_PLACE  $GENDFLT &QE_GENERATE_IN_PLACE,               X
+               VALID_VALUES=(Y,N)
+ICTENTERPRISE_PKG        $GENDFLT &ENTERPRISE_PKG,                     X
+               VALID_VALUES=(A,E,X)
+ICTQE_BUILD_USING_MAP    $GENDFLT &QE_BUILD_USING_MAP,                 X
+               VALID_VALUES=(Y,N)
+ICTQE_RETURN_FIRST_FOUND $GENDFLT &QE_RETURN_FIRST_FOUND,              X
+               VALID_VALUES=(Y,N)
+ICTVALIDATE_ACT_COMPONENTS $GENDFLT &VALIDATE_ACT_COMPONENTS,          X
+               VALID_VALUES=(Y,N)
+ICTVALIDATE_ACT_ELM_MASTER $GENDFLT &VALIDATE_ACT_ELM_MASTER,          X
+               VALID_VALUES=(Y,N)
+ICTVALIDATE_ACT_SYNC     $GENDFLT &VALIDATE_ACT_SYNC,                  X
+               VALID_VALUES=(Y,N)
+ICTVALIDATE_ACT_TERSE      $GENDFLT &VALIDATE_ACT_TERSE,               X
+               VALID_VALUES=(Y,N)
+ICTAUTOGEN               $GENDFLT &AUTOGEN,                            X
+               VALID_VALUES=(Y,N)
+ICTQE_AUTOGEN            $GENDFLT &QE_AUTOGEN,                         X
+               VALID_VALUES=(Y,N)
+ICTNOSOURCE              $GENDFLT &NOSOURCE,                           X
+               VALID_VALUES=(Y,N)
+ICTQE_NOSOURCE           $GENDFLT &QE_NOSOURCE,                        X
+               VALID_VALUES=(Y,N)
+ICTPRESERVE_VB           $GENDFLT &PRESERVE_VB,                        X
+               VALID_VALUES=(Y,N)
+ICTAUTOGEN_SPAN          $GENDFLT &AUTOGEN_SPAN,                       X
+               VALID_VALUES=(NONE,ALL,SYS,SUB),                        X
+               LENGTH=4
+ICTQE_AUTOGEN_SPAN       $GENDFLT &QE_AUTOGEN_SPAN,                    X
+               VALID_VALUES=(NONE,ALL,SYS,SUB),                        X
+               LENGTH=4
+ICTRESERVED1   DC  XL218'00'           Reserved for expansion
+ICTRESERVED2   DC  XL256'00'           Reserved for expansion
+.*--------------------------------------------------------------------*
+.* The ORG below this text box re-references the Release Number and   *
+.* Tape Volser.  If any entries are added to this table, they must    *
+.* not affect these definitions.                                      *
+.* DO NOT CHANGE THE LOCATION OF THESE DEFINITIONS.                   *
+.*--------------------------------------------------------------------*
+               ORG ICTRESERVED2
+ICTVERLV       DC  CL4'&RELNUM'  ENDEVOR VERSION NUMBER
+ICTTAPE        DC  CL6'&TAPSER'
+.*--------------------------------------------------------------------*
+.*  Put new entries after this text box.                              *
+.*--------------------------------------------------------------------*
+               DC  XL1'00'             *** RESERVED ***
+ICTLIBEL#      DC  A(&ADR)
+ICTWORKLIST_PRIMARY      $GENDFLT &WORKLIST_PRIMARY,                   X
+               VALID_VALUES=,LENGTH=3
+ICTWORKLIST_SECONDARY    $GENDFLT &WORKLIST_SECONDARY,                 X
+               VALID_VALUES=,LENGTH=3
+ICTBROWSE_VIEW_MODE      $GENDFLT &BROWSE_VIEW_MODE,                   X
+               VALID_VALUES=(BROWSE,VIEW,B,V)
+ICTLIST_LRECL            $GENDFLT &LIST_LRECL,                         X
+               VALID_VALUES=,LENGTH=5
+ICTPROMOTION             $GENDFLT &PROMOTION,                          X
+               VALID_VALUES=(A,P,X)
+               ORG
+ICT$LENGTH     EQU *-&TABLE_NAME
+         AIF   ('&TYPE' EQ 'CONFIG').ENCF1000
+         MEXIT
+.ENCF1000 ANOP
+ICTLIBEL DS    0H
+ DC CL30'ACKNOWLEDGE_ELEMENT_JUMP '
+ DC CL40'&ACKNOWLEDGE_ELEMENT_JUMP'
+ DC CL30'APPEND_SCL'
+ DC CL40'&APPEND_SCL'
+ DC CL30'APPEND_SCL_PKG'
+ DC CL40'&APPEND_SCL_PKG'
+ DC CL30'APPROVED'
+ DC CL40'&APPROVED'
+ DC CL30'AUTOGEN'
+ DC CL40'&AUTOGEN'
+ DC CL30'AUTOGEN_SPAN'
+ DC CL40'&AUTOGEN_SPAN'
+ DC CL30'QE_AUTOGEN'
+ DC CL40'&QE_AUTOGEN'
+ DC CL30'QE_AUTOGEN_SPAN'
+ DC CL40'&QE_AUTOGEN_SPAN'
+ DC CL30'BROWSE_VIEW_MODE'
+ DC CL40'&BROWSE_VIEW_MODE'
+ DC CL30'BUILD_USING_MAP'
+ DC CL40'&BUILD_USING_MAP'
+ DC CL30'COMMITTED'
+ DC CL40'&COMMITTED'
+ DC CL30'COMPONENT_LIST_WORD'
+ DC CL40'&COMPONENT_LIST_WORD'
+ DC CL30'COMPONENTS_ONLY'
+ DC CL40'&COMPONENTS_ONLY'
+ DC CL30'COPYBACK'
+ DC CL40'&COPYBACK'
+ DC CL30'DELETE_AFTER_ARCHIVE         '
+ DC CL40'&DELETE_AFTER_ARCHIVE         '
+ DC CL30'DELETE_AFTER_MOVE            '
+ DC CL40'&DELETE_AFTER_MOVE            '
+ DC CL30'DELETE_AFTER_TRANSFER        '
+ DC CL40'&DELETE_AFTER_TRANSFER        '
+ DC CL30'DELETE_INPUT_SOURCE          '
+ DC CL40'&DELETE_INPUT_SOURCE          '
+ DC CL30'DELETE_MODE                  '
+ DC CL40'&DELETE_MODE                  '
+ DC CL30'DELETE_PROMHIST             '
+ DC CL40'&DELETE_PROMHIST             '
+ DC CL30'DENIED                       '
+ DC CL40'&DENIED                       '
+ DC CL30'DISPLAY_PROC_GROUP           '
+ DC CL40'&DISPLAY_PROC_GROUP           '
+ DC CL30'ENABLE_BACKOUT               '
+ DC CL40'&ENABLE_BACKOUT               '
+ DC CL30'EXECUTED                     '
+ DC CL40'&EXECUTED                     '
+ DC CL30'EXPAND_INCLUDES              '
+ DC CL40'&EXPAND_INCLUDES              '
+ DC CL30'GENERATE_ELEMENT             '
+ DC CL40'&GENERATE_ELEMENT             '
+ DC CL30'QE_GENERATE_IN_PLACE         '
+ DC CL40'&QE_GENERATE_IN_PLACE         '
+ DC CL30'GENERATE_MODE                '
+ DC CL40'&GENERATE_MODE                '
+ DC CL30'IN_APPROVAL                  '
+ DC CL40'&IN_APPROVAL                  '
+ DC CL30'IN_EDIT                      '
+ DC CL40'&IN_EDIT                      '
+ DC CL30'IN_EXECUTION                 '
+ DC CL40'&IN_EXECUTION                 '
+ DC CL30'INCLUDE_JCL                  '
+ DC CL40'&INCLUDE_JCL                  '
+ DC CL30'INCREMENT_JOBNAME            '
+ DC CL40'&INCREMENT_JOBNAME            '
+ DC CL30'INTERCEPT_ISPF_RETURN        '
+ DC CL40'&INTERCEPT_ISPF_RETURN        '
+ DC CL30'JCL_PROCEDURE_NAME           '
+ DC CL40'&JCL_PROCEDURE_NAME           '
+ DC CL30'LIST_LRECL                   '
+ DC CL40'&LIST_LRECL                   '
+ DC CL30'MOVE_MODE                    '
+ DC CL40'&MOVE_MODE                    '
+ DC CL30'MULTIPLE_JOBSTREAMS          '
+ DC CL40'&MULTIPLE_JOBSTREAMS          '
+ DC CL30'NOSOURCE                     '
+ DC CL40'&NOSOURCE                     '
+ DC CL30'QE_NOSOURCE                  '
+ DC CL40'&QE_NOSOURCE                  '
+ DC CL30'PRESERVE_VB                  '
+ DC CL40'&PRESERVE_VB                  '
+ DC CL30'OVERRIDE_SIGNOUT             '
+ DC CL40'&OVERRIDE_SIGNOUT             '
+ DC CL30'PROCESSOR_GROUP_DEFAULT_CHAR '
+ DC CL40'&PROCESSOR_GROUP_DEFAULT_CHAR '
+ DC CL30'PROCESSOR_GROUP_OVERRIDE_CHAR'
+ DC CL40'&PROCESSOR_GROUP_OVERRIDE_CHAR'
+ DC CL30'PROMOTION                    '
+ DC CL40'&PROMOTION                    '
+ DC CL30'PROMOTION_PACKAGE            '
+ DC CL40'&PROMOTION_PACKAGE            '
+ DC CL30'REPLACE_MEMBER               '
+ DC CL40'&REPLACE_MEMBER               '
+ DC CL30'RETAIN_SIGNOUT               '
+ DC CL40'&RETAIN_SIGNOUT               '
+ DC CL30'RETURN_FIRST_FOUND           '
+ DC CL40'&RETURN_FIRST_FOUND           '
+ DC CL30'SHARABLE_PACKAGE             '
+ DC CL40'&SHARABLE_PACKAGE             '
+ DC CL30'SHOW_TEXT                    '
+ DC CL40'&SHOW_TEXT                    '
+ DC CL30'SIGNIN_MODE                  '
+ DC CL40'&SIGNIN_MODE                  '
+ DC CL30'SIGNOUT_ELEMENT              '
+ DC CL40'&SIGNOUT_ELEMENT              '
+ DC CL30'SIGNOUT_MODE                 '
+ DC CL40'&SIGNOUT_MODE                 '
+ DC CL30'SORT_BY_DESTINATION_ID       '
+ DC CL40'&SORT_BY_DESTINATION_ID       '
+ DC CL30'SORT_BY_PACKAGE_ID           '
+ DC CL40'&SORT_BY_PACKAGE_ID           '
+ DC CL30'SORT_BY_SHIP_DATE            '
+ DC CL40'&SORT_BY_SHIP_DATE            '
+ DC CL30'SYNCHRONIZE                  '
+ DC CL40'&SYNCHRONIZE                  '
+ DC CL30'UPDATE_IF_PRESENT            '
+ DC CL40'&UPDATE_IF_PRESENT            '
+ DC CL30'VALIDATE_COMPONENTS          '
+ DC CL40'&VALIDATE_COMPONENTS          '
+ DC CL30'WITH_HISTORY                 '
+ DC CL40'&WITH_HISTORY                 '
+ DC CL30'ENTERPRISE_PKG               '
+ DC CL40'&ENTERPRISE_PKG               '
+ DC CL30'QE_BUILD_USING_MAP           '
+ DC CL40'&QE_BUILD_USING_MAP           '
+ DC CL30'QE_RETURN_FIRST_FOUND        '
+ DC CL40'&QE_RETURN_FIRST_FOUND        '
+ DC CL30'WORKLIST_PRIMARY             '
+ DC CL40'&WORKLIST_PRIMARY             '
+ DC CL30'WORKLIST_SECONDARY           '
+ DC CL40'&WORKLIST_SECONDARY           '
+ DC CL30'TABLE_NAME                   '
+ DC CL40'&TABLE_NAME                   '
+ DC CL30'VALIDATE_ACT_COMPONENTS      '
+ DC CL40'&VALIDATE_ACT_COMPONENTS      '
+ DC CL30'VALIDATE_ACT_ELM_MASTER      '
+ DC CL40'&VALIDATE_ACT_ELM_MASTER      '
+ DC CL30'VALIDATE_ACT_SYNC            '
+ DC CL40'&VALIDATE_ACT_SYNC            '
+ DC CL30'VALIDATE_ACT_TERSE         '
+ DC CL40'&VALIDATE_ACT_TERSE         '
+ DC 4X'FFFF'
+ AIF (('&GENERATE_MODE' EQ 'F') AND ('&QE_AUTOGEN' EQ 'Y')).ENCF1100
+         AGO   .ENCF1200
+.ENCF1100 ANOP
+         MNOTE 12,'CONFLICT: GENERATE_MODE IS F AND QE_AUTOGEN IS Y'
+         MEXIT
+.ENCF1200 ANOP
+ AIF (('&QE_GENERATE_IN_PLACE' EQ 'Y') AND                             X
+               ('&QE_NOSOURCE' EQ 'Y')).ENCF1300
+         AGO   .ENCF1400
+.ENCF1300 ANOP
+         MNOTE 12,'CONFLICT: QE_GENERATE_IN_PLACE IS Y AND QE_NOSOURCE X
+               IS Y'
+         MEXIT
+.ENCF1400 ANOP
+         MEND

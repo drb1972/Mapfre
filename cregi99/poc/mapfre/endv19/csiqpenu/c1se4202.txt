@@ -1,0 +1,60 @@
+)ATTR DEFAULT(¬+_)
+       /* ¬ TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   } TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   ! TYPE(OUTPUT) INTENS(&VARTYA1)
+   ^ TYPE(TEXT) INTENS(&VARTYA2)
+   { TYPE(&VARTYA4) INTENS(&VARTYA1) CAPS(ON) JUST(LEFT)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ` TYPE(&VARTYA4) INTENS(&VARTYA3) CAPS(ON) JUST(LEFT)
+   $ TYPE(OUTPUT) INTENS(&VARTYB1)
+   @ TYPE(TEXT) INTENS(&VARTYB2)
+   ? TYPE(&VARTYB4) INTENS(&VARTYB1) CAPS(ON) JUST(LEFT)
+   \ TYPE(&VARTYB4) INTENS(&VARTYB3) CAPS(ON) JUST(LEFT)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+|VARFLIT¬----------------------- TYPE DEFINITION -------------------------------
+¬COMMAND ===>_VARWKCMD                                                         +
++CURRENT ENV: ¢VAREVNME+  STAGE ID: ¢Z+  SYSTEM: ¢VARSYNME+  TYPE: ¢VARTYNME+
++NEXT ENV   : ¢VARNXENV+  STAGE ID: ¢Z+  SYSTEM: ¢VARNXSYS+  TYPE: ¢VARTYNS2+
++
++DESCRIPTION  ¬===>~VARTYDES                                          +
++UPDATED:          ¢Z      ¢Z    +BY¢VARLUUID+
++         ---------------------  ELEMENT OPTIONS  ---------------------
++DELTA FORMAT(F/R/I/L)¬===>_Z+ SOURCE LEN  ¬===>_Z    + ELE RECFM(N/F/V)¬===>_Z+
++COMPRESS/ENCRYPT(Y/N)¬===>_Z+ COMPARE FROM¬===>_Z    + DFLT PROC ¬===>_VARTDPRG
+¢VARTYES1   +(Y/N)    !Z   {Z+ COMPARE TO  ¬===>_Z    + LANGUAGE  ¬===>_VARTYLAN
+^CONSOL AT LVL !Z   `Z +       REGRESSION% ¬===>_Z +    PV/LB LANG¬===>_VARTYLAI
+^LVLS TO CONSOL!Z   `Z +       REG SEV(I/W/C/E) ¬===>_Z+DATA FORMAT(T/B)¬===>_Z+
++USS RECFM(COMP/CR/CRLF/CRNL/F/LF/NL/V)    ¬===>_VHFS+  FILE EXT  ¬===>}VARTYZFX
++         -----------------  COMPONENT LIST OPTIONS  ------------------
++FWD/REV DELTA(F/R)   ¬===>_Z+¢VARTYCS1   +(Y/N)$Z   ?Z@CONSOL AT LVL $Z   \Z +
++                                                      @LVLS TO CONSOL$Z   \Z +
++         -------------------------  LIBRARIES  -----------------------
++  BASE/IMAGE LIBRARY¬===>}VARTYBLB                                    +
++  DELTA LIBRARY     ¬===>}VARTYDLB                                    +
++  INCLUDE LIBRARY   ¬===>_VARTYILB                                    +
++  SOURCE O/P LIBRARY¬===>_VARTYSLB                                    +
++    EXPAND INCLUDES(Y/N) ¬===>_Z+
+)INIT
+  .HELP = CITE4100
+  .ZVARS = '(VARWKSID VARNXSTG +
+             VARLUDTE VARLUTME +
+             VARTYIMB VARTYSLE VARTYELE +
+             VARTYSQZ VARTYCPF VARTYES2 VARTYEDM VARTYCPT +
+             VARTYES3 VARTYLTB VARTYRGP VARTYES4 +
+             VARTYELR VARTYRGS VARTYZNT VARTYIMX +
+             VARTYCS2 VARTYCDM VARTYCS3 VARTYLTX VARTYCS4 VARTYCLR +
+             VARTYEXI)'
+)PROC
+  VER (&VARTYRGP,NUM,MSG=CIEV076)
+  VER (&VARTYSLE,NUM,MSG=CIEV073)
+  VER (&VARTYCPF,NUM,MSG=CIEV075)
+  VER (&VARTYCPT,NUM,MSG=CIEV074)
+  VER (&VARTYLTB,NUM,MSG=CIEV904)
+  VER (&VARTYELR,NUM,MSG=CIEV907)
+  VER (&VARTYLTX,NUM,MSG=CIEV904)
+  VER (&VARTYCLR,NUM,MSG=CIEV907)
+)END

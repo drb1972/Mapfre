@@ -1,0 +1,37 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Cast Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Cast Package panel to cast a package.  To cast a package enter the
++appropriate package information, select action 1 and press enter.  You can
++cancel the Cast Package action by selecting action 2 and pressing enter.
++
++The Cast Package panel also allows you to enter notes you may want to
++associate with the package as part of the Cast Package action.  To enter
++package notes select action N and press enter.  The Enter Package Note Text
++panel appears.
++
++Select 1 - 6 for information about:
+%   1+- Package identification fields
+%   2+- Sharable package
+%   3+- Validate Components
+%   4+- Enable backout
+%   5+- Execution window
+%   6+- Package event fields
+%
++ Select a Help topic or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citshpk0
+                 3,citcval0
+                 4,citbken0
+                 5,citxwin0
+                 6,citpkev0
+                )
+)END

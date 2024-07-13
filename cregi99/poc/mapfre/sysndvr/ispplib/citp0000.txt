@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Options Menu \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this menu to initiate package processing. Do so by typing the
++desired number in the OPTION field, then pressing ENTER.
++
++PACKAGE ID must be specified to create a new package.
++
++If you leave PACKAGE ID blank or provide a mask, a selection list is
++returned. For options%1+and%9+you can limit the selection list by typing
++a%Y+or%N+in the STATUS fields, an%A+or%E+or%X+in the ENTERPRISE PKG
++field or by typing an%A+or%P+or%X+in the PROMOTION PKG field.
++
++
++
++    Select one of the options below for more information:
++
+%    1+- Package status             % 7+- Ship packages
+%    2+- Package display            % 8+- Backout/Backin packages
+%    3+- Create/Modify packages     % 9+- Commit packages
+%    4+- Cast packages              %10+- Export, Reset, Delete packages
+%    5+- Review packages            %11+- Enterprise packages
+%    6+- Execute packages           %12+- Promotion packages and tgt location
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITSTAT0 2,CITP1000 3,CITP2000 4,CITP3000
+                  5,CITP4000 6,CITP5000 7,CITP9000 8,CITP6000
+                  9,CITP7000 10,CITP8000 11,CITENPK0 12,CITPRPK0)
+)END

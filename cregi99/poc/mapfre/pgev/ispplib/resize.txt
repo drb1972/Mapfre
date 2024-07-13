@@ -1,0 +1,76 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- RESIZE DATASETS -{-{-
++OPTION  ===>_ZCMD
++
++Dataset Name..:_idsn                                     +
++ Units........:`iunits+  Dataset Type...:`idstyp +
++ Primary......:`ipri  +  Used Extents...:`iuext+   `iusedp       +
++ Secondary....:`isec  +  Used Space.....:@iucl+cyls@iutk  +trks@iublk     +blks
++ Directory....:`idir  +  Used Directory.:`iudir +
++                              Members...:`iumem +
++ Volume Info..:`ivol  +  Max Avail......:@mcyl+cyls@mtrk  +trks@mblocks   +blks
++¯enqmess
++
++Like..........:_ldsn                                     +
++ Units........:_lunits+  Dataset Type...:`ldstyp +
++ Primary......:_lpri  +  Used Extents...:`luext+   `lusedp       +
++ Secondary....:_lsec  +  Used Space.....:@lucl+cyls@lutk  +trks@lublk     +blks
++ Directory....:_ldir  +  Used Directory.:`ludir +
++                              Members...:`lumem +
++Delete old dataset (Y/N).:_Z+
++Rename old dataset to....:_dsnsuff                       +
++
++    Commands -¢SUB+¢EDIT+¢COPY+¢CONVERT+(to convert to PDSE)
++              ¢COMPRESS+or¢Z+ to compress¢TCOMP+to test compress
++    To reset input field values enter¢RESET+or change the¢LIKE+field
+)INIT
+   .ZVARS  = '(delold)'
+   .HELP   = RESIZEH
+   &ZCMD   = ''
+   if (&iuext = '16')
+     .ATTR(iuext) = 'hilite(reverse)'
+   if (&iusedp = '100%full')
+     .ATTR(iusedp) = 'hilite(reverse)'
+   if (&direrr ^= '')
+     .ATTR(iudir) = 'hilite(reverse)'
+     .ATTR(idir) = 'hilite(reverse)'
+   if (&secerr = 'TRACK')
+     .ATTR(isec)    = 'hilite(reverse)'
+     .ATTR(mtrk) = 'hilite(reverse)'
+   if (&secerr = 'CYL')
+     .ATTR(isec)    = 'hilite(reverse)'
+     .ATTR(mcyl)    = 'hilite(reverse)'
+   if (&secerr = 'BLK')
+     .ATTR(isec)    = 'hilite(reverse)'
+     .ATTR(mblocks) = 'hilite(reverse)'
+)REINIT
+)PROC
+   IF (&zcmd = 'RESET')
+     &ldsn   = ''
+     &like   = ''
+     &lunits = ''
+     &lpri   = ''
+     &lsec   = ''
+     &ldir   = ''
+   ver (&idsn,NB,DSNAME)
+   ver (&ldsn,DSNAME)
+   if (ver (&lunits,NUM))
+   else ver (&lunits,LIST,TRK,CYL)
+   ver (&lpri,NUM)
+   ver (&lsec,NUM)
+   IF (&ldir ^= 'NO_LIM')
+     ver (&ldir,NUM)
+   ver (&dsnsuff,DSNAME)
+   ver (&delold,NB,LIST,Y,N)
+   &PFK = .PFKEY
+)END

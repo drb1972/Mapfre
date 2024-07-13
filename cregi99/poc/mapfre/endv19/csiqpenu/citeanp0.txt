@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Definition - *NOPROC* and Delete \-\TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This Processor Group Definition panel allows you to
++
++  * Create, display, maintain, or delete processor groups named *NOPROC*.
++
++  * Delete other processor groups.
++
++
++
++
++
++
++
++    Select%1+-%5+for information about specific fields
++
+%    1+- Current location           %4+- Processor names
+%    2+- Next location              %5+- Foreground execution
+%    3+- Name and description
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITPGNM0
+                  5,CITFGEX0)
+)END

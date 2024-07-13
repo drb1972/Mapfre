@@ -1,0 +1,59 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST DATA SETS - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  ALDSN-RQ.
+           05  ALDSN-RQ-HEADER.
+               10  ALDSN-RQ-LEN        PIC 9(4) COMP VALUE 36.
+               10  ALDSN-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALDSN-RQ-ID         PIC 9(4) COMP VALUE 1152.
+               10  ALDSN-RQ-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALDSN-RQ-EYE        PIC X(4)      VALUE 'LDSQ'.
+           05  ALDSN-RQ-DATAAREA.
+               10  ALDSN-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALDSN-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALDSN-RQ-RESERVE2   PIC X         VALUE SPACE.
+               10  ALDSN-RQ-RESERVE3   PIC X         VALUE SPACE.
+               10  ALDSN-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALDSN-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALDSN-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALDSN-RQ-DSNID      PIC XX        VALUE SPACES.
+               10  FILLER              PIC X         VALUE SPACE.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST DATA SET - RESPONSE BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  ALDSN-RS.
+           05  ALDSN-RS-HEADER.
+               10  ALDSN-RS-LEN        PIC 9(4) COMP VALUE 120.
+               10  ALDSN-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALDSN-RS-ID         PIC 9(4) COMP VALUE 1153.
+               10  ALDSN-RS-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALDSN-RS-EYE        PIC X(4)      VALUE 'LDSS'.
+           05  ALDSN-RS-DATAAREA.
+               10  ALDSN-RS-SITE       PIC X         VALUE SPACE.
+               10  ALDSN-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALDSN-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALDSN-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALDSN-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALDSN-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALDSN-RS-DSNID      PIC XX        VALUE SPACES.
+               10  ALDSN-RS-DSNTY      PIC XX        VALUE SPACES.
+               10  ALDSN-RS-DSN        PIC X(44)     VALUE SPACES.
+               10  ALDSN-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALDSN-RS-UPD-BDTE REDEFINES ALDSN-RS-UPD-DATE.
+                   15  ALDSN-RS-UPD-YYYY   PIC 9(4).
+                   15  ALDSN-RS-UPD-MM     PIC 9(2).
+                   15  ALDSN-RS-UPD-DD     PIC 9(2).
+               10  ALDSN-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALDSN-RS-UPD-BTME REDEFINES ALDSN-RS-UPD-TIME.
+                   15  ALDSN-RS-UPD-HH     PIC 9(2).
+                   15  ALDSN-RS-UPD-MI     PIC 9(2).
+                   15  ALDSN-RS-UPD-SS     PIC 9(2).
+                   15  ALDSN-RS-UPD-TH     PIC 9(2).
+               10  ALDSN-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALDSN-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC X         VALUE SPACE.

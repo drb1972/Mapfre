@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Adds/Updates \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
+%Add+
++ new        Set         Set if      Set      sets s/o    Set        Set if
++  element               changed                ID                   generated
++
++ existing   Set if      Set if      Set      sets s/o    Set if     Set if
++  element   changed     generated              ID        changed    generate
++                                                                    creates a
++                                                                    delta
++
+%Update+     Set if      Set if      Set      sets s/o    Set if     Set if
++            changed     generated              ID        changed    generate
++                                                                    creates a
++                                                                    delta
++
+)END

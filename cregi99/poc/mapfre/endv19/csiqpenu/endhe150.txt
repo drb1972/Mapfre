@@ -1,0 +1,84 @@
+)ATTR
+ }  TYPE(PS)
+ {  TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++     Select from the options below for more information.
++
++   General Action Options:              +   Move Action Options:
++   { 1}Override Signout+                    {13}Sync+
++   { 2}CCID+                                {14}With History+
++   { 3}Comment+                             {15}Retain Signout+
++                                            {16}Signout to+
++   Generate Action Options:                 {17}Acknowledge Element Jump+
++   { 4}Generate after Edit+                 {18}Delete From Element+
++   { 5}Generate in Place+                   {19}Move Action Mode+
++   { 6}Generate No Source+
++   { 7}Generate Action Mode+            +   Signin Action Options:
++   { 8}Generate with Autogen+               {20}Signin/Signout To+
++   { 9}Processor Group+                     {21}Signin Action Mode+
++   {10}Preserve VB Record Length+           {22}Signout Action Mode+
++
++   Delete Action Options:               +   Batch Action Mode:
++    11}Only Component+                      {23}Queue Actions for Batch+
++    12}Delete Action Mode+                  {24}Prompt after Edit+
++\ \(Press}END+to return) \ \
+)PROC
+ &ZUP  = 'ENDHE120'
+ &ZSEL = TRANS(&ZCMD 1,ENDHE141
+                     2,ENDHE140
+                     3,*ENDHE140
+                     4,ENDHE151
+                     5,ENDHE153
+                     6,ENDHE155
+                     7,ENDHE152
+                     8,CITOAUTG
+                     9,ENDHE140
+                    10,*ENDHE140
+                    11,CITONLC0
+                    12,ENDHE154
+                    13,CITSYNC0
+                    14,CITWHIS0
+                    15,CITRTSO0
+                    16,CITSOTO0
+                    17,CITJUMP0
+                    18,CITBYED0
+                    19,ENDHE161
+                    20,CITSITO0
+                    21,ENDHE156
+                    22,ENDHE157
+                    23,ENDHE158
+                    24,ENDHE162
+                     *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(13)
+FIELD(ZPS01003) VAR(ZCMD) VAL(2)
+FIELD(ZPS01004) VAR(ZCMD) VAL(14)
+FIELD(ZPS01005) VAR(ZCMD) VAL(3)
+FIELD(ZPS01006) VAR(ZCMD) VAL(15)
+FIELD(ZPS01007) VAR(ZCMD) VAL(16)
+FIELD(ZPS01008) VAR(ZCMD) VAL(17)
+FIELD(ZPS01009) VAR(ZCMD) VAL(4)
+FIELD(ZPS01010) VAR(ZCMD) VAL(18)
+FIELD(ZPS01011) VAR(ZCMD) VAL(5)
+FIELD(ZPS01012) VAR(ZCMD) VAL(19)
+FIELD(ZPS01013) VAR(ZCMD) VAL(6)
+FIELD(ZPS01014) VAR(ZCMD) VAL(7)
+FIELD(ZPS01015) VAR(ZCMD) VAL(8)
+FIELD(ZPS01016) VAR(ZCMD) VAL(20)
+FIELD(ZPS01017) VAR(ZCMD) VAL(9)
+FIELD(ZPS01018) VAR(ZCMD) VAL(21)
+FIELD(ZPS01019) VAR(ZCMD) VAL(10)
+FIELD(ZPS01020) VAR(ZCMD) VAL(22)
+FIELD(ZPS01021) VAR(ZCMD) VAL(11)
+FIELD(ZPS01022) VAR(ZCMD) VAL(23)
+FIELD(ZPS01023) VAR(ZCMD) VAL(12)
+FIELD(ZPS01024) VAR(ZCMD) VAL(24)
+FIELD(ZPS01025) VAR(ZCMD) VAL(END)
+)END

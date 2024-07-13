@@ -1,0 +1,7 @@
+         MACRO                                                          00010000
+         $$SUBP  &ROL=,&NUM=                                            00020001
+.*  NUM= 0-127   - THE MVS SUBPOOL DESIRED                              00030001
+         AIF   ('&NUM' EQ '').DONE                                      00040000
+.GEN     $$ABSEXP ROL=&ROL,ARG=&NUM,TYPE=OT$$SUBP,FMT=N                 00050001
+.DONE    ANOP                                                           00060000
+         MEND                                                           00070000

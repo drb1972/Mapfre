@@ -1,0 +1,29 @@
+         MACRO
+&LABEL   $PBMSSUM &DSCT=YES
+*--------------------------------------------------------------------*
+*                                                                    *
+* Macro: $PBMSSUM                                                    *
+*                                                                    *
+* Function: The $PBMSSUM macro maps the PDM Merge Summary statistics *
+*  record.  The Summary statistics record contains summary inform-   *
+*  ation about the MERGE OUTPUT operation.                           *
+*                                                                    *
+*--------------------------------------------------------------------*
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PBMSSUM DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$PBMSSUM DS    0F
+.SKPEQU  ANOP
+$PMSLEN  DC    Y($PMSDSLN)             Length of the structure
+$PMSEYE  DC    CL4'SSUM'               Structure identifier
+$PMSVERS DC    Y(1)                    Structure version number
+MSTYPE   DC    Y(4)                    Structure type identifier
+MSOUTDSN DS    CL44                    Merge Output dataset name
+MSMBRSEL DS    F'0'                    Members selected for processing
+MSMBRSUC DS    F'0'                    Members successfully processed
+MSMBRREP DS    F'0'                    Members with replace conflicts
+MSMBRERR DS    F'0'                    Members in error
+MSWIPDEL DS    F'0'                    Number of WIP members deleted
+$PMSDSLN EQU   *-$PBMSSUM
+         MEND

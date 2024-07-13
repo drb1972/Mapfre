@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Base \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%UserID+- Id of the user who created the base level of the element.
+%Date/Time+- Date and time when the base level was created.
++
+%Description+- Comment associated with the Element when it as added. Also
++  referred to as the base comment.
++
+%Internal Name+- Generated Element name used in conjunction with
++  long-named Elements. For internal use only.
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

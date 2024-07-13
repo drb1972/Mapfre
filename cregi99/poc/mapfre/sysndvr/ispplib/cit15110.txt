@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Backout & Ship Support for USS Files \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
+%
+%Package Backout & Ship Support for USS Files +
++
+ UNIX System Services (USS) files can now be shipped using the Package
+ Ship utility.  This enhancement includes the following product changes:
++
+%ENUSSUTL Processor Utility+
+ To create the backout files required by Package Ship, include the
+ new Processor utility ENUSSUTL in the processor that is associated
+ to the Element Type of the USS based files.
++
+%Transmission Methods for USS+
+ The Package Ship transmission methods local, XCOM, and Connect Direct
+ now support the shipment of USS file outputs. To utilize this capability,
+ use the updated skeleton JCL members which are supplied with this release.
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15120
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--PARMLIB Information (cont.) \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%End to End Log Mbr+- This is the name of the End-to-End action activity log
+      member within the PARMLIB data set. This member is used to specify the
+      name of the USS directories for logging Package and/or Element action
+      activity for use by the Application Lifecycle Conductor product. For
+      Element action activity logging, the actions and the inventory locations
+      can be specified for which logging will occur.
+%
+%Deferred File Creation Mbr+- This is the name of the Deferred File Creation
+      member within the PARMLIB data set. This member is used to specify data
+      set names and allocation parameters for files that do not exist when
+      Endevor attempts to allocate them. Files that fail allocation because they
+      do not exist and have a match within this member are allocated as new
+      files using the parameters specified in the matching entry and processing
+      continues. Endevor symbols can be used to specify the data set names,
+      including the LIKE data set name. Symbol substitution for the data set
+      names will take place at the time the new allocation is done and before
+      matching of the data set names takes place.
+
+
+
+\ \ (2 of 2) \ \
+)END

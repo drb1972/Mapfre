@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Add Action and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++  The Add action supports copyback and signout checking across the
++  environment map.  When you add an element, The map is searched for
++  additional occurrences of that element.  If it finds the element at
++  another map location, ADD validates the sign-out, copies the element
++  back to the target location for the Add, and performs a comparison
++  to create a delta level.
++
++  Additionally, you do not have to specify a processor group unless you
++  want to assign a group that is different that the group associated with
++  an existing element or the default group assigned to new elements.
++
++
++
++                                            (%PF3+to return)
+)END

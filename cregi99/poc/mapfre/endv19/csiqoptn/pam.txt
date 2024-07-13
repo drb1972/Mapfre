@@ -1,0 +1,243 @@
+         TITLE 'OS PANVALET READ-ONLY SYSTEM TEST PROGRAM'              00001*12
+**                                                                      00002*12
+**  *** NOTE *** NEW FOR 14.3 IS LREC PARM FOR SEARCH AND READ.         00003*12
+**           1.  ON RETURN FROM SEARCH THE LREC(RECORD LENGTH)          00004*12
+**               WILL BE FILLED IN.                                     00005*12
+**           2.  PASS THIS PARM TO THE READ ROUTINE.                    00006*12
+**           3.  HAVE ANOTHER CL4 AFTER THE LREC SEE FOLLOWING:         00007*12
+**                   **** VERY IMPORTANT ****                           00008*12
+** YOU MUST HAVE A CL4 AFTER THE LREC PARM WHICH IS PASSED TO SEARCH    00009*12
+** AND THE READ THIS IS BECAUSE PANMODI WILL PASS THE ACTUAL LENGTH     00010*12
+** MOVED TO YOUR RECORD AREA. AND IF YOU DO NOT HAVE A CL4 IT WILL      00011*12
+** WIPE OUT THE NEXT 4 BYTES FOLLOIWNG THE LREC PARM PASSED TO          00012*12
+** SEARCH AND READ.                                                     00013*12
+**                                                                      00014*12
+**                                                                      00015*12
+** THIS IS A SAMPLE PAM PROGRAM UTILIZING PAM'S RE-ENTRANT INTERFACE    00016*12
+** FEATURE.  THE PRIMARY PURPOSE OF THIS PROGRAM IS TO SHOW HOW PAM IS  00017*12
+** CALLED AND TO DEMONSTRATE SOME OF IT'S CAPABILITIES WHEN USING PAM'S 00018*12
+** RE-ENTRANT INTERFACE FEATURE.  THIS PROGRAM IS TO BE USED FOR DOC-   00019*12
+** UMENTATIONAL AND EXAMPLE PURPOSES ONLY.  FOR ADDITIONAL INFORMATION, 00020*12
+** PLEASE REFER TO YOUR PANVALET SYSTEM MANAGEMENT MANUAL.              00021*12
+**                                                                      00022*12
+** NOTE: THIS PROGRAM REQUIRES THAT THE LOAD MODULES: PAM, PVPVLAMS,    00023*12
+**       AND PANPVGEM BE LINKED REENTRANT AND REUSABLE; ELSE,           00024*12
+**       UNPREDICTABLE RESULTS MAY OCCUR, SUCH AS S0C4'S, ETC.          00025*12
+**                                                                      00026*12
+PAMREAD  CSECT                                                          00027*12
+         USING PAMREAD,15                                               00028*12
+         STM   14,12,12(13)       SAVE REGISTERS                        00029*12
+         LR    12,13              SAVE CALLERS REG                      00030*12
+         LA    13,SAVEAREA        SET SAVEAREA ADDRESS                  00031*12
+         ST    12,4(13)           SET CALLER IN CALLEES                 00032*12
+         ST    13,8(12)           CALLEES IN CALLERS                    00033*12
+         LR    12,15              USE R12 AS BASE                       00034*12
+         USING PAMREAD,12                                               00035*12
+         DROP  15                                                       00036*12
+**                                                                      00037*12
+** LOAD PAM IF NOT LINKED:                                              00038*12
+**                                                                      00039*12
+         L     0,PAMVCON          ==> PAM LOAD MODULE <==               00040*12
+         C     0,=F'0'            IF NOT LINKED, LOAD IT                00041*12
+         BNE   GOTPAM                                                   00042*12
+         LOAD  EP=PAM                                                   00043*12
+GOTPAM   ST    0,PAM@             SAVE ENTRY POINT TO PAM               00044*12
+**                                                                      00045*12
+** OPEN A PANVALET LIBRARY FOR PROCESSING SEARCHES:                     00046*12
+**                                                                      00047*12
+         XC    ACTION1,ACTION1    CLEAR ACTION WORD                     00048*12
+         MVI   AFUNC1,C'O'        FUNCTION: OPEN                        00049*12
+         L     15,PAM@                                                  00050*12
+         CALL  (15),(ACTION1,DDNAME,BACKUP),VL                          00051*12
+         LTR   15,15                                                    00052*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00053*12
+**                                                                      00054*12
+** OPEN THE SAME PANVALET LIBRARY FOR PROCESSING READS:                 00055*12
+**                                                                      00056*12
+         XC    ACTION2,ACTION2    CLEAR ACTION WORD                     00057*12
+         MVI   AFUNC2,C'O'        FUNCTION: OPEN                        00058*12
+         L     15,PAM@                                                  00059*12
+         CALL  (15),(ACTION2,DDNAME,BACKUP),VL                          00060*12
+         LTR   15,15                                                    00061*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00062*12
+**                                                                      00063*12
+** SEARCH THE LIBRARY FOR ALL MEMBERS WITHIN THE SPECIFIED RANGE:       00064*12
+**                                                                      00065*12
+SEARCH   EQU   *                                                        00066*12
+         XC    ACTION1,ACTION1    CLEAR ACTION WORD                     00067*12
+         MVI   AFUNC1,C'S'        FUNCTION: SEARCH                      00068*12
+         L     15,PAM@                                                  00069*12
+         CALL  (15),(ACTION1,DIRENTRY,NAME1,NAME2,COMMENT,SUBSET,      X00070*12
+               LREC),VL           * NEW FOR 14.3                        00071*12
+         LTR   15,15                                                    00072*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00073*12
+         CLC   DIRENTRY(2),=C'$*' TEST FOR NO MORE DIR ENTRIES          00074*12
+         BE    EOJ                ===> END OF SEARCH ROUTINE <===       00075*12
+**                                                                      00076*12
+** READ ALL RECORDS OF THE MEMBER FOUND ON THE SEARCH:                  00077*12
+**                                                                      00078*12
+READ     EQU   *                                                        00079*12
+         XC    ACTION2,ACTION2    CLEAR ACTION WORD                     00080*12
+         MVI   AFUNC2,C'R'        FUNCTION: READ                        00081*12
+         MVC   NAME(10),DNAME     MOVE "SEARCH'D" NAME TO "READ" NAME   00082*12
+         MVC   INCLUDES,=C'NO-ENTRY'    DO NOT PROCESS INCLUDE'S        00083*12
+         MVC   COMMENT(8),=C'NO-ENTRY'  DO NOT PROCESS COMMENT'S        00084*12
+READAGN  L     15,PAM@                                                  00085*12
+         CALL  (15),(ACTION2,RECORD,NAME,INCLUDES,COMMENT,             X00086*12
+               LREC),VL           * NEW FOR 14.3                        00087*12
+         LTR   15,15                                                    00088*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00089*12
+         CLC   RECORD(2),=C'$*'   TEST FOR END OF DATA                  00090*12
+         BE    SEARCH             END OF THIS MEMBER; DO NEXT MEMBER.   00091*12
+*                                                                       00092*12
+* (* INSERT CODE HERE TO PROCESS THE DATA RECORD JUST READ *)           00093*12
+*                                                                       00094*12
+         B     READAGN            GET NEXT RECORD FROM CURRENT MEMBER   00095*12
+*                                                                       00096*12
+ERROR    EQU   *                                                        00097*12
+*                                                                       00098*12
+* (* INSERT CODE HERE TO PERFORM ERROR CONDITION PROCESSING *)          00099*12
+*                                                                       00100*12
+EOJ      DS    0H                                                       00101*12
+*                                                                       00102*12
+* (* INSERT CODE HERE TO PERFORM ADDITIONAL EOF OR END-OF-JOB *)        00103*12
+* (* PROCESSING, IF ANY.                                      *)        00104*12
+*                                                                       00105*12
+**                                                                      00106*12
+** CLOSE BOTH OPEN PANVALET LIBRARIES:                                  00107*12
+**                                                                      00108*12
+CLOSE    EQU   *                                                        00109*12
+         XC    ACTION1,ACTION1    CLEAR ACTION WORD                     00110*12
+         MVI   AFUNC1,C'C'        FUNCTION: CLOSE                       00111*12
+         L     15,PAM@                                                  00112*12
+         CALL  (15),(ACTION1),VL                                        00113*12
+         LTR   15,15                                                    00114*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00115*12
+*                                                                       00116*12
+         XC    ACTION2,ACTION2    CLEAR ACTION WORD                     00117*12
+         MVI   AFUNC2,C'C'        FUNCTION: CLOSE                       00118*12
+         L     15,PAM@                                                  00119*12
+         CALL  (15),(ACTION2),VL                                        00120*12
+         LTR   15,15                                                    00121*12
+         BNZ   ERROR              GO TO USER'S ERROR ROUTINE            00122*12
+**                                                                      00123*12
+** DELETE PAM ONLY IF IT WAS PREVIOUSLY LOADED:                         00124*12
+**                                                                      00125*12
+         L     0,PAMVCON          ===> PAM LOAD MODULE <===             00126*12
+         C     0,=F'0'                                                  00127*12
+         BNE   RETURN             PAM WAS LINKED, NOT LOADED            00128*12
+         CLC   PAM@,=F'0'                                               00129*12
+         BE    RETURN             LOAD OF PAM NEVER OCCURED             00130*12
+         DELETE  EP=PAM                                                 00131*12
+*                                                                       00132*12
+RETURN   EQU   *                                                        00133*12
+         XC    PAM@,PAM@          CLEAR PAM ENTRY POINT ADDRESS         00134*12
+         L     13,4(13)           RESTORE REGISTERS                     00135*12
+         LM    14,12,12(13)                                             00136*12
+         SR    15,15              CLEAR RETURN CODE                     00137*12
+         BR    14                 RETURN                                00138*12
+**                                                                      00139*12
+** ACTION-CONTROL-BLOCK FOR PERFORMING SEARCHES ON THE LIBRARY:         00140*12
+**                                                                      00141*12
+         DC    C'ACTION1 BEGINS HERE'                                   00142*12
+ACTION1  DC    F'0'            PAM RETURN CODE                          00143*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00144*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00145*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00146*12
+AFUNC1   DC    CL1' '          FUNCTION CODE: O, C, R, S                00147*12
+ANCHOR1  DC    A(0)            USED INTERNALLY BY PAM TO ANCHOR PCOMMON 00148*12
+         DC    C'ACTION1 ENDS HERE'                                     00149*12
+**                                                                      00150*12
+** ACTION-CONTROL-BLOCK FOR PERFORMING READS OF A MEMBER:               00151*12
+**                                                                      00152*12
+         DC    C'ACTION2 BEGINS HERE'                                   00153*12
+ACTION2  DC    F'0'            PAM RETURN CODE                          00154*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00155*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00156*12
+         DC    X'00'           (* RESERVED FOR FUTURE USE *)            00157*12
+AFUNC2   DC    CL1' '          FUNCTION CODE: O, C, R, S                00158*12
+ANCHOR2  DC    A(0)            USED INTERNALLY BY PAM TO ANCHOR PCOMMON 00159*12
+         DC    C'ACTION2 ENDS HERE'                                     00160*12
+**                                                                      00161*12
+** REQUIRED PARAMETERS FOR PAM "OPEN" FUNCTION:                         00162*12
+**                                                                      00163*12
+DDNAME   DC    CL8'PANDD1'     DDNAME OF FILE TO BE OPENED              00164*12
+BACKUP   DC    CL8'NO-ENTRY'   MUST BE CL8'BACKUP' IF PROTECTION FILE   00165*12
+**                                                                      00166*12
+** REQUIRED PARAMETERS FOR PAM "SEARCH" FUNCTION:                       00167*12
+**                                                                      00168*12
+DIRENTRY DS    0CL80           DIR ENTRY RETURNED IN 0-UP FORMAT        00169*12
+DNAME    DS    CL10            NAME (LEFT JUSTIFIED)                    00170*12
+DLEVEL   DS    CL3             LEVEL NUMBER                             00171*12
+DUSER    DS    CL4             USER CODE                                00172*12
+DSECURE  DS    CL1             SECURITY CODE                            00173*12
+DTYPE    DS    CL5             LANGUAGE TYPE                            00174*12
+DSTATUS  DS    0CL3            3-CHARACTER STATUS:                      00175*12
+DPRODT   DS    CL1               P-PROD    T-TEST                       00176*12
+DEORDD   DS    CL1               E-ENABLE  D-DISABLE                    00177*12
+DAORDI   DS    CL1               A-ACTIVE  I-INACTIVE                   00178*12
+DDATEM   DS    CL8             DATE OF LAST MAINTENANCE (MM/DD/YY)      00179*12
+DDATEA   DS    CL8             DATE OF LAST ACCESS      (MM/DD/YY)      00180*12
+DBLOCKS  DS    CL5             NO. OF BLOCKS                            00181*12
+DSTMTS   DS    CL8             NO. OF STATEMENTS                        00182*12
+DLASTACT DS    CL4             LAST ACTION, 1ST POS. IS * IF PROD.      00183*12
+DBYTES   DS    CL2             NO. BYTES PER STATMENT                   00184*12
+DSUBSET  DS    CL4             NO. OF SUBSETS (SUPERSETS ONLY)          00185*12
+DNAME2   DS    CL10            NAME (RIGHT JUSTIFIED)                   00186*12
+         DS    CL1             NOT USED                                 00187*12
+         DS    CL1             N=NOFORMAT; T=TSO; ELSE BLANK            00188*12
+DINC     DS    CL1             I=INCLUDE BEING EXPND (EXIT ONLY)        00189*12
+DVERSION DS    XL2             VER. # (FOR PROTECTION FILES ONLY)       00190*12
+*                                                                       00191*12
+NAME1    DC    CL22'A'          SEARCH NAME1                            00192*12
+NAME2    DC    CL11'9999999999' SEARCH NAME2                            00193*12
+COMMENT  DC    CL52'NO-ENTRY'  NO COMMENTS WANTED, ELSE='COMMENT'       00194*12
+*                              NOTE: COMMENTS WILL BE PROCEDED AND      00195*12
+*                                    ENDED WITH AN ASTERISK ('*').      00196*12
+*                                                                       00197*12
+SUBSET   DC    CL27'NO-ENTRY'  NO SUBSETS WANTED; ELSE='SUBSET'         00198*12
+*        NOTE: IF SUBSETS ARE REQUESTED, THE FOLLOWING WILL BE A        00199*12
+*              DEFINITION OF THE SUBSET DIRECTORY ENTRY:                00200*12
+SUBENTRY DS    0CL27                                                    00201*12
+SUBNAME  DS    CL11            FORMAT .XXXXXXXXXX X'S = SUBSET NME      00202*12
+         DS    CL1             BLANK                                    00203*12
+SUBDATE  DS    CL8             DATE ATTACHED IN FORM MM/DD/YY           00204*12
+         DS    CL2             BLANKS                                   00205*12
+SUBSTMT  DS    CL5             # OF STMTS IN SUBSET                     00206*12
+**                                                                      00207*12
+** REQUIRED PARAMETERS FOR PAM "READ" FUNCTION:                         00208*12
+**                                                                      00209*12
+**                   **** VERY IMPORTANT ****                           00210*12
+** YOU MUST HAVE A CL4 AFTER THE LREC PARM WHICH IS PASSED TO SEARCH    00211*12
+** AND THE READ                                                         00212*12
+LREC     DC    CL4' '          * NEW PARM TO PASS RECORD LENGTH         00213*12
+LRECBK   DC    CL4' '          * ACTUAL LENGTH MOVED TO YOUR REC AREA   00214*12
+** YOU MUST HAVE A CL4 AFTER THE LREC PARM WHICH IS PASSED TO SEARCH    00215*12
+** AND THE READ                                                         00216*12
+**                                                                      00217*12
+RECORD   DC    CL80' '         STATMENT WILL BE RETURNED HERE           00218*12
+NAME     DC    CL22' '         DATA SET TO BE READ                      00219*12
+INCLUDES DC    CL8' '                                                   00220*12
+*                                                                       00221*12
+* RETURN CODES FROM EACH CALL TO PAM WILL BE RETURNED IN THE FIRST WORD 00222*12
+* OF THE ACTION-CONTROL-BLOCK.  THESE RETURN CODES WILL CORRESPOND TO   00223*12
+* THE PV, PM, MP, OR GE DIAGNOSTICS AS DOCUMENTED IN YOUR PANVALET      00224*12
+* USER REFERENCE MANUAL.  REGISTER R15 WILL ALSO CONTAIN ONE OF THE     00225*12
+* FOLLOWING RETURN CODES INDICATING THE SEVERITY OF THE ERROR:          00226*12
+*                                                                       00227*12
+*    0 = SUCCESSFUL COMPLETION                                          00228*12
+*    4 = ++INCLUDE NOT FOUND (WARNING ON PREAD ONLY)                    00229*12
+*    8 = GENERAL ERROR - NAME NOT FOUND, PARM LIST ERRORS, ETC.         00230*12
+*   16 = SEVERE ERROR; PROCESSING SHOULD BE ENDED DUE TO POSSIBLE       00231*12
+*        FILE MALFUNCTION, I/O ERROR, HARDWARE PROBLEM, ETC.            00232*12
+*                                                                       00233*12
+* REFER TO YOUR PANVALET SYSTEM MANAGEMENT MANUAL FOR ADDITIONAL        00234*12
+* INFORMATION ON PAM RETURN CODES AND ERROR CONDITIONS.                 00235*12
+*                                                                       00236*12
+         LTORG                                                          00237*12
+SAVEAREA DC    18A(0)             REGISTER SAVE AREA                    00238*12
+*                                                                       00239*12
+PAMVCON  DC    V(PAM)                                                   00240*12
+         WXTRN PAM                                                      00241*12
+PAM@     DC    A(0)               PAM ROUTER ENTRY POINT                00242*12
+         END                                                            00243*12

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Display \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel provides information about an individual approver group.
++The top part of this panel displays
++  * Package ID and status information
++  * Approver group information from the selection panel.
++The lower part of the panel displays information about individual
++approvers.
++
+%  Approver+- The approver's TSO user ID.
+%  Approval status+- The decision of this approver. APPROVED, DENIED,
++     blank or DISQUAL. 'DISQUAL' signifies that this approver has
++     been disqualified from this approver group.
+%  Date+- The date of the approver's decision.
+%  Time+- The time of the approver's decision.
+%  Approval req'd+- Indicates whether this approver has been designated
++     as a required approver. REQUIRED or blank.
++
++    Select%1+-%2+for information about
++
+%    1+- Package ID fields          %2+- Package status
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0)
+)END

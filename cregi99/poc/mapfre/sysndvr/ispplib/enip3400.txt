@@ -1,0 +1,36 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP3400                                                     */
+ /*-----------------------------------------------------------------------*/
+  $ TYPE(INPUT)         JUST(LEFT) CAPS(ON)
+  ` TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
++-------------------------%Display Package Note Text+---------------------------
++ Command ==>$ZCMD                                                             +
++
++    1. `PDVSLPN1                                                    +
++    2. `PDVSLPN2                                                    +
++    3. `PDVSLPN3                                                    +
++    4. `PDVSLPN4                                                    +
++    5. `PDVSLPN5                                                    +
++    6. `PDVSLPN6                                                    +
++    7. `PDVSLPN7                                                    +
++    8. `PDVSLPN8                                                    +
++
++
++
++
++
++
++
++
++
++
++
++    Enter the END command to return to the previous panel
++
+)INIT
+   .HELP = enit3400
+)PROC
+)END

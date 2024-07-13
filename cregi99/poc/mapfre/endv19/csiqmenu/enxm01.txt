@@ -1,0 +1,37 @@
+ENXM010W 'No match'                                 .ALARM=Y .TYPE=W NOKANA
+'No Elements qualify for Deploy for Test processing, check Element '      +
+'sandbox or filters'
+
+ENXM010E 'Invalid Panel'                            .ALARM=Y .TYPE=W NOKANA
+'You must invoke the Deploy for Test utility from a Quick Edit '          +
+'element selection list'
+
+ENXM012E 'Incorrect Target Subsystem'               .ALARM=Y .TYPE=W NOKANA
+'Enter one of the target Subsystems listed on the panel, or use '         +
+'point-and-shoot to select a target from the list'
+
+ENXM013W 'Request Cancelled'                        .ALARM=Y .TYPE=W NOKANA
+'Request cancelled at user request'
+
+ENXM014W 'Nothing Selected'                         .ALARM=Y .TYPE=W NOKANA
+'No elements selected/excluded, default to all selected'
+
+ENXM015E 'Enter "S" or "U"'                         .ALARM=Y .TYPE=W NOKANA
+'Enter "S" to select an Element, "U" to Un-Select, or the command '       +
+'"Select (All)" to mark all Elements as selected'
+
+ENXM016E 'No Valid Targets'                         .ALARM=Y .TYPE=A NOKANA
+'Search for a valid Target Subsystem in this Env/System failed. '         +
+'A valid Target Subsystem is one where the Next SubSys is defined '       +
+'as "DEPLOY4T". '                                                         +
+'Contact your Endevor Administrator to complete Deploy for Test '         +
+'configuration tasks.'
+
+ENXM017I '&PACKAGE CREATED'                            .ALARM=NO
+'Package &PACKAGE has been created'
+
+ENXM018I 'CAST &PACKAGE'                               .ALARM=NO
+'&PACKAGE will be CAST by submitted batch job'
+
+ENXM019I 'Select Elms for Deploy'                   .ALARM=Y .TYPE=W NOKANA
+'Use this screen to select Elements for Deploy for Test processing'

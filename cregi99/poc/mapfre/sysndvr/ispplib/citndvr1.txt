@@ -1,0 +1,24 @@
+)ATTR DEFAULT(|+_)
+)BODY EXPAND(\\)
+|TUTORIAL \-\ Inventory Fields, continued \-\ TUTORIAL
+|OPTION ===>_ZCMD                                                              +
++
++Inventory fields specify the
+
+   * Target of Add, Update, and Restore actions.
+   * Starting point for Archive, Move, Retrieve, and Generate with
+     copyback.
+   * Starting point and target for certain Transfer actions.
+   * Location for the execution of Delete, Generate and Validate actions.
+
+
++The following rules apply when typing information into inventory fields:
+
+   * Names must be in the national character set: A-Z, 0-9, @, #, and $.
+   * A fully or partial wildcard is allowed
+     e.g.: ABCDEF element will match any of these wildcards:
+           ABCD%F or A%C%EF or AB* or A%C%E* or *
+   * The default is the current specification. All fields are modifiable
+     when requesting an action.
++
+)END

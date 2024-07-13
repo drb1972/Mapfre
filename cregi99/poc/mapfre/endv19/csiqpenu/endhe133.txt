@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the%LEFT+and%RIGHT+commands (usually PF10 and PF11) to scroll through
++the information on this panel.
+$SAREA                                                                         $
+)AREA SAREA
+%Case-sensitive Elm Name+- This field is used with the%Uppercase+field to
++  build the element selection list. If the Uppercase field is set to%Y,+
++  the element name or mask is uppercased and then this field is used to
++  determine case-sensitivity when building the element selection list. If
++  this field is set to%Y,+the element names are presented in the element
++  selection list using exactly what is specified in the element name or
++  mask. If this field is set to%N,+both upper and lower case element names
++  are presented in the list based on the element name or mask regardless of
++  the case of the characters that are specified.
++
++  This field affects the execution of the%LOCATE (L)+command only when the
++ %Uppercase+field is set to%N.+ When the Uppercase field is set to%N+and
++  this field is set to%Y,+the LOCATE command argument is used exactly as
++  specified to locate the element in the selection list. When the Uppercase
++  field is set to%N+and this field is set to%N,+two locates may be
++  performed to position the selection list. For the first locate, the
++  command argument is used exactly as specified. If an exact match is found
++  for the characters specified in the argument, locate processing stops and
++  the list is displayed at the new position. If an exact match is NOT found
++  for the characters specified in the argument, a second and final locate
++  is performed with the argument uppercased.
++
+%  Note+- The%Uppercase+and%Case-Sensitive Elm Name+fields are hidden if the
++  short layout is selected in the User Defaults panel.
++
++
++\ \(%END+to return) \ \
+)PROC
+)END

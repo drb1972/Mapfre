@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Element is the term for PDS members, Panvalet or Librarian, or
++sequential data sets that have been added to the software inventory.
++The element name defaults to the member name.
++
++Elements are classified according to the inventory structure you
++set up. Each element is described uniquely in terms of its:
++
++  * Location in the software life cycle. This is determined by the
++      environment and stage where it resides.
++
++  * Inventory classification. This is determined by the system,
++      subsystem, and type with which it is associated.
++
++
++
++                                            (%PF3+to return)
+)END

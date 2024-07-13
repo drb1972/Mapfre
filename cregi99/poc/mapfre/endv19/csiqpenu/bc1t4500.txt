@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Output Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Merge Output Specification Panel to identify the Endevor
++location to which you want PDM to write the merge output and to specify other
++options related to the merge process.
++
+%Location+- Environment, System, Subsystem and Type must be explicit.
++    Selection lists are provided if necessary. If you provide an invalid
++    Stage ID, acceptable Stage ID values are displayed to the right
++    when you press ENTER.
++
++
++    Select%1-9+for information about:
++
+%    1+- The merge process             %6+- Processor Group Name
+%    2+- Replacing like-named elements %7+- Sync NDVR output
+%    3+- Deleting WIP after merge      %8+- Generating Merge report
+%    4+- Deleting DV1 DV2 after merge  %9+- Statistics data set
+%    5+- Generating the element
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T4420 2,BC1TREP2 3,BC1TDWP2 4,BC1TDDVS
+           5,BC1TEGEN 6,BC1TPGRP 7,BC1TSYNC 8,BC1TGREP 9,BC1TSTAT)
+)END

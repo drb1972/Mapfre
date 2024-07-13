@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete NDVR DV1 DV2 After Merge \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Merging changes into CA Endevor SCM can only occur when the Root, DV1
++and DV2 are all CA Endevor SCM elements.
++
++This field indicates whether PDM is to delete the derivation 1 and 2
++elements after creating the merged Endevor changes.
++The default is%N+(do not delete DV1 and DV2 elements).
++
++PDM will only delete these elements if the merge ended with no errors.
++If the target location is the same location as one of the derivations,
++that element will not be deleted.
++
++
++
++
++
+)END

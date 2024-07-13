@@ -1,0 +1,28 @@
+         MACRO                                                          00010031
+         @EINDS &DSECT=YES                                              00020031
+*********************************************************************** 00041000
+*  HEADER FOR THE @EINFO STARTUP BLOCK                                * 00050031
+*********************************************************************** 00060031
+         AIF   ('&DSECT' NE 'NO').RTN1010                               00080031
+@EINDS   EQU   *                                                        00090031
+         AGO   .RTN1020                                                 00100031
+.RTN1010 ANOP                                                           00110031
+@EINDS   DSECT                                                          00120031
+.RTN1020 ANOP                                                           00130031
+EINEYE   DC    A(EINEYEC)              EYECATCHER                       00140001
+EINEYEC   EQU   C'@EIN'                VALUE OF STORAGE                 00150031
+EINVER   DC    Y(EINVERC)              VERSION OF BLOCK                 00160001
+EINVERC   EQU   1                       VERSION 1                       00180003
+EINBLSES DC     CL8' '                  BLGSESS LOAD MOD MEMBER NAME    00180002
+EINAPSES DC     CL8' '                  API SESSION NAME                00190037
+EINEPIDT DC     CL8' '                  NAME OF LOAD MODULE CREATED     00200031
+*                                          BY BATCH UTILITY
+EINCLASS DC     CL8' '                  INFO/MAN INVOCATION CLASS NAME  00210031
+EINWTIME DC     H'00'                   INFO/MAN API WAITTIME           00210031
+EINRTYPE DC     CL8' '                  FOR STAND ALONE ACTIONS ONLY    00210031
+*                                        RECORD TYPE CHANGE/PROBLEM     00210031
+         DC     CL8' '                  *** RESERVED ***                00210031
+         DC     CL8' '                  *** RESERVED ***                00210031
+         DS     0D                                                      00540031
+EINLNG    EQU   *-@EINDS                DSECT LENGTH                    00550031
+         MEND                                                           00570031

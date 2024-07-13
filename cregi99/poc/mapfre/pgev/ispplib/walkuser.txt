@@ -1,0 +1,59 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Endevor WALKER Options+\-\
+%OPTION  ===>_ZCMD                                                             +
+%
+%  E +EDIT          - Edit Walker Requests
+%  S +SUB           - Build and Submit JCL to add Walker elements
+%  J +JCL           - Build JCL to add Walker elements
+%  M +MAINT         - Maintain Lookup Table of Walker/Endevor elements
+%
++Environment %===>%UNIT+            Subsystem   %===>^SBS+%WA1 WA2 WA3
++Type        %===>^WTY+            +CCID        %===>^CTLNBR     +
++                 %COB DOC DOP ERR FID GMT MVT NAM RPT SCR SVC TGS TID VMS
++
++ REQUEST DATA SET:
++    PROJECT  ===>^VNBRPRO +
++    GROUP    ===>^VNBRGRP +
++    TYPE     ===>^VNBRTYP +
++    MEMBER   ===>^VNBRMBR +
++
++ JOB STATEMENT INFORMATION:
++    ===>^C1BJC1
++    ===>^C1BJC2
++    ===>^C1BJC3
++    ===>^C1BJC4
+)INIT
+  .CURSOR = ZCMD
+  .HELP = WAHELP
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)REINIT
+)PROC
+&ZSEL = TRANS( TRUNC (&ZCMD,'.')
+               E,'CMD(WAEDIT &WTY E)'
+               M,'CMD(WAEDIT &WTY M)'
+               S,'CMD(WAJCL  &WTY S)'
+               J,'CMD(WAJCL  &WTY J)'
+               *,'?' )
+IF (&ZCMD = E,J,S)
+    VER (&CTLNBR,NB,PICT,C9999999)
+    VER (&SBS,NB,LIST,WA1,WA2,WA3,WA4,WA5,WA6,WA7,WA8,WA9)
+VER (&WTY,NB,LIST,COB,DOC,DOP,ERR,FID,GMT,MVT,NAM,RPT,SCR,SVC,TGS,
+TID,VMS)
+IF (&ZCMD = J,S)
+    VER (&VNBRMBR,NB)
+VPUT(CTLNBR)
+VPUT(VNBRPRO)
+VPUT(VNBRGRP)
+VPUT(VNBRTYP)
+VPUT(VNBRMBR)
+VPUT(C1BJC1)
+VPUT(C1BJC2)
+VPUT(C1BJC3)
+VPUT(C1BJC4)
+&ZTRAIL = .TRAIL
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

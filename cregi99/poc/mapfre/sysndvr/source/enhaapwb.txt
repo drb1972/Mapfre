@@ -1,0 +1,21 @@
+         MACRO
+         ENHAAPWB &DSECT=YES
+         ENHAAID#                      API ID DEFINITIONS
+***********************************************************************
+*        PASSWORD BLOCK
+***********************************************************************
+AAPWB_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AAPWB_RQ$EYE    EQU C'APWB'            CONTROL BLOCK EYE-CATCHER
+*
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AAPWB_RQ
+AAPWB_RQ_DATA      DS 0X               BEGINNING OF DATA AREA
+AAPWB_RQ_USER      DC CL8' '           USER ID
+AAPWB_RQ_PW        DC CL24' '          PASSWORD DATA
+AAPWB_RQ_NPW       DC CL24' '          NEW PASSWORD DATA
+                   DS 0F
+AAPWB_RQ_DATADSLN  EQU *-AAPWB_RQ_DATA
+AAPWB_RQ_DSLN      EQU *-AAPWB_RQ
+         ORG       AAPWB_RQ_DATA
+AAPWB_RQ_DATAAREA  DS XL(AAPWB_RQ_DATADSLN)     DATA AREA
+         MEND

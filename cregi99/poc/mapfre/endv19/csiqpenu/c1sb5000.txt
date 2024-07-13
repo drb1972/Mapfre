@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+   /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+   /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+   /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   # TYPE(INPUT) INTENS(LOW) CAPS(ON) JUST(ASIS) PADC(_)
+)BODY
+%---------------------------- Additional Batch JCL -----------------------------
++COMMAND ===>_ZCMD                                                             +
++
++      .........1.........2.........3.........4.........5.........6.........7..
++  1. #VNBDD01                                                                 +
++  2. #VNBDD02                                                                 +
++  3. #VNBDD03                                                                 +
++  4. #VNBDD04                                                                 +
++  5. #VNBDD05                                                                 +
++  6. #VNBDD06                                                                 +
++  7. #VNBDD07                                                                 +
++  8. #VNBDD08                                                                 +
++  9. #VNBDD09                                                                 +
++  10.#VNBDD10                                                                 +
++  11.#VNBDD11                                                                 +
++  12.#VNBDD12                                                                 +
++  13.#VNBDD13                                                                 +
++  14.#VNBDD14                                                                 +
++  15.#VNBDD15                                                                 +
++  16.#VNBDD16                                                                 +
++  17.#VNBDD17                                                                 +
++  18.#VNBDD18                                                                 +
++  19.#VNBDD19                                                                 +
++  20.#VNBDD20                                                                 +
+)INIT
+  .HELP = CITB5000
+)PROC
+)END

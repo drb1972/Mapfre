@@ -1,0 +1,312 @@
+//*********************************************************************
+//* ENXGSAND - GENERATE SANDBOX PROCESSOR
+//*   Allocate a temporary file to hold allocation syntax
+//*   Define the Sandbox as a subsystem in Endevor
+//*   Print the contents of LIKELIST data set created by LISTDS cmds
+//*   Build outputs for subsequent steps from the list of data sets
+//*   found at LIKEPRFX*
+//*   Print the contents of the ALLOCS data set created by ALLOC1
+//*   Allocate the new files
+//*   Update the ESYMBOLS table with the symbols for the additional
+//*   resources
+//*   Gather all source from ESYMBDSN members
+//*   Add the additional ESYMBOLS entries into #SANDBOX
+//*   Generate the updated ESYMBOLS table
+//*   Define a package for the new ESYMBOLS table and cast it
+//*********************************************************************
+//ENXGSAND PROC AAA=,
+//         ESYMBDSN='UPRFX.UQUAL.SBOXBOLS',
+//         HLQ='UPRFX.UQUAL',
+//         MODEL1='&HLQ..&C1SY..&C1SU..&C1EN(1,1).',
+//         MODEL2='&HLQ..&C1SY..&C1SU..&C1EN(1,1)&C1S#..',
+//         PACKAGE='ESYM&C1AYY&C1AMM&C1ADD&C1AHHMMSS',
+//*** Sandbox Options:
+//         NEXTSUBS='&C1ELEMENT', <- 'NEXT Subsystem'
+//         SBSNODE#=4,           <- Node number where subsys resides
+//*** Inv location where ESYMBOLS and #SANDBOX elements are stored:
+//         PRDENV='PRD',
+//         PRDSYS='SYS1',
+//         PRDSUB='ADMIN',
+//*** Debugging:
+//         SHOWME='Y',
+//         ZZZ=
+//*
+//*********************************************************************
+//* Allocate a temporary file to hold allocation syntax
+//*********************************************************************
+//INITFILE EXEC PGM=BC1PDSIN
+//C1INIT01 DD  DSN=&&ALLOCS,DISP=(,PASS),
+//             SPACE=(TRK,(5,5)),
+//             DCB=(RECFM=FB,LRECL=200,BLKSIZE=0,DSORG=PS)
+//C1INIT02 DD  DSN=&&COPYDSN,DISP=(,PASS),
+//             SPACE=(TRK,(5,5)),
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=0,DSORG=PS)
+//*
+//*********************************************************************
+//* Define the Sandbox as a subsystem in Endevor
+//*********************************************************************
+//DEFSBS   EXEC PGM=CONAPI,PARM='ENBE1000',ALTID=Y,MAXRC=4
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSTERM  DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//ENESCLIN DD *
+   DEFINE SUBSYSTEM '&C1ELEMENT'
+     TO ENVIRONMENT '&C1ENVMNT'
+             SYSTEM '&C1SY'
+        DESCRIPTION "&C1ELEMENT SANDBOX SUBSYSTEM"
+//T01 IF (&C1TY NE 'SANDBTRG') THEN
+//         DD *
+     NEXT SUBSYSTEM '&NEXTSUBS'
+   .
+//    ELSE
+//         DD *
+     NEXT SUBSYSTEM 'DEPLOY4T'
+   .
+//T01 ENDIF
+//*
+//*********************************************************************
+//**  Allocate data sets for the new Sandbox
+//**  Model the new datasets after an existing set of data sets
+//**  Issue the LISTDS command to obtain a list of data sets
+//*********************************************************************
+//LISTDSNS EXEC PGM=IKJEFT1B,
+//         MAXRC=4,COND=(4,LT)
+//SYSTSIN  DD  *
+  LISTDS '&MODEL1.*'
+  LISTDS '&MODEL2.*'
+//AMSDUMP  DD SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRX DD  SYSOUT=*
+//SYSTSPRT DD  DSN=&&LIKELIST,DISP=(,PASS),
+//             SPACE=(TRK,(5,10)),
+//             RECFM=FB,LRECL=150,BLKSIZE=0
+//*
+//*********************************************************************
+//* Print the contents of the LIKELIST data set created by LISTDS cmds
+//*********************************************************************
+//SHOWME1  EXEC PGM=IEBGENER,MAXRC=0,
+//         EXECIF=(&SHOWME,EQ,'Y')
+//SYSPRINT DD DUMMY
+//SYSIN    DD DUMMY
+//SYSUT1   DD DSN=&&LIKELIST,DISP=(OLD,PASS)
+//SYSUT2   DD SYSOUT=*
+//*
+//*********************************************************************
+//* Build outputs for subsequent steps from the list of data sets
+//* found at LIKEPRFX*
+//*    Outputs include:
+//*     1) Syntax to allocate the new data sets
+//*********************************************************************
+//ALLOC1   EXEC PGM=IKJEFT1B,PARM='ENBPIU00 PARMLIST',
+//         MAXRC=4,COND=(4,LT)
+//SYSEXEC  DD  DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//SYSTSIN  DD DUMMY
+//PARMLIST DD *
+  ALLOMODL ALLOCATE OPTIONS1 A
+//TABLE    DD  DSN=&&LIKELIST,DISP=(OLD,DELETE)
+//POSITION DD *      <- Format of the LISTCAT data
+  LikeDSN       01 44
+//ALLOMODL DD *      <- Format of the Allocate command
+ EXEC 'IPRFX.IQUAL.CSIQCLS0(ENXALLOC)' '&NewDSN &LikeDSN'
+//OPTIONS1 DD *      <- Additional variables for Allocates
+*
+  SubsysNode = &SBSNODE#
+  Element = '&C1ELEMENT'
+  $delimiter = '^'
+*
+  tmp = Translate(LikeDSN,' ','.') ;
+  #wrds = Words(tmp)             /* Get number of nodes in DSN */
+  If #wrds < 2 then $SkipRow = 'Y'
+  LastNode = Word(tmp,#wrds);    /* Get last node of DSN */
+*
+  prfx = Strip('&HLQ') ;
+  IF prfx /= DELSTR(LikeDSN,Length(prfx)+1) THEN $SkipRow = Y ;
+*
+  replace# = WordIndex(tmp,SubsysNode); /* Character location */
+  if replace# = 0 then $SkipRow = 'Y'
+  if SubsysNode = #wrds then tail# = WordIndex(tmp,#wrds);
+  if SubsysNode < #wrds then tail# = WordIndex(tmp,SubsysNode+1);
+  if tail# = 0 then $SkipRow = 'Y'
+*
+  NewDSN = Substr(LikeDSN,1,(replace#-1)) ;
+  if SubsysNode = #wrds then NewDSN = NewDSN || &C1ELEMENT ;
+  if SubsysNode < #wrds then NewDSN = NewDSN || &C1ELEMENT || '.' ;
+  if SubsysNode < #wrds then NewDSN = NewDSN || Substr(LikeDSN,tail#);
+  DSNCHECK = SYSDSN("'"NewDSN"'") ;
+  IF DSNCHECK = 'OK' then Say NewDSN 'already exists'
+  IF DSNCHECK = 'OK' then $SkipRow = 'Y'
+*
+//*     Outputs:
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//ALLOCATE DD  DSN=&&ALLOCS,DISP=(OLD,PASS)
+//*
+//*********************************************************************
+//* Print the contents of the ALLOCS data set created by ALLOC1
+//*********************************************************************
+//SHOWME2  EXEC PGM=IRXJCL,PARM='ENBPIU00 A',
+//         EXECIF=(&SHOWME,EQ,'Y')
+//TABLE    DD *
+* MODEL--- TBLOUT--
+  ALLOCATE ALLOC
+//OPTIONS  DD  DUMMY
+//SYSEXEC  DD  DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//SYSTSPRT DD  SYSOUT=*
+//ALLOC    DD  SYSOUT=*
+//ALLOCATE DD  DSN=&&ALLOCS,DISP=(OLD,PASS)
+//*
+//*********************************************************************
+//* Allocate the new files
+//*********************************************************************
+//ALLOC2   EXEC PGM=IKJEFT1B,
+//         MAXRC=4,COND=(4,LT)
+//SYSTSIN  DD  DSN=&&ALLOCS,DISP=(OLD,DELETE),LRECL=200
+//SYSTSPRT DD  SYSOUT=*
+//SYSEXEC  DD  DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//*
+//T02 IF (&C1TY EQ 'SANDBTRG') THEN
+//*
+//*********************************************************************
+//* Update the ESYMBOLS table with the symbols for the additional
+//* resources
+//*********************************************************************
+//ESTMB1   EXEC PGM=IRXJCL,PARM='ENBPIU00 PARMLIST',MAXRC=4
+//PARMLIST DD  *
+  MODEL  TBLOUT  OPTIONS0  0
+  MODEL  SHOWME  OPTIONS   A
+  MODEL  TBLOUT  OPTIONS   A
+//TABLE    DD  *
+* #SymbolSuffix  ValueVariable-------
+  TRG            Y
+  LOD            BatchLoadlibrary
+  ONL            CicsLoadlibrary
+  DB2            DB2Subsys
+  RGN            CicsRegion
+  DBR            DBRMLibrary
+//MODEL    DD *
+* Entries for Sandbox &C1ELEMENT
+         $ESYMBOL SYMNAME=&#SITESYMBOL#
+               SYMDATA='&EsymValue'
+//OPTIONS0 DD  *
+  BatchLoadlibrary   = ' '
+  CicsLoadlibrary    = ' '
+  DB2Subsys          = ' '
+  CicsRegion         = ' '
+  DBRMLibrary        = ' '
+//         DD DSN=&C1BASELIB(&C1ELEMENT),
+//            DISP=SHR
+//OPTIONS  DD  *
+    If $row# < 1           then $SkipRow = 'Y'
+    EsymValue = Value(ValueVariable)
+    Say EsymValue #SymbolSuffix ValueVariable
+    If Substr(EsymValue,1,1) = ' ' then $SkipRow = 'Y'
+    elm# = Strip('&C1ELEMENT','B');
+    tmp = '#' || elm# || #SymbolSuffix || ','
+    #SITESYMBOL# = Overlay('X',tmp,46) ;
+//SYSTSIN  DD DUMMY
+//SYSEXEC  DD  DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//SHOWME   DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  DUMMY
+//TBLOUT   DD  DISP=SHR,DSN=&ESYMBDSN(&C1ELEMENT),
+//         MONITOR=COMPONENTS
+//*
+//*********************************************************************
+//* Gather all source from ESYMBDSN members
+//*********************************************************************
+//ESTMB2  EXEC PGM=IEBPTPCH,COND=(4,LT),MAXRC=4
+//SYSPRINT  DD SYSOUT=*
+//SYSUT1   DD  DISP=SHR,DSN=&ESYMBDSN
+//SYSUT2   DD  DSN=&&COPYDSN,DISP=(OLD,PASS)
+//SYSIN    DD  *
+  PUNCH TYPORG=PO,PREFORM=A,MAXFLDS=1
+  RECORD FIELD=(80)
+//SYSUDUMP DD SYSOUT=*
+//*
+//*********************************************************************
+//* Add the additional ESYMBOLS entries into #SANDBOX
+//*********************************************************************
+//ADD#COPY EXEC PGM=C1BM3000,MAXRC=08,COND=(4,LT),
+//             PARM='SCLIN,LSTOUT1,,LSTOUT2'
+//LSTOUT1  DD  SYSOUT=*
+//LSTOUT2  DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSOUT   DD  SYSOUT=*
+//COPYDSN  DD  DSN=&&COPYDSN,DISP=(OLD,DELETE)
+//SCLIN    DD  *
+  ADD ELEMENT #SANDBOX
+   FROM DDNAME COPYDSN
+   TO   ENVIRONMENT   &PRDENV
+        SYSTEM        &PRDSYS
+        SUBSYSTEM     &PRDSUB
+        TYPE          ASMMAC
+   OPTIONS
+        CCID 'SANDBOX'
+      COMMENT ' Sandbox &C1ELEMENT Created or Updated'
+      OVERRIDE SIGNOUT UPDATE IF PRESENT
+     .
+//*
+//*********************************************************************
+//* Generate the updated ESYMBOLS table
+//*********************************************************************
+//GENERATE EXEC PGM=C1BM3000,MAXRC=08,COND=(8,LT),
+//             PARM='SCLIN,LSTOUT1,,LSTOUT2'
+//LSTOUT1  DD  SYSOUT=*
+//LSTOUT2  DD  SYSOUT=*
+//SYSPRINT DD  SYSOUT=*
+//SYSOUT   DD  SYSOUT=*
+//SCLIN    DD  *
+  GENERATE ELEMENT ESYMBOLS
+   FROM ENVIRONMENT   &PRDENV
+        SYSTEM        &PRDSYS
+        SUBSYSTEM     &PRDSUB
+        TYPE          TABLES
+        STAGE NUM     1
+   OPTIONS SEARCH COPYBACK
+        CCID 'SANDBOX'
+      COMMENT ' Sandbox &C1ELEMENT Created or Updated'
+      OVERRIDE SIGNOUT
+     .
+//*
+//*********************************************************************
+//* Define a package for the new ESYMBOLS table and cast it
+//*********************************************************************
+//BLDPKG   EXEC PGM=CONAPI,MAXRC=08,COND=(8,LT),
+//             PARM='ENBP1000'
+//SYSUDUMP DD SYSOUT=*
+//DISPLAYS DD SYSOUT=*
+//SYMDUMP  DD DUMMY
+//JCLOUT   DD SYSOUT=(A,INTRDR),
+//            DCB=(LRECL=80,RECFM=F,BLKSIZE=80)
+//PKGESCL  DD *
+  MOVE ELEMENT #SANDBOX
+   FROM ENVIRONMENT   &PRDENV
+        SYSTEM        &PRDSYS
+        SUBSYSTEM     &PRDSUB
+        TYPE          ASMMAC
+        STAGE NUM     1
+   OPTIONS
+        CCID 'SANDBOX'
+      COMMENT ' Sandbox &C1ELEMENT Created or Updated'
+     .
+  MOVE  ELEMENT ESYMBOLS
+   FROM ENVIRONMENT   &PRDENV
+        SYSTEM        &PRDSYS
+        SUBSYSTEM     &PRDSUB
+        TYPE          TABLES
+        STAGE NUM     1
+   OPTIONS
+        CCID 'SANDBOX'
+      COMMENT ' Sandbox &C1ELEMENT Created or Updated'
+     .
+//ENPSCLIN DD *
+ DEFINE PACKAGE '&PACKAGE'
+        IMPORT SCL FROM DDNAME 'PKGESCL'
+  DESCRIPTION 'Install Sandbox &C1ELEMENT updates'
+        OPTIONS STANDARD SHARABLE BACKOUT ENABLED
+  NOTES=('Review the contents of the copy member #SANDBOX ',
+         ' ') .
+ CAST   PACKAGE '&PACKAGE' .
+//BSTERR   DD  SYSOUT=*
+//T02 ENDIF

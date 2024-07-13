@@ -1,0 +1,57 @@
+)ATTR DEFAULT(%+_)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Deploy for Test \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the%LEFT+and%RIGHT+commands (usually PF10 and PF11) to scroll through
++the information on this panel.
+$SAREA                                                                         $
+)AREA SAREA
+%Target+ - Enter the name of the target sandbox or use the point-and-shoot
++   method to select a target sandbox from the list on the right side
++   of the panel. A target sandbox can also be selected from the list at
++   the bottom of the panel. Name masking is not supported on this field,
++   but you are allowed to code an asterisk in this field for full
++   wildcarding on the CLEANUP and REPORT actions.
+%Action+ - Enter the action you wish to perform. Valid values are:
+  %Deploy +- Deploy one or more elements from a source sandbox to a
++    target sandbox.
+  %Cleanup+- Delete one of more elements that were deployed from a
++    source sandbox from one or more of the target sandboxes.
+  %Report +- Product a report showing where elements from a source
++    sandbox were deployed to.
+%CCID+   - CCID to be used on the actions you are performing.
+%Comment+- Comment to be used on the actions you are performing.
+%Targets+- A list of existing target sandboxes are shown. Type in the
++  name of the target sandbox you want to use or use the point-and-shoot
++  method to select one.
++
+%Package Options:+
+%Name+    - Name of the package containing the actions you are performing.
++  The name is automatically generated. It consists of the characters
++  X# followed by a unique time/date stamp value. The generated name can
++  be modified by typing over the value.
+%Cast+    - Indicates if the package should be cast (Y/N)
+%Validate+- Indicates if the package should be validated (Y/N)
+%Execute+- Indicates if the package should be executed (Y/N)
+%Select Elements+ - By default the action you coded is performed
++  against all the elements located in the source sandbox. You can limit
++  the elements selected by coding a%Y+in this field. If you do, a selection
++  list panel is displayed.
+%Override Signout+- Override signout option to be included with the actions.
+%Signout to+      - The name of the user that the elements should be signed
++  out to following the execution of the actions.
++
+%Job card information+- The job card information included with this job.
++
+%List of Existing Target Sandboxes:+
++A list of existing target sandboxes and their descriptions appears. This
++is the same list as shown at the top right hand side of the panel but it
++also includes the description that was coded when the sandbox was
++created. You can select a target sandbox by placing the cursor on the
++name of the sandbox you wish to select and pressing enter.
++
++\ \(%END+to return) \ \
+)PROC
+)END

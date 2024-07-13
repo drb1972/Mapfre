@@ -1,0 +1,27 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Where is that element?  \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++
++
++
++ This feature has been superseded by the Endevor functionality
++
++ Use the display option and leave the environment, system, subsystem
++ type, and stage field blank.
++
++ Just complete the element field (including wildcards or place holders)
++ and hit enter.
++
++ Your results will be presented.
++
+)INIT
+)REINIT
+)PROC
+)END

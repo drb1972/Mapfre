@@ -1,0 +1,67 @@
+)ATTR DEFAULT(%+¯)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ¢ TYPE(text) INTENS(LOW) skip(on)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
++    ------------- Create Endevor System Spreadsheet ---------------
++OPTION  ===>$ZCMD
++    Press F3 to Quit.
+%
++    System  =>$Z ¢
++    SubSys  =>$Z  ¢ Specify subsystem or * for all subsystems
++    Email   =>$Z                                              ¢
++    Must be an MAPFRE E-mail address e.g joe.blogs@mapfre.com
++
++    Include the following Environments
++
++    UNIT   ==>$Z¢ (Y/N)
++    SYST   ==>$Z¢ (Y/N)
++    ACPT   ==>$Z¢ (Y/N)
++    PROD   ==>$Z¢ (Y/N)
++
++    Change Management Entry Class  ==>$Z       ¢
++    This is displayed the top of then screen when typing CM
++    (VIEWER can be used if you are not a member of an Entry class)
+%
+¢
++           |Z                                                 ¢
++
+
+)INIT
+  .HELP = NOHELP
+  .ZVARS = '(C1SYS C1SUB C1EMAIL UNIT SYST ACPT PROD ENTRY ERR)'
+  VGET (C1SYS) PROFILE
+  VGET (C1SUB) PROFILE
+  VGET (C1EMAIL) PROFILE
+  VGET (UNIT) PROFILE
+  VGET (SYST) PROFILE
+  VGET (ACPT) PROFILE
+  VGET (PROD) PROFILE
+  VGET (ENTRY) PROFILE
+  &option = ' '
+)reinit
+
+)PROC
+  VER (&C1SYS,NB,PICT,AA,MSG=EVSY001E)
+  VER (&C1SUB,NB,MSG=EVSY002E)
+  IF (&C1SUB ^= '*')
+    &SUB2 = &C1SYS
+    &SUB = TRUNC(&C1SYS,2)
+    VER (&SUB,NB,LISTV,&SUB2,MSG=EVSY001E)
+  VER (&C1EMAIL,NB,MSG=EVSY003E)
+  VER (&UNIT,LIST,N,Y,MSG=EVSY004E)
+  VER (&SYST,LIST,N,Y,MSG=EVSY004E)
+  VER (&ACPT,LIST,N,Y,MSG=EVSY004E)
+  VER (&PROD,LIST,N,Y,MSG=EVSY004E)
+  IF  (&ENTRY ^= 'VIEWER')
+    VER (&ENTRY,NB,PICTCN,*,***ENTRY,AAAENTRY,MSG=EVSY005E)
+
+  VPUT (C1SYS) PROFILE
+  VPUT (C1SUB) PROFILE
+  VPUT (C1EMAIL) PROFILE
+  VPUT (UNIT) PROFILE
+  VPUT (SYST) PROFILE
+  VPUT (ACPT) PROFILE
+  VPUT (PROD) PROFILE
+  VPUT (ENTRY) PROFILE
+)END

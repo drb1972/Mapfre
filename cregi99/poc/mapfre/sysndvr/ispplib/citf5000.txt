@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Delete action to delete all levels of an element, any associated
++processor outputs from either stage and, if you use Automated Configuration
++Manager (ACM), the element component list.
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Panel options              %3+- Action options
+%    2+- Inventory fields           %4+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF5001 2,CITNDVR0 3,CITF5002 4,CITLOPT0)
+)END

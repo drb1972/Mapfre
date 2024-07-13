@@ -1,0 +1,22 @@
+********************************************************************
+**
+* CCI SERVICE STATEMENTS FOR ENDEVOR WEB SERVICES
+**
+********************************************************************
+WSEWSSTC       SERVICE SERVER_NAME=MVS_START_SERVER,
+                   DEALLOCATE=TERMINATE,
+                   LOST_CLIENT=DEALLOCATE,
+                   MAX#_SERVICES=100,
+                   MAX#_CLIENTS=1,
+                   MAX#_PROCESSES=100,
+                   SERVICE_UNAVAILABLE=START_SERVICE,
+                   START=SPAWN_ONLY,
+                   SIGNON/NOPASSCHK=SERVICE
+********************************************************************
+**
+* CCI PROCESS STATEMENTS FOR ENDEVOR WEB SERVICES
+**
+********************************************************************
+               PROCESS PROCESS_TYPE=MVS_STC,
+                   PROCNAME=WSEWSSTC,
+                   PARM='BC1PAPI0'

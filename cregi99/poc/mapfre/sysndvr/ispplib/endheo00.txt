@@ -1,0 +1,28 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++Use the User Defaults panel to change pre-assigned default
++values. These values remain in effect until you change them.
++
++Press%ENTER+to save new default values. If you use the%END+command
++the dialog reverts to the original default values.
++
+%Be Aware:+Changes you make to this panel will be reflected in the
++   standard User Defaults panel. Also, changes you
++   make to the User Defaults panel will be reflected
++   here.
++
++     Select%1-3+for information about the fields on this panel.
++
+%     1+- Work Data Set Allocation, ISPF BROWSE/VIEW MODE information
++
+%     2+- List Data Set, RC, and product information
++
+%     3+- Component List information
++
++                                       (%END+to return)
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,ENDHEO10 2,ENDHEO20 3,ENDHEO30)
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Terminology, continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++A%Conflict Area+is a place in the WIP File where a conflict occurs.
++A conflict area involves at least two records: one record (line)
++from Derivation 1 and one from Derivation 2.
++
++A%Contention Area+is a place in the WIP File where conflicting changes
++exist, but are offset. This means that both Derivations have changed
++a section of code, but the changes do not begin at exactly the same place
++in the (Derivation) copies of the program.
++
++The%WIP Selection Matrix+is a PDM screen that shows side-by-side
++alignment, within the WIP data set, of the Root, Derivation 1 and
++Derivation 2 members. The matrix is used to manipulate multiple rows
++of Root, Derivation 1, and Derivation 2 members.
++
++
++                                             (%ENTER+to continue )
+)PROC
+   &ZCONT = BC1TT520
+)END

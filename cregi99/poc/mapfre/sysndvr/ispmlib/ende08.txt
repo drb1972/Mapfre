@@ -1,0 +1,30 @@
+ENDE080W 'Element is Backed Out'                       .ALARM=YES
+'ENDE080W The element is a component of a package that has been backed out'
+
+ENDE081E 'BROWSE Error'                                .ALARM=YES
+'ENDE081E The ISPF/PDF BROWSE service passed a return code of X''&EEVERRRC'' '
+
+ENDE082E 'EDIT Error'                                  .ALARM=YES
+'ENDE082E The ISPF/PDF EDIT service passed a return code of X''&EEVERRRC'' '
+
+ENDE083E 'Cancelled by User Exit'                      .ALARM=YES
+'ENDE083E The action was cancelled by a User Exit'
+
+ENDE084E 'Override Signout ^ Auth'                     .ALARM=YES
+'ENDE084E The element is signed out and Override Signout is not authorized'
+
+ENDE085E 'Dialog Already Active  '                     .ALARM=YES
+'ENDE085E The Quick Edit dialog is already active in this ISPF logical screen'
+
+ENDE086I 'Will not be Generated'                       .ALARM=YES
+'ENDE086I Foreground execution of the generate processor is NOT allowed'
+
+ENDE087E 'Request Cancelled'                           .ALARM=YES
+'ENDE087E The Batch Generate request has been cancelled at the users request'
+
+ENDE088I 'Element Deleted'
+'ENDE088I Element &EEVELMNM was successfully deleted'
+
+ENDE089I 'Component Deleted'
+'ENDE089I The component list for element &EEVELMNM was successfully deleted'
+

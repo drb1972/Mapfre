@@ -1,0 +1,25 @@
+%TUTORIAL  -------  TYPE DEFINITION with NONSTANDARD COLUMNS  --------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++This panel appears when you indicate nonstandard columns in the
+ COMPARE FROM/TO fields on the TYPE DEFINITION panel, and asks you to
+ verify that you want to use these columns as coded. If you do want to
+ compare using the columns indicated, press ENTER immediately to
+ continue.  Otherwise, correct the invalid specifications and then
+ press ENTER.  Panel fields are described below.
+
+   %Language+-          Indicates the language you specified for this
+                        type.  Refer to the Administrator's Guide
+                        for a list of valid languages.
+
+   %Compare From+-      Specifies the starting position within each
+                        statement, for elements of this type, at which
+                        comparing begins to determine if the statement
+                        has changed.  (3 digits, from 1-255)
+
+   %Compare To+-        Specifies the ending position within each
+                        statement, for elements of this type, at which
+                        comparing stops to determine if the statement
+                        has changed.  (3 digits, from 1-255)
+
+)END

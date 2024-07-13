@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Print Member Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Print Member action to print a member from a library or browse
++a member online.
++
++
++
++    Select%1+-%3+for information about specific fields
++
+%    1+- Panel options              %3+- List options
+%    2+- ISPF fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITN1001 2,CITISPF0 3,CITLOPT0)
+)END

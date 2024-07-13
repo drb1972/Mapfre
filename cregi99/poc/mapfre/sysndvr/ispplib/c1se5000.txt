@@ -1,0 +1,26 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%------------------------  TYPE SEQUENCE REQUEST  ------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display type processing sequence
++  %U+- Update type processing sequence
++
++ENVIRONMENT%===>_VAREVNME+
++
++SYSTEM     %===>_VARSYNME+
++
++STAGE      %===>_Z+      |Z+-¢Z        |Z+-¢Z
++
+)INIT
+  .ZVARS = '(VARWKSID VARS1ID VARS1NME VARS2ID VARS2NME)'
+  .HELP = CITRQST0
+)PROC
+)END

@@ -1,0 +1,15 @@
+ENIP030E 'Invalid Status'                                .ALARM=YES
+'Package ''&PDVCPKGI'' is not in a valid state for the action'
+
+ENIP036E 'Description Required'                          .ALARM=YES
+'The package description field must be completed'
+
+ENIP037E 'Imbedded Quotes'                               .ALARM=YES
+'The package description field contains one or more single quot         e marks'
+
+ENIP038E 'Date Required '                                .ALARM=YES
+'The Execution Window date field is required'
+
+ENIP039E 'Time Required '                                .ALARM=YES
+'The Execution Window time field is required'
+

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete From Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to delete the element(s) at the
++source location after archiving them.
++
++Acceptable values:
++
+%  Y+- Delete the element(s) at the source location after
++        successful action execution.
+%  N+- Do not delete the element(s).
++
++
++If the Delete From Element option does not appear in the SCL, the default
++is%N.+When the Archive action panel first displays this option, it is set
++to the%ENDICNFG &LIT1               +parameter value.
++
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
+)INIT
+ &LIT1='DELETE_AFTER_ARCHIVE'
+)END

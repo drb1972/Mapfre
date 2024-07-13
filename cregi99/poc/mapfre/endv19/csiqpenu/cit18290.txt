@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ User option for ISPF panel layout (Dynamic Panel support) \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%User option for ISPF panel layout (Dynamic Panel support)
++
++  The ISPF interfaces are enhanced to allow user selectable layout options:
+%  S-Short+- For users who do NOT make use of long Element names, or need USS
++            file support.  This option formats the panel in the earlier panel
++            style and hides options these users do not need.
+%  L-Long+-  For users who want a panel layout that can display a long Element
++            name at the top (followed by type, CCID and COMMENT where
++            appropriate). The related options Uppercase, Case-Sensitive, and
++            USS path and file names are visible and active.
++
++  Each user can choose their preferred value from the User Defaults dialog,
++  but the system administrator sets the site default via the%&lit1
++  ENDICNFG Configuration Table parameter.
++
+%Hide Dialog Prompt Text+- In the Quick Edit dialog, there is a further option
++  to tailor how the dialog prompt help text is displayed.  When set to 'Y' an
++  abreviated version of the help text is shown.  This is suitable for
++  experienced users who do not need to be reminded of all the options and
++  prefer the extra screen space.  In the default setting, 'Y' the full prompt
++  text is shown.  In either case point-n-shoot can be used to perform the
++  action.  Use%&lit2             +in the configuration table to override the
++  default.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+   &LIT1 = 'UI_OPT_ELEMENT'
+   &LIT2 = 'UI_OPT_HIDE_PROMPT'
+)PROC
+   &ZCONT = CIT18300
+)END

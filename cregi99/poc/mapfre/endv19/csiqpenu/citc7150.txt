@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%\-\ Email Notification \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Email Notification Administration Usabililty Improvements+
+
++ An optional parameter in the ESMTPTBL table (which defines email addresses
+  for mainframe userids) constructs default email addresses for user ids that
+  are not explicitly listed in the ESMTPTBL.
+
++ Additional enhancements include the ability to query the ESMTPTBL, an easy-
+  to-use interface utility program that allows you to write simple email
+  programs, improved readability of override signout message text, the ability
+  to suppress override signout email and the ability to modify the "FROM"
+  data in the email message.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7160
+)END

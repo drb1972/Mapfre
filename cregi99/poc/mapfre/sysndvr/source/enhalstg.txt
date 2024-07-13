@@ -1,0 +1,85 @@
+         MACRO
+         ENHALSTG &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST STAGE - REQUEST BLOCK                                   *
+*                                                                     *
+***********************************************************************
+ALSTG_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+ALSTG_RQ$EYE    EQU C'LSTQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALSTG_RQ
+         SPACE ,
+ALSTG_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSTG_RQ_DATA
+ALSTG_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALSTG_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALSTG_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR- (N)O -OR- (R)ANGE
+ALSTG_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALSTG_RQ_ENV      DC CL8' '            ENVIRONMENT NAME/MASK
+ALSTG_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+ALSTG_RQ_STG_ID   DC CL1' '            STAGE ID/MASK
+ALSTG_RQ_TOSTG_ID DC CL1' '            RANGE-TO STAGE ID -OR-          X
+                                       BETWEEN-TO STAGE ID
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALSTG_RQ_VER#1_DATADSLN EQU *-ALSTG_RQ_DATA
+ALSTG_RQ_VER#1_DSLN     EQU *-ALSTG_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSTG_RQ_VER#2_DATADSLN EQU *-ALSTG_RQ_DATA
+ALSTG_RQ_VER#2_DSLN     EQU *-ALSTG_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+ALSTG_RQ_DATADSLN EQU *-ALSTG_RQ_DATA
+ALSTG_RQ_DSLN     EQU *-ALSTG_RQ
+         ORG      ALSTG_RQ_DATA
+ALSTG_RQ_DATAAREA DS XL(ALSTG_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST STAGE - RESPONSE BLOCK                                  *
+*                                                                     *
+***********************************************************************
+ALSTG_RS$VER    EQU ALSTG_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALSTG_RS$EYE    EQU C'LSTS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALSTG_RS
+         SPACE ,
+ALSTG_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSTG_RS_DATA
+ALSTG_RS_SITE     DC CL1' '            SITE ID
+ALSTG_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALSTG_RS_STG_NAME DC CL8' '            STAGE NAME
+ALSTG_RS_STG_ID   DC CL1' '            STAGE ID
+ALSTG_RS_STG_NUM  DC CL1' '            STAGE NUMBER
+ALSTG_RS_TITLE    DC CL20' '           TITLE
+ALSTG_RS_DSN      DC CL44' '           DATASET NAME
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALSTG_RS_VER#1_DATADSLN EQU *-ALSTG_RS_DATA
+ALSTG_RS_VER#1_DSLN     EQU *-ALSTG_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSTG_RS_ENTRY    DC CL1' '            ENTRY STAGE (Y/N)
+ALSTG_RS_STG_PSAS DC CL1' '            PROMOTION STOP AT STAGE (Y/N)
+                  DS 0F
+ALSTG_RS_VER#2_DATADSLN EQU *-ALSTG_RS_DATA
+ALSTG_RS_VER#2_DSLN     EQU *-ALSTG_RS
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSTG_RS_DATADSLN EQU *-ALSTG_RS_DATA
+ALSTG_RS_DSLN     EQU *-ALSTG_RS
+         ORG      ALSTG_RS_DATA
+ALSTG_RS_DATAAREA DS XL(ALSTG_RS_DATADSLN)     DATA AREA
+         MEND

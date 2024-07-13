@@ -1,0 +1,27 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%Apply List Filters+panel - Options on this panel allow you to filter
++  the elements presented in the selection list.
++
+%  Where CCID EQ+- Limits the list to elements whose CCID match
++    the CCID specified here.  Wildcards with placeholders are allowed.
+%  Where USERID EQ+- Limits the list to elements whose USERID match
++    the USERID specified here.  Wildcards with placeholders are allowed.
+%  Where PROC GRP EQ+- Limits the list to elements whose processor
++    group match the processor group specified here.  Wildcards with
++    placeholders are allowed.
+%  For Where CCID/USERID, compare to:+- These options allow you to limit
++    the compare of the CCID and/or USERID to the element CCID/USERID
++    fields specified with a%Y+here.  At least one of these fields must
++    specify%Y+if%Where CCID+or%Where USERID+is specified.
+%      Current    +- Compare to CCID/USERID of Current Source
+%      Generate   +- Compare to CCID/USERID of last Generate
+%      Last Action+- Compare to CCID/USERID of Last Action
+%      Retrieve   +- Compare to CCID/USERID of last Retrieve
+%      All Element Change Lvls+- Compare to CCID of Source Delta levels
++
++\ \(%END+to return) \ \
+)PROC
+)END

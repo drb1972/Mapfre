@@ -1,0 +1,34 @@
+      *****************************************************************
+      *                                                               *
+      *            SIGNIN ELEMENT - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  AESIG-RQ.
+           05  AESIG-RQ-HEADER.
+               10  AESIG-RQ-LEN        PIC 9(04) COMP VALUE 240.
+               10  AESIG-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AESIG-RQ-ID         PIC 9(04) COMP VALUE 1360.
+               10  AESIG-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AESIG-RQ-EYE        PIC X(04)      VALUE 'ESIQ'.
+           05  AESIG-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AESIG-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AESIG-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AESIG-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AESIG-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AESIG-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AESIG-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AESIG-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AESIG-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AESIG-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AESIG-RQ-SIGNO-TO   PIC X(08)      VALUE SPACES.
+               10  AESIG-RQ-SEARCH     PIC X(01)      VALUE SPACES.
+               10  AESIG-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AESIG-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AESIG-WCCID         PIC X(12)      VALUE SPACES.
+               10  AESIG-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AESIG-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AESIG-WPROGRO-2-8   PIC X(56)      VALUE SPACES.

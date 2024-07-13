@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Actions and Signout Status \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Signout/signin can be enabled on a system by system basis.
++
+% Action          Impact on element      Options
++ Add/Update       Signs out             Override signout
++ Move             Signs in at target    Retain signout, Signout to
++ Retrieve         Signs out             Override signout, No Signout
++ Generate         No change             Override signout
++  (no copyback)
++ Generate         Signs out copied      Override signout
++  (copyback)        back element
++ Transfer         Signs in at target    Override signout, Retain signout
++                                           Signout to
++ Archive          No change             Override signout
++ Restore          Signs in at target    Override signout
++ Signin           Signs in              Override signout, Signout to
++ Copy             No change             Override signout
++ Delete           No change             Override signout
++
++                                            (%PF3+to return)
+)END

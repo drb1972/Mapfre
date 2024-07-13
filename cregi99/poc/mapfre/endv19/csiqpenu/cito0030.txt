@@ -1,0 +1,24 @@
+%TUTORIAL  ---------------  USER DEFAULTS (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %FOREGROUND OPTIONS:+
+
+  %Display MSGS When RC GE+- Indicates a "threshold" return code.  Whenever
+     the return code from a foreground action is greater than or equal to
+     this return code, the execution report for that action is automatically
+     displayed. Values for this field can be 00 thru 16.
+     The default return code is%12.+
+
+  %Intercept ISPF Return Cmd+- Indicates whether the ISPF RETURN and JUMP
+     commands should be intercepted. If set to 'Y', RETURN or JUMP processing
+     is stopped and the Primary Options Panel is redisplayed. If set
+     to 'N', the RETURN or JUMP command is allowed to continue, resulting
+     in a return to the ISPF Primary Options Panel. The default is%N.+
+
+  %ISPF BROWSE or VIEW MODE+- Allows the option of using ISPF BROWSE or
+     VIEW display services.  The default is%B.+
+
+                           %(Hit ENTER to continue)+
+)PROC
+ &ZCONT = CITO0040
+)END

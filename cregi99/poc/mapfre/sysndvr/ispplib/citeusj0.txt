@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Display \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel displays
++
++ * The processor footprint
++
++ * The load library where the executable form of the processor resides.
++
++ * A listing of the processor.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

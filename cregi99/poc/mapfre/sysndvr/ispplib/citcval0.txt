@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Validate Components Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether component validation should be done when casting a
++package.
++
+%  Y+- Validate components; do not allow the cast if validation fails.
++
+%  N+- Do not validate components.
++
+%  W+- Validate components; do not fail the cast if there are errors.
++
++
++
++
++
++
++
++\ \ (%PF3+to return,%ENTER+for more on validation) \ \
+)PROC
+   &ZCONT = CITT7220
+)END

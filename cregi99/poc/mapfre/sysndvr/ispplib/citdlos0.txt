@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Operating System \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Operating+- 1- to 15-character name of the operating system to which
+%System+     this collection will be distributed. Operating system names
++   are assigned by the DistribuLink administrator through an Administrator
++   Workstation function. Verification that the operating system name
++   is valid for a given DistribuLink MVS server is not performed.
++
++
++
++
++
++                                            (%PF3+to return)
+)END

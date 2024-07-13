@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Build Help \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel allows you to build and cast a package automatically by CCID.
++The utility will build MOVE SCL from the stages immediately prior to the
++target stage.
++The CCID is determined by the first 8 characters of the package id.
++The target stage is determined by the 9th character of the package id.
++
++ For stage B packages elements are moved from stage  A
++ For stage D packages elements are moved from stages B & C
++ For stage F packages elements are moved from stages D & F
++ For stage P packages elements are moved from stages F & O
++
++Here is a sample jobcard:
++   //TTyyxxxx JOB 0,'+440207063nnnn',CLASS=3,NOTIFY=&&SYSUID
++   //*            SCHENV=DOA0,
++   //*            REGION=64M
++   //*
++The SCHENV and REGION parameters can be uncommented as neccessary
++N.B. Class 3 is for Endevor jobs only
++                                            (%PF3+to return)
+)END

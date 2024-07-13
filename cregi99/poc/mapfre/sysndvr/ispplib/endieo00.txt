@@ -1,0 +1,52 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*-----------------------------------------------------------------------*/
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PADC(_)
+   @ TYPE(OUTPUT) INTENS(LOW) CAPS(ON) JUST(LEFT)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Dialog Defaults \-\
+%Command ===>_VARWKCMD                                                         +
++
++ Work Data Set Allocation Information:      ISPF Browse/View Mode:
++   Primary Quantity........._Z  +             Enter B or V.._Z+
++   Secondary Quantity......._Z  +
++   Space Units.............._C1W+     (CYL/TRK/BLK)
++   Unit Name................_C1WU    +
++   Volume Serial............_C1WV  +  (Blank for default)
++
++ List Data Set Allocation Information:
++   Primary Quantity........._Z  +
++   Secondary Quantity......._Z  +
++   Record length............_Z    +   (Zero for default)
++
++ Component List Information:
++   Listing Dataset String..._EEVLLCHR+(Used for determining list datasets)
++
++ Show messages when RC is greater than or equal to.._Z +
++
++ Product Release Level......@Z          +
++
++ Make the necessary changes and hit%ENTER+to continue
++ Enter the%END+command to cancel the changes
+)INIT
+  .HELP= ENDHEO00
+  .ZVARS = '(C1WP VARBRWVW C1WS C1PP C1PS C1PL C1MSGRC EEVTAPEN)'
+)PROC
+   VER (&C1WP,NUM,MSG=ENDE070E)
+   VER (&C1WP,RANGE,1,255,MSG=ENDE071E)
+   VER (&VARBRWVW,LIST,B,V,MSG=CISO012)
+   VER (&C1WS,NUM,MSG=ENDE070E)
+   VER (&C1WS,RANGE,1,255,MSG=ENDE071E)
+
+   VER (&C1PP,NUM,MSG=ENDE070E)
+   VER (&C1PP,RANGE,1,255,MSG=ENDE071E)
+   VER (&C1PS,NUM,MSG=ENDE070E)
+   VER (&C1PS,RANGE,1,255,MSG=ENDE071E)
+   VER (&C1PL,NUM,MSG=ENDE070E)
+   VER (&C1PL,RANGE,0,32756,MSG=ENDE201E)
+
+   VER (&C1MSGRC,NUM,MSG=ENDE073E)
+   VER (&C1MSGRC,RANGE,0,16,MSG=ENDE073E)
+   &EEVMIXEL = N
+)END

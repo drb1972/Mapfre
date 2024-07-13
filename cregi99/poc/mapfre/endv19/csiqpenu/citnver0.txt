@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ New Version \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Applicable for an Add action only.  This is the version number (vv)
++for the new element. Acceptable values are 01-99.
++
++The default is 01 (for new elements), or the Stage 2 version number,
++if the element currently exists in Stage 2.
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

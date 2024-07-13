@@ -1,0 +1,10 @@
+         MACRO                                                          00000001
+         ESIGNEND                                                       00000002
+         COPY  ESIGLBL                                                  00000003
+         AIF   (NOT (&ESITNEQ AND &FUNCEND AND &NAMEEND)).MEND          00000004
+ESIGNEQU_SIZE EQU   *-&ESINAME
+         DC    CL8'&ESINAME'
+         ESIERR TYPE=END
+.MEND    ANOP
+         MEXIT
+         MEND

@@ -1,0 +1,13 @@
+@REM ****************************************************** #PSXCOM6 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING THE SEQ DATASETS
+@REM * TRANSMITTER: CA-XCOM
+@REM *     PURPOSE: CREATE CONTROL CARDS TO TRANSMIT THE SEQUENTIALS
+@REM *              AND DELETE THE HOST SEQUENTIAL DATASETS
+@REM *******************************************************************
+@REM
+@PASS=10
+@INCLUDE=S
+@PASS=20
+@IF HDISP=DELETE
+@INCLUDE=X
+@ENDIF

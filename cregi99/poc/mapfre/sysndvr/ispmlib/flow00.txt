@@ -1,0 +1,14 @@
+FLOW000E 'Invalid Option'                                .ALARM=YES
+'&VARWLTXT'
+
+FLOW002E 'SYNTAX ERROR'                                  .ALARM=YES
+'YOUR SPECIFICATION CONTAINS INVALID SYNTAX'
+
+FLOW003E 'INVALID SELECTION'                             .ALARM=YES
+'SELECTION IS EITHER INVALID OR IMPROPER'
+
+FLOW004E 'Invalid Selection'                             .ALARM=YES
+'&VARWLTXT'
+
+FLOW005E 'No Options Available'                          .ALARM=YES
+'FLOW005E There are currently no options available on the panel'

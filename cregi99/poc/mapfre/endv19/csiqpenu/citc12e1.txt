@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Rapid Implementation \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Rapid Implementation Facility +
+
+  Rapid Implementation is a series of steps that allow you to perform a
+ %standard implementation+of Endevor using a%predefined
+  environment.+ Endevor is a powerful tool with great
+  flexibility that encompasses many processes, designs, implementations,
+  and abilities. After Endevor is installed, you can use
+  Rapid Implementation to set up an implementation, with%minimum
+  customization,+to get you started using Endevor.
+  The tasks outlined in the%Rapid Implementation Guide+define a simple,
+  but fully scalable software development environment that is complete
+  and includes a life cycle and inventory structure.
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E2
+)END

@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPCON Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPCON command displays only those lines identified as conflicts
++within the WIP member.
++
++To execute the WIPCON command, type WIPCON in the command
++field, then press ENTER.
++
++Use the WIPCON command to view quickly those areas of the WIP file
++where you will need to resolve conflicts.
++
++
++
+)END

@@ -1,0 +1,32 @@
+)ATTR
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ¢ TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+)BODY
+%------------------------- Quick Edit Error Messages ---------------------------
+%Command ===>_ZCMD                                                             +
++
++ The dialog was unable to allocate a data set for the browse or edit request.
++ The following information is available about the request that failed:
++
++ Invoking Routine.........¢EEVPGMNM+
++ SVC 99 Error Code........¢Z   +
++ SVC 99 Information Code..¢Z   +
++ Data Set Name............¢EEVS99DS                                   +
++ DD Name..................¢EEVS99DD+
++
++
++
++
++
++
++
++
++
++
++
++ Enter the END command to return to the previous panel.
++
+)INIT
+  .ZVARS = '(EEVS99ER EEVS99IN)'
+)PROC
+)END

@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Selection - Move \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
+*-----------------------------------------------------------------------------*
+|          |                             At Target                            |
+|          |------------------------------------------------------------------|
+|          |      Type same, element         |     Type different, element    |
+|          |---------------------------------|--------------------------------|
+|          |   Exists | Not exist, proc. grp |  Exists  | Not exist, proc. grp|
+|          |----------|----------------------|----------|---------------------|
+|  Action  |          |not mapped | mapped   |          |not mapped| mapped   |
+|==========|==========|===========|==========|==========|==========|==========|
+|          | target   | source    |   map    | target   | default  |  map     |
+|   Move   |  element |   element | processor|  element |   at     |processor |
+|          |          |           |  group   |          | target   |  group   |
+*-----------------------------------------------------------------------------*
+)END

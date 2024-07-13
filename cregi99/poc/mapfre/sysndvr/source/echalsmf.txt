@@ -1,0 +1,147 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA - REQUEST BLOCK                      *
+      *                                                               *
+      *****************************************************************
+       01  ALSMF-RQ.
+           05  ALSMF-RQ-HEADER.
+               10  ALSMF-RQ-LEN        PIC 9(4) COMP VALUE 28.
+               10  ALSMF-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSMF-RQ-ID         PIC 9(4) COMP VALUE 1952.
+               10  ALSMF-RQ-VERS       PIC 9(4) COMP VALUE 5.
+               10  ALSMF-RQ-EYE        PIC X(4)      VALUE 'SMFQ'.
+           05  ALSMF-RQ-DATAAREA.
+               10  ALSMF-RQ-FUNC       PIC X         VALUE SPACE.
+                   88  ALSMF-RQ-FUNC-ACT             VALUE 'A'.
+                   88  ALSMF-RQ-FUNC-SEC             VALUE 'S'.
+               10  ALSMF-RQ-DDN        PIC X(8)      VALUE SPACES.
+               10  ALSMF-RQ-RECID      PIC X(3)      VALUE SPACES.
+               10  ALSMF-RQ-RESERVE    PIC X         VALUE SPACE.
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA SECURITY - RESPONSE BLOCK            *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFS-RS.
+           05  ALSMFS-RS-HEADER.
+               10  ALSMFS-RS-LEN       PIC 9(4) COMP VALUE 550.
+               10  ALSMFS-RS-FLAGS     PIC 9(4) COMP VALUE 0.
+               10  ALSMFS-RS-ID        PIC 9(4) COMP VALUE 1953.
+               10  ALSMFS-RS-VERS      PIC 9(4) COMP VALUE 5.
+               10  ALSMFS-RS-EYE       PIC X(4)      VALUE 'SMFS'.
+           05  ALSMFS-RS-DATAAREA.
+               10  ALSMFS-RS-RTYPE     PIC X(1)      VALUE 'S'.
+               10  ALSMFS-RS-RECID     PIC X(3)      VALUE SPACES.
+               10  ALSMFS-RS-DATE      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-TIME      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-CPUID     PIC X(4)      VALUE SPACES.
+               10  ALSMFS-RS-USER      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ACTION    PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ERR       PIC X(4)      VALUE SPACES.
+               10  ALSMFS-RS-MSG       PIC X(132)    VALUE SPACES.
+               10  ALSMFS-RS-SITE      PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-ENV       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-STG       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-STGID     PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-STG-NUM   PIC X(1)      VALUE SPACE.
+               10  ALSMFS-RS-SYS       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-SBS       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-ELM       PIC X(10)     VALUE SPACES.
+               10  ALSMFS-RS-TYPE      PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-DSN       PIC X(44)     VALUE SPACES.
+               10  ALSMFS-RS-MBR       PIC X(8)      VALUE SPACES.
+               10  ALSMFS-RS-LELML     PIC 9(4) COMP VALUE 0.
+               10  ALSMFS-RS-LELM      PIC X(255)    VALUE SPACES.
+      *****************************************************************
+      *                                                               *
+      *            LIST SMF DATA ACTIVITY - RESPONSE BLOCK            *
+      *                                                               *
+      *****************************************************************
+       01  ALSMFA-RS.
+           05  ALSMFA-RS-HEADER.
+               10  ALSMFA-RS-LEN       PIC 9(4) COMP VALUE 705.
+               10  ALSMFA-RS-FLAGS     PIC 9(4) COMP VALUE 0.
+               10  ALSMFA-RS-ID        PIC 9(4) COMP VALUE 1953.
+               10  ALSMFA-RS-VERS      PIC 9(4) COMP VALUE 5.
+               10  ALSMFA-RS-EYE       PIC X(4)      VALUE 'SMFS'.
+           05  ALSMFA-RS-DATAAREA.
+               10  ALSMFA-RS-RTYPE     PIC X(1)      VALUE 'A'.
+               10  ALSMFA-RS-RECID     PIC X(3)      VALUE SPACES.
+               10  ALSMFA-RS-DATE      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TIME      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-CPUID     PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-USER      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-ACTION    PIC X(8)      VALUE SPACES.
+      *
+               10  ALSMFA-RS-SITE      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-ENV       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-STG       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-STGID     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-STG-NUM   PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-SYS       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-SBS       PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-ELM       PIC X(10)     VALUE SPACES.
+               10  ALSMFA-RS-TYPE      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-VV        PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-LVL       PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-DSN       PIC X(44)     VALUE SPACES.
+               10  ALSMFA-RS-MBR       PIC X(8)      VALUE SPACES.
+      *
+               10  ALSMFA-RS-LLDT      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLTM      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLUS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLAC      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLST      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LLCM      PIC X(40)     VALUE SPACES.
+      *
+               10  ALSMFA-RS-LPRNM     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRDT     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRTM     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRUSR    PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-LPRRC     PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-LPRNRC    PIC X(4)      VALUE SPACES.
+      *
+               10  ALSMFA-RS-PCCID     PIC X(12)     VALUE SPACES.
+               10  ALSMFA-RS-PCOMM     PIC X(40)     VALUE SPACES.
+               10  ALSMFA-RS-PSOOV     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PRCO      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PXINC     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PREPL     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PDEL      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PIGF      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PBYPG     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PBYPD     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PSYNC     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PDOC      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PHIST     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PUPD      PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-PPGOV     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-PSOTO     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-PRC       PIC X(4)      VALUE SPACES.
+               10  ALSMFA-RS-PRGRP     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-SRCHR     PIC X(1)      VALUE SPACES.
+                   88  ALSMFA-RS-SRCHR-ELEM          VALUE 'E'.
+                   88  ALSMFA-RS-SRCHR-COMP          VALUE 'O'.
+               10  ALSMFA-RS-EMCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-SYCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-CMCHK     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TMSGS     PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTOGEN   PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTOGENX  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-NOSOURCE  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-AUTGSPAN  PIC X(1)      VALUE SPACE.
+               10  FILLER              PIC X(6)      VALUE SPACE.
+               10  ALSMFA-RS-TENV      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSTG      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSTGID    PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TSTG-NUM  PIC X(1)      VALUE SPACE.
+               10  ALSMFA-RS-TSYS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TSBS      PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TELM      PIC X(10)     VALUE SPACES.
+               10  ALSMFA-RS-TTYPE     PIC X(8)      VALUE SPACES.
+               10  ALSMFA-RS-TVV       PIC X(2)      VALUE SPACES.
+               10  ALSMFA-RS-TLVL      PIC X(2)      VALUE SPACES.
+               10  FILLER              PIC X(4)      VALUE SPACE.
+      *
+               10  ALSMFA-RS-LELML     PIC 9(4) COMP VALUE 0.
+               10  ALSMFA-RS-LELM      PIC X(255)    VALUE SPACES.

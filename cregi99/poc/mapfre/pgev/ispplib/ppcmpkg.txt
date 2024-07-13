@@ -1,0 +1,50 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    % TYPE(TEXT) INTENS(HIGH)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- Package Execution Utility -{-{-
++OPTION  ===>_ZCMD
++
+¢{ { Use only for Eplex shipment  { {
++
++   Package name ..........:_pkgid          +
+%    E.g.!C0123456D123456 - CMR(8chrs) / target stage(1chr) / tracker id(6chrs)
++
++   Restart from shipment step ..........:_z+(Y/N)%(Eplex only)
++
++   Scheduling Environment ..............:_z       +
+%    The valid Scheduling Environments are:-
+!     EGEN                                          $- Any Eplex LPAR
+!     EAOS EBOS                                     $- LPAR Specific
+!     DQD0 DQE0 DQF0                                $- DB2
+!     WCCELL                                        $- WebSphere DEPLOY
+!     N.B. For DB2 binds add 'BIND' to the schedule environment E.g. DQA0BIND
+%     If you require multiple resources, e.g. both DB2 & Websphere, then
+%     select an Lpar that both resources run on.
+)INIT
+  &zcmd  = ''
+ .help   = ppcmpkgh
+ .zvars  = '(rship,ppschenv)'
+ &rship  = 'N'
+ &selist = 'EGEN EAOS EBOS +
+DQD0 DQE0 DQF0  +
+DQD0BIND DQBEBIND DQF0BIND +
+WCCELL'
+)REINIT
+)PROC
+  ver (&pkgid,nb,len,'=',15,msg=ppcmp002)
+  ver (&pkgid,PICT,A9999999A999999,msg=ppcmp003)
+    &first = trunc(&pkgid,1)
+    ver (&first,list,'C',msg=ppcmp004)
+  ver (&rship,nb,list,'Y','N',msg=ppcmp005)
+  ver (&ppschenv,nb,listv,&selist,msg=ppcmp007)
+  &PFK = .PFKEY
+)END

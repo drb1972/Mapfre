@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Action/Status Summary \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%If You Do This    This Status     Changes To      Next Action Is
++Create package        None          In-edit        Modify or cast
++Modify package      In-edit         In-edit        Cast
++Cast package
++  Approval          In-edit         In-approval    Review
++  No Approval       In-edit         Approved       Execute
++  Unsuccessful      In-edit         In-edit        Correct and re-Cast
++Review package
++  Approved          In-approval     Approved       Execute
++  Denied            In-approval     Denied         Reset and correct
++Execute package
++  During execution  Approved        In-execution
++  Successful        In-execution    Executed       Backout, Backin, Ship
++  Unsuccessful      In-execution    Exec-failed    correct and re-execute
++Commit package      Executed        Committed
++Backout package     Executed        Executed       Backin, Ship
++Backin package      Executed        Executed       Backout, Ship
++Ship package        Executed        Executed       Backout, Backin, Commit
++                                        (%PF3+to return)
+)END

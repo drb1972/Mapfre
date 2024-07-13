@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%\-\ Global Type Sequencing\-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Global Type Sequencing +
+
++ Global Type Sequencing-When this optional feature is enabled, SCL and API
+  element actions are executed in type sequence order at the site level in a
+  sequence defined by the AllFusion Endevor Administrator, regardless of the
+  inventory location of each action.  This order is defined at the site level
+  in the Type Sequence member created by the Endevor Administrator.
+
++ A type processing sequence is used when multiple element types are processed
+  within a single batch request.
+
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7020
+)END

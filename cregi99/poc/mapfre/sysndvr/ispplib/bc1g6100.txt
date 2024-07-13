@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(ASIS)
+)BODY
+%Submit ---------- JCL to be Included with the PDM Batch Job -------------------
++Command ===>_ZCMD                                                             +
++
++       .........1.........2.........3.........4.........5.........6.........7..
++  ===>@PB1VDD01
++  ===>@PB1VDD02
++  ===>@PB1VDD03
++  ===>@PB1VDD04
++  ===>@PB1VDD05
++  ===>@PB1VDD06
++  ===>@PB1VDD07
++  ===>@PB1VDD08
++  ===>@PB1VDD09
++  ===>@PB1VDD10
++  ===>@PB1VDD11
++  ===>@PB1VDD12
++  ===>@PB1VDD13
++  ===>@PB1VDD14
++  ===>@PB1VDD15
++  ===>@PB1VDD16
++  ===>@PB1VDD17
++  ===>@PB1VDD18
++  ===>@PB1VDD19
++  ===>@PB1VDD20
+)INIT
+   .HELP = BC1T6100
+)PROC
+)END

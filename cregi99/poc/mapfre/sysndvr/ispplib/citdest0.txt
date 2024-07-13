@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Destination Name \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Destination+- Destination name. Can be 1- to 7-characters. The first
++   character must be alphabetic. Remaining characters can be
++   alphanumeric or national (@, #, $).
++
++For panels which carry the destination description:
++
+%Description+- 1- to 30-character description of the destination. The
++   description is treated as a comment.
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

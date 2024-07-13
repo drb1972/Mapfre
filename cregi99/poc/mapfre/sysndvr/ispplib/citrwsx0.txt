@@ -1,0 +1,27 @@
+)BODY EXPAND(^^)
+%Tutorial ^-^ Mainframe Mapping Rule Examples ^-^ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++The host mask must have the same number of qualifiers as the real host DSN.
++The examples map "TESTAP.PROGRAM.LOADLIB" using the following rules:
++Example 1:  Host mask "TESTAP.*.*" maps to remote mask "C:\PROD\AP\*\*"
++Example 2:  Host mask "TESTAP.*.*" maps to remote mask "C:\PROD\*"
++
++1. Align the real host DSN and the remote mask starting from the right.
++   (DRIVE NOT SHOWN)     example 1                        example 2
++   real host:           TESTAP.PROGRAM.LOADLIB      TESTAP.PROGRAM.LOADLIB
++   remote mask:    PROD\  AP  \   *   \   *                   PROD\   *
++
++2. Filter the real host qualifiers thru the remote mask to get a remote path.
++   (DRIVE NOT SHOWN)     example 1                        example 2
++   real host:           TESTAP.PROGRAM.LOADLIB      TESTAP.PROGRAM.LOADLIB
++   remote mask:    PROD\  AP  \   *   \   *                   PROD.   *
++   real remote:    PROD\  AP  \PROGRAM\LOADLIB                PROD.LOADLIB
++
+%Note:+If you do not want package outputs in a host data set to be collected,
++      leave the remote mask blank.
++
++   Select%1+for an example of using the last qualifier as the extension
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITRWSX1)
+)END

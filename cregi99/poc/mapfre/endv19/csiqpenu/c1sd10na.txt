@@ -1,0 +1,54 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%---------------------------  Display Elements  --------------------------------
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
++
+%   blank+- Display selection list     %B+- Browse element current level
+%   S+- Display summary of levels      %C+- Display changes current level
+%   M+- Display element master info    %H+- Display history current level
++
++
++
++
++
++FROM LOCATION:                         LIST OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DISPLAY LIST        %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             APPLY LIST FILTERS  %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             BUILD USING MAP     %===>_Z+(Y/N)
++  TYPE       %===>_TYPEN   +             DISPLAY SYS/SBS LIST%===>_H+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +
++                      ¢Z+-|CLU2ID  +
++  ELEMENT    %===>@VNT1ENME                                           |VNTIND
++    CASE-SENSITIVE%===>_Z+(Y/N)
++
++
++
++
+)INIT
+  .HELP = CITD1000
+  .ZVARS = '(VARWKLST VARWHPNL VARSHMAP CLU1I CLU2I VNTSCASE)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+  IF (&AMT = ' ')
+     &AMT = PAGE
+  IF (&ETMPCASE = ' ')
+    &VNTSCASE = 'Y'
+    &ETMPCASE = 'Y'
+)PROC
+  VPUT (AMT) PROFILE
+  VER (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND) SCROLL(ON)
+)END

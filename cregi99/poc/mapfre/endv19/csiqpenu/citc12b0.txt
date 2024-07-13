@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API & CSV Utility New Function \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 2 of 3+
+% List SMF Data +
+
++ The API and CSV Utility have a new function,%List SMF Data.+ This function
+  requires the addition of a new DD statement to the API or CSV Utility
+  execution JCL that represents the file from which you want Endevor
+  SMF data records returned.  This function has%2+options,
+ %LIST SMFDATA SECURITY+and%LIST SMFDATA ACTIVITY.+ The%SECURITY+option returns
+  data related to security violations recorded by Endevor.
+  The%ACTIVITY+option returns data related to element activity recorded by
+  Endevor.
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12C0
+)END

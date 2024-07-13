@@ -1,0 +1,27 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package SCL Processing Options \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The SCL processing options appear on the Batch Package panel and provide the
++following functions:
++
+%Append to existing SCL-+Use this option to append the SCL the Build SCL action
++creates to existing SCL.  If Append to Existing SCL=N the new SCL overwrites
++the current SCL.
++   Y - Append new data to existing SCL.
++   N - Overwrite the existing SCL.
+
+%Include additional JCL -+Use this option if you would like to include
++additional JCL to be submitted with the execution JCL.  Use Action 5, Build
++Additional JCL, to specify JCL statements to be included.
+
+
++Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit0000
+)END

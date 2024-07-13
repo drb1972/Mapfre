@@ -1,0 +1,22 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%RBS CA-Gener/OL Main Menu+\-\
+%OPTION  ===>_ZCMD                                                             +
+%
+%
+%   1 + Create CA-Generol Migration Control File
+%
+%   2 + Execute Q-Plex Generol Migration to SYST         (ADSM Only)
+%
+%   3 + Execute Q-Plex Generol Migration to ACPT         (ADSM Only)
+%
+%   4 + Execute Q-Plex Generol Migration to Production   (ADSM Only)
+%
+)INIT
+  .HELP = EVGENH00
+)PROC
+   VER (&ZCMD,NB,LIST,1,2,3,4)
+)END

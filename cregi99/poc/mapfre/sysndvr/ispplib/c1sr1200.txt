@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ HISTORICAL (SMF) REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT REPORTS:
+ _Z%40 +Security violation profile   _Z%42 +Element activity profile
+ _Z%41 +Security violation summary   _Z%43 +Element activity summary
++
++FROM SMF DATASET:
++ DATA SET NAME %===>_smfDSN                                     +
++
++SELECTION INFORMATION:
++  ENVIRONMENT   %===>_VAREVNME+
++  SYSTEM        %===>_SYS     +
++  SUBSYSTEM     %===>_SBS     +
++  ELEMENT       %===>_CIELM     +
++  TYPE          %===>_TYPEN   +
++  STAGE         %===>_D+
++
++  DAYS        %===>_Z    +
+%
+)INIT
+ .ZVARS = '(RPT40 RPT42 RPT41 RPT43 DAYS)'
+ .HELP = CITR1200
+)PROC
+VER (&DAYS,NB,MSG=CISR020)
+VER (&DAYS,RANGE,1,32767,MSG=CISR021)
+)END

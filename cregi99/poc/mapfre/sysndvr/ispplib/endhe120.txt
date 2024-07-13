@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++The inventory location fields specify the location where
++the search begins for a specified element.
++
+%Environment+- The environment associated with the element.
++
+%System+- The system associated with the element.
++
+%Subsystem+- The subsystem associated with the element.
++
+%Element+- The name of the element. An explicit element name is
++   required for the Create (CR) option.
++
+%Type+- The type associated with the element.
++
++
++
++
++
++                                        (%END+to return)
+)END

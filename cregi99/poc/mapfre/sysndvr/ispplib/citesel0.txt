@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists (General Info) \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The ISPF%LOCATE+command is supported on element selection lists.
++Element selection lists are sorted by system. If you did not fully
++specify a system when requesting the list, make sure to examine the
++inventory location information carefully before selecting an element.
++
++Display options are available from all selection lists. Display options
++include: %S+(summary),%M+(master),%B+(browse),%C+(changes),%H+(history)
++
++You can request actions against elements in a selection list depending on
++what action panel you were coming from. For example, G can only be used on
++lists requested from the Generate panel, and R can only be used on lists
++requested from the Retrieve panel.  Some action examples include:
+   %V+(archive),%#+(delete),%G+(generate),%L+(list),%O+(move),%P+(print),
+   %R+(retrieve),%SI+(signin),%T+(transfer),%VE+(validate)
++
++Select%1+-%6+for information on additional panel options:
++
+%    1+- Archive                    %4+- Transfer
+%    2+- Display                    %5+- Common fields
+%    3+- Retrieve                   %6+- Display options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITESEL1 2,CITESEL2 3,CITESEL3 4,CITESEL4
+                   5,CITESEL5 6,CITDOPT0)
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ ARCHIVED PACKAGE REPORTS   \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel:
++
++  Type an alphanumeric charater in the selection field for the
++    report you want to generate.
++
++ %FROM ARCHIVE TAPE - +enter the dsn of the archive file you wish to
++    report from. EX: //ARCINPT DD DSN=BST.PACKAGE.ARCHIVE,DISP=SHR
++
++ %PACKAGE ID - +not required. If specified it will limit the report
++    to the package(s) specified
++
++ %STATUS(Y/N) - +optionally limits the report to packages with
++    a specified status.
++
++ %SELECT WHERE DATE (MMDDYYYY) - +optionally limit the report to
++    to packages whose dates fall within the specified range.
++
++  Refer to SPECIFYING ARCHIVED PACKAGE REPORTS in the Reports Guide.
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,7 @@
+@REM ****************************************************** #RJNDVRD ***
+@REM *    CONTENTS: ENDEVOR/MVS - INCLUDED MEMBER
+@REM *     PURPOSE: CONDITIONNALLY DELETE A REMOTE STAGING DATASET
+@REM *******************************************************************
+@IF &FSTGDSN
+ DELETE '&FSTGDSN' NONVSAM
+@ENDIF

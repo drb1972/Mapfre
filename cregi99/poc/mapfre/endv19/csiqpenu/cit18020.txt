@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Approver Disqualified Site-Wide Optional Feature \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 1 of 2
+%Approver Disqualification
++
++The Approver Disqualification option enhances the audit integrity of
++Packages by preventing Package approvers from approving their own work.
++
++   Approvers cannot approve a Package that they Create, Update, or Cast.
++
++   Approvers cannot approve a Package that contains any Element they
++   changed, including changes to any level of the Element at the
++   specified source location. Disqualifying actions are:
++      Add, Alter, Update, Edit, Generate, Move, Restore, and Transfer.
++
++   Element actions that do not require Package Approval are not affected
++   by this option. These actions are Print, List and any actions that
++   are specified on the%&LIT1                +parameter in the Optional
++   Features table. The following actions can be specified:
++      Archive, Delete, Alter, Signin, and Transfer.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'PKG_ACTIONS_NO_APPRVR'
+    &LIT2  = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZCONT = CIT18021
+)END

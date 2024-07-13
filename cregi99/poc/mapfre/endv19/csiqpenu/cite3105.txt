@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Exclude from Processor Output Check \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Exclude the subsystem from the Duplicate Element Processor Output check.
++
++When the System definition has this option active across subsystems, this
++option can be used to exclude a subsystem from the check.
++
++The "Duplicate Element Processor Output check, Across Subsystem", compares
++the current action's processor output type value against all processor
++output types of all same named elements in the same system, different
++subsystems. If any are equal, the current action will fail with a
++registration error.
++
++
++
++
++
++                                            (%PF3+to return)
+)END

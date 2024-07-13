@@ -1,0 +1,30 @@
+CPTB030  'MERGE Failed'                                  .ALARM=YES
+'CPTB030 The MERGE process completed with error(s).'
+
+CPTB031  'MERGE Complete'
+'CPBT031 The MERGE process completed successfully.'
+
+CPTB032  'Allocation Error'                              .ALARM=YES
+'CPTB032 Allocation of a temporary dataset failed with &PTBALLER error.'
+
+CPTB033  'Explicit &PTBMLOC'                             .ALARM=YES
+'CPTB033 The &PTBMLOC name cannot be explicit unless WIP member is explicit.'
+
+CPTB034  'Requests Written'
+'CPTB034 The PDM Batch Requests were written to the Batch Request Dataset.'
+
+CPTB035  'REPLACE Conflict Found'                        .ALARM=YES
+'CPTB035 The NO REPLACE option was specified and REPLACE conflicts were found.'
+
+CPTB036  'WIP Member Required'                           .ALARM=YES
+'CPTB036 WIP member required when explicit/sequential Merge dataset is used.'
+
+CPTB037  'MERGE Member Exists'                             .ALARM=YES
+'CPTB037 The Merge output member exists and NO REPLACE was specified.'
+
+CPTB038  'WIP Member Exists'                             .ALARM=YES
+'CPTB038 The NO REPLACE option was specified and the WIP member exists.'
+
+CPTB039  'Requests not Written'                            .ALARM=YES
+'CPTB039 An error occurred writing to the PDM Batch Request dataset.'
+

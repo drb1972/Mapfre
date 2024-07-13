@@ -1,0 +1,71 @@
+NDUM010I 'Signed-Out to ''&EEVETSO.'''                     .TYPE=W NOKANA
+'NDUM010I Element &ELEMENT is signed out to ''&EEVETSO.'''
+
+NDUM011I 'Some Patterns Ignored'                           .TYPE=W NOKANA
+'NDUM011I When entering multiple element masks one or more of them failed ' +
+'to match any elements.  Review messages for more details. RC:&APIRC.'
+
+NDUM011W 'No Elements Match'                               .TYPE=W NOKANA
+'NDUM011W List Element CSV request failed, or no elements found.  Check your ' +
+'selection criteria, and/or review the message. RC:&APIRC.'
+
+NDUM011E 'No Patterns Matched'                            .TYPE=A NOKANA
+'NDUM011E Multiple name(s) and/or patterns were entered but no elements ' +
+'were found.  Review messages for more details. RC:&APIRC.'
+
+NDUM012E 'Invalid Environment'                             .TYPE=W NOKANA
+'NDUM012E List Element CSV request failed.  Check your ' +
+'selection criteria, and/or review the message. RC:&APIRC.'
+
+NDUM013E 'Invalid Command'                                 .TYPE=W NOKANA
+'NDUM013E Command ''&THISCMD.'' not recognized'
+
+NDUM014W 'Not Found'                                       .TYPE=W NOKANA
+'NDUM014W Locate for element ''&THISLOCV.'' failed.  TBScan RC:&TBSCANRC.'
+
+NDUM015E 'Invalid User Cmd'                                .TYPE=W NOKANA
+'NDUM015E User commands must be in the form Ux, where x is a valid member ' +
+'name suffix, so that your user clist (NDUSRX&SELS.) can be found.'
+
+NDUM016E 'Invalid Diff Cmd'                                .TYPE=W NOKANA
+'NDUM016E To invoke the ''Difference'' display to compare two elements, '     +
+'mark both names with ''D'' and press ENTER, or use ''DN'' and ''DO'' to '    +
+'mark the NEW/OLD files for compare (or D1/D2 respectively).  Alternatively ' +
+'use ''DU'' to compare with the next found version up the map, or ''DP'' to ' +
+'compare with the Prod(top of the map) version.'
+
+NDUM017I 'Differences Found'                               .TYPE=N NOKANA
+'NDUM017I Differences were found between the NEW and OLD files '    +
+'selected.  SuperC return code:&SUPCRC.  The elements compared were, ' +
+'New:&NT. Old:&OT.'
+
+NDUM017W 'No Differences Found'                            .TYPE=W NOKANA
+'NDUM017W No Differences were found between the NEW and OLD files '    +
+'selected.  SuperC return code:0  The elements compared were, ' +
+'New:&NT. Old:&OT.'
+
+NDUM017E 'Same Element:Ver'                                .TYPE=A NOKANA
+'NDUM017E There is no point comparing the selected elements the '    +
+'currently selected OLD and NEW point to the same element. '         +
+'Choose another element/version to compare with:&NT.'
+
+NDUM018I 'Multiple Patterns Match'                         .TYPE=N NOKANA
+'NDUM018I It looks like you wanted wanted to use multiple element '  +
+'names or wild card masks.  This has resulted in an extended '        +
+'list with all the elements that matched your request returned. '
+
+NDUM018W 'Duplicate Paths Detected'                        .TYPE=N NOKANA
+'NDUM018W When performing the CSV search of elements we found the '  +
+'same element more than once.  This can happen when you use '        +
+'parallel development sand-boxes, and is normal.  The duplicate '    +
+'row (Rec#:&rec#.) is dropped.'
+
+NDUM019C 'Out of Sync'                                     .TYPE=A NOKANA
+'NDUM019C LongName has detected an out of sync condition, the  '    +
+'table data no longer matches the Endevor element data. Exit and  ' +
+'re-enter to refresh the view'
+
+NDUM019E 'Not Implemented'                                 .TYPE=A NOKANA
+'NDUM019E The requested feature is not implemented yet.  Please '   +
+'contact your Endevor Administrator or Field Engineering Services ' +
+'for assistance.'

@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ BUILD WIP - Summary of Levels Panel \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to select a prior level of an element as a Root,
++Derivation 1, or Derivation 2 file.
++
++To%select+a prior level of an element, type%S+next to the version and
++level (VVLL field) you wish to select, then press ENTER.
++
++To%find+a particular version and level within this list you can use the
++ISPF LOCATE command. You can either type the full command, for
++example LOCATE 0130, or abbreviate the command, for example LOC 0130
++or L 0130).
++
++
++
+)END

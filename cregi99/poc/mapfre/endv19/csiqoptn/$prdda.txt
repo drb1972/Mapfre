@@ -1,0 +1,117 @@
+         MACRO
+&LABEL   $PRDDA &DDNAME=,              DD NAME                         X
+               &VERIFY=NO,             VERIFY FOOTPRINT                X
+               &CREATE=NO,             CREATE FOOTPRINT                X
+               &NEWALLOC=YES,          USE NEW ALLOCATION? YES|NO      X
+               &MUVORETRY=N            MULTI-VOLUME, RETRY ON ERROR
+.**********************************************************************
+.*                                                                    *
+.*       PROCESSOR DD STATEMENT DEFINITION BLOCK                      *
+.*                                                                    *
+.*       CREATED BY C1GJTRNS                                          *
+.*                                                                    *
+.*       CONTAINS:      PROCESSOR DD STATEMENT INFORMATION.           *
+.*                                                                    *
+.**********************************************************************
+         COPY  $PRGLBLS                COPY PROCESSOR GLOBALS
+         GBLB  &DDANOH                 NO $PRDDA HEADERS FLAG
+         LCLC  &FLAG1
+         LCLC  &BLKLBL                 LABEL FOR CURRENT BLOCK
+&BLKLBL  SETC  '&PRDDA'                ASSIGN CURRENT BLOCK LABEL
+         AIF   (&PRLSTPR EQ 000).LOCAL DOES THIS FOLLOW ANYTHING?
+         AIF   (&PRLSTPR EQ 100).LOGIC DOES THIS FOLLOW A $PRHDR?
+         AIF   (&PRLSTPR EQ 200).LOGIC DOES THIS FOLLOW A $PRSYM?
+         AIF   (&PRLSTPR EQ 300).CONT  DOES THIS FOLLOW A $PRPGM?
+         AIF   (&PRLSTPR EQ 400).CONT  DOES THIS FOLLOW A $PRCC?
+         AIF   (&PRLSTPR EQ 500).LOGIC DOES THIS FOLLOW A $PRDDA?
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?
+         AIF   (&PRLSTPR EQ 999).LOCAL DOES THIS FOLLOW A $PREND?
+         AIF   (&PRLSTPR EQ 1000).CONT DOES THIS FOLLOW A $PRITE?
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM'
+         AGO   .MEXIT
+.LOCAL   ANOP
+&PRCSECT SETC  '&SYSECT'
+&DDANOH  SETB  (1)
+&PRLSTPR SETA  100
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS
+&BLKLBL  SETC  '&PRDDA'                ASSIGN CURRENT BLOCK LABEL
+         @PRDDADS ,
+         @PRDDBDS ,
+&PRGEN   SETB  (1)                     GENERATE VARIABLE FIELDS
+.CONT    ANOP
+&PRLSTPR SETA  500                     THIS IS A DD STMT BLOCK
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS
+.*
+.*  DETERMINE FLAG CONTENTS
+.*
+.*  FIRST, INDICATE STEPLIB IF NECESSARY
+.*
+&FLAG1   SETC  '0'
+         AIF   ('&DDNAME' NE 'STEPLIB').NOSTEP
+&FLAG1   SETC  '&FLAG1+PRA$STEP'
+.*
+.*  NEXT, FOOTPRINT FLAGS
+.*
+.NOSTEP  AIF   ('&VERIFY' NE 'YES').NOVERFY
+&FLAG1   SETC  '&FLAG1+PRA$VRFY'
+.NOVERFY AIF   ('&CREATE' NE 'YES').NOCREAT
+&FLAG1   SETC  '&FLAG1+PRA$FPCR'
+.NOCREAT ANOP
+.*
+.*  FINALLY, WHETHER TO AVOID NEW ALLOCATION
+.*  BC1PAL10 WILL USE NEW UNLESS NEWALLOC=NO (REUSE EXISTING)
+.*
+         AIF   ('&NEWALLOC' NE 'NO').NONEWAL
+&FLAG1   SETC  '&FLAG1+PRA$NNEW'
+.**********************************************************************
+.*  FOR SPILL FILE (ALLOCATED FROM BC1PRBLS AS MULTI-VOLUME), WE SET
+.*  MUVORETRY=Y. THIS MEANS WE WILLL SUPPRESS ERROR MESSAGES IN CASE
+.*  OF RC=970C-4336. THIS ERROR OCCURS RARELY, PROBABLY AS A RESULT OF
+.*  SOME EXOTIC SYSTEM SETTINGS. IT MEANS "NOT ENOUGH VOLUMES".
+.*  ERROR MESSAGES WILL BE SUPPRESSED AND BC1PAL10 RETURNS RC=0.
+.*  IF THE CALLER (BC1PRBLS) DETECTS SMS REASON CODE = 4336, IT WILL
+.*  RETRY THE REQUEST WITH LESS VOLUMES.
+.*
+.**********************************************************************
+.NONEWAL ANOP
+         AIF   ('&MUVORETRY' NE 'Y').NOMUVO
+&FLAG1   SETC  '&FLAG1+PRA$MUVO'
+.NOMUVO  ANOP
+.*
+&PRCSECT CSECT
+         AIF   (&DDANOH).NOHDR
+         DC    A(&BLKLBL)
+         DC    A(&PRDDA)               NEXT DD STMT IN CHAIN
+.NOHDR   ANOP
+&BLKLBL  DS    0F
+         DC    Y(PRDDAEQU)             THIS IS A HEADER RECORD
+         DC    Y(&BLKLBL.L)            LENGTH OF THIS BLOCK
+         DC    Y(PRDDAVER)             ENDEVOR VERSION GENERATING PROC
+         DC    Y(&BLKLBL.#)            NUMBER OF VARIABLE FIELDS
+         SPACE ,
+         DS    0F
+         DC    A(&PRDDB)               ADDR OF 1ST DD STATEMENT
+         DC    Y(&PRPGM#A)             DD STMT NUMBER FOR THIS STEP
+         DC    AL1(&FLAG1)             FLAG BYTE 1
+         DC    AL1(0)                  FLAG BYTE 2
+         DC    Y(&BLKLBL.B)            NUMBER OF CONCATENATED $PRDDB'S
+         DC    H'0'                    ** RESERVED **
+         DC    CL8'&DDNAME '           THIS DD NAME
+         DC    A(&PRIBLKNM)                 (ASSOCIATED ITE BLOCK)
+&PRIBLKNM SETC '0'                         ALL DONE WITH THE BLOCK
+         DC    3F'0'                   ** RESERVED **
+         SPACE ,
+         ORG   &BLKLBL+PRAFLDS-@PRDDADS  LOCATE VARIABLE FIELD AREA
+&BLKLBL.$ DS   0F
+         $PRFLD FIELD=DDNAM,VALUE=&DDNAME
+&BLKLBL.# EQU  ((*-&BLKLBL.$)/8)
+&BLKLBL.L EQU  *-&BLKLBL
+         AGO   .MEXIT
+.LOGIC   ANOP
+         MNOTE 8,'LOGICAL ERROR, $PRDDA MAY NOT FOLLOW A $PRHDR, $PRSYMX
+               , OR $PRDDA CARD.'
+         AGO   .MEXIT
+.MEXIT   ANOP
+         SPACE 2
+         MEND

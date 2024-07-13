@@ -1,0 +1,92 @@
+       IDENTIFICATION DIVISION.                                         00010001
+       PROGRAM-ID. XIT7NTFC.                                            00020012
+       ENVIRONMENT DIVISION.                                            00030001
+       INPUT-OUTPUT SECTION.                                            00040001
+       FILE-CONTROL.                                                    00050001
+       DATA DIVISION.                                                   00060001
+       FILE SECTION.                                                    00070001
+       WORKING-STORAGE SECTION.                                         00080001
+       COPY NOTIFYDS.                                                   00140001
+       01  FILLER.                                                      00141006
+           05  MESSAGE-LITERAL PIC X(80) VALUE                          00142006
+               'MESSAGE TEXT FOR NOTIFICATION FACILITY'.                00143006
+       01  PROGRAM-NAME        PIC X(8).                                00144009
+       LINKAGE SECTION.                                                 00150001
+       COPY PKGXBLKS.                                                   00160001
+       PROCEDURE DIVISION USING                                         00170001
+               PACKAGE-EXIT-BLOCK                                       00180001
+               PACKAGE-REQUEST-BLOCK                                    00190001
+               PACKAGE-EXIT-HEADER-BLOCK.                               00200001
+           MOVE LOW-VALUES TO NOTIFY-BLOCK.                             00201005
+           IF  SETUP-EXIT-OPTIONS                                       00202006
+               MOVE 'Y'   TO PECB-BEFORE-CREATE-BLD                     00203006
+               MOVE 'Y'   TO PECB-AFTER-CREATE-BLD                      00204006
+               MOVE ZEROS TO RETURN-CODE                                00204107
+               GO TO 900-MAIN-EXIT.                                     00205006
+                                                                        00210003
+       100-TSO-SETUP.                                                   00220001
+                                                                        00230003
+      *                                                                 00240001
+      *    SETUP TSO NOTIFY-BLOCK                                       00250005
+      *                                                                 00260001
+      *    MOVE 'TSO'     TO NOTI-NOTIFY-TYPE.                          00270013
+      *    MOVE 'Y'       TO NOTI-SET-LOGON-OPT.                        00280013
+      *    MOVE 'DA1BG10' TO NOTI-USER.                                 00290017
+                                                                        00350003
+       200-TPX-SETUP.                                                   00360001
+                                                                        00370003
+      *                                                                 00380001
+      *    SETUP TPX NOTIFY-BLOCK CONTROL BLOCK.                        00390001
+      *                                                                 00400001
+      *    NOTE: USE OF THE TXP PROTOCOL REQUIRES  CODING SITE SPECIFIC 00410001
+      *          INFORMATION.  WHERE EVER YOU SEE THE "<==" THIS DATA   00420001
+      *          MUST BE PROVIDED BY THE PROGRAM.                       00430001
+      *                                                                 00440001
+      *    NOTE: THIS EXAMPLE USES THE TXP LIST OPTION.  IT WILL        00450001
+      *          PROCESS A LIST OF  USERS DEFINED TO TPX.               00460001
+      *                                                                 00470001
+           MOVE 'TPX'      TO NOTI-NOTIFY-TYPE.                         00480013
+           MOVE 'TPX30   ' TO NOTI-TPX-JOB-NAME.                        00490017
+           MOVE 'U'        TO NOTI-USERID-OPTION.                       00500019
+           MOVE 'Y'        TO NOTI-SAVE-OPTION.                         00501017
+           MOVE 'DA1BG10 ' TO NOTI-USER.                                00510018
+                                                                        00520003
+       300-XMIT-SETUP.                                                  00530001
+                                                                        00540003
+      *                                                                 00550001
+      *    SETUP XMIT REQUEST FIELDS.                                   00560001
+      *                                                                 00570001
+      *    NOTE: TO USE THE XMIT OPTION, XMIT MUST BE ENABLED ON YOUR   00580001
+      *          SYSTEM.  CHECK WITH YOUR MVS SYSTEM PROGRAMMER.        00590001
+      *                                                                 00600001
+      *    MOVE 'XMIT'                  TO NOTI-NOTIFY-TYPE.            00610011
+      *    MOVE PECB-USER-BATCH-JOBNAME TO NOTI-USER.                   00620011
+      *    MOVE ALL 'X'                 TO NOTI-NJE-NODE.               00630011
+                                                                        00640003
+       400-BUILD-MESSAGE.                                               00650001
+                                                                        00660003
+      *                                                                 00670001
+      *    BUILD MESSAGE TEXT EITHER FROM LITERAL POOL OR USER MESSAGE  00680001
+      *                                                                 00690001
+           MOVE MESSAGE-LITERAL TO NOTI-MESSAGE-TEXT.                   00700005
+                                                                        00710003
+       500-CALL-BC1PNTFY.                                               00720001
+                                                                        00730003
+      *                                                                 00740001
+      *    CALL BC1PNTFY TO PERFORM NOTIFICATION                        00750001
+      *                                                                 00760001
+                                                                        00770005
+           MOVE 'BC1PNTFY'   TO PROGRAM-NAME.                           00771009
+           CALL PROGRAM-NAME USING NOTIFY-BLOCK.                        00780009
+                                                                        00780110
+      *                                                                 00780210
+      *    BC1PNTFY SHOULD BE DELETED ONLY AFTER ALL REQUESTS HAVE      00780310
+      *    BEEN PROCESSED FOR THIS SESSION.  FOR THIS EXAMPLE, WE'LL    00780410
+      *    ISSUE IT HERE AS AN EXAMPLE OF THE SYNTAX.                   00780510
+      *                                                                 00780610
+                                                                        00780710
+           CANCEL PROGRAM-NAME.                                         00781010
+                                                                        00790003
+       900-MAIN-EXIT.                                                   00800001
+                                                                        00810003
+           GOBACK.                                                      00820001

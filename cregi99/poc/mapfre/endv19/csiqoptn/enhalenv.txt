@@ -1,0 +1,109 @@
+         MACRO
+         ENHALENV &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST ENVIRONMENT - REQUEST BLOCK                             *
+*                                                                     *
+***********************************************************************
+ALENV_VER       EQU 4                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALENV_VER,          CONTROL BLOCK VERSION           X
+               EYE='LENQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALENV_RQ
+         SPACE ,
+ALENV_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALENV_RQ_DATA
+ALENV_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALENV_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALENV_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR- (N)O -OR- (R)ANGE
+ALENV_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALENV_RQ_ENV      DC CL8' '            ENVIRONMENT NAME/MASK
+ALENV_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+                  DS 0X
+ALENV_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALENV_RQ_VER#1_DATADSLN EQU *-ALENV_RQ_DATA
+ALENV_RQ_VER#1_DSLN     EQU *-ALENV_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALENV_RQ_VER#2_DATADSLN EQU *-ALENV_RQ_DATA
+ALENV_RQ_VER#2_DSLN     EQU *-ALENV_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+ALENV_RQ_VER#3_DATADSLN EQU *-ALENV_RQ_DATA
+ALENV_RQ_VER#3_DSLN     EQU *-ALENV_RQ
+         SPACE ,
+.* ADD VERSION 4 FIELDS AFTER THIS POINT
+ALENV_RQ_VER#4_DATADSLN EQU *-ALENV_RQ_DATA
+ALENV_RQ_VER#4_DSLN     EQU *-ALENV_RQ
+         SPACE ,
+ALENV_RQ_DATADSLN EQU *-ALENV_RQ_DATA
+ALENV_RQ_DSLN     EQU *-ALENV_RQ
+         ORG      ALENV_RQ_DATA
+ALENV_RQ_DATAAREA DS XL(ALENV_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST ENVIRONMENT - RESPONSE BLOCK                            *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALENV_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LENS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALENV_RS
+         SPACE ,
+ALENV_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALENV_RS_DATA
+ALENV_RS_SITE     DC CL1' '            SITE ID
+ALENV_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALENV_RS_TITLE    DC CL40' '           DESCRIPTION
+ALENV_RS_USEC     DC CL8' '            USER SECURITY TABLE NAME
+ALENV_RS_RSEC     DC CL8' '            RESOURCE SECURITY TABLE NAME
+ALENV_RS_SMFSEC   DC CL1' '            Y/N SMF RECORDING - SECURITY
+ALENV_RS_SMFACT   DC CL1' '            Y/N SMF RECORDING - ACTIONS
+ALENV_RS_SMFENV   DC CL1' '            Y/N SMF RECORDING - ENVIRONMENT
+ALENV_RS_DBAVL    DC CL1' '            Y/N DB BRIDGE - AVAILABLE
+ALENV_RS_DBACT    DC CL1' '            Y/N DB BRIDGE - ACTIVE
+ALENV_RS_DBOPT1   DC CL1' '            DB BRIDGE - OPTIONS
+ALENV_RS_DBOPT2   DC CL1' '            DB BRIDGE - OPTIONS
+ALENV_RS_DBOPT3   DC CL1' '            DB BRIDGE - OPTIONS
+ALENV_RS_DBOPT4   DC CL1' '            DB BRIDGE - OPTIONS
+                  DC CL44' '           UNUSED
+                  DC CL2' '            ALIGNMENT
+                  DS 0X
+ALENV_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALENV_RS_VER#1_DATADSLN EQU *-ALENV_RS_DATA
+ALENV_RS_VER#1_DSLN     EQU *-ALENV_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALENV_RS_SYNCLOC  DC CL1' '            SRC SYNC ACTIVE (Y/N)
+                  DC CL3' '            ALIGNMENT
+         SPACE ,
+ALENV_RS_VER#2_DATADSLN EQU *-ALENV_RS_DATA
+ALENV_RS_VER#2_DSLN     EQU *-ALENV_RS
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+ALENV_RS_NXT_ENV  DC CL8' '            NEXT ENVIRONMENT
+         SPACE ,
+ALENV_RS_VER#3_DATADSLN EQU *-ALENV_RS_DATA
+ALENV_RS_VER#3_DSLN     EQU *-ALENV_RS
+         SPACE ,
+.* ADD VERSION 4 FIELDS AFTER THIS POINT
+ALENV_RS_DYNAM    DC CL1' '            DYNAMIC? (Y/N)
+         SPACE ,
+ALENV_RS_VER#4_DATADSLN EQU *-ALENV_RS_DATA
+ALENV_RS_VER#4_DSLN     EQU *-ALENV_RS
+         SPACE ,
+ALENV_RS_DATADSLN EQU *-ALENV_RS_DATA
+ALENV_RS_DSLN     EQU *-ALENV_RS
+         ORG      ALENV_RS_DATA
+ALENV_RS_DATAAREA DS XL(ALENV_RS_DATADSLN)     DATA AREA
+         MEND

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%Help \-\ PDM Dataset Allocation \-\ Help
++   An unrecoverable dataset allocation occurred.  PDM should identify the
++ reason in one of the following places:
++    1) On the third line of the Dataset Allocation Panel, immediately
++       below the Command line, or
++    2) On the bottom three lines of the Dataset Allocation Panel.
++  As part of the error message, PDM will provide the error code that was
++  returned by the Dynmaic Allocation service.  The error code will be
++  labelled S99ERROR.  Below are a list of common error codes and the possible
++  causes of the error.  A complete list can be found in the IBM 'Systems
++  Programming Library: Application Development Guide' manual.
++
++    Error      Possible Cause
++    -----      -------------------------------------------------------------
++    035C-      Parameter error.  Validate the parameters specified on
++    0360       the Dataset Allocation panel.  If the problem persists,
++               contact Technical Support.
++
++    9700-      The DFSMS subsystem detected an error.  Possible causes
++    970C       include specifying a dataset that already exists, requesting
++               more directory blocks than can be supported by the primary
++               space allocation, requesting more space than is available or
++               specifing an invalid Management, Storage or Data class.
++
+)END

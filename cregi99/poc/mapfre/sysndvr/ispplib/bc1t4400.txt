@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Output Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Merge Output Specification Panel to identify the data set to
++which you want PDM to write the merge output file and to specify
++other options related to the merge process.
++
+%Merge library+- Use to specify the merge data set, using ISPF conventions.
++    The record length of the merge data set must be large enough to support
++    the largest WIP record. Generally, this means that the merge data set
++    must be no shorter than eight bytes less than the WIP record length.
++    For example, if the WIP data set record length is 88, then the merge
++    data set record length must be at least 80.
++
+%Data set name+- This is an alternative field for specifying the merge
++   output data set, using ISPF conventions.
++
++    Select%1-6+for information about:
++
+%    1+- The merge process             %4+- Generating Merge reports
+%    2+- Replacing like-named members  %5+- Panvalet or Librarian language
+%    3+- Deleting WIP after merge      %6+- Statistics data set
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T4410 2,BC1TREPL 3,BC1TDWIP 4,BC1TGREP
+                   5,BC1TPVLB 6,BC1TSTAT)
+)END

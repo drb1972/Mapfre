@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signin Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++ Select%1+-%2+for information about Signin action options
++
+%    1+- Override signout           %2+- Signout to
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITORSO0 2,CITSOTO0)
+)END

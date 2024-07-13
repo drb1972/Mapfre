@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection Status \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%  Collect Req+- Date and time that the collection was requested.
+%    Date/Time+
++
+%      Product+- Product name assigned to this DistribuLink collection.
+%        Stage+- Return code from the collection staging step.
+%Collect Reqst+- Return code from the collection request step.
++
+%      Conn-id+- Connection ID associated with the DistribuLink MVS server.
+% Package name+- Name of a package being collected.
++
+%      PKG/BKO+-%PKG+indicates that package outputs were collected.
+%                BKO+indicates that backout members were collected.
++
++
++                                            (%PF3+to return)
+)END

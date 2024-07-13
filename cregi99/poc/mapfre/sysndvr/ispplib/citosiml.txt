@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SIMULATION MODE \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%  Simulation mode+causes the actual execution of all actions in the batch job
++to be bypassed. No updates are performed. The C1MSGS1 and C1MSGS2 reports will
++show the Syntax Request report and Action Summary report as if the actions were
++executed. There will be a heading line, labeled%"*** AUTOGEN SIMULATION ***"+
++to indicate that the job ran in simulation mode. Use the reports for impact
++analysis to see what the results would be if the actions were performed.
++
++To activate simulation mode, append the%EN$AUSIM+DD statement to your batch
++job or use the%include JCL+option to add the DD statement.
++
++Example:
++ %//EN$AUSIM DD SYSOUT=*+
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue,%END+to exit) \ \
++
+)PROC
+   &ZCONT = CITOSPAN
+)END

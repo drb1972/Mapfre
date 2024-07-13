@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Disqualification Option for Approver Group Definiton \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Disqualification for Approver Groups
++
++ With this enhancement the Endevor Administrator can turn the Approver
++ Group Disqualification option on or off by approver group.
++ Turning this option on in an approver group means that an approver
++ who has updated an element in the package or who has updated the
++ package itself will be disqualified as an approver for this
++ approver group.
++
++%Note:+If the site-wide ENCOPTBL option%&LIT1                +
++       is on it overrides the approver group setting.
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+  &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZCONT = CIT18070
+)END

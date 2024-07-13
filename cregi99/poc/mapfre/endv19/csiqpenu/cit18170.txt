@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Footprint Source Output Member With Generate Timestamp \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Footprint Source Output Member With Generate Timestamp
++
++ When an Element is moved, the current level of the Element is written to
++ the source output library (if defined for the type) in the target location.
++ The footprint in the source output library member reflects the date and
++ time of the move action.
++
++ This enhancement introduces a new optional feature in the ENCOPTBL table,
++%&LIT1                              +which can be turned on in order to
++ override the default behavior so that the date and time in the footprint
++ reflects the date and time of the last generate action when EXPAND INCLUDES
++ is "N" in the Type Definition.
++ The date and time stamp in the source output library member footprint will
++ not change when moving an Element up the map.
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP,'
+)PROC
+   &ZCONT = CIT18180
+)END

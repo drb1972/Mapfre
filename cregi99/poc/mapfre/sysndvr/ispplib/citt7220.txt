@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Packages - Component Validation \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++If component validation is active, each component list associated with
++an element referenced in a MOVE action is checked.  The package CAST
++will be disallowed (CAST will fail) if any input components:
++ * Reside at the same stage as the source of the Move action and
++     have not been included in the package.  In this case, commented
++     MOVE SCL is appended for the omitted input component.
++ * Are missing or have been modified (the time stamp in the component
++     list footprint does not correspond to either the Generate or Move
++     time stamp in the MCF) since the element was generated.  Error
++     messages are issued when this condition occurs.
++
++When a cast fails for either of these reasons, review the package and
++do one of the following:
++ * Generate the element to pick up the latest version of a component.
++ * Cast the package without validation (if allowed).
++ * Cancel the package if a component has been deleted.
++
++For more information, see Chapter 7 of the User's Guide.
++                                                      (%PF3+to return)
+)END

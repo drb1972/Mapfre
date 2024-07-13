@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Summary of Levels Panels \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                                   %Page 2 of 3
+%Level Information (continuation):
++  * (Display only) Whether or not the level is a SYNC level. SYNC levels
++  *   may be created when element are moved or transferred with history.
++  * (Retrieve only) NEWNAME, where you can specify the name of the
++       member at the target location of the Retrieve.
++  * (Retrieve only) COMMENT, where you can change the comment associated
++       with a level.
++
++
++
++
++
++
++
++
++
++
++
++
++                        (%PF3+to return,%ENTER+for more on SYNC levels)
+)PROC
+   &ZCONT = CITSYNC0
+)END

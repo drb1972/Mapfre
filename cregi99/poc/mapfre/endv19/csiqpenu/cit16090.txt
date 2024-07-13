@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Web Services Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
++                                                                 %Page 1 of 2+
+%Web Services Enhancements +
++
+ This release introduces the following enhancements to the Web Services
+ component:
+
+%STC pool+
+ An STC pool improves the processing performance of web service
+ calls to the API. A pool of STCs is maintained for the data source.
+ Available STCs in the pool can be reused to execute incoming web
+ service calls. New parameters in the data source configuration file
+ enable STC pooling.
+
+%Viewable configuration file+
+ To verify the content of a specific configuration, you can use the
+ new%getConfiguration+service. This operation returns a read-only XML
+ file that the administrator can review.
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16091
+)END

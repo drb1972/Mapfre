@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Synchronize \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                                   %Page 3 of 3
+%Sync+- Indicates whether you want to Move or Transfer elements when
++   the base level of the element at the source location is different from
++   the current level of the element at the target. Acceptable values are:
++
+%      N+- Default. Do not perform the Move or Transfer.
+%      Y+- Perform the Move or Transfer
++
++   When you specify Y, a "sync" level is crated at the target location that
++   reflects the differences between the base level at the source location
++   and the current level at the target. The Move or Transfer fails if the
++   levels are different and you have specified SYNC=N.
++
++   You must specify%SYNC=Y+when moving or transferring an element that has
++   remained at a location after being moved or transferred using
++  %BYPASS ELEMENT DELETE=Y.
++
++
++
++
++                                            (%PF3+to return)
+)END

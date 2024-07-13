@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Types \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Type is the term for categories of source code. For example,
++you might create the following types: COBOL (for COBOL code);
++COPYBOOK (for copybooks); JCL(for JCL streams).
++You must define a type to each stage in which you want to use it.
++
++JCL streams, called processors, are used to automate creating
++executables.  You can associate a group of processors with each
++type.  Each processor group includes the processors needed for a
++particular type of source.  For example, the processor group for type
++COBOL might include processors for VS COBOL and COBOL II.
++
++You work with types on the Type Definition panel.
++
++   Select%1+-%4+for more on
++
+%    1+- Type naming conventions    %3+- Element storage formats
+%    2+- Type data set symbolics    %4+- Type definition panel
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT2510 2,CITT2520 3,CITT2530 4,CITE4100)
+)END

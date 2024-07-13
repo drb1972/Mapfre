@@ -1,0 +1,43 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP2500                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+ @ TYPE(TEXT)   INTENS(&PDVPNINT)
+)BODY
++------------------------------%Execute Package+--------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the package information below and select an action:
++   _Z+ 1  Execute package        2  Cancel the Execute action
++      @N  Display Package Notes
++
++  Package ID.............#PDVSLPKG        +
++  Description............#PDVSLDSC                                          +
++  Package Type...........#PDVSLTYP  +
++  Sharable Package.......#Z+
++  Enable Backout.........#Z+
++  Execution window from.._Z      +_Z    +to_Z      +_Z    +
++
++  Created by user#Z       +on date#Z      +at time#Z    +
++  PKG last updated by user#Z       +on date#Z      +at time#Z    +
++  Cast by user#Z       +on date#Z      +at time#Z    +
++  Approved on date#Z      +at time#Z    +
++
++
++
++
++
++
+)INIT
+  .HELP = enit2500
+  .ZVARS = '(VARWKCMD, PDVSLSHR, PDVSLBOE,              +
+             PDVSLWSD, PDVSLWST, PDVSLWED, PDVSLWET,    +
+             PDVSLDUI, PDVSLDDT, PDVSLDTM, PDVSLLUI,    +
+             PDVSLLDT, PDVSLLTM, PDVSLCUI, PDVSLCDT,    +
+             PDVSLCTM, PDVSLADT, PDVSLATM)'
+)PROC
+)END

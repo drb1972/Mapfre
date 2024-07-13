@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package History Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to
++
+%  D+- Display information about one of the listed versions of a
++      promotion package.
++
++The package id and the description of the package appear at the top
++of the panel. One row appears for the current version of this package
++and one row appears for each previously executed version of the
++promotion package. Each row consists of the cast, approved
++and executed timestamps and indicates the "target" location
++environment and stage id for the package.
++
++Use the timestamps to help you determine which version of the
++package you want to view. Place the option D in the selection area on
++that row and depress the enter key. The Package Display panel will
++appear with the details for that version of the promotion package.
++
++                                            (%PF3+to return)
+)END

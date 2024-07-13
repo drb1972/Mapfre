@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Building Additional JCL \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the BUILD JCL option to define JCL to be included with other batch
++requests. You might do this, for example, if an action request
++references a source or target file by DD name, or identifies an
++archive data set.
+
++When you press ENTER, the JCL TO BE INCLUDED WITH BATCH JOB panel is
++displayed. Use this panel to provide the JCL you want to include
++with the batch job, then press PF3 to return to the Batch Options Menu.
+
+
+
+
+
+
+
++
++\ \ (%PF3+to return) \ \
+)END

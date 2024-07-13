@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Load Module IDR Display \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to display information about the elements associated
++with the listed CSECTs. You can request any of the standard element
++dislay options (M, B, C, H, S).
++
++The library location and member containing the listed CSECTs are
++identified at the top of the panel
++
++
++
++
++
++    Select%1+-%3+for information about
++
+%    1+- Display options            %2+- Footprint fields
+%    3+- Footprints
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDOPT0 2,CITFOOT0 3,CITT6000)
+)END

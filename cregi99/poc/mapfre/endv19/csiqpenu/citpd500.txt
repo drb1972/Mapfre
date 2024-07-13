@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ DSN Mapping Rule Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a mapping rule for display or update.
++
+%DESTINATION+- The destination for which the displayed mapping rule is defined.
++
+%STATUS+- Indicates the host data set transmission status as follows:
+%  MAPPED  +- The host data set is mapped to a remote data set and will be
++             transmitted to the remote destination.
+%  EXCLUDED+- The REMOTE DSN is%blank+indicating that the host data set will be
++             excluded from transmission.
+%  SCRIPT  +- The REMOTE DSN contains the value%(SCRIPT-FILE)+which identifies
++             the host DSN as a script data set. Script data sets are always
++             shipped to the remote destination but are not mapped or copied to
++             a remote target data set.
++
+%HOST DATASET NAME+- Name of the host data set for this mapping rule.
++
+%UPDATED+- The date when this mapping rule was last updated.
++
++
++                               %PF3+to return
+)END

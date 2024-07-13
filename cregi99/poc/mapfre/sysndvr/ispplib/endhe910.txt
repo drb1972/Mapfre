@@ -1,0 +1,25 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit COPYELM Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Element Selection List to select an element that you wish
++to copy into the element you are editting.
++
++Select an element by placing an 'S' in the selection field next to
++the desired element. Only one element can be selected from this list.
++If you select more than one element, the first element is copied and
++any subsequent selected elements are ignored.
++
++To initiate the COPYELM processing, press%ENTER+.
++
++
++
++
++
++
++
++
++
++
++                                       (%END+to return)
+)END

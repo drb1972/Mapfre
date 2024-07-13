@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signin - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+     applies if DISPLAY LIST=Y.
++
+%SI+- Use this option to sign in one or more elements.
++
++
++
++                   (%PF3+to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

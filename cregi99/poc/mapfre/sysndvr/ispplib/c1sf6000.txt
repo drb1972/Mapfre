@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%------------------------------  PRINT ELEMENTS  -------------------------------
+%OPTION  ===>_ZCMD                                                             +
++                               ELEMENT DISPLAY OPTIONS:
+%   blank+- Element list         %S+ - Summary  %B+- Browse  %H+- History
+%   P+ - Print element           %M+ - Master   %C+- Changes
++
+%   PC+- Print changes only      %PM+- Print master information
+%   PS+- Print element summary   %PX+- Print component information
+%   PH+- Print change history    %PL+- Print Listing
++
++FROM LOCATION:                         LIST OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DISPLAY LIST      %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             APPLY LIST FILTERS%===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             BUILD USING MAP   %===>_Z+(Y/N)
++  ELEMENT    %===>_CIELM     +
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +
++                      ¢Z+-|CLU2ID  +
++
++
+)INIT
+  .HELP = CITF6000
+  .ZVARS = '(VARWKLST VARWHPNL VARSHMAP CLU1I CLU2I)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+)PROC
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

@@ -1,0 +1,37 @@
+)ATTR
+  /*-----------------------------------------------------------------*/
+  /*                                                                 */
+  /* Copyright (C) 2022 Broadcom. All rights reserved.               */
+  /*                                                                 */
+  /* Panel: C1SP1710                                                 */
+  /*                                                                 */
+  /*-----------------------------------------------------------------*/
+ $ TYPE(INPUT) CAPS(ON) JUST(LEFT)
+ ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) JUST(ASIS) INTENS(LOW)
+)BODY
++-----------------------------%Package Note Text+-------------------------------
++ Command ==>$VARWKCMD                                                         +
++
++     1.`VPHNOTE1                                                    +
++     2.`VPHNOTE2                                                    +
++     3.`VPHNOTE3                                                    +
++     4.`VPHNOTE4                                                    +
++     5.`VPHNOTE5                                                    +
++     6.`VPHNOTE6                                                    +
++     7.`VPHNOTE7                                                    +
++     8.`VPHNOTE8                                                    +
++
++
++
++
++
++
++
++
++
++
++
+)INIT
+  .HELP = citp1710
+)PROC
+)END

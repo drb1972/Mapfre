@@ -1,0 +1,36 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SIMULATION MODE \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%  Simulation mode+causes the actual execution of all actions in the batch job
++to be bypassed. No updates are performed. The C1MSGS1 and C1MSGS2 reports will
++show the Syntax Request report and Action Summary report as if the actions were
++executed. There will be a heading line, labeled%"*** AUTOGEN SIMULATION ***"+
++to indicate that the job ran in simulation mode. Use the reports for impact
++analysis to see what the results would be if the actions were performed.
++
++To activate simulation mode, append the%EN$AUSIM+DD statement to your batch
++job or use the%include JCL+option to add the DD statement.
++
++Example:
++ %//EN$AUSIM DD SYSOUT=*+
++
++
++
++
++
++
++\ \ (Press}ENTER+to continue,}END+to exit) \ \
++
+)PROC
+   &ZUP = CITOAUTG
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Dynamic Approver Group Definition - Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
+%Quorum size+- The quorum size for the Dynamic Approver Group. Acceptable
++   values are 0-16. The value can be zero only if there are required
++   approvers. The quorum value cannot be changed to a value less than
++   or equal to the number of approvers who have already approved the package.
++
+%Approver+- The TSO user IDs of the dynamic approvers in the group.
++   There can be up to 16 dynamic approvers in a group.
++
+%Req (Y/N)+- Indicates whether the designated dynamic approver
++   is a required approver for the group.
++
+%Status+- Indicates whether the Dynamic approver has approved
++   or denied the package. If the approver has approved or denied
++   the package, the date and time of the update is displayed.
++
+%Added by+- The name of the approver who added the dynamic approver
++   and the date and time at which the dynamic approver was added.
++
++
++                                            (%PF3+to return)
+)END

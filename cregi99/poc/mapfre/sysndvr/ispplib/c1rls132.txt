@@ -1,0 +1,13 @@
+startdef
+tag % sh
+tag + s
+TAG _ MUH CMD WLDSN WLISTMEM
+tag | sh msg
+%------------------------------  List Output  ----------------------------------
+%COMMAND ===>_   +                                                             +
+|
++Specify data set where output of LIST will be placed, then press the ENTER key
++
++   DATA SET NAME %===>_                                            +
++   MEMBER        %===>_        +
+enddef

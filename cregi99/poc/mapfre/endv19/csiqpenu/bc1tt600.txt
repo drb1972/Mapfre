@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Reports \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++When you process Build WIP and Merge requests, PDM produces several
++reports. Use the:
++
++ * Build WIP reports to determine the complexity of a project
++
++ * Merge Output reports to review the outcomes of the Merge process.
++
++ * SAS reports to produce customized output based on statistical data.
++
++    Select%1-5+for information about:
++
+%    1+- Build WIP reports          %4+- Running reports in batch
+%    2+- Merge Output reports       %5+- Running reports in foreground
+%    3+- SAS reports
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TT610 2,BC1TT620 3,BC1TT630 4,BC1TT640
+                  5,BC1TT650)
+)END

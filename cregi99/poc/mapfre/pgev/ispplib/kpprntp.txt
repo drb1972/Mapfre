@@ -1,0 +1,40 @@
+)Attr Default(%+_)
+  ^ type(input) intens(non)
+  @ type(input) intens(high)
+  # type(input) intens(non)
+  + type(text) intens(low) skip(on)
+)Body Expand(!!)
++-!-!- %Kaiser Utility Print Menu+ -!-!-%&sys
+%Command  ===>_zcmd                                                            +
+%
+%  +Dataset:@wdsn                                                              +
+%
+%
+%  +Sysout Class      %===>@hcla+
+%  +Local Printer ID  %===>@hpid    +
+%  +Number of Copies  %===>@ncpy+
+%  +Print Type        %===>@ptyp    + (enter ? to list types)
+%  +Carriage Control  %===>@C+        (Y=yes)
+%  +Bind              %===>@B+        (Y=yes)
+%
+%
+%! ! +Press%ENTER+to invoke print or%&END+to return to previous panel ! !
+%
+%
+)Init
+   .help = isr00003
+   .cursor = zcmd
+   if (&ncpy = ' ') &ncpy = '1'
+   if (&hcla = ' ') &hcla = 'a'
+   &sys = &zsysid
+   &end = pfk(END)
+   Vget ( wdsn hcla hpid ncpy ptyp ) Profile
+)Proc
+   Ver (&wdsn,nb)
+   Ver (&hpid,nb)
+&plist = 'SLAND,SPORT,SPORT10,DPORT,DPORT10,TWOPORT,TWOLAND,FOURPORT,FOURLAND'
+   Ver (&c,list,Y,N)
+   Ver (&b,list,Y,N)
+   Ver (&ptyp,listv,&plist,msg=kpr001)
+   Vput ( wdsn hcla hpid ncpy ptyp ) Profile
+)End

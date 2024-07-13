@@ -1,0 +1,36 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%DLG Insurance Pro IV / Endevor Interface+\-\
+%Command ==>_ZCMD
++
++
++
++
++  Pro IV Application              ===>^Z   + (LIFE,CALL,LOAN,SAVG)
++
++  Endevor Environment             ===>^Z   + (SYST,ACPT) (not for EMER)
++
++  Endevor Subsystem               ===>^Z  +
++
++  Infoman CMR                     ===>^Z       +
++
++  Implementation Type             ===>^Z        + (STD OR EMER)
++
++  Pro-IV Cntl Dataset:  ===>^Z                                       +
++  (No quotes)
++
+)INIT
+   .HELP     = PROIVHLP
+   .ZVARS    = '(PROIVAPP C1EN C1SUB C1CCID PKGTYP CNTLDSN)'
+)PROC
+   &PFKEY = .PFKEY
+   VER (&PROIVAPP,NB,LIST,LIFE,CALL,LOAN,SAVG)
+   VER (&C1EN,NB,LIST,SYST,ACPT)
+   VER (&C1SUB,NB,LIST,LN1,LN2,LN3,LN4,LNA,EK1)
+   VER (&C1CCID,NB,PICT,C9999999)
+   VER (&PKGTYP,NB,LIST,STD,EMER)
+   VER (&CNTLDSN,NB,DSNAME)
+)END

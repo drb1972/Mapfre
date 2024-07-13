@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Text String - Scan Columns \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Text String+- Applicable when you want to list only elements or members
++   that contain a particular 1- to 70-character text string. Enclose
++   the string in quotes if it contains blanks or special characters.
++   The text string scan option is not applicable on source-less elements.
++   When used, these elements are considered as not meeting the criteria.
++
++   When you specify a text string you can also specify SCAN COLUMNS.
++
+%Scan columns+- Range of columns to be searched for the text string. You
++   must provide both a START and an END column.
++
+%Show text+- Indicates whether you want to print any lines containing
++   the specified text string in the execution report. Acceptable
++   values are:
++
++      %N+- Default. Do not show text.
++      %Y+- Print the lines on the execution report.
++
++
++                                            (%PF3+to return)
+)END

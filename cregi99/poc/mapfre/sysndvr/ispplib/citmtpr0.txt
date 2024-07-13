@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor To Use For Move/Transfer Actions \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Processor to use for Move action+-Identifies the processor that you
++   want to use at the target location of a Move action.
++
++    * Use the default%M+(Move processor) when you want to copy the
++      inventory from the source to the target location, but not recompile.
++
++    * Specify%G+(Generate processor) when you want to recompile the elements
++      at the target.
++
+%Processor to use for the Transfer action+- Identifies the processor to
++   use when transferring elements from one inventory location to another.
++
++    * Use the default%G+(generate processor) to generate the elements at
++      target, but not transfer associated component lists.
++
++    * Specify%M+(move processor) to transfer the elements using the move
++      processor, which transfers the component lists with the elements.
++
++\ \ (%PF3+to return) \ \
+)END

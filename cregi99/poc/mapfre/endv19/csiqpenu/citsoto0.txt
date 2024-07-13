@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signout To \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Allows you to sign an element out to another user at the target location.
++
++Do so by typing the TSO user ID of the person to whom you want to sign
++out the element in this field.
++
++If RETAIN SIGNOUT=Y you cannot use this option.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

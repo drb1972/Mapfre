@@ -1,0 +1,36 @@
+ENDE001E 'Dialog Not Available'                        .ALARM=YES
+'ENDE001E The Quick-Edit dialog has not been purchased by the installation'
+
+ENDE002E 'Invalid Value'                               .ALARM=YES
+'ENDE002E The field contains an inventory location object name'
+
+ENDE003E 'Enter Y or N  '                              .ALARM=YES
+'ENDE003E The field requires a Y or N value'
+
+ENDE004E 'Environment not Defined'                     .ALARM=YES
+'ENDE004E Environment &VAREVNME is not defined or you are not authorized'
+
+ENDE004W 'Environment not Defined'                     .ALARM=YES
+'ENDE004W Environment &VAREVNME is not defined'
+
+ENDE005E 'System not Defined'                          .ALARM=YES
+'ENDE005E The system specified is not defined'
+
+ENDE006E 'Subsystem not Defined'                       .ALARM=YES
+'ENDE006E The Subsystem specified is not defined'
+
+ENDE007E 'Type not Defined'                            .ALARM=YES
+'ENDE007E The Type specified is not defined'
+
+ENDE008E 'Proc Group not Defined'                      .ALARM=YES
+'ENDE008E The Processor Group specified is not defined'
+
+ENDE009E 'Invalid Processor Group'                     .ALARM=YES
+'ENDE009E The Processor Group specified is invalid'
+
+ENDE00AE 'AUTOGEN is Batch Only'                       .ALARM=YES
+'ENDE00AE The Processor Mode must be batch for AUTOGEN'
+
+ENDE00BE 'Invalid Span Option'                         .ALARM=YES
+'ENDE00BE Valid options are NONE, ALL, SYS, or SUB'
+

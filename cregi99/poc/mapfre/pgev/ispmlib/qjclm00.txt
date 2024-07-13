@@ -1,0 +1,30 @@
+QJCLM000  'Request Cancelled'                               .ALARM = YES
+'Batch job create and submit cancelled at user request.'
+
+QJCLM001  '                    '                            .ALARM = YES
+'                                                                      '
+
+QJCLM002  '                    '                            .ALARM = YES
+'                                                                      '
+
+QJCLM003  'JCL File Tailored'                               .ALARM = YES
+'The JCL for the batch job to be run has been successfully created.'
+
+QJCLM004  '                    '                            .ALARM = YES
+'                                                                      '
+
+QJCLM005  'Submit Successful   '                            .ALARM = YES
+'The JCL for the batch job to be run has been successfully submitted.'
+
+QJCLM006  'Submit Failed'                                   .ALARM = YES
+'The submit process ended with a Return Code of &RCODE..'
+
+QJCLM007  'Return Code=&RCODE.'                             .ALARM = YES
+'Service &FTSERV completed with a Return Code of &RCODE..'
+
+QJCLM008  '                    '                            .ALARM = YES
+'                                                                      '
+
+QJCLM009  'Inactive Option'                                 .ALARM = YES
+'The option you selected is not currently active.'
+

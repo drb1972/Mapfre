@@ -1,0 +1,30 @@
+)ATTR DEFAULT(!+_)
+       /* ! TYPE(TEXT) INTENS(HIGH)    FOR BOLD TEXT     */
+       /* + TYPE(TEXT) INTENS(LOW)     REGULAR TEXT      */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) */
+)BODY EXPAND(\\)
+!TUTORIAL \-\ WIP File Annotations \-\ TUTORIAL
+!OPTION ===>_ZCMD                                                              +
+!
++WIP file annotations appear in the first eight columns of the WIP file,
++and indicate the changes made to the Root file by each derivation.
++
+!  % +- Indicates that a change has occurred between the Root and a derivation.
++
+!  ? +- Indicates that both derivations made different changes to this line
++       of the Root file.
++
+!  I +- Indicates that a line was inserted by one of the derivations
++
+!  D +- Indicates that a line was deleted by one of the derivations.
++
+! 1+or!2+- Indicates which Derivation the change came from. If the change
++    from both derivation files, the annotation would be!1,2+.
++
+!  * +- Indicates a comment line.  PDM merge processing ignores comment lines.
++
++
++                                    (!ENTER+for annotation examples )
+)PROC
+   &ZCONT = BC1T1521
+)END

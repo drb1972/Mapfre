@@ -1,0 +1,57 @@
+      *****************************************************************
+      *
+      *  LIST PACKAGE BACKOUT INFORMATION - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALBKO-RQ.
+           05  ALBKO-RQ-HEADER.
+               10  ALBKO-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALBKO-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALBKO-RQ-ID         PIC 9(04) COMP VALUE 1424.
+               10  ALBKO-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALBKO-RQ-EYE        PIC X(04)      VALUE 'LBKQ'.
+           05  ALBKO-RQ-DATAAREA.
+               10  ALBKO-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALBKO-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST PACKAGE BACKOUT INFORMATION - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALBKO-RS.
+           05  ALBKO-RS-HEADER.
+               10  ALBKO-RS-LEN        PIC 9(04) COMP VALUE 1430.
+               10  ALBKO-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALBKO-RS-ID         PIC 9(04) COMP VALUE 1425.
+               10  ALBKO-RS-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALBKO-RS-EYE        PIC X(04)      VALUE 'LBKS'.
+           05  ALBKO-RS-DATAAREA.
+               10  ALBKO-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALBKO-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALBKO-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALBKO-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALBKO-RS-RUU        PIC X(08) VALUE SPACES.
+               10  ALBKO-RS-LOC        PIC X(01) VALUE SPACES.
+                   88  ALHKO-RS-LOC-S            VALUE 'S'.
+                   88  ALBKO-RS-LOC-T            VALUE 'T'.
+               10  ALBKO-RS-DIR        PIC X(01) VALUE SPACES.
+                   88  ALBKO-RS-DIR-BI           VALUE 'I'.
+                   88  ALBKO-RS-DIR-BO           VALUE 'O'.
+               10  ALBKO-RS-DIRLIT     PIC X(10) VALUE SPACES.
+                   88  ALBKO-RS-DIRLIT-O         VALUE 'BACKED-OUT'.
+                   88  ALBKO-RS-DIRLIT-I         VALUE 'BACKED-IN '.
+               10  ALBKO-RS-MBR        PIC X(08) VALUE SPACES.
+               10  ALBKO-RS-MBRNEW     PIC X(08) VALUE SPACES.
+               10  ALBKO-RS-MBRSAVE    PIC X(08) VALUE SPACES.
+               10  ALBKO-RS-DSN        PIC X(44) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.
+               10  ALBKO-RS-FILETYPE   PIC X(03) VALUE SPACES.
+               10  ALBKO-RS-LFILE      PIC 9(04) COMP SYNC VALUE 0.
+               10  ALBKO-RS-FILE       PIC X(255) VALUE SPACES.
+               10  ALBKO-RS-LFILENEW   PIC 9(04) COMP SYNC VALUE 0.
+               10  ALBKO-RS-FILENEW    PIC X(255) VALUE SPACES.
+               10  ALBKO-RS-FILESAVE   PIC X(08) VALUE SPACES.
+               10  ALBKO-RS-LPATH      PIC 9(04) COMP SYNC VALUE 0.
+               10  ALBKO-RS-PATH       PIC X(768) VALUE SPACES.

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Deploy for Test Using the Quick Edit UI \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Deploy for Test Using the Quick Edit UI
++
++ The Quick Edit Deploy for Test feature copies Elements and their executables
++ from a development sandbox to a test sandbox. You can use the Deploy action
++ repeatedly to deploy from the same development sandbox to multiple test
++ sandboxes. Deploying to multiple test sandboxes lets you test the Elements in
++ different test environments.
++
++ For more information regarding implementing and using the Deploy for Test
++ feature, please see%Administrating+in the Endevor documentation.
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18200
+)END

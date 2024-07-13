@@ -1,0 +1,34 @@
+ENDE020E 'Quotes not Allowed  '                        .ALARM=YES
+'ENDE020E Single quotation marks are not allowed in the Comment field'
+
+ENDE021E 'Invalid Processor Group'                     .ALARM=YES
+'ENDE021E The Processor Group name specified is invalid'
+
+ENDE022E 'Stage ID not Defined'                        .ALARM=YES
+'ENDE022E Environment &VAREVNME does not contain a stage with ID "&D"'
+
+ENDE023E 'Create Not Allowed'                          .ALARM=YES
+'ENDE023E The CReate Option is not allowed from the selection list'
+
+ENDE024E 'SET AND RETAIN SIGNOUT'                        .ALARM=YES
+'ENDE024E Retain Signout=Y and Set Signout Id are mutually exclusive.'
+
+ENDE025E 'No Datasets Selected'                          .ALARM=YES
+'ENDE025E No datasets selected from the component list.'
+
+ENDE026E 'Member not Found'                              .ALARM=YES
+'ENDE026E The selected member was not found in the dataset.'
+
+ENDE027W 'Copied Component List'                         .ALARM=YES
+'ENDE027W The component list has been copied and may not be accurate.'
+
+ENDE028E 'Mbr Not Fnd-Cpyd List'                         .ALARM=YES
+'ENDE028E Requested member is no longer in specified data set.'
+
+ENDE029E 'No matching Footprint'                         .ALARM=YES
+'ENDE029E The footprint is missing or it does not match ' +
+'the current element location. '
+
+ENDE029W 'Element name mismatch'                         .ALARM=YES
+'ENDE029W The element name does not match the footprint.'
+

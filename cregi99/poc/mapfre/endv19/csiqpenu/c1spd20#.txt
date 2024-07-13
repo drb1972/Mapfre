@@ -1,0 +1,78 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ¬ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY
+%DELETE --------------------  DELETE DESTINATION  ------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++ %D+- Display DSN Mapping Rules+    %DU+- Display USS Mapping Rules
++ %#+- Delete Destination and all its Mapping Rules+
++
++DESTINATION:¢VNBSSDST+               SHIP COMPLEMENTARY DATASETS (N/Y):¢Z+
++DESCRIPTION:~VDDDESCR                      +
++TRANSMISSION METHOD:¢VDDXMETH   +    REMOTE NODENAME:¢VDDXNODE        +
++UPDATED:¢Z      ¢Z    +BY¢VDDUUSER+ +CREATED:¢Z      ¢Z    +BY¢VDDCUSER+
+$SAREA                                                                         $
+)AREA SAREA
++REMOTE IPNAME/IPPORT (XCOM ONLY):
++  IPNAME:¢VDDXIPNM
++  IPPORT:¢Z
++
++REMOTE+JOB STATEMENT INFORMATION:
++ ¢VDDRJC1                                                                 +
++ ¢VDDRJC2                                                                 +
++ ¢VDDRJC3                                                                 +
++ ¢VDDRJC4                                                                 +
++
++STAGING INFORMATION:
++  For DATASET:              HOST Site               REMOTE Site
++    DSN PREFIX             ¢VDDHSPFX      +        ¢VDDRSPFX      +
++    DISPOSITION            ¢Z     +                ¢Z     +
++    UNIT                   ¢VDDHUNIT+              ¢VDDRUNIT+
++    VOLUME SERIAL          ¢Z     +                ¢Z     +
++
++  For UNIX SYSTEM SERVICES Files:
++    HOST Path Name PREFIX:                         DISPOSITION:¢Z     +
++    *¬VDDHPN01                                                        +*
++    *¬VDDHPN02                                                        +*
++    *¬VDDHPN03                                                        +*
++    *¬VDDHPN04                                                        +*
++    *¬VDDHPN05                                                        +*
++    *¬VDDHPN06                                                        +*
++    *¬VDDHPN07                                                        +*
++    *¬VDDHPN08                                                        +*
++    *¬VDDHPN09                                                        +*
++    *¬VDDHPN10                                                        +*
++    *¬VDDHPN11                                                        +*
++    *¬VDDHPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
++
++    REMOTE Path Name PREFIX:                       DISPOSITION:¢Z     +
++    *¬VDDRPN01                                                        +*
++    *¬VDDRPN02                                                        +*
++    *¬VDDRPN03                                                        +*
++    *¬VDDRPN04                                                        +*
++    *¬VDDRPN05                                                        +*
++    *¬VDDRPN06                                                        +*
++    *¬VDDRPN07                                                        +*
++    *¬VDDRPN08                                                        +*
++    *¬VDDRPN09                                                        +*
++    *¬VDDRPN10                                                        +*
++    *¬VDDRPN11                                                        +*
++    *¬VDDRPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
+)INIT
+  .HELP = CITPD200
+    .ZVARS = '( VDDSHCMP +
+                VDDUPDAT VDDUPTIM +
+                VDDCRDAT VDDCRTIM +
+                VDDXIPPT VDDHDISP VDDRDISP +
+                VDDHVSER VDDRVSER +
+                VDDHPDIS VDDRPDIS )'
+)PROC
+)END

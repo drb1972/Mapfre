@@ -1,0 +1,4 @@
+IMGR100E 'ALLOCATION ERROR'                              .ALARM=YES
+'&VARWLTXT'
+IMGR101E 'VSAM I/O ERROR'                                .ALARM=YES
+'&VARWLTXT'

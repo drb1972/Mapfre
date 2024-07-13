@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Long-Named Element Support \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%ISPF Long-Named Element Support
++
++ You can enter or view mixed-case long-named Elements on ISPF panels
++ for classic Endevor and perform the Element display options
++ (B, C, H, M and S) on long-named Elements. Long names can be a maximum
++ of 255 characters. To support long-named Elements, the ISPF panels use
++ scrollable fields for Element names.
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18100
+)END

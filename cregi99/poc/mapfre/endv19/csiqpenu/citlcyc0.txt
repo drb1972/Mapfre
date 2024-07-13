@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Software Life Cycle \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Endevor allows you to automate and control the movement of
++software through your software life cycle. Life cycles are site-specific.
++A representative life cycle might consist of five stages:
++
++  * DEVELOPMENT - Programs are developed.
++  * TEST - Programs are unit tested.
++  * QA - Applications are system tested.
++  * EMERGENCY - Fixes are applied to production code.
++  * PROD - Production applications.
++
++Your administrator might decide to put the TEST, QA, EMERGENCY
++and PROD stages under the control of Endevor.
++
+%Note:+This example illustrates one life cycle.  Endevor
++  can be implemented to adapt to any software life cycle requirements.
++
++  Select%1+-%2+for information about
++
+%    1+- Basic operations           %2+- Emergency operations
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLCYC1 2,CITLCYC2)
+)END

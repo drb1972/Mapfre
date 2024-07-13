@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Host Data Set Name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++A 1 to 44 character name or mask for a data set at a host site.
++
++HOST DATA SET names must have the same number of qualifiers as their
++input production data sets. When the number of qualifiers is not the
++same as the REMOTE DATA SET NAME, the following occurs:
++
++  1. Both data set names are aligned to the right:
++                     example 1                      example 2
++       host:       TESTAP.*.*                  TESTAP.  * .*
++     remote:  PROD.  AP  .*.*                         PROD.*
++
++  2. Production data set names are built using the mask:
++                     example 1                      example 2
++       host:       TESTAP.PROGRAM.LOADLIB      TESTAP.PROGRAM.LOADLIB
++     remote:  PROD.  AP  .PROGRAM.LOADLIB                PROD.LOADLIB
++
++
++\ \ (%PF3+to return) \ \
+)END

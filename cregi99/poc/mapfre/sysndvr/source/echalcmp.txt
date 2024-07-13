@@ -1,0 +1,146 @@
+      *****************************************************************
+      *            LIST COMPONENTS/WHERE-USED REQUEST BLOCK           *
+      *****************************************************************
+       01  ALCMP-RQ.
+           05  ALCMP-RQ-HEADER.
+               10  ALCMP-RQ-LEN            PIC 9(4)  COMP VALUE 220.
+               10  ALCMP-RQ-FLAGS          PIC 9(4)  COMP VALUE 0.
+               10  ALCMP-RQ-ID             PIC 9(4)  COMP VALUE 1792.
+               10  ALCMP-RQ-VERS           PIC 9(4)  COMP VALUE 2.
+               10  ALCMP-RQ-EYE            PIC X(4)  VALUE 'LCMQ'.
+           05  ALCMP-RQ-DATAAREA.
+      *        REQUEST TYPE C, E, M AND O
+               10  ALCMP-RQ-RQTYPE         PIC X     VALUE SPACES.
+                   88  ALCMP-RQ-RQTYPE-C                VALUE 'C'.
+                   88  ALCMP-RQ-RQTYPE-E                VALUE 'E'.
+                   88  ALCMP-RQ-RQTYPE-M                VALUE 'M'.
+                   88  ALCMP-RQ-RQTYPE-O                VALUE 'O'.
+               10  ALCMP-RQ-DIR            PIC X     VALUE SPACES.
+                   88  ALCMP-RQ-DIR-C                   VALUE 'C'.
+                   88  ALCMP-RQ-DIR-W                   VALUE 'W'.
+      *        ELEMENT REQUEST INFORMATION (REQUEST TYPE E)
+               10  ALCMP-RQ-ELMDATA.
+                   15  ALCMP-RQ-ELM        PIC X(10) VALUE SPACES.
+                   15  ALCMP-RQ-ENV        PIC X(8)  VALUE SPACES.
+                   15  ALCMP-RQ-SYSTEM     PIC X(8)  VALUE SPACES.
+                   15  ALCMP-RQ-SUBSYS     PIC X(8)  VALUE SPACES.
+                   15  ALCMP-RQ-TYPE       PIC X(8)  VALUE SPACES.
+                   15  ALCMP-RQ-STG-NUM    PIC X     VALUE SPACE.
+                       88  ALCMP-RQ-STG-NUM1            VALUE '1'.
+                       88  ALCMP-RQ-STG-NUM2            VALUE '2'.
+                   15  ALCMP-RQ-STG-ID     PIC X     VALUE SPACE.
+                   15  FILLER              PIC X(26) VALUE SPACE.
+      *        MEMBER REQUEST INFORMATION (REQUEST TYPE M)
+               10  ALCMP-RQ-MBRDATA REDEFINES ALCMP-RQ-ELMDATA.
+                   15  ALCMP-RQ-MBR    PIC X(10).
+                   15  ALCMP-RQ-DSN    PIC X(44).
+                   15  FILLER          PIC X(16).
+      *        OBJECT REQUEST INFORMATION (TYPE O)
+               10  ALCMP-RQ-OBJDATA REDEFINES ALCMP-RQ-ELMDATA.
+                   15  ALCMP-RQ-OBJNAME PIC X(70).
+      *        COMMENT REQUEST INFORMATION (TYPE C)
+               10  ALCMP-RQ-COMMDATA REDEFINES ALCMP-RQ-ELMDATA.
+                   15  ALCMP-RQ-COMMNAME PIC X(70).
+      *
+      *        OUTPUT FILTERS (TYPE C, E, M, AND O)
+               10  ALCMP-RQ-EXCLCIR    PIC X         VALUE SPACES.
+                   88  ALCMP-RQ-EXCLCIRY                VALUE 'Y'.
+                   88  ALCMP-RQ-EXCLCIRN                VALUE 'N', ' '.
+               10  ALCMP-RQ-EXCLIND    PIC X         VALUE SPACES.
+                   88  ALCMP-RQ-EXCLINDY                VALUE 'Y'.
+                   88  ALCMP-RQ-EXCLINDN                VALUE 'N', ' '.
+               10  ALCMP-RQ-EXCLREL    PIC X         VALUE SPACES.
+                   88  ALCMP-RQ-EXCLRELY                VALUE 'Y'.
+                   88  ALCMP-RQ-EXCLRELN                VALUE 'N', ' '.
+               10  ALCMP-RQ-FENV       PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-FSYSTEM    PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-FSUBSYS    PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-FTYPE      PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-FSTG-NUM PIC X           VALUE SPACE.
+                   88  ALCMP-RQ-FSTG-NUM1               VALUE '1'.
+                   88  ALCMP-RQ-FSTG-NUM2               VALUE '2'.
+               10  ALCMP-RQ-FSTG-ID  PIC X           VALUE SPACE.
+      *
+      *        SCL GENERATE ACTION PARAMETERS (TYPE C, E, M, AND O)
+               10  ALCMP-RQ-BLDSCL     PIC X         VALUE SPACE.
+                   88  ALCMP-RQ-BLDSCLY                 VALUE 'Y'.
+                   88  ALCMP-RQ-BLDSCLN                 VALUE 'N', ' '.
+               10  ALCMP-RQ-GENV       PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-GSYSTEM    PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-GSUBSYS    PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-GTYPE      PIC X(8)      VALUE SPACES.
+               10  ALCMP-RQ-GSTG-ID    PIC X         VALUE SPACE.
+               10  ALCMP-RQ-GSTG-NUM   PIC X         VALUE SPACE.
+                   88  ALCMP-RQ-GSTG-NUM1               VALUE '1'.
+                   88  ALCMP-RQ-GSTG-NUM2               VALUE '2'.
+               10  ALCMP-RQ-GCCID      PIC X(12)     VALUE SPACES.
+               10  ALCMP-RQ-GCOMMENT   PIC X(40)     VALUE SPACES.
+               10  ALCMP-RQ-GCOPYBACK  PIC X         VALUE 'N'.
+                   88  ALCMP-RQ-GCOPYBACKN              VALUE 'N' ' '.
+                   88  ALCMP-RQ-GCOPYBACKY              VALUE 'Y'.
+               10  ALCMP-RQ-GSEARCH    PIC X         VALUE 'N'.
+                   88  ALCMP-RQ-GSEARCHN                VALUE 'N' ' '.
+                   88  ALCMP-RQ-GSEARCHY                VALUE 'Y'.
+               10  ALCMP-RQ-GOVESIGNO  PIC X         VALUE 'N'.
+                   88  ALCMP-RQ-GOVESIGNON              VALUE 'N' ' '.
+                   88  ALCMP-RQ-GOVESIGNOY              VALUE 'Y'.
+               10  ALCMP-RQ-GPROGRO    PIC X(08)     VALUE SPACES.
+               10  FILLER              PIC X(01)     VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *            LIST COMPONENTS/WHERE-USED RESPONSE BLOCK          *
+      *****************************************************************
+       01  ALCMP-RS.
+           05  ALCMP-RS-HEADER.
+               10  ALCMP-RS-LEN            PIC 9(4) COMP VALUE 100.
+               10  ALCMP-RS-FLAGS          PIC 9(4) COMP VALUE 0.
+               10  ALCMP-RS-ID             PIC 9(4) COMP VALUE 1793.
+               10  ALCMP-RS-VERS           PIC 9(4) COMP VALUE 2.
+               10  ALCMP-RS-EYE            PIC X(4)      VALUE 'LCMS'.
+           05  ALCMP-RS-DATAAREA.
+               10  ALCMP-RS-RECTYP         PIC X     VALUE SPACE.
+                   88  ALCMP-RS-RECTYP1                  VALUE '1'.
+                   88  ALCMP-RS-RECTYP2                  VALUE '2'.
+                   88  ALCMP-RS-RECTYP3                  VALUE '3'.
+                   88  ALCMP-RS-RECTYP4                  VALUE '4'.
+                   88  ALCMP-RS-RECTYP5                  VALUE '5'.
+                   88  ALCMP-RS-RECTYP6                  VALUE '6'.
+               10  ALCMP-RS-LEVEL          PIC X(02) VALUE SPACE.
+                   88  ALCMP-RS-LEVEL1                   VALUE '01'.
+                   88  ALCMP-RS-LEVEL2                   VALUE '02'.
+                   88  ALCMP-RS-LEVEL3                   VALUE '03'.
+               10  ALCMP-RS-SYNONYM        PIC X(01) VALUE SPACE.
+      *                                    CONTAINS '*' IF INDIRECT
+               10  ALCMP-RS-INDIRECT       REDEFINES ALCMP-RS-SYNONYM
+                                           PIC X(01).
+      *        FOOTPRINTED ELEMENT DATA (RECTYP=1 OR 3)
+               10  ALCMP-RS-FPDATA.
+                   15  ALCMP-RS-ELEMENT    PIC X(10) VALUE SPACES.
+                   15  ALCMP-RS-TYPE       PIC X(08) VALUE SPACES.
+                   15  ALCMP-RS-ENV        PIC X(08) VALUE SPACES.
+                   15  ALCMP-RS-SYSTEM     PIC X(08) VALUE SPACES.
+                   15  ALCMP-RS-SUBSYS     PIC X(08) VALUE SPACES.
+                   15  ALCMP-RS-STG-NUM    PIC X     VALUE SPACE.
+                       88  ALCMP-RS-STG-NUM1            VALUE '1'.
+                       88  ALCMP-RS-STG-NUM2            VALUE '2'.
+                   15  ALCMP-RS-STG-ID     PIC X     VALUE SPACE.
+                   15  ALCMP-RS-STG-NAME   PIC X(08) VALUE SPACES.
+                   15  FILLER              PIC X(20) VALUE SPACES.
+      *        NON-FOOTPRINTED DATA (RECTYP=2 OR 4)
+               10  ALCMP-RS-NONFPDATA      REDEFINES ALCMP-RS-FPDATA.
+                   15  ALCMP-RS-NFPDSN     PIC X(44).
+                   15  ALCMP-RS-NFPMBR     PIC X(10).
+                   15  FILLER              PIC X(18).
+      *        RELATED OBJECT OR COMMENT DATA (RECTYP=5 OR 6)
+               10  ALCMP-RS-RELOCDATA      REDEFINES ALCMP-RS-FPDATA.
+                   15  ALCMP-RS-RELTEXTL   PIC 9(04) COMP.
+                   15  ALCMP-RS-RELTEXT    PIC X(70).
+               10  ALCMP-RS-RELATED        PIC X.
+      *                                    CONTAINS 'R' IF RELATED
+               10  ALCMP-RS-CIRCULAR       PIC X.
+      *                                    CONTAINS 'C' IF RELATED
+               10  FILLER                  PIC X(10).
+      *        GENERATED SCL STATMENTS
+       01  ALCMP-RS-SCLFMT                 REDEFINES ALCMP-RS.
+           05  ALCMP-RS-SCLSTMT            PIC X(80).
+           05  FILLER                      PIC X(20).

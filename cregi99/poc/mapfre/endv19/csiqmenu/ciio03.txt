@@ -1,0 +1,14 @@
+CIIO031  'UNSUPPORTED DSORG'                             .ALARM=YES
+'&RTRDSN HAS AN UNSUPPORTED DATASET ORGANIZATION (DSORG) SPECIFIED'
+CIIO032  'Invalid Command'                             .ALARM=YES
+'CIIO032 An invalid command line command was entered'
+CIIO033  'Invalid Element Name'                        .ALARM=YES
+'CIIO033 The element name entered on the Locate command is invalid'
+CIIO034  'Invalid Member Name'                        .ALARM=YES
+'CIIO034 The member name entered on the Locate command is invalid'
+CIIO037  'ELM DELETED W/ERRORS'                          .ALARM=YES
+'ELEMENT WAS DELETED. BROWSE &C1MDSN FOR MORE INFORMATION.'
+CIIO038  'ELEMENT DELETED'                               .ALARM=YES
+'ELEMENT WAS DELETED'
+CIIO039  'INVALID OPTION'                                .ALARM=YES
+'OPTIONS ARE: (C)HANGE, (H)ISTORY (M)ASTER, (S)UMMARY.'

@@ -1,0 +1,45 @@
+)ATTR
+  _ TYPE(INPUT) CAPS(OFF) INTENS(HIGH) FORMAT(&MIXED)
+  | AREA(DYNAMIC) EXTEND(ON) SCROLL(ON)
+  + TYPE(TEXT) INTENS(HIGH)
+  # TYPE(TEXT) INTENS(LOW)
+  ¢ TYPE(OUTPUT) INTENS(HIGH)
+  ! TYPE(OUTPUT) INTENS(HIGH) PAD(-)
+ 01 TYPE(DATAOUT) INTENS(LOW)
+ 02 TYPE(DATAOUT) INTENS(HIGH)
+ 0B TYPE(DATAOUT) INTENS(HIGH) FORMAT(DBCS)
+ 0C TYPE(DATAOUT) INTENS(HIGH) FORMAT(EBCDIC)
+ 0D TYPE(DATAOUT) INTENS(HIGH) FORMAT(&MIXED)
+ 10 TYPE(DATAOUT) INTENS(LOW)  FORMAT(DBCS)
+ 11 TYPE(DATAOUT) INTENS(LOW)  FORMAT(EBCDIC)
+ 12 TYPE(DATAOUT) INTENS(LOW)  FORMAT(&MIXED)
+)BODY WIDTH(&ZWIDTH) EXPAND(//)
+%DISPLAY - LOAD LIBRARY: &VARUSDSN -----/-/-------------------------------------
+%COMMAND ===>_ZCMD                                            %SCROLL ===>_Z   +
++----------------------------  PROCESSOR FOOTPRINT  -------------------------
++ENVIRONMENT  SYSTEM   SUBSYS   ELEMENT    TYPE     STG  VVLL    DATE   TIME
+¢IENV        ¢ISYS    ¢ISBS    ¢IELM      ¢ITYPE    ¢Z  ¢IVERS ¢IDATE  ¢ITIME
++----------------------------------------------------------------------------  #
+|ZDATA ---------------------------------/ /------------------------------------|
+|                                       / /                                    |
+| --------------------------------------/-/------------------------------------|
+)INIT
+  &BROWSNOP='PASSTHRU'     /* FOR "BROWSE" ISP COMMANDS TABLE ENTRY */
+  .HELP = CITEUSY0
+  .ZVARS = '(ZSCBR ISTAGE) '
+  &MIXED = MIX
+  IF (&ZPDMIX = N)         /* EBCDIC MODE REQUESTED     */
+    &MIXED = EBCDIC
+
+)REINIT
+  REFRESH(ZCMD,ZSCBR,ZDATA)
+
+)PROC
+  &ZCURSOR = .CURSOR
+  &ZCSROFF = .CSRPOS
+  &ZLVLINE = LVLINE(ZDATA)
+
+)END
+
+/*  DYNAMIC AREA SCREEN WIDTH FROM PQUERY. (80,132,160)
+/*  DYNAMIC AREA SCREEN DEPTH FROM PQUERY. (24,32,43,27,60)

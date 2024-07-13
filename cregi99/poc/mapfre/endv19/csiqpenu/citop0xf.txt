@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "XF" USS File Name Expansion \-\ TUTORIAL
++
++
++The%XF+expansion command shows the entire contents of the 1-255
++character USS file name. The END PF key,%PF3+is the only valid
++option from this panel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

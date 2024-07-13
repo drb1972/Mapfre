@@ -1,0 +1,98 @@
+//*********************************************************************
+//* ENXDCOMP - DELETE OUTPUT COMPONENTS
+//*
+//*   DELCOMP  - DELETE ALL OUTPUT COMPONENTS FROM SOURCE SANDBOX
+//*   FIND     - WAS ELEMENT SENT TO ANY TARGETS
+//*   SHOWME   - DEBUG &&ELEMLIST
+//*   CHECK    - BUILD DELETE SCL
+//*   C1BM3000 - EXECUTE DELETE SCL
+//*********************************************************************
+//ENXDCOMP PROC AAA=,
+//* FOR DEBUGGING CERTAIN OUTPUT FROM STEPS
+//         SHOWME='Y',
+//* IF A SITE SYMBOL WAS DEFINED THE BELOW WILL RESOLVE, ELSE IT WONT
+//*  THIS HELPS DETERMINE THE FLOW IN THE PROCESSOR
+//         SITETRG='&#&C1SUBSYS.TRG',
+//* INPUT PARMS INTO AN API CALL
+//         STRING1='&C1SENVMNT(1,8)&C1SSTGID&C1SSYSTEM(1,8)',
+//         STRING2='        &C1ELEMENT(1,10)&C1TY',
+//         ZZZ=
+//*
+//**********************************************************************
+//* DELETE ALL OUTPUT COMPONENTS
+//**********************************************************************
+//DELCOMP  EXEC PGM=CONDELE,PARM='*COMPONENTS'
+//SYSPRINT DD  SYSOUT=*
+//C1PARM   DD  SYSOUT=*
+//*
+//T01  IF (&SITETRG NE 'Y') THEN
+//*
+//*********************************************************************
+//* CHECK TO SEE IF ELEMENT WAS SENT TO ANY TARGET SUBSYSTEMS
+//*********************************************************************
+//FIND EXEC PGM=CONAPI,PARM='ENTBJAPI'
+//SYSIN    DD *
+*        VVVVVVVV - COLUMN 10-17 ENVIRONMENT NAME
+*                V - COLUMN 18 = STAGE ID
+*                 VVVVVVVV - COLUMN 19-26 SYSTEM NAME
+*                         VVVVVVVV - COLUMN 27-34 SUBSYSTEM NAME
+*    COLUMN 35-44 = ELEMENT NAME  VVVVVVVVVV
+*    COLUMN 45-52 = TYPE NAME               VVVVVVVV
+*---+----1----+----2----+----3----+----4----+----5----+----6----+----7--
+AACTL MSGFILE ELEMLIST
+ALELM AN &STRING1&STRING2
+RUN
+AACTLY
+RUN
+QUIT
+//MSGFILE  DD SYSOUT=*
+//ELEMLIST DD DSN=&&ELEMLIST,
+//            DCB=(RECFM=VB,LRECL=1800,BLKSIZE=18000,DSORG=PS),
+//            DISP=(NEW,PASS),
+//            SPACE=(TRK,(5,5),RLSE)
+//SYSOUT   DD SYSOUT=*
+//SYSPRINT DD SYSOUT=*
+//BSTERR   DD SYSOUT=*
+//SYMDUMP  DD DUMMY
+//SYSUDUMP DD SYSOUT=*
+//*
+//*********************************************************************
+//* SHOW ELEMENT LIST
+//*********************************************************************
+//SHOWME   EXEC PGM=IEBGENER,
+//         EXECIF=(&SHOWME,EQ,'Y')
+//SYSPRINT DD SYSOUT=*
+//SYSUT1   DD DSN=&&ELEMLIST,DISP=(OLD,PASS)
+//SYSUT2   DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUDUMP DD SYSOUT=*
+//*
+//*********************************************************************
+//* BUILD SCL TO DELETE THE ELEMENT IF FOUND AT A TARGET SUBSYSTEM AND
+//* IT WAS FROM &C1SSUBSYS
+//*********************************************************************
+//CHECK    EXEC PGM=IRXJCL,COND=(0,NE,FIND),
+//         PARM='ENX#RX1 &C1SSUBSYS &C1USERID &C1CCID'
+//SYSEXEC  DD DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//EXTRACTM DD DSN=&&ELEMLIST,DISP=(OLD,DELETE)
+//SYSTSPRT DD SYSOUT=*
+//SCLIN    DD  *
+  SET    OPTIONS CCID '&C1CCID'
+            COMMENT 'IT WAS MINE' .
+//SCLOUT   DD DSN=&&DELETES,
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=24000,DSORG=PS),
+//            DISP=(NEW,PASS),
+//            SPACE=(TRK,(5,5),RLSE)
+//*
+//*********************************************************************
+//* EXECUTE THE DELETE SCL
+//*********************************************************************
+//C1BM3000 EXEC PGM=C1BM3000,PARM='DELETEM,DELETRPT',
+//         COND=(0,NE,CHECK)
+//DELETRPT DD SYSOUT=*
+//SYMDUMP  DD DUMMY
+//SYSUDUMP DD SYSOUT=*
+//DELETEM  DD DSN=&&DELETES,DISP=(OLD,DELETE)
+//*
+//T01  ENDIF
+//*

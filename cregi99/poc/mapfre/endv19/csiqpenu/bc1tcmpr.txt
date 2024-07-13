@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Compare Columns \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Compare Columns+- Required. Indicates the columns to be compared (FROM and
++   THROUGH), during the Build WIP operation.
++
++   It is very important that you specify the correct compare column
++   values for the data you are processing.
++
++   For example, columns 1-6 of a COBOL program usually contain
++   sequence numbers.  You should therefore specify a compare range of
++   columns 7-72 for COBOL code.  PDM will then build the WIP file
++   based on the contents of columns 7 through 72.
+
++   Likewise, if the Root is an assembler program, the compare
++   range should be columns 1-72.
++
++
+)END

@@ -1,0 +1,188 @@
+         MACRO                                                          00000001
+&LABEL   ESIDFLTS &P1,                                                 +00000002
+               &DESC=,             WTO descriptor code                 +
+               &ROUTCDE=,          WTO route code                      +00000004
+               &HEADER=ALL,        Trace header option                 +00000003
+               &WARN=N,            Security Warning mode               +00000006
+               &LATSIZE=0,         Lookaside table size in 4K blocks   +00000005
+               &TITLE=,            Name equate table title             +00000005
+               &NAME=              Name of defaults block               00000005
+.*                                                                      00000022
+         COPY  ESIGLBL
+         LCLB  &DC(16)
+         LCLB  &RC(16)
+         LCLB  &LIST
+         LCLA  &HDR
+         LCLA  &WRN
+         LCLA  &I,&K
+         LCLA  &TTLLEN
+         LCLA  &LATS
+         LCLC  &TTL,&TTLLBL,&LATW
+         GBLC  &RELNUM,&TAPSER
+         $RELEASE ,
+&LIST    SETB  ('&P1' EQ 'LIST')
+.********************************************************************** 00000022
+.* Initialize routing and descriptor bit tables                         00000022
+.********************************************************************** 00000022
+&I       SETA  1
+.ESI0020 ANOP
+         AIF   (&I GT 16).ESI0040
+&DC(&I)  SETB  0
+&RC(&I)  SETB  0
+&I       SETA  &I+1
+         AGO   .ESI0020
+.********************************************************************** 00000022
+.* If the list form is requested, initialize variables                  00000022
+.* and continue with list form.                                         00000022
+.********************************************************************** 00000022
+.ESI0040 ANOP
+         AIF   (NOT &LIST).ESI0080
+&WRN     SETA  0
+&HDR     SETA  0
+&LATS    SETA  0
+&TTLLEN  SETA  0
+&TTLLBL  SETC  '0'
+         AGO   .ESI0800
+.ESI0080 ANOP
+.********************************************************************** 00000022
+.* Indicate that we have been here before                               00000022
+.********************************************************************** 00000022
+         AIF   (&ESIDFLT).ESI0900
+&ESIDFLT SETB  1
+&I       SETA  1
+.*
+.********************************************************************** 00000022
+.* Process descriptor and routing codes.  Each value specified          00000022
+.* is converted to its relative bit offset in the appropriate
+.* table.
+.********************************************************************** 00000022
+.ESI0100 ANOP
+         AIF   (&I GT N'&DESC).ESI0140
+         AIF   (T'&DESC(&I) NE 'N').ESI0130
+         AIF   ('&DESC(&I)' EQ '').ESI0140
+&K       SETA  &DESC(&I)
+         AIF   (&K GT 16).ESI0120
+&DC(&K)  SETB  1
+         AGO   .ESI0140
+.ESI0130 ANOP
+         ESIERR 8,'Invalid descriptor code specified; DESC=&K'
+.*
+.ESI0140 ANOP
+         AIF   (&I GT N'&ROUTCDE).ESI0180
+         AIF   (T'&ROUTCDE(&I) NE 'N').ESI0150
+         AIF   ('&ROUTCDE' EQ '').ESI0180
+&K       SETA  &ROUTCDE(&I)
+         AIF   (&K GT 16).ESI0150
+&RC(&K)  SETB  1
+         AGO   .ESI0180
+.ESI0150 ANOP
+         ESIERR 8,'Invalid route code specified; ROUTCDE=&K'
+.ESI0180 ANOP
+&I       SETA  &I+1
+         AIF   (&I LE 16).ESI0100
+.********************************************************************** 00000022
+.* Handle header option.                                                00000022
+.********************************************************************** 00000022
+.ESI0190 ANOP
+         AIF   ('&HEADER' EQ 'ALL').ESI0220
+         AIF   ('&HEADER' EQ 'YES').ESI0220
+         AIF   ('&HEADER' EQ 'NONE').ESI0230
+         AIF   ('&HEADER' EQ 'NO').ESI0230
+         ESIERR 8,'Invalid header option specified; HEADER=&HEADER'
+&HDR     SETA  0
+         AGO   .ESI0280
+.ESI0220 ANOP
+&HDR     SETA  0
+         AGO   .ESI0280
+.ESI0230 ANOP
+&HDR     SETA  128
+         AGO   .ESI0280
+.********************************************************************** 00000022
+.* Handle warn mode option.                                             00000022
+.********************************************************************** 00000022
+.ESI0280 ANOP
+&WRN     SETA  0
+         AIF   ('&WARN' EQ 'YES').ESI0320
+         AIF   ('&WARN' EQ 'yes').ESI0320
+         AIF   ('&WARN' EQ 'Y').ESI0320
+         AIF   ('&WARN' EQ 'y').ESI0320
+         AIF   ('&WARN' EQ 'NO').ESI0380
+         AIF   ('&WARN' EQ 'no').ESI0380
+         AIF   ('&WARN' EQ 'N').ESI0380
+         AIF   ('&WARN' EQ 'n').ESI0380
+         ESIERR 8,'Warn mode option (&WARN) invalid. WARN=No assumed'
+         AGO   .ESI0380
+.ESI0320 ANOP
+&WRN     SETA  128
+.********************************************************************** 00000022
+.* Handle defaults title text.                                          00000022
+.********************************************************************** 00000022
+.ESI0380 ANOP
+&TTL     SETC  '&TITLE'
+&TTLLEN  SETA  0
+&TTLLBL  SETC  '0'
+         AIF   ('&TTL' EQ '').ESI0480
+&TTLLBL  SETC  'ESIDTTLC'
+&TTLLEN  SETA  K'&TITLE
+         AIF   ('&TTL'(1,1) EQ '''').ESI0420
+         AIF   ('&TTL'(K'&TTL,1) NE '''').ESI0430
+&TTLLEN  SETA  &TTLLEN+1
+&TTL     SETC  '''&TTL'
+         ESIERR 4,'Title value missing beginning single quote. The sing+
+               le quote is assumed'
+.ESI0420 ANOP
+         AIF   ('&TTL'(K'&TTL,1) EQ '''').ESI0440
+         ESIERR 4,'Title value missing ending single quote. The single +
+               quote is assumed'
+&TTLLEN  SETA  &TTLLEN+1
+&TTL     SETC  '&TTL'''
+.ESI0430 ANOP
+&TTLLEN  SETA  &TTLLEN+2
+&TTL     SETC  '''&TTL'''
+.ESI0440 ANOP
+&TTLLEN  SETA  &TTLLEN-2
+         AIF   (&TTLLEN GT 0).ESI0480
+         ESIERR 8,'Title value is invalid and is ignored'
+&TTLLBL  SETC  '0'
+.ESI0480 ANOP
+.********************************************************************** 00000022
+.* Handle lookaside table size.                                         00000022
+.********************************************************************** 00000022
+&LATW    SETC  '&LATSIZE'
+&LATS    SETA  0
+&LATMAXS SETA  1024*1024
+         AIF   ('&LATW' EQ '').ESI0580
+         AIF   (T'&LATW NE 'N').ESI0570
+&LATS    SETA  &LATW
+         AIF   (&LATS LE &LATMAXS).ESI0580
+.ESI0570 ANOP
+         MNOTE 8,'LATSIZE value must be a numeric value in the range 0-+
+               &LATMAXS (&LATS)'
+.ESI0580 ANOP
+.ESI0800 ANOP
+&LABEL   ESIGNEQU
+         AIF   (&LIST).ESI0820
+         ORG   &ESIDLBL
+.ESI0820 ANOP
+&NAME    DS    0F
+         DC    B'&DC(1)&DC(2)&DC(3)&DC(4)&DC(5)&DC(6)&DC(7)&DC(8)&DC(9)+
+               &DC(10)&DC(11)&DC(12)&DC(13)&DC(14)&DC(15)&DC(16)'
+         DC    B'&RC(1)&RC(2)&RC(3)&RC(4)&RC(5)&RC(6)&RC(7)&RC(8)&RC(9)+
+               &RC(10)&RC(11)&RC(12)&RC(13)&RC(14)&RC(15)&RC(16)'
+         DC    YL1(&WRN)
+         DC    YL1(&HDR)
+         DC    Y(&TTLLEN)
+         DC    A(&TTLLBL)
+         DC    F'&LATS'
+         DC    CL4'&RELNUM'
+         DC    3A(0)
+         AIF   (&LIST).ESI0880
+         ORG   ,
+.ESI0880 ANOP
+         AIF   (&TTLLEN LE 0).ESI0890
+ESIDTTLC DC    C&TTL
+.ESI0890 ANOP
+         ESIGNEND
+.ESI0900 ANOP
+         MEXIT
+         MEND

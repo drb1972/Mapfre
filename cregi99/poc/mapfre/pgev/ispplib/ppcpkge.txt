@@ -1,0 +1,43 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Package Updates -}-}-
+Command ===>_ZCMD                                            +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%
+%
+%
+%                          
++            Tracker ID ===>_Z     +
++            Wild Card '*' can be used with a partial Tracker number
+%
+%
++            Always Display Log ===>_Z+(Y/N)
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+  .ZVARS = '(ZSYSID STREAMID TRACKER SHOWLOG)'
+  IF (&SHOWLOG = ' ')
+    &SHOWLOG = 'N'
+)REINIT
+  &TRACKER = &TRACKERO
+  REFRESH(TRACKER)
+)PROC
+  &TRACKERO = &TRACKER
+  IF (&TRACKER EQ '*')
+  ELSE
+    &TRACKER = TRUNC (&TRACKER,'*')
+    VER (&TRACKER,NB,NUM)
+    IF (&TRACKER = &TRACKERO)
+      VER(&TRACKER,LEN,'=',6)
+  VER (&SHOWLOG,NB,LIST,Y,N)
+  VPUT (TRACKER TRACKERO SHOWLOG)
+)END

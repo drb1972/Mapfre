@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Endevor  - New Features \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
++
++The following panels present information about the features and
++enhancements that were made available with V15.1 of Endevor.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- Package Backout & Ship Support for USS Files                        %base+
+% 2+- ELIB Support for z/OS VSAM Extended Addressability                  %base+
+% 3+- BSTCOPY Utility Improvements                                        %base+
+% 4+- Consistent Report Formats                                           %base+
+% 5+- Eclipse Based UI Enhancements                                       %base+
++
++
++
++
++
++
++
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT15110 2,CIT15120 3,CIT15130 4,CIT15140
+                       5,CIT15150)
+   &ZCONT = CIT15110
+)END

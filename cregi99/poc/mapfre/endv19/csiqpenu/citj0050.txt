@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Improved Processor Group Selection List \-\
+%Option ===>~ZCMD                                                 %Version 19.0
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Improved Processor Group Selection List                  \ \+Enabled:%AVAILABLE
++
++
++  CD19004   Improved Processor Group Selection List
++
++  This enhancement makes several improvements to the processor
++  group selection list.  For all processor group selection lists,
++  the panel heading lines display the name of the default processor
++  group for the type and indicate the default processor group
++  in the message column if it is in the list.
++
++  For a processor group selection list that is created from an element
++  action such as add, update, generate, create, edit or transfer,
++  the element name and the current processor group are shown in the
++  panel heading lines. The message column indicates if a processor group
++  in the list is the DEFAULT, CURRENT, or both (CURR/DFLT).
++
++  In addition, the ESORT, EONLY and Locate commands are now supported
++  in both the Quick Edit and Foreground classic processor group
++  selection list panels.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+&VARC1LR = '        '
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (.RESP = END) &VARC1LR = PASSTHRU
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

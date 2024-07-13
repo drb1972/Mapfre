@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Bypass Generate Processor after Merge \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++This new Merge Output option is available in both foreground and batch.
++
++When used, it directs PDM to bypass the generate processor after a
++successful merge into Endevor. The default is generate.
++
++If you want to suppress the execution of the generate processor you must:
++
++ - Use the BYPASS GENERATE PROCESSOR merge option clause in batch
++   mode.
++ - Set the Merge Option Generate Element field to 'N' in foreground
++   mode.
++
++
++
++
+)END

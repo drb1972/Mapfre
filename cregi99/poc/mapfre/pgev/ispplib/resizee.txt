@@ -1,0 +1,37 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- DATASET IN USE -{-{-
++OPTION  ===>_ZCMD
++
++  The dataset that you requested to resize is in use. Select
++  the type of ENQ you require.
++
++  Passsive ENQ will wait until the dataset is free before allocating it
++    with DISP=OLD.
++  Active ENQ will allocate the dataset with DISP=OLD preventing new ENQs.
++
++  Passive or Active ENQ?.........:_Z+ (P/A)
++  Max wait time for Passive ENQ..:_Z +hours    (Passive ENQ only)
++  Retry Interval time............:_Z +minutes  (Passive ENQ only)
++
+)INIT
+   .ZVARS  = '(enqtype,maxwait,interval)'
+   .HELP   = RESIZEH
+   &enqtype = ''
+   &ZCMD   = ''
+)REINIT
+)PROC
+   ver (&enqtype,NB,LIST,P,A)
+   ver (&maxwait,range,1,24)
+   ver (&interval,range,1,99)
+   &PFK = .PFKEY
+)END

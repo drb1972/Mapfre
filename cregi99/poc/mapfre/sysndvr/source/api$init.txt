@@ -1,0 +1,41 @@
+         MACRO
+&LABEL   API$INIT &STG=,&BLOCK=,                                       X
+               &DSLN=,&FLAGS=,&ID=,&VER=,&EYE=,&INIT=YES
+         LCLC  &BLKDSLN
+         LCLC  &BLKFLGS
+         LCLC  &BLKID
+         LCLC  &BLKVER
+         LCLC  &BLKEYE
+&BLKDSLN SETC  '&BLOCK._DSLN'
+&BLKFLGS SETC  '0'
+&BLKID   SETC  '&BLOCK.$ID'
+&BLKVER  SETC  '&BLOCK.$VER'
+&BLKEYE  SETC  '&BLOCK.$EYE'
+         AIF   ('&DSLN' EQ '').DSLNOK
+&BLKDSLN SETC  '&DSLN'
+.DSLNOK  ANOP
+         AIF   ('&FLAGS' EQ '').FLGSOK
+&BLKFLGS SETC  '&FLAGS'
+.FLGSOK  ANOP
+         AIF   ('&ID' EQ '').IDOK
+&BLKID   SETC  '&ID'
+.IDOK    ANOP
+         AIF   ('&VER' EQ '').VEROK
+&BLKVER  SETC  '&VER'
+.VEROK   ANOP
+         AIF   ('&EYE' EQ '').EYEOK
+&BLKEYE  SETC  '&EYE'
+.EYEOK   ANOP
+&LABEL   DS    0H
+         MVC   &STG+&BLOCK._HEADER-&BLOCK.(8),=Y(&BLKDSLN,&BLKFLGS,&BLKX
+               ID,&BLKVER)
+         MVC   &STG+&BLOCK._EYE-&BLOCK.(4),=AL4(&BLKEYE)
+         AIF   ('&INIT' NE 'YES').NOINIT
+         LA    R15,&BLOCK._DATADSLN             THE LENGTH              00021**3
+         LA    R14,&STG+&BLOCK._DATAAREA-&BLOCK DESTINATION ADDRESS     00033
+         LA    R1,C' '             PAD BYTE VALUE OF BLANK              00041**2
+         SLL   R1,24               SHIFT PAD BYTE TO HI BYTE OF LENGTH. 00042
+         MVCL  R14,R0              MOVE PAD BYTE TO STG FOR LENGTH.     00044
+*  REGS 14, 15, 1 NOW DESTROYED.                                        00045
+.NOINIT  ANOP
+         MEND

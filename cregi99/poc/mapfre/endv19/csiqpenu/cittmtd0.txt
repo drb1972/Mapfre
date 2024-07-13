@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Transmission Method \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field identifies the transmission utility for this destination.
++
+%   BDTN+-  Bulk Data Transfer via NJE/NJI (IBM).
++
+%   BDT2+-  Bulk Data Transfer - Version 2 (IBM).
++
+%   LOC+-   Local destination.
++
+%   NVFTP+- NetView File Transfer Program (IBM).
++
+%   NWDM+-  Connect:Direct (IBM, formerly Network DataMover).
++
+%   XCOM+-  XCOM (CAI).
++
++The NODENAME value must be valid for the chosen transmission program.
++
++                                            (%PF3+to return)
+)END

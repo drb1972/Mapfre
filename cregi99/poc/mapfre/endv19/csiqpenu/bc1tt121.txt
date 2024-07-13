@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Complex Parallel Development \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Complex parallel development occurs in situations such as these:
++
++ * A company must maintain an existing software release while developing
++     a new release. One team of developers must continue to write
++     maintenance against an existing release, while another team
++     works on the new release. Eventually, the maintenance changes must
++     be incorporated in the next release.
++ * A company has multiple sites that are doing development at the same time.
++     For example, a state university with several campuses may be
++     upgrading its admissions tracking program. Two of the campuses are
++     making modifications that will eventually need to be integrated
++     into the existing admissions tracking program.
++
++Problem: Modified copies of a program must be integrated to produce a single
++updated package. In complex parallel development situations the potential
++for conflict tends to be higher, and the changes more difficult. Management
++intervention is usually required to plan the project and allocate resources.
++
+)END

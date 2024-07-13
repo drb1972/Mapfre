@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Retrieve \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields contain information only when the last action executed
++against the element was Retrieve.
++
+%Userid+- Id of the user who requested the Retrieve.
+%Date/time+- Date and time when the element was retrieved.
+%CCID+- CCID specified for the Retrieve action.
++
+%Comment+- Comment specified for the Retrieve action.
++
+%Retrieve to DSN+- Name and library location of the member to which the
++   element was retrieved.
++
++
++
++
++                                            (%PF3+to return)
+)END

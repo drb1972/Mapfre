@@ -1,0 +1,161 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Deferred File Creation Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Deferred File Creation Feature                           \ \+Enabled:%&VNTDFCOP
++
++
++  CD18103   DEFERRED FILE CREATION FEATURE
++
++  The%Deferred File Creation+feature facilitates the creation of parallel
++  development work areas.
++
++  When enabled, the DFC process will be invoked when an attempted allocation
++  of a Base, Delta, Source Output or Processor Output file fails. When this
++  happens, the DFC member will be searched to find a match to a DSN or PATH
++  entry in the member and will use the supplied parameters to try to allocate
++  a new data set or USS directory.
++
++
++  Instead of having to predefine all of the data sets and USS directories
++  associated with an Endevor parallel development work area, this feature
++  allows%Base, Delta, Source Output+and%Processor Output+files to be
++  created the first time Endevor attempts to allocate one of these files.
++  This is accomplished using dynamic allocation and parameters you supply
++  in a PARMLIB member that is pointed to by a new C1DEFLTS parameter,
++ %DFCMBR.+In addition to dynamically allocating files, you can supply
++ %ELIB initialization parameters+and the DFC process will automatically
++  initialize newly allocated ELIB data sets. The%"Allocate Pages"
++  parameter in the DFC member entry signifies that this is an ELIB file
++  that will be initialized.
++
++  An additional option is to specify the%Initialization Program+option
++  in a DFCMBR entry to name a program to be called to initialize a newly
++  allocated data set. This program could be a utility program, a vendor
++  program or a custom program you have created. This program will only
++  be called when a file is allocated via the DFC process in a processor.
++  Note that an Initialization Program cannot be specified for a PATH
++  entry in the DFCMBR.
++
++ %Usage Notes:
++
++  The DFC member contains statements that will be parsed at element action
++  execution time and used during allocation if a file or USS directory does
++  not exist. You can use%Site symbols+and%Endevor symbols+to define your
++  data set or path within this member, both for matching to a missing
++  file and in resolving the name of a%LIKE+or%MODEL+data set name.
++
++  For%NON-VSAM+files, the LIKE parameter can be used to inherit attributes for
++  the file to be allocated.  Other parameters such as RECFM, LRECL, SPACEUNITS
++  (CYLS or TRKS), etc. can be specified and will override the attributes from
++  the LIKE data set.
++
++  For%VSAM+files, the MODEL statement%MUST+be used to allocate a VSAM file.
++  Other parameters can be specified, such as primary and secondary allocation,
++  storageclass, etc. and will override the attributes from the MODEL data set.
++
++  For files to be initialized with the%Initialization Program+option, make
++  sure that the file to be initialized is coded after other files in
++  the processor step so that they will be available to the initialization
++  program when it is called. In many instances, you may need to initialize
++  the file in a step before it is first used to avoid a conflict between the
++  the initialization program and a program that uses the file. This initial
++  step can specify%EXEC PGM=DFCINITX+for this purpose. No processor program
++  call is made for DFCINITX, but the specified initialization program will
++  be called.
++
++ %Examples:
++
++  The DFC member supports many allocation parameters that are supported in
++  JCL, such as RECFM, LRECL, BLKSIZE, DSNTYPE, etc. as well as LIKE for non-
++  VSAM data sets and MODEL for VSAM data sets.
++
++  The following demonstrates allocating a TYPE base library using the LIKE
++  parameter pointing to a file that exists with%GA+in the place of the
++  SUBSYSTEM &LIT1 name. Note that a PDSE would be allocated even if the
++  LIKE data set had been a PDS because of the%DSNTYPE+parameter:
++
++ %DSN+'&LIT2'
++    LIKE '&LIT3'
++    DSNTYPE LIBRARY
++    .
++
++  In this example, all of the attributes to allocate the data set are
++  supplied without using the LIKE parameter:
++
++ %DSN+'&LIT4'
++    UNIT SYSDA
++    SPACE CYLS
++    PRIMARY 1
++    SECONDARY 5
++    DSORG PO
++    RECFM FB
++    LRECL 80
++    BLKSIZE 27920
++    DSNTYPE LIBRARY
++    .
++
++  Here is an example of a%VSAM ELIB Delta+library allocation.  Since this is
++  an ELIB file, the ELIB initialization utility will be called:
++
++ %DSN+'&LIT5'
++    MODEL '&LIT6'
++    ALLOCATE PAGES = (499,100)
++    PAGE SIZE = 4088
++    RESERVE PAGES = 250
++    DIRECTORY PAGES = 50
++    .
++
++  This example names the%InterTest+program%IN25UTIL+as the program
++  to be used to initialize a%PROTSYM+file that may not exist:
++  Note: The Endevor site symbol &LITA resolves to NDVR at execution time.
++
++ %DSN+'&LIT7'
++    MODEL '&LIT8'
++    INIT PROGRAM IN25UTIL
++    .
++
++ %Sample step inserted in a processor to initialize PROTSYM:
++
++  //PROTINIT EXEC PGM=DFCINITX
++  //MESSAGE  DD DSN=&&SYMMSG1,DISP=(MOD,PASS)
++  //CARDS    DD   *
++  PASSWORD=12345678
++  INITIALIZE
++  REPORT
++  //*
++  //PROTSYM  DD DISP=SHR,DSN=&LIT9
++  //*
++
++  Here we have an entry for a%USS directory+that is the base library for
++  a type. Note that the default for the mode is 777 if it is not supplied:
++
++ %  PATH+NAME '&LITB'
++         MODE 775
++    .
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+&LIT1  = '(&&C1SU)'
+&LIT2  = 'NDVR.&&C1SY..&&C1SU..&&C1ST..&&C1ELTYPE'
+&LIT3  = 'NDVR.&&C1SY..GA.&&C1EN(1,1)&&C1S#..&&C1ELTYPE'
+&LIT4  = 'NDVR.&&C1SY..&&C1SU..&&C1ST..SRCOUT'
+&LIT5  = 'NDVR.&&C1SY..&&C1SU..&&C1ST..DELTA'
+&LIT6  = 'NDVR.&&C1SY..MODEL.VSAMELIB.DELTA'
+&LIT7  = '&&#BASEPRFX..&&C1SY..&&C1SU..&&C1ST..PROTSYM'
+&LIT8  = 'NDVR.&&C1SY..MODEL.PROTSYM'
+&LIT9  = 'NDVR.&&C1SY..&&C1SU..&&C1ST..PROTSYM'
+&LITA  = '&&#BASEPRFX'
+&LITB  = '/u/Endevor/&&C1SY/&&C1SU/&&C1EN(1,1)&&C1SI/&&C1TY/'
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

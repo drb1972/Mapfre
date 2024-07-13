@@ -1,0 +1,84 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+ /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+ /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+ /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+ @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+ # TYPE(&VARTAUTG) INTENS(&VARIAUTG) CAPS(ON) JUST(LEFT)
+ $ AREA(SCRL)   EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ ADD/UPDATE ELEMENTS \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+$SCRAREA                                                                       $
+)AREA SCRAREA
+   %blank+- Member list            %A+- Add an element   %U+- Update an element
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++CCID%===>^CTLNBR      +   COMMENT%===>`DESCRPT1
++
++TO LOCATION:                           ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             GENERATE ELEMENT       %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             DELETE INPUT SOURCE    %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             NEW VERSION            %===>_VV+
++  ELEMENT    %===>@VNT2ENME  |VNTIND1   +OVERRIDE SIGNOUT       %===>_Z+(Y/N)
++  TYPE       %===>_TYPEN   +             PROCESSOR GROUP        %===>_VARFPGRP+
++                                         UPDATE IF PRESENT      %===>_Z+(Y/N)
++FROM ISPF LIBRARY:                       AUTOGEN (BATCH ONLY)   %===>#Z+(Y/N)
++  PROJECT    %===>_PRJ0    +               SPAN %===>#Z   +(NONE/ALL/SYS/SUB)
++  LIBRARY    %===>_LIB0    +
++  TYPE       %===>_TYP0    +           LIST OPTIONS:
++  MEMBER     %===>_ISPFMB    +           DISPLAY LIST           %===>_Z+(Y/N)
++
++FROM OTHER ISPF DATA SET:
++  DATA SET   %===>_OTHDSN                                                  +
+<OTHERWISE>
++ELEMENT%===>@VNT2ENME                                           |VNTIND1
++  TYPE %===>_TYPEN   +
++  CCID %===>^CTLNBR      +COMMENT%===>`DESCRPT1
++
++TO LOCATION:                           OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DATA SET TYPE(USS/ISPF)%===>_Z+(U/D)
++  SYSTEM     %===>_SYS     +             OVERRIDE SIGNOUT       %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             UPDATE IF PRESENT      %===>_Z+(Y/N)
++                                         GENERATE ELEMENT       %===>_Z+(Y/N)
++FROM ISPF LIBRARY:                       UPPERCASE ELM NAME     %===>_Z+(Y/N)
++  PROJECT    %===>_PRJ0    +             DELETE INPUT SOURCE    %===>_Z+(Y/N)
++  LIBRARY    %===>_LIB0    +             DISPLAY LIST           %===>_Z+(Y/N)
++  TYPE       %===>_TYP0    +             NEW VERSION            %===>_VV+
++  MEMBER     %===>_ISPFMB    +           PROCESSOR GROUP        %===>_VARFPGRP+
++                                         AUTOGEN (BATCH ONLY)   %===>#Z+(Y/N)
++FROM OTHER ISPF DATA SET:                  SPAN %===>#Z   +(NONE/ALL/SYS/SUB)
++  DATA SET   %===>_OTHDSN                                                  +
++
++FROM USS PATH AND FILE NAME:
++  PATH%===>@VNTPATH                                            |VNTIND2
++  FILE%===>@VNT1ENME                                           |VNTIND3
+</SELECT>
+)INIT
+  .HELP = CITF1000
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(VARNOGEN VARDELIP          C1SISOFR VARADDUP VAROAUTG VAROSPAN +
+                      VARWKLST         )'
+  &VNTUPPER = 'Y'                              /* force Upper to Yes        */
+  &VNTDSTYP = 'D'                              /* force dataset type to D   */
+<OTHERWISE>
+  .ZVARS = '(VNTDSTYP C1SISOFR VARADDUP VARNOGEN VNTUPPER VARDELIP  +
+             VARWKLST VAROAUTG VAROSPAN)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT2ENME'                     /* Note odd ele field name   */
+</SELECT>
+)PROC
+)FIELD
+ FIELD(VNT2ENME) IND(VNTIND1) SCROLL(ON)
+ FIELD(VNTPATH)  IND(VNTIND2) SCROLL(ON)
+ FIELD(VNT1ENME) IND(VNTIND3) SCROLL(ON)
+)END

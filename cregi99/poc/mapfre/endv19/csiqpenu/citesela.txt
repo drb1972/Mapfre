@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Display options are available from all selection lists. Display options
++include: %S+(summary), %M+(master), %B+(browse), %C+(changes),
++         %H+(history), %XE+(expand element name)
++
++You can request actions against elements in a selection list depending on
++what action panel you were coming from. For example, G can only be used on
++lists requested from the Generate panel, and R can only be used on lists
++requested from the Retrieve panel.  Some action examples include:
+   %V+(archive),%#+(delete),%G+(generate),%L+(list),%O+(move),%P+(print),
+   %R+(retrieve),%SI+(signin),%T+(transfer),%VE+(validate)
++
++Select one of the following options for additional information:
++
+%    0+- General Information        %4+- Transfer
+%    1+- Archive                    %5+- Common fields
+%    2+- Display                    %6+- Display options
+%    3+- Retrieve                   %7+- Locate, EONLY, and ESORT commands
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 0,CITESEL0 1,CITESEL1 2,CITESEL2 3,CITESEL3
+                   4,CITESEL4 5,CITESEL5 6,CITDOPT0 7,CITESELX)
+)END

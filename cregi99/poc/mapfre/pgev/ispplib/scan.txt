@@ -1,0 +1,39 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Scan and Search Options+\-\
+%OPTION  ===>_ZCMD                                                             +
+%
+%   1 +ACMQ
+       +Find out where input components are used and build SCL to GENERATE
+       +impacted elements.
+       +E.g. Where COPYBOOKS/MACROs/Statically called programs are used.
+%
+%   2 +Search Endevor Source Libraries
+       +Simple search JCL
+%
+%   3 +Scan Endevor Listings for string(s)
+
+%   4 +Endevor Search and replace utility
+       +Search the Endevor elements and optionally replace strings
+%
+%   5 +List element SCL where .....
+       +And build RETRIEVE or GENERATE SCL
+%
+%   6 +Find redundant input components
+       +E.g. COPYBOOKs, MARCOs
+%
+)INIT
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+                1,'cmd(ACMQ)'
+                2,'cmd(evftincl SUPERC)'
+                3,'panel(SCANLIST)'
+                4,'cmd(evftincl SRCHREP)'
+                5,'cmd(evftincl LISTSCL)'
+                6,'panel(ACMQRED)'
+                *,'?' )
+  &ZTRAIL = .TRAIL
+)END

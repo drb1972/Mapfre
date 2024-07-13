@@ -1,0 +1,286 @@
+$COMP1DS DSECT                                                          00040000
+         SPACE                                                          00050000
+**********************************************************************  00082000
+*                                                                    *  00090000
+*        $COMP1DS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF          *  00100000
+*                   COMPONENT LIST HEADER BLOCKS, (TYPE 1).          *  00110000
+*                                                                    *  00134000
+**********************************************************************  00140000
+         SPACE                                                          00150000
+COMP1LEN DS    CL4               LENGTH  OF THE BLOCK                   00160000
+COMP1ID  DS    CL4               NUM ID  OF THE BLOCK                   00170000
+COMP1$ID EQU   C'0177'           NUM ID: 0177                           00180000
+COMP1VER DS    CL4               VERSION OF THE BLOCK                   00190000
+COMP1$VE EQU   C'0001'           VERSION 0001                           00200000
+COMP1FLG DS    CL4               FLAGS                                  00220000
+COMP1$FG EQU   C'0000'           FLAGS:  0000                           00230000
+COMP1EYE DS    CL4               EYECATCH                               00240001
+COMP1$EY EQU   C'CMP1'           EYECATCH FOR THIS BLOCK                00250001
+         SPACE                                                          00540000
+CMP1SITE DS    CL1               SITE                                   00541000
+CMP1ENV  DS    CL8               ENVIRONMENT                            00542000
+CMP1SYS  DS    CL8               SYSTEM                                 00543000
+CMP1SBS  DS    CL8               SUBSYSTEM                              00544000
+CMP1ELE  DS    CL10              ELEMENT NAME                           00545000
+CMP1TYPE DS    CL8               TYPE                                   00546000
+CMP1VER  DS    CL2               VERSION: DISPLAY NUMERIC               00547000
+CMP1LEV  DS    CL2               LEVEL:   DISPLAY NUMERIC               00548000
+CMP1DATE DS    CL7               DATE:    DDMMMYY                       00549000
+CMP1TIME DS    CL5               TIME:    HH:MM                         00549100
+CMP1STG  DS    CL1               STAGE                                  00549200
+CMP1PGRP DS    CL8               PROCESSOR GROUP                        00549300
+CMP1PRO  DS    CL8               PROCESSOR NAME                         00549400
+         DS    CL20              RESERVED                               00549500
+         SPACE                                                          00549700
+COMP1$LE EQU   *-$COMP1DS        LENGTH OF THE $COMP1DS BLOCK           00549800
+         SPACE                                                          00549900
+$COMP2DS DSECT                                                          00550000
+         SPACE                                                          00550100
+**********************************************************************  00550200
+*                                                                    *  00550300
+*        $COMP2DS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF          *  00551000
+*                   COMPONENT LIST FOOTPRINT BLOCK, (TYPE 2)         *  00552000
+*                                                                    *  00553000
+**********************************************************************  00554000
+         SPACE                                                          00555000
+COMP2LEN DS    CL4               LENGTH  OF THE BLOCK                   00556000
+COMP2ID  DS    CL4               NUM ID  OF THE BLOCK                   00557000
+COMP2$ID EQU   C'0178'           NUM ID: 0178                           00558000
+COMP2VER DS    CL4               VERSION OF THE BLOCK                   00559000
+COMP2$VE EQU   C'0001'           VERSION 0001                           00559100
+COMP2FLG DS    CL4               FLAGS                                  00559201
+COMP2$FG EQU   C'0000'           FLAGS:  0000                           00559301
+COMP2EYE DS    CL4               EYECATCH                               00559400
+COMP2$EY EQU   C'CMP2'           EYECATCH FOR THIS BLOCK                00559500
+         SPACE                                                          00559700
+CMP2SITE DS    CL1               SITE                                   00559800
+CMP2ENV  DS    CL8               ENVIRONMENT                            00559900
+CMP2SYS  DS    CL8               SYSTEM                                 00560000
+CMP2SBS  DS    CL8               SUBSYSTEM                              00560100
+CMP2ELE  DS    CL10              ELEMENT NAME                           00560200
+CMP2TYPE DS    CL8               TYPE                                   00561000
+CMP2VER  DS    CL2               VERSION: DISPLAY NUMERIC               00562000
+CMP2LEV  DS    CL2               LEVEL:   DISPLAY NUMERIC               00563000
+CMP2DATE DS    CL7               DATE:    DDMMMYY                       00564000
+CMP2TIME DS    CL5               TIME:    HH:MM                         00565000
+CMP2STG  DS    CL1               STAGE                                  00566000
+         DS    CL20              RESERVED                               00569000
+COMP2$LE EQU   *-$COMP2DS        LENGTH OF THIS BLOCK                   00569200
+         SPACE                                                          00569300
+$COMP3DS DSECT                                                          00569400
+         SPACE                                                          00569500
+**********************************************************************  00569600
+*                                                                    *  00569700
+*        $COMP3DS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF          *  00569800
+*                   COMPONENT LIST COMPONENT BLOCK, (TYPE 3)         *  00569900
+*                                                                    *  00570000
+**********************************************************************  00570100
+         SPACE                                                          00570200
+COMP3LEN DS    CL4               LENGTH  OF THE BLOCK                   00570300
+COMP3ID  DS    CL4               NUM ID  OF THE BLOCK                   00570400
+COMP3$ID EQU   C'0179'           NUM ID: 0179                           00570500
+COMP3VER DS    CL4               VERSION OF THE BLOCK                   00570600
+COMP3$VE EQU   C'0001'           VERSION 0001                           00570700
+COMP3FLG DS    CL4               FLAGS                                  00571100
+COMP3$FG EQU   C'0000'           FLAGS:  0000                           00572000
+COMP3EYE DS    CL4               EYECATCH                               00573001
+COMP3$EY EQU   C'CMP3'           EYECATCH FOR THIS BLOCK                00574001
+         SPACE                                                          00578000
+         DS    CL8               PROCESSOR NAME (DEPRECATED)            00579000
+CMP3STEP DS    CL8               ENVIRONMENT                            00579100
+CMP3TYPE DS    CL1               TYPE OF COMPONENT:                     00579200
+CMP3$IN  EQU   C'I'                   INPUT  COMPONENT                  00579300
+CMP3$OUT EQU   C'O'                   OUTPUT COMPONENT                  00579400
+CMP3CTYP DS    CL1               TYPE OF COMPONENT OPERATION            00579500
+CMP3$RD  EQU   C'1'                   INPUT:  BLDL/FIND READ            00579600
+CMP3$ADD EQU   C'2'                   OUTPUT: ADD ENTRY TYPE            00579700
+CMP3$REP EQU   C'3'                   OUTPUT: REP ENTRY TYPE            00579800
+CMP3$DEL EQU   C'4'                   OUTPUT: DEL ENTRY TYPE            00579900
+CMP3$CHG EQU   C'5'                   OUTPUT: CHG ENTRY TYPE            00580000
+CMP3$BAK EQU   C'6'                   OUTPUT: BACKOUT ENTRY TYPE        00580100
+CMP3MEM  DS    CL10              PRIMARY MEMBER NAME                    00580200
+CMP3DD   DS    CL8               DDNAME WHERE ELEMENT FOUND             00580300
+CMP3DSN  DS    CL44              DATASET NAME CONTAINING MEMBER         00580400
+CMP3VOL  DS    CL6               VOLUME SERIAL OF FIRST VOLUME          00580500
+CMP3LTYP DS    CL1               LIBRARY TYPE:                          00580600
+CMP3$PRV EQU   C'0'                   PRIVATE LIBRARY                   00580700
+CMP3$LNK EQU   C'1'                   LINK LIST LIBRARY                 00580800
+CMP3$JOB EQU   C'2'                   JOB TASK OR STEPLIB               00580900
+CMP3$LOD EQU   C'8'                   LOAD LIBRARY                      00581000
+CMP3SMEM DS    CL10              SECONDARY MEMBER NAME                  00581100
+CMP3FLEN DS    CL4               FOOTPRINT LENGTH: DISPLAY NUMERIC      00581200
+CMP3FPTY DS    CL1               FOOTPRINT TYPE:                        00581300
+CMP3$C1  EQU   C'1'                   C1    FOOTPRINT                   00581400
+CMP3$SPF EQU   C'2'                   SPF   FOOTPRINT                   00581500
+CMP3$OTH EQU   C'3'                   OTHER FOOTPRINT                   00581600
+CMP3FP   DS    0CL61             FOOTPRINT DATA                         00581700
+CMP3FSIT DS    CL1                    SITE                              00582000
+CMP3FENV DS    CL8                    ENVIRONMENT                       00582100
+CMP3FSYS DS    CL8                    SYSTEM                            00582200
+CMP3FSBS DS    CL8                    SUBSYSTEM                         00582300
+CMP3FELE DS    CL10                   ELEMENT NAME                      00582400
+CMP3FTYP DS    CL8                    TYPE                              00582500
+CMP3FVER DS    CL2                    VERSION                           00582600
+CMP3FLEV DS    CL2                    LEVEL                             00582700
+CMP3FDAT DS    CL7                    DATE: DDMMMYY                     00582800
+CMP3FTIM DS    CL5                    TIME: HH:MM                       00582900
+CMP3FSTG DS    CL1                    STAGE                             00583000
+CMP3FLOA DS    CL1                    LOAD IND: 'Y' = LOAD UTIL FP      00583100
+         DS    CL20              RESERVED                               00583500
+COMP3$LE EQU   *-$COMP3DS        LENGTH OF THIS BLOCK                   00585000
+         SPACE                                                          00590000
+$COMP5DS DSECT                                                          00600000
+         SPACE                                                          00610000
+**********************************************************************  00620000
+*                                                                    *  00630000
+*        $COMP5DS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF          *  00640000
+*                   COMPONENT LIST SYMBOLIC BLOCK, (TYPE 5)          *  00650000
+*                                                                    *  00660000
+**********************************************************************  00670000
+         SPACE                                                          00680000
+COMP5LEN DS    CL4               LENGTH  OF THE BLOCK                   00690000
+COMP5ID  DS    CL4               NUM ID  OF THE BLOCK                   00700000
+COMP5$ID EQU   C'0181'           NUM ID: 0181                           00710000
+COMP5VER DS    CL4               VERSION OF THE BLOCK                   00720000
+COMP5$VE EQU   C'0001'           VERSION 0001                           00730000
+COMP5FLG DS    CL4               FLAGS                                  00750000
+COMP5$FG EQU   C'0000'           FLAGS:  0000                           00760000
+COMP5EYE DS    CL4               EYECATCH                               00761001
+COMP5$EY EQU   C'CMP5'           EYECATCH FOR THIS BLOCK                00762001
+         SPACE                                                          00770000
+CMP5NLEN DS    CL4               LENGTH OF SYMBOLIC NAME                00780000
+CMP5DLEN DS    CL4               LENGTH OF SYMBOLIC DATA                00790000
+CMP5NAME DS    CL12              SYMBOLIC NAME                          00800000
+CMP5DATA DS    CL100             SYMBOLIC DATA                          00810000
+         DS    CL20              RESERVED                               00910000
+COMP5$LE EQU   *-$COMP5DS        LENGTH OF THIS BLOCK                   00921000
+         SPACE                                                          00930000
+**********************************************************************  00931000
+*                                                                    *  00932000
+*        $CMPUEDS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF USER     *  00933000
+*                   COMPONENT LIST ELEMENT  BLOCK, ($REELEDS)        *  00934000
+*                                                                    *  00935000
+**********************************************************************  00936000
+         SPACE                                                          00937000
+$CMPUEDS DSECT                                                          00938000
+CMPUELEN DS    CL4               LENGTH  OF THE BLOCK                   00940000
+CMPUEID  DS    CL4               NUM ID  OF THE BLOCK                   00950000
+CMPUE$ID EQU   C'0284'           NUM ID: 0284                           00960000
+CMPUEVER DS    CL4               VERSION OF THE BLOCK                   00970000
+CMPUE$VE EQU   C'0001'           VERSION 0001                           00980000
+CMPUEFLG DS    CL4               FLAGS                                  01010000
+CMPUE$FG EQU   C'0000'           FLAGS:  0000                           01020000
+CMPUEEYE DS    CL4               EYECATCH                               01030001
+CMPUE$EY EQU   C'COEL'           EYECATCH FOR THIS BLOCK                01040001
+CMPUEENV DS    CL8               ENVIRONMENT                            01720000
+CMPUESYS DS    CL8               SYSTEM                                 01730000
+CMPUESBS DS    CL8               SUBSYSTEM                              01740000
+CMPUEELE DS    CL10              ELEMENT NAME                           01750000
+CMPUETYP DS    CL8               TYPE                                   01760000
+CMPUESTG DS    CL1               STAGE ID                               01770000
+CMPUEEVE DS    CL2               VERSION                                01780000
+CMPUELEV DS    CL2               LEVEL                                  01790000
+CMPUEDTM DS    0CL12             DATE AND TIME                          01800008
+CMPUEDTE DS    CL7               LAST UPDATE DATE                       01810000
+CMPUETIM DS    CL5               LAST UPDATE TIME                       01820008
+CMPUECTY DS    CL1               TYPE OF ELEMENT COMPONENT              01830002
+CMPUEIN  EQU   C'I'              INPUT    COMPONENT                     01840000
+CMPUEOUT EQU   C'O'              OUTPUT   COMPONENT                     01850000
+CMPUEVAL DS    CL1               VALIDATE INDICATOR                     01860000
+CMPUE$VA EQU   C'Y'              VALIDATE ELEMENT                       01870000
+CMPUEERR DS    CL1               ERROR INDICATOR                        01880000
+CMPUE$ER EQU   C'Y'              ELEMENT IS IN ERROR                    01890000
+CMPUE$LN EQU   *-$CMPUEDS                                               01900000
+*                                                                       01910000
+         SPACE                                                          01911000
+**********************************************************************  01912000
+*                                                                    *  01913000
+*        $CMPUMDS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF USER     *  01914000
+*                   COMPONENT LIST MEMBER   BLOCK, ($REMEMDS)        *  01915000
+*                                                                    *  01916000
+**********************************************************************  01917000
+         SPACE                                                          01918000
+$CMPUMDS DSECT                                                          01919000
+CMPUMLEN DS    CL4               LENGTH  OF THE BLOCK                   01919100
+CMPUMID  DS    CL4               NUM ID  OF THE BLOCK                   01919200
+CMPUM$ID EQU   C'0285'           NUM ID: 0285                           01919300
+CMPUMVER DS    CL4               VERSION OF THE BLOCK                   01919400
+CMPUM$VE EQU   C'0001'           VERSION 0001                           01919500
+CMPUMFLG DS    CL4               FLAGS                                  01919800
+CMPUM$FG EQU   C'0000'           FLAGS:  0000                           01919900
+CMPUMEYE DS    CL4               EYECATCH                               01920001
+CMPUM$EY EQU   C'COME'           EYECATCH FOR THIS BLOCK                01930001
+CMPUMDSN DS    CL44              DATASET   NAME                         02010000
+CMPUMMEM DS    CL10              MEMBER    NAME                         02020000
+CMPUMENV DS    CL8               ENVIRONMENT                            02030000
+CMPUMSYS DS    CL8               SYSTEM                                 02040000
+CMPUMSBS DS    CL8               SUBSYSTEM                              02050000
+CMPUMELE DS    CL10              ELEMENT NAME                           02060000
+CMPUMTYP DS    CL8               TYPE                                   02070000
+CMPUMSTG DS    CL1               STAGE ID                               02080000
+CMPUMEVE DS    CL2               VERSION                                02090000
+CMPUMLEV DS    CL2               LEVEL                                  02100000
+CMPUMDTE DS    CL7               FOOTPRINT DATE                         02110000
+CMPUMTIM DS    CL5               FOOTPRINT TIME                         02120000
+CMPUMCTY DS    CL1               TYPE OF MEMBER COMPONENT               02130002
+CMPUMIN  EQU   C'I'              INPUT    COMPONENT                     02140000
+CMPUMOUT EQU   C'O'              OUTPUT   COMPONENT                     02150000
+CMPUMVAL DS    CL1               VALIDATE INDICATOR                     02160000
+CMPUM$VA EQU   C'Y'              VALIDATE MEMBER                        02170004
+CMPUMFOO DS    CL1               FOOTPRINT INDICATOR                    02180000
+CMPUM$FO EQU   C'Y'              EXTRACT FOOTPRINT                      02190000
+CMPUMERR DS    CL1               ERROR INDICATOR                        02200000
+CMPUM$ER EQU   C'Y'              MEMBER IS IN ERROR                     02210003
+CMPUM$LN EQU   *-$CMPUMDS                                               02220000
+*                                                                       02230000
+         SPACE                                                          02231000
+**********************************************************************  02232000
+*                                                                    *  02233000
+*        $CMPUODS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF USER     *  02234000
+*                   COMPONENT LIST OBJECT   BLOCK, ($REOBJDS)        *  02235000
+*                                                                    *  02236000
+**********************************************************************  02237000
+         SPACE                                                          02238000
+$CMPUODS DSECT                                                          02239000
+CMPUOLEN DS    CL4               LENGTH  OF THE BLOCK                   02239100
+CMPUOID  DS    CL4               NUM ID  OF THE BLOCK                   02239200
+CMPUO$ID EQU   C'0286'           NUM ID: 0286                           02239300
+CMPUOVER DS    CL4               VERSION OF THE BLOCK                   02239400
+CMPUO$VE EQU   C'0001'           VERSION 0001                           02239500
+CMPUOFLG DS    CL4               FLAGS                                  02239601
+CMPUO$FG EQU   C'0000'           FLAGS:  0000                           02239701
+CMPUOEYE DS    CL4               EYECATCH                               02239800
+CMPUO$EY EQU   C'COOB'           EYECATCH FOR THIS BLOCK                02239900
+CMPUOERR DS    CL1               ERROR INDICATOR                        02240005
+CMPUO$ER EQU   C'Y'              ELEMENT IS IN ERROR                    02241005
+CMPUODLN DS    CL4               LENGTH  OF OBJECT DATA                 02250007
+CMPUOHLN EQU   *-$CMPUODS        HEADER LENGTH                          02260009
+CMPUODAT DS    CL255             OBJECT DATA                            02330002
+CMPUO$LN EQU   *-$CMPUODS                                               02360000
+*                                                                       02370000
+         SPACE                                                          02371000
+**********************************************************************  02372000
+*                                                                    *  02373000
+*        $CMPUCDS - BLOCK FOR DESCRIBING EXTERNAL FORMAT OF USER     *  02374000
+*                   COMPONENT LIST COMMENT  BLOCK, ($RECOMDS)        *  02375000
+*                                                                    *  02376000
+**********************************************************************  02377000
+         SPACE                                                          02378000
+$CMPUCDS DSECT                                                          02379000
+CMPUCLEN DS    CL4               LENGTH  OF THE BLOCK                   02379100
+CMPUCID  DS    CL4               NUM ID  OF THE BLOCK                   02379200
+CMPUC$ID EQU   C'0287'           NUM ID: 0287                           02379300
+CMPUCVER DS    CL4               VERSION OF THE BLOCK                   02379400
+CMPUC$VE EQU   C'0001'           VERSION 0001                           02379500
+CMPUCFLG DS    CL4               FLAGS                                  02379800
+CMPUC$FG EQU   C'0000'           FLAGS:  0000                           02379900
+CMPUCEYE DS    CL4               EYECATCH                               02380001
+CMPUC$EY EQU   C'COCO'           EYECATCH FOR THIS BLOCK                02390001
+CMPUCERR DS    CL1               ERROR INDICATOR                        02400005
+CMPUC$ER EQU   C'Y'              COMMENT IS IN ERROR                    02410005
+CMPUCDLN DS    CL4               LENGTH  OF COMMENT DATA                02470006
+CMPUCHLN EQU   *-$CMPUCDS        HEADER LENGTH                          02470109
+CMPUCDAT DS    CL255             COMMENT DATA                           02471005
+CMPUC$LN EQU   *-$CMPUCDS                                               02500000
+*                                                                       02510000
+********************** END OF $COMPDS.DSECTS ***************            03030000

@@ -1,0 +1,29 @@
+STARTDEF
+tag % sh
+tag + s
+tag _ uh cmd
+tag | sh msg
+tag & sh action count
+%----------------------------  Confirmation  -----------------------------------
+%COMMAND ===>_   +                                                             +
+|
+%
+%        *************************************************************
+%        *   PLEASE NOTE:                                            *
+%        *                                                           *
+%        *      &        +%Action Requested.                         *
+%        *                                                           *
+%        *        &     + %Elements Have Been Selected               *
+%        *                 For SCL Generation.                       *
+%        *                                                           *
+%        *                                                           *
+%        *                                                           *
+%        *   INSTRUCTIONS:                                           *
+%        *                                                           *
+%        *        Press the ENTER key to create SCL action           *
+%        *          statements for all elements selected.            *
+%        *                                                           *
+%        *        Press PF3 to CANCEL the request.                   *
+%        *                                                           *
+%        *************************************************************
+enddef

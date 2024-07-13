@@ -1,0 +1,1 @@
+ /* not a valid 3.6 processor panel. replaced w/ c1sea100    */

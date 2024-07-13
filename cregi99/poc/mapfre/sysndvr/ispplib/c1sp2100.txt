@@ -1,0 +1,31 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY
+%EDIT    -------------  PACKAGE EDIT VALIDATION  -------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
+             %E+- EDIT  Edit SCL to correct errors
+             %S+- SAVE  Save SCL with errors
+             %Q+- QUIT  Quit Edit session without saving changes
++
++           PACKAGE ID:|VARSPPKG
++
++         PACKAGE TYPE:|VPHTYPE
++          DESCRIPTION:~VPHCOMM
++               STATUS:|VPHSTAT
++
++
+%      *** +Either the package contains no SCL statements, or %***
+%      *** +Syntax errors have been found in the package SCL. %***
+)INIT
+  .HELP = CITP2100
+
+)PROC
+)END

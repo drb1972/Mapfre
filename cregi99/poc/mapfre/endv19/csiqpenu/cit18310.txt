@@ -1,0 +1,32 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Quick Edit Additional Columns in Element Selection List \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Quick Edit Additional Columns in Element Selection List
++
+%  Quick Edit now shows more detail.
++  With this change Quick Edit now has additional columns in the Element
++  selection list views. In addition to%Last Action date,+Quick Edit now
++  shows;%Current Date+(Source change),%Generate Date, Move Date,+and%Locked
++ %Package+name.
++
++  These fields are also fully supported for sorting, so for example the
++  command%"ESORT -CUR"+will put the most recently modified elements at the top
++  of the list.  You can also use the EONLY command to filter the list for
++  elements that are locked to package, for example%"EONLY LOCK ESCM"+will show
++  only elements locked to a package names that starts with ESCM.
++
++  Additionally support is extended to use other screen widths enabled by
++  dynamic%LOGMODE=D4C32XX3+(e.g. 122x44 or 160x60).  Quick Edit will now try
++  to fit as many columns as possible in the available screen width.  If a
++  column does not entirely fit you can still use column scrolling%(LEFT/RIGHT)
++  or the%EXPAND+command to see the whole contents.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18320
+)END

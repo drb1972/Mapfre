@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Concurrent Action Processing Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Spawn Indicator+- Determines if the Concurrent Action Processing Feature is
+    enabled. Allowable values are Y or N.
+
+    N (default) - indicates that concurrent action processing is disabled.
+    Actions will be processed one at a time regardless of any other
+    C1DEFLTS parameters or the presence of the EN$CAPnn JCL DD card.
+
+    Y - Indicates that concurrent action processing is allowable
+    in applicable circumstances. However, if SPAWNCNT=0 was specified in
+    C1DEFLTS then concurrent action processing will not take place unless
+    an EN$CAPnn DD card is present in the JCL.
+
+
+%Spawn Count+- The default number of concurrent action processors to be used.
+    Allowable values are 0, and 2-99.  Value must be less than or equal to
+    the SPAWNMAX value. If an EN$CAP DD card is included in the user's JCL
+    then this number of processors will be used.  To override this value
+    the user can include an EN$CAPnn DD card where nn specifies the number
+    of processors to be used.
++                                                               (+ MORE +)
+)PROC
+   &ZCONT = CITES071
+)END

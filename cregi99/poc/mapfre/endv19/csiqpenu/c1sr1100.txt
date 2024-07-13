@@ -1,0 +1,72 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   | TYPE(OUTPUT) INTENS(LOW)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ MASTER CONTROL FILE REPORTS \-\
+%COMMAND%===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++SELECT REPORTS:
+ _Z%01 +System inventory profile   _Z%07 +System definition profile
+ _Z%02 +System inventory summary   _Z%08 +Element signed out profile - by system
+ _Z%03 +Element catalog            _Z%09 +Element signed out profile - by user
+ _Z%04 +Element activity profile   _Z%10 +Approver group definition
+ _Z%05 +Element activity summary   _Z%11 +Approver group usage
+ _Z%06 +Element catalog by CCID    _z%12 +Element catalog by retrieve CCID
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++INVENTORY LOCATION:
++  ENVIRONMENT%===>_VAREVNME+           OPTIONS:
++  SYSTEM     %===>_SYS     +             SEARCH ENVIRONMENT MAP %===>_S+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             DAYS                   %===>_DAYS +
++  ELEMENT    %===>@VNT1ENME  |VNTIND
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+
++
+<OTHERWISE>
++ELEMENT%===>@VNT1ENME                                           |VNTIND
++  TYPE %===>_TYPEN   +
++
++INVENTORY LOCATION:                    OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             SEARCH ENVIRONMENT MAP %===>_S+(Y/N)
++  SYSTEM     %===>_SYS     +             DAYS                   %===>_DAYS +
++  SUBSYSTEM  %===>_SBS     +             UPPERCASE ELM NAME     %===>_Z+(Y/N)
++  STAGE      %===>_D+
++
+</SELECT>
+%
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+ .ZVARS = '(RPT01 RPT07 RPT02 RPT08 RPT03 RPT09 +
+            RPT04 RPT10 RPT05 RPT11 RPT06 RPT12         )'
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+ .ZVARS = '(RPT01 RPT07 RPT02 RPT08 RPT03 RPT09 +
+            RPT04 RPT10 RPT05 RPT11 RPT06 RPT12 VNTUPPER)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+ .HELP = CITR1100
+ IF (&AMT = ' ')
+    &AMT = PAGE
+&YNLIST = 'Y N'
+)PROC
+VER (&VAREVNME,NB,MSG=CISR005)
+VER (&VNTUPPER,NB,LISTV,&YNLIST,MSG=CIEV002)
+VER (&DAYS,NB,MSG=CIIO045)
+VER (&DAYS,RANGE,1,9999,MSG=CIIO045)
+VER (&S,NB,LISTV,&YNLIST,MSG=CIEV002)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND) SCROLL(ON) LEN(255)
+)END

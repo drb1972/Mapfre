@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Mapping Inventory Classifications \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You relate system, subsystem, type, and processor group names between
++stages in a route using the NEXT SYSTEM, NEXT SUBSYSTEM, NEXT TYPE, and
++NEXT GROUP fields on the respective definition panels.  You can change:
+
+  * System and subsystem names when crossing environments.
+  * Type and processor group names when crossing stages and/or environments.
+
++To simplify your routes, try to keep system, subsystem, type,
++and processor group names consistent across stages and environments.
+
++See Chapter 3 (system, subsystem, and type definitions) and Chapter 6
++(processor group definition) of the Administrator's Guide for
++procedures and descriptions of these panels.
++
++
++                          (%PF3+to return,%ENTER+for naming example)
+)PROC
+   &ZCONT = CITT3410
+)END

@@ -1,0 +1,24 @@
+)ATTR
+  _ TYPE(INPUT) CAPS(OFF) INTENS(HIGH)
+  | AREA(DYNAMIC) SCROLL(ON) EXTEND(ON)
+  + TYPE(TEXT) INTENS(LOW)
+  ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT) PAD(0)
+ 01 TYPE(DATAIN) INTENS(HIGH) CAPS(ON)
+ 02 TYPE(DATAOUT) INTENS(LOW)
+ 03 TYPE(DATAIN)  INTENS(HIGH) CAPS(ON)
+ 04 TYPE(DATAOUT)  INTENS(LOW)
+ 05 TYPE(DATAOUT)  INTENS(HIGH)
+ 06 TYPE(DATAOUT)  INTENS(LOW)
+)BODY WIDTH(80)
+%Edit WIP -- &ZDSN -----------------------------------------%ROW¢ZMLCR%OF¢ZMLTR+
+%Command ===>_ZCMD                                            %Scroll ===>_Z   +
+&ZMLCOLS
+|ZDATA ------------------------------------------------------------------------|
+|                                                                              |
+| -----------------------------------------------------------------------------|
+)INIT
+  .ZVARS = 'ZSCML'         /* SCROLL AMT VARIABLE NAME  */
+  .HELP = BC1T150L
+)PROC
+  VPUT (ZSCML) PROFILE
+)END

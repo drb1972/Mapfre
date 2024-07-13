@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Specifying a Derivation 2 Member or Element \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++ **************************************************************************
++ *%If+the Root member  *%Then+you can specify    *%And+you can specify    *
++ * or element was      * the Derivation 1        * the Derivation 2       *
++ * specified           * member or element       * member or element      *
++ **************************************************************************
++ * > By leaving the    * > By leaving the        * > By leaving the       *
++ *     field blank     *     field blank         *     field blank        *
++ * > Using a name mask * > Using a name mask     * > Using a name mask    *
++ *                     * > As an explicit value  * > As an explicit value *
++ **************************************************************************
++ * As an explicit      * Only as an explicit     * Only as an explicit    *
++ *   value             *    value                *   value                *
++ **************************************************************************
++
+%Note:+The maximum allowable LRECL for a Der2 member is 247.
++
++   Select%1-2+for information about:
++
+%    1+- Selecting members from a list  %2+- Selecting elements from a list
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TMSEL 2,BC1TESEL)
+)END

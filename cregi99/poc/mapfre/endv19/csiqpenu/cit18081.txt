@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Conditional Allocation of Processor Data Sets \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 2 of 2
+%Conditional Allocation of Processor Data Sets
++
++Below are some examples of how the COND parameter can be specified. Note that
+%ALLOC=NOCOND+can be specified to indicate the file is%"Not Conditional":
++
++    //DD1 DD+&LIT1
++    //       DISP=SHR,ALLOC=(LMAP,COND)
++    //DD2 DD+&LIT2
++    //       DISP=OLD,ALLOC=(COND,PMAP)
++    //DD3 DD DSN=TEST.DATASET3,DISP=SHR,ALLOC=(COND)
++    //    DD DSN=TEST.DATASET4,DISP=OLD,ALLOC=COND
++    //    DD DSN=PROD.DATASET,DISP=OLD,ALLOC=NOCOND
++
++ Sample Informational Message & Processor Syntax Error:
++
++   %C1A0015I+ALLOC=COND DATA SET NOT ALLOCATED: DDNAME=DD3, DSN=TEST.DATASET4
++    C1X0240I       3  //C1INIT01  DD DISP=(NEW,CATLG),ALLOC=COND,
++   %C1X0250E+ STMT 3    INVALID--"ALLOC=COND" PARAMETER REQUIRES DISP=SHR/OLD
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'DSN=NDVQAS.&&C1SY..&&C1SU..&&C1EN(1,1)&&C1S#..&&LIB,'
+    &LIT2  = 'DSN=NDVHLQ.&&C1SY..&&C1SU..&&C1EN(1,1)&&C1S#..&&LIB,'
+)PROC
+   &ZCONT = CIT18090
+)END

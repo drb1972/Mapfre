@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Inventory Structure \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++An inventory structure helps to manage the software life cycle by
++providing a consistent and flexible logical structure for classifying
++software inventory.
++
++There are six components to this inventory structure: environments,
++stages, systems, subsystems, types, and elements.
++
++Environments, stages, systems, subsystems, and types are set
++up by the product administrator. The actual inventory is made up of
++elements. Users act on elements.
++
++   Select%1+-%8+for information about
++
+%    1+- Environments               %5+- Types
+%    2+- Stages                     %6+- Elements
+%    3+- Systems                    %7+- Using the inventory structure
+%    4+- Subsystems                 %8+- The software life cycle
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT2100 2,CITT2200 3,CITT2300 4,CITT2400
+                  5,CITT2500 6,CITT2600 7,CITQINV0 8,CITLCYC0)
+)END

@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Host Data Set Name Mask \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++A 1- to 44-character name or mask for a data set at a host site.
++
++The name or mask is made up of qualifiers separated by periods. A
++qualifier contains 1 to 8 characters. It can be explicit, fully wild,
++or partially wild.
++
++Explicit  - The first character is alphabetic and the remaining
++            characters are alphanumeric or national (@, #, $).
++Full Wild - The qualifier consists of a single asterisk.
++Part Wild - Same as explicit, except that the final character is an *.
++
++A Host Dataset Name Mask must have the same number of qualifiers as the
++input production data set(s) it will match. The mask PROD.*.* will
++match PROD.FINANCE.LOADLIB but not PROD.LOADLIB.  Partially wild
++example: PROD.LOAD* matches PROD.LOAD and PROD.LOADLIB.
++
++    Select%1+-%3+for more information about DSN mapping
++
+%    1+- Remote DSN Mask (MVS)          %3+- Mapping Rule Examples
+%    2+- Remote Path Mask (Workstation)
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITRMVM0 2,CITRWSM0
+                  3,CITRMVX0)
+)END

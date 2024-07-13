@@ -1,0 +1,41 @@
+)BODY EXPAND(\\)
+%\-\ CA Endevor SCM - Release 12 New Features \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 1 of 2+
++  The following panels present information about the new
++  features and enhancements that are available with%R12+of
++  CA Software Change Manager.
++
++  Select one of the following options for more information:               Last
++                                                                         Change
++  % 1+- Concurrent Action Processing                                     %base+
++  % 2+- Automatic Element Version Rolling                                %base+
++  % 3+- Element Delta Retention by Age                                   %base+
++  % 4+- Promotion Packages                                               %base+
++  % 5+- Processor Map Allocation                                         %base+
++  % 6+- ISPF Usability - Element and Package Selection List Scrolling    %base+
++  % 7+- ISPF Usability - Extended WHERE options and WHERE USERID         %base+
++  % 8+- ISPF Usability - Panel Standardization                           %base+
++  % 9+- ISPF Usability - Environment Name Masking                        %base+
++  %10+- API/CSV Utility New Function - List Element Change Level Summary %base+
++  %11+- API/CSV Utility New Function - List SMF Data                     %base+
++  %12+- API/CSV Utility New Function - List Package Ship                 %base+
++  %13+- Print Element Action - Print Element's Output Listing Option     %base+
++
++\ \ (Hit%ENTER+for more options,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITC1210
+                       2,CITC1220
+                       3,CITC1230
+                       4,CITC1240
+                       5,CITC1250
+                       6,CITC1260
+                       7,CITC1270
+                       8,CITC1280
+                       9,CITC1290
+                      10,CITC12A0
+                      11,CITC12B0
+                      12,CITC12C0
+                      13,CITC12D0)
+   &ZCONT = CITC1201
+)END

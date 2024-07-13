@@ -1,0 +1,46 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  PDS RESIZE  \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                       @
+)AREA SAREA1
++
++  Welcome to TSO RESIZE your one stop shop to resizing PDS's.
++
++  TSO RESIZE can be invoked by the following methods:
++   * TSO RESIZE
++   * TSO RESIZE <dsn>
++   * TSO RESIZE with point and shoot to the DSN on the scr
++   * RESIZE as a line command in a 3.4 list
++
++  TSO RESIZE will:
++   * Check volume info
++   * Dataset enq info
++   * Create a job to:
++      Resize PDS's including ALIAS support
++      Convert datasets from PDS to PDSE and vice versa
++      Compress datasets
++      Perform a test compress to determine how much space could be sav ed
++
++  The resize job will perform the following steps:
++    LOCKDSN - IEFBR14  If passive enq is selected then wait until the
++                       dataset is available
++    RENAME1 - IDCAMS   Rename the dataset to the requested name
++    COPY    - IEBCOPY  Copy from the renamed dataset to a .NEW dataset
++         or - BC1PNCPY To convert load libraries
++    ALIAS   - IKJEFT01 Redefine aliases if required
++    RENAME2 - IDCAMS   Rename the .NEW dataset
++    DELETE  - IDCAMS   Delete the old dataset if requested on the panel
++    MESSAGE - IKJEFT01 Send a message back to the user on error
++
++  TSO RESIZE commands:
++    SUB      - Submit resize   job
++    EDIT     - Edit   resize   job
++    CONVERT  - Edit   convert  job
++    COMPRESS - Submit compress job
++    Z        - Submit compress job
++    TCOMP    - Submit test compress job
++
+)PROC
+)END

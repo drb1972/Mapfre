@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Acknowledge Elm Jump \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+
++This field is used when a copy of an element being moved is found
++at a non-mapped stage between the FROM and TO locations of the Move.
+
++When this occurs, the REQ ELM JUMP ACKNOWLEDGEMENT field is checked
++in the system definition. If REQ ELM JUMP ACKNOWLEDGEMENT=Y, then you
++you must specify ACKNOWLEDGE ELM JUMP=Y for the Move to execute.
+
++Otherwise, the value in this field can be either Y or N.
+
++Whenever an element is jumped during a move, a message is issued
++informing you of this fact.
+
+
++
++\ \ (%PF3+to return) \ \
+)END

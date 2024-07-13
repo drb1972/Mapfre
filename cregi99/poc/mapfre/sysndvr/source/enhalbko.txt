@@ -1,0 +1,94 @@
+         MACRO
+         ENHALBKO &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        LIST PACKAGE BACKOUT INFORMATION - REQUEST BLOCK
+*
+***********************************************************************
+ALBKO_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+ALBKO_RQ$EYE    EQU C'LBKQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALBKO_RQ
+         SPACE ,
+ALBKO_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALBKO_RQ_DATA
+ALBKO_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+ALBKO_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALBKO_RQ_VER#1_DATADSLN EQU *-ALBKO_RQ_DATA
+ALBKO_RQ_VER#1_DSLN     EQU *-ALBKO_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALBKO_RQ_VER#2_DATADSLN EQU *-ALBKO_RQ_DATA
+ALBKO_RQ_VER#2_DSLN     EQU *-ALBKO_RQ
+         SPACE ,
+ALBKO_RQ_DATADSLN EQU *-ALBKO_RQ_DATA
+ALBKO_RQ_DSLN     EQU *-ALBKO_RQ
+         ORG      ALBKO_RQ_DATA
+ALBKO_RQ_DATAAREA DS XL(ALBKO_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*
+*        LIST PACKAGE BACKOUT INFORMATION - RESPONSE BLOCK
+*
+***********************************************************************
+ALBKO_RS$VER    EQU ALBKO_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALBKO_RS$EYE    EQU C'LBKS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALBKO_RS
+         SPACE ,
+ALBKO_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALBKO_RS_DATA
+ALBKO_RS_PKGID    DC CL16' '           PACKAGE ID
+ALBKO_RS_SITE     DC CL1' '            SITE ID
+ALBKO_RS_RUD      DC CL7' '            DATE OF LAST PHY REC UPDATE
+ALBKO_RS_RUT      DC CL5' '            TIME OF LAST PHY REC UPDATE
+ALBKO_RS_RUU      DC CL8' '            USERID ASSOC WITH LAST UPDATE
+ALBKO_RS_LOC      DC CL1' '            SOURCE/TARGET LOCATION FLAG
+ALBKO_RS_LOC$S    EQU C'S'                REC ASSOCIATED WITH SOURCE
+ALBKO_RS_LOC$T    EQU C'T'                REC ASSOCIATED WITH TARGET
+ALBKO_RS_DIR      DC CL1' '            BACK-OUT DIRECTION FLAG
+ALBKO_RS_DIR$BI   EQU C'I'                MBR HAS BEEN BACKED-IN
+ALBKO_RS_DIR$BO   EQU C'O'                MBR HAS BEEN BACKED-OUT
+ALBKO_RS_DIRLIT   DC CL10' '           TRANSLATED VALUE FOR DIR FLG
+*                 EQU C'BACKED-OUT'       MBR HAS BEEN BACKED-OUT
+*                 EQU C'BACKED-IN '       MBR HAS BEEN BACKED-IN
+ALBKO_RS_MBR      DC CL8' '            CURRENT MEMBER NAME
+ALBKO_RS_MBRNEW   DC CL8' '            NEW MEMBER NAME
+ALBKO_RS_MBRSAVE  DC CL8' '            SAVE MEMBER NAME (BINARY FMT)
+ALBKO_RS_DSN      DC CL44' '           BACKOUT DATASET NAME
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALBKO_RS_VER#1_DATADSLN EQU *-ALBKO_RS_DATA
+ALBKO_RS_VER#1_DSLN     EQU *-ALBKO_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALBKO_RS_FILETYPE DC CL3' '            FILE TYPE: PDS OR USS
+ALBKO_RS_LFILE    DC H'0'              CURR FILE NAME LENGTH BINARY
+ALBKO_RS_FILE     DS CL255             CURR FILE NAME
+ALBKO_RS_LFILENEW DC H'0'              NEW  FILE NAME LENGTH BINARY
+ALBKO_RS_FILENEW  DS CL255             NEW  FILE NAME
+ALBKO_RS_FILESAVE DC CL8' '            SAVE FILE NAME
+ALBKO_RS_LPATH    DC H'0'              BACKOUT PATH NAME LENGTH BINARY
+ALBKO_RS_PATH     DS CL768             BACKOUT PATH NAME
+         SPACE ,
+ALBKO_RS_VER#2_DATADSLN EQU *-ALBKO_RS_DATA
+ALBKO_RS_VER#2_DSLN     EQU *-ALBKO_RS
+         SPACE ,
+ALBKO_RS_DATADSLN EQU *-ALBKO_RS_DATA
+ALBKO_RS_DSLN     EQU *-ALBKO_RS
+         ORG      ALBKO_RS_DATA
+ALBKO_RS_DATAAREA DS XL(ALBKO_RS_DATADSLN)     DATA AREA
+         MEND

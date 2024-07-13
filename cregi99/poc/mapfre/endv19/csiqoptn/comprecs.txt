@@ -1,0 +1,310 @@
+      ***************************************************************** 00561010
+      *  COMPRECS COPY STATMENT                                         00561010
+      *    COPYRIGHT (C) 2022 BROADCOM. ALL RIGHTS RESERVED.            00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE FOLLOWING COPY STATEMENTS DEFINE THE LAYOUTS FOR THE        00561010
+      * EXTERNAL FORMATS OF AN ENDVR ELEMENT COMPONENT LIST.            00561010
+      *                                                                 00561010
+      * RECORDS OF THESE FORMATS ARE CREATED BY EXECUTING THE           00561010
+      * PROCESSOR UTILITY CONWRITE; SPECIFYING OPTION COMPONENT         00561010
+      * TO EXTRACT AN ELEMENT'S COMPONENT LIST TO AN EXTERNAL           00561010
+      * DATASET.                                                        00561010
+      *                                                                 00561010
+      * IN ADDITION TO THE ENDVR COMPONENT LIST RECORDS WHICH ARE       00561010
+      * BUILT AUTOMATICALLY WITHIN THE EXECUTION OF AN ELEMENT'S        00561010
+      * PROCESSOR, THERE CAN ALSO BE 'RELATED' COMPONENT RECORDS.       00561010
+      * THESE 'RELATED' COMPONENT RECORDS ARE BUILT BY A PROCESSOR      00561010
+      * UTILITY CALLED CONRELE.  USING INPUT 'RELATE' SYNTAX, CONRELE   00561010
+      * ATTACHES 'RELATED' ELEMENTS, MEMBERS, OBJECTS, AND/OR COMMENTS  00561010
+      * TO AN ELEMENT'S COMPONENT LIST.  THE INPUT SYNTAX IS BUILT      00561010
+      * BY A USER TO SPECIFY ADDITIONAL RELATIONSHIPS TO THE ELEMENT.   00561010
+      *                                                                 00561010
+      * THE FOLLOWING COPY STATEMENTS DEFINE THESE COMPONENT LIST       00561010
+      * RECORD TYPES.  PLEASE REFER TO THE EXAMPLE COBOL PROGRAM        00561010
+      * CONCOMP WHICH DISPLAYS THESE RECORDS FIELD BY FIELD. CONCOMP    00561010
+      * IS A GOOD EXAMPLE OF HOW TO PROCESS THEM ONCE YOU'RE WRITTEN    00561010
+      * AN ELEMENT'S COMPONENT LIST TO AN EXTERNAL DATASET.             00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CMP1-HEADER-RECORD IS AUTOMATICALLY CREATED BY ENDVR.       00561010
+      * IT CONTAINS INFORMATION ABOUT THE ELEMENT.                      00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CMP1-HEADER-RECORD.                                          00540110
+           10  CMP1-RECORD-ID.                                          00540210
+               20  CMP1-LENGTH          PIC 9(4).                       00540310
+               20  CMP1-NUMERIC-ID      PIC 9(4).                       00540410
+                   88  CMP1-HEADER-REC      VALUE  0177.                00540512
+               20  CMP1-VERSION-ID      PIC 9(4).                       00540913
+                   88  CMP1-CURRENT-VERSION VALUE  0001.                00541012
+               20  CMP1-FLAGS           PIC X(4).                       00541610
+                   88  CMP1-CURRENT-FLAGS   VALUE '0000'.               00541710
+               20  CMP1-EYECATCH        PIC X(4).                       00541110
+                   88  CMP1-HEADER-REC-IC   VALUE 'CMP1'.               00541210
+           10  CMP1-RECORD-DATA.                                        00541810
+               20  CMP1-SITE            PIC X(1).                       00541909
+               20  CMP1-ENVIRONMENT     PIC X(8).                       00542009
+               20  CMP1-SYSTEM          PIC X(8).                       00543009
+               20  CMP1-SUBSYSTEM       PIC X(8).                       00544009
+               20  CMP1-ELEMENT-NAME    PIC X(10).                      00545009
+               20  CMP1-TYPE            PIC X(8).                       00546009
+               20  CMP1-VERSION         PIC 9(2).                       00547009
+               20  CMP1-LEVEL           PIC 9(2).                       00548009
+               20  CMP1-DATE-DDMMMYY    PIC X(7).                       00549009
+               20  CMP1-TIME-HH-COL-MM  PIC X(5).                       00549109
+               20  CMP1-STAGE           PIC X(1).                       00549209
+               20  CMP1-PROCESSOR-GROUP PIC X(8).                       00549309
+               20  CMP1-PROCESSOR       PIC X(8).                       00549409
+               20  CMP1-FILLER          PIC X(20).                      00549509
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CMP2-FOOTPRINT-RECORD IS AUTOMATICALLY CREATED BY ENDVR.    00561010
+      * IT CONTAINS THE FOOTPRINT INFORMATION USED BY ENDVR TO CREATE   00561010
+      * NEW FOOTPRINTS.                                                 00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CMP2-FOOTPRINT-RECORD.                                       00549710
+           10  CMP2-RECORD-ID.                                          00549810
+               20  CMP2-LENGTH          PIC 9(4).                       00549910
+               20  CMP2-NUMERIC-ID      PIC 9(4).                       00550010
+                   88  CMP2-FOOTPRINT-REC   VALUE  0178.                00550112
+               20  CMP2-VERSION-ID      PIC 9(4).                       00550213
+                   88  CMP2-CURRENT-VERSION VALUE  0001.                00550312
+               20  CMP2-FLAGS           PIC X(4).                       00550610
+                   88  CMP2-CURRENT-FLAGS   VALUE '0000'.               00550710
+               20  CMP2-EYECATCH        PIC X(4).                       00550410
+                   88  CMP2-FOOTPRINT-IC    VALUE 'CMP2'.               00550510
+           10  CMP2-RECORD-DATA.                                        00550810
+               20  CMP2-SITE            PIC X(1).                       00550909
+               20  CMP2-ENVIRONMENT     PIC X(8).                       00551009
+               20  CMP2-SYSTEM          PIC X(8).                       00551109
+               20  CMP2-SUBSYSTEM       PIC X(8).                       00551209
+               20  CMP2-ELEMENT-NAME    PIC X(10).                      00551309
+               20  CMP2-TYPE            PIC X(8).                       00551409
+               20  CMP2-VERSION         PIC 9(2).                       00551509
+               20  CMP2-LEVEL           PIC 9(2).                       00551609
+               20  CMP2-DATE-DDMMMYY    PIC X(7).                       00551709
+               20  CMP2-TIME-HH-COL-MM  PIC X(5).                       00551809
+               20  CMP2-STAGE           PIC X(1).                       00551909
+               20  CMP2-FILLER          PIC X(20).                      00552209
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CMP3-COMPONENT-RECORD IS AUTOMATICALLY CREATED BY ENDVR.    00561010
+      * THERE IS ONE RECORD FOR EACH INPUT AND OUTPUT COMPONENT.        00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CMP3-COMPONENT-RECORD.                                       00552510
+           10  CMP3-RECORD-ID.                                          00552610
+               20  CMP3-LENGTH          PIC 9(4).                       00552710
+               20  CMP3-NUMERIC-ID      PIC 9(4).                       00552810
+                   88  CMP3-COMPONENT-REC   VALUE  0179.                00552912
+               20  CMP3-VERSION         PIC 9(4).                       00553010
+                   88  CMP3-CURRENT-VERSION VALUE  0001.                00553112
+               20  CMP3-FLAGS           PIC X(4).                       00553410
+                   88  CMP3-CURRENT-FLAGS   VALUE '0000'.               00553510
+               20  CMP3-EYECATCH        PIC X(4).                       00553210
+                   88  CMP3-COMPONENT-IC    VALUE 'CMP3'.               00553310
+           10  CMP3-RECORD-DATA.                                        00553610
+               20  CMP3-PROCESSOR       PIC X(8).                       00553709
+               20  CMP3-STEP            PIC X(8).                       00553809
+               20  CMP3-TYPE            PIC X(1).                       00553909
+                   88  CMP3-INPUT-COMPONENT  VALUE 'I'.                 00554009
+                   88  CMP3-OUTPUT-COMPONENT VALUE 'O'.                 00554109
+               20  CMP3-OPERATION-TYPE  PIC X(1).                       00554209
+                   88  CMP3-BLDL-FIND-READ  VALUE '1'.                  00554309
+                   88  CMP3-ADD             VALUE '2'.                  00554409
+                   88  CMP3-REPLACE         VALUE '3'.                  00554509
+                   88  CMP3-DELETE          VALUE '4'.                  00554609
+                   88  CMP3-CHANGE          VALUE '5'.                  00554709
+                   88  CMP3-BACKOUT         VALUE '6'.                  00554809
+               20  CMP3-MEMBER          PIC X(10).                      00554909
+               20  CMP3-DDNAME          PIC X(8).                       00555009
+               20  CMP3-DATASET         PIC X(44).                      00555109
+               20  CMP3-VOLUME          PIC X(6).                       00555209
+               20  CMP3-LIBRARY-TYPE    PIC X(1).                       00555309
+                   88  CMP3-PRIVATE-LIB     VALUE '0'.                  00555409
+                   88  CMP3-LINK-LIST-LIB   VALUE '1'.                  00555509
+                   88  CMP3-JOBLIB-STEPLIB  VALUE '2'.                  00555609
+                   88  CMP3-LOADLIB         VALUE '8'.                  00555709
+               20  CMP3-SECONDARY-MEMBER PIC X(10).                     00555809
+               20  CMP3-FOOTPRINT-LENGTH PIC 9(4).                      00555909
+               20  CMP3-FOOTPRINT-TYPE   PIC X(1).                      00556010
+                   88  CMP3-C1-FOOTPRINT    VALUE '1'.                  00556109
+                   88  CMP3-SPF-FOOTPRINT   VALUE '2'.                  00556210
+                   88  CMP3-OTHER-FOOTPRINT VALUE '3'.                  00556310
+               20  CMP3-FP-SITE         PIC X(1).                       00556409
+               20  CMP3-FP-ENVIRONMENT  PIC X(8).                       00556509
+               20  CMP3-FP-SYSTEM       PIC X(8).                       00556609
+               20  CMP3-FP-SUBSYSTEM    PIC X(8).                       00556709
+               20  CMP3-FP-ELEMENT-NAME PIC X(10).                      00556809
+               20  CMP3-FP-TYPE         PIC X(8).                       00556909
+               20  CMP3-FP-VERSION      PIC 9(2).                       00557009
+               20  CMP3-FP-LEVEL        PIC 9(2).                       00557109
+               20  CMP3-FP-DATE-DDMMMYY PIC X(7).                       00557209
+               20  CMP3-FP-TIME-HH-COL-MM PIC X(5).                     00557309
+               20  CMP3-FP-STAGE        PIC X(1).                       00557413
+               20  CMP3-FP-LOAD-IND     PIC X(1).                       00557509
+                   88  CMP3-LOAD-UTILITY-FP VALUE 'Y'.                  00557609
+               20  CMP3-FILLER          PIC X(20).                      00559009
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CMP5-SYMBOL-RECORD IS AUTOMATICALLY CREATED BY ENDVR.       00561010
+      * THERE IS ONE RECORD FOR SYMBOL USED BY THE PROCESSOR.           00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CMP5-SYMBOL-RECORD.                                          00562010
+           10  CMP5-RECORD-ID.                                          00563010
+               20  CMP5-LENGTH          PIC 9(4).                       00564010
+               20  CMP5-NUMERIC-ID      PIC 9(4).                       00565010
+                   88  CMP5-SYMBOL-REC      VALUE  0181.                00566012
+               20  CMP5-VERSION         PIC 9(4).                       00567010
+                   88  CMP5-CURRENT-VERSION VALUE  0001.                00568012
+               20  CMP5-FLAGS           PIC X(4).                       00569210
+                   88  CMP5-CURRENT-FLAGS   VALUE '0000'.               00569310
+               20  CMP5-EYECATCH        PIC X(4).                       00569010
+                   88  CMP5-SYMBOL-IC       VALUE 'CMP5'.               00569110
+           10  CMP5-RECORD-DATA.                                        00569410
+               20  CMP5-SYM-NAME-LENGTH PIC 9(4).                       00580009
+               20  CMP5-SYM-DATA-LENGTH PIC 9(4).                       00590009
+               20  CMP5-SYM-NAME        PIC X(12).                      00600009
+               20  CMP5-SYM-DATA        PIC X(100).                     00610009
+               20  CMP5-FILLER          PIC X(20).                      00620009
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CURE-ELEMENT-RECORD IS CREATED BY EXECUTING THE             00561010
+      * PROCESSOR UTILITY CONRELE WITH INPUT RELATE ELEMENT SYNTAX.     00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CURE-ELEMENT-RECORD.                                         00562010
+           10  CURE-RECORD-ID.                                          00563010
+               20  CURE-LENGTH          PIC 9(4).                       00564010
+               20  CURE-NUMERIC-ID      PIC 9(4).                       00565010
+                   88  CURE-ELEMENT-REC     VALUE  0284.                00566012
+               20  CURE-VERSION-ID      PIC 9(4).                       00567010
+                   88  CURE-CURRENT-VERSION VALUE  0001.                00568012
+               20  CURE-FLAGS           PIC X(4).                       00569210
+                   88  CURE-CURRENT-FLAGS   VALUE '0000'.               00569310
+               20  CURE-EYECATCH        PIC X(4).                       00569010
+                   88  CURE-EYECATCH-LIT    VALUE 'COEL'.               00569110
+           10  CURE-ENVIRONMENT         PIC X(8).
+           10  CURE-SYSTEM              PIC X(8).
+           10  CURE-SUBSYSTEM           PIC X(8).
+           10  CURE-ELEMENT-NAME        PIC X(10).
+           10  CURE-TYPE                PIC X(8).
+           10  CURE-STAGE               PIC X(1).
+           10  CURE-VERSION             PIC X(2).
+           10  CURE-LEVEL               PIC X(2).
+           10  CURE-DATE                PIC X(7).
+           10  CURE-TIME                PIC X(5).
+           10  CURE-COMPONENT-TYPE      PIC X(1).
+               88  CURE-INPUT-COMPONENT  VALUE 'I'.
+               88  CURE-OUTPUT-COMPONENT VALUE 'O'.
+           10  CURE-VALIDATE-INDICATOR  PIC X(1).
+               88  CURE-VALIDATED       VALUE 'Y'.
+           10  CURE-ERROR-INDICATOR     PIC X(1).
+               88  CURE-IN-ERROR        VALUE 'Y'.
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CURM-MEMBER-RECORD IS CREATED BY EXECUTING THE              00561010
+      * PROCESSOR UTILITY CONRELE WITH INPUT RELATE MEMBER SYNTAX.      00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CURM-MEMBER-RECORD.
+           10  CURM-RECORD-ID.                                          00563010
+               20  CURM-LENGTH          PIC 9(4).                       00564010
+               20  CURM-NUMERIC-ID      PIC 9(4).                       00565010
+                   88  CURM-MEMBER-REC      VALUE  0285.                00566012
+               20  CURM-VERSION-ID      PIC 9(4).                       00567010
+                   88  CURM-CURRENT-VERSION VALUE  0001.                00568012
+               20  CURM-FLAGS           PIC X(4).                       00569210
+                   88  CURM-CURRENT-FLAGS   VALUE '0000'.               00569310
+               20  CURM-EYECATCH        PIC X(4).                       00569010
+                   88  CURM-EYECATCH-LIT    VALUE 'COME'.               00569110
+           10  CURM-DATASET             PIC X(44).
+           10  CURM-MEMBER              PIC X(10).
+           10  CURM-ENVIRONMENT         PIC X(8).
+           10  CURM-SYSTEM              PIC X(8).
+           10  CURM-SUBSYSTEM           PIC X(8).
+           10  CURM-ELEMENT-NAME        PIC X(10).
+           10  CURM-TYPE                PIC X(8).
+           10  CURM-STAGE               PIC X(1).
+           10  CURM-VERSION             PIC X(2).
+           10  CURM-LEVEL               PIC X(2).
+           10  CURM-DATE                PIC X(7).
+           10  CURM-TIME                PIC X(5).
+           10  CURM-COMPONENT-TYPE      PIC X(1).
+               88  CURM-INPUT-COMPONENT  VALUE 'I'.
+               88  CURM-OUTPUT-COMPONENT VALUE 'O'.
+           10  CURM-VALIDATE-INDICATOR  PIC X(1).
+               88  CURM-VALIDATED       VALUE 'Y'.
+           10  CURM-FOOTPRINT-INDICATOR PIC X(1).
+               88  CURM-GOT-FOOTPRINT   VALUE 'Y'.
+           10  CURM-ERROR-INDICATOR     PIC X(1).
+               88  CURM-IN-ERROR        VALUE 'Y'.
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CURO-OBJECT-RECORD IS CREATED BY EXECUTING THE              00561010
+      * PROCESSOR UTILITY CONRELE WITH INPUT RELATE OBJECT SYNTAX.      00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CURO-OBJECT-RECORD.
+           10  CURO-RECORD-ID.                                          00563010
+               20  CURO-LENGTH          PIC 9(4).                       00564010
+               20  CURO-NUMERIC-ID      PIC 9(4).                       00565010
+                   88  CURO-OBJECT-REC      VALUE  0286.                00566012
+               20  CURO-VERSION-ID      PIC 9(4).                       00567010
+                   88  CURO-CURRENT-VERSION VALUE  0001.                00568012
+               20  CURO-FLAGS           PIC X(4).                       00569210
+                   88  CURO-CURRENT-FLAGS   VALUE '0000'.               00569310
+               20  CURO-EYECATCH        PIC X(4).                       00569010
+                   88  CURO-EYECATCH-LIT    VALUE 'COOB'.               00569110
+           10  CURO-ERROR-INDICATOR     PIC X(1).
+               88  CURO-IN-ERROR        VALUE 'Y'.
+           10  CURO-OBJECT-DATA-LENGTH  PIC 9(4).
+           10  CURO-OBJECT-DATA         PIC X(255).
+           10  CURO-OBJECT-DATA-BYTE    REDEFINES CURO-OBJECT-DATA
+                                        PIC X(1) OCCURS 255 TIMES.      00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+      * THE CURC-COMMENT-RECORD IS CREATED BY EXECUTING THE             00561010
+      * PROCESSOR UTILITY CONRELE WITH INPUT RELATE COMMENT SYNTAX.     00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *                                                                 00561010
+       01  CURC-COMMENT-RECORD.
+           10  CURC-RECORD-ID.                                          00563010
+               20  CURC-LENGTH          PIC 9(4).                       00564010
+               20  CURC-NUMERIC-ID      PIC 9(4).                       00565010
+                   88  CURC-COMMENT-REC     VALUE  0287.                00566012
+               20  CURC-VERSION-ID      PIC 9(4).                       00567010
+                   88  CURC-CURRENT-VERSION VALUE  0001.                00568012
+               20  CURC-FLAGS           PIC X(4).                       00569210
+                   88  CURC-CURRENT-FLAGS   VALUE '0000'.               00569310
+               20  CURC-EYECATCH        PIC X(4).                       00569010
+                   88  CURC-EYECATCH-LIT    VALUE 'COCO'.               00569110
+           10  CURC-ERROR-INDICATOR     PIC X(1).
+               88  CURC-IN-ERROR        VALUE 'Y'.
+           10  CURC-COMMENT-DATA-LENGTH  PIC 9(4).
+           10  CURC-COMMENT-DATA         PIC X(255).
+           10  CURC-COMMENT-DATA-BYTE    REDEFINES CURC-COMMENT-DATA
+                                         PIC X(1) OCCURS 255 TIMES.     00561010
+      *                                                                 00561010
+      ***************************************************************** 00561010
+      *    END OF COMPRECS COPY STATEMENT                               00561010
+      ***************************************************************** 00561010

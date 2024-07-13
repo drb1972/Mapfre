@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Automatic Merge Process \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++If you specify AUTOMATICALLY MERGE=Y on the WIP Specification panel,
++PDM will try to create a merge file or element from the WIP file
++automatically as the last step in the Build WIP process. PDM creates
++this merge only if it finds no conflicts in the WIP file.
++
+%Note:+When PDM creates the merge output automatically during the Build
++      WIP process, the merge output file or element name is the same as
++      the WIP member name.
++
++
++
++
+)END

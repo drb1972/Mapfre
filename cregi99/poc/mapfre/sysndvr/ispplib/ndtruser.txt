@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ User Options Menu \-\ TUTORIAL
+%COMMAND ===>_ZCMD                                                             +
+%
++The User Options Menu allows you to access:
++
++   * Reporting Functions
++   * ACM Query Facility
++   * User defined options
++
++
++
++
++
++To access a menu item, type the appropriate number in the OPTION
++field, then press ENTER.
++
++
++                                            (%PF3+to return)
+)END

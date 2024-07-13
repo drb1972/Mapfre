@@ -1,0 +1,40 @@
+      *****************************************************************
+      *                                                               *
+      *            GENERATE ELEMENT - REQUEST BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  AEGEN-RQ.
+           05  AEGEN-RQ-HEADER.
+               10  AEGEN-RQ-LEN        PIC 9(04) COMP VALUE 296.
+               10  AEGEN-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEGEN-RQ-ID         PIC 9(04) COMP VALUE 1248.
+               10  AEGEN-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEGEN-RQ-EYE        PIC X(04)      VALUE 'EGEQ'.
+           05  AEGEN-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEGEN-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEGEN-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEGEN-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEGEN-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEGEN-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEGEN-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AEGEN-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEGEN-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AEGEN-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AEGEN-RQ-COPYBACK   PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-SEARCH     PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-PROGRO     PIC X(08)      VALUE SPACES.
+               10  AEGEN-RQ-AUTOGEN    PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-NOSOURCE   PIC X(01)      VALUE SPACES.
+               10  AEGEN-RQ-RESERVE    PIC X(01)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AEGEN-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AEGEN-WCCID         PIC X(12)      VALUE SPACES.
+               10  AEGEN-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AEGEN-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AEGEN-WPROGRO-2-8   PIC X(56)      VALUE SPACES.
+               10  FILLER              PIC X(03)      VALUE SPACES.

@@ -1,0 +1,27 @@
+ENIP001E 'Invalid Action'                                .ALARM=YES
+'The action selected is undefined '
+
+ENIP002E 'Data Set not Found'                            .ALARM=YES
+'The data set specified was not found in the system catalog'
+
+ENIP003E 'Y or N is Required'                            .ALARM=YES
+'A Y(es) or N(o) is required for this field'
+
+ENIP004E 'Invalid DS Attributes'                         .ALARM=YES
+'The SCL data set specified has incorrect attributes'
+
+ENIP005E 'JCL JOB Card Required'                        .ALARM=YES
+'At least one JCL JOB card statement is required'
+
+ENIP006I 'Job Submitted'
+'I The Batch Package Facility job was successfully submitted'
+
+ENIP007I 'No Syntax Errors'
+'I The SCL statements were validated with no errors'
+
+ENIP008E 'Validation Error'
+'The SCL statements contained one or more syntax errors'
+
+ENIP009E 'Member not Found'
+'The member was not found in the specified data set'
+

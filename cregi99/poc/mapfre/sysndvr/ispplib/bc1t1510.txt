@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIP File Header \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Number of WIP records+- The number of lines in the WIP file.
++
+%Number of deleted records+- The total number of lines flagged as deleted.
++   The number of deletions in DER1, in DER2, and common deletions are
++   noted to the right of this figure.
++
+%Number of inserted records+- The number of lines flagged as inserted.
++   The number of insertions in DER1, in DER2, and common insertions are
++   noted to the right of this figure.
++
+%Number of conflicts+- The number of lines where conflicting changes were found.
++
+%Complexity factor+- The PDM estimate of the severity of WIP file conflicts.
++
+%Build return code+- The highest return code from the Build WIP process.
++
+)END

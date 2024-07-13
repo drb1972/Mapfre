@@ -1,0 +1,47 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(HIGH) JUST(LEFT) CAPS(OFF) PAD(NULLS)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%----------------------------  LIST ELEMENT ACTION  ----------------------------
+%OPTION  ===>_ZCMD                                                             +
++                               ELEMENT DISPLAY OPTIONS:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   L+- LIST element action      %M+- Master   %C+- Changes
++
++FROM LOCATION:                         LIST OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DISPLAY LIST      %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             APPLY LIST FILTERS%===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             BUILD USING MAP   %===>_Z+(Y/N)
++  ELEMENT    %===>_CIELM     +
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +
++                      ¢Z+-|CLU2ID  +
++TEXT STRING:
++ %===>$VNB50TXT                                                              +
++
++SCAN COLUMNS:
++  START%===>_Z  + END%===>_Z  + SHOW TEXT%===>_Z+(Y/N)+
++
++ACTION TO BE GENERATED WHEN LIST IS CREATED%===>_VNB50ACT+
++WRITE LIST TO OUTPUT DATA SET%===>_Z+(Y/N)+
++WHERE COMPONENT EQ%===>_VARCMPNT  +
++
+)INIT
+  .HELP = CITFA000
+  .ZVARS = '(VARWKLST VARWHPNL VARSHMAP CLU1I CLU2I +
+             VNB50BEG VNB50END VNB50STX VNBWOFLG)'
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+)PROC
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

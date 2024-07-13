@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ CA Endevor SCM Parallel Development Option \-\
+%OPTION  ===>_VARWKCMD                                                         +
+%
+%   0+ DEFAULTS  - Specify user session parameters
+%   1+ BUILD WIP - Build Work-in-Process (WIP) file
+%   2+ EDIT WIP  - Edit Work-in-Process (WIP) file
+%   3+ MERGE     - Merge Work-in-Process (WIP) file to OUTPUT source
+%   4+ SUBMIT    - Build job for batch submission
+%   T+ TUTORIAL  - Tutorial on how to use the Parallel Development Option
+%   C+ CHANGES   - New features for this release
++
++Processing Mode:+
++   Foreground or Batch%===>_Z+ (Foreground/Batch)
++
++---------------------------- Batch Specification ------------------------------
++Batch Request Data Set:+              Batch Options:
++   Project %===>_PTBRQPRJ+               Append or Replace%===>_Z+  (A/R)
++   Group   %===>_PTBRQLIB+
++   Type    %===>_PTBRQTYP+
++   Member  %===>_PTBRQMEM  +
++Other partitioned or sequential data set:+
++   Data Set Name%===>_PTBRQOTH
++
++            Copyright (C) 1986-2013 CA. All Rights Reserved.
+)INIT
+   .HELP = BC1T1000
+   &ZPRIM = YES
+   VPUT (ZHTOP,ZHINDEX) PROFILE
+   .ZVARS='(PTBPROCM PTBBTOPT)'
+)END

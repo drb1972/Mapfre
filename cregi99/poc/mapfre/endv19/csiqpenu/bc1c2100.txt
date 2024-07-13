@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - New Change Analysis Features \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM now allows users to produce the WIP Summary Report without
++generating the WIP files. This enables users to perform change
++analysis of their parallel development efforts at any time in
++the development cycle.
++
++Also, WIP Summary Report allows the user to identify which elements
++have changed in the new release, and view the complexity of these
++changes at a glance.
++
+)END

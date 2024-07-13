@@ -1,0 +1,177 @@
+         MACRO                                                          00000001
+         $PRLBL ,                                                       00000002
+.********************************************************************** 00000003
+.**                                                                  ** 00000004
+.**                                                                  ** 00000005
+.**      THIS MACRO GENERATES LABELS FOR EACH OF THE PROCESSOR       ** 00000006
+.**      CONSTRUCTS.                                                 ** 00000007
+.**                                                                  ** 00000008
+.**      $PRHDR  - INITIAL SETUP (PRIME ALL LABELS)                  ** 00000009
+.**      $PRSYM  - INCREMENT SYMBOL LABEL                            ** 00000010
+.**      $PRPGM  - INCREMENT STEP LABEL                              ** 00000011
+.**                EQUATE CURRENT COND, DDA, DDB, SYSIN LABELS TO 0. ** 00000012
+.**      $PRCC   - INCREMENT COND LABEL                              ** 00000013
+.**      $PRDDA  - INCREMENT DDA LABEL                               ** 00000014
+.**                EQUATE CURRENT DDB AND SYSIN LABELS TO 0.         ** 00000015
+.**      $PRDDB  - INCREMENT DDB LABEL                               ** 00000016
+.**                EQUATE CURRENT SYSIN LABEL TO 0.                  ** 00000017
+.**      $PRSIN  - INCREMENT SYSIN LABEL                             ** 00000018
+.**      $PRJCL  - INCREMENT JCL LABEL                               ** 00000019
+.**      $PREND  - EQUATE ALL CURRENT LABELS TO 0.                   ** 00000019
+.**                                                                  ** 00000020
+.**                                                                  ** 00000021
+.********************************************************************** 00000022
+         COPY  $PRGLBLS                COPY GLOBAL VARIABLES
+         LCLA  &I                                                       00000041
+         LCLA  &J                                                       00000042
+         LCLA  &K                                                       00000043
+         LCLC  &X                                                       00000044
+         LCLC  &Y                                                       00000045
+         LCLC  &Z                                                       00000046
+         AIF   (&PRLSTPR EQ 100).HEADER                                 00000047
+         AIF   (&PRLSTPR EQ 200).SYMBOL                                 00000048
+         AIF   (&PRLSTPR EQ 300).STEP                                   00000049
+         AIF   (&PRLSTPR EQ 400).COND                                   00000050
+         AIF   (&PRLSTPR EQ 500).DDA                                    00000051
+         AIF   (&PRLSTPR EQ 600).DDB                                    00000052
+         AIF   (&PRLSTPR EQ 700).SYSIN                                  00000053
+         AIF   (&PRLSTPR EQ 800).JCL                                    00000057
+         AIF   (&PRLSTPR EQ 999).TRAILER                                00000054
+         AIF   (&PRLSTPR EQ 1000).ITE                                   00000054
+         MNOTE 8,'INVALID STATEMENT TYPE - INTERNAL ERROR'              00000055
+         AGO   .MEXIT                                                   00000056
+.HEADER  ANOP                                                           00000057
+&PRCC#   SETA  1                       INITIALIZE COND NUMBER           00000058
+&PRDDA#  SETA  1                       INITIALIZE DDA NUMBER            00000059
+&PRDDB#  SETA  1                       INITIALIZE DDB NUMBER            00000060
+&PRSTEP# SETA  1                       START WITH STEP 1                00000061
+&PRJCL#  SETA  1                       START WITH ONE JCL               00000066
+&PRSYM#  SETA  1                       START WITH ONE SYMBOL            00000062
+&PRSIN#  SETA  1                       START WITH SYSIN DATA            00000063
+&PRITE#  SETA  1                       STARTING ITE ENTRY               00000063
+&PRELEM# SETA  1                       PROCESSOR ELEMENT STARTING NUM.
+&PRIFNUM SETA  0                       NO ENTRY YET GENERATED
+&PRIBLKNM SETC '0'                     NO ENTRY YET GENERATED
+&PRFIRST SETC  'PR_FIRST'              FIRST STARTING ENTRY             00000063
+&PRFIRSTGEN SETB 0                     NO ENTRY YET GENERATED
+         AGO   .GEN                                                     00000064
+.JCL     ANOP                                                           00000070
+&PRJCL#  SETA  &PRJCL#+1                                                00000071
+         AGO   .GEN                                                     00000072
+.SYMBOL  ANOP                                                           00000065
+&PRSYM#  SETA  &PRSYM#+1                                                00000066
+         AGO   .GEN                                                     00000067
+.STEP    ANOP                                                           00000068
+&I       SETA  &PRSTEP#-1                                               00000069
+&J       SETA  &PRDDA#-1                                                00000070
+&K       SETA  &PRDDB#-1                                                00000071
+&X       SETC  'PGM&I'                                                  00000072
+&Y       SETC  'DDA&J'                                                  00000073
+&Z       SETC  'DDB&K'                                                  00000074
+&PRSTEP# SETA  &PRSTEP#+1                                               00000075
+&PRCC    EQU   0                       GENERATE                         00000076
+&PRDDA   EQU   0                       . LABELS                         00000077
+&PRDDB   EQU   0                       . . .                            00000078
+&PRSIN   EQU   0                       . . .                            00000079
+         AIF      ('&PRINEXT' EQ '').STEP020
+&PRINEXT EQU   0                       . . .                            00000079
+&PRINEXT SETC  ''                      . . .                            00000079
+.STEP020 ANOP
+&PRCC#   SETA  &PRCC#+1                                                 00000080
+&PRDDA#  SETA  &PRDDA#+1                                                00000081
+&PRDDB#  SETA  &PRDDB#+1                                                00000082
+&PRSIN#  SETA  &PRSIN#+1                                                00000083
+         AIF   (&I EQ 0).GEN                                            00000084
+&X.A     EQU   &PRPGM#A                                                 00000085
+&X.B     EQU   &PRPGM#B                                                 00000086
+&Y.B     EQU   &PRDDA#B                                                 00000087
+&Z.S     EQU   &PRDDB#S                                                 00000088
+&PRPGM#A SETA  0                                                        00000089
+&PRPGM#B SETA  0                                                        00000090
+&PRDDA#B SETA  0                                                        00000091
+&PRDDB#S SETA  0                                                        00000092
+         AGO   .GEN                                                     00000093
+.COND    ANOP                                                           00000094
+&PRCC#   SETA  &PRCC#+1                                                 00000095
+         AGO   .GEN                                                     00000096
+.DDA     ANOP                                                           00000097
+&J       SETA  &PRDDA#-1                                                00000098
+&K       SETA  &PRDDB#-1                                                00000099
+&Y       SETC  'DDA&J'                                                  00000100
+&Z       SETC  'DDB&K'                                                  00000101
+.*       $PRELEM RETURN,TYPE=DDB
+.*       $PRELEM POP,TYPE=DDB
+         AIF      ('&PRINEXT' EQ '').DDA020
+&PRINEXT EQU   0                       . . .                            00000079
+&PRINEXT SETC  ''                      . . .                            00000079
+.DDA020  ANOP
+&PRDDA#  SETA  &PRDDA#+1                                                00000102
+&PRPGM#A SETA  &PRPGM#A+1                                               00000103
+&PRDDB   EQU   0                       GENERATE LABEL                   00000104
+&PRDDB#  SETA  &PRDDB#+1                                                00000105
+&PRSIN   EQU   0                       GENERATE LABEL                   00000106
+&PRSIN#  SETA  &PRSIN#+1                                                00000107
+&Y.B     EQU   &PRDDA#B                                                 00000108
+&PRDDA#B SETA  0                                                        00000109
+&Z.S     EQU   &PRDDB#S                                                 00000110
+&PRDDB#S SETA  0                                                        00000111
+         AGO   .GEN                                                     00000112
+.DDB     ANOP                                                           00000113
+&K       SETA  &PRDDB#-1                                                00000114
+&Z       SETC  'DDB&K'                                                  00000115
+&PRDDB#  SETA  &PRDDB#+1                                                00000116
+&PRSIN   EQU   0                       GENERATE LABEL                   00000117
+&PRSIN#  SETA  &PRSIN#+1                                                00000118
+&PRPGM#B SETA  &PRPGM#B+1                                               00000119
+&PRDDA#B SETA  &PRDDA#B+1                                               00000120
+&Z.S     EQU   &PRDDB#S                                                 00000121
+&PRDDB#S SETA  0                                                        00000122
+         AIF      ('&PRINEXT' EQ '').DDB020
+&PRINEXT EQU   0                       . . .                            00000079
+&PRINEXT SETC  ''                      . . .                            00000079
+.DDB020  ANOP
+         AGO   .GEN                                                     00000123
+.SYSIN   ANOP                                                           00000124
+&PRSIN#  SETA  &PRSIN#+1                                                00000125
+&PRDDB#S SETA  &PRDDB#S+1                                               00000126
+         AGO   .GEN                                                     00000127
+.TRAILER ANOP                                                           00000128
+&PRCC    EQU   0                       GENERATE                         00000129
+&PRDDA   EQU   0                       . LABELS                         00000130
+&PRDDB   EQU   0                       . . .                            00000131
+&PRSTEP  EQU   0                       . . .                            00000132
+&PRJCL   EQU   0                       . . .                            00000141
+&PRSYM   EQU   0                       . . .                            00000133
+&PRSIN   EQU   0                       . . .                            00000134
+&I       SETA  &PRSTEP#-1                                               00000135
+&J       SETA  &PRDDA#-1                                                00000136
+&K       SETA  &PRDDB#-1                                                00000071
+&X       SETC  'PGM&I'                                                  00000137
+&Y       SETC  'DDA&J'                                                  00000138
+&Z       SETC  'DDB&K'                                                  00000074
+&X.A     EQU   &PRPGM#A                                                 00000139
+&X.B     EQU   &PRPGM#B                                                 00000140
+&Y.B     EQU   &PRDDA#B                                                 00000141
+&Z.S     EQU   &PRDDB#S                                                 00000088
+&PRITE   SETC  ''                      . . .                            00000134
+&PRSTART SETB  0
+         AIF      ('&PRINEXT' EQ '').TRL020
+&PRINEXT EQU   0                       . . .                            00000079
+&PRINEXT SETC  ''                      . . .                            00000079
+.TRL020  ANOP
+         AGO   .MEXIT                                                   00000142
+.GEN     ANOP                                                           00000143
+&PRCC    SETC  'CC&PRCC#'              BUILD COND LABEL NAME            00000144
+&PRDDA   SETC  'DDA&PRDDA#'            BUILD DDA LABEL NAME             00000145
+&PRDDB   SETC  'DDB&PRDDB#'            BUILD DDB LABEL NAME             00000146
+&PRSTEP  SETC  'PGM&PRSTEP#'           BUILD STEP LABEL NAME            00000147
+&PRJCL   SETC  'JCL&PRJCL#'            BUILD SYMBOL LABEL NAME          00000160
+&PRSYM   SETC  'SYM&PRSYM#'            BUILD SYMBOL LABEL NAME          00000148
+&PRSIN   SETC  'SIN&PRSIN#'            BUILD SYSIN LABEL NAME           00000149
+         AGO   .MEXIT                                                   00000150
+.ITE     ANOP                                                           00000143
+&PRITE#  SETA  &PRITE#+1               INCREMENT LABEL NUMBER           00000144
+&PRITE   SETC  'PRITE&PRITE#'          BUILD ITE LABEL NAME             00000144
+         AGO   .MEXIT                                                   00000150
+.MEXIT   ANOP                                                           00000151
+         MEND                                                           00000152

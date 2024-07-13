@@ -1,0 +1,68 @@
+         MACRO
+&NAME    $REQPDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$REQPDS  DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$REQPDS  DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $REQPDS - BLOCK FOR REQUEST PARMS ASSOCIATED WITH THE      *
+*                   ACTIONS            11/17/87                      *
+*                                                                    *
+**********************************************************************
+REQLEN    DC    AL2(REQSIZE)       LENGTH OF THE BLOCK
+REQVERS   DC    AL2(REQ$VERS)      CURRENT VERSION OF THE BLOCK
+REQ$VERS  EQU   2                      VERSION OF THE BLOCK
+REQID     DC    CL4'$REQ'          BLOCK ID
+REQCCID   DC    CL12' '            CCID FOR ACTION
+REQCOMM   DC    CL40' '            COMMENT FOR ACTION
+REQFLAG   DC    F'0'               SPECIAL FLAGS
+REQSISOF  DC    CL1' '             SIGN-OUT OVERRIDE FOR ACTION
+REQ$YES   EQU   C'Y'                    YES
+REQ$NO    EQU   C'N'                    NO
+REQSISOC  DC    CL1' '             RETRIEVE COPY ONLY ( Y OR N)
+REQEXPND  DC    CL1' '             RETRIEVE EXPAND INCLUDES ( Y OR N)
+REQOVRWR  DC    CL1' '             RETRIEVE WRITE OVER EXISTING MBR
+REQRTCOD  DC    F'0'               ACTION RETURN CODE
+REQELVER  DC    CL2' '             NEW VERSION
+REQCPYBK  DC    CL1' '             GENERATE COPYBACK OPTION
+REQBENE   DC    CL1' '             BYPASS ELEMENT NAME EDIT
+REQOEMCH  DC    CL1' '             VALIDATE ACTION - ELEMENT MASTER
+REQOSYCH  DC    CL1' '             VALIDATE ACTION - SYNCHRONIZATION
+REQOCMCH  DC    CL1' '             VALIDATE ACTION - COMP VALIDATION
+REQOTMSG  DC    CL1' '             VALIDATE ACTION - TERSE MESSAGES
+REQDEL    DC    CL1' '             DELETE ELEMENT AFTER ACTION (Y/N)
+REQMOVWH  DC    CL1' '             MOVE WITH HISTORY (Y/N)
+REQUPDT   DC    CL1' '             ADD WITH OPTION UPDATE (Y/N)
+REQBYGEN  DC    CL1' '             BYPASS GENERATE PROCESSOR (Y/N)
+REQONLCMP DC    CL1' '             DELETE ONLY COMPONENT (Y/N)
+REQSYNC   DC    CL1' '             SYNCHRONIZE (Y/N)
+REQIGGF   DC    CL1' '             IGNORE GENERATE FAILED (Y/N)
+REQBYDP   DC    CL1' '             BYPASS DELETE PROCESSOR
+REQOPGRP  DC    CL8' '             PROCESSOR GROUP OPTION
+REQSOUID  DC    CL8' '             SIGN-OUT TO USER ID
+REQOSRCH  DC    CL1' '             SEARCH ENVIRONMENT MAP
+REQORSGN  DC    CL1' '             RETAIN SIGNOUT
+REQOJUMP  DC    CL1' '             JUMP
+REQOSGNI  DC    CL1' '             SIGNIN
+REQUSR    DS    XL80               USER DATA TO WRITE TO MCF
+REQOAUTG  DC    CL1' '             AUTOGEN OPTION FOR ADD, UPD AND GEN
+REQOAUTX  DC    CL1' '             AUTOGEN ON BEHALF OF A COMPONENT
+REQNOSRC  DC    CL1' '             GENERATE NOSOURCE OPTION
+REQORGH   DC    CL1' '             RESTORE: RETAIN GENERATE HISTORY
+REQOSPAN  DC    CL1' '             AUTOGEN SPAN OPTION
+REQOSNON  EQU   C'N'               AUTOGEN SPAN NONE
+REQOSALL  EQU   C'A'               AUTOGEN SPAN ALL
+REQOSSYS  EQU   C'S'               AUTOGEN SPAN SYSTEMS
+REQOSSUB  EQU   C'B'               AUTOGEN SPAN SUBSYSTEMS
+REQAUPDT  DC    CL1' '             ALTER OPTION UPDATE (Y/N)
+REQASRCH  DC    CL1' '             ALTER OPTION SEARCH ALL/FIRST
+REQASCHA  EQU   C'A'               ALTER OPTION SEARCH ALL
+REQASCHF  EQU   C'F'               ALTER OPTION SEARCH FIRST FOUND
+REQAXACT  DC    CL1' '             ALTER OPTION EXACT MATCH (Y/N)
+REQONDOC  DC    CL1' '             BYPASS DUPLICATE OUTPUT CK(Y/N)
+          DS    XL31               ** RESERVED **
+REQSIZE   EQU   *-$REQPDS          LENGTH OF $REQPDS BLOCK
+         MEND

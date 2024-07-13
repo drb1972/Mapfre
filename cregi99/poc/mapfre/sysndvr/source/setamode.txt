@@ -1,0 +1,20 @@
+         MACRO                                                          00000100
+&LABEL   SETAMODE &AMODE,&WORKREG=R15                                   00000200
+         LCLC  &X                                                       00030000
+&X       SETC  '&SYSNDX'                                                00040000
+&LABEL   DS    0H                                                       00050000
+         L     &WORKREG,X'10'          GET CVT ADDRESS                  00060000
+         TM    116(&WORKREG),X'80'     TEST FOR XA                      00070000
+         LA    &WORKREG,MODE&X         GET ADDRESS INTO REGISTER        00090000
+         BZR   &WORKREG                . EXIT IF NOT XA                 00091003
+         AIF   (&AMODE EQ 31).SET31                                     00001000
+         AIF   (&AMODE EQ 24).SET24                                     00110000
+         MNOTE 8,'*** INVALID AMODE SPECIFIED, 24 ASSUMED.'             00120000
+         AGO   .SET24                                                   00130000
+.SET31   ANOP                                                           00001500
+         O     &WORKREG,=X'80000000'   SET 31-BIT MODE VIA SIGN BIT     00150003
+.SET24   ANOP                                                           00160000
+         BSM   0,&WORKREG              ENTER MODE                       00170000
+.EXIT    ANOP                                                           00200001
+MODE&X   DS    0H                                                       00210000
+         MEND                                                           00001700

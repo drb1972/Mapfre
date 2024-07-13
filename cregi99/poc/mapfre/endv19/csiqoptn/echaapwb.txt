@@ -1,0 +1,25 @@
+      ***************************************************************
+      *             PASSWORD BLOCK
+      ***************************************************************
+      * THIS COPYBOOK MAPS THE API PASSWORD BLOCK.
+      * THIS BLOCK ALLOWS YOU TO RUN THE API UNDER THE SECURITY
+      * CONTEXT OF A USERID PASSED WITHIN THIS BLOCK.  PASSWORD IS
+      * REQUIRED.
+      * YOU MAY ALSO CHANGE THE PASSWORD ASSOCIATED WITH THE USERID.
+      *
+      *****************************************************************
+       01  AAPWB-RQ.
+      *        HEADER DATA
+           05  AAPWB-RQ-HEADER.
+               10  AAPWB-RQ-LEN           PIC 9(04) COMP VALUE 68.
+               10  AAPWB-RQ-FLAGS         PIC 9(04) COMP VALUE ZERO.
+               10  AAPWB-RQ-ID            PIC 9(04) COMP VALUE 1012.
+               10  AAPWB-RQ-VERS          PIC 9(04) COMP VALUE 1.
+               10  AAPWB-RQ-EYE           PIC X(04)      VALUE 'APWB'.
+           05  AAPWB-RQ-DATAAREA.
+      ***************************************************************
+      *        USERID/PASSWORD/NEW PASSWORD
+      ***************************************************************
+               10  AAPWB-RQ-USER          PIC X(8)       VALUE SPACES.
+               10  AAPWB-RQ-PW            PIC X(24)      VALUE SPACES.
+               10  AAPWB-RQ-NPW           PIC X(24)      VALUE SPACES.

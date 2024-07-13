@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Standardize Version Level Format to VVLL \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Standardize Version Level Format to VVLL +
++
+ The format of the version and level field was changed to%VVLL.+
+ Reports, message text, and ISPF panels were modified to adhere
+ to this standard. Affected reports include CONRPT42, CONRPT80,
+ CONRPT81, CONRPT82, CONRPT83, and CONRPT84.
+
+ API, CSV and SMF records containing version and level information
+ have not been modified.
+
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT17000
+)END

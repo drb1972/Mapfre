@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Member/USS File Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++You can execute the following actions from appropriate selection lists:
+   %A+- Add
+   %U+- Update
+   %L+- List
+   %P+- Print
+   %B+- Browse
++
+%From Data set+- Data set containing the members on the list.
+%From Path+- Path name containing the USS File names on the list.
++
+%Member+- Names of members that met selection criteria.
+%USS File+- Names of files that met selection criteria.
++
++
++ Select one of the options below for more information:
++
+%    1+- Add/update selection list  %2+- Footprint fields (list/print)
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITMSEL1 2,CITFOOT0)
+)END

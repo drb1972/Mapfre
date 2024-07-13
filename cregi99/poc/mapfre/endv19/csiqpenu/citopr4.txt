@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "TO" USS file name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Retrieve new name panel appears when you select the%RN+option
++from the Element Selection panel.
++
+%From Element+- The Element name you selected on the previous panel
+        carries forward and is display. If the name is greater than
+        51 characters you can use the scroll keys or the%ZEXPAND+command
+        to display the entire value.
+
+%To USS File+- The 1 to 255 character name of the To USS file. The
+        Element name is placed into the To USS file field as a default.
+        You can then modify the value as necessary. Five 51 character
+        lines are provided to enter the value.
++
++
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

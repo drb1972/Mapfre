@@ -1,0 +1,22 @@
+)ATTR DEFAULT(!+_)
+       /* ! TYPE(TEXT) INTENS(HIGH)    FOR BOLD TEXT     */
+       /* + TYPE(TEXT) INTENS(LOW)     REGULAR TEXT      */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) */
+)BODY EXPAND(\\)
+!TUTORIAL \-\ WIP File Annotation Examples \-\ TUTORIAL
+!OPTION ===>_ZCMD                                                              +
+!
+!Annotation   Description+
++
+!  % I-1  +   A line has been inserted (% I) by Derivation 1.
++
+!  % D-2  +   A line has been deleted (% D) by Derivation 2.
++
+!  % D-1,2+   Both derivations deleted this line; called a common deletion.
++
+!  %?I-1  +   A potential conflict exists at this point. Both
+!  %?I-2  +    derivations inserted different lines in the same place.
++
++
++
+)END

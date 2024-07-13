@@ -1,0 +1,27 @@
+ENIP050E 'Invalid Attributes'                            .ALARM=YES
+'The data set specified has invalid attributes'
+
+ENIP051E 'Member Exists'                                 .ALARM=YES
+'The member specified exists and NO REPLACE was specified'
+
+ENIP052E 'Validation Failed'                             .ALARM=YES
+'The data set specified failed the validation process'
+
+ENIP053E 'Data Set Name Required'                        .ALARM=YES
+'A data set name is required for the &PDVACTN action'
+
+ENIP054E 'SCL Must be Provided'                          .ALARM=YES
+'The DEFINE action requires that SCL be provided for the package'
+
+ENIP055E 'Mutually Exclusive'                            .ALARM=YES
+'IMPORT SCL Data set and "Package to be copied" are mutually exclusive'
+
+ENIP056E 'Not Authorized for Action'                     .ALARM=YES
+'You are not authorized for the &PDVACTN against ''&PDVCPKGI''
+
+ENIP057E 'Invalid Value '                                .ALARM=YES
+'Specify Y, N, or W for this field '
+
+ENIP058E 'JCL Procedure Required'                        .ALARM=YES
+'The JCL Procedure name is required'
+

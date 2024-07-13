@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Action Summary, Move - Update \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Action     Is available in    And does this+
+%             f/g    batch+
++
++ Move         x       x       Moves elements between stages, within or
++                                 across environments.
++ Print        x       x       Prints element or member information.
++ Restore              x       Restores elements to from an archive
++                                 data set.
++ Retrieve     x       x       Copies elements to an external data set
++ Signin       x       x       Removes the user signout associated
++                                 with an element.
++ Transfer             x       Moves elements between locations
++                                 that are not on the same map route.
++ Update       x       x       Updates an element from an external
++                                 data set.
++
++
++                                            (%PF3+to return)
+)END

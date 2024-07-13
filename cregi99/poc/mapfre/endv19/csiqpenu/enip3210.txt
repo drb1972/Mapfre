@@ -1,0 +1,128 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP3210                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+)BODY
++-----------------------%Package Approver Group Display+------------------------
++ Command ==>_VARWKCMD                                            +Scroll:_AMT +
++
++  Package ID........#PDVSLPKG        +
++  Description.......#PDVSLDSC                                          +
++  Package type......#PDVSLTYP +
++  Status............#PDVSLSTA    +
++  From Environment..#PDVAPENV+
++  Quorum..#Z  +Number Approved..#Z  +Number Denied..#Z  +
++
++  Display:
++    B: Browse Approver Group
++
++  Approver  Status       Date     Time   Required
++  --------  -----------  -------  -----  --------
+)MODEL
+  #Z       +#Z          +#Z      +#Z    +   #Z+
+)INIT
+/* Start code for ESORT */
+VGET (ZSCREEN)
+  IF (&ZSCREEN = 1)
+    &PANELID1 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID1) PROFILE
+  IF (&ZSCREEN = 2)
+    &PANELID2 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID2) PROFILE
+  IF (&ZSCREEN = 3)
+    &PANELID3 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID3) PROFILE
+  IF (&ZSCREEN = 4)
+    &PANELID4 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID4) PROFILE
+  IF (&ZSCREEN = 5)
+    &PANELID5 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID5) PROFILE
+  IF (&ZSCREEN = 6)
+    &PANELID6 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID6) PROFILE
+  IF (&ZSCREEN = 7)
+    &PANELID7 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID7) PROFILE
+  IF (&ZSCREEN = 8)
+    &PANELID8 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID8) PROFILE
+  IF (&ZSCREEN = 9)
+    &PANELID9 = '&ZSCREEN:ENIP3210'
+    VPUT (PANELID9) PROFILE
+  IF (&ZSCREEN = A)
+    &PANELIDA = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDA) PROFILE
+  IF (&ZSCREEN = B)
+    &PANELIDB = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDB) PROFILE
+  IF (&ZSCREEN = C)
+    &PANELIDC = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDC) PROFILE
+  IF (&ZSCREEN = D)
+    &PANELIDD = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDD) PROFILE
+  IF (&ZSCREEN = E)
+    &PANELIDE = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDE) PROFILE
+  IF (&ZSCREEN = F)
+    &PANELIDF = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDF) PROFILE
+  IF (&ZSCREEN = G)
+    &PANELIDG = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDG) PROFILE
+  IF (&ZSCREEN = H)
+    &PANELIDH = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDH) PROFILE
+  IF (&ZSCREEN = I)
+    &PANELIDI = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDI) PROFILE
+  IF (&ZSCREEN = J)
+    &PANELIDJ = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDJ) PROFILE
+  IF (&ZSCREEN = K)
+    &PANELIDK = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDK) PROFILE
+  IF (&ZSCREEN = L)
+    &PANELIDL = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDL) PROFILE
+  IF (&ZSCREEN = M)
+    &PANELIDM = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDM) PROFILE
+  IF (&ZSCREEN = N)
+    &PANELIDN = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDN) PROFILE
+  IF (&ZSCREEN = O)
+    &PANELIDO = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDO) PROFILE
+  IF (&ZSCREEN = P)
+    &PANELIDP = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDP) PROFILE
+  IF (&ZSCREEN = Q)
+    &PANELIDQ = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDQ) PROFILE
+  IF (&ZSCREEN = R)
+    &PANELIDR = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDR) PROFILE
+  IF (&ZSCREEN = S)
+    &PANELIDS = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDS) PROFILE
+  IF (&ZSCREEN = T)
+    &PANELIDT = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDT) PROFILE
+  IF (&ZSCREEN = U)
+    &PANELIDU = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDU) PROFILE
+  IF (&ZSCREEN = V)
+    &PANELIDV = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDV) PROFILE
+  IF (&ZSCREEN = W)
+    &PANELIDW = '&ZSCREEN:ENIP3210'
+    VPUT (PANELIDW) PROFILE
+/* End code for ESORT */
+)PROC
+)END

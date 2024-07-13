@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Software Configuration Services \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
+%
+%Software Configuration Services+
++
+ Software Configuration Services automates the configuration of mainframe
+ products after they have been installed using Mainframe Software Manager (MSM).
+ When installing Endevor for the first time and after installing
+ Endevor using Mainframe Software Manager, you can use Software
+ Configuration Services to execute Rapid Implementation. The Software
+ Configuration Services automated configuration for Endevor leads you
+ through all the tasks necessary to complete this process. Rapid Implementation
+ is a basic implementation of Endevor that uses a predefined environment,
+ with minimum customization. Later the implementation can be customized as
+ needed.
+
+
+
+
+
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1520
+)END

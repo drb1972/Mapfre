@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete Input Source \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether to delete the member (or data set if the input
++is a sequential file) after adding it. Acceptable values are:
++
+%     Y+- Default. Delete the input member.
++
+%     N+- Do not delete the input member.
++
++
++
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

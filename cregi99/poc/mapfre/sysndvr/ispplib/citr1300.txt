@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel
++
++  1.Type an alphanumeric character in the selection field for the reports
++     you want to generate.
++
++  2. Specify for reports         70  71  72
+%      Package ID+                 X   X   X
+%      Approver group+             X   X   X
+%      Status+                     X   X   X
+%     *Promotion History+          X   X   X
+%    **Select where date+          X   X   X
++
++  * - Selecting the promotion history option causes the current version
++      of a promotion package and all prior versions of the package
++      to be return.
++
++ ** - The select where date works as a filter. A package will only be
++      selected for a report if it meets all the specified time ranges.
++
++                                            (%PF3+to return)
+)END

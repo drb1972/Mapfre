@@ -1,0 +1,149 @@
+         MACRO
+&LABEL   @DELTA   &DSCT=YES
+.*
+.*   DELTA RECORD LAYOUT
+.*
+.*   ======================================================
+.*   THE COBOL COPYBOOK THAT MATCHES THIS MACRO IS C1COUPDP.
+.*   ======================================================
+.*
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+@DELTA   DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+@DELTA    EQU   *
+.SKPEQU  ANOP
+***                                                                 ***
+**  H E A D E R    O N    E V E R Y    C O N T R O L   R E C O R D   **
+***                                                                 ***
+CUDCONID DS    CL2                     CONTROL RECORD, IF = '.$'
+CUDCOEYE  EQU   C'.$'                   EYECATCHER
+CUDACTID DC    CL1' '                  RECORD TYPE
+CUDMTYPE  EQU   C'*'                    FIRST RECORD IN DELTA
+CUDETYPE  EQU   C'!'                    LONG ELM CONTROL RCD
+CUDSTYP@  EQU   C'@'                    START OF LEVEL
+CUDSTYP#  EQU   C'#'                    START OF LEVEL
+CUDPTYPE  EQU   C'&&'                   PROCESS RECORD
+CUDCTYPE  EQU   C'*'                    END OF LEVEL
+CUDITYPE  EQU   C'+'                    INSERT FOLLOWING RECORD(S)
+CUDDTYPE  EQU   C'-'                    DELETE RECORDS INDICATED
+CUDEND    EQU   C'$'                    LOGICAL END-OF-FILE
+         SPACE ,
+***                                                                 ***
+**    F I R S T    R E C O R D   I N   D E L T A   D E C K           **
+***                                                                 ***
+CUDMREC   EQU   *                       FIRST RECORD IN DELTA FILE
+CUDMKEY  DS    CL28                    VSAM KEY
+         ORG   CUDMKEY                 VSAM KEY REDEFINED
+CUDMSYS  DS    CL8                     SYSTEM
+CUDMSUB  DS    CL8                     SUBSYSTEM
+CUDMELM  DS    CL10                    ELEMENT
+CUDMTYP  DS    CL2                     TWO-BYTE TYPE IDENTIFIER
+         SPACE ,
+CUDMBNAM DS    CL10                    BASE MEMBER NAME
+CUDMVERS DS    CL2                     VERSION NUMBER (BASE)
+CUDMBTOT DS    CL5                     BASE STATEMENT TOTAL
+         ORG   CUDMBTOT
+          DS    X                      VALUE IS B'1111XXXX' IF CHAR
+CUDMBTOTF DS   FL4                     NUMBER OF STATEMENTS IN BINARY
+         ORG   CUDMBTOT+L'CUDMBTOT
+CUDMBDTE DS    CL6                     BASE DATE (YYMMDD)
+CUDMBTME DS    CL4                     BASE TIME (HHMM)
+CUDMLLVL DS    CL2                     CURRENT LEVEL NUMBER
+CUDMLTOT DS    CL5                     CURRENT STATEMENT TOTAL
+         ORG   CUDMLTOT
+          DS    X                      VALUE IS B'1111XXXX' IF CHAR
+CUDMLTOTF DS   FL4                     NUMBER OF STATEMENTS IN BINARY
+         ORG   CUDMLTOT+L'CUDMLTOT
+CUDMLDTE DS    CL6                     CURRENT LEVEL DATE (YYMMDD)
+CUDMLTME DS    CL4                     CURRENT LEVEL TIME (HHMM)
+CUDMFMT  DS    CL1                     DELTA DECK FORMAT (FWD/REV/IMG)
+CUDMLVER DS    CL2                     LAST (CURRENT) VERSION NUMBER
+CUDMLNG   EQU   *-@DELTA                LENGTH OF FIRST RECORD
+         SPACE ,
+***                                                                 ***
+**    S E C O N D   R E C O R D   I N   D E L T A   D E C K          **
+**         - ONLY PRESENT FOR LONG NAMED ELEMENTS                    **
+***                                                                 ***
+         ORG   CUDMREC
+CUDEREC   EQU   *                       SECOND CNTL REC IN DELTA
+CUDELEN  DS    CL4                     ELEMENT NAME LENGTH
+         DS    CL73                    ** RESERVED **
+CUDELNG   EQU   *-@DELTA                LENGTH OF ELM CNTL RCD
+***                                                                 ***
+**     L E V E L    R E C O R D    I N    D E L T A    D E C K       **
+***                                                                 ***
+         ORG   CUDMREC
+CUDLREC   EQU   *                       LEVEL RECORD IN DELTA DECK
+CUDLLVL  DS    CL2                     LEVEL NUMBER
+CUDLTOT  DS    CL5                     NUMBER OF STATEMENTS
+         ORG   CUDLTOT
+         DS    X                       VALUE IS B'1111XXXX' IF CHAR
+CUDLTOTF DS   FL4                      NUMBER OF STATEMENTS IN BINARY
+         ORG   CUDLTOT+L'CUDLTOT
+CUDLDTE  DS    CL6                     LEVEL DATE (YYMMDD)
+CUDLTME  DS    CL4                     LEVEL TIME (HHMM)
+CUDLUSER DS    CL8                     USER ID
+*
+CUDLINS  DS    CL5                     NUMBER OF INSERTS
+CUDLDEL  DS    CL5                     NUMBER OF DELETES
+         ORG   CUDLINS
+CUDLUNAM DS    CL10                    DELTA MEMBER - IMAGE FMT
+         ORG   CUDLINS+L'CUDLINS+L'CUDLDEL
+*
+CUDLDATE DS    CL8                     LEVEL TIMESTAMP/FINGERPRINT
+         DS    CL1                     ** RESERVED **
+CUDLSYNC DS    CL1                     SYNC LEVEL INDICATOR
+CUDLUPDP DS    CL3                     UPDATE-DELETE PERCENTAGE
+CUDLINSP DS    CL6                     UPDATE-INSERTION PERCENTAGE
+CUDLCCID DS    CL12                    CONTROL NUMBER
+CUDLTIME DS    CL8                     LEVEL TIMESTAMP/FINGERPRINT
+CUDLVERS DS    CL2                     LEVEL VERSION NUMBER
+         DS    CL1                     ** RESERVED **
+CUDLLNG   EQU   *-@DELTA                LENGTH OF LEVEL RECORD
+         SPACE ,
+***                                                                 ***
+**                  P R O C E S S    R E C O R D                     **
+***                                                                 ***
+         ORG   CUDMREC
+CUDPREC   EQU   *                       PROCESS RECORD
+CUDPLVL  DS    CL2                     LEVEL NUMBER
+CUDPTOT  DS    CL5                     NUMBER OF STATEMENTS
+CUDPVERS DS    CL2                     VERSION NUMBER
+CUDPDATA DS    CL68                    DATA FOR PROCESS RECORD
+CUDPLNG   EQU   *-@DELTA                LENGTH OF PROCESS RECORD
+         SPACE  ,
+***                                                                 ***
+**                 C O M M E N T    R E C O R D                      **
+***                                                                 ***
+         ORG   CUDMREC
+CUDCREC   EQU   *                       COMMENT RECORD
+CUDCLVL  DS    CL2                     LEVEL NUMBER
+CUDCDATA DS    CL40                    COMMENT RECORD DATA
+CUDCFULL DS    CL1                     'Y' - FULL IMAGE INCLUDED
+CUDCVERS DS    CL2                     VERSION NUMBER
+CUDCLNG   EQU   *-@DELTA                LENGTH OF COMMENT RECORD
+         ORG   CUDMREC
+         SPACE  ,
+***                                                                 ***
+**                   I N S E R T    R E C O R D                      **
+***                                                                 ***
+         ORG   CUDMREC
+CUDIREC   EQU   *                       INSERT RECORD
+CUDIAFTR DS    CL8                     INSERT AFTER REL RECORD NUMBER
+CUDICNTR DS    CL8                     NUMBER OF INSERT LINES (NEW 3.6)
+CUDIFULL DS    CL1                     'Y' = FULL IMAGE FOLLOWS
+CUDIUNAM DS    CL10                    ORIGINAL DELTA MEMBER - IMAGE
+CUDILNG   EQU  *-@DELTA                 LENGTH OF INSERT RECORD
+         SPACE ,
+***                                                                 ***
+**                   D E L E T E    R E C O R D                      **
+***                                                                 ***
+         ORG   CUDMREC
+CUDDREC   EQU  *                        DELETE RECORD
+CUDDFROM DS   CL8                      DELETE FROM HERE
+CUDDTO   DS   CL8                      DELETE TO THERE
+CUDDLNG   EQU  *-@DELTA                 LENGTH OF DELETE RECORD
+         ORG
+DELTALNG  EQU  *-@DELTA                 TOTAL DSECT LENGTH
+         MEND

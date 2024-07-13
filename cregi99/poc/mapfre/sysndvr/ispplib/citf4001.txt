@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Move - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+     applies if DISPLAY LIST=Y.
++
+%O+- Move the element from the FROM location to the next map location.
++
++                                   +
++
++                           (%PF3+to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

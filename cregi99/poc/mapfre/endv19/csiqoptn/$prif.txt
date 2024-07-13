@@ -1,0 +1,43 @@
+         MACRO
+&LABEL   $PRIF    &P,&LBL=
+         COPY     $PRGLBLS
+&PRIFLBL SETC     '0'
+         AIF      ('&P' EQ 'PUSH').PRIF100
+         AIF      ('&P' EQ 'POP').PRIF200
+         AIF      ('&P' EQ 'RETURN').PRIF300
+         MNOTE    12,'$PRIF Unsupported function: &P'
+         MEXIT
+.*
+.* PUSH
+.*
+.PRIF100 ANOP
+         AIF      (&PRIFNUM LE 0).PRIF110
+&PRIFLBL SETC     '&PREITE(&PRIFNUM)'
+.PRIF110 ANOP
+&PRIFNUM SETA     &PRIFNUM+1
+&PREITE(&PRIFNUM) SETC '&LBL'
+         MEXIT
+.*
+.* POP
+.*
+.PRIF200 ANOP
+         AIF      (&PRIFNUM LE 0).PRIF900
+&PRIFNUM SETA     &PRIFNUM-1
+         AIF      (&PRIFNUM LE 0).PRIF900
+&PRIFLBL SETC     '&PREITE(&PRIFNUM)'
+.* JDO   AGO      .PRIF900
+         AGO      .PRIFXIT
+.*
+.* RETURN
+.*
+.PRIF300 ANOP
+         AIF      (&PRIFNUM LE 0).PRIF900
+&PRIFLBL SETC     '&PREITE(&PRIFNUM)'
+.* JDO   AGO      .PRIF900
+         AGO      .PRIFXIT
+.PRIF900 ANOP
+.* JDO   AIF      ('&PRIFLBL' NE '').PRIFXIT
+&PRIFLBL SETC     '0'
+.PRIFXIT ANOP
+         MEXIT
+         MEND

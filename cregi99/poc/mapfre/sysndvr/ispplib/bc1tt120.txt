@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Complex Parallel Development \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Complex parallel development, like simple parallel development,
++involves more than one programmer working individually on the
++development of the same base program, with an eventual need to
++integrate the two sets of changes. But the actual complexity of the
++project-whether it be the degree of difficulty involved in the
++modifications required, the sheer number of changes involved, or the
++need for accurate and accessible information between all parties-sets
++it apart from a simple development situation. Complex parallel
++development can even involve two or more different sites. In this
++situation, the programs are not only being coded by different
++programmers, they are being coded by people who often have little or
++no communication with each other.
++
++
++                                               (%ENTER+to continue )
+)PROC
+   &ZCONT = BC1TT121
+)END

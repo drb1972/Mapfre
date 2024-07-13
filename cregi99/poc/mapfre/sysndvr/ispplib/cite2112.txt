@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - General Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
+%Duplicate proc o/p type check+- Indicates whether the processor
++   output registration check feature is activated. If enabled, the element
++   name is checked across types and processor groups for the same processor
++   output type.
++   %Across SBS+- Extends the duplicate proc o/p type check across subsystems.
++   If not enabled, the check is done only at the System level.
++
++   If activated, the acceptable error severity level value are:
+%      W+- Issue a warning message
+%      C+- Issue a caution message
+%      E+- Issue an error level message
++
++Select%1+or%2+ for more information about
+%    1+- CCIDs and comments         %2+- The Move action
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITF4000)
+)END

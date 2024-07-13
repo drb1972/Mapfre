@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Endevor  - New Features \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
++                                                                 %Page 1 of 2+
++The following panels present information about the features and enhancements
++that were made available with V16.0 of Endevor.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- Endevor Quick Edit Eclipse-Based UI                                 %base+
+% 2+- Best Practices Implementation Toolkit                               %base+
+% 3+- Autogen Action Option Enhancements                                  %base+
+% 4+- Concurrent Action Processing Type Groups                            %base+
+% 5+- Package Ship of Outputs ASIS after Backout                          %base+
+% 6+- UNIX System Services Package Ship Batch Administration              %base+
+% 7+- Package Ship Post-Ship Script Execution                             %base+
+% 8+- Package Ship Host Job Name for Remote Job                           %base+
++
++
++
++
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+for more options,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT16010 2,CIT16020 3,CIT16030 4,CIT16040
+                       5,CIT16050 6,CIT16060 7,CIT16070 8,CIT16080)
+   &ZCONT = CIT16001
+)END

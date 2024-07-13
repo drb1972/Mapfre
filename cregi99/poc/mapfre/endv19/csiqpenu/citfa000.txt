@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Element Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the List Elements action to create lists of information about
++selected elements residing in Endevor or in an
++archive data set.
++
++After generating a List request, you can edit the request data set to
++enhance the request. Do this using option 2, EDIT, on the Batch Options
++menu in conjunction with the List section of the SCL Reference Manual.
++
++  Select one of the options below for more information:
++
+%    1+- Panel options
+%    2+- Inventory fields
+%    3+- Element and Uppercase fields
+%    4+- List options
+%    5+- Text string/scan columns
+%    6+- Output options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITFA001 2,CITNDVR0 3,CITNDVRL
+                  4,CITLOPT0 5,CITTXSC0 6,CITLSOP0)
+)END

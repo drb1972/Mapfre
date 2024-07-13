@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Archive \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Type the line commands of%V+or%XE+next to the element(s) you wish to
++process.
++
++%V + - Archive an Element. Archiving source-less elements is not supported.
++
++%XE+ - Displays the element name in a pop-up Window. The window can be moved
++       by using:
++       1) the%WINDOW+command using a PF function key (KEYS)
++       2) by a double click on the pop-up boarder and double clicking
++          on the target location.
++
++To use the%ZEXPAND+command, enter the ZEXPAND command on the COMMAND line
++and position the cursor anywhere on the Element name field and press%ENTER.
++
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
+)END

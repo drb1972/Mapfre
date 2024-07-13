@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Creating Merge Output \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++PDM creates a merge output file or an Endevor merge output element from
++a WIP file. Before creating a merge output file or element, you must edit
++all conflicts out of the WIP file, or the merge output will fail. The WIP
++file can contain non-conflicting inserts and deletes.
++
++PDM creates a merge output file or element from a WIP file by removing the WIP
++header information, inserting and deleting lines as necessary, and removing
++the WIP annotations. PDM can create merge output files or elements in the
++following ways:
++  * Automatically, during the Build WIP process, when you specify
+%    Automatically merge=Y+on the WIP Specification panel.
++
++  * Upon request, by invoking option%3+on the PDM Primary Options Pane l.
++
++    Select%1-3+for information about specific enhancements
++
+%    1+- Specifying a merge WIP file     %2+- The merge file procedure
+%    3+- The merge element procedure
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T4000 2,BC1T4400 3,BC1T4500)
+)END

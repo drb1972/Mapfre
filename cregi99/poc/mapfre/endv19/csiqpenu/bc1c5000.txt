@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - New Integration Features \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Beginning with Release 3.6.1, PDM provides three additional points of
++integration with Endevor:
++
++  * CCIDs can be used to select elements during the Build WIP process.
++
++  * Version and level numbers appear on PDM output.
++
++  * Compare columns from the Endevor type definitions are
++    used as the compare columns for elements during WIP processing.
++
++    Select%1-3+for more information about:
++
+%    1+- CCID usage                 %3+- Compare columns
+%    2+- Version and level numbers
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1C5100 2,BC1C5200 3,BC1C5300)
+)END

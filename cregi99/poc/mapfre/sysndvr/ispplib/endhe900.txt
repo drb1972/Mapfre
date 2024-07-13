@@ -1,0 +1,28 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ COPYELM Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++  Use the COPYELM action to copy an element from an inventory
++  location into the Quick Edit ISPF/PDR Edit session.
++
++    Select one of the options below for more information:
+%      1+- Location fields
+%      2+- List options
++
++
++
++
++
++
++
++
++
++
++
++
++
++ \ \ (%END+to return) \ \
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITNDVR0  2,ENDHE130)
+)END

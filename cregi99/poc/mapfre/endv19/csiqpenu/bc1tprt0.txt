@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The PRTMAT Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PRTMAT command prints a formated version of the matrix. PRTMAT
++command syntax is:
++
+%  PrtMat sysout-class destination+
++
++Both sysout-class and destination are optional values that identify the
++output destination. If these values are not specified, PDM uses the
++values specified on the PDM User Defaults panel. If no defaults are
++specified, PDM routes the print output to SYSOUT class A.
++
++Examples:
++
++   PRTMAT C          Prints the matrix to class C.
++   PRTMAT C PRNT15   Prints the matrix to class C printer number 15.
++
++
+)END

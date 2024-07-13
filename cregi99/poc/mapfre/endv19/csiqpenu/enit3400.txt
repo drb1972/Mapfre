@@ -1,0 +1,18 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Display Package Note Text \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Display Package Notes Text panel appears when you select action N on the
++Execute Package panel and the Package Summary panel.  Use the Display Package
++Notes panel to review any user supplied package notes associated with the
++package.
++
++
++Press%PF3+or%End+to exit Help
++
+)PROC
+)END

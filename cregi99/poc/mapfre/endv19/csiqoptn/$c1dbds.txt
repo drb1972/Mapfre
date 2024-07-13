@@ -1,0 +1,30 @@
+         MACRO
+&NAME    $C1DBDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$C1DBDS  DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$C1DBDS  DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $C1DBDS - BLOCK TO DESCRIBE THE C1DB INERFACE PARMS        *
+*                   09/28/87                                         *
+*                                                                    *
+**********************************************************************
+C1DLEN   DC    AL2(C1DSIZE)        SIZE OF THE BLOCK
+C1DTYPE  DC    AL2(C1D$TYPE)       TYPE OF BLOCK
+C1D$TYPE EQU   1000                BLOCK TYPE NUMBER
+C1DVERS  DC    AL2(C1D$VERS)       CURRENT VERSION OF THE BLOCK
+C1D$VERS EQU   1                       VERSION OF THE BLOCK
+C1DFLAG  DC    AL2(0)              FLAGS
+C1DID    DC    CL4'$C1D'           BLOCK ID
+C1DBACT  DC    CL1'N'              C1DB INTERFACE ACTIVE
+C1DBOP1  DC    CL1'N'              C1DB INTERFACE OPTION 1
+C1DBOP2  DC    CL1'N'              C1DB INTERFACE OPTION 2
+C1DBOP3  DC    CL1'N'              C1DB INTERFACE OPTION 3
+C1DBOP4  DC    CL1'N'              C1DB INTERFACE OPTION 4
+         DC    CL3'N'              ** RESERVED   **
+         DC    8F'0'               ** RESERVED  **
+C1DSIZE  EQU   *-$C1DBDS           LENGTH OF THE BLOCK
+         MEND

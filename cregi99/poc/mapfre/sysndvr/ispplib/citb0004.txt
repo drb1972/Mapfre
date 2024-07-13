@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Validating Batch Requests \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the VALIDATE option to validate the SCL in a request data set, as
++well as the JOB STATEMENT INFORMATION filled in on the screen. The
++syntax of the action requests are checked and appropriate messages are
++returned in the TSO/ISPF Browse facility if there are errors.
+
++Specify the data set you want to validate using the REQUEST DATA SET
++or OTHER PARTITIONED OR SEQUENTIAL DATA SET fields.
+
++Press ENTER to validate the action request data set and job card.
+
+
+
+
+
+
++
++\ \ (%PF3+to return) \ \
+)END

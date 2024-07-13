@@ -1,0 +1,86 @@
+         MACRO
+         ENHALSCL &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        LIST PACKAGE SCL - REQUEST BLOCK
+*
+***********************************************************************
+ALSCL_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+ALSCL_RQ$EYE    EQU C'LSCQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALSCL_RQ
+         SPACE ,
+ALSCL_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSCL_RQ_DATA
+ALSCL_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+ALSCL_RQ_PROMHIST DC CL1' '            RETURN PROMOTION HISTORY OPTION
+ALSCL_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALSCL_RQ_VER#1_DATADSLN EQU *-ALSCL_RQ_DATA
+ALSCL_RQ_VER#1_DSLN     EQU *-ALSCL_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSCL_RQ_VER#2_DATADSLN EQU *-ALSCL_RQ_DATA
+ALSCL_RQ_VER#2_DSLN     EQU *-ALSCL_RQ
+         SPACE ,
+ALSCL_RQ_DATADSLN EQU *-ALSCL_RQ_DATA
+ALSCL_RQ_DSLN     EQU *-ALSCL_RQ
+         ORG      ALSCL_RQ_DATA
+ALSCL_RQ_DATAAREA DS XL(ALSCL_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*
+*        LIST PACKAGE SCL - RESPONSE BLOCK
+*
+***********************************************************************
+ALSCL_RS$VER    EQU ALSCL_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALSCL_RS$EYE    EQU C'LSCS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALSCL_RS
+         SPACE ,
+ALSCL_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSCL_RS_DATA
+ALSCL_RS_PKGID    DC CL16' '           PACKAGE ID
+ALSCL_RS_SITE     DC CL1' '            SITE ID
+ALSCL_RS_RUD      DC CL7' '            DATE OF LAST PHY REC UPDATE
+ALSCL_RS_RUT      DC CL5' '            TIME OF LAST PHY REC UPDATE
+ALSCL_RS_RUU      DC CL8' '            USERID ASSOC WITH LAST UPDATE
+                  DC CL1' '            SLACK ALIGNMENT
+ALSCL_RS_NOSTMTS  DC H'0'              # OF SCL STMTS IN THIS RECORD
+ALSCL_RS_NOST$MX  EQU 10               MAXIMUM # OF STATEMENT ALLOWED
+                  DC CL2' '            ALIGNMENT
+ALSCL_RS_ENTRY    DS 0X                BEGINNING OF ENTRY
+ALSCL_RS_SCL      DC CL80' '           SCL STATEMENT
+ALSCL_RS_ENTY$LN  EQU *-ALSCL_RS_ENTRY LENGTH OF ONE ENTRY
+                  DS    (ALSCL_RS_NOST$MX-1)XL(ALSCL_RS_ENTY$LN)
+                  DC CL2' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALSCL_RS_VER#1_DATADSLN EQU *-ALSCL_RS_DATA
+ALSCL_RS_VER#1_DSLN     EQU *-ALSCL_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSCL_RS_IPKGID   DS CL16              PROMOTION INTERNAL PACKAGE ID
+ALSCL_RS_PKGVER   DS H                 PROMOTION PACKAGE VERSION
+                  DS CL22              * RESERVED *
+                  DS 0F                ENSURE ALIGNMENT
+         SPACE ,
+ALSCL_RS_VER#2_DATADSLN EQU *-ALSCL_RS_DATAAREA
+ALSCL_RS_VER#2_DSLN     EQU *-ALSCL_RS
+         SPACE ,
+ALSCL_RS_DATADSLN EQU *-ALSCL_RS_DATA
+ALSCL_RS_DSLN     EQU *-ALSCL_RS
+         ORG      ALSCL_RS_DATA
+ALSCL_RS_DATAAREA DS XL(ALSCL_RS_DATADSLN)     DATA AREA
+         MEND

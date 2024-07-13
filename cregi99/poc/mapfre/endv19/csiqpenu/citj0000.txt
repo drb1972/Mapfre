@@ -1,0 +1,55 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)                 /*CCID*/
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+ @ TYPE(ET)                  /* Emphasised Text */
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++
++These panels provide information about features and enhancements
++introduced in%Endevor Version 19.0+as they are published.
++
++Enter one of the following options for more information:             Delivery:
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+{ 1}Endevor Version 19.0 GA release+
+{ 2}Processor Utility Program CONMOVE+                      %AVAILABLE +CD19001
+{ 3}QE Element List Column Customization - CCOLS+           %&DISCCENA +CD19002
+{ 4}Endevor Text Search+                                    %&DISFTXTS +CD19003
+{ 5}Improved Processor Group Selection List+                %AVAILABLE +CD19004
+{ 6}Extended Element Name Masking+                          %AVAILABLE +CD19005
++
++
++
++\ \ For more details, See the@Endevor+documentation at \ \
++\ \ %https://techdocs.broadcom.com/endevor \ \
++
++\ \ (Press}ENTER+to continue or}END+to return) \ \
+)INIT
+&DISFTXTS = TRANS(&VNTFTXTS E,'ENABLED ' D,'DISABLED')
+&DISCCENA = TRANS(&VNTCCOLS E,'ENABLED ' D,'DISABLED')
+&VARC1LR = '        '
+)PROC
+ &ZSEL = TRANS(&ZCMD 1,CITJ0010
+                     2,CITJ0020
+                     3,CITJ0030
+                     4,CITJ0040
+                     5,CITJ0050
+                     6,CITJ0060
+                 /*  7,CITJ0070 */
+                 /*  8,CITJ0080 */
+                 /*  9,CITJ0090 */
+                 /* 10,CITJ0000 */
+                  *,'?')
+ IF (.RESP = END) &VARC1LR = PASSTHRU
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(6)
+FIELD(ZPS01007) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01008) VAR(ZCMD) VAL(END)
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package USS Backout Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++  This panel displays:
++  - Package ID and package status information
++  - USS path and file name and backout status
++  - Date and time of the backout if a file has been backed out
++  - Date and time of the backin if a file has been backed in after backout
++
++
++  Select from the following options for more information:
+%    1+- Package ID fields          %2+- Package status
++
++
++
++
++
++
++
++
++
++
++                               %PF3+to return
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0)
+)END

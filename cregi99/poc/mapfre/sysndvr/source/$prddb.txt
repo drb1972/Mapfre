@@ -1,0 +1,413 @@
+         MACRO
+         $PRDDB &CONFIG=NO,            MONITOR=COMPONENTS              X
+               &FOOT=,                 FOOTPRNT=NONE/CREATE/VERIFY     X
+               &ENQDEQ=NO,             SPECIAL ENQUEUE REQUIRED        X
+               &SYSIN=NO,              DATASET CONTAINS DD*            X
+               &DSNAME=,               DATASET NAME                    X
+               &MEMBER=,               MEMBER NAME                     X
+               &ALLOC=STD,             ALLOCATION TYPE (STD OR MAP)    X
+               &DISP1=,                INITIAL DISPOSITION             X
+               &DISP2=,                NORMAL DISPOSITION              X
+               &DISP3=,                ABNORMAL DISPOSITION            X
+               &SPACE=,                SPACE TYPE (CYL,TRK,BLK)        X
+               &DSNTYPE=,              DATA SET TYPE                   X
+               &PATH=,                 PATH                            X
+               &PNDSP=,                PATH NORMAL DISPOSITION         X
+               &PCDSP=,                PATH ABNORMAL DISPOSITION       X
+               &POPT1=,                PATH OPTION                     X
+               &POPT2=,                PATH OPTION                     X
+               &POPT3=,                PATH OPTION                     X
+               &POPT4=,                PATH OPTION                     X
+               &POPT5=,                PATH OPTION                     X
+               &POPT6=,                PATH OPTION                     X
+               &POPT7=,                PATH OPTION                     X
+               &POPT8=,                PATH OPTION                     X
+               &POPT9=,                PATH OPTION                     X
+               &POPTA=,                PATH OPTION                     X
+               &PMDE1=,                PATH MODE                       X
+               &PMDE2=,                PATH MODE                       X
+               &PMDE3=,                PATH MODE                       X
+               &PMDE4=,                PATH MODE                       X
+               &PMDE5=,                PATH MODE                       X
+               &PMDE6=,                PATH MODE                       X
+               &PMDE7=,                PATH MODE                       X
+               &PMDE8=,                PATH MODE                       X
+               &PMDE9=,                PATH MODE                       X
+               &PMDEA=,                PATH MODE                       X
+               &PMDEB=,                PATH MODE                       X
+               &PMDEC=,                PATH MODE                       X
+               &PMDED=,                PATH MODE                       X
+               &PMDEE=,                PATH MODE                       X
+               &PRIMARY=,              PRIMARY SPACE COUNT             X
+               &SECOND=,               SECONDARY SPACE COUNT           X
+               &DIR=,                  DIRECTORY COUNT                 X
+               &RLSE=,                 RELEASE=(Y/N)                   X
+               &CONTIG=,               CONTIG=(Y/N)                    X
+               &ROUND=,                ROUND=(Y/N)                     X
+               &VOLSER=,               VOLSER                          X
+               &VOLDS=,                VOLUME DATASET REFERENCE        X
+               &UNIT=,                 UNIT DESCRIPTION                X
+               &CLASS=,                SYSOUT CLASS                    X
+               &WRITER=,               SYSOUT WRITER                   X
+               &FORM=,                 SYSOUT FORMS                    X
+               &COPIES=,               SYSOUT COPIES                   X
+               &DEST=,                 SYSOUT DESTINATION              X
+               &FILEDATA=,             HFS FILE DATA TYPE              X
+               &FREE=,                 FREE=END/CLOSE                  X
+               &SPIN=,                 SPIN=NO/UNALLOC                 X
+               &FCB=,                  FCB                             X
+               &FCBAV=,                FCB ALIGN,VERIFY                X
+               &DUMMY=,                DUMMY=(Y/N)                     X
+               &DCBDS=,                DCB DATASET REFERENCE           X
+               &BLKSIZE=,              DCB BLOCK SIZE                  X
+               &BUFL=,                 DCB BUFFER LENGTH               X
+               &BUFNO=,                DCB BUFFER COUNT                X
+               &DSORG=,                DCB DSORG                       X
+               &KEYLEN=,               DCB KEYLEN                      X
+               &LRECL=,                DCB LOGICAL RECORD LENGTH       X
+               &RECFM=,                DCB RECORD FORMAT               X
+               &PRIVATE=,              PRIVATE VOLUME (Y/N)            X
+               &VOLSEQ=,               VOLUME SEQUENCE NUMBER          X
+               &VOLCNT=,               VOLUME COUNT                    X
+               &UNITCNT=,              UNIT COUNT                      X
+               &OUTLIM=,               SYSOUT OUTPUT LIMIT             X
+               &LABEL=,                LABEL TYPE                      X
+               &DSNSEQ=,               DATA SET SEQUENCE NUMBER        X
+               &EXPDT=,                EXPIRATION DATE                 X
+               &RETPD=,                RETENTION PERIOD                X
+               &TERM=,                 TERMINAL SPECIFICATION (Y/N)    X
+               &UCS=,                  UNIVERSAL CHARACTER SET         X
+               &UFOLD=,                FOLD MODE (Y/N)                 X
+               &UVRFY=,                CHARACTER SET IMAGE VERIFY (Y/N)X
+               &DCBDD=,                DCB REF TO DDNAME               X
+               &HOLD=,                 SYSOUT HOLD QUEUE (Y/N)         X
+               &PROTECT=,              PROTECT SPECIFICATION (Y/N)     X
+               &USERID=,               SYSOUT USER ID                  X
+               &DEFER=,                DEFER SPECIFICATION (Y/N)       X
+               &STORAGE=,              STORAGE CLASS (SMS)             X
+               &MGMTCLS=,              MANAGEMENT CLASS (SMS)          X
+               &DATACLS=,              DATA CLASS (SMS)                X
+               &RECORG=,               VSAM RECORD ORGANIZATION (SMS)  X
+               &KEYOFF=,               VSAM KEY OFFSET (SMS)           X
+               &COPYDD=,               COPY DD ATTRIBUTES (SMS)        X
+               &COPYMDL=,              COPY MODEL DATASET (SMS)        X
+               &LIKE=,                 COPY MODEL DATASET (SMS)        X
+               &AVGREC=,               AVERAGE RECORD (SMS)            X
+               &BFALN=,                DCB BUFFER ALIGNMENT            X
+               &BFTEK=,                DCB BUFFER TECHNIQUE            X
+               &DEN=,                  DCB MAG. TAPE DENSITY           X
+               &EROPT=,                DCB EROPT SPECIFICATION         X
+               &LIMCT=,                DCB SEARCH LIMIT                X
+               &NCP=,                  DCB MAX READ/WRITE              X
+               &OPTCD=,                DCB OPTIONAL SERVICES           X
+               &DIAGNS=,               DCB DIAGNOSTIC TRACE (Y/N)      X
+               &PSWD=,                 DATASET PASSWORD SPECIFICATION  X
+               &INOUT=,                LABEL IN/OUT OPTION             X
+               &OUTPUT=,               OUTPUT ON SYSOUT                X
+               &BACKOUT=,              BACKOUT SUPPORT (Y/N)           X
+               &SUBSYS=,               SUBSYSTEM NAME                  X
+               &SSPRM01=,              SUBSYSTEM PARM # 1              X
+               &SSPRM02=,              SUBSYSTEM PARM # 2              X
+               &SSPRM03=,              SUBSYSTEM PARM # 3              X
+               &SSPRM04=,              SUBSYSTEM PARM # 4              X
+               &SSPRM05=,              SUBSYSTEM PARM # 5              X
+               &SSPRM06=,              SUBSYSTEM PARM # 6              X
+               &SSPRM07=,              SUBSYSTEM PARM # 7              X
+               &SSPRM08=,              SUBSYSTEM PARM # 8              X
+               &SSPRM09=,              SUBSYSTEM PARM # 9              X
+               &SSPRM10=,              SUBSYSTEM PARM #10              X
+               &SSPRM11=,              SUBSYSTEM PARM #11              X
+               &SSPRM12=,              SUBSYSTEM PARM #12              X
+               &SSPRM13=,              SUBSYSTEM PARM #13              X
+               &SSPRM14=,              SUBSYSTEM PARM #14              X
+               &SSPRM15=,              SUBSYSTEM PARM #15              X
+               &SSPRM16=,              SUBSYSTEM PARM #16              X
+               &SSPRM17=,              SUBSYSTEM PARM #17              X
+               &SSPRM18=,              SUBSYSTEM PARM #18              X
+               &SSPRM19=,              SUBSYSTEM PARM #19              X
+               &SSPRM20=,              SUBSYSTEM PARM #20              X
+               &RLS=                   RLS DESCRIPTION
+.**********************************************************************
+.*                                                                    *
+.*       PROCESSOR DD STATEMENT DEFINITION BLOCK                      *
+.*                                                                    *
+.*       CREATED BY C1GJTRNS                                          *
+.*                                                                    *
+.*       CONTAINS:      PROCESSOR DD STATEMENT INFORMATION.           *
+.*                                                                    *
+.**********************************************************************
+         COPY  $PRGLBLS
+         LCLC  &FLAG1
+         LCLC  &BLKLBL                 LABEL FOR CURRENT BLOCK
+         LCLC  &WDISP1
+         LCLC  &WDISP2
+         LCLC  &WDISP3
+         LCLC  &WRECFM
+         LCLC  &WLRECL
+         LCLC  &WBLKSZ
+         LCLC  &WBUFL
+         LCLC  &WDSORG
+         LCLC  &WSPACE
+         LCLC  &WUNIT
+         LCLC  &FILED
+         LCLC  &WPRIM
+         LCLC  &WSEC
+         LCLC  &WRLSE
+         LCLA  &BLKFACT,&ULRECL,&BLKSZ
+&WDISP1  SETC  '&DISP1'
+&WDISP2  SETC  '&DISP2'
+&WDISP3  SETC  '&DISP3'
+&WRECFM  SETC  '&RECFM'
+&WLRECL  SETC  '&LRECL'
+&WBLKSZ  SETC  '&BLKSIZE'
+&WBUFL   SETC  '&BUFL'
+&WDSORG  SETC  '&DSORG'
+&WSPACE  SETC  '&SPACE'
+&WUNIT   SETC  '&UNIT'
+&FILED   SETC  '&FILEDATA'
+&WPRIM   SETC  '&PRIMARY'
+&WSEC    SETC  '&SECOND'
+&WRLSE   SETC  '&RLSE'
+.*
+&BLKLBL  SETC  '&PRDDB'                ASSIGN CURRENT BLOCK LABEL
+         AIF   (&PRLSTPR EQ 100).LOGIC DOES THIS FOLLOW A $PRHDR?
+         AIF   (&PRLSTPR EQ 200).LOGIC DOES THIS FOLLOW A $PRSYM?
+         AIF   (&PRLSTPR EQ 300).LOGIC DOES THIS FOLLOW A $PRPGM?
+         AIF   (&PRLSTPR EQ 400).LOGIC DOES THIS FOLLOW A $PRCC?
+         AIF   (&PRLSTPR EQ 500).CONT  DOES THIS FOLLOW A $PRDDA?
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?
+         AIF   (&PRLSTPR EQ 1000).CONT  DOES THIS FOLLOW A $PRSIN?
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM'
+         AGO   .MEXIT
+.CONT    ANOP
+&PRLSTPR SETA  600                     THIS IS A DD STMT BLOCK
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS
+.*       DETERMINE FLAG CONTENTS
+&FLAG1   SETC  '0'
+         AIF   ('&CONFIG' NE 'COMPONENTS').NOCNFG
+&FLAG1   SETC  '&FLAG1+PRB$CNFG'
+.NOCNFG  AIF   ('&ENQDEQ' NE 'YES').NONQDQ
+&FLAG1   SETC  '&FLAG1+PRB$NQDQ'
+.NONQDQ  AIF   ('&SYSIN' NE 'YES').NOSYSIN
+&FLAG1   SETC  '&FLAG1+PRB$SYIN'
+.*  SET SYSIN DATASET ALLOCATION ATTRIBUTES
+&WDISP1  SETC  'NEW'
+&WDISP2  SETC  'DELETE'
+&WDISP3  SETC  'DELETE'
+&WDSORG  SETC  'PS'
+&WSPACE  SETC  'TRK'
+&WUNIT   SETC  '&&&&C1VIOUNIT'
+&WPRIM   SETC  '5'
+&WSEC    SETC  '5'
+&WRLSE   SETC  'YES'
+         AIF   ('&RECFM' NE '').SYRECFM
+&WRECFM  SETC  'FB'
+.SYRECFM AIF   ('&LRECL' NE '').SYLRECL
+&WLRECL  SETC  '80'
+.SYLRECL AIF   ('&BLKSIZE' NE '').SYBLKSZ
+.**********************************************************************
+.* COMPUTE THE BLOCKSIZE ACCORDING TO RECFM AND LRECL
+.**********************************************************************
+         AIF   ('&WRECFM' EQ 'F').SYBLKF,                              X
+               ('&WRECFM' EQ 'V').SYBLKV,                              X
+               ('&WRECFM'(1,2) EQ 'FB').SYBLKFB,                       X
+               ('&WRECFM'(1,2) EQ 'VB').SYBLKVB
+.SYBLKU  ANOP
+&WBLKSZ  SETC  '0'
+         MNOTE 0,'WARNING: SETTING ZERO BLOCKSIZE FOR RECFM: &WRECFM'
+         AGO   .SYBLKSZ
+.SYBLKF  ANOP
+&WBLKSZ  SETC  '&WLRECL'               FIXED: BLKSIZE=LRECL
+         AGO   .SYBLKSZ
+.SYBLKVB ANOP
+&WBLKSZ  SETC  '32760'                 VB: 32760
+         AGO   .SYBLKSZ
+.SYBLKV  ANOP
+&ULRECL  SETA  &WLRECL                 VARIABLE: BLKSIZE >= LRECL+4
+&BLKSZ   SETA  &ULRECL+4
+         AGO   .SETBLK
+.SYBLKFB ANOP
+&ULRECL  SETA  &WLRECL                 FIXEDBLOCKED: BLKSIZE=LRECL*N
+&BLKFACT SETA  32760/&ULRECL
+&BLKSZ   SETA  &BLKFACT*&ULRECL
+.SETBLK  ANOP
+&WBLKSZ  SETC  '&BLKSZ'
+.SYBLKSZ AIF   ('&BUFL' NE '').SYBUFL
+&WBUFL   SETC  '32760'
+.SYBUFL  ANOP
+.NOSYSIN ANOP
+         AIF   ('&FREE' NE 'CLOSE').NOFREE
+&FLAG1   SETC  '&FLAG1+PRB$FRCL'
+.NOFREE  ANOP
+.*
+&PRCSECT CSECT
+.**********************************************************************
+         DC    A(&BLKLBL)              THIS ENTRY (PAST STG ACCOUNT)
+         DC    A(&PRDDB)               NEXT ELEMENT IN CHAIN
+.**********************************************************************
+&BLKLBL  DS    0F
+         DC    Y(PRDDBEQU)             THIS IS A HEADER RECORD
+         DC    Y(&BLKLBL.L)            LENGTH OF THIS BLOCK
+         DC    Y(PRDDBVER)             ENDEVOR VERSION GENERATING PROC
+         DC    Y(&BLKLBL.#)            NUMBER OF VARIABLE FIELDS
+         SPACE ,
+         DS    0F
+         DC    A(&PRSIN)               ADDR OF 1ST SYSIN STATEMENT
+         DC    AL1(&FLAG1)             FLAG BYTE 1
+         DC    AL1(0)                  FLAG BYTE 2
+         DC    AL2(&BLKLBL.S)          NUMBER OF $PRSIN STATEMENTS
+         DC    A(&PRIBLKNM)                A(ASSOCIATED ITE BLOCK)
+&PRIBLKNM SETC '0'                         ALL DONE WITH THE BLOCK
+         DC    3F'0'                   ** RESERVED **
+         DC    (PRDDX$LN/4)F'0'        DDX INFORMATION FIELDS
+         ORG   &BLKLBL+PRBFLDS-@PRDDBDS  LOCATE VARIABLE FIELD AREA
+&BLKLBL.$ DS   0F
+         $PRFLD FIELD=DSNAM,VALUE=&DSNAME
+         $PRFLD FIELD=MEMBR,VALUE=&MEMBER
+         $PRFLD FIELD=ALLOC,VALUE=&ALLOC
+         $PRFLD FIELD=DISP1,VALUE=&WDISP1
+         $PRFLD FIELD=DISP2,VALUE=&WDISP2
+         $PRFLD FIELD=DISP3,VALUE=&WDISP3
+         $PRFLD FIELD=SPACE,VALUE=&WSPACE
+         $PRFLD FIELD=SPC1,VALUE=&WPRIM
+         $PRFLD FIELD=SPC2,VALUE=&WSEC
+         $PRFLD FIELD=SPC3,VALUE=&DIR
+         $PRFLD FIELD=RLSE,VALUE=&WRLSE
+         $PRFLD FIELD=CONTG,VALUE=&CONTIG
+         $PRFLD FIELD=ROUND,VALUE=&ROUND
+         $PRFLD FIELD=VOLS,VALUE=&VOLSER
+         $PRFLD FIELD=VOLDS,VALUE=&VOLDS
+         $PRFLD FIELD=UNIT,VALUE=&WUNIT
+         $PRFLD FIELD=FILED,VALUE=&FILEDATA
+         $PRFLD FIELD=SYCLS,VALUE=&CLASS
+         $PRFLD FIELD=SYPGM,VALUE=&WRITER
+         $PRFLD FIELD=SYFRM,VALUE=&FORM
+         $PRFLD FIELD=SYCPY,VALUE=&COPIES
+         $PRFLD FIELD=SYDST,VALUE=&DEST
+         $PRFLD FIELD=FREE,VALUE=&FREE
+         $PRFLD FIELD=SPIN,VALUE=&SPIN
+         $PRFLD FIELD=FCB,VALUE=&FCB
+         $PRFLD FIELD=FCBAV,VALUE=&FCBAV
+         $PRFLD FIELD=DUMMY,VALUE=&DUMMY
+         $PRFLD FIELD=DCBDS,VALUE=&DCBDS
+         $PRFLD FIELD=BLKSZ,VALUE=&WBLKSZ
+         $PRFLD FIELD=BUFL,VALUE=&WBUFL
+         $PRFLD FIELD=BUFNO,VALUE=&BUFNO
+         $PRFLD FIELD=DSORG,VALUE=&WDSORG
+         $PRFLD FIELD=KEYLN,VALUE=&KEYLEN
+         $PRFLD FIELD=LRECL,VALUE=&WLRECL
+         $PRFLD FIELD=RECFM,VALUE=&WRECFM
+         $PRFLD FIELD=PRIVT,VALUE=&PRIVATE
+         $PRFLD FIELD=VLSEQ,VALUE=&VOLSEQ
+         $PRFLD FIELD=VLCNT,VALUE=&VOLCNT
+         $PRFLD FIELD=UNCNT,VALUE=&UNITCNT
+         $PRFLD FIELD=OUTLM,VALUE=&OUTLIM
+         $PRFLD FIELD=LABEL,VALUE=&LABEL
+         $PRFLD FIELD=DSSEQ,VALUE=&DSNSEQ
+         $PRFLD FIELD=EXPDT,VALUE=&EXPDT
+         $PRFLD FIELD=RETPD,VALUE=&RETPD
+         $PRFLD FIELD=TERM,VALUE=&TERM
+         $PRFLD FIELD=UCS,VALUE=&UCS
+         $PRFLD FIELD=UFOLD,VALUE=&UFOLD
+         $PRFLD FIELD=UVRFY,VALUE=&UVRFY
+         $PRFLD FIELD=DCBDD,VALUE=&DCBDD
+         $PRFLD FIELD=SHOLD,VALUE=&HOLD
+         $PRFLD FIELD=PROT,VALUE=&PROTECT
+         $PRFLD FIELD=USRID,VALUE=&USERID
+         $PRFLD FIELD=DEFER,VALUE=&DEFER
+         $PRFLD FIELD=STCL,VALUE=&STORAGE
+         $PRFLD FIELD=MGCL,VALUE=&MGMTCLS
+         $PRFLD FIELD=DACL,VALUE=&DATACLS
+         $PRFLD FIELD=RECO,VALUE=&RECORG
+         $PRFLD FIELD=KEYO,VALUE=&KEYOFF
+         $PRFLD FIELD=REFD,VALUE=&COPYDD
+         $PRFLD FIELD=LIKE,VALUE=&LIKE
+         $PRFLD FIELD=AVGR,VALUE=&AVGREC
+         $PRFLD FIELD=BFALN,VALUE=&BFALN
+         $PRFLD FIELD=BFTEK,VALUE=&BFTEK
+         $PRFLD FIELD=DEN,VALUE=&DEN
+         $PRFLD FIELD=EROPT,VALUE=&EROPT
+         $PRFLD FIELD=LIMCT,VALUE=&LIMCT
+         $PRFLD FIELD=NCP,VALUE=&NCP
+         $PRFLD FIELD=OPTCD,VALUE=&OPTCD
+         $PRFLD FIELD=DIAGN,VALUE=&DIAGNS
+         $PRFLD FIELD=PASSW,VALUE=&PSWD
+         $PRFLD FIELD=INOUT,VALUE=&INOUT
+         $PRFLD FIELD=CONFG,VALUE=&CONFIG
+         $PRFLD FIELD=FOOT,VALUE=&FOOT
+         $PRFLD FIELD=OUTPT,VALUE=&OUTPUT
+         $PRFLD FIELD=BKOUT,VALUE=&BACKOUT
+         $PRFLD FIELD=SSNM,VALUE=&SUBSYS
+         $PRFLD FIELD=SPR01,VALUE=&SSPRM01
+         $PRFLD FIELD=SPR02,VALUE=&SSPRM02
+         $PRFLD FIELD=SPR03,VALUE=&SSPRM03
+         $PRFLD FIELD=SPR04,VALUE=&SSPRM04
+         $PRFLD FIELD=SPR05,VALUE=&SSPRM05
+         $PRFLD FIELD=SPR06,VALUE=&SSPRM06
+         $PRFLD FIELD=SPR07,VALUE=&SSPRM07
+         $PRFLD FIELD=SPR08,VALUE=&SSPRM08
+         $PRFLD FIELD=SPR09,VALUE=&SSPRM09
+         $PRFLD FIELD=SPR10,VALUE=&SSPRM10
+         $PRFLD FIELD=SPR11,VALUE=&SSPRM11
+         $PRFLD FIELD=SPR12,VALUE=&SSPRM12
+         $PRFLD FIELD=SPR13,VALUE=&SSPRM13
+         $PRFLD FIELD=SPR14,VALUE=&SSPRM14
+         $PRFLD FIELD=SPR15,VALUE=&SSPRM15
+         $PRFLD FIELD=SPR16,VALUE=&SSPRM16
+         $PRFLD FIELD=SPR17,VALUE=&SSPRM17
+         $PRFLD FIELD=SPR18,VALUE=&SSPRM18
+         $PRFLD FIELD=SPR19,VALUE=&SSPRM19
+         $PRFLD FIELD=SPR20,VALUE=&SSPRM20
+         $PRFLD FIELD=DSNTYPE,VALUE=&DSNTYPE
+         $PRFLD FIELD=PATH,VALUE=&PATH
+         $PRFLD FIELD=PNDSP,VALUE=&PNDSP
+         $PRFLD FIELD=PCDSP,VALUE=&PCDSP
+         $PRFLD FIELD=POPT1,VALUE=&POPT1
+         $PRFLD FIELD=POPT2,VALUE=&POPT2
+         $PRFLD FIELD=POPT3,VALUE=&POPT3
+         $PRFLD FIELD=POPT4,VALUE=&POPT4
+         $PRFLD FIELD=POPT5,VALUE=&POPT5
+         $PRFLD FIELD=POPT6,VALUE=&POPT6
+         $PRFLD FIELD=POPT7,VALUE=&POPT7
+         $PRFLD FIELD=POPT8,VALUE=&POPT8
+         $PRFLD FIELD=POPT9,VALUE=&POPT9
+         $PRFLD FIELD=POPTA,VALUE=&POPTA
+         $PRFLD FIELD=PMDE1,VALUE=&PMDE1
+         $PRFLD FIELD=PMDE2,VALUE=&PMDE2
+         $PRFLD FIELD=PMDE3,VALUE=&PMDE3
+         $PRFLD FIELD=PMDE4,VALUE=&PMDE4
+         $PRFLD FIELD=PMDE5,VALUE=&PMDE5
+         $PRFLD FIELD=PMDE6,VALUE=&PMDE6
+         $PRFLD FIELD=PMDE7,VALUE=&PMDE7
+         $PRFLD FIELD=PMDE8,VALUE=&PMDE8
+         $PRFLD FIELD=PMDE9,VALUE=&PMDE9
+         $PRFLD FIELD=PMDEA,VALUE=&PMDEA
+         $PRFLD FIELD=PMDEB,VALUE=&PMDEB
+         $PRFLD FIELD=PMDEC,VALUE=&PMDEC
+         $PRFLD FIELD=PMDED,VALUE=&PMDED
+         $PRFLD FIELD=PMDEE,VALUE=&PMDEE
+         $PRFLD FIELD=RLS,VALUE=&RLS
+&BLKLBL.# EQU  ((*-&BLKLBL.$)/8)
+&BLKLBL.L EQU  *-&BLKLBL
+         AIF  (&PRDDA#B GT 1).VERCR
+&PRDDA#C SETC 'N'
+         AIF  (T'&FOOT       EQ 'O').MEXIT
+         AIF  ('&FOOT'(1,1) NE 'C').MEXIT
+&PRDDA#C SETC 'Y'
+         AGO  .MEXIT
+.VERCR   ANOP
+         AIF  ('&PRDDA#C' EQ 'Y').MNOT1
+         AIF  (T'&FOOT       EQ 'O').MEXIT
+         AIF  ('&FOOT'(1,1) NE 'C').MEXIT
+         AIF  (&PRDDA#B LT 2).MEXIT
+.MNOT1   ANOP
+ MNOTE 12,'FOOTPRNT=CREATE NOT ALLOWED ON CONCATENATED DD STATEMENTS'
+         AGO   .MEXIT
+.LOGIC   ANOP
+         MNOTE 8,'LOGICAL ERROR, $PRDDB MAY NOT FOLLOW A $PRHDR, $PRSYMX
+               , $PRPGM, OR $PRCC CARD (&PRLSTPR).'
+         AGO   .MEXIT
+.MEXIT   ANOP
+         SPACE 2
+         MEND

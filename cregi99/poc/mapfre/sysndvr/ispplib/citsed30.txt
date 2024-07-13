@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Current Source \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Userid+- Id of the user to whom the element is currently signed out.
+%Date/time+- Date and time when the element was last changed.
+%CCID+- CCID specified for the last action against the element.
++
+%Comment+- Comment specified for the last action against the element.
+%Delta FMT+- Storage format for element deltas.
+%               F+- Forward
+%               R+- Reverse
+%               I+- Image
+%               L+- Log
++
+%Add/Update from DSN+- Name and library location of the member added to
++   to create this element.
++
++
++
++                                            (%PF3+to return)
+)END

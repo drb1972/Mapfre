@@ -1,0 +1,26 @@
+)BODY EXPAND(^^)
+%Tutorial ^-^ Mainframe Mapping Rule Examples ^-^ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++When the last remote separator is a period, use the last qualifier as the
++extension. The examples map "TESTAP.PROGRAM.C" using the following rules:
++Example 1:  Host mask "TESTAP.*.*" maps to remote mask "C:\PROD\AP\*.*"
++Example 2:  Host mask "TESTAP.*.*" maps to remote mask "C:\PROD.*"
++
++1. Align the real host DSN and the remote mask starting from the right.
++   (DRIVE NOT SHOWN)     example 1                        example 2
++   real host:           TESTAP.PROGRAM.C            TESTAP.PROGRAM.C
++   remote mask:    PROD\  AP  \   *   .*                      PROD.*
++
++2. Filter the real host qualifiers thru the remote mask to get a remote path.
++   In both examples "C" becomes the extension.
++   (DRIVE NOT SHOWN)     example 1                        example 2
++   real host:           TESTAP.PROGRAM.C            TESTAP.PROGRAM.C
++   remote mask:    PROD\  AP  \   *   .*                      PROD.*
++   real remote:    PROD\  AP  \PROGRAM                        PROD
++
+%Note:+If you do not want package outputs in a host data set to be collected,
++      leave the remote mask blank.
++
++                                            (%PF3+to return)
+)END

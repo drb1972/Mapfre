@@ -1,0 +1,21 @@
+%TUTORIAL  --------------  SUBMIT PACKAGE (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %Status+-             The current status of this package.
+
+  %Description+-        The package description.
+
+  %Package Type+-       The type of package:  standard or emergency.
+
+  %Include JCL+-        Indicate whether you are including additional
+                        JCL with this job: %Y+or%N.+  If you do want to
+                        include additional JCL (that is,%Y+in this
+                        field), the JCL must already be defined before
+                        you submit the job.
+
+  %Job Statement+-      The job card to be submitted with the execution.
+
+ After you submit the job, press any key to return to the PACKAGE
+ OPTIONS MENU.
+
+)END

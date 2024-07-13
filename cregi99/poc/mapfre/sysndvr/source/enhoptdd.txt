@@ -1,0 +1,54 @@
+         MACRO
+         ENHOPTDD &A
+.*-----------------------------------------------------*
+.*   OPTIONAL PTF:PROCESSOR_DISP_OLD_DDNS              *
+.*      CREATE DDNAME TABLE                            *
+.*-----------------------------------------------------*
+         GBLC   &AIGDDN
+         GBLC   &TABDDN(256)
+         GBLA   &NBRDDN
+         LCLA   &K
+         LCLA   &N,&I,&B
+         LCLC   &C
+         LCLC   &MFSMAP(3)
+&N       SETA   N'&A
+&I       SETA   1
+.LOOP    ANOP
+&C       SETC   '&A(&I)'
+&K       SETA   K'&C
+         AIF    (&K  LT 9).K
+         MNOTE  8,'DDNAME MUST BE 8 CHARACTERS (&C)'
+         MEXIT
+.K       ANOP
+.*    DDNAME = LEGEND DDNAME
+         AIF    ('&C' EQ 'REFIN').GENER5       YES
+         AIF    ('&C' EQ 'REFOUT').GENER5      YES
+         AIF    ('&C' EQ 'REFRD').GENER5       YES
+         AIF    ('&AIGDDN' EQ 'Y').GENER NO FIRST TIME
+.*                      HIS OFFSET IS RETURNED IN REG 1
+&NBRDDN  SETA   0
+&AIGDDN  SETC   'Y'
+         ENHOPT PROCESSOR_DISP_OLD_DDNS=ON
+         AGO    .GENER4
+.GENER   ANOP
+&B       SETA   1
+.GENER1  ANOP
+         AIF    ('&TABDDN(&B)' NE '&C').GENER2
+         MNOTE  4,'DDNAME &C ALREADY DEFINED'
+         AGO    .GENER6
+.GENER2  ANOP
+&B       SETA   &B+1
+         AIF    (&B LE &NBRDDN).GENER1
+.GENER4  ANOP
+&NBRDDN  SETA   &NBRDDN+1
+&TABDDN(&NBRDDN) SETC '&C'              SAVE DDNAME IN INTERNAL TABLE
+         AGO    .GENER6
+.GENER5  ANOP
+         MNOTE  4,'DDNAME &C IS A MSF MAP DDNAME'
+         AGO    .GENER6
+.GENER6  ANOP
+         AIF    (&I EQ &N).MEXIT
+&I       SETA   &I+1
+         AGO    .LOOP
+.MEXIT   ANOP
+         MEND

@@ -1,0 +1,30 @@
+CPTB040 'MERGE Errors Found'                              .ALARM=YES
+'CPTB040 An error occurred during MERGE BORWSE processing.'
+
+CPTB041 'Sequential Dataset'                              .ALARM=YES
+'CPTB041 A member name is not allowed for a sequential dataset.'
+
+CPTB042 'I/O Error'                                     .ALARM=YES
+'CPTB042 An I/O error occurred during PDM processing.'
+
+CPTB043 'No Member(s) Selected'                         .ALARM=YES
+'CPTB043 At least one member must be selected to perform a MERGE operation.'
+
+CPTB044 'Member Saved'
+'CPTB044 The member was saved in the selected dataset.'
+
+CPTB045 'Member in Use'                                 .ALARM=YES
+'CPTB045 The member is being updated by another user.'
+
+CPTB046 'No Members Matched'                            .ALARM=YES
+'CPTB046 The WIP dataset did not contain any members matching the Edit criteria'
+
+CPTB047 'Edit Error'                                    .ALARM=YES
+'CPTB047 The ISPF/PDF Edit service passed a return code of 20.'
+
+CPTB048 'WIP Data Set Saved'                            .ALARM=YES
+'CPTB048 The WIP data set has been saved.'
+
+CPTB049 'Unsupported DSORG'                             .ALARM=YES
+'CPTB049 The dataset organization of the dataset specified is not supported.'
+

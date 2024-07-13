@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Type Selection List to specify a type to associate
++with an element you are creating.
++
++Select a type by typing%S+next to the type you want
++to select and pressing%ENTER+.
++
++The type name you select appears on the Quick Edit panel
++the next time the panel is accessed.
++
++
++
++
++
++
++
++
++
++
++                                      (%END+to return)
+)END

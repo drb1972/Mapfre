@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%------------------------  Environment Options Menu  ---------------------------
+%OPTION  ===>_VARWKCMD                                                         +
+%
+%   1+ SITE            - Display site information
+%   2+ STAGE           - Display stage information
+%   3+ SYSTEM          - Display, delete, create, update or clone system
+%   4+ SUBSYSTEM       - Display, delete, create or update subsystem
+%   5+ TYPE            - Display, delete, create or update type definitions
+%   6+ PROCESSOR GROUP - Display, delete, create or update processor groups
+%   7+ TYPE SEQUENCE   - Display type processing sequence
+%   8+ DATA SET        - Display or update type data sets
+%   9+ APPROVER GROUP  - Display, delete, create or update approver groups
+%   A+ RELATE GROUP    - Relate approver groups to systems, subsystems, etc.
+%   D+ DESTINATION     - Display, delete, create or update shipment destinations
+%   E+ ENVIRONMENT     - Display information about the current environment
+%   S+ SITE SYMBOLS    - Display site symbol definitions
+%
+%
+%
+%
+%
+%
+%
+)INIT
+  .HELP = CITE0001
+)PROC
+)END

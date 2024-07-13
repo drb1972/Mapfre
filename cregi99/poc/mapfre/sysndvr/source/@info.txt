@@ -1,0 +1,342 @@
+         MACRO                                                          00010019
+         @INFO  &ENTRY=,&PARM=,&PGMNAME=BLGINIT,&ENVNAME=,             X00020001
+               &TSP20=,&TSP21=,&TSP22=,&TSP30=                          00020001
+.********************************************************************** 00030019
+.*                                                                    * 00040019
+.*                                                                    * 00040019
+.*   THIS MACRO GENERATES A LOAD MODULE THAT MUST BE CALLED @INFO.    * 00050019
+.*                                                                    * 00060019
+.*   THIS MACRO GENERATES A LOAD MODULE THAT CONTAINS TWO COMPONENTS. * 00140001
+.*   A HEADER IS GENERATED CONTAINING POINTERS AND COUNTERS.          * 00150001
+.*   THE HEADER IS CALLED @INHDS.  INDIVIDUAL ENTRIES CALLED INCALL   * 00160001
+.*   ARE GENERATED REPRESENTING THE CONDITIONS UNDER WHICH A CALL     * 00170001
+.*   CALL TO THE BACK-END PROGRAM WILL OCCUR.                         * 00180001
+.*                                                                    * 00130019
+.*   ENTRY= START             - INDICATES THE BEGINNING OF THIS       * 00230019
+.*                              OF THIS TABLE.  ** REQUIRED **        * 00240019
+.*        = CALL              - INDICATES THOSE COMBINATIONS OF       * 00250019
+.*                              ENVIRONMENTS, SYSTEMS, AND SUBSYSTEMS * 00260019
+.*                              AT WILL RESULT IN A CALL TO INFO/MAN  * 00270019
+.*                              ** OPTIONAL **  IF OMITTED, ALL CALLS * 00280019
+.*                              WILL BE ROUTED TO INFO/MAN.           * 00290019
+.*        = END               - INDICATES THE END OF THIS TABLE.      * 00300019
+.*                              ** REQUIRED IF ENDMODID NOT SPEC'D ** * 00310019
+.*        = ENDMODID          - INDICATES THE END OF THIS TABLE.      * 00300019
+.*                               WITH #MODID ADDED AT END.            * 00310019
+.*                              ** REQUIRED IF END NOT SPEC'D      ** * 00310019
+.* PROGRAM=INITIAL PROGRAM TO CALL - SPECIFIED ON THE ENTRY=START     * 00320001
+.*                              STATEMENT.  SPECIFIES THE NAME OF     * 00330000
+.*                              THE PROGRAM THAT WILL BE INVOKED      * 00340001
+.*                              TO START UP THE INFO/MAN INTERFACE.   * 00350001
+.*                              ** REQUIRED **                        * 00350101
+.*                              DEFAULT VALUE IS BLGINIT.             * 00350201
+.* PARM=INFO/MAN PARAMETERS   - SPECIFIED ON THE ENTRY=START          * 00320019
+.*                              STATEMENT.  SPECIFIES THE NAME OF     * 00330019
+.*                              THE TSP THAT WILL BE INVOKED BY       * 00340019
+.*                              INFO/MAN.  ** REQUIRED **.            * 00350019
+.* ENVNAME=ENVIRONMENT-NAME   - WHEN SPECIFIED ON THE ENTRY=CALL      * 00360019
+.*                              STATEMENT, THIS SPECIFIES THAT        * 00370019
+.*                              ACTIONS PERFORMED AGAINST THIS        * 00380019
+.*                              ENVIRONMENT WILL RESULT IN A CALL     * 00390019
+.*                              TO INFO/MAN.  IF NO ENVNAME=          * 00400019
+.*                              STATEMENTS ARE FOUND ON ANY ENTRY=CALL* 00410019
+.*                              STATEMENTS, THEN ALL ACTIONS WILL     * 00420019
+.*                              BE ROUTED TO INFO/MAN.  IF ONE OR     * 00430019
+.*                              MORE ENTRY=CALL STATEMENTS HAVE THIS  * 00440019
+.*                              OPTION SPECIFIED, THEN ONLY THOSE     * 00450019
+.*                              ENVIRONMENTS SPECIFIED ON THE ENVNAME=* 00460019
+.*                              PARAMETER WILL RESULT IN A CALL TO    * 00470019
+.*                              INFO/MAN.  ALL OTHER ENVIRONEMNTS WILL* 00480019
+.*                              NOT RESULT IN A CALL TO INFO/MAN.     * 00490019
+.********************************************************************** 00600019
+         GBLA  &GINCNT                                                  00610019
+         GBLB  &GEND                                                    00620019
+         GBLB  &GSTART                                                  00630019
+         GBLB  &GCALL                                                   00640019
+         GBLB  &GTSP                                                    00640019
+         LCLA  &LENVI                                                   00650019
+         LCLA  &LTSPI                                                   00670019
+         LCLC  &LENV                                                    00680019
+         LCLC  &LT20                                                    00700019
+         LCLC  &LT21                                                    00700019
+         LCLC  &LT22                                                    00700019
+         LCLC  &LT30                                                    00700019
+.********************************************************************** 00710019
+.*                                                                    * 00720019
+.*   CHECK ENTRY= SPECIFICATION                                       * 00730019
+.*                                                                    * 00740019
+.********************************************************************** 00750019
+         AIF   ('&ENTRY' EQ 'START').RTN1000                            00760019
+         AIF   ('&ENTRY' EQ 'CALL').RTN2000                             00770019
+         AIF   ('&ENTRY' EQ 'TSP').RTN3000                              00770019
+         AIF   ('&ENTRY' EQ 'END').RTN4000                              00780019
+         AIF   ('&ENTRY' EQ 'ENDMODID').RTN4000                         00780019
+         AGO   .RTN8010                                                 00790019
+.********************************************************************** 00800019
+.*                                                                    * 00810019
+.*   ENTRY=START SPECIFIED                                            * 00820019
+.*                                                                    * 00830019
+.********************************************************************** 00840019
+.RTN1000 ANOP                                                           00850019
+         AIF   (&GEND).RTN8000                                          00860019
+         AIF   (&GSTART).RTN8040                                        00870019
+         AIF   ('&PARM' EQ '').RTN8070                                  00871020
+BC1TINFO CSECT                                                          01430002
+         @INFOBLK BLOCK=@INHDS,DSECT=NO                                 01440017
+         ORG   INHPGM                                                   01441001
+         DC    CL8'&PGMNAME'                                            01442001
+         ORG   INHPARM                                                  01450020
+         AIF   ('&PARM'(1,1) EQ '''').RTN1010                           01451021
+ DC    CL56'&PARM'                                                      01460022
+         AGO   .RTN1020                                                 01461020
+.RTN1010 ANOP                                                           01462020
+ DC    CL56&PARM                                                        01463022
+         MEXIT                                                          01470017
+.********************************************************************** 01480017
+.*                                                                    * 01490017
+.*   ENTRY=CALL SPECIFIED                                             * 01500017
+.*                                                                    * 01510017
+.********************************************************************** 01520017
+.RTN2000 ANOP                                                           01530017
+         AIF   (&GEND).RTN8030                                          01540017
+         AIF   (&GSTART).RTN8050                                        01550017
+         AIF   (&GTSP).RTN8080            TSP/CALL MUTUALLY EXCLUSIVE   01550017
+         AIF   (&GCALL).RTN2010                                         01560017
+&GCALL   SETB  1                                                        01570017
+         TITLE 'ENTRY=CALL'                                             01580017
+*********************************************************************** 01590017
+*  ENTRY=CALL                                                         * 01600017
+*********************************************************************** 01610017
+          ORG   ,                                                       01620017
+INCALL    EQU   *                                                       01630017
+.RTN2010 ANOP                                                           01640017
+         AIF   (N'&ENVNAME EQ 0).RTN8060                                01650017
+.*                                                                      01660017
+.*                                                                      01670017
+.RTN2100 ANOP                                                           01680017
+&LENVI   SETA  &LENVI+1                                                 01690017
+         AIF   (&LENVI GT N'&ENVNAME).RTN2900                           01700017
+&LENV    SETC  '&ENVNAME'                                               01710017
+&LT20    SETC  'Y'                                                      01710017
+&LT21    SETC  'Y'                                                      01710017
+&LT22    SETC  'Y'                                                      01710017
+&LT30    SETC  'Y'                                                      01710017
+.*                                                                      01740017
+.*   CHECK FOR CCID TSP                                                 01670017
+.*                                                                      01750017
+         AIF   (N'&TSP20 EQ 0).RTN2120        NOT REQ                   01650017
+         AIF   ('&TSP20' EQ 'N').RTN2110      IF NO - DISABLE           01650017
+         AIF   ('&TSP20' EQ 'Y').RTN2120      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       Y/N ONLY VALID VALUES     01650017
+.RTN2110 ANOP                                                           01680017
+&LT20    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR STATUS TSP                                               01670017
+.*                                                                      01660017
+.RTN2120 ANOP                                                           01680017
+         AIF   (N'&TSP21 EQ 0).RTN2130        NOT REQ                   01650017
+         AIF   ('&TSP21' EQ 'N').RTN2125      IF NO - DISABLE           01650017
+         AIF   ('&TSP21' EQ 'Y').RTN2130      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN2125 ANOP                                                           01680017
+&LT21    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR APPROVAL TSP                                             01670017
+.*                                                                      01660017
+.RTN2130 ANOP                                                           01680017
+         AIF   (N'&TSP22 EQ 0).RTN2140        NOT REQ                   01650017
+         AIF   ('&TSP22' EQ 'N').RTN2135      IF NO - DISABLE           01650017
+         AIF   ('&TSP22' EQ 'Y').RTN2140      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN2135 ANOP                                                           01680017
+&LT22    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR ACTIVITY LOGGING                                         01670017
+.*                                                                      01660017
+.RTN2140 ANOP                                                           01680017
+         AIF   (N'&TSP30 EQ 0).RTN2200        NOT REQ                   01650017
+         AIF   ('&TSP30' EQ 'N').RTN2145      IF NO - DISABLE           01650017
+         AIF   ('&TSP30' EQ 'Y').RTN2200      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN2145 ANOP                                                           01680017
+&LT30    SETC  'N'                                                      01730017
+.*                                                                      01670017
+.RTN2200 ANOP                                                           01910017
+&GINCNT  SETA  &GINCNT+1                                                01920017
+         ORG   ,                                                        01930017
+         DC    CL4'@INC'               EYECATCHER                       01940017
+         DC    CL8'&LENV'              ENVIRONMENT NAME                 01950017
+         DC    CL1'&LT20'              CCID                             01970017
+         DC    CL1'&LT21'              STATUS                           01970017
+         DC    CL1'&LT22'              APPROVAL                         01970017
+         DC    CL1'&LT30'              LOGGING                          01970017
+         DS    0D                      ALIGN                            01980017
+         AGO   .RTN2100                                                 01990017
+.RTN2900 ANOP                                                           02000017
+         MEXIT                                                          02010017
+.********************************************************************** 02020017
+.*                                                                    * 02030017
+.*   ENTRY=TSP SPECIFIED                                              * 01500017
+.*                                                                    * 02050017
+.********************************************************************** 02060017
+.RTN3000 ANOP                                                           01530017
+         AIF   (&GEND).RTN8030                                          01540017
+         AIF   (&GSTART).RTN8050                                        01550017
+         AIF   (&GCALL).RTN8080            TSP/CALL MUTUALLY EXCLUSIVE  01560017
+&GTSP    SETB  1                                                        01570017
+         TITLE 'ENTRY=TSP'                                              01580017
+*********************************************************************** 01590017
+*  ENTRY=TSP                                                          * 01600017
+*********************************************************************** 01610017
+          ORG   ,                                                       01620017
+INTSP     EQU   *                                                       01630017
+.RTN3010 ANOP                                                           01640017
+&LT20    SETC  'Y'                                                      01710017
+&LT21    SETC  'Y'                                                      01710017
+&LT22    SETC  'Y'                                                      01710017
+&LT30    SETC  'Y'                                                      01710017
+.*                                                                      01660017
+.*   CHECK FOR CCID TSP                                                 01670017
+.*                                                                      01660017
+         AIF   (N'&TSP20 EQ 0).RTN3120        NOT REQ                   01650017
+         AIF   ('&TSP20' EQ 'N').RTN3110      IF NO - DISABLE           01650017
+         AIF   ('&TSP20' EQ 'Y').RTN3120      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN3110 ANOP                                                           01680017
+&LT20    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR STATUS TSP                                               01670017
+.*                                                                      01660017
+.RTN3120 ANOP                                                           01680017
+         AIF   (N'&TSP21 EQ 0).RTN3130        NOT REQ                   01650017
+         AIF   ('&TSP21' EQ 'N').RTN3125      IF NO - DISABLE           01650017
+         AIF   ('&TSP21' EQ 'Y').RTN3130      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN3125 ANOP                                                           01680017
+&LT21    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR APPROVAL TSP                                             01670017
+.*                                                                      01660017
+.RTN3130 ANOP                                                           01680017
+         AIF   (N'&TSP22 EQ 0).RTN3140        NOT REQ                   01650017
+         AIF   ('&TSP22' EQ 'N').RTN3135      IF NO - DISABLE           01650017
+         AIF   ('&TSP22' EQ 'Y').RTN3140      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN3135 ANOP                                                           01680017
+&LT22    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*   CHECK FOR ACTIVITY LOGGING                                         01670017
+.*                                                                      01660017
+.RTN3140 ANOP                                                           01680017
+         AIF   (N'&TSP30 EQ 0).RTN3200        NOT REQ                   01650017
+         AIF   ('&TSP30' EQ 'N').RTN3145      IF NO - DISABLE           01650017
+         AIF   ('&TSP30' EQ 'Y').RTN3200      IF YES - DEFAULT          01650017
+         AGO   .RTN8082                       OTHER - ERROR             01650017
+.RTN3145 ANOP                                                           01680017
+&LT30    SETC  'N'                                                      01730017
+.*                                                                      01660017
+.*                                                                      01670017
+.RTN3200 ANOP                                                           01910017
+         ORG   ,                                                        01930017
+         DC    CL4'@TSP'               EYECATCHER                       01940017
+         DC    CL1'&LT20'              CCID VALIDATION                  01950017
+         DC    CL1'&LT21'              STATUS CHECKING                  01950017
+         DC    CL1'&LT22'              APPROVAL CHECKING                01950017
+         DC    CL1'&LT30'              ACTIVITY LOGGING                 01950017
+         DS    0D                      ALIGN                            01980017
+.RTN3900 ANOP                                                           02000017
+         MEXIT                                                          02010017
+.********************************************************************** 02020017
+.*                                                                    * 02030017
+.*   ENTRY=END OR ENTRY=ENDMODID SPECIFIED                            * 02040017
+.*                                                                    * 02050017
+.********************************************************************** 02060017
+.RTN4000 ANOP                                                           02070017
+         AIF   (&GEND).RTN8020                                          02080017
+         AIF   (&GSTART).RTN8050                                        02090017
+&GEND    SETB  1                                                        02100017
+         AIF   ('&ENTRY' EQ 'ENDMODID').RTN4001
+         TITLE 'ENTRY=END'                                              02110017
+         AGO   .RTN4002
+.RTN4001 ANOP
+         TITLE 'ENTRY=ENDMODID'                                         02110017
+.RTN4002 ANOP
+*********************************************************************** 02120017
+*  ENTRY=END OR ENTRY=ENDMODID                                        * 02130017
+*********************************************************************** 02140017
+*********************************************************************** 02120017
+*  SET POINTER TO IN@CALL IF TRUE                                     * 02130017
+*********************************************************************** 02140017
+         ORG   INHINCA                                                  02150017
+         AIF   (&GCALL).RTN4010                                         02160017
+         DC    F'0'                                                     02170017
+         AGO   .RTN4025                                                 02180017
+.RTN4010 ANOP                                                           02190017
+         DC    A(INCALL)                                                02200017
+.RTN4020 ANOP                                                           02210017
+         ORG   INHINCNT                                                 02220017
+         DC    A(&GINCNT)                                               02230017
+         AGO   .RTN4040
+*********************************************************************** 02120017
+*  SET POINTER TO IN@TSP  IF TRUE                                     * 02130017
+*********************************************************************** 02140017
+.RTN4025 ANOP                                                           02210017
+         ORG   INHINTA                                                  02150017
+         AIF   (&GTSP).RTN4030                                          02160017
+         DC    F'0'                                                     02170017
+         AGO   .RTN4040                                                 02180017
+.RTN4030 ANOP                                                           02190017
+         DC    A(INTSP)                                                 02200017
+.RTN4040 ANOP
+.*                                                                      02240017
+         ORG   ,                                                        02250017
+PATCH    DC    128H'0'                                                  02260017
+         LTORG ,                                                        02270017
+         AIF   ('&ENTRY' NE 'ENDMODID').RTN4999
+         $#MODID BASEFMID=
+.RTN4999 ANOP
+         END                                                            02280017
+         MEXIT                                                          02290017
+.********************************************************************** 02300017
+.*                                                                    * 02310017
+.*   ERRORS                                                           * 02320017
+.*                                                                    * 02330017
+.********************************************************************** 02340017
+.RTN8000 ANOP                                                           02350017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=START SX02360017
+               TATEMENT'                                                02370017
+         MEXIT                                                          02380017
+.RTN8010 ANOP                                                           02390017
+         MNOTE 12,'** ERROR: INVALID VALUE SPECIFIED ON ENTRY= STATEMEN'02400017
+               T'                                                       02410017
+         MEXIT                                                          02420017
+.RTN8020 ANOP                                                           02430017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT WAS SPECIFIED TWICE'   02440017
+         MEXIT                                                          02450017
+.RTN8030 ANOP                                                           02460017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=CALL STX02470017
+               ATEMENT'                                                 02480017
+         MEXIT                                                          02490017
+.RTN8040 ANOP                                                           02500017
+         MNOTE 12,'** ERROR: ENTRY=START HAS ALREADY BEEN SPECIFIED'    02510017
+         MEXIT                                                          02520017
+.RTN8050 ANOP                                                           02530017
+         MNOTE 12,'** ERROR: ENTRY=START MUST BE FIRST STATEMENT SPECIF'02540017
+               IED'                                                     02550017
+         MEXIT                                                          02560017
+.RTN8060 ANOP                                                           02570017
+         MNOTE 12,'** ERROR: ENVNAME= IS REQUIRED ON ENTRY=CALL STATEME'02580017
+               NT'                                                      02590017
+         MEXIT                                                          02600017
+.RTN8070 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: PARM= IS REQUIRED ON ENTRY=START STATEMENTX02602023
+               '                                                        02603023
+         MEXIT                                                          02604020
+.RTN8080 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: ENTRY=CALL AND ENTRY=TSP ARE MUTUALLY EXCLX02602023
+               USIVE'                                                   02603023
+         MEXIT                                                          02600017
+.RTN8082 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: SYNTAX ERROR. Y/N ONLY VALID VALUES       X02602023
+               '                                                        02603023
+         MEND                                                           02610017

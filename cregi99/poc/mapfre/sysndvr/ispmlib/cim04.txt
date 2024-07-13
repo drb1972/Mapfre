@@ -1,0 +1,10 @@
+CIM040   'INVALID OPTION'                                .ALARM=YES
+'OPTIONS ARE: (BX)BROWSE, (CX)CHANGES, (HX)HISTORY WITH COMPONENTS.'
+CIM041   'INVALID OPTION'                                .ALARM=YES
+'CIM041 Options are: (B)rowse, (C)hanges, (H)istory, (S)ummary and (M)aster'
+CIM042   'I/O ERROR'                                     .ALARM=YES
+'&VARWLTXT'
+CIM043   'Bracketed Names N/A'                           .ALARM=YES
+'Bracketed names are not available for ISPF dialog processing.'
+CIM044   'INVALID OPTION'                                .ALARM=YES
+'THE ONLY VALID OPTION FOR THIS PANEL IS (L)IST.'

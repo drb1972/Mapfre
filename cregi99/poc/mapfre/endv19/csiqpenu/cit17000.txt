@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD                                                 %Version 17.0+
++
++The following panels present information about the features and enhancements
++that were made available with%Endevor V17.0.+Links are also
++provided for information about the features and enhancements that were
++made available with V16.0, V15.1, V15.0, r14.0, and R12.0.
++
++Enter one of the following options for more information:
++
+% 1+- Name Masking Support for the Build SCL Environment Value
+% 2+- Package Selection List Filter for Exec-failed Status
+% 3+- Alter Element Action
+% 4+- RESTful Web Services API
+% 5+- Link to Endevor V16.0 Feature Tutorials
+% 6+- Link to Endevor V15.1 Feature Tutorials
+% 7+- Link to Endevor V15.0 Feature Tutorials
+% 8+- Link to Endevor r14.0 Feature Tutorials
+% 9+- Link to Endevor R12.0 Feature Tutorials
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++\ \ (Press%ENTER+for more options or%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CIT17010 2,CIT17020 3,CIT17030 4,CIT17040
+                       5,CIT16000 6,CIT15100 7,CITC1500
+                       8,CITC1400 9,CITC1200)
+   &ZCONT = CIT17010
+)END

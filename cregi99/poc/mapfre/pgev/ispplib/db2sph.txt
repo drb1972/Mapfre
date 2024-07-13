@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  Endevor DB2 Stored Procedure Processing  \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                @
+)AREA SAREA1
++
++   These panels build and submit a job to create DB2 Stored
++   Procedure definitions.
++
++   Once you have entered all the details and the variables required
++   you will be given an opportunity to edit the stored procedure
++   definition before submiting a job to add the definition into Endevor
++   type SPDEF.
++
++   Panel processing:
++    1. Stored Procedure details
++    2. Variable defnitions
++    3. View generated create command
++    4. Build & Submit SCL to add SPDEF element to Endevor
++
++   Endevor Type SPDEF processing:
++    1. Drop   SP definition
++    2. Create SP definition
++    3. Grant execute on procedure
++    4. Grant execute on package
++    5. Stop  procedure
++    6. Start procedure
++    7. Refresh WLM environment
++
++   Type SPDEF requires that BIND element of the same name exists.
++   If not then the SPDEF add will fail and must be regenerated after
++   the bind elment is added.
++
++   N.B. When changing a bind element processor group you must always
++   regenerate the SPDEF element too.
++
+)PROC
+)END

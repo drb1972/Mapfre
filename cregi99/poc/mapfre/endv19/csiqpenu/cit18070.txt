@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ SMF Recording/Monitoring for Admin Action Activity \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%SMF Recording/Monitoring for Admin Action Activity
++
++ With this enhancement, the Endevor administrator can record
++ administrative action activity to SMF. Admin actions are actions that
++ create, modify, or delete:  Endevor inventory definitions, such
++ as System, Subsystem, Type, Processor Group, Approver Group, and
++ Approver Group Relations; and  Package definitions, such as destination,
++ DSN mapping rules, and USS mapping rules.
++
++ You can also have a copy of these admin action SMF records written to a
++ log file. SMF recording must be active to use the log file.
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18080
+)END

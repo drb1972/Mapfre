@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Dynamic Approver Group Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to create, update, display, or delete the
++Dynamic Approver Group.
++
++
++
++    Select%1+-%2+ for more information
++
+%    1+- About the Dynamic Approver group     %2+- Field descriptions
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITP4110 2,CITP4120)
+)END

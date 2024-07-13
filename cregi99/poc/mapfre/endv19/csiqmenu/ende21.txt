@@ -1,0 +1,78 @@
+ENDE210C 'Nothing to Build'                         .ALARM=Y .TYPE=N NOKANA
+'No Element found in the current element selection list Table '           +
+'(&BSCLTAB). SQ BUILD <act> command must be entered with a valid '        +
+'element selection list.'
+
+ENDE210E 'Invalid Option'            .HELP=ENDHE158 .ALARM=Y .TYPE=W NOKANA
+'The Quick Edit Queue option can only be "Y" - Keep all batch '          +
+'requests in a queue for processing, or "N" - Submit each batch '            +
+'request individually.'
+
+ENDE210W 'Nothing to Submit'                        .ALARM=Y .TYPE=W NOKANA
+'No SCL requests are currently queued for processing in Table '           +
+'(&EEVQUTAB). Request ignored. (Additional details: '                     +
+'Requests(&EEVQUREQ) Rowcount(&EEVQURCT) Status2(&EEVQUST2)).'
+
+ENDE211I 'SCL records found'                        .ALARM=N .TYPE=N NOKANA
+'There are currently &EEVQUREQ requests queued in &EEVQURCT SCL records ' +
+'prepared for processing.  Select "Edit", "End" or "Cancel".
+
+ENDE211E                             .HELP=ENDHE159       .TYPE=W NOKANA
+'ENDE211E &EEVQUREQ requests are already Queued.  You must either submit '    +
+'those requests(using SQ SUB) or cancel them(SQ CAN) before you can change '  +
+'your QUEUE option to 'N'.
+
+ENDE212E 'TBCreate Error'                           .ALARM=N .TYPE=N NOKANA
+'ENDE212E Unable to create table &EEVQUTAB.. ISPF RC=&EEVXPRSL..'
+
+ENDE212I 'Use SUB or END'            .HELP=ENDHE159       .TYPE=W NOKANA
+'ENDE212I &EEVQUREQ requests have been added to this job.  You can now '      +
+'either use the SUB command to submit them, or use END without submitting '   +
+'to discard these requests.  Use CANCEL to exit and preserve the current '    +
+'QUEUE or CUT/COPY to preserve the contents.'
+
+ENDE213E 'Submit Disabled'           .HELP=CITI1010 .ALARM=Y .TYPE=A NOKANA
+'ENDE213E CD18101 Quick Edit Queue Batch Actions Feature is not enabled'  +
+'(&VNTQUENA.) or invalid table name (&EEVQUTAB.).'
+
+ENDE214I 'Submit Cancelled'                         .ALARM=N .TYPE=N NOKANA
+'ENDE214I Batch action request queue reset.'
+
+ENDE215I 'Request(s) Queued'         .HELP=ENDHE159 .ALARM=N .TYPE=N NOKANA
+'ENDE215I Request &EEVQUREQ added to queue in table &EEVQUTAB..  '        +
+'Use the SQ (Submit Queue) command to process them.'
+
+ENDE216I 'Job Submitted'                            .ALARM=N .TYPE=N NOKANA
+'ENDE216I Job submitted.  Request Queue &EEVQUTAB reset.'
+
+ENDE217I 'Request Cancelled'         .HELP=ENDHE159 .ALARM=N .TYPE=N NOKANA
+'ENDE217I Submit request Cancelled.  There are &EEVQUREQ requests '        +
+'still in the queue in table &EEVQUTAB..'
+
+ENDE218I '&ZEDSMSG                '                 .ALARM=N .TYPE=N NOKANA
+'&ZEDLMSG'
+
+ENDE218W '&ZEDSMSG                '                 .ALARM=N .TYPE=W NOKANA
+'&ZEDLMSG'
+
+ENDE218E '&ZEDSMSG                '                 .ALARM=Y .TYPE=A NOKANA
+'&ZEDLMSG'
+
+ENDE218S '&ZEDSMSG                '                 .ALARM=Y .TYPE=C NOKANA
+'&ZEDLMSG'
+
+ENDE219C 'Confirm EXIT?           '  .HELP=ENDHE159 .ALARM=Y .TYPE=W NOKANA
+'About to Exit Quick Edit, but there are still &EEVQUREQ requests '       +
+'queued in &EEVQURCT scl records, prepared for processing.  '             +
+'Select "EDIT" to review or amend, "ENTER" to submit, "END" to '          +
+'go back, "RETURN" or "CANCEL" to Quit anyway.'
+
+ENDE219W 'Invalid Parm, Ignored   '  .HELP=ENDHE159 .ALARM=Y .TYPE=N NOKANA
+'Invalid parm (&VNTQUEP1 &VNTQUEP2) passed to Sub Queue(SQ) command.  '   +
+'Valid options are EDit, EDITJCL, NEW, BUILD, SUBmit, VALidate or CANcel.'
+
+ENDE219E 'Invalid Command         '  .HELP=ENDHE159 .ALARM=Y .TYPE=N NOKANA
+'Invalid command (&VARWKCMD).  '                                          +
+'Valid commands are EDit, EDITJCL, SUBmit/<blank>, BUILD/BLD, '           +
+'VALidate or CANcel.'
+

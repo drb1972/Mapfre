@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Endevor  r14 Features \-\
+%Option ===>_ZCMD                                                   %Release 14+
++
++The following panels present information about the features and
++enhancements that are available with r14 of Endevor.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- Alternate ID Support for Unix System Services (USS) Files           %base+
+% 2+- Promotion Package Stop-At-Stage                                     %base+
+% 3+- Validate Element Action                                             %base+
+% 4+- Virtual Inventory Configuration (Generate NOSOURCE)                 %base+
+% 5+- AUTOGEN Generate Option                                             %base+
++
++
++
++
++
++
++
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITC1410 2,CITC1420 3,CITC1430 4,CITC1440
+                       5,CITC1450)
+   &ZCONT = CITC1410
+)END

@@ -1,0 +1,31 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage
+tag _ muh dislist ccid wpgrp
+tag | sh msg s1id s2id
+tag ¢ s s1name s2name
+%------------------------------  Print Elements  -------------------------------
+%OPTION  ===>_   +
+|
+%                             +Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse  %H+- History
+%   P++- Print element           %M+- Master   %C+- Changes
+%   PC+- Print changes only
+%   PS+- Print element summary
+%   PM+- Print master information
+%   PH+- Print change history
++
++FROM LOCATION:
++  ENVIRONMENT %===>_        +
++  SYSTEM      %===>_        +
++  SUBSYSTEM   %===>_        +
++  ELEMENT     %===>_          +
++  TYPE        %===>_        +
++  STAGE       %===>_ +      | +-¢            | +-¢
++
++LIST OPTIONS:
++  DISPLAY LIST     %===>_Y+ (Y/N)
++  WHERE CCID EQ    %===>_            +
++  WHERE PROC GRP EQ%===>_        +
+enddef

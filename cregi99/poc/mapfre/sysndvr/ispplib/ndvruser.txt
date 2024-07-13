@@ -1,0 +1,70 @@
+)ATTR
+  /*--------------------------------------------------------------*/
+  /*  Copyright (C) 1986-2013 CA. All Rights Reserved.            */
+  /*                                                              */
+  /*  NAME: NDVRUSER                                              */
+  /*                                                              */
+  /*  Note: If adding/removing entries from/to this panel, be     */
+  /*        sure to modify the CMD line(s) in the )PROC area      */
+  /*        in addition to the descriptive text line(s) in        */
+  /*        the )BODY area.                                       */
+  /*                                                              */
+  /*        Also, if implementing option 3 (DB2 BATCH) from this  */
+  /*        panel, modify the ^ to %, add a + immediately         */
+  /*        after the 3 in the )BODY section so it looks like     */
+  /*        the following:                                        */
+  /*                                                              */
+  /*        +    3+ DB2 BATCH   - DB2 Batch Interface...          */
+  /*                                                              */
+  /*        Then, remove the comments from the )PROC section.     */
+  /*                                                              */
+  /*--------------------------------------------------------------*/
+  /* Attribute Characters:                                        */
+  ^ TYPE(TEXT) INTENS(NON)
+  + TYPE(TEXT) INTENS(LOW)
+  % TYPE(TEXT) INTENS(HIGH)
+  @ TYPE(TEXT) INTENS(LOW)
+  # TYPE(TEXT) INTENS(LOW)
+)BODY
+%------------------------------  User Options Menu  ----------------------------
+%OPTION  ===>_ZCMD                                                             +
+%
+%   1+ REPORTS     - Build Report Requests
+%
+%   2+ ACMQ        - Perform ACM Where-Used / Uses-What Queries
+%
+^   3  DB2 BATCH   - DB2 Batch Interface Processing
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
++ Enter%END+to return to the Primary Options Menu
+%
+)INIT
+  .HELP = NDTRUSER
+  &CTLNBR   = ''
+  &DESCRPT1 = ''
+)PROC
+  /*--------------------------------------------------------------*/
+  /* The following ZSEL statement will invoke the command or panel*/
+  /* associated with each option identified above.                */
+  /*--------------------------------------------------------------*/
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+           1,'CMD(%C1SR1000 DEBUG(NOBUG))'
+  /*  The following option supports ACM Query                     */
+           2,'CMD(%ACMQ     DEBUG(NOBUG)) NEWAPPL(CTLI) PASSLIB'
+           *,'?' )
+  /*  The following options support DB2 Batch Interface           */
+  /*       3,'CMD(%edb2cmnd DEBUG(NOBUG))'                        */
+  &ZTRAIL = .TRAIL
+)END

@@ -1,0 +1,35 @@
+          MACRO
+          ENHOPUSS &SPECIFIED=55
+          GBLC &PARMUSSN
+          GBLC &TITLE
+.*
+.*--------------------------------------------------*
+.*                                                  *
+.*--------------------------------------------------*
+.VER       ANOP
+           MNOTE 'ENHOPUSS SPECIFIED IS &SPECIFIED'
+           MNOTE 'ENHOPUSS PARMUSSN  IS &PARMUSSN'
+           AIF  (T'&SPECIFIED EQ 'O').VERDEFLT
+           AIF  (K'&SPECIFIED NE 2).ERRBADLN
+           AIF  ('&SPECIFIED'(1,1) LT '0').ERRBAD#
+           AIF  ('&SPECIFIED'(1,1) GT '7').ERRBAD#
+           AIF  ('&SPECIFIED'(2,1) LT '0').ERRBAD#
+           AIF  ('&SPECIFIED'(2,1) GT '7').ERRBAD#
+          AGO  .VEROK
+.VEROK    ANOP
+&PARMUSSN SETC  '&PARMUSSN.&SPECIFIED.)'
+          AGO .MEND
+.VERDEFLT ANOP
+&PARMUSSN SETC  '&PARMUSSN.55)'
+          AGO .MEND
+.ERRBADLN ANOP
+          MNOTE 12,'SUBPARAMETER FOR ENABLE_ALTID_USS_SECURITY MUST BE +
+               A TWO CHARACTER NUMERIC VALUE IF SPECIFIED'
+          AGO .MEND
+.ERRBAD#  ANOP
+          MNOTE 12,'EACH CHARACTER IN ENABLE_ALTID_USS_SECURITY SUBPARA+
+               METER MUST BE IN THE RANGE 0 THROUGH 7'
+          AGO .MEND
+.MEND     ANOP
+          MNOTE 0,'PARMUSSN IS &PARMUSSN'
+          MEND

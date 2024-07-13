@@ -1,0 +1,9 @@
+ENDI001E 'Initialization Failed'                         .ALARM=YES
+'ENDI001E Unable to load the ISPF Configuration table, ENDICNFG'
+
+ENDI002E 'Dialog Already Active  '                     .ALARM=YES
+'ENDI002E The dialog is already active in this ISPF logical screen'
+
+ENDI003S 'ABEND &C1ABC '                               .ALARM=YES
+'ENDI003S The dialog terminated with a &C1ABC ABEND'
+

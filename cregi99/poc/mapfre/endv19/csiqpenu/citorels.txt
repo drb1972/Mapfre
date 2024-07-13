@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - Releases \-\
+%Option ===>_ZCMD
++
++The following panels present links about the features and enhancements that
++were made available with previous releases.
++
++Enter one of the following options for more information:
++
+% 1+- Link to Endevor V18.1 Feature Tutorials
+% 2+- Link to Endevor V18.0 Feature Tutorials
+% 3+- Link to Endevor V17.0 Feature Tutorials
+% 4+- Link to Endevor V16.0 Feature Tutorials
+% 5+- Link to Endevor V15.1 Feature Tutorials
+% 6+- Link to Endevor V15.0 Feature Tutorials
+% 7+- Link to Endevor r14.0 Feature Tutorials
+% 8+- Link to Endevor R12.0 Feature Tutorials
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++\ \ (Press%ENTER+for more options or%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITI1000 2,CIT18000 3,CIT17000 4,CIT16000
+                       5,CIT15100 6,CITC1500 7,CITC1400 8,CITC1200
+                       S,CIT0EEGG)
+   &ZCONT = CITC1200
+)END

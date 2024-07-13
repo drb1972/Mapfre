@@ -1,0 +1,9 @@
+@REM ****************************************************** #PSNDVRU ***
+@REM *    CONTENTS: ENDEVOR/MVS - COPY CONTROL CARD / UNFORMATTED FILES
+@REM * TRANSMITTER: ALL
+@REM *     PURPOSE: COPY UTILITY CONTROL STATEMENT WHICH WILL COPY AN
+@REM *              UNFORMATTED (RECFM=U) DATASET IN CONJUNCTION WITH
+@REM *              THE JCL FOUND IN #PSNDVRH, #PSNDVRR, ET AL.
+@REM *******************************************************************
+@REM
+ COPYMOD INDD=((I&F5,R)),OUTDD=O&F5

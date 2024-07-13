@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(TEXT) INTENS(&VNBPKGD1)
+   ! TYPE(TEXT) INTENS(&VNBPKGD2)
+   ¢ TYPE(TEXT) INTENS(&VNBPKGD3)
+   # TYPE(TEXT) INTENS(&VNBPKGD4)
+   @ TYPE(TEXT) INTENS(&VNBPKGD5)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ CA Endevor SCM Tivoli InfoMan Correlation \-\
+%OPTION  ===>_VARWKCMD
++
++
++ Record Identifier:|VEIRNID +                  Assignee:|VEIASSN        +
++     Co-requisites:|VEICORQ         +       Coordinator:|VEICOOR        +
++
++
++       Description:|VEIDESC                                       +
++
++
++      Entered Date:|VEIENDT +           Approval Status:|VEIAPST +
++      Entered Time:|VEIENTM+              Change Status:|VEICHST +
++ Last Altered Date:|VEILADT +               Change Type:|VEICHTY +
++ Last Altered Time:|VEILATM+           Entry Priv Class:|VEIEPC  +
++Planned Start Date:|VEIPSDT +         Owning Priv Class:|VEIOPC  +
++     Required Date:|VEIRQDT +             Current Phase:|VEICUPH +
++   Completion Date:|VEICMDT +          Current Priority:|Z +
++
+)INIT
+  .HELP = CITEIBRW
+  .ZVARS = '(VEICUPR                                              +
+            )'
+)PROC
+)END

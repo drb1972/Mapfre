@@ -1,0 +1,12 @@
+startdef
+tag % sh
+tag + s
+tag _ muh dsname member
+tag | sh msg
+%------------  CA Endevor SCM System Profile Maintenance        ----------------
+%
+|
++   Specify the location of the Batch Skeleton:
++
++      DATA SET NAME:_                                                    +
+enddef

@@ -1,0 +1,18 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd dsname dsnmem dsnthru
+tag | sh msg
+tag ¢ s dislist
+%-------------------------------  Print Members  -------------------------------
+%OPTION  ===>_   +
+|
++ %Blank+- Member list     %B+- Browse member     %P+- Print member
++
++FROM PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_
++   MEMBER %===>_          +        THRU MEMBER%===>_          +
++
++LIST OPTIONS:
++   DISPLAY LIST %===>¢Y+ (Y/N)
+enddef

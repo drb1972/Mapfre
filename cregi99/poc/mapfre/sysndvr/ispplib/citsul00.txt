@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Groups - Browse/List/Update Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
+%S - Browse symbolics+- Used to access a Processor Group Symbolics panel
++   to view the symbolics defined for that processor group.
++
+%U - Update symbolics+- Used to access a Processor Group Symbolics panel
++   to change or override the symbolics defined for that processor group.
++
+%L - List Processor+- Used to access a Processor List panel to view the
++   code for the selected processor.
++
++Type S, U, or L next to the name of the processor you want to access,
++then press ENTER.
++
++    Select%1+-%2+for more information
++
+%    1+- Symbolics panel            %2+- Processor List panel
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITEUSY0 2,CITEUSJ0)
+)END

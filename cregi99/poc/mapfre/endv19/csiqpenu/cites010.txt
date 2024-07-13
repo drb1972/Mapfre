@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls\-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 1 of 6)+
+
+%Site ID+- ID assigned to the site.
++
+%Version+- The current version of the software.
++
+%Environments+- Number of environments defined at the site.
++
+%Userid Start+- First position within a user ID that is compared
++      for ownership during signout and override signout processing. Used
+       when BATCHID=0 or JOBNAME.
+
+%Userid Length+- Number of characters compared within a user ID.
+   +   Used when BATCHID=0 or JOBNAME.
+
+%Batch ID+- Indicates where the ID associated with a batch job is extracted:
++     %0+From the JOBNAME; the user ID is checked for validity using the
+         Userid Start and Length parameters.
+
+      %1+The USER parameter specified on the job card.
++
++                                              (%ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITES011
+)END

@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields indicate if the CA Endevor SCM named facility
++has been enabled at the site.
++
++Acceptable values are%N+(default, not enabled), and%Y+(enabled).
++
+  %ACM+       - The Automated Configuration Manager is installed.
+  %DB2+       - The DB2 facility is installed.
+  %QUICKEDIT+ - The Quick Edit dialog is available.
+  %ESI+       - The Extended Security Interface (ESI) is installed.
+  %INFO+      - The Information/Management Interface is installed.
+  %LIBENV+    - Librarian or Panvalet libraries can be used.
+  %NETMAN+    - The NETMAN Interface is installed.
+  %PDM+       - The Parallel Development Manager (PDM) is installed.
+  %PROC+      - The use of extended processors is available.
++
+)END

@@ -1,0 +1,373 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.  BSTTRD06.
+       AUTHOR.      BST, INC.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SOURCE-COMPUTER.  IBM-370.
+       OBJECT-COMPUTER.  IBM-370.
+
+      ****************************************************************
+      * THIS PROGRAM IS EXECUTED BY PROCESSORS CALLED ALIASMOV AND   *
+      * ALIASDEL.                                                    *
+      * THIS PROGRAM READS A SEQUENTIAL FILE CONTAINING THE COMPONENT*
+      * LIST OF THE ELEMNT BEING PROCESSED.   IT READS THROUGH THE   *
+      * LIST UNTIL IT FINDS THE "OUTPUT COMPONENT" SECTION.          *
+      * IT THEN READS TO BYPASS THE TITLE LINE (DSN) THEN FORMATS *
+      * THE OUTPUT ELEMENT/ALIAS NAMES.  THIS CAN BE USED WHEN A     *
+      * LOAD PROGRAM PRODUCES ALIAS NAMES, WHOSE DIRECTORY ENTRIES   *
+      * MUST BE COPIED WITH THE LOAD PROGRAM TO ANOTHER LOAD LIBRARY.*
+      * AFTER THE NAME IS FORMATTED BSTCOPY SELECT STATEMENTS ARE    *
+      * WRITTEN TO THE OUTPUT FILE, WHICH IS INPUT TO THE COPY STEP. *
+      *
+      * FOR DELETE ACTIONS IDCAMS REQUIRES THE LIBRAY NAME TO BE
+      * INCLUDED IN THE CONTROL CARDS.  SINCE THE LIBRARY IN THE
+      * COMPONENT LIST DOES NOT NECESSARILY REFLECT THE CURRENT STAGE
+      * THE DEL-LIB PARAGRAPH AT THE END OF THIS PROGRAM MUST BE
+      * CUSTOMIZED TO HANDLE YOUR SITE SPECIFIC STAGEID'S AND LOADLIBS
+      * IN ORDER TO CORRECTLY DELETE ALL OUTPUT MEMBERS AS NEEDED
+      ****************************************************************
+
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT TEMP-FILE              ASSIGN TO  C1INP.
+           SELECT PARM-FILE              ASSIGN TO  C1PARM.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD  TEMP-FILE
+           BLOCK CONTAINS 0 RECORDS
+           RECORDING MODE IS F
+           LABEL RECORDS ARE STANDARD
+           DATA RECORD IS INPUT-RECD.
+
+       01  INPUT-RECD.
+           03  ASA-CHAR                  PIC X(1).
+           03  COLS-1-4                  PIC X(4).
+           03  FILLER                    PIC X(8).
+           03  COLS-13-20                PIC X(8).
+           03  CHAR REDEFINES COLS-13-20
+                 OCCURS 8 TIMES       PIC X(1).
+           03  FILLER                    PIC X(05).
+           03  COLS-26-40                PIC X(15).
+           03  RELATED-COMP REDEFINES COLS-26-40.
+               05 COLS-26-32             PIC X(07).
+               05 FILLER                 PIC X(08).
+           03  INPUT-COMP REDEFINES COLS-26-40.
+               05 FILLER                 PIC X(04).
+               05 COLS-30-40             PIC X(11).
+           03  RELATED-COMP REDEFINES COLS-26-40.
+               05 FILLER                 PIC X(05).
+               05 COLS-31-37             PIC X(07).
+               05 FILLER                 PIC X(03).
+           03  FILLER                    PIC X(92).
+
+       FD  PARM-FILE
+            BLOCK CONTAINS 0 RECORDS
+            RECORDING MODE IS F
+            LABEL RECORDS ARE STANDARD
+            DATA RECORD IS PARM-RECD.
+
+       01  PARM-RECD                     PIC X(80).
+
+       WORKING-STORAGE SECTION.
+       77  SUB                           PIC S9(2)  VALUE ZERO.
+       77  SUB1                          PIC S9(2)  VALUE ZERO.
+       77  EOF-SW                        PIC S9(1)  VALUE ZERO.
+
+       01  BUILD-NAME.
+           03  PGM-1 OCCURS 8 TIMES      PIC X(1).
+
+      *01  COPY-PARM-1.
+      *    03  FILLER                    PIC X(1)  VALUE SPACE.
+      *    03  FILLER          PIC X(18) VALUE 'COPYMOD O=OUT,I=I'.
+      *    03  FILLER                    PIC X(61) VALUE SPACES.
+
+       01  COPY-PARM-2.
+          03  FILLER                    PIC X(7)  VALUE ' S M=(('.
+          03  P-NM                      PIC X(13) VALUE SPACE.
+          03  FILLER                    PIC X(60) VALUE SPACE.
+
+      *****************************************************
+      *** 03/93 - FSV MADE CHAGES SO THAT THIS PROGRAM WILL ALSO
+      *** WORK FOR DELETES.
+      ***********************************************************
+       01  COPY-PARM-D2 REDEFINES COPY-PARM-2.
+           03       A-NM2                PIC X(8).
+           03       L-NM2                PIC X(19).
+           03       P-NM2                PIC X(8).
+           03       FILLER               PIC X(45).
+
+       01  COPY-BUILD.
+           03       P-1                  PIC X(1)  VALUE SPACE.
+           03       P-2                  PIC X(1)  VALUE SPACE.
+           03       P-3                  PIC X(1)  VALUE SPACE.
+           03       P-4                  PIC X(1)  VALUE SPACE.
+           03       P-5                  PIC X(1)  VALUE SPACE.
+           03       P-6                  PIC X(1)  VALUE SPACE.
+           03       P-7                  PIC X(1)  VALUE SPACE.
+           03       P-8                  PIC X(1)  VALUE SPACE.
+           03       P-9                  PIC X(1)  VALUE SPACE.
+           03       P-10                 PIC X(1)  VALUE SPACE.
+           03       P-11                 PIC X(1)  VALUE SPACE.
+           03       P-12                 PIC X(1)  VALUE SPACE.
+           03       P-13                 PIC X(1)  VALUE SPACE.
+
+       LINKAGE SECTION.
+       01  PARM.
+           05  FILLER                    PIC XX.
+           05  PARM-DATA.
+               10  PARM-STAGE            PIC X.
+               10  PARM-ACTION           PIC X(4).
+
+       PROCEDURE DIVISION USING PARM.
+           OPEN INPUT  TEMP-FILE.
+           OPEN OUTPUT PARM-FILE.
+      ****************************************************************
+      * WRITE THE BSTCOPY COPY STATEMENT.                            *
+      ****************************************************************
+      *    IF PARM-ACTION = 'MOVE'
+      *        WRITE PARM-RECD FROM COPY-PARM-1.
+      ****************************************************************
+      * READ THROUGH THE COMPONENT LIST TO THE OUTPUT COMPONENT LINE.*
+      ****************************************************************
+           PERFORM READ-1 UNTIL COLS-30-40 EQUAL 'OUTPUT COMP'
+                 OR EOF-SW EQUAL +1.
+           IF EOF-SW EQUAL 0
+              PERFORM READ-2 UNTIL COLS-26-32 EQUAL 'RELATED'
+                    OR COLS-31-37 EQUAL 'RELATED'
+                    OR EOF-SW EQUAL +1
+           ELSE
+      ****************************************************************
+      * DIDNT' FIND ANY OUTPUT COMPONENTS.  FORCE BSTCOPY TO ABEND.  *
+      ****************************************************************
+              IF PARM-ACTION = 'MOVE'
+                 MOVE 'NOOUTPUT,,R))' TO P-NM
+                 WRITE PARM-RECD FROM COPY-PARM-2
+              ELSE
+                  MOVE SPACES TO COPY-PARM-D2
+                  MOVE 'NO MATCH' TO P-NM2
+                  WRITE PARM-RECD FROM COPY-PARM-D2.
+      ****************************************************************
+      * CLOSE THE FILES AND RETURN TO THE PROCESSOR (ALIASMOV)       *
+      ****************************************************************
+           CLOSE TEMP-FILE
+                 PARM-FILE.
+           GOBACK.
+       READ-1.
+      *****************************************************************
+      * READ THROUGH THE COMPONENT LIST TO THE OUTPUT COMPONENTS LINE.*
+      *****************************************************************
+           MOVE SPACE TO INPUT-RECD.
+           READ TEMP-FILE
+                AT END
+                   MOVE +1 TO EOF-SW.
+       READ-2.
+      *****************************************************************
+      * READ THROUGH TO THE ELEMENT NAME LINES.                       *
+      *****************************************************************
+           MOVE SPACE TO INPUT-RECD.
+           READ TEMP-FILE
+                AT END
+                   MOVE +1 TO EOF-SW.
+      *****************************************************************
+      * BYPASS THE NON-ELEMENT NAME LINES.                            *
+      *****************************************************************
+           IF EOF-SW EQUAL ZERO
+              IF COLS-1-4 EQUAL 'STEP'  OR
+                 COLS-1-4 EQUAL SPACE  OR
+                 COLS-1-4 EQUAL '----'
+                 NEXT SENTENCE
+             ELSE
+      *****************************************************************
+      * FOUND AN OUTPUT ELEMNT NAME.  NOW FORMAT IT.                  *
+      *****************************************************************
+                MOVE SPACE TO BUILD-NAME
+                MOVE +1 TO SUB
+                PERFORM GET-PGM
+                VARYING SUB1 FROM +1 BY +1
+                   UNTIL SUB1 EQUAL +9
+                PERFORM SET-COPY.
+       GET-PGM.
+      *****************************************************************
+      * PARSE THE ELEMENT NAME AND STORE IN COPY-BUILD.               *
+      ******************************************************************
+           MOVE CHAR(SUB) TO PGM-1(SUB1).
+           ADD +1 TO SUB.
+       SET-COPY.
+      *****************************************************************
+      * ASSUMING THE ELEMENT NAME IS AT LEAST 4 CHARACTERS IN LENGTH  *
+      * CHECK POSITIONS 5 THROUGH 8 OF BUILD NAME TO FIND THE END OF  *
+      * THE NAME, THEN FORMAT THE REST OF THE SELECT STATEMENT.       *
+      *****************************************************************
+           IF PARM-ACTION = 'MOVE'
+               MOVE SPACE TO P-NM
+                             COPY-BUILD
+           ELSE
+                MOVE SPACE TO P-NM2
+                             COPY-BUILD.
+                MOVE PGM-1(1) TO P-1.
+                MOVE PGM-1(2) TO P-2.
+                MOVE PGM-1(3) TO P-3.
+                MOVE PGM-1(4) TO P-4.
+      *****************************************************************
+      * IS THE ELEMENT NAME ONLY 4 POSITIONS?                         *
+      *****************************************************************
+           IF PARM-ACTION = 'MOVE'
+               IF PGM-1(5) EQUAL SPACE
+                  MOVE ',' TO P-5
+                  MOVE ',' TO P-6
+                  MOVE 'R' TO P-7
+                  MOVE ')' TO P-8
+                  MOVE ')' TO P-9
+                  MOVE COPY-BUILD TO P-NM
+                  PERFORM WRITE-IT
+               ELSE
+                  MOVE PGM-1(5) TO P-5
+                  PERFORM CHK-6
+           ELSE
+               IF PGM-1(5) EQUAL SPACE
+               MOVE ')' TO P-5
+               MOVE SPACE TO P-6
+               MOVE SPACE TO P-7
+               MOVE SPACE TO P-8
+               MOVE SPACE TO P-9
+               MOVE SPACE TO P-10
+               MOVE SPACE TO P-11
+               MOVE SPACE TO P-12
+               MOVE SPACE TO P-13
+               MOVE COPY-BUILD TO P-NM2
+               PERFORM WRITE-IT
+           ELSE
+               MOVE PGM-1(5) TO P-5
+               PERFORM CHK-6.
+       CHK-6.
+      ****************************************************************
+      * IS THE ELEMENT NAME ONLY 5 POSITIONS?                        *
+      ****************************************************************
+           IF PARM-ACTION = 'MOVE'
+               IF PGM-1(6) EQUAL SPACE
+                  MOVE ',' TO P-6
+                  MOVE ',' TO P-7
+                  MOVE 'R' TO P-8
+                  MOVE ')' TO P-8
+                  MOVE ')' TO P-10
+                  MOVE COPY-BUILD TO P-NM
+                  PERFORM WRITE-IT
+               ELSE
+                  MOVE PGM-1(6) TO P-6
+                  PERFORM CHK-7
+           ELSE
+               IF PGM-1(6) EQUAL SPACE
+                  MOVE ')' TO P-6
+                  MOVE SPACE TO P-7
+                  MOVE SPACE TO P-8
+                  MOVE SPACE TO P-9
+                  MOVE SPACE TO P-10
+                  MOVE SPACE TO P-11
+                  MOVE SPACE TO P-12
+                  MOVE SPACE TO P-13
+                  MOVE COPY-BUILD TO P-NM2
+                  PERFORM WRITE-IT
+               ELSE
+                  MOVE PGM-1(6) TO P-6
+                 PERFORM CHK-7.
+       CHK-7.
+      *****************************************************************
+      * IS THE ELEMNT NAME ONLY 6 POSITIONS?                          *
+      *****************************************************************
+           IF PARM-ACTION = 'MOVE'
+               IF PGM-1(7) EQUAL SPACE
+                  MOVE ',' TO P-7
+                  MOVE ',' TO P-8
+                  MOVE 'R' TO P-9
+                  MOVE ')' TO P-10
+                  MOVE ')' TO P-11
+                  MOVE COPY-BUILD TO P-NM
+                  PERFORM WRITE-IT
+               ELSE
+                  MOVE PGM-1(7) TO P-7
+                  PERFORM CHK-8
+           ELSE
+               IF PGM-1(7) EQUAL SPACE
+                  MOVE ')' TO P-7
+                  MOVE SPACE TO P-8
+                  MOVE SPACE TO P-9
+                  MOVE SPACE TO P-10
+                  MOVE SPACE TO P-11
+                  MOVE SPACE TO P-12
+                  MOVE SPACE TO P-13
+                  MOVE COPY-BUILD TO P-NM2
+                  PERFORM WRITE-IT
+              ELSE
+                  MOVE PGM-1(7) TO P-7
+                  PERFORM CHK-8.
+       CHK-8.
+      ****************************************************************
+      * IS THE ELEMENT ONLY 7 POSITIONS?                             *
+      ****************************************************************
+           IF PARM-ACTION = 'MOVE'
+               IF PGM-1(8) EQUAL SPACE
+                  MOVE ',' TO P-8
+                  MOVE ',' TO P-9
+                  MOVE 'R' TO P-10
+                  MOVE ')' TO P-11
+                  MOVE ')' TO P-12
+                  MOVE COPY-BUILD TO P-NM
+                  PERFORM WRITE-IT
+               ELSE
+      *****************************************************************
+      * THE ELEMENT NAME IS 8 POSITIONS LONG.                         *
+      *****************************************************************
+                  MOVE PGM-1(8) TO P-8
+                  MOVE ',' TO P-9
+                  MOVE ',' TO P-10
+                  MOVE 'R' TO P-11
+                  MOVE ')' TO P-12
+                  MOVE ')' TO P-13
+                 MOVE COPY-BUILD TO P-NM
+                 PERFORM WRITE-IT
+            ELSE
+              IF PGM-1(8) EQUAL SPACES
+                 MOVE ')' TO P-8
+                 MOVE SPACE TO P-9
+                 MOVE SPACE TO P-10
+                 MOVE SPACE TO P-11
+                 MOVE SPACE TO P-12
+                 MOVE SPACE TO P-13
+                 MOVE COPY-BUILD TO P-NM2
+                 PERFORM WRITE-IT
+             ELSE
+                 MOVE PGM-1(8) TO P-8
+                 MOVE ')' TO P-9
+                 MOVE SPACE TO P-10
+                 MOVE SPACE TO P-11
+                 MOVE SPACE TO P-12
+                 MOVE SPACE TO P-13
+                 MOVE COPY-BUILD TO P-NM2
+                 PERFORM WRITE-IT.
+       WRITE-IT.
+      ****************************************************************
+      * IF  MOVE ACTION WRITE THE BSTCOPY SELECT MEM=  STATEMENT.
+      *
+      ****************************************************************
+            IF PARM-ACTION = 'MOVE'
+                WRITE PARM-RECD FROM COPY-PARM-2
+            ELSE
+                PERFORM DEL-LIB THRU DEL-LIB-X
+                MOVE ' DELETE ' TO A-NM2
+                WRITE PARM-RECD FROM COPY-PARM-D2.
+      ****************************************************************
+      * IF  DELETE ACTION SPECIFY WHICH LIBRARY WE ARE DELETING FROM
+      *
+      ****************************************************************
+       DEL-LIB.
+           IF PARM-STAGE = 'T'
+               MOVE 'IPRFX.IQUAL.SMPLTEST.LOADLIB(' TO L-NM2.
+           IF PARM-STAGE = 'Q'
+               MOVE 'IPRFX.IQUAL.SMPLQA.LOADLIB(' TO L-NM2.
+           IF PARM-STAGE = 'E'
+               MOVE 'IPRFX.IQUAL.SMPLEMER.LOADLIB(' TO L-NM2.
+           IF PARM-STAGE = 'P'
+               MOVE 'IPRFX.IQUAL.SMPLPROD.LOADLIB(' TO L-NM2.
+       DEL-LIB-X.
+            EXIT.

@@ -1,0 +1,50 @@
+         MACRO                                                          00000001
+&LABEL   $PRSIN &DATA=                 INSTREAM DATA                    00000002
+.********************************************************************** 00000003
+.*                                                                    * 00000004
+.*       PROCESSOR INSTREAM DATA DEFINITION BLOCK                     * 00000005
+.*                                                                    * 00000006
+.*       CREATED BY C1GJTRNS                                          * 00000007
+.*                                                                    * 00000008
+.*       CONTAINS:      PROCESSOR INSTREAM DATA.                      * 00000009
+.*                                                                    * 00000010
+.********************************************************************** 00000011
+         GBLA  &PRLSTPR                GLOBAL FOR LAST PROCESSOR MACRO  00000012
+         GBLC  &PRSIN                  GENERATED NEXT DATA LABEL        00000013
+         GBLC  &PRCSECT                CSECT NAME FOR MODULE            00000014
+         LCLC  &BLKLBL                 LABEL FOR CURRENT BLOCK          00000015
+&BLKLBL  SETC  '&PRSIN'                ASSIGN CURRENT BLOCK LABEL       00000016
+         AIF   (&PRLSTPR EQ 100).LOGIC DOES THIS FOLLOW A $PRHDR?       00000017
+         AIF   (&PRLSTPR EQ 200).LOGIC DOES THIS FOLLOW A $PRSYM?       00000018
+         AIF   (&PRLSTPR EQ 300).LOGIC DOES THIS FOLLOW A $PRPGM?       00000019
+         AIF   (&PRLSTPR EQ 400).LOGIC DOES THIS FOLLOW A $PRCC?        00000020
+         AIF   (&PRLSTPR EQ 500).LOGIC DOES THIS FOLLOW A $PRDDA?       00000021
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?       00000022
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?       00000023
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM'     00000024
+         AGO   .MEXIT                                                   00000025
+.CONT    ANOP                                                           00000026
+&PRLSTPR SETA  700                     THIS IS INSTREAM DATA            00000027
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS    00000028
+&PRCSECT CSECT                                                          00000029
+         DC    A(&BLKLBL)                                               00000030
+         DC    A(&PRSIN)               NEXT INSTREAM DATA IN CHAIN      00000031
+&BLKLBL  DS    0F                                                       00000032
+         DC    Y(PRSINEQU)             THIS IS A HEADER RECORD          00000033
+         DC    Y(&BLKLBL.L)            LENGTH OF THIS BLOCK             00000034
+         DC    Y(PRSINVER)             ENDEVOR VERSION GENERATING PROC  00000035
+         DC    Y(&BLKLBL.#)            NUMBER OF VARIABLE FIELDS        00000036
+         SPACE ,                                                        00000037
+         ORG   &BLKLBL+PRSFLDS-@PRSINDS  LOCATE VARIABLE FIELD AREA     00000038
+&BLKLBL.$ DS   0F                                                       00000039
+         $PRFLD FIELD=DATA,VALUE=&DATA,MAXSIZE=80                       00000040
+&BLKLBL.# EQU  ((*-&BLKLBL.$)/8)                                        00000041
+&BLKLBL.L EQU  *-&BLKLBL                                                00000042
+         AGO   .MEXIT                                                   00000043
+.LOGIC   ANOP                                                           00000044
+         MNOTE 8,'LOGICAL ERROR, $PRSIN MAY NOT FOLLOW A $PRHDR, $PRSYMX00000045
+               , $PRPGM, $PRCC, OR $PRDDA CARD.'                        00000046
+         AGO   .MEXIT                                                   00000047
+.MEXIT   ANOP                                                           00000048
+         SPACE 2                                                        00000049
+         MEND                                                           00000050

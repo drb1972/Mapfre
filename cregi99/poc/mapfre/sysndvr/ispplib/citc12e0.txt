@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Enhanced Search and Replace \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Enhanced Search and Replace Utility +
+
++ The Enhanced Search and Replace Utility allows you to%update+the
+  the%output data set name+information in the%component data+to reflect
+  the current location of the output.  This may be desired if you
+  receive an error when using the LL (List Listing) command because
+  an element was%moved+but%not regenerated+or if for some other reason
+  the%output data set name+does not reflect the%current location+of the
+  output, possibly due to the data set being%renamed+or output being
+ %moved+to a%new data set.+
+
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E1
+)END

@@ -1,0 +1,10 @@
+@REM ****************************************************** #PSXCOM8 ***
+@REM *    CONTENTS: ENDEVOR/MVS - TERMINATE DESTINATION PROCESSING
+@REM * TRANSMITTER: CA-XCOM
+@REM *     PURPOSE: DELETE THE HOST STAGING DATASET DELETE COMMANDS
+@REM *              AND POSSIBLY XCOMCMD.FILE (VIA #PSXCOMT)
+@REM *******************************************************************
+@REM
+@PASS=20
+   DEL '&SHIPHLI..D&SHIPDATE..T&SHIPTIME..XCOMCMD.FILE(&DESTID.D)'
+@INCLUDE=(T)

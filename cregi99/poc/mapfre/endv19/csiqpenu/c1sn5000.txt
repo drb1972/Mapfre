@@ -1,0 +1,70 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ! TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT) PAD(NULLS)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   $ AREA(SCRL)   EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ LIST MEMBERS/FILES \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+$SCRAREA                                                                       $
+)AREA SCRAREA
++  %blank+- Member/file list     %B+- Browse member/file     %L+- List action
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++FROM ISPF LIBRARY:                    +LIST OPTIONS:
++  PROJECT    %===>_PRJ0    +             DISPLAY LIST           %===>_Z+(Y/N)
++  LIBRARY    %===>_LIB0    +
++  TYPE       %===>_TYP0    +
++  MEMBER     %===>_ISPFMB    +
++    THRU MEMBER%===>_C1DSPTNM  +
++
++FROM OTHER PARTITIONED OR SEQUENTIAL DATA SET:
++  DATA SET   %===>_OTHDSN                                                  +
+<OTHERWISE>
++FROM LOCATION:
++ %U+- USS  %D+- ISPF LIBRARY, OTHER PARTITIONED OR SEQUENTIAL DATA SET
++  DATA SET TYPE%===>_Z+(U/D)
++
++  ISPF LIBRARY:+                      +OPTIONS:
++    PROJECT  %===>_PRJ0    +             DISPLAY LIST           %===>_Z+(Y/N)
++    LIBRARY  %===>_LIB0    +
++    TYPE     %===>_TYP0    +
++    MEMBER   %===>_ISPFMB    +
++      THRU MEMBER%===>_C1DSPTNM  +
++
++  OTHER PARTITIONED OR SEQUENTIAL DATA SET:
++   %===>_OTHDSN                                                  +
++
++  USS PATH AND FILE NAME:
++    PATH%===>@VNTPATH                                            |VNTIND1
++    FILE%===>@VNT1ENME                                           |VNTIND2
+</SELECT>
++
++TEXT STRING AND SCAN INFORMATION:
++ %===>!VNB50TXT
++  SCAN COLUMNS:         START%===>_Z  +  END%===>_Z  + SHOW TEXT%===>_Z+(Y/N)+
++
++ACTION TO BE GENERATED WHEN LIST IS CREATED %===>_VNB50ACT+
++WRITE LIST TO OUTPUT DATA SET%===>_Z+(Y/N)+
+)INIT
+  .HELP = CITN5000
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(VARWKLST VNB50BEG VNB50END VNB50STX VNBWOFLG)'
+  &VNTDSTYP = 'D'                              /* Force Dataset on           */
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+  .ZVARS = '(VNTDSTYP VARWKLST VNB50BEG VNB50END VNB50STX VNBWOFLG)'
+</SELECT>
+)PROC
+)FIELD
+ FIELD(VNTPATH)  IND(VNTIND1) SCROLL(ON)
+ FIELD(VNT1ENME) IND(VNTIND2) SCROLL(ON)
+)END

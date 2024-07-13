@@ -1,0 +1,61 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+~)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Endevor Learn More link added to ISPF panels \-\
+%Option ===>~ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Endevor Learn More link added to ISPF panels \ \ +Current Setting:%&VNTUIDLM
++
+%  New Landing Page for Endevor related content
++  A new text line with the prompt "Learn more" and a URL is optionally added
++  to the Endevor primary screens just above the copyright line.
++
++  The linked page brings together links to a range of resources designed to
++  make your use of Endevor easier and more effective.  For example;
++  - Access product training
++  - Watch how-to videos
++  - Get involved - Help improve our products through hands-on validation
++  - Take part in live demos, webinars and surveys
++  - Access the Customer Validation Community
++
+%  Enabling the Learn-More link:
++  The Learn-More links are enabled by the Endevor administrator through a new
++  setting in the configuration table: 'UI_OPT_DSPL_LEARN_MORE'.
++
+%  Is the link "Clickable"?
++  The Learn-More links displays the full URL to jump to the Endevor-Learn-More
++  page, however it will depend on your emulator as to whether it supports this
++  field as a hot-link, if it does not work as expected check your emulator's
++  settings.  If that doesn't work you can still copy and paste the link.
++
+%  Try it and see...
++  You can change the current setting of this flag (for this session only) by
++  changing the value here.  The results are demonstrated dynamically below.
++
++    %Display Learn More ===>~Z+ (Y/N)
++
+%  Note:+This setting will revert when you exit and restart Endevor.
++
+<SELECT Dynamic Endevor Learn More option>
+<WHEN &VNTUIDLM=N>
++
+<OTHERWISE>
++           Learn More at &VNTUIURL                                  +
+</SELECT>
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+   .ZVARS = 'VNTUIDLM'
+   &LSTUIDLM = &VNTUIDLM
+   &VNTUIURL           = 'https://www.broadcom.com/Endevor-Learn-More'
+)PROC
+   VER (&VNTUIDLM, NB, LIST, 'Y', 'N')
+   VPUT (VNTUIDLM) SHARED
+   IF (&LSTUIDLM = &VNTUIDLM)  /* did user toggle the value? */
+      &ZCONT = CIT18003        /* ...no - continue */
+   ELSE                        /* otherwise */
+      &ZCONT = CIT18390        /* re-show this panel */
+      &LSTUIDLM = &VNTUIDLM    /* and save changes */
+)END

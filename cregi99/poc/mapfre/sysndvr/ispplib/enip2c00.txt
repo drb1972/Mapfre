@@ -1,0 +1,38 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP2C00                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+ ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
++-------------------------------%Submit Package+--------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the Submit action information below and select an action:
++  _Z+ 1  Submit package      2  Cancel the Submit action
++      N  Display Package Notes
++
++  Package ID.............#PDVSLPKG        +
++  Description............~PDVSLDSC                                          +
++
++  JOB Card data set name:
++    Project.._PDVSBPRO+
++    Group...._PDVSBGRP+
++    Type....._PDVSBTYP+
++    Member..._PDVSBMBR+
++
++  Other partitioned or sequential JOB Card data set:
++    Data set name.._PDVSBOTH                                                 +
++
++  Submit options
++    JCL procedure name..._PDVSBPRC+      Submit to CA-7..._Z+(Y/N)
++                                     CA-7 Dependent JOB..._PDVSBDJB+
++
+)INIT
+   .HELP = ENIT2000
+   .ZVARS = '(VARWKCMD PDVSBCA7)'
+)PROC
+)END

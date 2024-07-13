@@ -1,0 +1,37 @@
+)ATTR
+/*********************************************************************/
+/* Note: Variables PTBDAO01 and PTBDACAP will be set by the driving  */
+/* program to selectively display the five message lines at the      */
+/* bottom of the panel.                                              */
+/*********************************************************************/
+  @ TYPE(OUTPUT) INTENS(&PTBDAOA1) CAPS(&PTBDACAP) JUST(ASIS)
+  $ TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%PDM -------------------Request Dataset Allocation Panel -----------------------
+%Command ===>_ZCMD                                                             +
++
++Dataset Name:$PTBDADSN                                     +
++  Management Class    %===>_PTBDAMC +   (Blank for default management class)
++  Storage Class       %===>_PTBDASC +   (Blank for default storage class)
++    Volume Serial     %===>_Z     +     (Blank for authorized default volume)
++  Data Class          %===>_PTBDADC +   (Blank for default data class)
++    Space Units       %===>_PTBDASPC +  (BLKS, TRKS, CYLS)
++    Primary Quantity  %===>_PTBDA1EX+   (In above units)
++    Secondary Quantity%===>_PTBDA2EX+   (In above units)
++    Directory Blocks  %===>_PTBDADIR+   (Zero for sequential data set)
++    Record Format     %===>_Z +         (F, FB, V, VB)
++    Record Length     %===>_Z    +
++    Block Size        %===>_Z    +      (Blank for system determined value;
++                                         Required when Space Units is BLKS)
++ %*Note:+The Batch Request dataset record length must be 80 for fixed
++   length records and 84 for variable length records.
++
++  @PTBDAMS1                                                                 +
++  @PTBDAMS2                                                                 +
++  @PTBDAMS3                                                                 +
++  @PTBDAMS4                                                                 +
++  @PTBDAMS5                                                                 +
+)INIT
+  .ZVARS = '(PTBDAVOL PTBDARF PTBDARCL PTBDABLK)'
+  .HELP= BC1TALC0
+)END

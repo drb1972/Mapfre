@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Vendor Application Updates \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Vendor products, such as proprietary or in-house developed products,
++need to be maintained and updated on a regular basis.  Whether you
++have purchased a vendor package that was customized by the vendor
++before delivery, or customized the package yourself, you need to
++integrate periodic vendor updates into the modified vendor code.
++
++Problem: The customizations to the basic product must be indentified
++and carried forward into the new release.
++
++
+)END

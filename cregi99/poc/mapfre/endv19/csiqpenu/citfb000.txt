@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Archive action to write the current version of an element to a
++sequential file, known as the archive data set.
++
++If you use ACM, the base and all change levels of component lists are
++also written to the archive data set.
++
++
++  Select one of the options below for more information:
++
+%    1+- Panel options
+%    2+- Inventory fields
+%    3+- Element and Uppercase fields
+%    4+- TO FILE field
+%    5+- Action options
+%    6+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITFB001 2,CITNDVR0 3,CITNDVRL 4,CITTOFI0
+                  5,CITFB002 6,CITLOPT0)
+)END

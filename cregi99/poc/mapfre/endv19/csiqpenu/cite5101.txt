@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Processing Sequence \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to review the processing sequence for types defined
++to your site.
++
++The Parmlib and Typeseqmbr values in the C1DEFLTS Table define the
++dataset name and member for the Type Sequence Table defined at your
++site.
++
++The Category value does not affect the type sequencing order and is only used
++when Concurrent Action processing is activated. When multiple types are defined
++with the same category value, those actions will execute simultaneously.
++
++
++
++
++
++
++
++
++
++
+)PROC
+)END

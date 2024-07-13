@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Move Action and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++     Environment mapping makes the Move action the primary action for
++     movement through the life cyle map.
++
++     The MOVE action supports:
++
++       * FROM STAGE specification
++       * BYPASS ELEMENT DELETE option (like Transfer)
++       * Sign in, retain signout, or sign out to the user performing the move
++       * A synchronization option (like Transfer)
++
++
++
++                                            (%PF3+to return)
+)END

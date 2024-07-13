@@ -1,0 +1,41 @@
+         MACRO
+         @IPADDR &IPVAL=
+.**********************************************************************
+.*  @IPTYPE  TABLE OF IP ADDRESSES TO WHICH ENDEVOR MESSAGING WILL   **
+.*           REPORT.                                                 **
+.*                                                                   **
+.*     PARAMETERS:                                                   **
+.*                                                                   **
+.*            IPVAL=START           STARTS TABLE                     **
+.*            IPVAL=NNN.NNN.NNN.NNN AN IP ADDRESS.  USED "AS-IS" BY  **
+.*                                  THE MESSAGE PROGRAM BC1TRAP0.    **
+.*            IPVAL=END             ENDS TABLE                       **
+.*                                                                   **
+.*                                                                   **
+.*     CODING CONVENTION.  IN ORDER FOR THE TABLE TO BE FORMULATED   **
+.*                         CORRECTLY, FOLLOW THE FOLLOWING FORMAT.   **
+.* IPADDR IPVAL=START                                                **
+.* IPADDR IPVAL=NNN.NNN.NNN.NNN                                      **
+.* IPADDR IPVAL=OOO.OOO.OOO.OOO                                      **
+.* IPADDR IPVAL=PPP.PPP.PPP.PPP                                      **
+.* ...    ...                                                        **
+.* IPADDR IPVAL=END                                                  **
+.*                                                                   **
+.**********************************************************************
+         EJECT
+         LCLC &LEN
+         SPACE 2
+         AIF ('&IPVAL' EQ 'START').START
+         AIF ('&IPVAL' EQ 'END').END
+         DC  A(16)
+         DC  CL16'&IPVAL'
+         MEXIT
+.START   ANOP
+C1IPADDR CSECT
+         MEXIT
+.END     ANOP
+         DC A(0)
+         DC CL16' '
+         END
+         MEXIT
+         MEND

@@ -1,0 +1,31 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Archive Package panel to offload a package definition to an external
++data set.  To archive a package specify a data set to which the package is to
++be archived, select action 1 and press enter.  You can cancel the Archive
++Package action by selecting action 2 and pressing enter.
++
++
++Select 1 - 3 for information about:
+%   1+- Package identification fields
+%   2+- Archive to data set name
+%   3+- Archive options
+%
+%
+%
+%
++ Select a Help topic, or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,enit2d10
+                 3,enit2d20
+                )
+)END

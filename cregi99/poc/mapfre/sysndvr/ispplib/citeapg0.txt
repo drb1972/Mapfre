@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Definition \-\TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This Processor Group Definition panel allows you to
++
++  * Create, display, and maintain processor groups.
++
++  * Display or update processor group symbolics.
++
++  * View processor listings.
++
++
++
++
++    Select%1+-%7+for information about specific fields
++
+%    1+- Current location           %5+- Browse/update/list options
+%    2+- Next location              %6+- Processor name fields
+%    3+- Name and description       %7+- Foreground executionn
+%    4+- Move/Transfer options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITMTPR0
+                          5,CITSUL00 6,CITPGNM0 7,CITFGEX0)
+)END

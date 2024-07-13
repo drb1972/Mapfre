@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Add/Update Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an Element selection list. This
++        applies when DISPLAY LIST=Y.
++
+%A    +- Use this option to add one or more members/USS files.
++
+%U    +- Use this option to update an element in Stage 1. This only applies
++        if UPDATE IF PRESENT=Y.
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%PF3+to return or%ENTER+for Element Display Options) \ \
+)PROC
+   &ZCONT = CITDOPT0
+)END

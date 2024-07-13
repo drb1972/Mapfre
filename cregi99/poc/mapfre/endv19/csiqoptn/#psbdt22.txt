@@ -1,0 +1,9 @@
+@REM ****************************************************** #PSBDT22 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: INCLUDE #PSBDT2P TO WRITE A "Q" COMMAND TO TRANS-
+@REM *              MIT A PDS.
+@REM *******************************************************************
+@REM *
+@PASS=20
+@INCLUDE=P

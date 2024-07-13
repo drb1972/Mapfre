@@ -1,0 +1,44 @@
+         MACRO
+&LABEL   $PBMSTAT &DSCT=YES
+*---------------------------------------------------------------------*
+*                                                                     *
+* Macro: $PBMSTAT                                                     *
+*                                                                     *
+* Function: The $PBMSTAT macro is used to map the PDM Merge Output    *
+*  statistics record.  An Output statistics record is created for     *
+*  each WIP member processed by the PDM MERGE OUTPUT action.          *
+*                                                                     *
+*---------------------------------------------------------------------*
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PBMSTAT DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$PBMSTAT DS    0F
+.SKPEQU  ANOP
+$PBMLEN  DC    Y($PBMDSLN)             Length of the structure
+$PBMEYE  DC    CL4'STAT'               Structure Identifier
+$PBMVERS DC    Y(1)                    Structure Version number
+PMTYPE   DC    Y(3)                    Structure Type identifier
+PMREPL   DS    CL1                     Global Replace option (Y/N)
+PMPRCMDE DS    CL1                     Processing Mode (F/B)
+PMWIPDSN DS    CL44                    WIP Dataset Name
+PMOUTDSN DS    CL44                    Merge Output Dataset name
+PMWIPMEM DS    CL10                    WIP Member name
+PMOUTMEM DS    CL10                    Merge Output Member name
+PMRUNTME DS    F                       Time of Merge operation
+PMRUNDTE DS    F                       Date of Merge operation
+         SPACE ,
+*---------------------------------------------------------------------*
+* Merge Output General Statistics                                     *
+*---------------------------------------------------------------------*
+PMPGENUM DS    PL2                     Report Page Number
+PMWIPMRG DS    CL1                     If 'Y', Merge was run as part   X
+                                        of Build WIP processing
+PMWIPDEL DS    CL1                     If 'Y', the WIP member was del- X
+                                        eted by the Merge operation
+PMRETCDE DS    F                       Overall return code for member
+PMTWPREC DS    F                       Total number of WIP records
+PMTMGREC DS    F                       Total number of Merged records
+PMTERREC DS    F                       Total number of invalid records
+$PBMDSLN EQU   *-$PBMSTAT
+         MEND

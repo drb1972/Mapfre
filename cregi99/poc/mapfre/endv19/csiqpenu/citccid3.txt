@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Generates \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
+%Generate+
++ without                 Set        Set                             Set if
++  copyback                                                          generate
++                                                                    creates a
++                                                                    delta
++
++ with       Set to       Set        Set                  Set to     Set
++  copyback  copied                                       copied
++            back value                                   back value
++
+)END

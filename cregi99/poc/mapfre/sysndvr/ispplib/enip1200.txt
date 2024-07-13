@@ -1,0 +1,36 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP1200                                                     */
+ /*-----------------------------------------------------------------------*/
+  _ TYPE(INPUT) PADC(_) JUST(ASIS) CAPS(ON) INTENS(LOW)
+  $ TYPE(INPUT)         JUST(LEFT) CAPS(ON)
+)BODY
++-----------------------%Batch Package Additional JCL+--------------------------
++ Command ==>$ZCMD                                                             +
++
++     .........1.........2.........3.........4.........5.........6.........7..
++ 1. _PDVDD01                                                                 +
++ 2. _PDVDD02                                                                 +
++ 3. _PDVDD03                                                                 +
++ 4. _PDVDD04                                                                 +
++ 5. _PDVDD05                                                                 +
++ 6. _PDVDD06                                                                 +
++ 7. _PDVDD07                                                                 +
++ 8. _PDVDD08                                                                 +
++ 9. _PDVDD09                                                                 +
++ 10._PDVDD10                                                                 +
++ 11._PDVDD11                                                                 +
++ 12._PDVDD12                                                                 +
++ 13._PDVDD13                                                                 +
++ 14._PDVDD14                                                                 +
++ 15._PDVDD15                                                                 +
++ 16._PDVDD16                                                                 +
++ 17._PDVDD17                                                                 +
++ 18._PDVDD18                                                                 +
++ 19._PDVDD19                                                                 +
++ 20._PDVDD20                                                                 +
+)INIT
+   .HELP = enit1200
+)PROC
+)END

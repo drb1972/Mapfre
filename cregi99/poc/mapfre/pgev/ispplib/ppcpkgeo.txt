@@ -1,0 +1,29 @@
+)ATTR DEFAULT(%+_)
+ ¨ TYPE(INPUT) INTENS(HIGH) CAPS(ON) PAD(_)
+ # TYPE(TEXT) SKIP(ON)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Package Copy -}-}-
+Command ===>_ZCMD                                            +System ID :$Z   +
+%
+%
++            Current TestStream  :¢Z +
+%
+%Cmd    Tracker Package Dataset                       Created   Referred
++
+)MODEL
+ ¨Z+   ¢NAME                                         ¢CREATED  ¢REFERRED
+)INIT
+  .ZVARS = '(ZSYSID STREAMID SEL)'
+ &AMT = CSR
+)REINIT
+  &ZCMD = ' '
+  REFRESH ZCMD
+)PROC
+  VER (&SEL,LIST,S,B)
+)END

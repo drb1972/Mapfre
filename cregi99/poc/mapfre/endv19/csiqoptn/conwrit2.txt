@@ -1,0 +1,32 @@
+//**********************************************************************
+//* CONWRITE GETS COMPONENT LIST RECORD FROM THE BASE/DELTA LIBRARIES  *
+//* AND STORES IT IN TEXT FORMAT IN THE FILE SPECIFIED ON ELMOUT.      *
+//*                                                                    *
+//* REFER TO THE FOLLOWING SOURCE EXAMPLES FOR INFORMATION ON THE      *
+//*      THE FORMAT OF THE OUTPUT COMPONENT LIST EXPORT RECORDS        *
+//*      CREATED IN THE ELMOUT FILE.                                   *
+//*                                                                    *
+//*      CONCOMP: EXAMPLE COBOL PROGRAM WHICH DISPLAYS EACH OF THE     *
+//*               COMPONENT LIST EXPORT RECORDS, FIELD BY FIELD.       *
+//*                                                                    *
+//*     COMPRECS: COBOL COPY STATEMENTS WHICH DEFINE THE LAYOUT OF     *
+//*               THE COMPONENT LIST EXPORT RECORDS.                   *
+//*                                                                    *
+//*      $COMPDS: ASSEMBLE DSECTS WHICH DEFINE THE LAYOUT OF THE       *
+//*               COMPONENT LIST EXPORT RECORDS.                       *
+//*                                                                    *
+//**********************************************************************
+//*
+//CONWRITE  EXEC PGM=CONWRITE
+//ELMOUT    DD   DSN=&&ELMOUT,DISP=(,PASS),
+//               SPACE=(TRK,(1,1),RLSE),UNIT=&WRKUNIT,
+//               DCB=(RECFM=VB,LRECL=400,BLKSIZE=6004),
+//               MONITOR=&MONITOR
+           WRITE ELEMENT &C1ELEMENT
+            FROM ENV  &C1ENVMNT SYSTEM &C1SYSTEM SUBSYSTEM &C1SUBSYS
+                 TYPE &C1ELTYPE STAGE  &C1STGID
+              TO DDNAME ELMOUT
+                 MEMBER &C1ELEMENT
+          OPTION COMPONENT
+                 .
+//*

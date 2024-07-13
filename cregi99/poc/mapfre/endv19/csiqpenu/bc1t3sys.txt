@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - System Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a system when specifying Root,
++Derivation 1, or Derivation 2 as an%inventory location+during
++the Build WIP process.
++
++To select a system, type%S+next to the system name, then press ENTER.
++
++
++
++
++
++
+)END

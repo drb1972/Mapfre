@@ -1,0 +1,195 @@
+       IDENTIFICATION DIVISION.                                         00000100
+       PROGRAM-ID. XIT7APNC.                                            00000200
+                                                                        00000300
+      ************************************************************      00000400
+      * DESCRIPTION: THIS PACKAGE EXIT PROGRAM WILL EXTRACT      *      00000500
+      * APPROVER GROUPS AND THEN NOTIFY EACH USER                *      00000600
+      * VIA THE NOTIFICATION FACILITY.                           *      00000700
+      *                                                          *      00000800
+      * SETUP: THE SETUP ROUTINE ENABLES THIS PROGRAM AT THE     *      00000900
+      * FOLLOWING EXIT POINTS:                                   *      00001000
+      *                                                          *      00001100
+      *   1. POST CAST                                           *      00001200
+      *   2. POST EXECUTION                                      *      00001300
+      *   3. PRE RESET                                           *      00001400
+      *   4. POST BACKOUT                                        *      00001500
+      *                                                          *      00001600
+      * INPUT PARAMETERS:                                        *      00001700
+      *                                                          *      00001800
+      *   1ST: PACKAGE-EXIT-BLOCK                                *      00001900
+      *   2ND: PACKAGE-REQUEST-BLOCK                             *      00002000
+      *   3RD: PACKAGE-EXIT-HEADER-BLOCK                         *      00002100
+      *   4TH: PACKAGE-EXIT-APPROVER-MAP                         *      00002200
+      ************************************************************      00002300
+                                                                        00002400
+       ENVIRONMENT DIVISION.                                            00002500
+       INPUT-OUTPUT SECTION.                                            00002600
+       FILE-CONTROL.                                                    00002700
+       DATA DIVISION.                                                   00002800
+       FILE SECTION.                                                    00002900
+       WORKING-STORAGE SECTION.                                         00003000
+       COPY NOTIFYDS.                                                   00003100
+                                                                        00003200
+           EJECT                                                        00003300
+                                                                        00003400
+       01  FILLER.                                                      00003500
+           05  NOTIFY-MESSAGE      PIC X(80).                           00003600
+           05  FILLER REDEFINES NOTIFY-MESSAGE.                         00003700
+               10  NM-CHAR         PIC X OCCURS 80 TIMES.               00003800
+           05  WORK-MESSAGE.                                            00003900
+               10  WM-PART1        PIC X(8).                            00004000
+               10  WM-PACKAGE-ID   PIC X(16).                           00004100
+               10  WM-PART2        PIC X(38).                           00004200
+               10  WM-PART3        PIC X(13).                           00004300
+               10  WM-RC           PIC 9999.                            00004400
+               10  WM-RC-X REDEFINES WM-RC PIC X(4).                    00004500
+               10  WM-PART4        PIC X(1).                            00004600
+           05  FILLER REDEFINES WORK-MESSAGE.                           00004700
+               10  WM-CHAR         PIC X OCCURS 80 TIMES.               00004800
+           05  WORK-FLAG           PIC X.                               00004900
+       01  PROGRAM-NAME            PIC X(8).                            00005000
+       01  SUB1                    PIC S9(8) COMP.                      00005100
+       01  SUB2                    PIC S9(8) COMP.                      00005200
+                                                                        00005300
+       LINKAGE SECTION.                                                 00005400
+       COPY PKGXBLKS.                                                   00005500
+                                                                        00005600
+       EJECT                                                            00005700
+                                                                        00005800
+       PROCEDURE DIVISION USING                                         00005900
+               PACKAGE-EXIT-BLOCK                                       00006000
+               PACKAGE-REQUEST-BLOCK                                    00006100
+               PACKAGE-EXIT-HEADER-BLOCK                                00006200
+               PACKAGE-EXIT-FILE-BLOCK                                  00006300
+               PACKAGE-EXIT-ACTION-BLOCK                                00006400
+               PACKAGE-EXIT-APPROVER-MAP                                00006500
+               PACKAGE-EXIT-BACKOUT-BLOCK                               00006600
+               PACKAGE-EXIT-SHIPMENT-BLOCK                              00006700
+               PACKAGE-EXIT-SCL-BLOCK.                                  00006800
+           IF  SETUP-EXIT-OPTIONS                                       00006900
+               MOVE 'Y'   TO PECB-AFTER-BACKOUT                         00007000
+               MOVE 'Y'   TO PECB-AFTER-CAST                            00007100
+               MOVE 'Y'   TO PECB-AFTER-EXEC                            00007200
+               MOVE 'Y'   TO PECB-BEFORE-RESET                          00007300
+               MOVE ZEROS TO RETURN-CODE                                00007400
+               GO TO 800-SET-RETURN.                                    00007500
+                                                                        00007600
+           IF  PECB-SUCCESSFUL-RECORD-SENT NEXT SENTENCE                00007700
+            ELSE                                                        00007800
+               IF PECB-NO-RECORDS-FOUND                                 00007900
+                  OR                                                    00008000
+                  PECB-END-OF-FILE-FOR-REC-TYP                          00008100
+                  MOVE 'N' TO PECB-REQ-APPROVER-REC                     00008200
+                  GO TO 800-SET-RETURN                                  00008300
+            ELSE                                                        00008400
+               IF PECB-REQUEST-RETURNCODE = 0                           00008500
+                  MOVE 'Y' TO PECB-REQ-APPROVER-REC                     00008600
+                  GO TO 800-SET-RETURN                                  00008700
+            ELSE                                                        00008800
+               MOVE 8 TO PECB-NDVR-EXIT-RC                              00008900
+               GO TO 900-MAIN-EXIT.                                     00009000
+                                                                        00009100
+           IF  PAPP-APPR-GRP-TYPE = 'E'                                 00009200
+               GO TO 300-GET-NEXT-APPGROUP.                             00009300
+                                                                        00009400
+           MOVE SPACES          TO WORK-MESSAGE.                        00009500
+           MOVE 'PACKAGE'       TO WM-PART1.                            00009600
+           MOVE PECB-PACKAGE-ID TO WM-PACKAGE-ID.                       00009700
+           IF  CAST-PACKAGE                                             00009800
+               MOVE ' HAS COMPLETED CAST PROCESSING. ' TO WM-PART2      00009900
+            ELSE                                                        00010000
+               IF EXECUTE-PACKAGE                                       00010100
+                  MOVE ' HAS COMPLETED EXECUTE PROCESSING. '            00010200
+                       TO WM-PART2                                      00010300
+            ELSE                                                        00010400
+               IF RESET-PACKAGE                                         00010500
+                  MOVE ' ABOUT TO BE RESET. '                           00010600
+                       TO WM-PART2                                      00010700
+            ELSE                                                        00010800
+               MOVE ' IS UPDATED BY AN UNKNOWN EXIT ACTION.'            00010900
+                       TO WM-PART2.                                     00011000
+           IF  CAST-PACKAGE                                             00011100
+               OR                                                       00011200
+               EXECUTE-PACKAGE                                          00011300
+               MOVE ' MAX NDVR RC ' TO WM-PART3                         00011400
+               MOVE PECB-NDVR-HIGH-RC TO WM-RC                          00011500
+               MOVE '.' TO WM-PART4                                     00011600
+            ELSE                                                        00011700
+               MOVE SPACES TO WM-PART3                                  00011800
+               MOVE SPACES TO WM-RC-X                                   00011900
+               MOVE SPACE  TO WM-PART4.                                 00012000
+                                                                        00012100
+           MOVE 'N' TO WORK-FLAG.                                       00012200
+           MOVE  1  TO SUB2.                                            00012300
+           PERFORM B100-MOVE-CHAR THRU B110-MC-EXIT                     00012400
+                   VARYING SUB1 FROM 1 BY 1                             00012500
+                     UNTIL SUB1 > 80.                                   00012600
+           PERFORM C100-MOVE-SPACE THRU C110-MS-EXIT                    00012700
+                   VARYING SUB2 FROM SUB2 BY 1                          00012800
+                     UNTIL SUB2 > 80.                                   00012900
+                                                                        00013000
+           MOVE LOW-VALUES      TO NOTIFY-BLOCK.                        00013100
+           MOVE 'TSO'           TO NOTI-NOTIFY-TYPE.                    00013200
+           MOVE 'Y'             TO NOTI-SET-LOGON-OPT.                  00013300
+           MOVE NOTIFY-MESSAGE  TO NOTI-MESSAGE-TEXT.                   00013400
+           PERFORM A00-NOTIFY THRU A10-N-EXIT                           00013500
+                   VARYING SUB1 FROM 1 BY 1                             00013600
+                     UNTIL SUB1 > PAPP-APPROVER-NUMBER.                 00013700
+                                                                        00013800
+      *                                                                 00013900
+      *    BC1PNTFY SHOULD BE DELETED ONLY AFTER ALL REQUESTS HAVE      00014000
+      *    BEEN PROCESSED FOR THIS SESSION.  FOR THIS EXAMPLE, WE'LL    00014100
+      *    ISSUE IT HERE AS AN EXAMPLE OF THE SYNTAX.                   00014200
+      *                                                                 00014300
+      *    CANCEL PROGRAM-NAME.                                         00014400
+      *                                                                 00014500
+                                                                        00014600
+       300-GET-NEXT-APPGROUP.                                           00014700
+                                                                        00014800
+           MOVE 'Y' TO PECB-REQ-APPROVER-REC.                           00014900
+                                                                        00015000
+       800-SET-RETURN.                                                  00015100
+                                                                        00015200
+           MOVE 0 TO PECB-NDVR-EXIT-RC.                                 00015300
+                                                                        00015400
+       900-MAIN-EXIT.                                                   00015500
+                                                                        00015600
+           GOBACK.                                                      00015700
+                                                                        00015800
+      *                                                                 00015900
+      *    NOTIFY AN APPROVER                                           00016000
+      *                                                                 00016100
+       A00-NOTIFY.                                                      00016200
+                                                                        00016300
+           MOVE PAPP-APPROVAL-ID (SUB1) TO NOTI-USER.                   00016400
+      *                                                                 00016500
+      *    CALL BC1PNTFY TO PERFORM NOTIFICATION                        00016600
+      *                                                                 00016700
+                                                                        00016800
+           MOVE 'BC1PNTFY'   TO PROGRAM-NAME.                           00016900
+           CALL PROGRAM-NAME USING NOTIFY-BLOCK.                        00017000
+                                                                        00017100
+       A10-N-EXIT.                                                      00017200
+           EXIT.                                                        00017300
+                                                                        00017400
+      *                                                                 00017500
+      *    REPLACE MULTIPLE SPACES IN THE MESSAGE WITH A SINGLE SPACE   00017600
+      *                                                                 00017700
+       B100-MOVE-CHAR.                                                  00017800
+           IF  WM-CHAR (SUB1) = SPACE                                   00017900
+               AND                                                      00018000
+               WORK-FLAG = 'S'                                          00018100
+               GO TO B110-MC-EXIT.                                      00018200
+           MOVE WM-CHAR (SUB1) TO NM-CHAR (SUB2).                       00018300
+           ADD 1 TO SUB2.                                               00018400
+           IF  WM-CHAR (SUB1) = SPACE                                   00018500
+               MOVE 'S' TO WORK-FLAG                                    00018600
+            ELSE                                                        00018700
+               MOVE 'N' TO WORK-FLAG.                                   00018800
+       B110-MC-EXIT.                                                    00018900
+           EXIT.                                                        00019000
+                                                                        00019100
+       C100-MOVE-SPACE.                                                 00019200
+           MOVE SPACE TO NM-CHAR (SUB2).                                00019300
+       C110-MS-EXIT.                                                    00019400
+           EXIT.                                                        00019500

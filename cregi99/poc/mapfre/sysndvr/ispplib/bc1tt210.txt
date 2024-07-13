@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Analysis Tools \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++PDM produces a set of reports that managers can use for project
++planning. The reports are based on one or more Work-in-Process (WIP)
++files. PDM builds WIP files from a base file and one or two files
++derived from the base. The Build WIP process analyzes the input files,
++identifies differences and conflicts, and creates statistics and reports.
++
++The PDM reports include information such as numbers of inserted and
++deleted lines in specific input files, and an assessment of the
++complexity of the WIP file. By interpreting the Build WIP reports,
++programmers or managers can more accurately plan the resources and time
++needed to complete the assignment.
+
++    Select%1-3+for information about:
++
+%    1+- WIP files                  %3+- PDM reports
+%    2+- Building WIP files
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TT410 2,BC1T2000 3,BC1TT600)
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API-CSV Promotion Packages Filtering Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 1 of 3+
+% API-CSV Promotion Package Filtering Enhancement +
+
++ The following enhancements are made to the promotion
+  package feature:
+
+  The Package Foreground Options menu panel includes
+  changes to the promotion package target environment and
+  target stage ID filters. The Tgt Environment and the Tgt
+  Stage ID fields are independent. If the Promotion Pkg field
+  is set to A or P, you can specify both fields, or leave one
+  blank. Previously, you could specify the target
+  environment alone, but if you specified the target stage
+  ID, the target environment was required. Name masking is
+  supported for both fields. Previously, name masking was
+  not allowed.
++
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
++
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E6
+)END

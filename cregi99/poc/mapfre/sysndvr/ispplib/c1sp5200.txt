@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%----------------- JCL TO BE INCLUDED WITH BATCH JOB ---------------------------
++COMMAND ===>_ZCMD                                                             +
++
++       .........1.........2.........3.........4.........5.........6.........7..
++  ===>_VNBDD01
++  ===>_VNBDD02
++  ===>_VNBDD03
++  ===>_VNBDD04
++  ===>_VNBDD05
++  ===>_VNBDD06
++  ===>_VNBDD07
++  ===>_VNBDD08
++  ===>_VNBDD09
++  ===>_VNBDD10
++  ===>_VNBDD11
++  ===>_VNBDD12
++  ===>_VNBDD13
++  ===>_VNBDD14
++  ===>_VNBDD15
++  ===>_VNBDD16
++  ===>_VNBDD17
++  ===>_VNBDD18
++  ===>_VNBDD19
++  ===>_VNBDD20
+)INIT
+  .HELP = CITP5200
+)PROC
+)END

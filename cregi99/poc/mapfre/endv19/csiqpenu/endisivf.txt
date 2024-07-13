@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   @ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%--------------------------  Element Name Prompt  ------------------------------
+%Command ===>_ZCMD                                                             +
++
++
++
++   ************************************************************************
++   *                                                                      *
++   *  +You currently have the SIGNOUT TO field in the ACTION OPTIONS     +*
++   *  +panel specified with@Z       +.  If you desire that this          +*
++   *  +action SIGNOUT the element to the specified userid, press         +*
++   *  +the%ENTER+key to continue.                                        +*
++   *                                                                      *
++   *   If you wish to adjust the SIGNOUT TO value, then enter the        +*
++   *   %END+ command or hit%PF3+.                                         *
++   *                                                                      *
++   ************************************************************************
+)INIT
+.ZVARS = '(EEVSETSO)'
+)PROC
+VGET (EEVSETSO)
+)END

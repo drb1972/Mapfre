@@ -1,0 +1,23 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ JCL JOB Card Data Set Name Fields \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The JCL JOB Card Data Set Name fields identify the location of the data set
++that contains the JCL jobcard.  They are standard ISPF data set specification
++fields used to identify an external data set and member.  The data set can
++a PDS or sequential file.
++
++Use the Other Partitioned or Sequential Data Set field as an alternative to
++the JCL JOB Card Data Set Name fields to define data sets and members.  Type
++the data set and member specification in 'data set(member)' format.
++
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2000
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Submitting Batch Jobs \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the SUBMIT option to submit batch jobs. Before submitting a job:
++
++  * Validate the request data set using the VALIDATE option .
++  * Optionally, use the BUILD JCL option to specify DD statements to
++     be included with the job.
++
++To submit a job, you must provide the following information:
++
+%   Request Data Set+specification
+%   Include JCL+- Indication of whether you want to include JCL in the
++     standard execution JCL: Y (yes) or N (no).  If you specify Y, the
++     additional JCL must have already been defined. The default is N.
+%   Job Statement Information+- Job card to to submit the job.
+
++Press ENTER to submit the job. The JCL is built and submitted
++dynamically, including the job card, a standard job stream
++provided during installation, and any additional JCL.
+
++\ \ (%PF3+to return) \ \
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Options Menu \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++Use the DistribuLink Options Menu to access panels that allow you to
++create, display, modify, or delete DistribuLink connections.  Do this
++by typing the appropriate number in the Option field, then pressing
++ENTER.
++
++  1+- To display DistribuLink connection information.
++  2+- To create or modify a DistribuLink connection.
++  3+- To delete a DistribuLink connection.
++
++To create a connection, you must specify the connection name on this
++panel (1- to 7-characters).
++
++Otherwise, leaving the Connection ID field blank returns a DistribuLink
++Selection List when you press ENTER.
++
++
++                                            (%PF3+to return)
+)END

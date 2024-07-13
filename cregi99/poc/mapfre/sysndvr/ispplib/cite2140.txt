@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Translation Output Libraries \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Processor load libraries are used to store the executable form of
++processors. To make the best use of processor load libraries,
++allocate one load library for Stage 2 of your production environment,
++then point to this library from all Stages in the life cycle.
++
++Processor listing libraries are optional. They are used to store
++listings when processors are compiled.
++
+%Stage 1 Load Library+- Name of the Stage 1 processor load library for
++   this system.
+%Stage 1 List Library+- Name of the Stage 1 processor listing library
++   for this system.
++
+%Stage 2 Load Library+- Name of the Stage 2 processor load library for
++   this system.
+%Stage 2 List Library+- Name of the Stage 2 processor listing library
++   for this system.
++
++\ \ (%PF3+to return) \ \
+)END

@@ -1,0 +1,106 @@
+         MACRO
+         ENHALPGR &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST PROCESSOR GROUP - REQUEST BLOCK                         *
+*                                                                     *
+***********************************************************************
+ALPGR_RQ$VER    EQU 2                  CONTROL BLOCK VERSION
+ALPGR_RQ$EYE    EQU C'LPGQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALPGR_RQ
+         SPACE ,
+ALPGR_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALPGR_RQ_DATA
+ALPGR_RQ_RESERVE1 DC CL1' '             ** RESERVED **
+ALPGR_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALPGR_RQ_RESERVE2 DC CL1' '            ** RESERVED **
+ALPGR_RQ_RESERVE3 DC CL1' '            ** RESERVED **
+ALPGR_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALPGR_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+ALPGR_RQ_TYPE     DC CL8' '            TYPE NAME
+ALPGR_RQ_STG_ID   DC CL1' '            STAGE ID
+ALPGR_RQ_PGRP     DC CL8' '            PROCESSOR GROUP NAME
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALPGR_RQ_VER#1_DATADSLN EQU *-ALPGR_RQ_DATA
+ALPGR_RQ_VER#1_DSLN     EQU *-ALPGR_RQ
+         SPACE ,
+ALPGR_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALPGR_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR-(N)O -OR- (R)ANGE
+ALPGR_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+ALPGR_RQ_TOSTG_ID DC CL1' '            RANGE-TO STAGE ID -OR-          X
+                                       BETWEEN-TO STAGE ID
+                  DS 0F
+ALPGR_RQ_VER#2_DATADSLN EQU *-ALPGR_RQ_DATA
+ALPGR_RQ_VER#2_DSLN     EQU *-ALPGR_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+ALPGR_RQ_DATADSLN EQU *-ALPGR_RQ_DATA
+ALPGR_RQ_DSLN     EQU *-ALPGR_RQ
+         ORG      ALPGR_RQ_DATA
+ALPGR_RQ_DATAAREA DS XL(ALPGR_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST PROCESSOR GROUP - RESPONSE BLOCK                        *
+*                                                                     *
+***********************************************************************
+ALPGR_RS$VER    EQU ALPGR_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALPGR_RS$EYE    EQU C'LPGS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALPGR_RS
+         SPACE ,
+ALPGR_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALPGR_RS_DATA
+ALPGR_RS_SITE     DC CL1' '            SITE ID
+ALPGR_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALPGR_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALPGR_RS_TYPE     DC CL8' '            TYPE NAME
+ALPGR_RS_STG_NAME DC CL8' '            STAGE NAME
+ALPGR_RS_STG_ID   DC CL1' '            STAGE ID
+ALPGR_RS_STG_NUM  DC CL1' '            STAGE NUMBER
+ALPGR_RS_PGRP     DC CL8' '            PROCESSOR GROUP NAME
+ALPGR_RS_PROTY    DC CL4' '            PROCESSOR TYPE: 'DEL ' 'GEN '   X
+                                       -OR- 'MOVE'
+ALPGR_RS_SYM#     DC ZL4'0'            SYMBOL VARIABLE NUMBER
+ALPGR_RS_UPD_DATE DC ZL8'0'            RECORD UPDATE DATE 'YYYYMMDD'
+ALPGR_RS_UPD_TIME DC ZL8'0'            RECORD UPDATE TIME 'HHMMSSTH'
+ALPGR_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALPGR_RS_DESC     DC CL50' '           PROCESSOR GROUP DESCRIPTION
+ALPGR_RS_NEXT_PGR DC CL8' '            NEXT PROCESSOR GROUP
+ALPGR_RS_PMOVE    DC CL1' '            PROCESSOR ON MOVE (G)EN -OR-    X
+                                       (M)OVE
+ALPGR_RS_PXFER    DC CL1' '            PROCESSOR ON XFER (G)EN -OR-    X
+                                       (M)OVE
+ALPGR_RS_PRONME   DC CL8' '            PROCESSOR NAME
+ALPGR_RS_PGRTYPE  DC CL16' '           PROCESSOR GROUP TYPE
+ALPGR_RS_PROFG    DC CL1' '            Y/N - FOREGROUND PROCESSING
+ALPGR_RS_SYM_LEN  DC ZL2'0'            SYMBOL LENGTH
+ALPGR_RS_SYM      DC CL8' '            SYMBOL
+ALPGR_RS_SVAL_LEN DC ZL4'0'            SYMBOL VALUE LENGTH
+ALPGR_RS_SVAL     DC CL256' '          SYMBOL VALUE
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALPGR_RS_VER#1_DATADSLN EQU *-ALPGR_RS_DATA
+ALPGR_RS_VER#1_DSLN     EQU *-ALPGR_RS
+ALPGR_RS_VER#2_DATADSLN EQU *-ALPGR_RS_DATA
+ALPGR_RS_VER#2_DSLN     EQU *-ALPGR_RS
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+ALPGR_RS_DATADSLN EQU *-ALPGR_RS_DATA
+ALPGR_RS_DSLN     EQU *-ALPGR_RS
+         ORG      ALPGR_RS_DATA
+ALPGR_RS_DATAAREA DS XL(ALPGR_RS_DATADSLN)     DATA AREA
+         MEND

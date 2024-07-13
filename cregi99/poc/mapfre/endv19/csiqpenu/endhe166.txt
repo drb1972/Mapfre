@@ -1,0 +1,60 @@
+)ATTR DEFAULT(%+_)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Element List Searching & Filtering \-\ TUTORIAL
+%Command ===>_ZCMD                                                            +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++The following primary commands can be used within the Quick Edit
++Element Selection List to navigate, search and sort the list:
++
+% LOCATE element-name+
++    Scroll the list to the element name specified as the command parameter.
++    If the element is not on the list, scroll to the last element name
++    that precedes the specified parameter.
++
+% EONLY column-name value+
++    Filters the selection list based upon a specific column,
++    by including or excluding the rows that match your selection criteria.
++
+% ESORT [-]column-name+
++    Sorts the selection list based upon a specific column in ascending
++    order. Inserting the "-" sign before column name results in
++    descending order of the sort.
++
+% ESEARCH string+
++    Filter the list by searching for the specified string in all elements
++    within the list and removing any elements that do not contain
++    the search string.
++    Using the command without a parameter will open a dialog which allows
++    for more complex searches.
++    This command must be enabled in ENCOPTBL. It is currently:%&DISFTXTS+
++
++ REFRESH+
++    Rebuild the element selection list, removing any applied filters and
++    picking up any changes to the elements since the list was built.
++
++
++
++ The following topics will be presented only if selected by number:
++
++     { 1}Using the EONLY command to filter the element list+
++     { 2}Using the ESEARCH command to filter the element list+
++
++\ \(Press}END+to return) \ \
+)INIT
+ &DISFTXTS = TRANS(&VNTFTXTS E,'ENABLED ' D,'DISABLED')
+)PROC
+&ZUP = ENDHE100
+&ZSEL = TRANS(&ZCMD,
+ 1,*EONLYHLP
+ 2,*CITJ0040
+ *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(END)
+)END

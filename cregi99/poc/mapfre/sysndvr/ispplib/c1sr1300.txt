@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ PACKAGE REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT REPORTS:
+ _Z%70 +Package Summary  _Z%71 +Package Approver  _Z%72 +Package Detail
++
++   PACKAGE ID  %===>_VARSPPKG        +APPROVER GROUP %===>_RGROUP          +
++                                  +   APPROVER       %===>_RAPPROVE+
++
++   STATUS: (Y/N)
++       In-Edit......_Z+  Denied......._Z+  Aborted......_Z+
++       In-Approval.._Z+  Approved....._Z+  Committed...._Z+
++       In-Execution._Z+  Executed....._Z+  Backed-Out..._Z+
++
++   PROMOTION HISTORY.........._Z+
++
++   SELECT WHERE DATE :    (MMDDYYYY format only)
++       WINDOW STARTS AFTER%===>_WADTE   + BEFORE%===>_WBDTE   +
++       CREATED       AFTER%===>_CADTE   + BEFORE%===>_CBDTE   +
++       EXECUTED      AFTER%===>_EADTE   + BEFORE%===>_EBDTE   +
++       CAST          AFTER%===>_TADTE   + BEFORE%===>_TBDTE   +
++       BACKED OUT    AFTER%===>_BADTE   + BEFORE%===>_BBDTE   +
++
+)INIT
+ .ZVARS = '(RPT70 RPT71 RPT72  +
+            VNBPKGS0 VNBPKGS2 VNBPKGS5  +
+            VNBPKGS1 VNBPKGS3 VNBPKGS6  +
+            VNBPKGS8 VNBPKGS4 VNBPKGS7 VNBXPHIS)'
+ .HELP = CITR1300
+)PROC
+)END

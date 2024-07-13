@@ -1,0 +1,16 @@
+)body window(45,6)
+%
+% Do you want to submit a job
+% to promote &ele
+% to the &envt Endevor
+% environment? ===>_z  %
+%
+)init
+   .zvars = '(reply)'
+   &reply = NO
+)proc
+   .resp = enter
+   &reply = trans (trunc(&reply,1) Y,'YES' N,'NO' *,'?')
+    ver (&reply,nb,list,YES,NO,msg=WALKM103)
+    vput reply
+)end

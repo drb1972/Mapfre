@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Define a type for a kind of source code. For example, you might create
++type COBOL for COBOL programs, type JCL for JCL streams, type COPYBOOK
++for copybooks. You must define a type to each Stage in which you want
++to use it.
++
++
++
++
++
++    Select%1+-%7+for information about
++
+%    1+- Current location         %5+- Component list options
+%    2+- Next location            %6+- Libraries
+%    3+- Type name/description    %7+- More about types
+%    4+- Element options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITE4110
+                  5,CITE4120 6,CITE4130 7,CITT2500)
+   &ZUP = CITD0000
+)END

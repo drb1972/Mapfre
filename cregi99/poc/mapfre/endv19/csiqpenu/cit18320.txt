@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ CSV Support for List Directory \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%CSV Support for List Directory
++
++  With this enhancement, CSV now supports the API List Directory function,
++  which allows you to list either PDS/PDSE directories or USS paths and
++  their subdirectories. The syntax for this request is:
++
++ >>- LISt DIRectory ------------------------------------------------>
++ >---- FOR --|--|- FILe ddname ---|--|------------------------------>
++    |- FROm -|  |- DDName ddname -|  |- MEMber memname --->|    |
++                |- DSName dsname -|  |---------------------|    |
++                |                       |- THRu thrumem -|      |
++                |- PATh ---- "/uss/path/name/" ---------------->|
++                |>----------------------------------------------|
++                   |- FILe "uss.file.name" ------>|
++                   |>-----------------------------|
++                      |- THRu "thru.file.name" -|
++    |- TO -|- FILe ddname ---|
++           |- DDName ddname -|
++           |- DSName dsname -|
++    |- OPTions ------------------------------------|
++                |- DELimiters delimiter ---------|
++                |- NOCsv ------------------------|
++                |- NOTitle ----------------------|
++                |- QUAlifier QUOte --------------|
++                |- INClude --- CSEcts -----------|
++                            |- SUBDirectories -|
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18330
+)END

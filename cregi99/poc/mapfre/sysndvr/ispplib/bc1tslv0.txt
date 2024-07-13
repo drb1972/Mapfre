@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Accessing a Summary of Levels Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++To access a Summary of Levels panel from:
++
++  * A%specification panel+type%S+in the command field, an explicit name or
++    name mask in the element field, then press ENTER. If you provide:
++
++      - An explicit name, the Summary of Levels panel displays.
++      - A mask, an element selection list displays. Select an element, then
++           press ENTER to display the Summary of Levels Panel.
++
++  * An%Element Selection List+type%S+in the command field,%S+next
++    to the desired element, then press ENTER.
++
++  * The%WIP Member Selection Matrix+type%S+next the element name
++    for which you want to specify a version/level, then press ENTER.
++
++    Select%1-2+for information about
++
+%    1+- Using previous versions/levels  %2+- Clearing selected versions/levels
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TSLV1 2,BC1TSLV2)
+)END

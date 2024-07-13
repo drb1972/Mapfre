@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Element format\-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Element Recfm -
++
++         Element records can be either a fixed length or a
++         variable length. They are defined by the ELEMENT
++         RECFM IS clause of the TYPE definition. The value
++         affects how the element records are to be processed
++         during a Quick-Edit edit session.
++
++        %NOT DEFINED+-   The type is not predetermined. Quick Edit
++                         uses the input record length to decide if
++                         the Element record is FIXED or VARIABLE.
++                         A Create action in Quick-Edit will cause a
++                         fixed length element to be allocated.
++
++        %FIXED+-         The element records are padded with spaces
++                         up to the TYPE defined source length.
++
++        %VARIABLE+-      The element records retain their length.
++
++\ \ (%PF3+to return) \ \
+)END

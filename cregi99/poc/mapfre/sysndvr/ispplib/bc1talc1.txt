@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Data Set Allocation, continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Directory Block+- Must be numeric. If you specify a WIP member, you
++   must provide a non-zero value in this field. If you want to allocate
++   a sequential data set, this value must be zero.
++
+%Record Format+- Acceptable values are%F, FB, V,+or%VB+.
++
+%Record Length+- Must be numeric, greater than zero, and less than 255.
++   See also the note at the bottom of the WIP Data Set Allocation Panel.
++
+%Block Size+- Required if the space unit is%BLKS+(blocks). Otherwise
++   optional. If left blank, the block size is set to zero. If provided
++   the value must be numeric and greater than zero. If the block size
++   is specified and is not zero, and if the record format is:
++
+%     F+or%FB+    Then the block size must be an integral multiple
++                 of the record length.
+%     V+or%VB+    Then the block size must be at least four bytes
++                 larger than the record length.
+)END

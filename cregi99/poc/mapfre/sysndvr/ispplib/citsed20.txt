@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Last Element Action \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields provide information pertaining to the last action that
++changed the element in any way.
++
+%Userid+- Id of the user who requested the action.
+%Date/time+- Date and time when the action was executed.
+%CCID+- CCID specified for the action.
++
+%Comment+- Comment specified for the action.
+%Action+- Action name.
++
+%Action RC+- Return code from the action.
+%Processor+- Processor executed by the action.
+%Proc RC+- Processor return code.
++
++
++
++
++                                            (%PF3+to return)
+)END

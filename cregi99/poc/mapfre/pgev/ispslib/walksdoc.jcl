@@ -1,0 +1,4 @@
+)TB 20
+OBN      PN _
+B**DGS***          GLOSSDOC&ELE
+BGLOSSDOC !&ELE

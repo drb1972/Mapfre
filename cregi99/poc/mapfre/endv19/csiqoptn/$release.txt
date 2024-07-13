@@ -1,0 +1,6 @@
+         MACRO
+         $RELEASE
+         GBLC  &RELNUM,&TAPSER
+&RELNUM  SETC  '19.0'
+&TAPSER  SETC  'B1900C'
+         MEND

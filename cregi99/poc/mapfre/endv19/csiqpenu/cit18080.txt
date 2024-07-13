@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Conditional Allocation of Processor Data Sets \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 1 of 2
+%Allow Processor to Continue when a Data Set is Not Found
++
++ Specifying the parameter%ALLOC=COND+on a processor DD statement enables
++ the processor to continue executing if any data sets cannot be allocated
++ due to a%"Not Found"+condition. When this happens, an informational message
++ is issued providing the DDNAME and DSNAME of the skipped data set.
++
++ If the%ALLOC+keyword specifies either%LMAP+or%PMAP+along with the%COND+
++ parameter, the%COND+value is propagated to each data set in the map
++ allocation. Multiple parameters for the ALLOC keyword must be enclosed
++ within parentheses, for example:%ALLOC=(LMAP,COND).
++
++ The%ALLOC=COND+parameter requires that%DISP=SHR+or%DISP=OLD+be
++ specified on the DD statement.
++
++ A specification of%ALLOC=COND+for concatenated data sets may result
++ in some data sets being skipped, all data sets that can be allocated
++ are allocated and are concatenated to the associated DDNAME.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18081
+)END

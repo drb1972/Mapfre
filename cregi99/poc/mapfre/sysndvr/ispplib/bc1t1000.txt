@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Primary Option Menu \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to specify:
++
++ * A PDM option (0-4, T, C).
++
++ * Whether you want to use PDM in foreground or batch mode. You must
++      specify either%F+(foreground) or%B+(batch).
++
++ * A batch request data set and related options. This is required if
++      you specify a processing mode of%B+(batch).
++
++    Select%1-9+for information about:
++
+%    1+- Specifying session parameters  %6+- PDM tutorial
+%    2+- Building WIP files             %7+- New PDM features
+%    3+- Editing WIP files              %8+- Batch specification
+%    4+- Merging WIP files              %9+- Navigating the tutorials
+%    5+- Submitting jobs
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T0200 2,BC1T1100 3,BC1T1200 4,BC1T1300
+                 5,BC1T6000 6,BC1T0000 7,BC1C0000 8,BC1TBREQ 9,BC1T9000)
+)END

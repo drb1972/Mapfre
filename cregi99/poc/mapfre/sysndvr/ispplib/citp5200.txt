@@ -1,0 +1,11 @@
+%TUTORIAL  -----------  JCL TO BE INCLUDED WITH BATCH JOB  -----------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++Use the JCL TO BE INCLUDED WITH BATCH JOB panel to write additional JCL
+ to be included with the standard execution JCL when submitting a job
+ fcr processing.
+
+ Enter the JCL (complete statements) that you want to include with the
+ batch job and press PF3.  The SUBMIT PACKAGE panel is returned again.
+
+)END

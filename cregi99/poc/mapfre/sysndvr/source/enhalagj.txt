@@ -1,0 +1,81 @@
+         MACRO
+         ENHALAGJ &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST  - APPROVER GROUP JUNCTION REQUEST BLOCK                *
+*                                                                     *
+***********************************************************************
+ALAGJ_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+ALAGJ_RQ$EYE    EQU C'LAJQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALAGJ_RQ
+         SPACE ,
+ALAGJ_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALAGJ_RQ_DATA
+ALAGJ_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALAGJ_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALAGJ_RQ_RESERVE2 DC CL1' '            ** RESERVED **
+ALAGJ_RQ_RESERVE3 DC CL1' '            ** RESERVED **
+ALAGJ_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALAGJ_RQ_AGJKEY   DC CL25' '           APPROVER GROUP JUNCTION KEY
+                  ORG ALAGJ_RQ_AGJKEY
+ALAGJ_RQ_SYSTEM   DC CL8' '              SYSTEM
+ALAGJ_RQ_SUBSYS   DS CL8' '              SUBSYSTEM
+ALAGJ_RQ_TYPE     DS CL8' '              TYPE
+ALAGJ_RQ_STG_NUM  DS CL1' '              STAGE NUMBER
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALAGJ_RQ_VER#1_DATADSLN EQU *-ALAGJ_RQ_DATA
+ALAGJ_RQ_VER#1_DSLN     EQU *-ALAGJ_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALAGJ_RQ_DATADSLN EQU *-ALAGJ_RQ_DATA
+ALAGJ_RQ_DSLN     EQU *-ALAGJ_RQ
+         ORG      ALAGJ_RQ_DATA
+ALAGJ_RQ_DATAAREA DS XL(ALAGJ_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST APPROVER GROUP JUNCTION - RESPONSE BLOCK                *
+*                                                                     *
+***********************************************************************
+ALAGJ_RS$VER    EQU ALAGJ_RQ$VER       KEEP VERSION NUMBERS IN SYNC
+ALAGJ_RS$EYE    EQU C'LAJS'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=ALAGJ_RS
+         SPACE ,
+ALAGJ_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALAGJ_RS_DATA
+ALAGJ_RS_SITE     DC CL1' '            SITE ID
+ALAGJ_RS_ENV      DC CL8' '            JUNCTION ENVIRONMENT
+ALAGJ_RS_SYSTEM   DC CL8' '            JUNCTION SYSTEM
+ALAGJ_RS_SUBSYS   DC CL8' '            JUNCTION SUBSYSTEM
+ALAGJ_RS_TYPE     DC CL8' '            JUNCTION TYPE
+ALAGJ_RS_STG_NUM  DC CL1' '            JUNCTION STAGE NUM
+ALAGJ_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALAGJ_RS_UPD_DATE DC ZL8'0'            UPDATE DATE 'YYYYMMDD'
+ALAGJ_RS_UPD_TIME DC ZL8'0'            UPDATE TIME 'HHMMSSTH'
+ALAGJ_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALAGJ_RS_FMID     DC ZL5'0'            RECORD CREATED RELEASE ID
+ALAGJ_RS_JUN_TYPE DC CL2' '            ST(ANDARD) OR EM(ERGENCY)
+ALAGJ_RS_AGNME    DC CL16' '           APPROVER GROUP NAME
+                  DS 0X
+                  DS 0F
+         SPACE ,
+ALAGJ_RS_VER#1_DATADSLN EQU *-ALAGJ_RS_DATA
+ALAGJ_RS_VER#1_DSLN     EQU *-ALAGJ_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALAGJ_RS_DATADSLN EQU *-ALAGJ_RS_DATA
+ALAGJ_RS_DSLN     EQU *-ALAGJ_RS
+         ORG      ALAGJ_RS_DATA
+ALAGJ_RS_DATAAREA DS XL(ALAGJ_RS_DATADSLN)     DATA AREA
+         MEND

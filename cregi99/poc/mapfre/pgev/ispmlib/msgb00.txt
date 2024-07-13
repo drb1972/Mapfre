@@ -1,0 +1,6 @@
+MSGB001  'Job Submitted'                                .ALARM = YES
+'The job to ADD/Reserve MSGB elements has been submitted'
+MSGB002  'CCID must begin with C0'                      .ALARM = YES
+'The first two characters of the CCID must be C0'
+MSGB003  'Locked by &luser,hit F1'                      .ALARM = YES
+'MSGB utility locked by &luser call Endevor Support on +44 (0)123 963 8560'

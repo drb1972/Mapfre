@@ -1,0 +1,96 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+ @ TYPE(OUTPUT) INTENS(LOW)
+ | TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+ { TYPE(PS)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY
+%------------------------------- Action Prompt ---------------------------------
+%Command ===>_VARWKCMD                                        %Scroll ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++&MYTITLE
++&ONEBOTH
++Complete the missing field(s) and hit{ENTER+to continue.
++
++To cancel the request, enter the{END+command.
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++Element:|EEVETKEL                                           |QEPIND +
++
++Current Location:
++  Environment. :@EEVETKEN+  Stage ID . :@Z+
++    System . . :@EEVETKSY+  Subsystem. :@EEVETKSB+  Type . :@EEVETKTY+
++
++Options:
++  CCID . . . . .^EEVPCCID    +
++  Comment. . . .`EEVPCOMM                                +
++
++  Remember this choice and bypass prompting again ._Z+(Y/N)
+<OTHERWISE>
++Element. :@EEVETKEL                                           |QEPIND +
++  Type . :@EEVETKTY+
++  CCID . .^EEVPCCID    + Comment. .`EEVPCOMM                                +
++
++Current Location:
++  Environment. :@EEVETKEN+          System . . :@EEVETKSY+
++  Stage ID . . :@Z+                 Subsystem. :@EEVETKSB+
++
++Options:
++  Remember this choice and bypass prompting again ._Z+(Y/N)
+</SELECT>
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(EEVETKSI MYBYPASS)'
+<OTHERWISE>
+  .ZVARS = '(EEVETKSI MYBYPASS)'
+</SELECT>
+  &MYTITLE = 'The system requires'            /* Start building 1st line    */
+  &ONEBOTH = 'but the request was missing'    /* and fixed part of 2nd line */
+  if (&EEVPSCCI = 'Y')
+     if (&EEVPSCOM = 'Y')
+         &MYTITLE = '&MYTITLE both a CCID and a Comment to be specified,'
+         &ONEBOTH = '&ONEBOTH one or both of the fields.'
+     else
+         &MYTITLE = '&MYTITLE a CCID to be specified,'
+         &ONEBOTH = '&ONEBOTH the CCID field.'
+  else
+      &MYTITLE = '&MYTITLE a COMMENT to be specified,'
+      &ONEBOTH = '&ONEBOTH the COMMEMNT field.'
+
+  .HELP = ENDHE400
+  VGET (MYBYPASS) Shared                      /* Get saved BYPass option    */
+  if (&MYBYPASS = &Z)                         /* ...but if it's not set     */
+      &MYBYPASS = 'N'                         /* ...Default Bypass option   */
+  if (.MSG = ENDE044I, ENDE045I)              /* Request to reuse CCID?     */
+     if (&MYBYPASS = 'Y')                     /* ...and user requested bypas*/
+        .MSG  = ''                            /* Then clear message and     */
+        .CURSOR = ''                          /* ...and the CURSOr override */
+        .RESP = ENTER                         /* ...press ENTER for them    */
+        exit                                  /* and bypass further process */
+)PROC
+  if (&VARWKCMD = 'END')
+      &VARWKCMD = ' '
+      .RESP = END
+  &LIST2 = 'Y N'
+  VER  (&MYBYPASS,NB,LISTV,&LIST2,MSG=CIFV005)
+  VPUT (MYBYPASS) SHARED
+  if (&MYBYPASS = 'Y')
+     &EEVCCID = &EEVPCCID
+     &EEVCOMM = &EEVPCOMM
+     VPUT (EEVCCID EEVCOMM) SHARED   /* update saved values for others */
+)FIELD
+ FIELD(EEVETKEL) IND(QEPIND) SCROLL(ON)
+)PNTS
+ FIELD(ZPS01001) VAR(VARWKCMD) VAL(' ')
+ FIELD(ZPS01002) VAR(VARWKCMD) VAL(END)
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - USS Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%USS RECFMs+- USS files and files local to the Enterprise
++             Workbench are streams. To emulate records, there
++             has to be a record delimiter. This is the purpose of the
++             USS RECFM field.  If not specified for an HFS file, a
++             default value of NL is used.  Record delimiters and
++             their USS delimiter type are as follows;
++
++            %COMP+- Endevor compressed variable length records.
++            %CR  +- Carriage Return (ASCII & EBCDIC "CR" is hex '0D').
++            %CRLF+- EBCDIC Carriage Return/Line Feed (hex '0D25').
++            %CRNL+- EBCDIC Carriage Return/New Line  (hex '0D15').
++            %F   +- Fixed length.
++            %LF  +- EBCDIC Line Feed (hex '25').
++            %NL  +- EBCDIC New Line character.  This is the delimiter
++                    used by the editor, OEDIT and the browser, OBROWSE.
++                    If not specified, NL is the default.
++
++
++\ \ (%PF3+to return) \ \
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Relationship List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the Approver Group Relationship list to select one or more
++relationships for display (S), updating (U), or deletion (#). If you
++access this list from a display panel, the only available selection
++option is display (S).
++
+%Environment+- The environment to which the relationships are defined.
++
+%Approver type+- The approver type for the listed approver groups.
++
+%System, subsystem, type, stage+
++   The inventory locations within the named environment to which
++   approver groups have been related. To display a list, leave the
++   field blank. Entering an asterisk (*) will only return a match if
++   the inventory rule was created using an asterisk (*) as the name.
++
+%Approver group+- The approver group associated with the inventory area
++   on the same line.
++
++
++                                                      (%PF3+to return)
+)END

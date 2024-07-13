@@ -1,0 +1,10 @@
+@REM ****************************************************** #PSXCOMP ***
+@REM *    CONTENTS: ENDEVOR/MVS - PROVIDE 'IF &RVOLSER'
+@REM *              FOR TRANSMIT OF A PARTITIONED DATASET
+@REM * TRANSMITTER: CA-XCOM
+@REM *******************************************************************
+@REM *  PTF P005463
+@REM *******************************************************************
+@IF &RVOLSER
+VOL=&RVOLSER
+@ENDIF

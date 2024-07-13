@@ -1,0 +1,81 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ " TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) COLOR(RED)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW)  COLOR(yellow)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Build DB2 Stored Procedure Variables  \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++   "pmsg
++ Variable Name       ==>$VARNAME +
++ Variable Type       ==>$Z +     (See below)
++ IN/OUT/INOUT        ==>$INOUT+
++ Size                ==>$SIZE +  (Types C,VC,G,VG only)
++ Precision           ==>$PP+     (Type  D only)
++ Scale               ==>$SS+     (Type  D only)
++
++   Variable Types          Totals
+%   S +- Smallint           !tots¢         Enter variables above
+%   I +- Integer            !toti¢         then <pf3> to continue
+%   R +- Real               !totr+
+%   F +- Float              !totf+
+%   DP+- Double Precision   !totdp+
+%   D +- Decimal            !totd+
+%   C +- Char               !totc+    (size range 1 - 254)
+%   VC+- Varchar            !totvc+   (size range 1 - 32704)
+%   G +- Graphic            !totg+    (size range 1 - 127)
+%   VG+- Vargraphic         !totvg+   (size range 1 - 16383)
++      Enter Variables then <pf3> to add to Endevor
++Varlist:!varlist1
+!varlist2
+)INIT
+  .HELP = db2sph
+  .ZVARS = '(vartyp)'
+  IF (&err = 'Y')
+    .ATTR(pmsg) = 'color(red)'
+  IF (&err = 'N')
+    .ATTR(pmsg) = 'color(white)'
+
+)REINIT
+)PROC
+  &test= TRUNC(&varname,1)
+  VER (&test,NB,PICT,A)
+  VER (&vartyp,NB,LIST,S,I,R,F,DP,D,C,VC,G,VG)
+  VER (&inout,NB,LIST,IN,OUT,INOUT)
+  if (&vartyp = 'S' or
+      &vartyp = 'I' or
+      &vartyp = 'R' or
+      &vartyp = 'F' or
+      &vartyp = 'DP')
+    VER (&size,list,' ')
+    VER (&pp,list,' ')
+    VER (&ss,list,' ')
+  if (&vartyp = 'D')
+    VER (&size,list,' ')
+    VER (&pp,NB,RANGE,1,31)
+    VER (&ss,NB)
+    if (&ss < 0 or &ss > &pp)
+      VER (&ss,list,jjjj)
+  if (&vartyp = 'C')
+    VER (&size,NB,RANGE,1,254)
+    VER (&pp,list,' ')
+    VER (&ss,list,' ')
+  if (&vartyp = 'VC')
+    VER (&size,NB,RANGE,1,254)
+    VER (&pp,list,' ')
+    VER (&ss,list,' ')
+  if (&vartyp = 'G')
+    VER (&size,NB,RANGE,1,127)
+    VER (&pp,list,' ')
+    VER (&ss,list,' ')
+  if (&vartyp = 'VG')
+    VER (&size,NB,RANGE,1,16383)
+    VER (&pp,list,' ')
+    VER (&ss,list,' ')
+
+  &PFK = .PFKEY
+
+)END

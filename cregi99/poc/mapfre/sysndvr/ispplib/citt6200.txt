@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprints - Displaying Source From Executables \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Footprints let you display the following:
++
++  * A list of members in a library, with footprint information for each.
++
++  * A list of CSECTs for a specified load module, with footprint
++    information for each CSECT and for the load module.
++
++If a member, CSECT, or load module is footprinted, you can display its
++element information (current source, change history, changes at the
++current level, summary of levels, and Master Control File information)
++from this selection list. For source-less elements, you can only display
++the Master Control File information.
++
++For more information on how to display source information from a list of
++executables using footprints, see "View Footprint Information" in the
++chapter "Viewing Inventory Component Information" in the User's Guide.
++
++
++                                            (%PF3+to return)
+)END

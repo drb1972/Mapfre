@@ -1,0 +1,58 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ " TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) COLOR(red)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Build DB2 Stored Procedure Submit Confirmation \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++
++  JOB STATEMENT INFORMATION:
++     ===>_c1bjc1
++     ===>_c1bjc2
++     ===>_c1bjc3
++     ===>_c1bjc4
++
++  Endevor Subsystem   ==>"Z $Z+
++  Endevor Environment ==>$Z   +
++  Endevor CCID        ==>$spccid  +
++  Endevor Comment     ==>$spcomnt                                 +
++  Processor Group     ==>$spprg   + (same as the BIND element group)
++   Override Signout   ==>$Z+  (Y/N)
++
++
++     Enter to submit ADD to Endevor
++     EDIT to edit JCL before submission
++     Cancel or <pf3> to discard sp definition
++
++
+)INIT
+  .HELP = db2sph
+  .ZVARS = '(spsys spsub spenv spov)'
+
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)REINIT
+)PROC
+ if (&zcmd ^= 'CAN' & &zcmd ^= 'CANCEL')
+   &TEST = TRUNC(&c1bjc1,2)
+   VER (&test,NB,list,//)
+   &TEST = TRUNC(&c1bjc2,2)
+   VER (&test,NB,list,//)
+   &TEST = TRUNC(&c1bjc3,2)
+   VER (&test,NB,list,//)
+   &TEST = TRUNC(&c1bjc4,2)
+   VER (&test,NB,list,//)
+   VER (&spsub,NB,pict,9)
+   VER (&spenv,NB,LIST,UNIT,SYST,ACPT,PROD,UTIL)
+   VER (&spccid,NB)
+   VER (&spcomnt,NB)
+   VER (&spprg,NB,LEN,'=',8)
+   VER (&spov,NB,LIST,Y,N)
+
+ &PFK = .PFKEY
+
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)ENDPROC

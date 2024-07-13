@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE - Element Master \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Element Master+- If you enable the element master option, the VALIDATE
++   action checks the element master to determine if the element has
++   been successfully generated. It will also inform you if this element
++   is currently locked in a package.
++
+%      N+- Do not perform element master checking.
+%      Y+- Perform element master checking.
++
++The default element master panel field value is obtained from the
+%&LIT                   +parameter in the Endevor Configuration Table
++(ENDICNFG). If this parameter is not coded in the table a value of Y
++is assumed.
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)INIT
+    &LIT   = 'VALIDATE_ACT_ELM_MASTER'
+)END

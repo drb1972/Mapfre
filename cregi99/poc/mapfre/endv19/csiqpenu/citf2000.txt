@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Retrieve Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Retrieve action to copy an element from an inventory
++location to a user data set.
++
++Select one of the options below for more information:
++
+%   1+- Panel options                    %4+- To Data Set Type
+%   2+- Inventory fields                 %5+- Action options
+%   3+- Element and Uppercase fields     %6+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF2001 2,CITNDVR0 3,CITNDVRL
+                       4,CITNDVR3, 5,CITF2002 6,CITLOPT0)
+)END

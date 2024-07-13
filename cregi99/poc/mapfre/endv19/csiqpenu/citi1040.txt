@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit Sync Actions Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Quick Edit Sync Actions Feature                          \ \+Enabled:%&VNTQSYNA
++
++
++  CD18104   SYNC IN PLACE ACTION FEATURE
++
++  This feature enables the user to perform a "sync in place" on an element
++  that is out of sync with it's next version up the map without having to
++  use a MOVE action with SYNC or having to delete and re-add the element.
++
++  To use the feature from Quick Edit, enable it in the optional feature
++  table and then use the%SY+line command from the element selection list.
++
++  This feature is enabled by adding the following option to your optional
++  feature table:
++
++        ENHOPT%CD18104_SYNC_ACTION=ON+                  +DEFAULT IS OFF
++
++  The following topics will be presented only if selected by number:
++
++  { 1}Using the SY command+
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)PROC
+ &ZUP = ENDHE150
+ &ZSEL = TRANS(&ZCMD,
+                   1,*ENDHE163
+                   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01003) VAR(ZCMD) VAL(END)
+)END

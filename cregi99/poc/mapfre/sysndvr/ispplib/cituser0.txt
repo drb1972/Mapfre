@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ USER OPTIONS MENU \-\
+%COMMAND ===>_ZCMD                                                             +
+
++The USER OPTIONS MENU function automatically provides you with the
+ ability to build, in foreground, jobs for execution in batch.
+
+%Option 1, Reports+- Allows you to build report JCL for the following
+ types of reports:
+     Master Control File Reports (CONRPT01 - CONRPT12)
+     Historical (SMF) Reports (CONRPT40 - CONRPT43)
+     Package Reports (CONRPT70 - CONRPT76)
+     Footprint Reports (CONRPT80 - CONRPT83)
+     Unload/Reload Reports (CONRPT50 - CONRPT55)
+
+%Option 2, ACMQ+- Use this option to display where-used or components-
+ used configuration information for specified elements or members. You
+ may also build GENERATE SCL based on the configuration information.
+
+)END

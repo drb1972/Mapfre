@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPCOUNT Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPCOUNT command counts the number of line records in the WIP member
++from the included Root, Derivation 1, and Derivation 2 files. The command
++places the result in a message line at the top of the WIP member. The
++message looks like this:
++
++  WIPCOUNT RESULTS:
++  NUMBER OF ROOT/COMMON LINES:
++  LINES INSERTED BY DERIVATION 1:
++  LINES INSERTED BY DERIVATION 2:
++  LINES INSERTED BY BOTH DERIVATION 1/2:
++  TOTAL COMMON AND INSERTED LINES:
++
++To execute the WIPCOUNT command, type WIPCOUNT in the command field,
++then press ENTER.
++
++Use the WIPCOUNT command to assess the condition of the WIP file.
++
++
+)END

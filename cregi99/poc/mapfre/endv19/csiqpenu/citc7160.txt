@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%\-\ Endevor Alt Id Usage \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Override Endevor Alt Id Usage in a processor step+
+
++ A new processor EXEC statement parameter, "ALTID=N," can be specified to
+  instruct Endevor to not switch to the Endevor alternate id for security
+  checks during execution of that processor step.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7170
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Reviewing Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++A package must be reviewed if one or more approver groups are associated
++with the inventory area(s) included in the package.  Once a package is
++in the review phase, only designated approvers can access the package
++and review its contents.  If the Dynamic Approvers option is enabled
++in the Optional Feature table, package approvers can add additional
++users as one-time approvers for a particular package while it is in
++the 'In-Approval' state.
++
++To be approved, a package must:
++  * Receive approval from at least the required approvers.
++  * Receive approval from a quorum of approvers.
++  * Not be denied approval by any approvers
++
++Example: The approver group PKGQA consists of three approvers. The
++  approver group was established with a quorum size of 2, with one
++  approver required.  This means that in addition to the required
++  approver, one of the two remaining members of the approver group
++  must approve the package in order for it to be executed.
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ To Element Name and UPPERCASE Indicator       \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                                   %Page 1 of 1
++
+%To Element+- The 1 to 255 character name of the Element at the target
++     location. From this panel you can enter the entire Element name.
++     Name masking is not supported.
++
+%UPPERCASE+- Indicates if the name coded in the To Element name
+      field should be accepted as entered or uppercased.
+     %Y+- Uppercase the value coded prior to processing the action.
+     %N+- Use the Element name exactly as coded.
+
+      The initial value for this field is set from the%&LIT1         +
+      ENDICNFG Configuration Table parameter. Once the action
+      panel is displayed the value entered by the user is saved
+      and restored each time the panel is re-displayed.
+
+
+
+
+
++\ \ (Press%PF3+to return) \ \
+)INIT
+   &LIT1 = 'UPPERCASE'
+)PROC
+)END

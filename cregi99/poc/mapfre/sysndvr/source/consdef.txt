@@ -1,0 +1,470 @@
+         MACRO
+&LABEL   CONSDEF   &TYPE=,&TABLE=,&USERID=,&RNAME=,&SYSDEF=,&GROUP=,   X00180004
+               &KEYLEN=8,&UNTIL=79365         DEFAULTS                  00190004
+.*  TITLE 'CONSDEF'
+.*
+.* COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.
+.*
+.*  THIS MACRO GENERATES SECURITY TABLES FOR USE IN THE ENDEVOR
+.*  PRODUCT.  THESE TABLES ARE MEANT TO BE LOADED AT RUN TIME AND
+.*  ARE USED TO INTERPRET THE SECURITY ATTRIBUTES OF USERS AND
+.*  RELATED RESOURCES.
+.*
+.*
+.*  USERS AND RESOURCES EACH HAVE TWO TABLES.  THE ATTRIBUTE TABLE
+.*  IS GENERATED FIRST AND IT CONTAINS N NUMBER OF DEFINITIONS OF
+.*  THE FORM: DC CL8'SYSTEM',AL1(OFFSET),AL1(LENGTH)
+.*            DC CL8'SUBSYSTEM',AL1(OFFSET),AL1(LENGTH)
+.*            DC XL1'PERMISSION'
+.*
+.*  A HALFWORD REPITITION FACTOR PRECEEDS EACH USER/RESOURCE'S
+.*  ATTRIBUTE DEFINITIONS.
+.*
+.*  THE FIRST DC IS NAMED WITH EITHER THE USERID OR THE RESOURCE
+.*  ID WHICH IS USED BY A SECOND TABLE AS A TAG.  THE SECOND TABLE
+.*  IS SORTED WITHIN THIS MACRO (BY MSORT) INTO ALPHA ASCENDING
+.*  SEQUENCE WHICH ALLOWS A BINARY SEARCH AT RUNTIME.  THE SECOND
+.*  FIELD OF THE SECOND TABLE IS AN ADDRESS WHICH POINTS BACK TO
+.*  THE ATTRIBUTES DEFINED IN THE FIRST, VARIABLE, ATTRIBUTES TABLE.
+.*
+.*   THREE INNER MACROS ARE CALLED: MSORT, MASKMAC AND BITMAC.
+.*   MSORT DOES A SHELL SORT (ORDER OF N**1.5) OF THE SECOND TABLE.
+.*   MASKMAC INTERPRETS THE USE OF $SIGN IN THE SYSDEF PARAMETER
+.*   AS WELL AS IN THE USERID AND RNAME SPECIFICATIONS.
+.*   ESSENTIALLY, WE USE $SIGN AS A MASKING CHARACTER FOR USE
+.*   IN RUNTIME COMPARES.  THE $SIGN CHARACTER MATCHES ANY
+.*   OTHER CHARACTER. BITMAC CONVERTS THE CHARACTER PERMISSIONS
+.*   INTO THEIR APPROPRIATE BIT SETTINGS.
+.*
+.*   THE AL1 OFFSET AND LENGTH FIELDS ARE ALSO USED AT RUNTIME.
+.*   EACH IS INSERTED INTO A REGISTER AND IS USED TO DRIVE AN
+.*   EXECUTED COMPARE.  THIS OBVIATES THE NEED TO SCAN $SIGN,
+.*   BYTE BY BYTE, AT RUNTIME.
+.*
+.*   THE PERMISSION BYTE IS HEX AND IS ADDITIVE.  FOR EXAMPLE,
+.*   IF A USER HAS PERMISSION TO ADD THEN THE PERMISSION BYTE
+.*   WILL CONTAIN A HEX 80.  IF HE HAS BOTH ADD AND RETRIEVE
+.*   CAPABILITIES THE BYTE WILL CONTAIN A HEX C0 (X'80'+X'40'),
+.*   ETC.
+.*
+.*
+.*   FOR QUESTIONS, AUTHORIZED USERS MAY CALL:
+.*
+.*
+.*
+.*
+.*  VALID TYPES ARE: START,END,USER,RESOURCE
+.*    "   TABLES " : USER,RESOURCE
+.*    "   USERIDS" : ANY EIGHT BYTE ALPHAMERIC STRING
+.*    "   RNAMES " : "     "    "      "        "
+.*    "   SYSDEFS" : ANY STRING(S) OF THE FORM: (SYS,SUBSYS,PERMIT)
+.*                   WHERE SYS AND SUBSYS ARE EIGHT-BYTE ALPHAMERIC
+.*                   AND PERMIT IS A ONE-BYTE ALLOWABLE VALUE
+.*                                            (SEE BELOW)
+.*
+.*       MHELP     27               SET DEBUGGING OPTIONS
+.*
+.*
+.*        VARIABLE DEFINITIONS
+.*
+         LCLC      &KEYB,&DIRLAB
+         LCLC      &INTLBL,&INTLBL2   SET INTERNAL
+         LCLC      &INTLBL3,&INTLBL4   LABEL VARIABLES
+         LCLC      &XNAME,&ADCON
+         LCLC      &BLANKS            USED FOR PADDING KEY FOR MSORT
+         LCLC      &PERM(4)           TEMP  PERMISSION FIELD            00960004
+         LCLC      &ZZ                HOLD AREA FOR EACH SYSDEF         00970004
+         LCLA      &ZS                START POSITION FOR SUBPARM        00980004
+         LCLA      &ZC                CURRENT POSITION IN SUBPARM LIST  00990004
+         LCLA      &ZN                SUBPARM NUMBER (1,2 OR 3)         01000004
+&BLANKS  SETC      '        '          "    "    "     "    "   "
+         LCLC      &IND,&UNTL      TO CALC INDICATORS AND UNTIL PRM
+&IND     SETC      '00'
+         LCLA      &BLEN
+         LCLA      &DIRLP
+         GBLC      &TABELEN
+         GBLA      &TABKEYL
+         GBLA      &ENTRYL
+&ENTRYL  SETA      &KEYLEN+9       LENGTH OF TABLE ENTRY
+         LCLA      &CNTCHR
+         GBLC      &TABLE1(512),&STR   ARBITRARY LIMIT OF 512 ELEMENTS  01110004
+         GBLC      &DIRTAB(100)        DIRECTORY TABLE
+         GBLA      &USERSUB,&OFFSET,&LNGTH  BETWEEN INVOCATIONS OR
+.*                                          FOR INNER MACRO USE
+         LCLA      &SUBLP,&SYSLP      LOOP COUNTERS
+         LCLA      &OFFSAV,&LENSAV    RETAIN (TEMP) OFFSET /LEN
+.*
+.*
+.*
+.*       START OF LOGIC
+.*
+.*
+         AIF     (&USERSUB GT 0 OR '&TYPE' EQ 'START').STRTMAC
+.*
+.*
+.*       INITIALIZE USERSUB, FIRST TIME THROUGH EITHER TYPE=USER
+.*       OR TYPE=RESOURCE
+.*
+&USERSUB SETA      0
+.*
+.STRTMAC ANOP
+.*
+.*
+.*       MULTI-WAY SWITCH FOR ALL ALLOWABLE TYPE=&VALUES
+.*
+.*
+.*
+.*
+         AIF    ('&TYPE' EQ 'START').DOSTART
+         AIF    ('&TYPE' EQ 'USER').USRS
+         AIF    ('&TYPE' EQ 'RESOURCE').RSCE
+         AIF    ('&TYPE' EQ 'END').TEND
+.*
+.*       ERROR IF TYPE NOT DEFINED
+.*
+         MNOTE 16,'TYPE= IS INVALID'
+         MEXIT
+.*
+.*       PROCESS TYPE=START...DROP THE CSECT NAME, ALIGN THE
+.*       FOLLOWING TABLE TO DOUBLEWORD, THEN EXIT
+.*
+.*
+.DOSTART ANOP
+.*
+         AIF    ('&TABLE' EQ 'USER' OR '&TABLE' EQ 'RESOURCE').NOERR
+         MNOTE 16,'TYPE=START REQUIRES TABLE=USER OR TABLE=RESOURCE'
+         MEXIT
+.*
+.NOERR   ANOP
+.*
+&INTLBL3 SETC    'CONSDEF'     LABEL FOR START OF SYSDEF ENTRIES
+&INTLBL4 SETC    'CONSDIR'     LABEL FOR BEGIN OF DIRECTORY TABLE
+&INTLBL  SETC    'CONSUSER'    CSECT NAME FOR TYPE=USER TABLES
+&INTLBL2 SETC    'CONSUTAB'
+         START
+.*
+&TABELEN SETC  '&ENTRYL' RETAIN FOR
+&TABKEYL SETA  &KEYLEN-1      TYPE = END
+.*
+         AIF   ('&TABLE' EQ 'USER').GEN1
+.*
+&INTLBL  SETC   'CONSRSCE'     CSECT NAME FOR TYPE=RESOURCE TABLES
+&INTLBL2 SETC   'CONSRTAB'
+.*
+.GEN1    ANOP
+&INTLBL  CSECT
+         USING  *,15           LOAD EP= WILL RETURN R15 VALUE IN R0
+         DS     0D
+         DC     A(&INTLBL3),A(&INTLBL2),A(&INTLBL4)  ADDRESS ALL TABLES
+&INTLBL3 DS     0D              ADJUST TO DOUBLEWORD BOUNDRY
+*
+*        GENERATE SYSDEF POOL
+*
+         MEXIT
+.*
+.*
+.*       THIS CODE WORKS FOR TYPE=USER AND TYPE=RESOURCE. THE ONLY
+.*       DIFFERENCE BETWEEN THE TWO IS JUST THAT, ONE DESCRIBES
+.*       A USER AND THE OTHER A RESOURCE
+.*
+.*       THE VARIABLE ATTRIBUTES ARE PROCESSED FIRST, THEN
+.*       ADDRESSED LATER BY THEIR LABEL NAMES.
+.*
+.*
+.*
+.USRS    ANOP
+&XNAME   SETC  '&USERID'
+         AIF   (K'&USERID LE 8).DOUSRS
+         MNOTE 16,'USERID &USERID EXCEEDS 8 CHARACTERS'
+         MEXIT
+.RSCE    ANOP
+&XNAME   SETC  '&RNAME'
+         AIF   (K'&RNAME LE 8).DOUSRS
+         MNOTE 16,'RESOURCE &RNAME EXCEEDS 8 CHARACTERS'
+         MEXIT
+.*
+.DOUSRS  ANOP
+.*
+.*     IF TYPE=USER OR RESOURCE THEN USERID AND SYSDEF ARE REQUIRED
+.*
+.*
+.*        INDICATOR 01 -- USERID/RESOURCE AND SYSDEF SPECIFIED
+.*        INDICATOR 02 -- USERID/RESOURCE AND GROUP SPECIFIED
+.*        INDICATOR 03 -- GROUP AND SYSDEF SPECIFIED
+.*
+.*
+  AIF (K'&XNAME NE 0 AND K'&SYSDEF NE 0 AND K'&GROUP NE 0).MN04
+         AIF   (K'&XNAME NE 0 AND K'&SYSDEF NE 0).USTYP1
+         AIF   (K'&XNAME NE 0 AND K'&GROUP NE 0).USTYP2
+         AIF   (K'&SYSDEF NE 0 AND K'&GROUP NE 0).USTYP3
+.*
+  MNOTE 16,'TYPE=USER/RSCE NEEDS USERID(OR GROUP) AND SYSDEF'
+         MEXIT
+.*
+.MN04    ANOP
+ MNOTE 4,'USER/RSCE AND GROUP WITH SYSDEF IS AMBIGUOUS, GROUP DROPPED'
+  AGO   .USTYP1
+.*
+.USTYP1  ANOP
+&IND     SETC   '01'
+         AGO     .DOUSER
+.USTYP2  ANOP
+&IND     SETC   '02'
+         AGO     .DOUSER
+.USTYP3  ANOP
+&IND     SETC   '03'
+         AGO     .DOUSER
+.*
+.*       THE LOGIC HERE IS AS FOLLOWS.  FIRST THE USERID IS STORED
+.*       INTO A SUBSCRIPTED TABLE WHICH WILL BE SORTED WHEN TYPE=END
+.*       IS ENCOUNTERED.
+.*
+.*       NEXT, EACH SET OF SYSDEF(S) IS PARSED, AND CODE DESCRIBING
+.*       THE SYSDEF IS DROPPED INTO THE ASSEMBLER.
+.*
+.*       OF COURSE, THE NUMBER OF SYSDEF SETS PRESENT FOR A USER/
+.*       RESOURCE IS DROPPED ON TOP OF EACH SYSDEF TO SIMPLIFY
+.*       RUNTIME PROCESSING OF EACH ATTRIBUTE.
+.*
+.DOUSER  ANOP
+.*
+.*  FIRST RETAIN USER INFO IN INTERNAL TABLE
+.*
+&USERSUB            SETA  &USERSUB+1
+.*
+          AIF    ('&IND' EQ '01' OR '&IND' EQ '02').URSET99
+.*
+&XNAME    SETC   '&GROUP'
+.*
+.URSET99   ANOP
+.*
+.*
+.*
+&BLEN     SETA   &KEYLEN-K'&XNAME        COMPUTE # OF BLANKS TO PAD
+&TABLE1(&USERSUB) SETC '&XNAME'.'&BLANKS'(1,&BLEN).'&IND'.'&UNTIL'.'&GRX
+               OUP'.'&BLANKS'(1,&KEYLEN-K'&GROUP)
+.*                                                      WITH BLANKS
+.GENATTR ANOP                                           THEN ASSIGN
+  AIF ('&IND' NE '02').DOSDEF
+  MNOTE *,'&XNAME SUCCESSFULLY CONNECTED TO GROUP &GROUP'
+  AGO   .NOSDEF
+.*                                                      WITH BLANKS
+.DOSDEF  ANOP
+.*
+.*   NOW PROCESS SYSDEF SUBPARMS
+.*
+.*
+&CNTCHR  SETA  N'&SYSDEF               OBTAIN AND GENERATE THE NUMBER   02710004
+&DIRLAB  SETC  '&TABLE1(&USERSUB)'(1,&KEYLEN)                           02720004
+&DIRLAB  DC    H'&CNTCHR'                                               02730004
+.*
+&SUBLP   SETA  1                       INITIALIZE LOOP COUNT            02750004
+.*
+.SYSLOOP ANOP                                                           02770004
+.*
+.*       THREE SUB-PARAMETERS MUST BE PRESENT FOR EACH SUBLIST:         02790004
+.*       (SYSTEM,SUBSYSTEM,PERMISSION)                                  02800004
+.*
+.*
+&ZZ      SETC  '&SYSDEF(&SUBLP)'       GET 1ST SUBLIST                  02830004
+         AIF   ('&ZZ'(1,1) EQ '(').GP1                                  02840004
+         MNOTE 16,'SYSDEF SUBLIST REQUIRES OPEN PARENTHESIS'            02850004
+         MEXIT                                                          02860004
+.GP1     ANOP                                                           02870004
+&ZS      SETA  2                       START POSITION OF SUBPARM        02880004
+&ZC      SETA  2                       CURRENT POSITION IN SUBLIST      02890004
+&ZN      SETA  1                       SUBPARM NUMBER                   02900004
+.GP2     ANOP                                                           02910004
+         AIF   ('&ZZ'(&ZC,1) EQ ',').GP3                                02920004
+         AIF   ('&ZZ'(&ZC,1) EQ ')').GP4                                02930004
+         AIF   (&ZC EQ K'&ZZ).GP4                                       02940004
+&ZC      SETA  &ZC+1                   CURRENT POSITION IN SUBLIST+1    02950004
+         AGO   .GP2                                                     02960004
+.GP3     ANOP                                                           02970004
+&PERM(&ZN)     SETC  '&ZZ'(&ZS,&ZC-&ZS)                                 02980004
+&ZC      SETA  &ZC+1                   CURRENT POSITION IN SUBLIST+1    02990004
+&ZS      SETA  &ZC                     SET NEW START LOCATION           03000004
+&ZN      SETA  &ZN+1                   SET TO NEXT SUBLIST              03010004
+         AGO   .GP2                                                     03020004
+.GP4     ANOP                                                           03030004
+&PERM(&ZN)     SETC  '&ZZ'(&ZS,&ZC-&ZS)                                 03040004
+         AIF   (K'&PERM(3) NE 0).GEN31H                                 03050004
+&PERM(3) SETC  'N'                                                      03060004
+.GEN31H  ANOP                                                           03070004
+         AIF   (K'&PERM(1) NE 0 AND K'&PERM(2) NE 0 AND                X03080004
+               K'&PERM(3) NE 0).GEN3                                    03090004
+.*
+         MNOTE 16,'ALL THREE SUBPARAMETERS ARE REQUIRED FOR SYSDEF'     03110004
+         MEXIT                                                          03120004
+.*
+.GEN3    ANOP                                                           03140004
+.*
+.*       VALIDATE THE SYSTEM AND SUBSYSTEM NAMES
+.*
+         AIF   (K'&PERM(1) LE 8).GEN31
+         MNOTE 16,'SYSTEM &PERM(1) EXCEEDS 8 CHARACTERS'
+&PERM(1) SETC  '&PERM(1)'(1,8)
+.GEN31   ANOP
+         AIF   (K'&PERM(2) LE 8).GEN32
+         MNOTE 16,'SUBSYSTEM &PERM(2) EXCEEDS 8 CHARACTERS'
+&PERM(2) SETC  '&PERM(2)'(1,8)
+.GEN32   ANOP
+.*
+.*       SCAN 1ST SUB-PARM FOR $SIGN                                    03160004
+.*
+&STR     SETC '&PERM(1)'                                                03180004
+.*
+         MASKMAC                                                        03200004
+.*                                                                      03210004
+.*          DROP CODE FOR EACH SYSDEF SET.  OFFSET AND LENGTH ARE
+.*          RETURNED BY MASKMAC AND ARE USED AT RUNTIME FOR
+.*          VARIABLE LENGTH, POSITION EXECUTED COMPARES.
+.*
+.*
+         DC    CL8'&PERM(1)',AL1(&OFFSET),AL1(&LNGTH)                   03270004
+.*
+.*
+.*       SCAN 2ND SUB-PARM FOR $SIGN                                    03300004
+.*
+&STR     SETC  '&PERM(2)'                                               03320004
+.*
+         MASKMAC                                                        03340004
+.*
+         DC    CL8'&PERM(2)',AL1(&OFFSET),AL1(&LNGTH)                   03360004
+.*                                                                      03370004
+.* BITMAC INTERPRETS BIT SETTINGS FOR THE PERMISSION FIELD
+.*
+.*
+&STR     SETC  '&PERM(3)'                                               03410004
+         AIF   (K'&STR GT 0).BIT1OK                                     03420004
+&STR     SETC  'N'                                                      03430004
+.BIT1OK  ANOP                                                           03440004
+         BITMAC  BYTE=1                                                 03450004
+         DC    AL1(&STR)                                                03460004
+.*
+.*
+&STR     SETC  '&PERM(4)'                                               03490004
+.*
+         AIF   (K'&STR GT 0).BIT2OK                                     03510004
+&STR     SETC  'N'                                                      03520004
+.BIT2OK  ANOP                                                           03530004
+         BITMAC BYTE=2                                                  03540004
+         DC    AL1(&STR)                                                03550004
+.*                                                                      03550104
+.* .NEXTDEFS ANOP                                                       03130001
+.*
+&SUBLP   SETA  &SUBLP+1                LOOP UNTIL ALL SYSDEFS           03550404
+.*
+         AIF   (&SUBLP LE N'&SYSDEF).SYSLOOP  HAVE BEEN PROCESSED       03550604
+.NOSDEF  ANOP                                                           03550704
+         AIF   ('&IND' NE '03').SDEF99                                  03550804
+.*
+&USERSUB SETA  &USERSUB-1      REMOVE GROUP NAME FROM TABLE             03551004
+.*
+.SDEF99  ANOP
+         MEXIT                                                          03554004
+.*
+.*
+.*     WHEN A TYPE=END IS ENCOUNTERED, WE SORT (MSORT) THE
+.*     USER/RESOURCE INTERNAL TABLE INTO ALPHA ASCENDING
+.*     SEQUENCE, THEN DROP CODE WHICH ALLOWS US TO USE
+.*     THE FOLLOWING TABLE AS A TAG WHICH POINTS TO THE
+.*     CORRESPONDING VARIABLE SYSDEF ATTRIBUTES.
+.*
+.*
+.TEND  ANOP
+.*
+.*
+&INTLBL SETC 'CONSUTAB'    TABLE LABEL FOR TABLE=USER
+       AIF ('&TABLE' NE 'RESOURCE').GENLAB2
+&INTLBL SETC 'CONSRTAB'
+.*
+.GENLAB2 ANOP
+.*
+&CNTCHR SETA &USERSUB        PROCESS ALL ELEMENTS IN INTERNAL TABLE     03430000
+&INTLBL DS    0D             ALIGN TABLE TO DOUBLEWORD
+.*
+.*
+.*     THE FOLLOWING DC IS A TABLE DESCRIPTOR WHICH SPECIFIES
+.*     THE NUMBER OF ELEMENTS IN THE TAG TABLE AND THE LENGTH
+.*     OF A TAG TABLE ENTRY.  IN GENERAL, THIS TECHNIQUE MAKES
+.*     LIFE IN THE WORLD OF BINARY SEARCH A LOT EASIER.
+.*
+.*
+         DC   H'&CNTCHR',H'&TABELEN'
+.*
+.*   NOW SORT THE USER TABLE INTO BINARY SEARCH FORMAT
+.*
+        MSORT  KEYSTRT=1,KEYLEN=&KEYLEN
+.*
+&TABKEYL SETA &TABKEYL+1    SET FOR LENGTH OF DC CL
+&SYSLP   SETA  1        INIT THE CODE DROP LOOP
+&DIRLP   SETA  1        INIT THE DIRECTORY TABLE LOOP COUNTER
+&KEYB    SETC  '&TABLE1(&SYSLP)'(1,1)   RETAIN 1ST CHAR OF KEY
+&DIRLAB  SETC  '&KEYB.&SYSNDX'
+&DIRTAB(&DIRLP) SETC   'CL1''&KEYB'',AL3(&DIRLAB)'
+.*
+.GEN2    ANOP
+.*
+.*  AS MENTIONED BEFORE, CL'KEYLEN ISTHE USER/RESOURCE TAG.  A() IS
+.*  ADDRESS OF ATTRIBUTES CORRESPONDING TO THIS USER/RESOURCE
+.*
+&STR    SETC   '&TABLE1(&SYSLP)'(1,&KEYLEN)  ASSIGN INPUT FOR MASKMAC
+         MASKMAC STRIP=YES            CALL MASKMAC TO PROCESS MASK
+&OFFSAV   SETA  &OFFSET               RETAIN FOR PROPER OFF GEN
+&LENSAV   SETA  &LNGTH                RETAIN FOR PROPER LENG GEN
+.*                                    CHARACTERS AND STRIP BLANKS
+&XNAME  SETC    '&STR'
+.*
+.*       NOW DROP SORTED TABLE ENTRY WHICH POINTS BACK TO SYSDEF
+.*
+&ADCON      SETC    '&XNAME'
+&IND        SETC   '&TABLE1(&SYSLP)'(&KEYLEN+1,2)
+&UNTL       SETC   '&TABLE1(&SYSLP)'(&KEYLEN+3,5)
+            AIF     ('&IND' NE '02').DIRLB1
+&STR        SETC    '&TABLE1(&SYSLP)'(&KEYLEN+8,&KEYLEN)
+            MASKMAC  STRIP=YES
+&OFFSET     SETA     &OFFSAV            RESTORE PROPER OFFSET
+&LNGTH      SETA     &LENSAV            RESTORE PROPER LEN
+&ADCON      SETC   '&STR'
+.DIRLB1     ANOP
+&DIRLAB DC  CL&TABKEYL'&XNAME',AL4(&ADCON)
+        DC  AL1(&OFFSET),AL1(&LNGTH),PL3'&UNTL'
+&DIRLAB     SETC ''        CLEAR UNTIL KEY CHANGE
+.*
+&SYSLP   SETA  &SYSLP+1                  LOOP UNTIL
+         AIF  (&SYSLP GT &CNTCHR).GENDIR  ALL ENTRIES ARE PROCESSED     03950000
+         AIF  ( '&KEYB' EQ '&TABLE1(&SYSLP)'(1,1)).GEN2   KEYCHANGE?
+&DIRLP   SETA  &DIRLP+1
+&KEYB    SETC '&TABLE1(&SYSLP)'(1,1)
+&DIRLAB  SETC  '&KEYB.&SYSNDX'       RESET LABEL FOR KEYCHANGE
+&DIRTAB(&DIRLP) SETC   'CL1''&KEYB'',AL3(&DIRLAB)'
+         AGO   .GEN2
+.GENDIR  ANOP
+CONSUEND    DC  (&TABELEN)X'FF'
+.*
+.*       NOW BUILD A DIRECTORY TABLE.  THIS TABLE USES THE
+.*       FIRST CHARACTER OF EACH USER/RESOURCE TABLE ENTRY
+.*       AS A KEY, THEN POINTS TO THE ENTRY WHICH BEGINS
+.*       ALL ENTRIES HAVING THAT CHARACTER AS A KEY
+.*
+.*
+&INTLBL  SETC  'CONSDIR'     LABEL FOR BEGIN OF DIRECTORY TABLE
+&INTLBL  DS    0D                   ALIGN TO DOUBLEWORD
+.*
+.*     THE FOLLOWING DC IS A TABLE DESCRIPTOR WHICH SPECIFIES
+.*     THE NUMBER OF ELEMENTS IN THE TAG TABLE AND THE LENGTH
+.*     OF A TAG TABLE ENTRY.
+.*
+.*
+.*
+         DC    H'&DIRLP',H'4'
+&SYSLP   SETA  1                    INITIALIZE THE LOOP AGAIN
+.DIRLOOP ANOP
+         DC    &DIRTAB(&SYSLP)
+&SYSLP   SETA  &SYSLP+1
+    AIF  (&SYSLP  LE &DIRLP).DIRLOOP CHECK WHOLE TABLE PROCESSED
+         DC    X'FF',AL3(CONSUEND)
+.*
+         END
+         MEND

@@ -1,0 +1,27 @@
+)ATTR DEFAULT(%+_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Endevor Security -/-/-
+%Command ===>_zcmd
+%
++
++Environment :?envname
++
++Line commands :%R+: Read only %O+: Override  %U+: Update
++
++Cmd System
+)Model
+ _Z+?sysname
+)Init
+.ZVARS = '(sel)'
+.cursor = sel
+)Reinit
+)Proc
+  If (&ztdsels ^= 0000)           /* If user selected some rows ... */
+     ver (&sel,LIST,r,R,o,O,u,U)
+)End

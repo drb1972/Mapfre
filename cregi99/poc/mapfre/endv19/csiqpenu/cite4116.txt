@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Languages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Language+- A 1- to 8-character name of the source language for the type.
+   Note: If you specify LINKEDIT in this field, you cannot use NAME or
+   ALIAS statements in the link step of processors associated with this type.
+
+%PV/LB Lang+- A 1- to 8-character Panvalet or Librarian source language.
+   Acceptable values for Panvalet:
+      ANSCOBOL, ALC, AUTOCODE, BAL, COBOL, COBOL-72, DATA, FORTRAN, JCL
+      PL/1, RPG, USER180, USER780
+   Note: Specify DATA in this field for type Process, if you plan to
+   use in stream data in processors.
+
+   Acceptable Values For Librarian:
+      ASM, COB, DAT, FOR, FRG, FRH, GIS, GOF, JCL, PLF, PLI, RPG, TXT, VSB
+   Note: Specify DAT in this field for type Process, if you plan to
+   use in stream data in processors.
+
+
++
++                                            (%PF3+to return)
+)END

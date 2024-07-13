@@ -1,0 +1,200 @@
+         MACRO
+         @ENETM &ACTION,&SIGNONID=,&PASSWORD=,&DBNAME=,&WAITTIME=300,  X
+               &OPERLOGD=,&VALCCID=Y,&VALPKG=Y,&CATEGORY=,&NMANREQD=Y, X
+               &LOGACT=Y,&LOGPKG=Y
+.* -------------------------------------------------------------------
+.*
+.*  COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.
+.*
+.* -------------------------------------------------------------------
+         GBLB  &GLXDSCT
+         LCLA  &N
+.*
+         AIF   ('&ACTION' EQ 'START').START
+         AIF   ('&ACTION' EQ 'END').END
+         AIF   ('&ACTION' EQ 'DSECT').DSECT
+         AGO   .ERROR01
+.*=====================================================================
+.*  "START" VERB PROCESSING
+.*=====================================================================
+.START   ANOP
+.DSECT   ANOP
+         AIF   (&GLXDSCT).DSECT90
+&GXLDSCT SETB  1
+ENETM    DSECT
+ENMCATCH DS    CL8                         EYECATCH "BC1TNM90"
+ENMSGNID DS    CL3                         NETMAN SIGNON ID
+ENMPSSWD DS    CL8                         NETMAN PASSWORD
+ENMDBNME DS    CL13                        NETMAN DATA BASE ID
+ENMWAIT  DS    H                           NETMAN WAIT TIME IN SECONDS
+ENMLOGID DS    CL2                         OPERATIONAL LOG ID
+ENMVCCID DS    CL1                         VALIDATE CCID - Y/N
+ENMVPKGS DS    CL1                         VALIDATE PACKAGES - Y/N
+ENMCATGY DS    CL6                         NETMAN CATEGORY
+ENMREQD  DS    CL1                         NETMAN REQUIRED - Y/N
+ENMLOGAC DS    CL1                         LOG ACTION ACTIVITY - Y/N
+ENMLOGPK DS    CL1                         LOG PACKAGE ACTIVITY - Y/N
+         DS    XL51                          ** RESERVED **
+         EJECT
+.DSECT90 ANOP
+         AIF   ('&ACTION' EQ 'DSECT').MEXIT
+.*---------------------------------------------------------------------
+.*  DEFINE ENDEVOR NETMAN INTERFACE TABLE
+.*---------------------------------------------------------------------
+BC1TNM90 CSECT
+         DC    CL8'BC1TNM90'            ;EYECATCH
+         AIF   ('&SIGNONID' EQ '').ERROR02
+&N       SETA  K'&SIGNONID
+         AIF   (&N GT 3).ERROR03
+         DC    CL3'&SIGNONID'           ;NETMAN SIGNON ID.
+         AIF   ('&PASSWORD' EQ '').ERROR04
+&N       SETA  K'&PASSWORD
+         AIF   (&N GT 8).ERROR05
+         DC    CL8'&PASSWORD'           ;NETMAN PASSWORD.
+         AIF   ('&DBNAME' EQ '').ERROR06
+&N       SETA  K'&DBNAME
+         AIF   (&N GT 13).ERROR07
+         DC    CL13'&DBNAME'            ;NETMAN DATA BASE NAME.
+         AIF   ('&WAITTIME' EQ '').ENTRY10
+         AIF   ('&WAITTIME' GT '3539').ERROR08
+         AIF   ('&WAITTIME' LT '1').ERROR09
+         DC    H'&WAITTIME'             ;NETMAN WAIT TIME.
+         AGO   .ENTRY12
+.ENTRY10 ANOP
+         DC    H'300'                   ;NETMAN WAIT TIME.
+.ENTRY12 ANOP
+         AIF   ('&OPERLOGD' EQ '').ERROR10
+&N       SETA  K'&OPERLOGD
+         AIF   (&N NE 2).ERROR11
+         DC    CL2'&OPERLOGD'           ;NETMAN DATA BASE NAME.
+         AIF   ('&VALCCID' EQ '').ENTRY22
+         AIF   ('&VALCCID' EQ 'Y').ENTRY20
+         AIF   ('&VALCCID' NE 'N').ERROR12
+.ENTRY20 ANOP
+         DC    CL1'&VALCCID'            ;VALIDATE CCID FLAG
+         AGO   .ENTRY24
+.ENTRY22 ANOP
+         DC    CL1'Y'                   ;VALIDATE CCID FLAG
+.ENTRY24 ANOP
+         AIF   ('&VALPKG' EQ '').ENTRY32
+         AIF   ('&VALPKG' EQ 'Y').ENTRY30
+         AIF   ('&VALPKG' NE 'N').ERROR13
+.ENTRY30 ANOP
+         DC    CL1'&VALPKG'             ;VALIDATE PACKAGES FLAG
+         AGO   .ENTRY34
+.ENTRY32 ANOP
+         DC    CL1'Y'                   ;VALIDATE PACKAGES FLAG
+.ENTRY34 ANOP
+         AIF   ('&CATEGORY' EQ '').ENTRY40
+&N       SETA  K'&CATEGORY
+         AIF   (&N GT 6).ERROR14
+         DC    CL6'&CATEGORY'           ;NETMAN CATEGORY
+         AGO   .ENTRY42
+.ENTRY40 ANOP
+         DC    CL6' '                   ;NETMAN CATEGORY
+.ENTRY42 ANOP
+         AIF   ('&NMANREQD' EQ '').ENTRY52
+         AIF   ('&NMANREQD' EQ 'Y').ENTRY50
+         AIF   ('&NMANREQD' NE 'N').ERROR15
+.ENTRY50 ANOP
+         DC    CL1'&NMANREQD'           ;NETMAN REQUIRED INDICATOR
+         AGO   .ENTRY54
+.ENTRY52 ANOP
+         DC    CL1'Y'                   ;NETMAN REQUIRED INDICATOR
+.ENTRY54 ANOP
+         AIF   ('&LOGACT' EQ '').ENTRY62
+         AIF   ('&LOGACT' EQ 'Y').ENTRY60
+         AIF   ('&LOGACT' NE 'N').ERROR16
+.ENTRY60 ANOP
+         DC    CL1'&LOGACT'             ;LOG ACTION ACTIVITY
+         AGO   .ENTRY64
+.ENTRY62 ANOP
+         DC    CL1'Y'                   ;LOG ACTION ACTIVITY
+.ENTRY64 ANOP
+         AIF   ('&LOGPKG' EQ '').ENTRY72
+         AIF   ('&LOGPKG' EQ 'Y').ENTRY70
+         AIF   ('&LOGPKG' NE 'N').ERROR17
+.ENTRY70 ANOP
+         DC    CL1'&LOGPKG'             ;LOG PACKAGE ACTIVITY
+         AGO   .ENTRY74
+.ENTRY72 ANOP
+         DC    CL1'Y'                   ;LOG PACKAGE ACTIVITY
+.ENTRY74 ANOP
+         AIF   ('&VALCCID' EQ 'N').ENTRY80
+         AIF   ('&NMANREQD' EQ 'N').ERROR18
+.ENTRY80 ANOP
+         AIF   ('&VALPKG' EQ 'N').ENTRY90
+         AIF   ('&NMANREQD' EQ 'N').ERROR19
+.ENTRY90 ANOP
+         DC    XL51'00'                      ** RESERVED **
+         SPACE 3
+         SPACE 3
+         AGO   .MEXIT
+.*=====================================================================
+.*  "END" VERB PROCESSING
+.*=====================================================================
+.END     ANOP
+         END
+         AGO   .MEXIT
+.*=====================================================================
+.*  ERROR MESSAGES
+.*=====================================================================
+.ERROR01 ANOP
+         MNOTE 12,'INVALID ACTION PARAMETER'
+         AGO   .MEXIT
+.ERROR02 ANOP
+         MNOTE 12,'MISSING SIGNONID= PARAMETER'
+         AGO   .MEXIT
+.ERROR03 ANOP
+         MNOTE 12,'INVALID SIGNONID= PARAMETER, TOO LONG'
+         AGO   .MEXIT
+.ERROR04 ANOP
+         MNOTE 12,'MISSING PASSWORD= PARAMETER'
+         AGO   .MEXIT
+.ERROR05 ANOP
+         MNOTE 12,'INVALID PASSWORD= PARAMETER, TOO LONG'
+         AGO   .MEXIT
+.ERROR06 ANOP
+         MNOTE 12,'MISSING DBNAME= PARAMETER'
+         AGO   .MEXIT
+.ERROR07 ANOP
+         MNOTE 12,'INVALID DBNAME= PARAMETER, TOO LONG'
+         AGO   .MEXIT
+.ERROR08 ANOP
+         MNOTE 12,'INVALID WAITTIME PARAMETER, MUST BE < 3540'
+         AGO   .MEXIT
+.ERROR09 ANOP
+         MNOTE 12,'INVALID WAITTIME PARAMETER, MUST BE > 0'
+         AGO   .MEXIT
+.ERROR10 ANOP
+         MNOTE 12,'MISSING OPERLOGID= PARAMETER'
+         AGO   .MEXIT
+.ERROR11 ANOP
+         MNOTE 12,'INVALID OPERLOGID= PARAMETER, MUST BE 2 CHARS LONG'
+         AGO   .MEXIT
+.ERROR12 ANOP
+         MNOTE 12,'INVALID VALCCID= PARAMETER, MUST BE Y OR N'
+         AGO   .MEXIT
+.ERROR13 ANOP
+         MNOTE 12,'INVALID VALPKG= PARAMETER, MUST BE Y OR N'
+         AGO   .MEXIT
+.ERROR14 ANOP
+         MNOTE 12,'INVALID CATEGORY= PARAMETER, CANNOT BE > 6'
+         AGO   .MEXIT
+.ERROR15 ANOP
+         MNOTE 12,'INVALID NMANREQY= PARAMETER, MUST BE Y OR N'
+         AGO   .MEXIT
+.ERROR16 ANOP
+         MNOTE 12,'INVALID LOGACT= PARAMETER, MUST BE Y OR N'
+         AGO   .MEXIT
+.ERROR17 ANOP
+         MNOTE 12,'INVALID LOGPKG= PARAMETER, MUST BE Y OR N'
+         AGO   .MEXIT
+.ERROR18 ANOP
+         MNOTE 12,'IF VALCCID = Y THEN NMANREQD MUST BE Y ALSO'
+         AGO   .MEXIT
+.ERROR19 ANOP
+         MNOTE 12,'IF VALPKG = Y THEN NMANREQD MUST BE Y ALSO'
+         AGO   .MEXIT
+.MEXIT   ANOP
+         MEND

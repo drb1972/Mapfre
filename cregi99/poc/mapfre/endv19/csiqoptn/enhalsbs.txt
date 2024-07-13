@@ -1,0 +1,97 @@
+         MACRO
+         ENHALSBS &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST SUBSYSTEM - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+ALSBS_VER       EQU 2                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALSBS_VER,          CONTROL BLOCK VERSION           X
+               EYE='LSBQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALSBS_RQ
+         SPACE ,
+ALSBS_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSBS_RQ_DATA
+ALSBS_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALSBS_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALSBS_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR- (N)O -OR- (R)ANGE
+ALSBS_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALSBS_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALSBS_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+ALSBS_RQ_STG_ID   DC CL1' '            STAGE ID
+ALSBS_RQ_TOSTG_ID DC CL1' '            RANGE-TO STAGE ID -OR-          X
+                                       BETWEEN-TO STAGE ID
+ALSBS_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+ALSBS_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME/MASK
+                  DS CL2' '            ALIGNMENT CHARACTERS
+                  DS 0X
+ALSBS_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALSBS_RQ_VER#1_DATADSLN EQU *-ALSBS_RQ_DATA
+ALSBS_RQ_VER#1_DSLN     EQU *-ALSBS_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSBS_RQ_VER#2_DATADSLN EQU *-ALSBS_RQ_DATA
+ALSBS_RQ_VER#2_DSLN     EQU *-ALSBS_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSBS_RQ_DATADSLN EQU *-ALSBS_RQ_DATA
+ALSBS_RQ_DSLN     EQU *-ALSBS_RQ
+         ORG      ALSBS_RQ_DATA
+ALSBS_RQ_DATAAREA DS XL(ALSBS_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST SUBSYSTEM - RESPONSE BLOCK                              *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALSBS_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LSBS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALSBS_RS
+         SPACE ,
+ALSBS_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSBS_RS_DATA
+ALSBS_RS_SITE     DC CL1' '            SITE ID
+ALSBS_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALSBS_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALSBS_RS_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+ALSBS_RS_STG_NAME DC CL8' '            STAGE NAME
+ALSBS_RS_STG_ID   DC CL1' '            STAGE ID
+ALSBS_RS_STG_REL  DC ZL4'0'            RELATIVE STAGE NUMBER
+ALSBS_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALSBS_RS_UPD_DATE DC ZL8'0'            UPDATE DATE 'YYYYMMDD'
+ALSBS_RS_UPD_TIME DC ZL8'0'            UPDATE TIME 'HHMMSSTH'
+ALSBS_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALSBS_RS_TITLE    DC CL50' '           SUBSYSTEM TITLE
+ALSBS_RS_NXT_SBS  DC CL8' '            NEXT SUBSYSTEM NAME IN PATH
+ALSBS_RS_FMID     DC ZL5'0'            RECORD CREATED RELEASE ID
+                  DS CL3' '            ALIGNMENT CHARACTERS
+                  DS 0X
+ALSBS_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALSBS_RS_VER#1_DATADSLN EQU *-ALSBS_RS_DATA
+ALSBS_RS_VER#1_DSLN     EQU *-ALSBS_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSBS_RS_PREGEXC  DC CL1' '            PROC REG OP CHK ACROSS SBS
+                  DS 0F
+         SPACE ,
+ALSBS_RS_VER#2_DATADSLN EQU *-ALSBS_RS_DATA
+ALSBS_RS_VER#2_DSLN     EQU *-ALSBS_RS
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSBS_RS_DATADSLN EQU *-ALSBS_RS_DATA
+ALSBS_RS_DSLN     EQU *-ALSBS_RS
+         ORG      ALSBS_RS_DATA
+ALSBS_RS_DATAAREA DS XL(ALSBS_RS_DATADSLN)    DATA AREA
+         MEND

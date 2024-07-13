@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - Common Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
+%Element+- Names of elements that met the selection criteria.
++
+%Type+- Type associated with the element.
++
+%NS+- A Y identifies the element as source-less.
++
+%Environ+- Environment where the element resides.
++
+%S+- ID of the Stage where the element resides.
++
+%System+- Name of the system associated with the elment.
++
+%Subsystem+- Name of the subsystem associated with the element.
++
+%VVLL+- Element version and level.
++
+%RC+- Return code for the most recent action performed against the element.
+
++
++                                            (%PF3+to return)
+)END

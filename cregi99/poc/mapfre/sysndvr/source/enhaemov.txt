@@ -1,0 +1,58 @@
+         MACRO
+         ENHAEMOV &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        MOVE ELEMENT - REQUEST BLOCK                                 *
+*                                                                     *
+***********************************************************************
+AEMOV_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AEMOV_RQ$EYE    EQU C'EMOQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AEMOV_RQ
+         SPACE ,
+AEMOV_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEMOV_RQ_DATA
+*                 ELEMENT DATA
+AEMOV_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEMOV_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEMOV_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEMOV_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEMOV_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEMOV_RQ_TYPE     DC CL8' '            TYPE NAME
+AEMOV_RQ_STG_ID   DC CL1' '            STAGE ID
+AEMOV_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 ACTION OPTIONS
+AEMOV_RQ_CCID     DC CL12' '           CCID
+AEMOV_RQ_COMM     DC CL40' '           COMMENT
+AEMOV_RQ_SYN      DC CL1' '            SYNCHRONIZE (Y/N)
+AEMOV_RQ_WIT_HIS  DC CL1' '            WITH HISTORY (Y/N)
+AEMOV_RQ_BYP_DEL  DC CL1' '            BYPASS ELEMENT DELETE (Y/N)
+AEMOV_RQ_SIGNIN   DC CL1' '            SIGNIN AT TARGET (Y/N)
+AEMOV_RQ_RETA_SIGNO DC CL1' '          RETAIN SIGNOUT (Y/N)
+AEMOV_RQ_SIGNO_TO DC CL8' '            SIGNOUT TO USERID
+AEMOV_RQ_JUMP     DC CL1' '            JUMP (Y/N)
+AEMOV_RQ_RESERVE  DC CL3' '            ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AEMOV_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AEMOV_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AEMOV_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AEMOV_RQ_VER#1_DATADSLN EQU *-AEMOV_RQ_DATA
+AEMOV_RQ_VER#1_DSLN     EQU *-AEMOV_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEMOV_RQ_DATADSLN EQU *-AEMOV_RQ_DATA
+AEMOV_RQ_DSLN     EQU *-AEMOV_RQ
+         ORG      AEMOV_RQ_DATA
+AEMOV_RQ_DATAAREA DS XL(AEMOV_RQ_DATADSLN)     DATA AREA
+         MEND

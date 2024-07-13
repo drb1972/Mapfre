@@ -1,0 +1,18 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package JCL JOB Statements \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The JCL JOB Statements field appears on the Batch Package panel.  You must
++complete at least one JCL JOB statement to execute the packages using action
++6, Submit JCL.  The JCL JOB statements are saved across sessions.
++There is no validation of the JCL statements.
++
++Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit0040
+)END

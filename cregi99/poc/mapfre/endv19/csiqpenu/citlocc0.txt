@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Current Location Fields \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
+%Current env+- The current environment.
++
+%Stage ID+- The ID of the current Stage.
++
+%System+- The current system.
++
+%Type+- The current type.
++
++
++
++
++
+%PF3+to return, Select%1+-%5+for more on
++
+%    1+- Environment                %4+- Type
+%    2+- Stage                      %5+- Mapping
+%    3+- System
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT2100 2,CITT2200 3,CITT2300 4,CITT2500
+                  5,CITT3000)
+)END

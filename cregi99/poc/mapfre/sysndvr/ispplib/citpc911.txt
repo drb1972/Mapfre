@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Confirm Collection \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++This panel is displayed after you have selected a connection and
++package(s). You can change the value in the PKG/BACKOUT field.
++
++Type CO in the Option field, then press ENTER to place the request in
++the collection queue or press PF3 to skip the request.
++
++After you press ENTER or PF3:
++
++   * The next selected package appears on the "Collect package" line
++     if you selected multiple packages from the selection list; if
++     not, the Product Collection Panel is re-displayed.
++
++   * The Package Selection list appears when all selected packages
++     have gone through the confirmation process. Additional packages
++     can be selected at this time or the selection process can be
++     ended by pressing PF3 to return to the Product Collection panel.
++
++
++\ \ (%PF3+to return) \ \
+)END

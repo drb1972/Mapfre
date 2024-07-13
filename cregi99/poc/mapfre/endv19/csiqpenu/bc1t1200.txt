@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Editing WIP Files \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++PDM builds the WIP file by adding, and annotating all the changes made
++to the Root file in the Derivation 1 and Derivation 2 files, then
++writing this new file in the WIP library.
++
++Once the WIP file has been built, you can edit it using the PDM Edit WIP
++function. PDM uses the edited WIP file as input to the Merge process.
++
++
++
++    Select%1-4+for information about:
++
+%    1+- WIP file annotations       %3+- WIP edit commands
+%    2+- The WIP file header        %4+- Specifying a WIP file to edit
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T1520 2,BC1T1510 3,BC1T1530 4,BC1T1500)
+)END

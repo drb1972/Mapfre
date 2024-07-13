@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Running Reports in Batch \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM writes the Syntax, Detail, and Summary reports to the C1MSGS1 DD
++statement. It is possible to write the Summary reports to a separate
++data set. If the C1MSGS2 DD statement is defined in the PDM execution
++JCL, PDM writes the Build Summary and Merge Summary reports to the
++C1MSGS2 file.
++
++The C1MSGS2 DD statement can be added to PDM batch execution JCL,
++the PDM batch exeuction skeleton, or you can specify it as additional,
++included JCL in the PDM Submit option.
++
++See Appendix E of the PDM User's Guide for instructions on modifying
++PDM JCL.
++
++
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SYNC NDVR Output \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++This option causes the Merge Output option to perform element synchronization
++on the element target location with the Root element before creating the
++derivation change levels.
++
++Before PDM performs a merge into CA Endevor SCM, the target location is
++checked to determine if the element already exists at this location. If it is
++found to exist at this location, then it is checked to determine if it is at
++the same source level as the Root or that its last level timestamp is equal to
++that of DV1. If neither of these criteria are met, and the synchronization
++option is not specified, then the PDM merge action fails.
++
++To force the failed merge, you can use the synchronization option. PDM will
++create a change level that sets the element's source back to the Root's.
++This change level, called the "sync level", will inherit the Root's CCID,
++Comment, Userid, Date and Time. After synchronization, derivation change
++levels are created.
++
++To invoke this option:
++  - Use the SYNC NDVR OUTPUT Merge option in batch mode.
++  - Set the Merge Option SYNC field to 'Y' in foreground mode.
+)END

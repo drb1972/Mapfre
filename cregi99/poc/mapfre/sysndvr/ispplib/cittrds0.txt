@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Remote DSN or Path (TEST) \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++Enter a host dataset name in the unprotected field. The "Test DSN
++Mapping Rules" function will search for the most specific rule which
++matches the DSN and display the resultant remote data set name or
++path name and extension.
++
++The rule that was used is displayed at the bottom of the panel.
++
++
++
++
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

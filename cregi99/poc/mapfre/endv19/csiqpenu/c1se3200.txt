@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+   @ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+|VARFLIT%------------------- SUBSYSTEM DEFINITION ------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++CURRENT ENV: ¢VAREVNME+  SYSTEM: ¢VARSYNME+
++NEXT    ENV: ¢VARNXENV+  SYSTEM: ¢VARNXSYS+
++
++SYSTEM TITLE:      @VARSYTTL                                          +
++
++SUBSYSTEM:         ¢VARSBNME+
++TITLE         %===>~VARSBTTL                                          +
++NEXT SUBSYSTEM%===>_VARNXSBS+
++
++UPDATED:           ¢Z      ¢Z    +BY¢VARLUUID+
++
++EXCLUDE FROM DUPLICATE ELEMENT PROC O/P TYPE CHECK %===>_Z+(Y/N)
++
++
++
++
++
++
++
++
++
+)INIT
+  .HELP = CITE3100
+  .ZVARS = '(VARLUDTE VARLUTME VAREXSBS)'
+)PROC
+)END

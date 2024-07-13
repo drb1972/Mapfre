@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ WIP Edit - Entry Panel \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to identify the WIP library and member that you want
++to edit, using standard data set naming conventions.
++
++If you specify an explicit name in the MEMBER field, the WIP file displays
++on an ISPF/PDF edit panel when you press ENTER. In addition to standard
++ISPF/PDF edit commands, special PDM edit commands are available from this
++edit panel. These special commands are%not+available if you access the
++edit panel using OPTION 2 on the ISPF/PDF Primary Option Menu.
++
++If you type an asterisk ( * ) or a name mask in the MEMBER field, a
++member selection list displays when you press ENTER.
++
+%Note:+We recommend that you edit any WIP member with a complexity
++      factor higher than zero.
++
++    Select%1-3+for information about:
++
+%    1+- WIP header information     %3+- Special PDM WIP edit commands
+%    2+- WIP file annotations
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T1510 2,BC1T1520 3,BC1T1530)
+)END

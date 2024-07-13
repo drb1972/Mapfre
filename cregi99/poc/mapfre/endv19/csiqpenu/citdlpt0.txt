@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Product Type \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Product+- GEN  - DistribuLink has been set up to track generations of
+%Type+            this product. Add this product as a new generation.
++
++          EXT  - Generations of this product will be tracked externally.
++
++          NORM - This is a normal product (default).
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

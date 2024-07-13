@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Virtual Inventory Configuration (Generate NOSOURCE) \-\
+%Option ===>_ZCMD                                                   %Release 14+
+%
+%Virtual Inventory Configuration (Generate NOSOURCE)
++
+ The Virtual Inventory Configuration feature enables unchanged source code
+ to be compiled and linked at a CA Endevor SCM inventory location without
+ the requirement that the source code be copied back to that inventory area.
+ This feature is triggered by the NoSource option on the Generate action,
+ provided the element does not exist at the target location. NoSource can be
+ specified on foreground or batch Generate actions. The NoSource option
+ requires that the processor uses either the C1BASELIB symbolic (which
+ references the base type libraries) or the CONWRITE processor utility.
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1450
+)END

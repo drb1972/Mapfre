@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Output Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%PDM Syntax Request Report+- Lists the Merge syntax and flags any
++    errors found by the parser.
++
+%PDM Merge Output Detail Report+- Lists the WIP members used to create
++    Merge Output Files or Endevor Merge Output Elements, and lists
++    detail information about each member. You can suppress the detail
++    information by coding STATS OFF DETAIL in the Merge request.
++
+%PDM Merge Output Summary Report+- Lists summary information for the
++    Merge action.
++
++To produce just the Syntax Request Report, code STATS OFF ALL in the
++MERGE request.
++
++
+)END

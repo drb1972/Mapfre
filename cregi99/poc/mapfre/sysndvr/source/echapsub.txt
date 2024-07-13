@@ -1,0 +1,40 @@
+      *****************************************************************
+      *            SUBMIT A PACKAGE - REQUEST BLOCK
+      *****************************************************************
+       01  APSUB-RQ.
+           05  APSUB-RQ-HEADER.
+               10  APSUB-RQ-LEN        PIC 9(04) COMP VALUE 124.
+               10  APSUB-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APSUB-RQ-ID         PIC 9(04) COMP VALUE 1744.
+               10  APSUB-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APSUB-RQ-EYE        PIC X(04)      VALUE 'PSUQ'.
+           05  APSUB-RQ-DATAAREA.
+               10  APSUB-RQ-PKGID      PIC X(16) VALUE SPACES.
+      *  JOBCARD LOCATION INFORMATION
+               10  APSUB-RQ-JCDDN      PIC X(08) VALUE SPACES.
+               10  APSUB-RQ-JCDSN      PIC X(44) VALUE SPACES.
+               10  APSUB-RQ-JCMBR      PIC X(08) VALUE SPACES.
+               10  FILLER              PIC X(02) VALUE SPACES.
+      *  SUBMIT TO LOCATION (INTERNAL READER DDNAME OR CA7)
+               10  APSUB-RQ-TOLOC      PIC X(08) VALUE SPACES.
+                   88  APSUB-RQ-TOLOC-CA7     VALUE 'CA7'.
+      *  ACTION OPTIONS
+      *        WHERE STATUS IS APPROVED OR EXECFAILED OR BOTH
+               10  APSUB-RQ-WSTATUS    PIC X(01) VALUE SPACES.
+                   88  APSUB-RQ-WSTATUS-A     VALUE 'A', ' '.
+                   88  APSUB-RQ-WSTATUS-F     VALUE 'F'.
+                   88  APSUB-RQ-WSTATUS-B     VALUE 'B'.
+      *        MULTIPLE JOBSTREAMS FOR EACH PACKAGE (NON-CA7 OPTION)
+               10  APSUB-RQ-MULTJS     PIC X(01) VALUE SPACES.
+                   88  APSUB-RQ-MULTJS-Y      VALUE 'Y'.
+                   88  APSUB-RQ-MULTJS-N      VALUE 'N', ' '.
+      *        INCREMENT LAST CHARACTER OF JOBNAME (NON-CA7 OPTION)
+               10  APSUB-RQ-INCRJN     PIC X(01) VALUE SPACES.
+                   88  APSUB-RQ-INCRJN-Y   VALUE 'Y', ' '.
+                   88  APSUB-RQ-INCRJN-N   VALUE 'N'.
+      *        JCL PROCEDURE NAME
+               10  APSUB-RQ-JCLPROC    PIC X(08) VALUE SPACES.
+      *        DEPENDENT JOBNAME (CA7 OPTION)
+               10  APSUB-RQ-DEPJN      PIC X(08) VALUE SPACES.
+      *  RESERVED AREA
+               10  APSUB-RQ-RESERVE    PIC X(07) VALUE SPACES.

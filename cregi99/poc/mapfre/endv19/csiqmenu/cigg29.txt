@@ -1,0 +1,32 @@
+CIGG290E 'Invalid MONITOR Parm'                          .ALARM=YES
+'C1G0290E See &C1MDSN for more information.'
+
+CIGG291E 'Invalid TYPE length'                          .ALARM=YES
+'C1G0291E The TYPE record length must be at least 80 to support RECFM=U'
+
+CIGG293E 'Member not Found'                             .ALARM=YES
+'C1G0293E The ADD/UPDATE input member was not found'
+
+CIGG294C 'List Member not Found'                        .ALARM=YES
+'C1G0294C The member specified could not be found in the Listing dataset'
+
+CIGG294E 'List Member not Found'                        .ALARM=YES
+'C1G0294E The member specified could not be found in the Listing dataset'
+
+CIGG295C 'Member not Found'                        .ALARM=YES
+'C1G0295C Deleting of a member was bypassed because it could not be found'
+
+CIGG295W 'Member not Found'                        .ALARM=YES
+'C1G0295W Deleting of a member was bypassed because it could not be found'
+
+CIGG296W 'Truncation may occur'                             .ALARM=YES
+'C1G0296W See &C1MDSN for more information.'
+
+CIGG296E 'Truncation possible'                              .ALARM=YES
+'C1G0296E See &C1MDSN for more information.'
+
+CIGG298E 'CONWRITE DDNAME Missing'                         .ALARM=YES
+'C1G0298E See &C1MDSN for more information.'
+
+CIGG299W 'Invalid CONWRITE Parm'                           .ALARM=YES
+'C1G0299W See &C1MDSN for more information.'

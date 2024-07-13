@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DSN Mapping Rule Selection List \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++Use this list to select a mapping rule for display or update.
++
+%Connection+- The DistribuLink connection for which the displayed
++   Host Data Set Name Masks are defined.
++
+%Map/Excl+- Indicates whether a mapping rule exists for the data set
++   (MAPPED) or whether the data set is to be excluded from collection
++   (EXCLUDED).
++
+%Host Dataset Name+- Name or name mask of a host staging data set.
++
+%Updated+- Date when the rule associated with the data set was last updated.
++
++
+
++
++
++
++                                            (%PF3+to return)
+)END

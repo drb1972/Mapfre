@@ -1,0 +1,62 @@
+      *****************************************************************
+      *                                                               *
+      *        LIST  - APPROVER GROUP REQUEST BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  ALAGR-RQ.
+           05  ALAGR-RQ-HEADER.
+               10  ALAGR-RQ-LEN        PIC 9(4) COMP VALUE 40.
+               10  ALAGR-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALAGR-RQ-ID         PIC 9(4) COMP VALUE 1168.
+               10  ALAGR-RQ-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALAGR-RQ-EYE        PIC X(4)      VALUE 'LAGQ'.
+           05  ALAGR-RQ-DATAAREA.
+               10  ALAGR-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALAGR-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALAGR-RQ-RESERVE2   PIC X         VALUE SPACE.
+               10  ALAGR-RQ-RESERVE3   PIC X         VALUE SPACE.
+               10  ALAGR-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALAGR-RQ-AGRNAME    PIC X(16)    VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *        LIST APPROVER GROUP - RESPONSE BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  ALAGR-RS.
+           05  ALAGR-RS-HEADER.
+               10  ALAGR-RS-LEN        PIC 9(4) COMP VALUE 288.
+               10  ALAGR-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALAGR-RS-ID         PIC 9(4) COMP VALUE 1169.
+               10  ALAGR-RS-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALAGR-RS-EYE        PIC X(4)      VALUE 'LAGS'.
+           05  ALAGR-RS-DATAAREA.
+               10  ALAGR-RS-SITE       PIC X         VALUE SPACE.
+               10  ALAGR-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALAGR-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALAGR-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALAGR-RS-STG-NUM    PIC X         VALUE SPACE.
+               10  ALAGR-RS-AGRNAME    PIC X(16)     VALUE SPACES.
+               10  ALAGR-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALAGR-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALAGR-RS-UPD-BDTE REDEFINES ALAGR-RS-UPD-DATE.
+                   15  ALAGR-RS-UPD-YYYY   PIC 9(4).
+                   15  ALAGR-RS-UPD-MM     PIC 9(2).
+                   15  ALAGR-RS-UPD-DD     PIC 9(2).
+               10  ALAGR-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALAGR-RS-UPD-BTME REDEFINES ALAGR-RS-UPD-TIME.
+                   15  ALAGR-RS-UPD-HH     PIC 9(2).
+                   15  ALAGR-RS-UPD-MI     PIC 9(2).
+                   15  ALAGR-RS-UPD-SS     PIC 9(2).
+                   15  ALAGR-RS-UPD-TH     PIC 9(2).
+               10  ALAGR-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALAGR-RS-FMID       PIC 9(5)      VALUE ZEROS.
+               10  ALAGR-RS-QUORM      PIC 9(8)      VALUE ZEROS.
+               10  ALAGR-RS-TITLE      PIC X(50)     VALUE SPACES.
+               10  ALAGR-RS-TOTL-AUSER PIC X(128)    VALUE SPACES.
+               10  ALAGR-RS-AUSER REDEFINES ALAGR-RS-TOTL-AUSER
+                       OCCURS 16 TIMES PIC X(8).
+               10  ALAGR-RS-TOTL-AUREQ PIC X(16)     VALUE SPACES.
+               10  ALAGR-RS-AUREQ REDEFINES ALAGR-RS-TOTL-AUREQ
+                       OCCURS 16 TIMES PIC X.
+               10  FILLER              PIC XX        VALUE SPACE.

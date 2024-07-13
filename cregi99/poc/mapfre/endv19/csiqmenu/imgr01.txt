@@ -1,0 +1,18 @@
+IMGR011E 'NO STAGES MATCH'                               .ALARM=YES
+'&VARWLTXT'
+IMGR012E 'NO PROCESSOR GROUP MATCH'                      .ALARM=YES
+'&VARWLTXT'
+IMGR013E 'NO TYPES MATCH'                                .ALARM=YES
+'&VARWLTXT'
+IMGR014E 'NO TYPE ID MATCH'                              .ALARM=YES
+'&VARWLTXT'
+IMGR015E 'NO DATASET MATCH'                              .ALARM=YES
+'&VARWLTXT'
+IMGR016E 'NO TYPE SEQ RECORD DEF.'                       .ALARM=YES
+'&VARWLTXT'
+IMGR017E 'SYNTAX ERROR'                                  .ALARM=YES
+'&VARWLTXT'
+IMGR018E 'NO APPROVER GROUPS MATCH'                      .ALARM=YES
+'&VARWLTXT'
+IMGR019E 'NO GROUP JUNCTIONS MATCH'                      .ALARM=YES
+'&VARWLTXT'

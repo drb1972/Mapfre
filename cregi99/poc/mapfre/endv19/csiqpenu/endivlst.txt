@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   @ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%-------------------List Listing Footprint Warning  -------------------
+%Command ===>_VARWKCMD                                                         +
++
++   *------------------------------------------------------------------*
++   * The FOOTPRINT information differs between the ELEMENT and the    *
++   * listing library MEMBER. Therefore the MEMBER may not accurately  *
++   * reflect the output of the last GENERATE ACTION.                  *
++   *------------------------------------------------------------------*
++   *          Element                     Member                      *
++   *------------------------------------------------------------------*
++   * Env:     @Z                          @EEVFENV                   +*
++   * Sys:     @Z                          @EEVFSYS                   +*
++   * Subsys:  @Z                          @EEVFSBS                   +*
++   * Element: @Z                          @EEVFELM                   +*
++   * Type:    @Z                          @EEVFTYP                   +*
++   * Stage:   @Z                          @EEVFSTG                   +*
++   * VVLL:    @Z                          @EEVFVL                    +*
++   *------------------------------------------------------------------*
++   *  Press the%ENTER+key to view the listing                         *
++   *   or                                                             *
++   *  Enter the %END+ command or hit%PF3+ to return.                  *
++   *------------------------------------------------------------------*
+)INIT
+.ZVARS = '(EEVETKEN EEVETKSY EEVETKSB EEVETKEL EEVETKTY EEVETKSI +
+           EEVETDVL)'
+)PROC
+)END

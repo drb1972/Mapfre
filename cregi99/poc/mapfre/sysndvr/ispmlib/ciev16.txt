@@ -1,0 +1,5 @@
+CIEV160 'Library Not Allowed'                           .ALARM=YES
+'CIEV160 The library cannot be specified. Processor support was not purchased'
+CIEV161 'Invalid HFS delimiter'                         .ALARM=YES
+'CIEV161 The HFS record delimiter specified is invalid                       '
+

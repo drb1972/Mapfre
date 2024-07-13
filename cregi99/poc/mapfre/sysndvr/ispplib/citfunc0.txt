@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Actions by Job Function \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                             Job Function+
++              *---------------------------------------------------*
+%   Action+    |%Dev    QA/Test   Turnover   Audit   Mgmnt   Admin+|
++*-------------|---------------------------------------------------|
++| Add/Update  |  x       x                                    x   |
++| Archive     |                                               x   |
++| Copy        |                                               x   |
++| Delete      |                     x                         x   |
++| Display     |  x       x          x         x       x       x   |
++| Generate    |  x                                                |
++| List        |  x                                            x   |
++| Move        |  x       x          x                         x   |
++| Print       |  x       x          x         x       x       x   |
++| Restore     |                                               x   |
++| Retrieve    |  x       x                                    x   |
++| Signin      |  x       x                            x           |
++| Transfer    |                     x                         x   |
++*-------------*---------------------------------------------------*
++                                                      (%PF3+to return)
+)END

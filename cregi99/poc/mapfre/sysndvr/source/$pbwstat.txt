@@ -1,0 +1,144 @@
+         MACRO
+&LABEL   $PBWSTAT &DSCT=YES
+*---------------------------------------------------------------------*
+*                                                                     *
+* MACRO: $PBWSTAT                                                     *
+*                                                                     *
+* FUNCTION: The $PBWSTAT MACRO maps the PDM BUILD WIP Statistics      *
+*  record.  One record is created for each WIP file created by the    *
+*  BUILD WIP action.                                                  *
+*                                                                     *
+*---------------------------------------------------------------------*
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PBWSTAT DSECT                         BUILD WIP Statistics record
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$PBWSTAT DS    0F                      BUILD WIP Statistics record
+.SKPEQU  ANOP
+$PBWLEN  DC    Y($PBWDSLN)             Length of the Statistics record
+$PBWEYE  DC    CL4'STAT'               Eyecatcher
+$PBWVERS DC    Y(1)                    Version Number
+PWTYPE   DC    Y(1)                    Record Type: WIP Statistics
+PWREPL   DS    CL1                     Global replace option (Y/N)
+PWPRCMDE DS    CL1                     Processing Mode (F/B)
+PWCMPBEG DS    H                       Compare FROM column
+PWCMPEND DS    H                       COMPARE TO column
+PWWIPDSN DS    CL44                    WIP Dataset Name
+*---------------------------------------------------------------------*
+* Root information                                                    *
+*---------------------------------------------------------------------*
+PWROODSN DS    CL44                    Root Dataset Name
+PWROOENV DS    CL8                     Root Environment
+PWROOSYS DS    CL8                     Root System
+PWROOSUB DS    CL8                     Root Subsystem
+PWROOTYP DS    CL8                     Root Type
+PWROOSTX DS    CL1                     Root Stage (ID or Number)
+PWROOST# DS    CL1                     Root Stage Number (Y/N)
+*---------------------------------------------------------------------*
+* Derivation 1 information                                            *
+*---------------------------------------------------------------------*
+PWDV1DSN DS    CL44                    DER 1 Dataset Name
+PWDV1ENV DS    CL8                     DER 1 Environment
+PWDV1SYS DS    CL8                     DER 1 System
+PWDV1SUB DS    CL8                     DER 1 Subsystem
+PWDV1TYP DS    CL8                     DER 1 Type
+PWDV1STX DS    CL1                     DER 1 Stage (ID or Number)
+PWDV1ST# DS    CL1                     DER 1 Stage Number (Y/N)
+*---------------------------------------------------------------------*
+* Derivation 2 information                                            *
+*---------------------------------------------------------------------*
+PWDV2DSN DS    CL44                    DER 2 Dataset Name
+PWDV2ENV DS    CL8                     DER 2 Environment
+PWDV2SYS DS    CL8                     DER 2 System
+PWDV2SUB DS    CL8                     DER 2 Subsystem
+PWDV2TYP DS    CL8                     DER 2 Type
+PWDV2STX  DS   CL1                     DER 2 Stage (ID or Number)
+PWDV2ST#  DS   CL1                     DER 2 Stage Number (Y/N)
+*---------------------------------------------------------------------*
+* Other information                                                   *
+*---------------------------------------------------------------------*
+PWWIPMEM DS    CL10                    WIP Member name
+PWROOMEM DS    CL10                    Root Member/Element name
+PWROOLVL DS    H                       Root Level (if ENDEVOR)
+PWROOVER DS    H                       Root Version (if ENDEVOR)
+PWDV1MEM DS    CL10                    DER 1 Member/Element name
+PWDV1LVL DS    H                       DER 1 Level (if ENDEVOR)
+PWDV1VER DS    H                       DER 1 Version (if ENDEVOR)
+PWDV2MEM DS    CL10                    DER 2 Member/Element name
+PWDV2LVL DS    H                       DER 2 Level (if ENDEVOR)
+PWDV2VER DS    H                       DER 2 Version (if ENDEVOR)
+PWRUNTME DS    F                       Time of BUILD WIP action
+PWRUNDTE DS    F                       Date of BUILD WIP action
+PWPGENUM DS    PL2                     Report page number
+PWRETCDE DS    F                       BUILD WIP return code
+         SPACE ,
+*---------------------------------------------------------------------*
+* General statistics                                                  *
+*---------------------------------------------------------------------*
+PWTOTINS DS    F                       Total Number of inserts
+PWTOTDEL DS    F                       Total Number of deletes
+PWTOTREC DS    F                       Total Number of WIP records
+PWTOTCNF DS    F                       Total Number of conflicts
+PWTOTCTA DS    F                       Total Number of Contention Areas
+PWTOTC1R DS    F                       Total D1 records in conflict
+PWTOTC2R DS    F                       Total D2 records in conflict
+PWCOMPFC DS    H                       Complexity Factor for member
+PWCOMP0  EQU   0                        - Complexity Factor 0
+PWCOMP1  EQU   1                        - Complexity Factor 1
+PWCOMP2  EQU   2                        - Complexity Factor 2
+PWCOMP3  EQU   3                        - Complexity Factor 3
+PWCOMP4  EQU   4                        - Complexity Factor 4
+PWCOMP5  EQU   5                        - Complexity Factor 5
+PWRSV1   DS    H                       Reserved
+         SPACE ,
+*---------------------------------------------------------------------*
+* Common to both derivations                                          *
+*---------------------------------------------------------------------*
+PWTOT12I DS    F                       Total common insert recs (D1,2)
+PWTOT12D DS    F                       Total common delete recs (D1,2)
+PWTOT12C DS    F                       Total common changes (D1,D2)
+PWTDCIBL DS    F                       Com - Total Number of ins blocks
+PWTDCDBL DS    F                       Com - Total Number of del blocks
+PWNDCISZ DS    F                       Com - Min size of insert blocks
+PWXDCISZ DS    F                       Com - Max size of insert blocks
+PWMDCISZ DS    F                       Com - Mean size of insert blocks
+PWNDCDSZ DS    F                       Com - Min size of delete blocks
+PWXDCDSZ DS    F                       Com - Max size of delete blocks
+PWMDCDSZ DS    F                       Com - Mean size of delete blocks
+         SPACE ,
+*---------------------------------------------------------------------*
+* Derivation 1 statistics                                             *
+*---------------------------------------------------------------------*
+PWTD1INS DS    F                       D1 - Total Number of inserts
+PWTD1DEL DS    F                       D1 - Total Number of deletes
+PWTD1IBL DS    F                       D1 - Total Number of ins blocks
+PWTD1DBL DS    F                       D1 - Total Number of del blocks
+PWTD1CHG DS    F                       D1 - Total Number of changes
+PWND1ISZ DS    F                       D1 - Min size of insert blocks
+PWXD1ISZ DS    F                       D1 - Max size of insert blocks
+PWMD1ISZ DS    F                       D1 - Mean size of insert blocks
+PWND1DSZ DS    F                       D1 - Min size of delete blocks
+PWXD1DSZ DS    F                       D1 - Max size of delete blocks
+PWMD1DSZ DS    F                       D1 - Mean size of delete blocks
+         SPACE ,
+*---------------------------------------------------------------------*
+* Derivation 2 statistics                                             *
+*---------------------------------------------------------------------*
+PWTD2INS DS    F                       D2 - Total Number of inserts
+PWTD2DEL DS    F                       D2 - Total Number of deletes
+PWTD2IBL DS    F                       D2 - Total Number of ins blocks
+PWTD2DBL DS    F                       D2 - Total Number of del blocks
+PWTD2CHG DS    F                       D2 - Total Number of changes
+PWND2ISZ DS    F                       D2 - Min size of insert blocks
+PWXD2ISZ DS    F                       D2 - Max size of insert blocks
+PWMD2ISZ DS    F                       D2 - Mean size of insert blocks
+PWND2DSZ DS    F                       D2 - Min size of delete blocks
+PWXD2DSZ DS    F                       D2 - Max size of delete blocks
+PWMD2DSZ DS    F                       D2 - Mean size of delete blocks
+*---------------------------------------------------------------------*
+* Auto-Merge statistics                                               *
+*---------------------------------------------------------------------*
+PWAMRGRC DS    F                       Auto-Merge Return Code
+PWAMRGFL DS    CL1                     Auto-Merge Indicator (Y/N)
+$PBWDSLN EQU   *-$PBWSTAT
+         MEND

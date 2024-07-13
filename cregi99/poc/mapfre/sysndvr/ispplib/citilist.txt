@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID SELECTION LIST \-\ TUTORIAL
+%SELECTION ===>_ZCMD
+%
++The CCID SELECTION LIST panel displays a list of CCIDs
++stored in Info/Man.  Select option:
++
+%  B+- To browse the information stored in Info/Man about the CCID.
++
+%  S+- To select a CCID for your action request.
+
+)END

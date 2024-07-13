@@ -1,0 +1,30 @@
+CPTB150 'Undefined Parameter'                       .ALARM=YES
+'CPTB150 One or more undefined parameters were specified on the command.'
+
+CPTB151 'Allocation Failed'                         .ALARM=YES
+'CPTB151 The SYSOUT allocation failed.  S99ERROR=&PTBS99ER, S99INFO=&PTBS99IN'
+
+CPTB152 'Merge LRECL too Small'                     .ALARM=YES
+'CPTB152 The Merge dataset is too small for the WIP dataset specified.'
+
+CPTB153 'TBSCAN error'                              .ALARM=YES
+'CPTB153 An ISPF TBSCAN service error occurred processing the LOCATE command.'
+
+CPTB154 'Enter Processing Mode'                     .ALARM=YES
+'CPTB154 Enter F for foreground mode and B for background (batch) mode.'
+
+CPTB155 'Invalid Option'                            .ALARM=YES
+'CPTB155 Enter A to append or R to replace the PDM Batch Request statements.'
+
+CPTB156 'Enter a Value > 0'                         .ALARM=YES
+'CPTB156 The primary space allocation must be greater than 0 units.'    nts.'
+
+CPTB157 'Out of Directory Space'                    .ALARM=YES
+'CPTB157 The Batch Request dataset is out of directory space.'          nts.'
+
+CPTB158 'I/O Error'                                 .ALARM=YES
+'CPTB158 An I/O error occurred writing to the Batch Request dataset.'   nts.'
+
+CPTB159 'Invalid Selection'                         .ALARM=YES
+'CPTB159 Valid line selection commands are: S'                          nts.'
+

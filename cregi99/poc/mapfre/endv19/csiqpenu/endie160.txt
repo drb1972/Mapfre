@@ -1,0 +1,131 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2023 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+¢ TYPE(OUTPUT) INTENS(HIGH) JUST(LEFT)
+| TYPE(OUTPUT) INTENS(LOW)
+_ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+@ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF)
+$ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF) NUMERIC(ON)
+01 TYPE(CEF) RADIO(ON) CSRGRP(1)
+02 TYPE(SAC) RADIO(ON) CSRGRP(1)
+03 TYPE(CEF) RADIO(ON) CSRGRP(2)
+04 TYPE(SAC) RADIO(ON) CSRGRP(2)
+{ TYPE(PS)
+¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\) CMD() WINDOW(70,22)
+%\-\ Quick Edit Text Search \-\
++
++ Specify search string(s) and options. Elements to search:¢EEFTTCNT+
++
++ ==>@EEFTTXT1                                                    +
++ ==>@EEFTTXT2                                                    +
++ ==>@EEFTTXT3                                                    +
++ ==>@EEFTTXT4                                                    +
++ ==>@EEFTTXT5                                                    +
++ ==>@EEFTTXT6                                                    +
++
++ Search in:                      Search options:
++Z+1+Element   Z+1+Source       Case Sensitive . . . . ._Z+(Y/N)
++   2+Component    2+History      Filter Element List. . ._Z+(Y/N)
++                   3+Changes      Include Binary Types . ._Z+(Y/N)
++                   4+Summary      Logical Operator     . ._Z+(O/A)
++ Column range:
++   From$Z   +To$Z   +
++
++ Press%ENTER+to run the search or%END+to cancel the search.
+)INIT
+    .ZVARS = '(FTTYPNUM FTFORNUM EEFTCSN EEFTFLST +
+            EEFTBIN EEFTOP EEFTFCOL EEFTTCOL)'
+    .HELP = ENDHE165
+    &LIST1 = 'Y N'
+    &LIST2 = '1 2'
+    &LIST3 = '1 2 3 4'
+    &LIST4 = 'O A'
+    &EEFTTYP = &EEFTTYP
+    &BCKTFORM = &EEFTFORM
+    &BCKTCSN = &EEFTCSN
+    &BCKTFLST = &EEFTFLST
+    &BCKTBIN = &EEFTBIN
+    &BCKTOP = &EEFTOP
+    &BCKFCOL = &EEFTFCOL
+    &BCKTCOL = &EEFTTCOL
+    &FTTYPNUM = 1
+    IF (&EEFTTYP = 'E')
+       &FTTYPNUM = 1
+    IF (&EEFTTYP = 'C')
+       &FTTYPNUM = 2
+    &FTFORNUM = 1
+    IF (&EEFTFORM = 'S')
+      &FTFORNUM = 1
+    IF (&EEFTFORM = 'H')
+      &FTFORNUM = 2
+    IF (&EEFTFORM = 'C')
+      &FTFORNUM = 3
+    IF (&EEFTFORM = 'U')
+      &FTFORNUM = 4
+    IF (&EEFTFCOL = '    ')
+      &EEFTFCOL = '0001'
+    IF (&EEFTTCOL = '    ')
+      &EEFTTCOL = '9999'
+    IF (VER(&EEFTCSN,NB))
+    ELSE
+      &EEFTCSN = 'N'
+    IF (VER(&EEFTFLST,NB))
+    ELSE
+      &EEFTFLST = 'Y'
+    IF (VER(&EEFTBIN,NB))
+    ELSE
+      &EEFTBIN = 'N'
+    IF (VER(&EEFTOP,NB))
+    ELSE
+      &EEFTOP = 'O'
+)PROC
+    IF (VER  (&FTTYPNUM,NB,LISTV,&LIST2))
+        IF (&FTTYPNUM = '1')
+            &EEFTTYP = 'E'
+        IF (&FTTYPNUM = '2')
+            &EEFTTYP = 'C'
+            &EEFTFCOL = 1
+            &EEFTTCOL = 9999
+    ELSE
+        .MSG=ENDE227E
+        &EEFTTYP = &BCKTTYP
+    IF (VER  (&FTFORNUM,NB,LISTV,&LIST3))
+        IF (&FTFORNUM = '1')
+            &EEFTFORM = 'S'
+        IF (&FTFORNUM = '2')
+            &EEFTFORM = 'H'
+        IF (&FTFORNUM = '3')
+            &EEFTFORM = 'C'
+        IF (&FTFORNUM = '4')
+            &EEFTFORM = 'U'
+    ELSE
+        .MSG=ENDE228E
+        &EEFTFORM = &BCKTFORM
+    IF (VER  (&EEFTCSN,NB,LISTV,&LIST1))
+    ELSE
+        .MSG=ENDE003E
+        &EEFTCSN = &BCKTCSN
+    IF (VER  (&EEFTFLST,NB,LISTV,&LIST1))
+    ELSE
+        .MSG=ENDE003E
+        &EEFTFLST = &BCKTFLST
+    IF (VER  (&EEFTBIN,NB,LISTV,&LIST1))
+    ELSE
+        .MSG=ENDE067E
+        &EEFTBIN = &BCKTBIN
+    IF (VER  (&EEFTOP,NB,LISTV,&LIST4))
+    ELSE
+        .MSG=ENDE229E
+        &EEFTOP = &BCKTOP
+    IF (VER  (&EEFTFCOL,NB,RANGE,1,9999))
+    ELSE
+        .MSG=ENDE236E
+        &EEFTFCOL = &BCKFCOL
+    IF (VER  (&EEFTTCOL,NB,RANGE,1,9999))
+    ELSE
+        .MSG=ENDE236E
+        &EEFTTCOL = &BCKTCOL
+    IF (&ZCMD = 'END') .RESP = END
+)END

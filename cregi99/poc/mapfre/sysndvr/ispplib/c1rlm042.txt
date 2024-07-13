@@ -1,0 +1,28 @@
+startdef
+tag % sh
+tag + s
+Tag _ muh cmd rdsname rdsnmem append include jcl1 jcl2 jcl3 jcl4
+tag | sh msg
+%-----------------------------  Batch Options Menu  ----------------------------
+%OPTION  ===>_   +
+|
+%   1+ BUILD SCL - Build batch SCL actions
+%   2+ EDIT      - Edit request data set
+%   3+ SUBMIT    - Submit job for batch processing
++   4+ VALIDATE  - Not available on ROSCOE
+%   5+ BUILD JCL - Enter additional JCL to be included with the job
++
++ REQUEST DATA SET:
++    DSNAME%===>_                                                      +
++    MEMBER%===>_        +
++
++ APPEND     %===>_N+  (Y/N)
++ INCLUDE JCL%===>_N+  (Y/N)
++
++ JOB STATEMENT INFORMATION:
++ %===>_
++ %===>_
++ %===>_
++ %===>_
++
+enddef

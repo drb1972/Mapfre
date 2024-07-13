@@ -1,0 +1,8 @@
+PKMR110E '--------- VSAM I/O ERROR'                      .ALARM=YES
+'&VARWLTXT'
+PKMR117E '------ PACKAGE HDR ERROR'                      .ALARM=YES
+'&VARWLTXT'
+PKMR118E '---- RESERVED NAME ERROR'                      .ALARM=YES
+'&VARWLTXT'
+PKMR119E '------ USER NOT APPROVER'                      .ALARM=YES
+'&VARWLTXT'

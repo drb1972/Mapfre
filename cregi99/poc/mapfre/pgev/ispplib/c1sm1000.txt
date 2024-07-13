@@ -1,0 +1,149 @@
+)ATTR DEFAULT(%{_)
+ /*------------------------------------------------------------------*/
+ /* Default Attribute Characters:                                    */
+ /*   % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR          */
+ /*   + TYPE(TEXT) INTENS(LOW)       changed to { (EJW)              */
+ /*   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)                 */
+ /*------------------------------------------------------------------*/
+ { TYPE(TEXT)     INTENS(LOW)
+ ! TYPE(INPUT)    INTENS(LOW)  PAD(NULLS)
+ ¢ TYPE(TEXT)     INTENS(LOW)  COLOR(YELLOW)
+ | TYPE(OUTPUT)   INTENS(HIGH)
+ % TYPE(TEXT)     INTENS(HIGH)
+ 01 TYPE(DATAOUT) INTENS(LOW)  CAPS(OFF)
+ 02 TYPE(DATAOUT) INTENS(HIGH) CAPS(OFF)
+ 03 TYPE(DATAIN)  INTENS(LOW)
+ 04 TYPE(DATAIN)  INTENS(HIGH)
+ $  AREA(DYNAMIC) EXTEND(OFF)
+)BODY EXPAND(\\)
+%\-\ CA Endevor SCM Primary Options Panel \-\
+%Option ===>_ZCMD                                                              +
+%
+$ENDYNV01                                                                      $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+$                                                                              $
+{                        Current environment:|C1CENV  {
+{%Email:{    mapfre.endevor@rsmpartners.com
+{%Endevor Helpdesk (9-5)¢+44 (0)1527 837767{
+{%Out-of-hours only: Phone Systems Operations{Quote%Endevor Support
+{                     {  ¢+00 (0)00 0000 0000
+)INIT
+ &CTLITRML = 'E'
+ VPUT (CTLITRML) PROFILE
+/* Start code for ESORT */
+VGET (ZSCREEN)
+  IF (&ZSCREEN = 1)
+    &PANELID1 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID1) PROFILE
+  IF (&ZSCREEN = 2)
+    &PANELID2 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID2) PROFILE
+  IF (&ZSCREEN = 3)
+    &PANELID3 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID3) PROFILE
+  IF (&ZSCREEN = 4)
+    &PANELID4 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID4) PROFILE
+  IF (&ZSCREEN = 5)
+    &PANELID5 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID5) PROFILE
+  IF (&ZSCREEN = 6)
+    &PANELID6 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID6) PROFILE
+  IF (&ZSCREEN = 7)
+    &PANELID7 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID7) PROFILE
+  IF (&ZSCREEN = 8)
+    &PANELID8 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID8) PROFILE
+  IF (&ZSCREEN = 9)
+    &PANELID9 = '&ZSCREEN:C1SM1000'
+    VPUT (PANELID9) PROFILE
+  IF (&ZSCREEN = A)
+    &PANELIDA = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDA) PROFILE
+  IF (&ZSCREEN = B)
+    &PANELIDB = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDB) PROFILE
+  IF (&ZSCREEN = C)
+    &PANELIDC = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDC) PROFILE
+  IF (&ZSCREEN = D)
+    &PANELIDD = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDD) PROFILE
+  IF (&ZSCREEN = E)
+    &PANELIDE = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDE) PROFILE
+  IF (&ZSCREEN = F)
+    &PANELIDF = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDF) PROFILE
+  IF (&ZSCREEN = G)
+    &PANELIDG = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDG) PROFILE
+  IF (&ZSCREEN = H)
+    &PANELIDH = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDH) PROFILE
+  IF (&ZSCREEN = I)
+    &PANELIDI = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDI) PROFILE
+  IF (&ZSCREEN = J)
+    &PANELIDJ = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDJ) PROFILE
+  IF (&ZSCREEN = K)
+    &PANELIDK = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDK) PROFILE
+  IF (&ZSCREEN = L)
+    &PANELIDL = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDL) PROFILE
+  IF (&ZSCREEN = M)
+    &PANELIDM = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDM) PROFILE
+  IF (&ZSCREEN = N)
+    &PANELIDN = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDN) PROFILE
+  IF (&ZSCREEN = O)
+    &PANELIDO = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDO) PROFILE
+  IF (&ZSCREEN = P)
+    &PANELIDP = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDP) PROFILE
+  IF (&ZSCREEN = Q)
+    &PANELIDQ = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDQ) PROFILE
+  IF (&ZSCREEN = R)
+    &PANELIDR = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDR) PROFILE
+  IF (&ZSCREEN = S)
+    &PANELIDS = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDS) PROFILE
+  IF (&ZSCREEN = T)
+    &PANELIDT = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDT) PROFILE
+  IF (&ZSCREEN = U)
+    &PANELIDU = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDU) PROFILE
+  IF (&ZSCREEN = V)
+    &PANELIDV = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDV) PROFILE
+  IF (&ZSCREEN = W)
+    &PANELIDW = '&ZSCREEN:C1SM1000'
+    VPUT (PANELIDW) PROFILE
+/* End code for ESORT */
+  .HELP = CITM1000
+  &ZPRIM = YES
+  VGET (AMT) PROFILE
+  IF (&AMT = '')
+     &AMT = PAGE
+)PROC
+   &ZSEL = TRUNC(&ZCMD,1)
+)END

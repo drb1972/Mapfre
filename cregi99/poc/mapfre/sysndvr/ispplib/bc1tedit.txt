@@ -1,0 +1,31 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Edit WIP file \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++ The WIP file is an annotated file created by the BUILD WIP action. The
++ annotations are used to identify which of the derivation file(s) inserted
++ or deleted the line relative to the Root file.  The WIP file also contains
++ a static header section that identifies the files or inventory locations
++ used to build the WIP file and that contains summary information on the
++ number of lines inserted or deleted.
++
++ PDM also provides several extended Edit commands to assist you with the
++ analysis of the WIP file.
++
++ Select%1-4+for information about:
++
++   %1+- WIP file annotations
++   %2+- WIP header information
++   %3+- WIP edit commands
++   %4+- Native ISPF/PDF Edit service help
++
++
++
++
++
+)PROC
+   &ZSEL = TRANS (&ZCMD 1,BC1T1520
+                        2,BC1T1510
+                        3,BC1T1530
+                        4,ISR20000)
+)END

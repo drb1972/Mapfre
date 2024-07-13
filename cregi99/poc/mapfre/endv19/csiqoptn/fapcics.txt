@@ -1,0 +1,21 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. FAPCICS.
+      ******************************************************************
+      *REMARKS.  CICS COBOL PROGRAM.
+      *          USE PROCESSOR COBNCL.
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-DATA  PIC X(02) VALUE 'X'.
+       COPY FARINCL.
+       LINKAGE SECTION.
+      ******************************************************************
+       PROCEDURE DIVISION.
+      ******************************************************************
+           MOVE '*** CONGRATULATIONS, FAPCICS SUCCESSFULLY EXECUTED'
+               TO COPY1-BOOK.
+           EXEC CICS RETURN
+           END-EXEC.
+       GOBACK.

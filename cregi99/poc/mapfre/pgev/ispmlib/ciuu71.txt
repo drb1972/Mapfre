@@ -1,0 +1,10 @@
+CIUU710C 'Element in incomplete chg'                     .ALARM=YES
+'The last change to this element at stage P is not yet live'
+CIUU711C 'Element in specific chg'                       .ALARM=YES
+'This element was last involved in a Specific change'
+CIUU712E 'CMR does not exist'                            .ALARM=YES
+'This Infoman change record does not exist'
+CIUU713E 'Infoman API error'                             .ALARM=YES
+'An error occurred when accessing Infoman'
+CIUU714E 'No ONLY COMPONENT'                             .ALARM=YES
+'Delete with ONLY COMPONENT is not allowed'

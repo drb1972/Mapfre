@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - Auto Age Retention \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
+%Auto Age Level Retention+- Indicates whether element/component change
++   levels are to be managed by age.
+%      Y+- Age managed change levels are in effect
+%      N+- Age managed change levels are NOT in effect
++
+%Retain LVL For+- Indicates the length of time (in months) that change
++   levels are to be kept. For reverse/image deltas, expired levels are
++   dropped. For forward deltas, expired levels are incorporated into
++   the base. When age retention is on, 1-999 is allowed (default 999).
++   Zero must be specified when age level retention is off.
++
++
++
++
++
++
++                                               (%PF3+to return)
+)END

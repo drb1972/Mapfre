@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Rename Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the RENAME command to assign a new name to a member with the same
++name as another member in the WIP data set.
++
++To rename a member, type%R+in the selection field next to the member(s)
++you want to rename, type the new name(s) in the RENAME field, then
++press ENTER.
++
++The screen displays the message *RENAMED in the RENAME field, next to
++he new member name.
++
++
+)END

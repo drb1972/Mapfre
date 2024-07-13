@@ -1,0 +1,19 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Summary Field \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Package Summary field appears on the Package Selection List panel.  It
++allows you to review information about a package such as a description of the
++package, it status, event information, etcetera.  To display package
++information type PS next to desired package on the Package Selection List
++panel and press enter.  The Package Summary panel displays.
++
++Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit1100
+)END

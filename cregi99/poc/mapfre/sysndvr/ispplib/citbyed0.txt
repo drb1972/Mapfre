@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete From Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to delete the element(s) at the source location
++after moving or transferring to another inventory location.
++
++Acceptable values:
++
+%  Y+- Default - Delete the element(s) at the source location after
++        successful action execution.
+%  N+- Do not delete the element(s).
++
+%Warning:+If you specify option N, then you must specify SYNC=Y for
++   subsequent moves or transfers of the element.
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

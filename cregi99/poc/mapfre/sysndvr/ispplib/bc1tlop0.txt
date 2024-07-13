@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Where CCID+- This field allows you to specify a CCID as a selection
++    criterion for building element selection lists.
++
+%CCID type+- This field allows you to further qualify the CCID that PDM
++    is to search for. Acceptable values are:
++
+%    A+- Any matching CCID field. This is the default.
++
+%    B+- The Base CCID field.
++
+%    L+- The Last Action CCID field.
++
+%    G+- The Generate CCID field.
++
+%    R+- The Retrieve CCID field.
++
++PDM uses CCID as a selection criterion only when one is specified.
++
+)END

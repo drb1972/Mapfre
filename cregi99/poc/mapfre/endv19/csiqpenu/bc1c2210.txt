@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - WIP Edit Commands, continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%WIPSHOW+- Displays only the records from the Root, Derivation 1 or
++   Derivation 2 file. All other lines are excluded from the display.
++   Records that have been logically deleted are not displayed.
++
+%WIPCHANG+- Displays only those lines that have changed. All other
++   lines are excluded from the display.
++
+%WIPPARA+- Displays only inserted or deleted paragraphs.
++
+%WIPCON+- Displays only those lines that have been identified as conflicts.
++
+%WIPMERGE+- Saves the WIP file, then creates a temporary Merge Output
++   file, allowing the user to view the Merge Output file from within
++   the WIP Edit session. When the user is finished browsing the
++   Merge file, the WIP Edit session continues. The WIPMERGE command
++   replaces the MERGE BROWSE function in previous releases of PDM.
++
+)END

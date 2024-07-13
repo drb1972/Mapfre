@@ -1,0 +1,30 @@
+CPTB130 'Undefined Destination'                     .ALARM=YES
+'CPTB130 The PRTMAT destination specified is not defined.'
+
+CPTB131 'Invalid Destination'                       .ALARM=YES
+'CPTB131 The PRTMAT destination specified is syntactically invalid.'
+
+CPTB132 'Enter SORT column'                         .ALARM=YES
+'CPTB132 The SORT command requires a column to be specified.'
+
+CPTB133 'Invalid SORT column'                       .ALARM=YES
+'CPTB133 The SORT column specified is invalid.'
+
+CPTB134 'Invalid SYSOUT Class'                      .ALARM=YES
+'CPTB134 The SYSOUT class specified on the PRTMAT command is invalid.'
+
+CPTB135 'Enter a valid CCID Type'                   .ALARM=YES
+'CPTB135 Valid CCID Types: A(ny), B(ase), L(ast action), G(enerate), R(etrieve)'
+
+CPTB136 'LRECL must be >= &PTBDAMRL'                .ALARM=YES
+'CPTB136 The mimimum LRECL needed for ''&PTBDADSN'' is &PTBDAMRL.'
+
+CPTB137 'Invalid Language'                          .ALARM=YES
+'CPTB137 The Panvalet/Librarian language specified is invalid.'
+
+CPTB138 'Member not Allowed'                        .ALARM=YES
+'CPTB138 A member is not allowed with the BUILD WIP Merge Output dataset'
+
+CPTB139 'LRECL must be <= &PTBDAMRL'                .ALARM=YES
+'CPTB139 The maximum LRECL allowed for ''&PTBDADSN'' is &PTBDAMRL.'
+

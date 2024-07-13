@@ -1,0 +1,39 @@
+         MACRO                                                          00010000
+         @LOADDS &DSCT=YES                                              00020000
+         AIF   ('&DSCT' EQ 'YES').DSECTL                                00030000
+LOADDS   DS    0D                                                       00040000
+         AGO   .COMMON                                                  00050000
+.DSECTL  ANOP                                                           00060000
+LOADDS   DSECT                                                          00070000
+.COMMON  ANOP                                                           00080000
+EXFUNC   DS    H                       FUNCTION CODE                    00100000
+EXVER    EQU   1                       VERFIY REQUEST                   00110000
+EXFOOT   EQU   2                       FOOTPRINT REQUEST                00120000
+EX$MAXF EQU    2                       FUNCTION MAX VALUE               00130000
+EXSEVI   DS    CL1                     MESSAGE SEVERITY SELECTION IND   00140010
+EXMSGI   EQU   C'I'                    INFORMATIONAL MESSAGE SELECTED   00140110
+EXMSGW   EQU   C'W'                    WARNING MESSAGE SELECTED         00140210
+EXMSGC   EQU   C'C'                    CAUTION MESSAGE SELECTED         00140310
+EXMSGE   EQU   C'E'                    SEVERE ERROR MESSAGE SELECTED    00140410
+EXDDNM   DS    CL8                     DDNAME                           00140000
+EXDSNM   DS    CL44                    DSNAME                           00150000
+EXDATA   DS    CL65                    FOOTPRINT REQUIRED DATA          00160009
+EXMBRNM DS     CL10                    MEMBER NAME                      00210003
+         ORG   EXDATA                                                   00170007
+EXENV    DS    CL8                     ENVIRONMENT                      00180003
+EXSYS    DS    CL8                     SYSTEM                           00190003
+EXSBS    DS    CL8                     SUBSYSTEM                        00200003
+EXELENM DS     CL10                    ELEMENT NAME                     00210003
+EXTYPE   DS    CL8                     TYPE                             00220003
+EXSTGN   DS    CL8                     STAGE NAME                       00230005
+EXSTG#   DS    CL1                     STAGE                            00240005
+EXGRP    DS    CL8                     PROCESSOR GRP                    00250003
+EXLVV    DS    CL2                     VERSION CHARACTER                00260009
+EXLVVX   DS    XL1                     VERSION (BINARY)                 00261009
+EXLLL    DS    CL2                     LEVEL CHARACTER                  00270009
+EXLLLX   DS    XL1                     LEVEL (BINARY)                   00271009
+         ORG                                                            00280007
+EXPRB@   DS    F                       ADDRESS OF PRB FOR MESSAGES      00290007
+EXRESVD DS     4F                      ** RESERVED **                   00300007
+EXRQ#LN  EQU   *-LOADDS                                                 00310000
+         MEND                                                           00320000

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Disable Build WIP and Performance Option \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++If PDM is executing on an MVS/XA or MVS/ESA system (MVS/SP version 2
++or greater), PDM will use virtual storage as a work area during certain
++build and merge operations. If the WIP, Root, or derivation files are
++extremely large, PDM may exhaust the available virtual storage and the
++build or merge action will fail.
++
++This field controls whether PDM will use external (disk) storage instead
++of virtual storage during build and merge processing. Specify%Y+if PDM
++is to use external storage for its work area. Specify%N+if PDM is to us
++use virtual storage.%N+is the default.
++
++When PDM processing issues error message PDM2001E, and the corrective
++action for this message does not correct the problem, set the value
++in this field to%Y+.
++
++
++
+)END

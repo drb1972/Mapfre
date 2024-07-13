@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+   \ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT) PAD(NULLS)
+)BODY EXPAND (^^)
+%^-^  Product Collection Requests  ^-^
+%Option  ===>_VARWKCMD                                                         +
++
++%1+- SELECT  - Select package(s) and DistribuLink connection
++%2+- DISPLAY - Display selected package(s) and connection
++%3+- SUBMIT  - Submit product collection request to DistribuLink
++%4+- RESET   - Reset selected package(s) and connection
++%5+- STATUS  - Display status of product collection requests
++
++ Package ID%   ===>_VARSPPKG        +         Pkg/Backout%===>_Z       +
++ Connection ID%===>_Z      +             Status From Date%===>_VNBSFDAT+
++ Product      %===>_VNBDPNAM            +  Status To Date%===>_VNBSTDAT+
++ FileList LU % ===>_VNBDFLLU+
++ Batch LU    % ===>_VNBDBALU+                Collect Date%===>_VNBCOLSD+
++ Operating Sys%===>~VNBDOPSY       +         Collect Time%===>_VNBCOLST+
++ Version%      ===>~VNBDPVER       +               Escape%===>\Z+
++ Description % ===>~VNBDPDSC                      +Number%===>~VNBDPNUM       +
++ Product Type% ===>_Z   +                          Vendor%===>~VNBDPVEN       +
++                                      Mark Installed When%===>_VNBDINST +
++%Host+Job Statement Information:
+% ===>!C1BJC1                                                                  +
+% ===>!C1BJC2                                                                  +
+% ===>!C1BJC3                                                                  +
+% ===>!C1BJC4                                                                  +
+)INIT
+  .HELP = CITPC900
+  .ZVARS = '(VNBSRQST VNBSIDST VNBDESCP VNBDPTYP)'
+)PROC
+)END

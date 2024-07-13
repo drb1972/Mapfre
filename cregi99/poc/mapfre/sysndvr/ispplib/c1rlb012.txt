@@ -1,0 +1,30 @@
+startdef
+tag % sh
+tag + s
+tag | sh msg
+tag _ muh cmd env sys sbs element type comment
+tag _ muh dsname dsnmem dsnthru
+tag ¢ muh accid bypassg delete new override pgrp update
+tag & s dislist
+%----------------------------  Add/Update Elements  ----------------------------
+%OPTION  ===>_   +
+|
+%   blank+- Member list    %A+- Add an element   %U+- Update an element
++
++TO LOCATION:                        ACTION OPTIONS:
++   ENVIRONMENT %===>_        +         CCID                %===>¢            +
++   SYSTEM      %===>_        +         BYPASS GEN PROCESSOR%===>¢N+ (Y/N)
++   SUBSYSTEM   %===>_        +         DELETE INPUT SOURCE %===>¢N+ (Y/N)
++   ELEMENT     %===>_          +       NEW VERSION         %===>¢  +
++   TYPE        %===>_        +         OVERRIDE SIGNOUT    %===>¢N+ (Y/N)
++                                       PROCESSOR GROUP     %===>¢        +
++                                       UPDATE IF PRESENT   %===>¢N+ (Y/N)
++   COMMENT     %===>_                                        +
++
++FROM PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_
++   MEMBER %===>_          +        THRU MEMBER%===>_          +
++
++LIST OPTIONS:
++   DISPLAY LIST %===>&Y+ (Y/N)
+enddef

@@ -1,0 +1,24 @@
+%TUTORIAL  --------------  Endevor WALKER Options --------------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+%
+%  E +EDIT          -Use this to build list of Walker elements to updat
+%  S +SUB           -Use this to submit job to add Walker elements
+%  J +JCL           -Use this to edit JCL used to add Walker elements
+%  M +MAINT         -Maintain list of ALL Walker/Endevor elements
+%
++Environment  ===> Always UNIT      Subsystem    ===> WA1 WA2 WA3
++Type         ===> One of the list  CCID         ===> Standard format
++                COB DOC DOP ERR FID GMT MVT NAM RPT SCR SVC TGS TID VMS
++
++ REQUEST DATA SET:
++    PROJECT  ===>%YOUR
++    GROUP    ===>%REQUEST
++    TYPE     ===>%DATASET
++    MEMBER   ===>%MEMBER   +CONTAINS LIST OF WALKER ELEMENTS TO ADD
++
++ JOB STATEMENT INFORMATION:
++    ===>%A VALID JOBCARD HERE
++    ===>%//*
++    ===>%//*
++    ===>%//*
+)END

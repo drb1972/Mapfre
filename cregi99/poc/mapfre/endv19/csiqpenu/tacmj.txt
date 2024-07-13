@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Submit JOBCARD Statements  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++
++You may provide 1 to 4 lines of JOBCARD information and press the ENTER
++key to submit the batch request.
++
++                %OR+
++
++Press the ENDKEY to terminate the SUBMIT request.
++
++
++
+)END

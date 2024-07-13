@@ -1,0 +1,8 @@
+ACMB001E 'ACM OPEN FAILURE'                            .ALARM=YES
+'ERROR OPENING THE ACM REPOSITORY'
+ACMB003E 'ACM PARENT UNDEFINED'                        .ALARM=YES
+' '
+ACMB004E 'ACM CHILD UNDEFINED'                         .ALARM=YES
+' '
+ACMB009E 'ACM ELEMENT UNDEFINED'                       .ALARM=YES
+' '

@@ -1,0 +1,12 @@
+%TUTORIAL ----------  DESTINATION REQUEST (PACKAGE SHIPMENT)  --------- TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++
++
++       Tutorial not currently available for this panel
++
++
++
++
+)PROC
+)END

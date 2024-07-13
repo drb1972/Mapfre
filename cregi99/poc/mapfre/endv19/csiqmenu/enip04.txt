@@ -1,0 +1,18 @@
+ENIP040E 'Invalid Date  '                                .ALARM=YES
+'Specify the Execution Window date in DDMMMYY format (eg. 01JAN98)'
+
+ENIP041E 'Invalid Time  '                                .ALARM=YES
+'Specify the Execution Window time in HH:MM format (eg. 12:00)'
+
+ENIP042E 'Incorrect Date/Time'                           .ALARM=YES
+'The TO date and time is earlier than the current date and time'
+
+ENIP043E 'Incorrect Date/Time'                           .ALARM=YES
+'The TO date and time is earlier than the FROM date and time'
+
+ENIP044E 'Package not Found'                             .ALARM=YES
+'Package ''&PDVCPPKG'' does not exist'
+
+ENIP045E 'Invalid Package ID'                            .ALARM=YES
+'The ''Package to be copied'' cannot be wild carded'
+

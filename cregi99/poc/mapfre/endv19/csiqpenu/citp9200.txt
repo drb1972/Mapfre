@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Queued Shipment List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel displays the shipment queue. Each entry has the format
++
++   SHIP PACKAGE ' package name  ' TO DESTINATION  destination id.
++
++
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Retrieve - Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++Select one of the options below for more information:
++
+%    1+- CCIDs and Comments         %4+- Override signout
+%    2+- Expand includes            %5+- Replace member
+%    3+- Signout element
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITXINC0 3,CITNOSO0 4,CITORSO0
+                  5,CITRMEM0)
+)END

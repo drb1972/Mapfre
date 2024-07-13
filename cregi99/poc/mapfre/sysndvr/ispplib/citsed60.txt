@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Base \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Userid+- Id of the user who created the base level of the element.
+%Date/time+- Date and time when the base level was created.
++
+%Comment+- Comment specified when the element was added.
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

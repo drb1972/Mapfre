@@ -1,0 +1,77 @@
+         MACRO
+&LABEL   $PRPGM &PGM=,                 PROGRAM NAME                    X
+               &STEP=,                 STEP NAME                       X
+               &PARM=,                 PROGRAM PARAMETER               X
+               &ALTID=Y,               USE ENDEVOR ALTERNATE ID        X
+               &MAXRC=65535            MAXRC FOR THIS STEP
+.**********************************************************************
+.*                                                                    *
+.*       PROCESSOR PROGRAM DEFINITION BLOCK                           *
+.*                                                                    *
+.*       CREATED BY C1GJTRNS                                          *
+.*                                                                    *
+.*       CONTAINS:      PROCESSOR STEP EXECUTION INFORMATION.         *
+.*                                                                    *
+.**********************************************************************
+         COPY  $PRGLBLS                COPY GLOBAL VARIABLES
+         LCLA  &STEP#                  CURRENT STEP NUMBER
+&STEP#   SETA  &PRSTEP#                ASSIGN CURRENT STEP NUMBER
+         LCLC  &PGMLBL                 LABEL FOR CURRENT BLOCK
+         LCLC  &CNEXT                  LABEL FOR NEXT BLOCK
+&PGMLBL  SETC  '&PRSTEP'               ASSIGN CURRENT BLOCK LABEL
+         AIF   (&PRLSTPR EQ 100).CONT  DOES THIS FOLLOW A $PRHDR?
+         AIF   (&PRLSTPR EQ 200).CONT  DOES THIS FOLLOW A $PRSYM?
+         AIF   (&PRLSTPR EQ 300).CONT  DOES THIS FOLLOW A $PRPGM?
+         AIF   (&PRLSTPR EQ 400).CONT  DOES THIS FOLLOW A $PRCC?
+         AIF   (&PRLSTPR EQ 500).LOGIC DOES THIS FOLLOW A $PRDDA?
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?
+         AIF   (&PRLSTPR EQ 1000).CONT  DOES THIS FOLLOW A $PRITE?
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM'
+         AGO   .MEXIT
+.CONT    ANOP
+&PRLSTPR SETA  300                     THIS IS A PROGRAM BLOCK
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS
+&PRCSECT CSECT
+         DC    A(&PGMLBL)
+         DC    A(&PRSTEP)              NEXT STEP IN CHAIN
+         AIF   (&PRFIRSTGEN).PGM0120
+&PRFIRSTGEN SETB 1
+&PRFIRST DS    0F                      FIRST PROCESSOR ENTRY
+.PGM0120 ANOP
+&PGMLBL  DS    0F
+         DC    (PRPGM$LN)X'00'         RESERVE SPACE FOR BLOCK
+         ORG   &PGMLBL
+         SPACE ,
+         DC    Y(PRPGMEQU)             THIS IS A HEADER RECORD
+         DC    Y(PRPGM$LN)             LENGTH OF THIS BLOCK
+         DC    Y(PRPGMVER)             ENDEVOR VERSION GENERATING PROC
+         DC    Y(&PGMLBL.#)            NUMBER OF VARIABLE FIELDS
+         SPACE ,
+         DS    0F
+         DC    A(&PRDDA)               ADDR OF 1ST DD STATEMENT
+         DC    A(&PRCC)                ADDR OF 1ST CONDITION CLAUSE
+         DC    Y(&STEP#)               CURRENT STEP NUMBER
+         DC    AL1(0)                  FLAG BYTE 1
+         DC    AL1(0)                  FLAG BYTE 2
+         DC    AL2(0)                  MAXRC FOR THIS STEP
+         DC    Y(&PGMLBL.A)            NUMBER OF $PRDDA'S FOR STEP
+         DC    Y(&PGMLBL.B)            NUMBER OF $PRDDB'S FOR STEP
+         DC    H'0'                    ** RESERVED **
+         DC    CL8'&STEP '             CURRENT STEP NAME
+         DC    A(&PRIBLKNM)                A(ASSOCIATED ITE BLOCK)
+&PRIBLKNM SETC '0'                         ALL DONE WITH THE BLOCK
+         ORG   &PGMLBL+PRPFLDS-@PRPGMDS  LOCATE VARIABLE FIELD AREA
+&PGMLBL.$ DS   0F
+         $PRFLD FIELD=PGM,VALUE=&PGM
+         $PRFLD FIELD=PARM,VALUE=&PARM
+         $PRFLD FIELD=MAXRC,VALUE=&MAXRC
+         $PRFLD FIELD=ALTID,VALUE=&ALTID
+&PGMLBL.# EQU  ((*-&PGMLBL.$)/8)
+         AGO   .MEXIT
+.LOGIC   ANOP
+         MNOTE 8,'LOGICAL ERROR, $PRPGM MAY NOT FOLLOW A $PRDDA CARD'
+         AGO   .MEXIT
+.MEXIT   ANOP
+         SPACE 2
+         MEND

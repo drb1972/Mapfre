@@ -1,0 +1,348 @@
+         MACRO
+&NAME    $SMFREC4          &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').NODSCT
+$SMFREC4 DSECT
+         AGO   .START
+.NODSCT  ANOP
+$SMFREC4 DS    0D                      ALIGN IT
+.START   ANOP
+*
+**********************************************************************
+* $SMFREC4 - DESCRIPTION FOR THE ADMIN ACTION RECORD
+**********************************************************************
+SM4REC4  EQU   *                       START OF THE SMF 4 RECORD
+SM4RECLN DS    H                       LENGTH
+SM4RECVN DS    H                       VERSION
+SM4$VERS EQU   X'02'                   VERSION 2
+SM4FUNC  DS    F                       FUNCTION CODE
+SM4$FCRE EQU   1                       - DEFINE (CREATE)
+SM4$FDEF EQU   1                       - DEFINE
+SM4$FERA EQU   2                       - DELETE (ERASE)
+SM4$FDEL EQU   2                       - DELETE
+SM4$FUPD EQU   3                       - UPDATE
+SM4$FCSY EQU   4                       - CLONE SYSTEM
+SM4FUNNM DS    CL8                     FUNCTION NAME
+*
+**********************************************************************
+* ADMIN ACTION HEADER INFORMATION
+**********************************************************************
+SM4ACTN  DS    CL8                     ACTION CODE
+*              CL8'APPRGRP '           - APPROVER GROUP
+*              CL8'APPRREL '           - APPROVER GROUP RELATION
+*              CL8'PROCGRP '           - PROCESSOR GROUP
+*              CL8'PROCSYM '           - PROCESSOR SYMBOL
+*              CL8'SYSTEM  '           - SYSTEM
+*              CL8'SUBSYS  '           - SUBSYSTEM
+*              CL8'TYPE    '           - TYPE
+*              CL8'TYPEDSN '           - TYPE DATASET (FG UPDATE ONLY)
+*              CL8'DEST    '           - DESTINATION (PACKAGE ADMIN)
+*              CL8'DSNMAP  '           - DSN MAPPING RULE (PKG ADMIN)
+*              CL8'USSMAP  '           - USS MAPPING RULE (PKG ADMIN)
+*              CL8'DYNENV  '           - DYNAMIC ENVIRONMENT
+*              CL8'CLONE   '           - CLONE
+SM4SITE  DS    CL1                     SITE ID
+SM4ENV   DS    CL8                     ENVIRONMENT NAME
+SM4STGID DS    CL1                     STAGE ID
+SM4STG#  DS    CL1                     STAGE NUM
+SM4WRITR DS    CL1                     SMF RECORD WRITER (CALLER)
+SM4$WRE  EQU   C'E'                    CLASSIC ENDEVOR FOREGROUND
+SM4$WRS  EQU   C'S'                    ENDEVOR BATCH (SCL)
+SM4DATE  DS    CL8                     ACTION DATE 'YYYYMMDD'
+SM4TIME  DS    CL8                     ACTION TIME 'HHMMSSTH'
+SM4DSNAM DS    CL44                    SMF ACTION TARGET DATASET
+         DS    0D
+         DS    3H                      ** RESERVED **
+SM4DLEN  DS    H                       LENGTH OF DATA BLOCK
+SM4DATA  DS    0X
+SM4HDSLN EQU   *-SM4REC4               HEADER LENGTH
+*
+***********************************************************************
+* APPROVER GROUP RELATION
+***********************************************************************
+         ORG     SM4DATA
+SM4_AGJ_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_AGJ_SYSTEM   DS  CL8               RELATION SYSTEM
+SM4_AGJ_SUBSYS   DS  CL8               RELATION SUBSYSTEM
+SM4_AGJ_TYPE     DS  CL8               RELATION TYPE
+SM4_AGJ_STGID    DS  CL1               RELATION STAGE ID
+SM4_AGJ_STG#     DS  CL1               RELATION STAGE NUMBER
+SM4_AGJ_REL_TYP  DS  CL9               STANDARD OR EMERGENCY
+SM4_AGJ_AGRNAME  DS  CL16              APPROVER GROUP NAME
+*
+SM4_AGJ_DSLN     EQU *-SM4_AGJ_DATA    DATA LENGTH
+         ORG     SM4_AGJ_DATA
+SM4_AGJ_DATAAREA DS  XL(SM4_AGJ_DSLN)  DATA AREA
+*
+***********************************************************************
+* APPROVER GROUP
+***********************************************************************
+         ORG     SM4DATA
+SM4_AGR_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_AGR_NAME     DS  CL16              APPROVER GROUP NAME
+SM4_AGR_QUORUM   DS  CL5               QUORUM
+SM4_AGR_GRP_DSQ  DS  CL1               GROUP DISQUALIFIED: Y/N
+SM4_AGR_DESC     DS  CL50              DESCRIPTION
+SM4_AGR_USER     DS  16CL8             16 USERIDS
+SM4_AGR_USR_REQ  DS  16CL1             16 USERID REQ'D FLAGS: Y/BLANK
+*
+SM4_AGR_DSLN     EQU *-SM4_AGR_DATA    DATA LENGTH
+         ORG     SM4_AGR_DATA
+SM4_AGR_DATAAREA DS  XL(SM4_AGR_DSLN)  DATA AREA
+*
+***********************************************************************
+* TYPE DSN
+***********************************************************************
+         ORG     SM4DATA
+SM4_DSN_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_DSN_SYSTEM   DS  CL8               SYSTEM
+SM4_DSN_REC_ID   DS  CL2               DATA SET RECORD ID
+SM4_DSN_DSN_TYP  DS  CL2               DATA SET TYPE
+SM4_DSN_DSN      DS  CL44              DATA SET NAME
+*
+SM4_DSN_DSLN     EQU *-SM4_DSN_DATA    DATA LENGTH
+         ORG     SM4_DSN_DATA
+SM4_DSN_DATAAREA DS  XL(SM4_DSN_DSLN)  DATA AREA
+*
+***********************************************************************
+* PROCESSOR GROUP
+***********************************************************************
+         ORG     SM4DATA
+SM4_PGR_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_PGR_SYSTEM   DS  CL8               SYSTEM
+SM4_PGR_TYPE     DS  CL8               TYPE
+SM4_PGR_NAME     DS  CL8               PROCESSOR GROUP NAME
+SM4_PGR_NXT_PGR  DS  CL8               NEXT PROCESSOR GROUP
+SM4_PGR_DESC     DS  CL50              DESCRIPTION
+SM4_PGR_OUT_TYP  DS  CL16              PROCESSOR OUTPUT TYPE
+SM4_PGR_PMOVE    DS  CL1               PROCESSOR ON MOVE: (G)EN (M)OVE
+SM4_PGR_PXFER    DS  CL1               PROCESSOR ON XFER: (G)EN (M)OVE
+SM4_PGR_GEN_PRO  DS  CL8               GENERATE PROCESSOR NAME
+SM4_PGR_GEN_FG   DS  CL1               GEN PROC FOREGROUND EXEC: Y/N
+SM4_PGR_DEL_PRO  DS  CL8               DELETE PROCESSOR NAME
+SM4_PGR_DEL_FG   DS  CL1               DEL PROC FOREGROUND EXEC: Y/N
+SM4_PGR_MOV_PRO  DS  CL8               MOVE PROCESSOR NAME
+SM4_PGR_MOV_FG   DS  CL1               MOVE PROC FOREGROUND EXEC: Y/N
+*
+SM4_PGR_DSLN     EQU *-SM4_PGR_DATA    DATA LENGTH
+         ORG     SM4_PGR_DATA
+SM4_PGR_DATAAREA DS  XL(SM4_PGR_DSLN)  DATA AREA
+*
+***********************************************************************
+* PROCESSOR SYMBOL
+***********************************************************************
+         ORG     SM4DATA
+SM4_PSY_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_PSY_SYSTEM   DS  CL8               SYSTEM
+SM4_PSY_TYPE     DS  CL8               TYPE
+SM4_PSY_PG_NAME  DS  CL8               PROCESSOR GROUP
+SM4_PSY_PRO_NAM  DS  CL8               PROCESSOR NAME
+SM4_PSY_PRO_TYP  DS  CL3               PROCESSOR TYPE: GEN/DEL/MOV
+SM4_PSY_SYM_NAM  DS  CL8               SYMBOL NAME
+SM4_PSY_DEF_VAL  DS  CL70              DEFAULT SYMBOL VALUE
+SM4_PSY_OVR_VAL  DS  CL70              OVERRIDE SYMBOL VALUE
+*
+SM4_PSY_DSLN     EQU *-SM4_PSY_DATA    DATA LENGTH
+         ORG     SM4_PSY_DATA
+SM4_PSY_DATAAREA DS  XL(SM4_PSY_DSLN)  DATA AREA
+*
+***********************************************************************
+* SUBSYSTEM
+***********************************************************************
+         ORG     SM4DATA
+SM4_SBS_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_SBS_SYSTEM   DS  CL8               SYSTEM
+SM4_SBS_SUBSYS   DS  CL8               SUBSYSTEM
+SM4_SBS_NXT_SBS  DS  CL8               NEXT SUBSYSTEM
+SM4_SBS_DESC     DS  CL50              DESCRIPTION
+SM4_SBS_EXC_OUT  DS  CL1               EXCL DUP PROC OUTPUT CHECK: Y/N
+*
+SM4_SBS_DSLN     EQU *-SM4_SBS_DATA    DATA LENGTH
+         ORG     SM4_SBS_DATA
+SM4_SBS_DATAAREA DS  XL(SM4_SBS_DSLN)  DATA AREA
+*
+***********************************************************************
+* SYSTEM
+***********************************************************************
+         ORG     SM4DATA
+SM4_SYS_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_SYS_SYSTEM   DS  CL8               SYSTEM
+SM4_SYS_NXT_SYS  DS  CL8               NEXT SYSTEM
+SM4_SYS_DESC     DS  CL50              DESCRIPTION
+SM4_SYS_COMM_RQ  DS  CL1               COMMENTS REQUIRED: Y/N
+SM4_SYS_CCID_RQ  DS  CL1               CCID REQUIRED: Y/N
+SM4_SYS_SISO     DS  CL1               SIGNIN/SIGNOUT ACTIVE: Y/N
+SM4_SYS_SO_DSN   DS  CL1               SIGNOUT DSN VALIDATION: Y/N
+SM4_SYS_ELM_JMP  DS  CL1               ELM JUMP ACKNOWLEDGEMENT: Y/N
+SM4_SYS_DUP_ELM  DS  CL1               DUPLICATE ELM NAME CHECK: Y/N
+SM4_SYS_DUP_EML  DS  CL1               DUPLICATE ELM MSG LEVEL: W/C/E
+SM4_SYS_DUP_OUT  DS  CL1               DUP PROC OUTPUT TYPE: Y/N
+SM4_SYS_DUP_OSB  DS  CL1               DUP PROC OUT TYPE ACR SBS: Y/N
+SM4_SYS_DUP_OML  DS  CL1               DUP PROC OUT TYPE MSG LVL: W/C/E
+SM4_SYS_ELM_AGE  DS  CL1               RETAIN ELM LEVEL BY AGE: Y/N
+SM4_SYS_ELM_LVL  DS  CL3               RETAIN ELM LVL FOR 1-999 MONTHS
+SM4_SYS_CMP_AGE  DS  CL1               RET COMPONENT LVL BY AGE: Y/N
+SM4_SYS_CMP_LVL  DS  CL3               RET COMP LVL FOR 1-999 MONTHS
+SM4_SYS_S1_LOAD  DS  CL44              STAGE 1 LOAD LIBRARY
+SM4_SYS_S1_LIST  DS  CL44              STAGE 1 LIST LIBRARY
+SM4_SYS_S2_LOAD  DS  CL44              STAGE 2 LOAD LIBRARY
+SM4_SYS_S2_LIST  DS  CL44              STAGE 2 LIST LIBRARY
+*
+SM4_SYS_DSLN     EQU *-SM4_SYS_DATA    DATA LENGTH
+         ORG     SM4_SYS_DATA
+SM4_SYS_DATAAREA DS  XL(SM4_SYS_DSLN)  DATA AREA
+*
+***********************************************************************
+* CLONE SYSTEM
+***********************************************************************
+         ORG     SM4DATA
+SM4_CSY_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_CSY_SYSTEM   DS  CL8               SYSTEM
+SM4_CSY_DESC     DS  CL50              DESCRIPTION
+SM4_CSY_FRM_ENV  DS  CL8               FROM ENVIRONMENT
+SM4_CSY_FRM_SYS  DS  CL8               FROM SYSTEM
+SM4_CSY_INC_SBS  DS  CL1               INCLUDE SUBSYSTEMS: Y/N
+SM4_CSY_INC_TYP  DS  CL1               INCLUDE TYPES: Y/N
+*
+SM4_CSY_DSLN     EQU *-SM4_CSY_DATA    DATA LENGTH
+         ORG     SM4_CSY_DATA
+SM4_CSY_DATAAREA DS  XL(SM4_CSY_DSLN)  DATA AREA
+*
+***********************************************************************
+* TYPE
+***********************************************************************
+         ORG     SM4DATA
+SM4_TYP_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_TYP_SYSTEM   DS  CL8               SYSTEM
+SM4_TYP_TYPE     DS  CL8               TYPE
+SM4_TYP_NXT_TYP  DS  CL8               NEXT TYPE
+SM4_TYP_DESC     DS  CL50              DESCRIPTION
+SM4_TYP_DFLT_PG  DS  CL8               DEFAULT PROCESSOR GROUP
+SM4_TYP_BASE     DS  CL44              BASE LIBRARY
+SM4_TYP_DELTA    DS  CL44              DELTA LIBRARY
+SM4_TYP_INCLUDE  DS  CL44              INCLUDE LIBRARY
+SM4_TYP_SOL      DS  CL44              SOURCE OUTPUT LIBRARY
+SM4_TYP_EXP_INC  DS  CL1               EXPAND INCLUDES IN SOL: Y/N
+SM4_TYP_DLT_FMT  DS  CL1               ELEMENT DELTA FORMAT: F/R/I/L
+SM4_TYP_CMP_FMT  DS  CL1               COMPONENT DELTA FORMAT: F/R
+SM4_TYP_COMPR    DS  CL1               COMPRESS BASE/ENCRYPT NAME: Y/N
+SM4_TYP_RGR_PCT  DS  CL2               REGRESSION PERCENTAGE: 0-99
+SM4_TYP_RGR_SEV  DS  CL1               REGRESSION SEVERITY: W/C/E
+SM4_TYP_SRC_LNG  DS  CL5               SOURCE ELEMENT LENGTH: 0-32000
+SM4_TYP_CMPR_FR  DS  CL5               COMPARE FROM COLUMN
+SM4_TYP_CMPR_TO  DS  CL5               COMPARE TO COLUMN
+SM4_TYP_ELM_LVL  DS  CL1               CONSOLIDATE ELEMENT LEVELS: Y/N
+SM4_TYP_ELM_AT   DS  CL3               CONSOLIDATE ELEMENT AT LEVEL
+SM4_TYP_ELM_NUM  DS  CL3               NUMBER OF ELM LVLS TO CONSOL
+SM4_TYP_CMP_LVL  DS  CL1               CONSOLIDATE COMPONENT LVLS: Y/N
+SM4_TYP_CMP_AT   DS  CL3               CONSOLIDATE COMPONENT AT LEVEL
+SM4_TYP_CMP_NUM  DS  CL3               NUM OF COMPONENT LVLS TO CONSOL
+SM4_TYP_USS_RFM  DS  CL4               USS RECFM
+SM4_TYP_LANG     DS  CL8               LANGUAGE
+SM4_TYP_PL_LANG  DS  CL8               PANVALET/LIBRARIAN LANGUAGE
+SM4_TYP_DAT_FMT  DS  CL1               DATA FORMAT: (T)EXT (B)INARY
+SM4_TYP_ELM_RFM  DS  CL1               ELEMENT RECORD FORMAT: F/V/BLNK
+SM4_TYP_FIL_EXT  DS  CL8               FILE EXTENSION
+*
+SM4_TYP_DSLN     EQU *-SM4_TYP_DATA    DATA LENGTH
+         ORG     SM4_TYP_DATA
+SM4_TYP_DATAAREA DS  XL(SM4_TYP_DSLN)  DATA AREA
+*
+***********************************************************************
+* DESTINATION
+***********************************************************************
+         ORG     SM4DATA
+SM4_DST_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_DST_DEST_ID  DS  CL8               DESTINATION ID
+SM4_DST_DESC     DS  CL30              DESCRIPTION
+SM4_DST_XMIT_CD  DS  CL1               TRANSMISSION METHOD CODE
+SM4_DST_RMT_NOD  DS  CL16              REMOTE NODE NAME
+SM4_DST_COMPLEM  DS  CL1               SHIP COMPLEMENTARY FILES: Y/N
+SM4_DST_HST_PFX  DS  CL14              HOST DSN PREFIX
+SM4_DST_HST_DSP  DS  CL1               HOST DSN DISP: (K)EEP (D)ELETE
+SM4_DST_HST_UNT  DS  CL8               HOST DSN UNIT
+SM4_DST_HST_VOL  DS  CL6               HOST DSN VOLSER
+SM4_DST_RMT_PFX  DS  CL14              REMOTE DSN PREFIX
+SM4_DST_RMT_DSP  DS  CL1               RMT DSN DISP: (K)EEP (D)ELETE
+SM4_DST_RMT_UNT  DS  CL8               REMOTE DSN UNIT
+SM4_DST_RMT_VOL  DS  CL6               REMOTE DSN VOLSER
+SM4_DST_IP_NAME  DS  CL63              REMOTE IPNAME
+SM4_DST_IP_PORT  DS  CL5               REMOTE IPPORT
+SM4_DST_HUSSPFX  DS  CL732             HOST USS PREFIX
+SM4_DST_HUSSDSP  DS  CL1               HOST USS DISP: (K)EEP (D)ELETE
+SM4_DST_RUSSPFX  DS  CL732             REMOTE USS PREFIX
+SM4_DST_RUSSDSP  DS  CL1               RMT USS DISP: (K)EEP (D)ELETE
+SM4_DST_RMT_JC1  DS  CL72              REMOTE JOB CARD 1
+SM4_DST_RMT_JC2  DS  CL72              REMOTE JOB CARD 2
+SM4_DST_RMT_JC3  DS  CL72              REMOTE JOB CARD 3
+SM4_DST_RMT_JC4  DS  CL72              REMOTE JOB CARD 4
+*
+SM4_DST_DSLN     EQU *-SM4_DST_DATA    DATA LENGTH
+         ORG     SM4_DST_DATA
+SM4_DST_DATAAREA DS  XL(SM4_DST_DSLN)  DATA AREA
+*
+***********************************************************************
+* DSN MAPPING RULE
+***********************************************************************
+         ORG     SM4DATA
+SM4_DMR_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_DMR_DEST     DS  CL8               DESTINATION
+SM4_DMR_DESC     DS  CL40              DESCRIPTION
+SM4_DMR_HST_DSN  DS  CL44              HOST DATASET NAME
+SM4_DMR_HMBRCYL  DS  CL3               HOST MEMBERS PER CYLINDER
+SM4_DMR_RMT_DSN  DS  CL44              REMOTE DATASET NAME
+*
+SM4_DMR_DSLN     EQU *-SM4_DMR_DATA    DATA LENGTH
+         ORG     SM4_DMR_DATA
+SM4_DMR_DATAAREA DS  XL(SM4_DMR_DSLN)  DATA AREA
+*
+***********************************************************************
+* USS MAPPING RULE
+***********************************************************************
+         ORG     SM4DATA
+SM4_UMR_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_UMR_DEST     DS  CL8               DESTINATION
+SM4_UMR_DESC     DS  CL40              DESCRIPTION
+SM4_UMR_HST_PTH  DS  CL768             HOST USS PATH NAME
+SM4_UMR_RMT_PTH  DS  CL768             REMOTE USS PATH NAME
+*
+SM4_UMR_DSLN     EQU *-SM4_UMR_DATA    DATA LENGTH
+         ORG     SM4_UMR_DATA
+SM4_UMR_DATAAREA DS  XL(SM4_UMR_DSLN)  DATA AREA
+*
+***********************************************************************
+* DYNAMIC ENVIRONMENT
+***********************************************************************
+         ORG     SM4DATA
+SM4_DYN_DATA     DS  0X                BEGINNING OF DATA AREA
+SM4_DYN_NAME     DS  CL8               ENVIRONMENT NAME
+SM4_DYN_DESC     DS  CL40              ENVIRONMENT DESCRIPTION
+SM4_DYN_LIKE     DS  CL8               LIKE ENVIRONMENT
+SM4_DYN_NXTE     DS  CL8               NEXT ENVIRONMENT
+SM4_DYN_NXTS     DS  CL1               NEXT STAGE ID
+SM4_DYN_ENTS     DS  CL1               ENTRY STAGE NUM
+SM4_DYN_LJGR     DS  CL1               LSERV JOURNAL GROUP ID
+SM4_DYN_LJSI     DS  CL1               LSERV SUBSYSTEN ID
+SM4_DYN_SMFE     DS  CL1               ELEMENT SMF RECORDING Y/N
+SM4_DYN_SMFA     DS  CL1               ADMIN SMF RECORDING Y/N
+SM4_DYN_SMFS     DS  CL1               SECURITY SMF RECORDING Y/N
+SM4_DYN_DBAV     DS  CL1               IDMS BRIDGE AVAILABLE Y/N
+SM4_DYN_DBAC     DS  CL1               IDMS BRIDGE ACTIVE Y/N
+SM4_DYN_SYNC     DS  CL1               SYNC LOCATION Y/N
+SM4_DYN_S1ID     DS  CL1               STAGE1 ID
+SM4_DYN_S1NM     DS  CL8               STAGE1 NAME
+SM4_DYN_S1TI     DS  CL40              STAGE1 TITLE
+SM4_DYN_S1MC     DS  CL44              STAGE1 MCF
+SM4_DYN_S1ST     DS  CL1               STAGE1 STOP PROMOTION Y/N
+SM4_DYN_S2ID     DS  CL1               STAGE2 ID
+SM4_DYN_S2NM     DS  CL8               STAGE2 NAME
+SM4_DYN_S2TI     DS  CL40              STAGE2 TITLE
+SM4_DYN_S2MC     DS  CL44              STAGE2 MCF
+SM4_DYN_S2ST     DS  CL1               STAGE2 STOP PROMOTION Y/N
+*
+SM4_DYN_DSLN     EQU *-SM4_DYN_DATA    DATA LENGTH
+         ORG     SM4_DYN_DATA
+SM4_DYN_DATAAREA DS  XL(SM4_DYN_DSLN)  DATA AREA
+*
+         ORG
+SM4SIZ   EQU    *-$SMFREC4             MAX SIZE OF THE RECORD
+         MEND

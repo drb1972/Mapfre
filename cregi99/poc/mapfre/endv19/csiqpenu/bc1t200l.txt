@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - Member Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a member when specifying a data set as a
++Root, Derivation 1, or Derivation 2 location during the Build WIP
++process.
++
++To select a member, type%S+next to the member name, then press ENTER.
++
++
++
++
++
++
+)END

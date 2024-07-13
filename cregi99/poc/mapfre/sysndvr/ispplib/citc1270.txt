@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Usability \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 2 of 4+
+% Extended WHERE Options and WHERE USERID +
+
++ The%WHERE+options have been removed from the CA Endevor SCM action and
+  Quick Edit panels and replaced by a new option,%APPLY LIST FILTERS.+
+  Selecting%Y+for this option displays a new panel where you can select list
+  filter options, including a new WHERE option,%WHERE USERID.+ For%WHERE CCID+
+  and%WHERE USERID,+ you can%limit+the CCID/USERID comparisons to any or all of
+  4 types of CCID's/USERID's:  Current, Generate, Last Action, and Retrieve.
+ %WHERE PROC GRP+can also be found on this new panel.  By specifying%N+for the
+ %APPLY LIST FILTERS+option, you can bypass list filtering without having to
+  remove or change your list filter options.
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1280
+)END

@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Approver Groups \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                               +Page 1 of 2+
+%
++This panel displays the approver groups associated with a package and
++allows you to display detailed information about those groups.
++This panel lists the following information about each approver group:
++
+%  Environment+- Environment to which the approver group is defined.
+%  Approver Group+- Approver groups associated with the package.
+%  Approval Status+- Status of the package. No value appears here
++    until the approval process has been completed.
+%  Quorum+- Minimum number of approvals required to approve a package.
+%  Apr Dsq - Approver Disqualification setting for this approver group:
++    Y - Disqualification processing is enabled.
++    N - Disqualification processing is not enabled.
++  (Note: If enabled, ENCOPTBL%&LIT1                +overrides Apr Dsq)
+%  Number Approvers+- Number of approvers in the group.
+%  Number Approved+- The number of approvers in the group who have
++    approved the package.
+%  Number Denied+- The number of approvers in the group who have
++    denied the package.
++
++  ---- Press%ENTER+to continue to the next panel or%END+to exit ----
+)INIT
+   &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITP1300)
+   &ZCONT = 'CITP1210'
+)END

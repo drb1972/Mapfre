@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Concurrent Action Processing Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Spawn Count Maximum+- The maximum number of concurrent action
+    processors allowed for a job. Allowable values are 2-99. Note that
+    zero is valid if the SPAWN indicator is set to a value of N. Neither
+    the C1DEFLTS parameter SPAWNCNT nor nn value of the EN$CAPnn JCL DD
+    statement can exceed this value. IF EN$CAPnn exceeds the value, the
+    SPAWNMAX value overrides the nn value in EN$CAPnn.
+
+%Spawn Proc Name+- The 1-8 character name of the Concurrent Action
+    Processing server. This name should be a CCI service definition
+    service name and a started task procedure name. A name is only
+    required if the SPAWN indicator is set to a value of Y.
+
+)END

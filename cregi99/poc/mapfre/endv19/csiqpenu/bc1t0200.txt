@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM User Defaults \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The PDM User Defaults panel allows you to override defaults for space
++allocation of work areas and temporary data sets that are used in
++foreground. The defaults remain in effect until you change them,
++either in this particular session or in a subsequent work session.
++
++Allocation information is initially taken from the settings in the
++C1DEFLTS Table.  The PDM User Defaults panel allows you to override
++those default values for your user ID only.
++
++    Select%1-3+for information about:
++
+%    1+- Work dataset allocation    %3+- Build WIP performance
+%    2+- PRTMAT output defaults            enhancement
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T0210 2,BC1T0220 3,BC1T0230)
+)END

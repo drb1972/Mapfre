@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ FOREGROUND PRINT REQUEST OPTIONS (continued) \-\
+%OPTION  ===>_ZCMD                                                             +
+
+ In addition to indicating the option you want, enter the following
+ information:
+
+  %PRINT OPTION:+ Defines the SYSOUT class used to control the routing
+   of the print output listings.
+
+    %SYSOUT Class+-     The print output created after the action
+                        requests are executed will be routed to the
+                        SYSOUT class specified in this field.
+
+  %Job Statement+-      This is the jobcard that will be used when the
+  %Information+         print request is submitted to the operating
+                        system.
+
+)END

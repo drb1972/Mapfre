@@ -1,0 +1,36 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++The Action Options fields allow you to further define your
++action request.
++
+%CCID+- The CCID associated with this request. The CCID must
++   conform to CCID syntax rules.
++
+%Comment+- The comment associated with this request. Comments can
++   be up to 40 characters and cannot include imbedded single
++   quotation marks.
++
+%Processor Group+- The processor group to be associated with the
++   element. If you do not specify a group, the default processor for
++   the type will be assigned.  See the User's Manual for information.
++
+%Preserve VB Record Length+- Valid values are Y and N.  If Y is
++   specified, the trailing spaces of any record in a variable record
++   edit session will be preserved. If N is specified, the trailing
++   spaces will be removed. This option is applicable only when
++   either the Element RECFM in the type definition is set to Variable
++   or it is set to Not Defined and Endevor automatically detects the
++   record format as variable.
++
++   Endevor automatically detects the record format as fixed when
++   creating a new element, or when the length of all records in an
++   existing element is equal to the Source Element Length defined in
++   the type. Otherwise, Endevor automatically detects the record
++   format as variable.
++
++\ \(%ENTER+to continue,%END+to return) \ \
+)PROC
+   &ZCONT = endhe141
+)END

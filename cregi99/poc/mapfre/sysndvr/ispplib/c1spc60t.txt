@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) INTENS(HIGH) JUST(ASIS)
+   ` TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+   \ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF) JUST(LEFT)
+)BODY
+%Test --------------------  Test DSN Mapping Rule  -----------------------------
+%Command ===>_VARWKCMD                                                         +
++
++Connection ID:¢VNBSSDST+
++
++Host Data Set Name %===>_VNBDSL3                                     +
++  maps to
++Remote DSN or Path Name:\VNBDSL4                                           +
+  \VNBDSL5                                                             +     +
+  \VNBDSL6                                                             +     +
+  \VNBDSL7                                                             +     +
++Remote File Extension:\Z  +
++
++The following rule was used to generate the remote dataset or path name:
++Mapping Rule Description:`VDMDESCR                                +
++Host Data Set Name Mask:¢VDMHDSN                                     +
++Remote DSN or Path Mask:\VDMRDSN1                                          +
+  \VDMRDSN2                                                            +     +
+  \VDMRDSN3                                                            +     +
+  \VDMRDSN4                                                            +     +
++Remote File Extension:\Z
++Approx Host Members/Cyl:¢Z  +
++
++Updated:¢VDMUPDAT¢VDMUPTIM+by¢VDMUUSER +Created:¢VDMCRDAT¢VDMCRTIM+by¢VDMCUSER+
+)INIT
+  .HELP = CITPC600
+    .ZVARS = '(VNBREXTN VDMREXTN VDMAHMPC)'
+)PROC
+)END

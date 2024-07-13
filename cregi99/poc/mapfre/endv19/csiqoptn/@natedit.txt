@@ -1,0 +1,39 @@
+         MACRO                                                          00010000
+         @NATEDIT &SITEID=N                                             00020000
+         GBLC  &EDITOUT                                                 00030002
+         GBLA  &EDITLNG                                                 00040000
+         LCLC  &TV                                                      00041003
+         LCLA  &LC                                                      00042002
+.*                                                                      00050002
+.*  CHECK &EDITOUT (LENGTH &EDITLNG) FOR NATIONAL CHARACTERS            00060003
+.*  THE STRING AND LENGTH HAVE BEEN SET BY DEFEDIT.                     00061003
+.*                                                                      00070002
+&LC      SETA  1                   COUNT OF CHARACTERS TO CHECK         00070003
+.ED1     ANOP                                                           00070004
+&TV      SETC  '&EDITOUT'(&LC,1)                                        00070005
+         AIF   (('&TV' GE '0') AND ('&TV' LE '9')).ED3                  00070006
+         AIF   ('&TV' EQ '$').ED3                                       00070007
+         AIF   ('&TV' EQ '@').ED3                                       00070008
+         AIF   ('&TV' EQ '#').ED3                                       00070009
+         AIF   ('&SITEID' EQ 'Y').ED2                                   00070010
+         AIF   (('&TV' GE 'A') AND ('&TV' LE 'Z')).ED3                  00070020
+         MNOTE 12,'INVALID NAME &EDITOUT. (NOT A-Z, 0-9, $, # OR @)'    00070030
+         MEXIT                                                          00070040
+.ED2     ANOP                                                           00070050
+         AIF   (('&TV' GE 'A') AND ('&TV' LE 'I')).ED3                  00070060
+         AIF   (('&TV' GE 'J') AND ('&TV' LE 'R')).ED3                  00070070
+         AIF   (('&TV' GE 'S') AND ('&TV' LE 'Z')).ED3                  00070080
+.*                                                                      00070090
+.*  BELOW MNOTE IS USED TO WARN USER ABOUT SITEID VALUES WHICH CONTAIN  00070100
+.*  CHARACTERS OTHER THAN A-Z, 0-9, $, # OR @ AND COULD CAUSE INCORRECT 00070200
+.*  VISUALIZATION OF SITEID.                                            00070300
+.*                                                                      00070400
+         MNOTE 4,'NON-STANDARD CHARACTER USED AS THE SITEID: &EDITOUT'  00070500
+         MNOTE 4,'CHARACTERS OTHER THAN A-Z, 0-9, $, # OR @ CAN CAUSE'  00070600
+         MNOTE 4,'THE SITEID TO BE UNREADABLE. NON-STANDARD VALUES'     00070700
+         MNOTE 4,'MAY BE DISALLOWED IN A FUTURE RELEASE.'               00070800
+         MEXIT                                                          00070900
+.ED3     ANOP                                                           00071000
+&LC      SETA  &LC+1               BUMP THE COUNT                       00071100
+         AIF   (&EDITLNG GE &LC).ED1   TRY NEXT CHARACTER               00071200
+         MEND                                                           00071300

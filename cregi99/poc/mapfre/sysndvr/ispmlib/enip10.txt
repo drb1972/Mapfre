@@ -1,0 +1,23 @@
+ENIP100I 'Member Saved'                        .ALARM=YES
+'The partitioned data set member has been saved'
+
+ENIP101E 'Data Set in Use'                     .ALARM=YES
+'The specified data set is in use by another user'
+
+ENIP102E 'No Matches Found'                    .ALARM=YES
+'No members were found to match the specified pattern'
+
+ENIP103E 'Serious Error'                       .ALARM=YES
+'A serious ISPF/PDF EDIT or BROWSE error occurred'
+
+ENIP104I 'Data Set Saved'                      .ALARM=YES
+'The specified data set has been updated'
+
+ENIP105E 'Member not Found'                    .ALARM=YES
+'The requested member was not found in the SCL data set'
+
+ENIP106E 'No Matches Found'                    .ALARM=YES
+'No members matched the specified pattern or the SCL data set is empty'
+
+ENIP107E 'Empty Data Set  '                    .ALARM=YES
+'The SCL data set or data set member was empty'

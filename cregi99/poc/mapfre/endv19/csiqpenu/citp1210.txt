@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Approver Groups \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                               +Page 2 of 2+
+%
++  For the%ESORT+and%EONLY+commands, use the second title line for the
++  key except for Number Approvers (use NUM).
++
++  Select from the following options for more information:
++
+%    1+- Package ID fields          %3+- Approver Group display panel
+%    2+- Package status
++
++
++
++
++
++
++
++
++
++
++
++
++  ---- Press%ENTER+to go back to the first panel or%END+to exit ----
+)INIT
+   &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITP1300)
+   &ZCONT = 'CITP1200'
+)END

@@ -1,0 +1,18 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Enter Package Note Text \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Enter Package Note Text panel to enter any text you want to associate
++with the package.  You can enter or modify 8 text lines of up to 60 character
++each.  You can enter any displayable character with the exception of a single
++quotation mark.  When you have finished entering the text press enter to
++process the package notes.
++
++Press%PF3+or%End+to exit Help
++
+)PROC
+)END

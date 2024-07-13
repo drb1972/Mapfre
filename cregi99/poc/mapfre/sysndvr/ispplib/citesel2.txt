@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Display \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Element+(Display option 1)
++   You can display information about the elements on this selection list.
++   Unique fields are:
+%      Current date+- Date when the current level was created.
+%      Generate date+- Date when the element was last generated.
++
+%Footprint+(Display option 2)
++   You can display information about elements contained within footprinted
++   CSECTs from this selection list, accessed from the IDR Display panel.
++   Unique fields are:
+%      Environment, system, subsystem+associated with the listed elements.
+%         Base date+- Date when the element was added to the inventory.
+%         Current date+- Date when the current level was created.
+%         Generate date+- Date when the element was last generated.
+%         Proc RC+- Last processor return code.
+%         Actn RC+- Last action return code.
+%         Last action+- Last action executed against the element.
++
++\ \ (%PF3+to return) \ \
+)END

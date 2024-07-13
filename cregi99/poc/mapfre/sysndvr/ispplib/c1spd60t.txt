@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+   ^ TYPE(OUTPUT) INTENS(HIGH) JUST(ASIS)
+)BODY
+%TEST ---------------------  TEST DSN MAPPING RULES ----------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++DESTINATION:¢VNBSSDST+
++
++    Enter a host dataset name. The DSN Mapping Rules for this destination
++    will be searched and the corresponding remote DSN will be generated.
++
++         HOST DSN%===>_VNBDSL3                                     +
++                      ^VNBDSL1                                     +
++           REMOTE DSN:¢VNBDSL4                                     +
++
++    The following rule was used to generate the remote DSN:
++
++    MAPPING RULE DESCRIPTION:~VDMDESCR                                +
++
++     HOST DATASET NAME: ¢VDMHDSN                                     +
++          maps to
++    REMOTE DATASET NAME:¢VDMRDSN                                     +
++
++    Approx Host Members/Cyl:¢Z  +
++
++
++UPDATED:¢VDMUPDAT¢VDMUPTIM+BY¢VDMUUSER +CREATED:¢VDMCRDAT¢VDMCRTIM+BY¢VDMCUSER+
+)INIT
+  .HELP = CITPD600
+  .ZVARS = '(VDMAHMPC)'
+)PROC
+)END

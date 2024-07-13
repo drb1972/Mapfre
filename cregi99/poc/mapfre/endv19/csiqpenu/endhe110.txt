@@ -1,0 +1,49 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++Leave the COMMAND field blank to display an Element selection list.
++Type   To
+%   U+  Display the User Options Menu
+%   D+  Display the Quick Edit Dialog Defaults panel
+%  AO+  Display the Quick Edit Action Options panel
+%   P+  Display the Package Foreground Options Menu
+%  SQ+  Invoke the Show/Submit Queue feature
+%  PD+  Invoke Parallel Development Manager
+%   E+  Edit an Element         %G+  Generate an Element
+%  CR+  Create a new Element    %O+  Move an Element
+%   #+  Delete an Element      %SI+  Signin an Element
+%   M+  Display Element Master Control File information
+%   S (SX) +Display Element (Component List) Summary of Levels
+%   B (BX) +Browse or View the Element (Component List)
+%   C (CX) +Display Element (Component List) Changes
+%   H (HX) +Display Element (Component List) History
+%  LO+  Display Element Output Components in a selection list
+%  LI+  Display Element Input Components in a selection list
+%  LC+  Display Element Input and Output Components in a selection list
+%  LL+  Browse the Element Listing from the Component List
+%  DT+  Deploy an Element to Test
+%  SY+  Synchronize an Element in Place
++
++Quick Edit commands can be extended using the}Quick Edit User Routines+
++feature.  Currently the available User Routine commands available are;
+%  &C1QEUSRM
++
++\ \(Press}END+to return) \ \
+)PROC
+ &ZSEL = TRANS(&ZCMD,
+                  SQ,*ENDHE159
+                  DT,*ENXHLP01
+                  SY,*ENDHE163
+                  UX,*CITI1020
+                   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(UX)
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

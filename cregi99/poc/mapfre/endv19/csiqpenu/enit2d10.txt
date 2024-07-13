@@ -1,0 +1,27 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive to Data Set Name \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Archive to Data Set Name fields identify the data set to which the package
++definition is to be archived.  They are standard ISPF data set specification
++fields used to identify an external data set and member.
++
++Use the Other Sequential Data Set field as an alternative to the Archive Data
++Set Name fields to identify an external data set and member.  Type the data
++set and member specification in 'data set(member)' format.
++
++The archive package file must be defined with variable length records and
++have a minimum record length of 4200. The data set blocksize must be 4 bytes
++greater than the record length. We recommend that you define a blocksize
++of 0 and let the system set the optimum block size.
++
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2d00
+)END

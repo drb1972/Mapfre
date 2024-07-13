@@ -1,0 +1,1455 @@
+         MACRO                                                          00000100
+         C1DEFLTS &TYPE=DSECT,                                         X00000200
+               &ACCSTBL=,          MASTER SECURITY TABLE               X00000300
+               &ACMROOT=,          ACM INDEX ROOT DATA SET NAME        X00000400
+               &ACMXREF=,          ACM INDEX XREF DATA SET NAME        X00000500
+               &ALOGDSN=,          ADMIN ACTIONS SMF LOG DATASET       X00000600
+               &APRVFLG=N,         APPROVAL ENFORCEMENT (Y/N)          X00000700
+               &ASCM=N,                                                X00000800
+               &AUTHTBLS=REQUIRED, AUTHORIZED TABLES OPTION            X00000900
+               &BATCHID=,          USER PARM IS USED FOR ENDEVOR       X
+               &CA7CCINODE=,       CA-7 ADDR SPACE NODE FOR CAICCI     X00001100
+               &CA7JCLID=,         CA-7 JCL DATASET INDEX NUMBER       X00001200
+               &CA7JCLLIB=,        CA-7 JCL DATASET SYMBOIC INDEX      X00001300
+               &CA7JCLDSN=,        &CA7JCLID/&CA7JCLLIB DSNAME         X00001400
+               &CIPODSN=,          C1GSCIPO CCID VALIDATE DSN          X00001500
+               &CNFGTBL=ENDICNFG,  ENDICNFG TABLE NAME                 X00001600
+               &COMPLISTWD=LIST,   PRINT ELM LISTING TEXT STRING       X00001700
+               &CUNAME=,                                               X00001800
+               &DB2=N,                                                 X00001900
+               &DESTCFGMBR=,       PARMLIB DESTINATION CONFIG MEMBER   X00002000
+               &DFCMBR=,           PARMLIB DEFERRED FILE CREATION MBR  X
+               &EDITELM=N,                                             X00002100
+               &ELMCATL=,          ELEMENT CATALOG DATA SET            X00002200
+               &ELMCATE=,          ELEMENT CATALOG EINDEX DATA SET     X00002300
+               &ENDBACT=N,         ENDEVOR DB ACTIVE FLAG              X00002400
+               &ENDBAVL=N,         ENDEVOR DB OPTION AVAILABLE         X00002500
+               &ENDBOP1=N,         ENDEVOR DB OPTION 1                 X00002600
+               &ENDBOP2=N,                           2                 X00002700
+               &ENDBOP3=N,                           3                 X00002800
+               &ENDBOP4=N,                           4                 X00002900
+               &ENTRYSTG#=1,       ENTRY STAGE IS STAGE 1 (DEF)        X00003000
+               &ENVNAME=,                                              X00003100
+               &ENVTITL=,                                              X00003200
+               &ESMTPTBL=ESMTPTBL, ESMTPTBL TABLE NAME                 X00003300
+               &ESSI=Y,                                                X00003400
+               &EXITTBL=C1UEXITS,  C1UEXITS TABLE NAME                 X00003500
+               &E2ELOGMBR=,        END-2-END USS LOGGING MEMBER        X00003600
+               &FSEBPGM=,                                              X00003700
+               &GCFDSN=,           GLOBAL CONTROL FILE DSN (DYNAM ENVS)X
+               &JRNLGRP=,          JOURNAL-GROUP NAME                  X00003800
+               &LIBENV=,                                               X00003900
+               &LIBENVP=N,                                             X00004000
+               &LIBRPGM=,                                              X00004100
+               &LINESPP=60,                                            X00004200
+               &MACDSN=,           SOURCE LIBRARY LABEL                X00004300
+               &MFAAPPL=,          SAF APPLID IF MFA REQUIRED          X00004400
+               &MIXEDFMT=,         MIXED FORMAT CHARACTER SUPPORT      X00004500
+               &MODHLI=,           HIGH LEVEL INDEX FOR TEMP MOD       X00004600
+               &NEXTENV=,                                              X00004700
+               &OPTTBL=ENCOPTBL,   ENCOPTBL TABLE NAME                 X00004800
+               &PARMLIB=,          ENDEVOR PARMLIB DATA SET            X00004900
+               &PDM=N,                                                 X00005000
+               &PKGISEC=,          CALL SECURITY AT PKG INSPECT        X
+               &PKGCSEC=N,         CALL SECURITY AT PKG CAST TIME      X00005100
+               &PKGCVAL=O,         PACKAGE COMPONENT VALIDATION        X00005200
+               &PKGDSN=,           PACKAGE VSAM DATASET NAME           X00005400
+               &PKGSEC=APPROVER,   PACKAGE SECURITY TYPE               X00005500
+               &PKGTSO=Y,          PACKAGE EXECUTION IN TSO?           X00005600
+               &PRBLKSZ=00000,     BLKSIZE FOR PROC LISTING DS         X00005700
+               &PRLNKSZ=(896K,96K), LINK-EDIT PARM SIZE                X00005800
+               &PRLSTSZ=10,        SIZE ALLOC OF PROC LISTING DS       X00005900
+               &PROC=N,                                                X00006000
+               &RACFUID=,          ENDEVOR DATASET ACCESS              X00006100
+               &RJCLROOT=,         SHIPMENT REMO JCL MODEL MBR ROOT    X00006200
+               &SITEID=0,                                              X00006300
+               &SMFACT=N,                                              X00006400
+               &SMFENV=N,                                              X00006500
+               &SMFPKGADM=N,                                           X00006600
+               &SMFDYNENV=N,       SMF INDICATOR FOR DYNENV            X
+               &SMFREC#=0,         0=NO, OR 128-255                    X00006700
+               &SMFSEC=N,                                              X00006800
+               &SOFETCH=N,        SIGNOUT ON FETCH (Y/N)               X00006900
+               &SPAWN=N,                                               X00007000
+               &SPAWNCNT=0,                                            X00007100
+               &SPAWNMAX=99,                                           X00007200
+               &SPAWNPROC=ENDEVOR,                                     X00007300
+               &SPFEDIT=SPFEDIT,                                       X00007400
+               &STG1ID=,                                               X00007500
+               &STG1NME=,                                              X00007600
+               &STG1PSAS=N,                                            X00007700
+               &STG1TTL=,                                              X00007800
+               &STG1VSM=,                                              X00007900
+               &STG2ID=,                                               X00008000
+               &STG2NME=,                                              X00008100
+               &STG2PSAS=N,                                            X00008200
+               &STG2TTL=,                                              X00008300
+               &STG2VSM=,                                              X00008400
+               &SYMBOLTBL=,                                            X00008500
+               &SYNC@CHK=N,                                            X00008600
+               &SYNC@MSV=I,                                            X00008700
+               &SYNC@BLOC=N,                                           X00008800
+               &SYSIEWL=SYSIEWLP,                                      X00008900
+               &TSOE=Y,           SPECIFY Y IF TSO-E INSTALLED         X
+               &TYPESEQMBR=,      TYPE SEQUENCE MEMBER                 X00009000
+               &UIDLOC=(1,7),     USER ID POSITION IN JOBNAME/TSO ID   X00009200
+               &VIOUNIT=,                                              X00009300
+               &WORKVOL=,                                              X00009400
+               &WRKUNIT=SYSDA                                           00009500
+.*
+.*--------------------------------------------------------------------* 00009600
+.*                                                                    * 00009700
+.* COPYRIGHT (C) 2022 BROADCOM. ALL RIGHTS RESERVED.                  *
+.*                                                                    * 00009900
+.* NAME: C1DEFLTS                                                     * 00010000
+.*                                                                    * 00010100
+.* PURPOSE: THE C1DEFLTS MACRO IS USED TO BUILD THE ENDEVOR/MVS       * 00010200
+.*  DEFAULTS TABLE.                                                   * 00010300
+.*                                                                    * 00010400
+.*  THERE ARE THREE SECTIONS TO THE ENDEVOR DEFAULTS TABLE, IDENTIFIED* 00010500
+.*  BY THE TYPE= PARAMETER:                                           * 00010600
+.*                                                                    * 00010700
+.*   TYPE=MAIN: IDENTIFIES THE GLOBAL ENDEVOR DEFAULT AND CONTROL     * 00010800
+.*              VALUES. ONLY ONE TYPE=MAIN PARAMETER CAN BE SPECIFIED.* 00010900
+.*                                                                    * 00011000
+.*   TYPE=ENVRNMNT: DEFINES AN ENDEVOR/MVS ENVIRONMENT.  MULTIPLE     * 00011100
+.*              TYPE=ENVRNMNT MACROS CAN BE SPECIFIED IN A TABLE.     * 00011200
+.*                                                                    * 00011300
+.*   TYPE=END: IDENTIFIES THE END OF THE TABLE.  ONLY ONE TYPE=END    * 00011400
+.*              MACRO CAN BE SPECIFIED.                               * 00011500
+.*                                                                      00011600
+.*--------------------------------------------------------------------* 00011700
+         GBLA  &MAXENV
+&MAXENV  SETA  999
+         GBLA  &NBRMACS,&EDITLNG,&K,&X                                  00011800
+         GBLC  &EDITIN,&EDITOUT,&SMFLAG                                 00011900
+         GBLC  &ENVNAM(999),&STG1(999),&STG2(999)
+         GBLC  &NXTENV(999),&NXTSTG(999)
+         GBLC  &RELNUM,&TAPSER                                          00012100
+         GBLC  &TYPEND                                                  00012200
+         LCLA  &WUIDB,&WUIDL,&WUIDTOT,&WBAT
+         LCLA  &I,&J                                                    00012400
+         LCLC  &DLBL1,&DLBL2,&DLBL3,&DLBL4,&DLBL5,&DLBL6,&DLBL7,&DLBLF  00012500
+         LCLC  &DLBL8,&DLBL9,&DLBLA,&DLBLB,&DLBLC,&DLBLD,&DLBLE,&TVAR   00012600
+         LCLC  &DLBLS1,&DLBLS2                                          00012700
+         LCLC  &DFDBAVL,&DFDBACT,&DFDBOP1,&DFDBOP2,&DFDBOP3,&DFDBOP4    00012800
+         LCLC  &DFLBLJ1,&DFLBLJ2,&DFLBLE1,&DFLBLE2,&DFBLSLC             00012900
+         LCLC  &CSECT                                                   00013000
+         LCLA  &MFMTFLAG,&MFLOOPIX                                      00013100
+         LCLC  &MFFMT,&MSGFLD                                           00013200
+         LCLC  &NEQUNAME                                                00013300
+         LCLC  &MBRROOT                                                 00013400
+         LCLC  &STG1ENTRY,&STG2ENTRY                                    00013500
+         LCLC  &ELMCTLG                                                 00013600
+         LCLC  &TMPDSN                                                  00013900
+         LCLC  &KLNGC                                                   00014000
+         LCLC  &KACMROOT,&KACMXREF                                      00014100
+.*                                                                      00014200
+         $RELEASE                                                       00014300
+.*                                                                      00014400
+&CSECT   SETC  'C1DEFLTS'                                               00014500
+.*                                                                      00014600
+         AIF   ('&TYPE' NE 'MAIN').SKMY                                 00014700
+.*  DO SOME CHECKING OF THE MAIN-TYPE OPERANDS.                         00014800
+         AIF   (('&SMFLAG' EQ 'Y') OR ('&SMFLAG' EQ 'N')).EM1           00014900
+&SMFLAG  SETC  'N'                                                      00015000
+         AIF   (&SMFREC# EQ 0).SKMX                                     00015100
+&SMFLAG  SETC  'Y'                                                      00015200
+.SKMX    ANOP                                                           00015300
+         AIF   ('&SMFPKGADM'(1,1) EQ 'N').SKPSMF                        00015400
+         AIF   ('&SMFLAG' NE 'Y').EVB                                   00015500
+         AIF   (('&SMFPKGADM'(1,1) NE 'Y') AND                         X00015600
+               ('&SMFPKGADM'(1,1) NE 'N')).EVF                          00015700
+.SKPSMF  ANOP                                                           00015800
+         AIF   ('&SMFDYNENV'(1,1) EQ 'N').SKPSMF2
+         AIF   ('&SMFLAG' NE 'Y').EVB
+         AIF   (('&SMFDYNENV'(1,1) NE 'Y') AND                         X
+               ('&SMFDYNENV'(1,1) NE 'N')).EVF2
+
+.SKPSMF2 ANOP
+         AIF   ('&CUNAME' EQ '').EM3                                    00015900
+         AIF   ('&MACDSN' EQ '').EM6                                    00016000
+         AIF   ('&SITEID' EQ '').EM7                                    00016100
+         AIF   ('&LINESPP' EQ '').EM8                                   00016200
+.*                                                                      00016300
+.*       CHECKS FOR ELEMENT CATALOG                                     00016400
+&K       SETA  0                                                        00016500
+         AIF   ('&ELMCATL' EQ '').SKMX01                                00016600
+&K       SETA  1                                                        00016700
+.SKMX01  ANOP                                                           00016800
+.*                                                                      00016900
+.*--------------------------------------------------------------------* 00017000
+.*       CHECKS FOR PARMLIB                                             00017100
+.*--------------------------------------------------------------------* 00017200
+&EDITIN  SETC   '&PARMLIB'                                              00017300
+         DEFEDIT REMOVEBLANKS=N                                         00017400
+         AIF   ('&PARMLIB' EQ '').SKMXNUL                               00017500
+         AIF   ('&EDITOUT'(1,1) EQ ' ').SKMXBLK                         00017600
+.*                                                                      00017700
+.*--------------------------------------------------------------------* 00017800
+.*       CHECKS FOR TYPESEQMBR                                          00017900
+.*--------------------------------------------------------------------* 00018000
+&EDITIN  SETC   '&TYPESEQMBR'                                           00018100
+         DEFEDIT REMOVEBLANKS=N                                         00018200
+         AIF   ('&TYPESEQMBR' EQ '').SKMXNUL                            00018300
+         AIF   ('&EDITOUT'(1,1) EQ ' ').SKMXBLK                         00018400
+         AGO  .SKMX02                                                   00018500
+.SKMXNUL ANOP                                                           00018600
+         MNOTE 12,'PARMLIB AND TYPESEQMBR PARAMETERS MUST BE CODED'     00018700
+         MEXIT                                                          00018800
+.SKMXBLK ANOP                                                           00018900
+         MNOTE 12,'PARMLIB AND TYPESEQMBR PARAMETER VALUES CANNOT BE BLX00019000
+               ANK'                                                     00019100
+         MEXIT                                                          00019200
+.SKMX02  ANOP                                                           00019300
+.*                                                                      00019400
+.*--------------------------------------------------------------------* 00019500
+.* PROCESS THE &RJCLROOT= PARAMETER.                                  * 00019600
+.*--------------------------------------------------------------------* 00019700
+.ROOT    ANOP                                                           00019800
+&MBRROOT SETC  '    '                                                   00019900
+         AIF   ('&RJCLROOT' EQ '').RJCLR90                              00020000
+&MBRROOT SETC  '&RJCLROOT'                                              00020100
+         AIF   ('&RJCLROOT' EQ 'FCPY').RJCLR90                          00020200
+         AIF   ('&RJCLROOT' EQ 'ICPY').RJCLR90                          00020300
+         MNOTE 12,'RJCLROOT MUST BE "FCPY", "ICPY", OR OMITTED'         00020400
+         MEXIT                                                          00020500
+.RJCLR90 ANOP                                                           00020600
+.*--------------------------------------------------------------------* 00020700
+.* PROCESS THE &MIXEDFMT= PARAMETER.                                  * 00020800
+.*--------------------------------------------------------------------* 00020900
+&MFMTFLAG SETA 0                       ASSUME THERE IS NO MIXED FORMAT X00021000
+                                        SUPPORT                         00021100
+         AIF ('&MIXEDFMT' EQ '').MF0300                                 00021200
+         AIF ('&MIXEDFMT'(1,1) EQ '(').MF0200                           00021300
+.*--------------------------------------------------------------------* 00021400
+.* ONLY ONLY OBJECT WAS SPECIFIED.  SET THE FLAG BYTE VALUE BASED ON  * 00021500
+.* THE OBJECT SPECIFIED.  IF THE OBJECT IS INVALID, GENERATE AN ERROR.* 00021600
+.*--------------------------------------------------------------------* 00021700
+&MFMTFLAG SETA X'00'                                                    00021800
+         AIF ('&MIXEDFMT' EQ 'NONE').MF0300                             00021900
+&MFMTFLAG SETA X'01'                                                    00022000
+         AIF ('&MIXEDFMT' EQ 'CCID').MF0300                             00022100
+&MFMTFLAG SETA X'02'                                                    00022200
+         AIF ('&MIXEDFMT' EQ 'COMMENT').MF0300                          00022300
+&MFMTFLAG SETA X'04'                                                    00022400
+         AIF ('&MIXEDFMT' EQ 'DESCRIPTION').MF0300                      00022500
+&MFMTFLAG SETA X'01'+X'02'+X'04'                                        00022600
+         AIF ('&MIXEDFMT' EQ 'ALL').MF0300                              00022700
+         AGO  .BADFMT                                                   00022800
+.*--------------------------------------------------------------------* 00022900
+.* THE MIXEDFMT PARAMETER CONTAINED A LIST OF OBJECTS. LOOP OVER THE  * 00023000
+.* OBJECT LIST, VALIDATE EACH ENTRY AND UPDATE THE FLAG BYTE VALUE.   * 00023100
+.* IF AN OBJECT IS INVALID, GENERATE AN ERROR.                        * 00023200
+.*--------------------------------------------------------------------* 00023300
+.MF0200  ANOP                                                           00023400
+&MFLOOPIX SETA 1                                                        00023500
+.MF0205  ANOP                                                           00023600
+&MFFMT   SETC  '&MIXEDFMT(&MFLOOPIX)'                                   00023700
+         AIF ('&MFFMT' NE 'CCID').MF0210                                00023800
+&MFMTFLAG SETA &MFMTFLAG+X'01'                                          00023900
+         AGO   .MF0240                                                  00024000
+.MF0210  ANOP                                                           00024100
+         AIF ('&MFFMT' NE 'COMMENT').MF0220                             00024200
+&MFMTFLAG SETA &MFMTFLAG+X'02'                                          00024300
+         AGO   .MF0240                                                  00024400
+.MF0220  ANOP                                                           00024500
+         AIF ('&MFFMT' NE 'DESCRIPTION').MF0230                         00024600
+&MFMTFLAG SETA &MFMTFLAG+X'04'                                          00024700
+         AGO   .MF0240                                                  00024800
+.MF0230  ANOP                                                           00024900
+         AIF ('&MFFMT' NE 'ALL').BADFMT                                 00025000
+&MFMTFLAG SETA X'01'+X'02'+X'04'                                        00025100
+         AGO   .MF0240                                                  00025200
+.MF0240  ANOP                                                           00025300
+&MFLOOPIX SETA &MFLOOPIX+1                                              00025400
+         AIF   (&MFLOOPIX LE N'&MIXEDFMT).MF0205                        00025500
+.MF0300  ANOP                                                           00025600
+&NEQUNAME SETC '&ACCSTBL'                                               00025700
+         AIF   ('&NEQUNAME' NE '').NEQUOK                               00025800
+&NEQUNAME SETC 'BC1TNEQU'                                               00025900
+         AIF   ('&ESSI' EQ 'Y').NEQUOK                                  00026000
+&NEQUNAME SETC '        '                                               00026100
+.NEQUOK  ANOP                                                           00026200
+         AIF   ('&AUTHTBLS' NE 'REQUIRED'      AND                     +00026300
+               '&AUTHTBLS' NE 'ALLOW'         AND                      +00026400
+               '&AUTHTBLS' NE 'IGNORE').EM12                            00026500
+         AIF   ('&LIBENV' EQ '').MAINDONE                               00026600
+         AIF   ('&LIBENV' EQ 'PV').MAINDONE                             00026700
+         AIF   (('&LIBENV' EQ 'LB') AND ('&LIBRPGM' EQ '')).EM9         00026800
+         AIF   ('&LIBENV' NE 'LB').EM10                                 00026900
+.MAINDONE ANOP                                                          00027000
+         AGO   .SKPDSCT                                                 00027100
+.SKMY    ANOP                                                           00027200
+         AIF   ('&TYPE' NE 'ENVRNMNT').SKENB                            00027300
+.*  DO SOME CHECKING OF THE ENVRNMNT-TYPE OPERANDS.                     00027400
+         AIF   ('&ENVNAME' EQ '').EV1                                   00027500
+         AIF   ('&ENVTITL' EQ '').EV2                                   00027600
+         AIF   (('&ENTRYSTG#' NE '1') AND ('&ENTRYSTG#' NE '2')).EVC    00027700
+         AIF   ('&SYNC@BLOC' EQ '').ED1ST05                             00027800
+         AIF   (('&SYNC@BLOC' NE 'Y') AND ('&SYNC@BLOC' NE 'N')).EVD    00027900
+.ED1ST05 ANOP                                                           00028000
+         AIF   ('&STG1NME' EQ '').EV3                                   00028100
+.*                                                                      00028200
+.*******          CHECK STAGE NAME FOR 8 NATIONAL CHARACTERS            00028300
+.*                                                                      00028400
+&EDITIN  SETC  '&STG1NME'                                               00028500
+         DEFEDIT                                                        00028600
+         AIF   (&EDITLNG GT 8).S1LENE                                   00028700
+         AIF   (&EDITLNG EQ 0).EV3                                      00028800
+         @NATEDIT                                                       00028900
+         AGO   .ED1ST10                                                 00029000
+.S1LENE  ANOP                                                           00029100
+         MNOTE 12,'STG1NAME MUST BE 8 CHARACTERS OR LESS &EDITOUT INVALX00029200
+               ID'                                                      00029300
+         MEXIT                                                          00029400
+.ED1ST10 ANOP                                                           00029500
+.******                                                                 00029600
+         AIF   ('&STG1VSM' EQ '').EV4                                   00029700
+         AIF   ('&STG1ID' EQ '').EV5                                    00029800
+         AIF   ('&STG1TTL' EQ '').EV6                                   00029900
+         AIF   ('&STG1NME' EQ '').EV7                                   00030000
+         AIF   ('&STG1PSAS' EQ '').PSAS01                               00030100
+         AIF   (('&STG1PSAS' NE 'Y') AND ('&STG1PSAS' NE 'N')).EVE1     00030200
+.PSAS01  ANOP                                                           00030300
+.*                                                                      00030400
+.*******  CHECK STAGE 2 NAME FOR NATIONAL CHARACTERS                    00030500
+.*                                                                      00030600
+&EDITIN  SETC  '&STG2NME'                                               00030700
+         DEFEDIT                                                        00030800
+         AIF   (&EDITLNG GT 8).S2LENE                                   00030900
+         AIF   (&EDITLNG EQ 0).EV7                                      00031000
+         @NATEDIT                                                       00031100
+         AGO   .ED2ST10                                                 00031200
+.S2LENE  ANOP                                                           00031300
+         MNOTE 12,'STG2NAME MUST BE 8 CHARACTERS OR LESS &EDITOUT INVALX00031400
+               ID'                                                      00031500
+         MEXIT                                                          00031600
+.ED2ST10 ANOP                                                           00031700
+.******                                                                 00031800
+         AIF   ('&STG2VSM' EQ '').EV8                                   00031900
+         AIF   ('&STG2VSM' EQ '&STG1VSM').EVSM                          00032000
+         AIF   ('&STG2ID' EQ '').EV9                                    00032100
+         AIF   ('&STG2TTL' EQ '').EVA                                   00032200
+         AIF   ('&STG2ID' EQ '&STG1ID').ESTID                           00032300
+         AIF   ('&STG2NME' EQ '&STG1NME').ESTNM                         00032400
+         AIF   ('&STG2PSAS' EQ '').PSAS02                               00032500
+         AIF   (('&STG2PSAS' NE 'Y') AND ('&STG2PSAS' NE 'N')).EVE2     00032600
+.PSAS02  ANOP                                                           00032700
+.*                                                                      00032800
+         AIF   (('&SMFSEC'(1,1) EQ 'N') AND ('&SMFACT'(1,1) EQ 'N')    X00032900
+               AND ('&SMFENV'(1,1) EQ 'N')).SKENA                       00033000
+         AIF   ('&SMFLAG' NE 'Y').EVB                                   00033100
+.SKENA   ANOP                                                           00033200
+         AGO   .SYSDEF                                                  00033300
+.SKENB   ANOP                                                           00033400
+         AIF   ('&TYPE' EQ 'DSECT').DODSCT                              00033500
+         AIF   ('&TYPE' EQ 'LOCATE').LOCATE
+         AIF   ('&TYPE' EQ 'END').DOEND                                 00033600
+         MNOTE 16,'INVALID TYPE PARAMETER SPECIFICATION - &TYPE'        00033700
+         AGO   .DEFEND                                                  00033800
+.*                                                                      00033900
+.*--------------------------------------------------------------------*
+.* PROCESS C1DEFLTS TYPE=LOCATE.                                      *
+.*--------------------------------------------------------------------*
+.LOCATE  ANOP
+         LCLC  &PLIST,&CONT
+&PLIST   SETC  'C1DP&SYSNDX'
+&CONT    SETC  'C1DB&SYSNDX'
+&INVOKER SETC  'C1DI&SYSNDX'
+         B     &CONT              BRANCH AROUND PARMLIST
+.*
+&INVOKER DC    CL8'&SYSECT'       INVOKER NAME
+.*
+&PLIST   DS    0F
+         DC    AL1(ENAFLC1D)      SET FUNCTION CODE
+         DC    XL3'00'
+         DC    A(&INVOKER)        SET INVOKER NAME PARM
+&CONT    DS    0H
+         $$ENAFPC &PLIST          INVOKE AUTHORIZED FUNCTION PC ROUTINE
+         MEXIT
+.*
+.DODSCT  ANOP                                                           00034000
+C1DEFLTS DSECT                                                          00034100
+&DLBL1   SETC  'DFTSTGNM'                                               00034200
+&DLBL2   SETC  'DFTSTGDS'                                               00034300
+&DLBL3   SETC  'DFTUSECT'                                               00034400
+&DLBL4   SETC  'DFTRSECT'                                               00034500
+&DLBL5   SETC  'DFTSYSNM'                                               00034600
+&DLBL6   SETC  'DFTENVNM'                                               00034700
+&DLBL7   SETC  'DFTNXTEN'                                               00034800
+&DLBL8   SETC  'DFTST2NM'                                               00034900
+&DLBL9   SETC  'DFTST2DS'                                               00035000
+&DLBLA   SETC  'DFTST1ID'                                               00035100
+&DLBLB   SETC  'DFTST1TI'                                               00035200
+&DLBLC   SETC  'DFTST2ID'                                               00035300
+&DLBLD   SETC  'DFTST2TI'                                               00035400
+&DLBLE   SETC  ' '                                                      00035500
+&DLBLF   SETC  'DFTNXTST'                                               00035600
+&DLBLS1  SETC  'DFT1PSAS'                                               00035700
+&DLBLS2  SETC  'DFT2PSAS'                                               00035800
+&DFDBAVL SETC  'DFTDBAVL'                                               00035900
+&DFDBACT SETC  'DFTDBACT'                                               00036000
+&DFDBOP1 SETC  'DFTDBOP1'                                               00036100
+&DFDBOP2 SETC  'DFTDBOP2'                                               00036200
+&DFDBOP3 SETC  'DFTDBOP3'                                               00036300
+&DFDBOP4 SETC  'DFTDBOP4'                                               00036400
+&DFLBLJ1 SETC  'DFTENVJN'                                               00036500
+&DFLBLE1 SETC  'DFTENTS1'                                               00036600
+&DFLBLE2 SETC  'DFTENTS2'                                               00036700
+&DFBLSLC SETC  'DFTSNBLOC'                                              00036800
+         AGO   .SKPCSCT                                                 00036900
+.SKPDSCT ANOP                                                           00037000
+C1DEFLTS CSECT                                                          00037100
+&DLBL1   SETC  ' '                                                      00037200
+&DLBL2   SETC  ' '                                                      00037300
+&DLBL3   SETC  ' '                                                      00037400
+&DLBL4   SETC  ' '                                                      00037500
+&DLBL5   SETC  ' '                                                      00037600
+&DLBL6   SETC  ' '                                                      00037700
+&DLBL7   SETC  ' '                                                      00037800
+&DLBL8   SETC  ' '                                                      00037900
+&DLBL9   SETC  ' '                                                      00038000
+&DLBLA   SETC  ' '                                                      00038100
+&DLBLB   SETC  ' '                                                      00038200
+&DLBLC   SETC  ' '                                                      00038300
+&DLBLD   SETC  ' '                                                      00038400
+&DLBLE   SETC  ' '                                                      00038500
+&DLBLF   SETC  ' '                                                      00038600
+&DLBLS1  SETC  ' '                                                      00038700
+&DLBLS2  SETC  ' '                                                      00038800
+&DFDBAVL SETC ' '                                                       00038900
+&DFDBACT SETC ' '                                                       00039000
+&DFDBOP1 SETC ' '                                                       00039100
+&DFDBOP2 SETC ' '                                                       00039200
+&DFDBOP3 SETC ' '                                                       00039300
+&DFDBOP4 SETC ' '                                                       00039400
+&DFLBLJ1 SETC  ' '                                                      00039500
+&DFLBLJ2 SETC  ' '                                                      00039600
+&DFLBLE1 SETC  ' '                                                      00039700
+&DFLBLE2 SETC  ' '                                                      00039800
+&DFBLSLC SETC  ' '                                                      00039900
+.SKPCSCT ANOP                                                           00040000
+BASE     DC    1024X'00'                                                00040100
+BASEEND  EQU   *                                                        00040200
+         ORG   BASE                                                     00040300
+&EDITIN  SETC  '&CUNAME'                                                00040400
+         DEFEDIT                                                        00040500
+DFTNAME  DC    CL50'&EDITOUT'          CUSTOMER NAME                    00040600
+         SPACE                                                          00040700
+&EDITIN  SETC  '&LIBENV'                                                00040800
+         DEFEDIT                                                        00040900
+DFTSLENV DC    CL2'&EDITOUT'           LB=LIBRARIAN, PV=PANVALET        00041000
+         SPACE                                                          00041100
+         AIF   ('&TSOE'(1,1) EQ 'Y').TSOE                               00041200
+         DC    AL1(0)                  TSO-E NOT AVAILIABLE             00041300
+         AGO   .SMFRNBR                                                 00041400
+.TSOE    ANOP                                                           00041500
+         DC    CL1'E'                  TSO-E ENVIRONMENT                00041600
+.*                                                                      00041700
+.SMFRNBR ANOP                                                           00041800
+         LCLA  &SMFRECT                                                 00041900
+&SMFRECT SETA  &SMFREC#                                                 00042000
+         AIF   (&SMFRECT EQ 0).SMFOK        0 MEANS NO TO NDVR          00042100
+         AIF   (&SMFRECT GE 128 AND &SMFRECT LE 255).SMFOK              00042200
+.*                                                                      00042300
+         MNOTE 4,'C1DEFLTS: INVALID SMFREC#. SPECIFY 0 (NONE) OR 128-25X00042400
+               5.'                                                      00042500
+         MNOTE 4,'C1DEFLTS: SMF RECORDS WILL NOT BE WRITTEN.'           00042600
+&SMFRECT SETA  0                                                        00042700
+.*                                                                      00042800
+.SMFOK   ANOP                                                           00042900
+DFTSMFR# DC    AL1(&SMFRECT)           ENDEVOR-C1 SMF RECORD NUMBER     00043000
+**                                     (REQ'D FOR SMF RECORDING)        00043100
+**                                     (0 = NONE)                       00043200
+         SPACE                                                          00043300
+&EDITIN  SETC  '&NEQUNAME'                                              00043400
+         DEFEDIT                                                        00043500
+DFTMSTUT DC    CL8'&EDITOUT'           MASTER USER SECURITY TABLE NAME  00043600
+         SPACE                                                          00043700
+DFTLPP   DC    AL1(&LINESPP)           LINES PER PAGE                   00043800
+         SPACE                                                          00043900
+&EDITIN  SETC  '&WRKUNIT'                                               00044000
+         DEFEDIT                                                        00044100
+DFTWUNIT DC    CL8'&EDITOUT'           WORK UNIT NAME FOR WORK DS       00044200
+&EDITIN  SETC  '&WORKVOL'                                               00044300
+         DEFEDIT                                                        00044400
+DFTWVOL  DC    CL6'&EDITOUT'           VOL SER (OR BLANK) FOR WORK DS   00044500
+&EDITIN  SETC  '&VIOUNIT'                                               00044600
+         DEFEDIT                                                        00044700
+DFTWVIOU DC    CL8'&EDITOUT'           VIO UNIT NAME (OR BLANK)         00044800
+.*
+DFT#CTLI DC    AL1(0)             NUMBER OF ENVIRONS DEFINED LATER
+.*
+&EDITIN  SETC  '&MACDSN'                                                00045100
+         DEFEDIT                                                        00045200
+DFTMACDS DC    CL44'&EDITOUT'          ENDEVOR INSTALL SITE MACRO DSN   00045300
+DFTVERLV DC    CL4'&RELNUM'            ENDEVOR VERSION NUMBER           00045400
+.*                                                                      00045500
+         AGO   .GNIPFLG                BRANCH OVER, GNIPSOUT WAS        00045600
+&EDITOUT SETC  'Y'                     REPLACED BY AN ENCOPTBL ENTRY    00045700
+         AIF   ('&GNIPSOUT'(1,1) EQ 'Y').GNIPFLG                        00045800
+&EDITOUT SETC  'N'                                                      00045900
+         AIF   ('&GNIPSOUT'(1,1) EQ 'N').GNIPFLG                        00046000
+         MNOTE 12,'SPECIFICATION: INVALID GNIPSOUT VALUE: &GNIPSOUT'    00046100
+         MEXIT                                                          00046200
+.GNIPFLG ANOP                                                           00046300
+DFTSMFPA DC    CL1'&SMFPKGADM'         PKG ADMIN ACTIONS SMF RECORDING  00046400
+.*                                                                      00046500
+         DC    XL2'0000'               ** RESERVED **                   00046600
+&WBAT    SETA  1
+         AIF   ('&BATCHID' EQ ''  OR '&BATCHID' EQ '1').BIDOK
+         AIF   ('&BATCHID' EQ '0' OR '&BATCHID' EQ '2').BIDNG1
+         MNOTE 4,'THE BATCHID VALUE &BATCHID IS NOT SUPPORTED, CHANGED X
+               TO 1'
+         AGO   .BIDNG2
+.BIDNG1  ANOP
+         MNOTE 4,'AS OF V19, BATCHID VALUE &BATCHID IS NOT SUPPORTED, CX
+               HANGED TO 1'
+.BIDNG2  ANOP
+         MNOTE 4,'THE BATCHID PARAMETER WILL BE REMOVED IN A FUTURE RELX
+               EASE'
+.BIDOK   ANOP                                                           00047600
+DFTBID   DC    AL1(&WBAT)              BATCH USERID TYPE                00047700
+&EDITIN  SETC  '&LIBRPGM'                                               00047800
+         DEFEDIT                                                        00047900
+DFTLIBRP DC    CL8'&EDITOUT'           LIBRARIAN LOAD MODULE NAME       00048000
+&EDITIN  SETC  '&SITEID'                                                00048100
+         DEFEDIT                                                        00048200
+         @NATEDIT SITEID=Y                                              00048210
+DFTSITE# DC    CL1'&EDITOUT'           SITE ID. (1 CHAR)                00048300
+         SPACE                                                          00048400
+&EDITIN  SETC  '&FSEBPGM'              APPLIED SOFTWARE'S FSE+ BROWSE   00048500
+         DEFEDIT                                                        00048600
+DFTFSEBP DC    CL8'&EDITOUT'           FSE+ BROWSE SUBROUTINE NAME      00048700
+DFTDATE  DC    CL8'&SYSDATE'                                            00048800
+DFTTIME  DC    CL8'&SYSTIME'                                            00048900
+DFTTAPE  DC    CL6'&TAPSER'                                             00049000
+         DC    CL1' '             ** RESERVED **                        00049100
+.*                                                                      00049200
+         AIF   (N'&UIDLOC EQ 2).UID0010                                 00049300
+.*                                                                      00049400
+.BADBCHL ANOP                                                           00049500
+         MNOTE 12,'INVALID VALUE SPECIFIED FOR UIDLOC.  IT MUST BE IN TX00049600
+               HE FORMAT UIDLOC=(BEG,LNG).'                             00049700
+         MEXIT                                                          00049800
+.*                                                                      00049900
+.UID0010 ANOP                                                           00050000
+         AIF   ('&UIDLOC(1)' GE '1' AND '&UIDLOC(1)' LE '8').UID0020    00050100
+         MNOTE 12,'INVALID VALUE SPECIFIED FOR BEGIN POSITION OF UIDLOCX00050200
+                . IT MUST  BE WITHIN THE RANGE 1 - 8.'                  00050300
+         MEXIT                                                          00050400
+.*                                                                      00050500
+.UID0020 ANOP                                                           00050600
+         AIF   ('&UIDLOC(2)' GE '1' AND '&UIDLOC(2)' LE '8').UID0030    00050700
+         MNOTE 12,'INVALID VALUE SPECIFIED FOR LENGTH POSITION OF UIDLOX00050800
+               C.  IT MUST  BE WITHIN THE RANGE 1 - 8.'                 00050900
+         MEXIT                                                          00051000
+.*                                                                      00051100
+.UID0030 ANOP                                                           00051200
+&WUIDB   SETA  &UIDLOC(1)                                               00051300
+&WUIDL   SETA  &UIDLOC(2)                                               00051400
+&WUIDTOT SETA  &WUIDB+&WUIDL                                            00051500
+         AIF   (&WUIDTOT LE 9).UID0040                                  00051600
+         MNOTE 12,'BEGINNING POSITION PLUS LENGTH OF UIDLOC CANNOT EXCEX00051700
+               ED 9.'                                                   00051800
+         MEXIT                                                          00051900
+.*                                                                      00052000
+.UID0040 ANOP                                                           00052100
+&WUIDB   SETA  &WUIDB-1           MAKE BEGIN LOC RELATIVE TO ZERO       00052200
+&WUIDL   SETA  &WUIDL-1           ADJUST LENGTH FOR EXEC'D MVC          00052300
+DFTUIDB  DC    AL1(&WUIDB)        ADJUSTED BEG LOCATION OF USER ID      00052400
+DFTUIDL  DC    AL1(&WUIDL)        ADJUSTED LNG OF USER ID               00052500
+&EDITIN  SETC  '&ASCM'                                                  00052600
+         DEFEDIT                                                        00052700
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00052800
+DFTOFLG1 DC    CL1'&EDITOUT'      ASCM=Y/N                              00052900
+         DC    CL3' '             ** RESERVED **                        00053000
+&EDITIN  SETC  '&ESSI'                                                  00053100
+         DEFEDIT                                                        00053200
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00053300
+DFTOFLG2 DC    CL1'&EDITOUT'      ESSI=Y/N                              00053400
+         DC    CL3' '             ** RESERVED **                        00053500
+&EDITIN  SETC  '&DB2'                                                   00053600
+         DEFEDIT                                                        00053700
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00053800
+DFTOFLG3 DC    CL1'&EDITOUT'      DB2=Y/N                               00053900
+         DC    CL3' '             ** RESERVED **                        00054000
+&EDITIN  SETC  '&PROC'                                                  00054100
+         DEFEDIT                                                        00054200
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00054300
+DFTOFLG4 DC    CL1'&EDITOUT'      PROC=Y/N                              00054400
+         DC    CL3' '             ** RESERVED **                        00054500
+&EDITIN  SETC  '&LIBENVP'                                               00054600
+         DEFEDIT                                                        00054700
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00054800
+DFTOFLG5 DC    CL1'&EDITOUT'      LIBENVP=Y/N                           00054900
+         DC    CL3' '             ** RESERVED **                        00055000
+DFTOFLG6 DC    CL1' '             ** RESERVED **                        00055100
+         DC    CL3' '             ** RESERVED **                        00055200
+&EDITIN  SETC  '&PDM'                                                   00055300
+         DEFEDIT                                                        00055400
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00055500
+DFTOFLG7 DC    CL1'&EDITOUT'      PDM=Y/N                               00055600
+         DC    CL3' '             ** RESERVED **                        00055700
+DFTOFLG8 DC    CL1' '             ** RESERVED **                        00055800
+         DC    CL3' '             ** RESERVED **                        00055900
+DFTOFLG9 DC    CL1' '             ** RESERVED **                        00056000
+         DC    CL3' '             ** RESERVED **                        00056100
+DFTOFLGA DC    CL1' '             ** RESERVED **                        00056200
+         DC    CL3' '             ** RESERVED **                        00056300
+&EDITIN  SETC  '&EDITELM'                                               00056400
+         DEFEDIT                                                        00056500
+         AIF   (('&EDITOUT' NE 'Y') AND  ('&EDITOUT' NE 'N')).YNREQD    00056600
+DFTOFLGB DC    CL1'&EDITOUT'      EDITELM=Y/N                           00056700
+         DC    CL3' '             ** RESERVED **                        00056800
+         DC    CL1' '             ** RESERVED **                        00056900
+         AIF   ('&PKGISEC'      EQ '' ).NOISEC                          00057000
+         AIF   ('&PKGISEC'(1,1) EQ 'Y').PKGISEC                         00057100
+         AIF   ('&PKGISEC'(1,1) EQ 'N').PKGISEC                         00057200
+         MNOTE 12,'SPECIFICATION: INVALID PKGISEC VALUE: &PKGISEC'      00057300
+         MEXIT                                                          00057400
+.PKGISEC ANOP                                                           00057500
+DFTPKGIS DC    C'&PKGISEC'        VALIDATE SECURITY AT INSPECT TIME     00057600
+         AGO   .ISECDON                                                 00057700
+.NOISEC  ANOP                                                           00057800
+DFTPKGIS DC    C' '               VALIDATE SECURITY AT INSPECT TIME     00057900
+.ISECDON ANOP                                                           00058000
+DFT#ENV  DC    H'0'               NUMBER ENVIRONMENTS WHEN 65K (NYI)
+         DC    3AL4(0)            ** RESERVED **                        00058200
+DFTISPFQ DC    CL8'&SPFEDIT'      QNAME FOR 'SPFEDIT' ENQUEUES          00058300
+DFTIEWLQ DC    CL8'&SYSIEWL'      QNAME FOR 'SYSIEWLP' ENQUEUES         00058400
+         AIF   ('&RACFUID' EQ '').NORACF                                00058500
+         DC    CL8'&RACFUID '     RACF ID                               00058600
+         AGO   .RACFOK                                                  00058700
+.NORACF  ANOP                                                           00058800
+DFTRID   DC    XL8'00'            RACF ID                               00058900
+.RACFOK  ANOP                                                           00059000
+         AIF   (K'&MFAAPPL GT 8).MFAERR
+         LCLA  &MFAAPPS           SIZE OF MFAAPPL PARAMETER
+&MFAAPPS SETA  K'&MFAAPPL         GET SIZE OF PARAMETER
+.*                                SAF/RACF FORMAT APPLICATION NAME
+DFTMFAAL DC    AL1(&MFAAPPS)      SAF MFA APPLICATION NAME LENGTH
+DFTMFAA  DC    CL8'&MFAAPPL'      SAF APPLICATION NAME FOR MFA SUPPORT
+         DC    XL7'00'            RESERVED
+         AGO   .MFAOK             CONTINUE
+.MFAERR  ANOP
+         MNOTE 8,'SPECIFICATION: INVALID MFAAPPL LENGTH > 8'
+         MEXIT
+.MFAOK   ANOP
+&EDITIN  SETC  '&CIPODSN'                                               00059300
+         DEFEDIT                                                        00059400
+DFTCIPDS DC    CL44'&EDITOUT'          C1GSCIPO DSN                     00059500
+.*                                                                      00059600
+&EDITOUT SETC  'Y'                                                      00059700
+         AIF   ('&APRVFLG'(1,1) EQ 'Y').APRVFLG                         00059800
+&EDITOUT SETC  'N'                                                      00059900
+         AIF   ('&APRVFLG'(1,1) EQ 'N').APRVFLG                         00060000
+         MNOTE 12,'SPECIFICATION: INVALID APRVFLG VALUE: &APRVFLG'      00060100
+         MEXIT                                                          00060200
+.APRVFLG ANOP                                                           00060300
+DFTAPRVF DC    C'&EDITOUT'             APPROVAL PROCESSING              00060400
+.*                                                                      00060500
+&EDITIN  SETC  '&PKGDSN'                                                00060600
+         DEFEDIT                                                        00060700
+DFTPKGDS DC    CL50'&EDITOUT'          PACKAGE DATA SET NAME            00060800
+.*                                                                      00060900
+&EDITOUT SETC  'Y'                                                      00061000
+         AIF   ('&PKGTSO'(1,1) EQ 'Y').PKGTSO                           00061100
+&EDITOUT SETC  'N'                                                      00061200
+         AIF   ('&PKGTSO'(1,1) EQ 'N').PKGTSO                           00061300
+         MNOTE 12,'SPECIFICATION: INVALID PKGTSO VALUE: &PKGTSO'        00061400
+         MEXIT                                                          00061500
+.PKGTSO ANOP                                                            00061600
+DFTPKGFG DC    C'&EDITOUT'             PACKAGE EXECUTION IN TSO         00061700
+.*                                                                      00061800
+&EDITOUT SETC  'Y'                                                      00061900
+         AIF   ('&PKGCSEC'(1,1) EQ 'Y').PKGCSEC                         00062000
+&EDITOUT SETC  'N'                                                      00062100
+         AIF   ('&PKGCSEC'(1,1) EQ 'N').PKGCSEC                         00062200
+         MNOTE 12,'SPECIFICATION: INVALID PKGCSEC VALUE: &PKGCSEC'      00062300
+         MEXIT                                                          00062400
+.PKGCSEC ANOP                                                           00062500
+DFTPKGCS DC    C'&EDITOUT'             CALL SECURITY AT PKG CAST TIME   00062600
+&EDITOUT SETC  'Y'                                                      00062700
+         AIF   ('&PKGCVAL'(1,1) EQ 'Y').PKGCVAL                         00062800
+&EDITOUT SETC  'O'                                                      00062900
+         AIF   ('&PKGCVAL'(1,1) EQ 'O').PKGCVAL                         00063000
+&EDITOUT SETC  'N'                                                      00063100
+         AIF   ('&PKGCVAL'(1,1) EQ 'N').PKGCVAL                         00063200
+         MNOTE 12,'SPECIFICATION: INVALID PKGCVAL VALUE: &PKGCVAL'      00063300
+         MEXIT                                                          00063400
+.PKGCVAL ANOP                                                           00063500
+DFTPKGCV DC    C'&EDITOUT'             CALL VALIDATION AT PKG CAST TIME 00063600
+*********************************************************************** 00063700
+         AIF   ('&JRNLGRP' EQ '').NOPKGJ                                00063800
+DFTPKGJN DC    AL4(PKGJ&SYSNDX)                                         00063900
+DATAPOOL CSECT                                                          00064000
+PKGJ&SYSNDX DC CL8'&JRNLGRP(1) '       JOURNAL-GROUP NAME               00064100
+         DC    CL4'&JRNLGRP(2) '       JOURNAL-GROUP SUBSYSTEM ID       00064200
+&CSECT   CSECT                                                          00064300
+         AGO   .GOTPKGJ                                                 00064400
+.NOPKGJ  ANOP                                                           00064500
+DFTPKGJN DC    AL4(0)                  NO JOURNAL-GROUP NAME            00064600
+.GOTPKGJ ANOP                                                           00064700
+*********************************************************************** 00064800
+         AIF   ('&AUTHTBLS' EQ 'REQUIRED').AUTHREQ                      00064900
+         AIF   ('&AUTHTBLS' EQ 'ALLOW').AUTHALW                         00065000
+         AIF   ('&AUTHTBLS' EQ 'IGNORE').AUTHIGN                        00065100
+.AUTHREQ ANOP                                                           00065200
+&AUTHOPT SETC  'DFTSAABN+DFTSAMSG'                                      00065300
+         AGO   .AUTHEND                                                 00065400
+.AUTHALW ANOP                                                           00065500
+&AUTHOPT SETC  'DFTSAMSG'                                               00065600
+         AGO   .AUTHEND                                                 00065700
+.AUTHIGN ANOP                                                           00065800
+&AUTHOPT SETC  'DFTSAIGN'                                               00065900
+         AGO   .AUTHEND                                                 00066000
+.AUTHEND ANOP                                                           00066100
+DFTSATBL DC    YL1(&AUTHOPT)            AUTHORIZED TABLE OPTIONS        00066200
+DFTSAABN EQU   X'80'                      ABEND IF NOT AUTHORIZED       00066300
+DFTSAMSG EQU   X'40'                      ISSUE MESSAGE IF NOT AUTH     00066400
+DFTSAIGN EQU   X'00'                      AUTHORIZED ALLOWED, NO WARN   00066500
+DFTSAREQ EQU   DFTSAABN+DFTSAMSG          AUTHORIZED REQUIRED           00066600
+DFTSAWRN EQU   DFTSAMSG                   WARN IF NOT AUTHORIZED        00066700
+DFTMFCFL DC    AL1(&MFMTFLAG)          MIXED FORMAT CHARACTER SUPPORT  X00066800
+                                        FLAGS                           00066900
+DFTMFCCI EQU   X'01'                       - CCID FIELDS                00067000
+DFTMFCOM EQU   X'02'                       - COMMENT FIELDS             00067100
+DFTMFDSC EQU   X'04'                       - OBJECT DESCRIPTION FIELDS  00067200
+DFTMFALL EQU   DFTMFCCI+DFTMFCOM+DFTMFDSC  - CCID, COMMENT AND         X00067300
+                                             DESCRIPTION FIELDS         00067400
+         DC    CL2' '                  ** RESERVED **                   00067500
+         AIF   ('&MODHLI' EQ '').NULLHLI                                00067600
+&EDITIN  SETC  '&MODHLI'                                                00067700
+         DEFEDIT                                                        00067800
+         AIF   (&EDITLNG GT 8).S4LENE                                   00067900
+         AGO   .SETHLI                                                  00068000
+.S4LENE  ANOP                                                           00068100
+  MNOTE 12,'MODLHI MUST BE 8 CHARACTERS OR LESS &MODHLI INVALID'        00068200
+         MEXIT                                                          00068300
+.NULLHLI ANOP                                                           00068400
+&EDITOUT SETC  ' '                                                      00068500
+.SETHLI  ANOP                                                           00068600
+DFTMODHL DC    CL8'&EDITOUT'           PERM/TEMP HIGH LEVEL INDEX       00068700
+         AGO   .NULXTBL                                                 00068800
+         AIF   ('&ELNKXTBL' EQ '').NULXTBL                              00068900
+&EDITIN  SETC  '&ELNKXTBL'                                              00069000
+         DEFEDIT                                                        00069100
+         AGO   .SETXTBL                                                 00069200
+.NULXTBL ANOP                                                           00069300
+&EDITOUT SETC  ' '                                                      00069400
+.SETXTBL ANOP                                                           00069500
+DFTELNTB DC    CL8'        '           ** RESERVED **                   00069600
+.*                                                                      00069700
+.* SIGNOUT ELEMENT DURING FETCH SETTING                                 00069800
+.* SITE WIDE OPTION TO SPECIFY WHETHER THE SOURCE OF A FETCH            00069900
+.* SHOULD BE SIGNED OUT IN ADDITION TO THE TARGET.                      00070000
+.* THIS AFFECTS ACTIONS:  ADD(FETCH), MOVE/TRANSFER(FETCH),             00070100
+.*             GENERATE(COPYBACK), SEARCH/REPLACE, QUICK-EDIT.          00070200
+   AIF (('&SOFETCH'(1,1) EQ 'Y') OR ('&SOFETCH'(1,1) EQ 'N')).SOFETCH   00070300
+         MNOTE 12,'SPECIFICATION: INVALID SOFETCH OPTION &SOFETCH'      00070400
+         MEXIT                                                          00070500
+.SOFETCH ANOP                                                           00070600
+DFTSOFET DC    CL1'&SOFETCH'           SIGNOUT DURING ELEMENT FETCH     00070700
+         AIF   ('&MBRROOT' NE '').DOMROOT                               00070800
+&MBRROOT SETC  '    '                                                   00070900
+.DOMROOT ANOP                                                           00071000
+DFTMROOT DC    CL4'&MBRROOT'           REMOTE JCL MODEL MEMBER ROOT     00071100
+         AIF   ('&TYPE' NE 'DSECT').ACMVERF                             00071200
+DACMROOT DS    CL44                    ACM ROOT DSN                     00071300
+DACMXREF DS    CL44                    ACM XREF DSN                     00071400
+         AGO   .ACMXREF20                                               00071500
+.ACMVERF ANOP                                                           00071600
+         AIF   ('&ASCM' EQ 'N').ACMXREF2                                00071700
+         AIF   ('&ACMROOT'  NE  '&ACMXREF').ACMVERF1                    00071800
+         MNOTE 12,'ACMROOT AND ACMXREF DSN MAY NOT BE THE SAME'         00071900
+         MEXIT                                                          00072000
+.ACMVERF1 ANOP                                                          00072100
+&KACMROOT SETC '&ACMROOT'                                               00072200
+&KACMXREF SETC '&ACMXREF'                                               00072300
+&KLNGC   SETC '&KACMROOT'(2,1)                                          00072400
+         AIF  ('&KLNGC' NE ' ').ACMVER1                                 00072500
+&KACMROOT SETC ''                                                       00072600
+.ACMVER1 ANOP                                                           00072700
+&KLNGC   SETC '&KACMXREF'(2,1)                                          00072800
+         AIF  ('&KLNGC' NE ' ').ACMROOT                                 00072900
+&KACMXREF SETC ''                                                       00073000
+.ACMROOT ANOP                                                           00073100
+         AIF   ('&KACMROOT' NE '').ACMROOT1                             00073200
+         MNOTE 12,'SPECIFICATION: INVALID ACMROOT'                      00073300
+         MEXIT                                                          00073400
+.ACMROOT1 ANOP                                                          00073500
+DACMROOT DC    CL44&KACMROOT           ACM ROOT DSN                     00073600
+.ACMROOT2 ANOP                                                          00073700
+         AIF   ('&KACMXREF' NE '').ACMXREF                              00073800
+         MNOTE 12,'SPECIFICATION: INVALID ACMXREF'                      00073900
+         MEXIT                                                          00074000
+.ACMXREF  ANOP                                                          00074100
+DACMXREF DC    CL44&KACMXREF           ACM XREF DSN                     00074200
+         AGO   .ACMXREF20                                               00074300
+.ACMXREF2 ANOP                                                          00074400
+         AIF   ('&KACMROOT' EQ '').ACMXREF3                             00074500
+         MNOTE 4,'ACMROOT MUST BE BLANK WHEN ASCM=N'                    00074600
+.ACMXREF3 ANOP                                                          00074700
+         AIF   ('&KACMXREF' EQ '').ACMXREF4                             00074800
+         MNOTE 4,'ACMXREF MUST BE BLANK WHEN ASCM=N'                    00074900
+.ACMXREF4 ANOP                                                          00075000
+DACMROOT DC    CL44' '                 ACM ROOT DSN                     00075100
+DACMXREF DC    CL44' '                 ACM XREF DSN                     00075200
+.ACMXREF20 ANOP                                                         00075300
+         DC    CL1' '                  ** RESERVED **                   00075400
+.*                                                                      00075500
+.ACMDONE ANOP                                                           00075600
+.********************************************************************** 00075700
+.* PACKAGE SECURITY SPECIFICATION.  THIS DEFINES THE RELATIONSHIP OR  * 00075800
+.* ESI, APPROVERS, AND PACKAGE LISTS.  THE POSSIBLE CHOICES ARE:        00075900
+.*  PKGSEC=APPROVER                                                     00076000
+.*  PKGSEC=ESI                                                          00076100
+.*  PKGSEC=MIGRATE                                                      00076200
+.********************************************************************** 00076300
+         AIF      ('&PKGSEC' EQ 'APPROVER' OR '&PKGSEC' EQ '').PSEC100  00076400
+         AIF      ('&PKGSEC' EQ 'ESI').PSEC200                          00076500
+         AIF      ('&PKGSEC' EQ 'MIGRATE').PSEC300                      00076600
+         MNOTE    12,'SPECIFICATION: ''&PKGSEC'' IS AN UNSUPPORTED OPTI+00076700
+               ON'                                                      00076800
+         MNOTE    12,'PKGSEC=APPROVER ASSUMED'                          00076900
+         AGO      .PSEC100                                              00077000
+.PSEC100 ANOP                                                           00077100
+&EDITOUT SETC     'DFTPSECA'               APPROVER-ONLY PKG SECURITY   00077200
+         AGO      .PSECDUN                                              00077300
+.PSEC200 ANOP                                                           00077400
+&EDITOUT SETC     'DFTPSECE'               EXIT 1-ONLY PKG SECURITY     00077500
+         AGO      .PSECDUN                                              00077600
+.PSEC300 ANOP                                                           00077700
+&EDITOUT SETC     'DFTPSECM'               MERGED MODE PKG SECURITY     00077800
+         AGO      .PSECDUN                                              00077900
+.PSECDUN ANOP                                                           00078000
+DFTPSECO DC    YL1(&EDITOUT)           PACKAGE SECURITY OPTION          00078100
+DFTPSECA EQU   X'80'                      USE APPROVER SECURITY         00078200
+DFTPSECE EQU   X'40'                      USE ESI SECURITY              00078300
+DFTPSECM EQU   DFTPSECA+DFTPSECE          USE BOTH FOR MIGRATION        00078400
+DFTBLKSZ DC    CL5'&PRBLKSZ'           LSTING BLKSZ FOR GPPROCSS        00078500
+DFTLNKSZ DC    CL10'&PRLNKSZ'          LKED PARM SIZE GPPROCSS          00078600
+DFTLSTSZ DC    CL2'&PRLSTSZ'           LISTING SIZE FOR GPPROCSS        00078700
+.*                                                                      00078800
+&EDITIN  SETC   '&ELMCATL'                                              00078900
+         DEFEDIT                                                        00079000
+*                                      ELEMENT CATALOGUE DSN            00079100
+DELMCATL DC    CL44'&EDITOUT'                                           00079200
+.*                                                                      00079300
+&EDITIN  SETC   '&SYMBOLTBL'                                            00079400
+         DEFEDIT                                                        00079500
+DFTSYMBT DC    CL8'&EDITOUT'           SITE-DEFINED SYMBOLS TBL         00079600
+.*                                                                      00079700
+.* CA-7 INTERFACE DATA FIELDS                                           00079800
+.*                                                                      00079900
+.*  CCI NODE (OPTIONAL) NODE NAME WHERE CA-7 EXECUTES                   00080000
+.*  CA7 JCLID & CA7 JCLLIB  POINTERS TO THE JCL LIBRARY THAT IS DEFINED 00080100
+.*    TO CA-7 WHICH ENDEVOR STORES THE PACKAGE EXECUTION JCL  JCLID AND 00080200
+.*    JCLLIB ARE MUTUALLY-EXCLUSIVE, BUT AT LEAST ONE SPEC IS REQUIRED  00080300
+.*    FOR THE INTERFACE TO BE AVAILABLE.                                00080400
+.*  CA7 JCLDSN - THE DATA SET NAME ASSOCIATED WITH THE CA-7 JCL DATASET 00080500
+.*                                                                      00080600
+         AIF   (('&CA7JCLID' EQ '') AND ('&CA7JCLLIB' EQ '')).NOCA7     00080700
+         AIF   (('&CA7JCLID' NE '') AND ('&CA7JCLLIB' NE '')).CA7ERR1   00080800
+         AIF   ('&CA7JCLDSN' EQ '').CA7ERR2                             00080900
+         AGO   .C7EDONE                                                 00081000
+.NOCA7   ANOP                                                           00081100
+         AIF   ('&CA7CCINODE' EQ '').NOCA72                             00081200
+&MSGFLD  SETC  'CA7CCINODE'                                             00081300
+         AGO   .CA7ERR3                                                 00081400
+.NOCA72  ANOP                                                           00081500
+         AIF   ('&CA7JCLDSN' EQ '').C7EDONE                             00081600
+&MSGFLD  SETC  'CA7JCLDSN'                                              00081700
+         AGO   .CA7ERR3                                                 00081800
+.CA7ERR1 ANOP                                                           00081900
+         MNOTE 12,'CA7JCLID OR CA7JCLLIB ARE MUTUALLY-EXCLUSIVE'        00082000
+         MEXIT                                                          00082100
+.CA7ERR2 ANOP                                                           00082200
+         MNOTE 12,'CA7JCLDSN MUST BE SPECIFIED IF CA7JCLID OR CA7JCLLIBX00082300
+                IS SPECIFIED')                                          00082400
+         MEXIT                                                          00082500
+.CA7ERR3 ANOP                                                           00082600
+         MNOTE 12,'&MSGFLD CANNOT BE SPECIFIED IF CA7JCLID OR CA7JCLLIBX00082700
+                ARE BOTH OMITTED'                                       00082800
+         MEXIT                                                          00082900
+.C7EDONE ANOP                                                           00083000
+&EDITIN  SETC   '&CA7CCINODE'                                           00083100
+         DEFEDIT                                                        00083200
+DFTC7CCI DC    CL64'&EDITOUT'          CAICCI NODE FOR CA7 REGION       00083300
+&EDITIN  SETC   '&CA7JCLID'                                             00083400
+         DEFEDIT                                                        00083500
+DFTC7JID DC    CL3'&EDITOUT'           CA7 JCL DS INDEX SEQ NBR         00083600
+&EDITIN  SETC   '&CA7JCLLIB'                                            00083700
+         DEFEDIT                                                        00083800
+DFTC7JIB DC    CL16'&EDITOUT'          CA7 JCL DS INDEX SYMBOL          00083900
+&EDITIN  SETC   '&CA7JCLDSN'                                            00084000
+         DEFEDIT                                                        00084100
+DFTC7JDS DC    CL44'&EDITOUT'          CA7 JCL DATA SET NAME            00084200
+*                                                                       00084300
+&EDITIN  SETC   '&PARMLIB'                                              00084400
+         DEFEDIT                                                        00084500
+DFTPRMDS DC    CL44'&EDITOUT'     PARMLIB VALUE                         00084600
+.*                                                                      00084700
+&EDITIN  SETC   '&TYPESEQMBR'                                           00084800
+         DEFEDIT                                                        00084900
+DFTTYMBR DC    CL8'&EDITOUT'           TYPE SEQUENCE MBR VALUE          00085000
+.*                                                                      00085100
+&EDITIN  SETC   '&DESTCFGMBR'                                           00085200
+         DEFEDIT                                                        00085300
+DFTDCMBR DC    CL8'&EDITOUT'           PARMLIB DESTINATION CONFIG MBR   00085400
+*                                                                       00085500
+&EDITIN  SETC   '&ELMCATE'                                              00085600
+         DEFEDIT                                                        00085700
+.*                                                                      00085800
+DELMCATE DC    CL44'&EDITOUT'                                           00085900
+.*                                                                      00086000
+&EDITIN  SETC   '&OPTTBL'                                               00086100
+         DEFEDIT                                                        00086200
+.*                                                                      00086300
+DFTOPT   DC    CL8'&EDITOUT'           ENCOPTBL TABLE NAME              00086400
+         AIF ('&EDITLNG' LE '8').EDIT1                                  00086500
+         MNOTE 12,' LENGTH OF OPTTBL MUST BE 8 OR LESS'                 00086600
+.EDIT1   ANOP                                                           00086700
+.*                                                                      00086800
+&EDITIN  SETC   '&EXITTBL'                                              00086900
+         DEFEDIT                                                        00087000
+DFTUEX   DC    CL8'&EDITOUT'           C1UEXITS TABLE NAME              00087100
+         AIF ('&EDITLNG' LE '8').EDIT2                                  00087200
+         MNOTE 12,' LENGTH OF EXITTBL MUST BE 8 OR LESS'                00087300
+.EDIT2   ANOP                                                           00087400
+.*                                                                      00087500
+&EDITIN  SETC   '&CNFGTBL'                                              00087600
+         DEFEDIT                                                        00087700
+DFTCNFG  DC    CL8'&EDITOUT'           ENDICNFG TABLE NAME              00087800
+         AIF ('&EDITLNG' LE '8').EDIT3                                  00087900
+         MNOTE 12,' LENGTH OF CNFGTBL MUST BE 8 OR LESS'                00088000
+.EDIT3   ANOP                                                           00088100
+.*                                                                      00088200
+&EDITIN  SETC   '&ESMTPTBL'                                             00088300
+         DEFEDIT                                                        00088400
+DFTESMT  DC    CL8'&EDITOUT'           ESMTPTBL TABLE NAME              00088500
+         AIF ('&EDITLNG' LE '8').EDIT4                                  00088600
+         MNOTE 12,' LENGTH OF ESMTPTBL MUST BE 8 OR LESS'               00088700
+.EDIT4   ANOP                                                           00088800
+.*                                                                      00088900
+&EDITIN  SETC  '&COMPLISTWD'                                            00089000
+         DEFEDIT                                                        00089100
+         AIF  (&EDITLNG GT 8).LTSERR1                                   00089200
+         AIF  (&EDITLNG EQ 0).LTSGO1                                    00089300
+         AGO  .LTSGO2                                                   00089400
+.LTSERR1 MNOTE 12,'SPECIFICATION: INVALID COMPLISTWD VALUE &COMPLISTWD' 00089500
+.LTSGO1  ANOP                                                           00089600
+&EDITOUT SETC 'LIST'                                                    00089700
+.LTSGO2  ANOP                                                           00089800
+DFTLTSRG DC    CL8'&EDITOUT'                                            00089900
+         SPACE                                                          00090000
+         AIF   ('&SPAWN' EQ '').EM18                                    00090100
+&EDITOUT SETC  'Y'                                                      00090200
+         AIF   ('&SPAWN'(1,1) EQ 'Y').SPAWNI                            00090300
+&EDITOUT SETC  'N'                                                      00090400
+         AIF   ('&SPAWN'(1,1) EQ 'N').SPAWNI                            00090500
+         AGO   .EM18                                                    00090600
+         MEXIT                                                          00090700
+.SPAWNI  ANOP                                                           00090800
+DFTSPWNI DC    C'&EDITOUT'             SPAWN INDICATOR                  00090900
+.*                                                                      00091000
+DFTSPWNC DC    AL1(&SPAWNCNT)          SPAWN COUNT                      00091100
+DFTSPWNM DC    AL1(&SPAWNMAX)          SPAWN MAXIMUM COUNT              00091200
+&EDITIN  SETC  '&SPAWNPROC'                                             00091300
+         DEFEDIT                                                        00091400
+DFTSPWNP DC    CL8'&EDITOUT'           SPAWN PROC NAME                  00091500
+         AIF   ('&SPAWN'(1,1) NE 'Y').SPWNXIT                           00091600
+.*                                                                      00091700
+         AIF   ('&SPAWNCNT' EQ '').EM14                                 00091800
+         AIF   ('&SPAWNCNT' EQ '1').EM14                                00091900
+         AIF   ('&SPAWNCNT' GT '99').EM14                               00092000
+.*                                                                      00092100
+         AIF   ('&SPAWNMAX' EQ '').EM15                                 00092200
+         AIF   ('&SPAWNMAX' LT '2').EM15                                00092300
+         AIF   ('&SPAWNMAX' GT '99').EM15                               00092400
+.*                                                                      00092500
+         AIF   ('&SPAWNCNT' GT '&SPAWNMAX').EM16                        00092600
+.*                                                                      00092700
+&EDITIN  SETC  '&SPAWNPROC'                                             00092800
+         DEFEDIT                                                        00092900
+         AIF ('&EDITLNG' GT '8').EM17                                   00093000
+         AIF ('&EDITLNG' EQ '0').EM17                                   00093100
+.SPWNXIT ANOP                                                           00093200
+.*                                                                      00093300
+&EDITOUT SETC  'N'                                                      00093400
+         AIF   ('&SYNC@CHK' EQ '').SYNC01                               00093500
+         AIF   ('&SYNC@CHK'(1,1) EQ 'N').SYNC01                         00093600
+&EDITOUT SETC  'Y'                                                      00093700
+         AIF   ('&SYNC@CHK'(1,1) EQ 'Y').SYNC01                         00093800
+         MNOTE 12,'SPECIFICATION: INVALID SYNC@CHK VALUE: &SYNC@CHK'    00093900
+         MEXIT                                                          00094000
+.SYNC01  ANOP                                                           00094100
+DFTSNCHK DC    C'&EDITOUT'             SRC SYNC CHECK                   00094200
+.*                                                                      00094300
+&EDITOUT SETC  'I'                                                      00094400
+         AIF   ('&SYNC@MSV' NE '').SYNC01A                              00094500
+         AGO   .SYNC02                                                  00094600
+.SYNC01A ANOP                                                           00094700
+&EDITOUT SETC  '&SYNC@MSV'                                              00094800
+         AIF   ('&SYNC@MSV' EQ 'I').SYNC02                              00094900
+         AIF   ('&SYNC@MSV' EQ 'W').SYNC02                              00095000
+         AIF   ('&SYNC@MSV' EQ 'C').SYNC02                              00095100
+         MNOTE 12,'SPECIFICATION: INVALID SYNC@MSV VALUE: &SYNC@MSV'    00095200
+         MEXIT                                                          00095300
+.SYNC02  ANOP                                                           00095400
+DFTSNMSV DC    C'&EDITOUT'            SRC SYNC MESSAGE CODE             00095500
+.*                                                                      00095600
+&EDITIN  SETC  '&ALOGDSN'                                               00095700
+         DEFEDIT                                                        00095800
+DFTLOGDS DC    CL44'&EDITOUT'          ACTION LOG DSN                   00095900
+.*                                                                      00096000
+&EDITIN  SETC   '&E2ELOGMBR'                                            00096100
+         DEFEDIT                                                        00096200
+DFTEEMBR DC    CL8'&EDITOUT'           END-2-END USS LOGGING MEMBER     00096300
+.*
+&EDITIN  SETC   '&DFCMBR'
+         DEFEDIT
+DFTDFCMB DC    CL8'&EDITOUT'           DEFERRED FILE CREATION MEMBER
+.*
+&EDITIN  SETC  '&GCFDSN'
+         DEFEDIT
+DFTGLBCF DC    CL44'&EDITOUT'          GLOBAL CONTROL FILE DSN
+DFTSMFDE DC    CL1'&SMFDYNENV'       DYNAMIC ENVIRONMENT SMF RECORDING
+*                                                                       00096400
+.*                                                                      00096500
+.********************************************************************** 00096600
+.*                END OF TYPE=MAIN SPECIFICATIONS                     * 00096700
+.********************************************************************** 00096800
+         ORG   ,
+         AIF   ('&TYPE' NE 'DSECT').DEFEND                              00097000
+DFT1SYS  EQU   BASEEND                     START OF FIRST ENVIRONMENT   00097100
+         SPACE  4                                                       00097200
+DFTSETLT DSECT                                                          00097300
+         AIF   ('&TYPE' EQ 'DSECT').AFTREDT                             00097400
+.SYSDEF  ANOP                                                           00097500
+         AIF   ('&STG1NME' EQ '').STG1ERR                               00097600
+         AIF   ('&ENTRYSTG#' NE '1').LBLES2                             00097700
+&STG1ENTRY SETC 'Y'                                                     00097800
+&STG2ENTRY SETC 'N'                                                     00097900
+         AGO   .LBLESX                                                  00098000
+.LBLES2  ANOP                                                           00098100
+&STG1ENTRY SETC 'N'                                                     00098200
+&STG2ENTRY SETC 'Y'                                                     00098300
+.LBLESX  ANOP                                                           00098400
+      AIF (('&SMFSEC'(1,1) NE 'Y') AND ('&SMFSEC'(1,1) NE 'N')).SMFSERR 00098500
+      AIF (('&SMFACT'(1,1) NE 'Y') AND ('&SMFACT'(1,1) NE 'N')).SMFAERR 00098600
+      AIF (('&SMFENV'(1,1) NE 'Y') AND ('&SMFENV'(1,1) NE 'N')).SMFEERR 00098700
+         AGO   .AFTREDT                                                 00098800
+.STG1ERR MNOTE 12,'SPECIFICATION: STG1NAME NOT SPECIFIED'               00098900
+         MEXIT                                                          00099000
+.SMFSERR MNOTE 12,'SPECIFICATION: INVALID SMF SECURITY OPTION &SMFSEC'  00099100
+         MEXIT                                                          00099200
+.SMFAERR MNOTE 12,'SPECIFICATION: INVALID SMF ACTIVITY OPTION &SMFACT'  00099300
+         MEXIT                                                          00099400
+.SMFEERR MNOTE 12,'SPECIFICATION: INVALID SMF ENVRNMNT OPTION &SMFENV'  00099500
+         MEXIT                                                          00099600
+.AFTREDT ANOP                                                           00099700
+.*                                                                      00099800
+SYS&SYSNDX DC  256X'00'                                                 00099900
+         AIF   ('&TYPE' NE 'DSECT').NODEQU  SKIP EQUATE IF NOT DSECT    00100000
+DFT1SYSL EQU   *-DFTSETLT                                               00100100
+.*                                                                      00100200
+.NODEQU  ANOP                                                           00100300
+         ORG   SYS&SYSNDX                                               00100400
+.*                                                                      00100500
+         AIF   ('&TYPE' NE 'DSECT').NOSYSDS                             00100600
+.NOSYSDS ANOP                                                           00100700
+&EDITIN  SETC  '&STG1NME'                                               00100800
+         DEFEDIT                                                        00100900
+&DLBL1   DC    CL8'&EDITOUT'           STG 1 8 BYTE NAME                00101000
+&EDITIN  SETC  '&STG1VSM'                                               00101100
+         DEFEDIT                                                        00101200
+&DLBL2   DC    CL44'&EDITOUT'          STG 1 44 BYTE VSAM CLUSTER NAME  00101300
+&EDITIN  SETC  '        '                                               00101400
+         DEFEDIT                                                        00101500
+&DLBL3   DC    CL8'&EDITOUT'                                            00101600
+&EDITIN  SETC  '        '                                               00101700
+         DEFEDIT                                                        00101800
+&DLBL4   DC    CL8'&EDITOUT'                                            00101900
+&EDITIN  SETC  '&ENVTITL'                                               00102000
+         DEFEDIT                                                        00102100
+&DLBL5   DC    CL40'&EDITOUT'          ENDEVOR-C1 ENVIRONMENT TITLE
+.*                                                                      00102300
+.*                                                                      00102400
+&NBRMACS SETA  &NBRMACS+1                                               00102500
+.*                                                                      00102600
+         AIF   (&NBRMACS GT 1).SKP                                      00102700
+         AIF   ('&TYPE' NE 'DSECT').SKP                                 00102800
+.*                                                                      00102900
+DFTENVDYN DC   BL1'0'                  DYNAMIC FLAG (INTERNAL USE)
+DFTENVDYN_N EQU B'0'
+DFTENVDYN_Y EQU B'1'
+         DC    BL1'0'                  RESERVED FOR FUTURE USE          00103000
+         SPACE                                                          00103200
+SMFSEC   DC    CL1'&SMFSEC'            SECURITY RECORDING (SMF TYPE 1)  00103300
+         DC    BL1'0'                  RESERVED FOR FUTURE USE          00103400
+         SPACE                                                          00103500
+SMFACT   DC    CL1'&SMFACT'            ACTIVITY RECORDING (SMF TYPE 2)  00103600
+         DC    BL1'0'                  RESERVED FOR FUTURE USE          00103700
+         SPACE                                                          00103800
+SMFENV   DC    CL1'&SMFENV'            ADMIN ACTIONS SMF RECORDING      00103900
+&EDITIN  SETC  '&NEXTENV(2)'                                            00104000
+         DEFEDIT                                                        00104100
+&DLBLF   DC    CL1'&EDITOUT'           NEXT STAGE ID (1 CHAR)           00104200
+&NXTSTG(&NBRMACS) SETC '&EDITOUT'                                       00104300
+&EDITIN  SETC  '&ENVNAME'                                               00104400
+&ENVNAM(&NBRMACS) SETC '&EDITOUT'                                       00104500
+         DEFEDIT                                                        00104600
+&DLBL6   DC    CL8'&EDITOUT'           ENDEVOR-C1 ENVIRONMENT NAME
+&EDITIN  SETC  '&NEXTENV(1)'                                            00104800
+         DEFEDIT                                                        00104900
+&DLBL7   DC    CL8'&EDITOUT'           NEXT ENVIRINMENT ID (8 CHARS)    00105000
+&NXTENV(&NBRMACS) SETC '&EDITOUT'                                       00105100
+.*                                                                      00105200
+.*       ADD ENDEVOR DB OPTIONS AND FLAGS                               00105300
+.*                                                                      00105400
+&EDITIN  SETC  '&ENDBAVL'                                               00105500
+         DEFEDIT                                                        00105600
+&DFDBAVL DC    CL1'&EDITOUT'           DB-C1 CAPABLILITY AVAILABLE      00105700
+&EDITIN  SETC  '&ENDBACT'                                               00105800
+         DEFEDIT                                                        00105900
+&DFDBACT DC    CL1'&EDITOUT'           DB-C1 CAPABLILITY ACTIVE         00106000
+&EDITIN  SETC  '&ENDBOP1'                                               00106100
+         DEFEDIT                                                        00106200
+&DFDBOP1 DC    CL1'&EDITOUT'           DB-C1 OPTION 1                   00106300
+&EDITIN  SETC  '&ENDBOP2'                                               00106400
+         DEFEDIT                                                        00106500
+&DFDBOP2 DC    CL1'&EDITOUT'           DB-C1 OPTION 2                   00106600
+&EDITIN  SETC  '&ENDBOP3'                                               00106700
+         DEFEDIT                                                        00106800
+&DFDBOP3 DC    CL1'&EDITOUT'           DB-C1 OPTION 3                   00106900
+&EDITIN  SETC  '&ENDBOP4'                                               00107000
+         DEFEDIT                                                        00107100
+&DFDBOP4 DC    CL1'&EDITOUT'           DB-C1 OPTION 4                   00107200
+&EDITIN  SETC  '&STG2NME'                                               00107300
+         DEFEDIT                                                        00107400
+&DLBL8   DC    CL8'&EDITOUT'           STG 2 8 BYTE NAME                00107500
+.*                                                                      00107600
+&EDITIN  SETC  '&STG2VSM'                                               00107700
+         DEFEDIT                                                        00107800
+&DLBL9   DC    CL44'&EDITOUT'          STG 2 44 BYTE VSAM CLUSTER NAME  00107900
+.*                                                                      00108000
+&EDITIN  SETC  '&STG1ID'                                                00108100
+         DEFEDIT                                                        00108200
+&DLBLA   DC    CL1'&EDITOUT'           STG 1 ONE BYTE STAGE ID          00108300
+&STG1(&NBRMACS) SETC '&EDITOUT'                                         00108400
+.*                                                                      00108500
+&EDITIN  SETC  '&STG1TTL'                                               00108600
+         DEFEDIT                                                        00108700
+&DLBLB   DC    CL20'&EDITOUT'          STG 1 TWENTY BYTE TITLE          00108800
+.*                                                                      00108900
+&EDITIN  SETC  '&STG2ID'                                                00109000
+         DEFEDIT                                                        00109100
+&DLBLC   DC    CL1'&EDITOUT'           STG 2 ONE BYTE STAGE ID          00109200
+&STG2(&NBRMACS) SETC '&EDITOUT'                                         00109300
+.*                                                                      00109400
+&EDITIN  SETC  '&STG2TTL'                                               00109500
+         DEFEDIT                                                        00109600
+&DLBLD   DC    CL20'&EDITOUT'          STG 2 TWENTY BYTE TITLE          00109700
+.*                                                                      00109800
+&EDITIN  SETC  'N'                                                      00109900
+         AIF   ('&STG1PSAS' EQ '').PSASN1                               00110000
+&EDITIN  SETC  '&STG1PSAS'                                              00110100
+.PSASN1  ANOP                                                           00110200
+         DEFEDIT                                                        00110300
+&DLBLS1  DC    CL1'&EDITOUT'           STG 1 PROM STOP AT STAGE         00110400
+.*                                                                      00110500
+&EDITIN  SETC  'N'                                                      00110600
+         AIF   ('&STG2PSAS' EQ '').PSASN2                               00110700
+&EDITIN  SETC  '&STG2PSAS'                                              00110800
+.PSASN2  ANOP                                                           00110900
+         DEFEDIT                                                        00111000
+&DLBLS2  DC    CL1'&EDITOUT'           STG 2 PROM STOP AT STAGE         00111100
+         DC    CL2' '                  ** RESERVED **                   00111200
+&DFLBLJ1 DC    AL4(-1)                 ENVIRONMENT JOURNAL-GROUP NAME   00111300
+&DFLBLE1 DC    CL1' '                  STG 1 ENTRY STAGE INDICATOR      00111400
+&DFLBLE2 DC    CL1' '                  STG 2 ENTRY STAGE INDICATOR      00111500
+&DFBLSLC DC    CL1' '                  SOURCE SYNC BEGIN LOCATION       00111600
+         AGO   .DEFEND                                                  00111700
+         SPACE                                                          00111800
+.SKP ANOP                                                               00111900
+         DC    BL2'0'                  RESERVED FOR FUTURE USE          00112000
+         SPACE                                                          00112100
+*********************************************************************** 00112200
+***                                                                 *** 00112300
+***             SMF SECURTY RECORDING OPTION                        *** 00112400
+***                                                                 *** 00112500
+*********************************************************************** 00112600
+         SPACE                                                          00112700
+         DC    CL1'&SMFSEC'                                             00112800
+         DC    BL1'0'                  RESERVED FOR FUTURE USE          00112900
+         SPACE 2                                                        00113000
+*********************************************************************** 00113100
+***                                                                 *** 00113200
+***           SMF ACTION ACTIVITY RECORDING OPTION                  *** 00113300
+***                                                                 *** 00113400
+*********************************************************************** 00113500
+         SPACE                                                          00113600
+         DC    CL1'&SMFACT'                                             00113700
+         DC    BL1'0'                  RESERVED FOR FUTURE USE          00113800
+         SPACE 2                                                        00113900
+*********************************************************************** 00114000
+***                                                                 *** 00114100
+***         SMF ENVIRONMENT MODIFICATION RECORDING OPTION           *** 00114200
+***                                                                 *** 00114300
+*********************************************************************** 00114400
+         SPACE                                                          00114500
+         DC    CL1'&SMFENV'                                             00114600
+&EDITIN  SETC  '&NEXTENV(2)'                                            00114700
+         DEFEDIT                                                        00114800
+&DLBLF   DC    CL1'&EDITOUT'           NEXT STAGE ID (1 CHAR)           00114900
+&NXTSTG(&NBRMACS) SETC '&EDITOUT'                                       00115000
+         SPACE 2                                                        00115100
+&EDITIN  SETC  '&ENVNAME'                                               00115200
+         DEFEDIT                                                        00115300
+         AIF   (&EDITLNG GT 8).S5LENE                                   00115400
+         AIF   (&EDITLNG EQ 0).EV1                                      00115500
+         @NATEDIT                                                       00115600
+         AGO   .ED5ST10                                                 00115700
+.S5LENE  ANOP                                                           00115800
+         MNOTE 12,'ENVNAME MUST BE 8 CHARACTERS OR LESS &ENVNAME  INVALX00115900
+               ID'                                                      00116000
+         MEXIT                                                          00116100
+.ED5ST10 ANOP                                                           00116200
+&DLBL6   DC    CL8'&EDITOUT'           ENDEVOR-C1 ENVIRONMENT NAME
+&ENVNAM(&NBRMACS) SETC '&EDITOUT'                                       00116400
+&EDITIN  SETC  '&NEXTENV(1)'                                            00116500
+         DEFEDIT                                                        00116600
+         AIF   ('&EDITOUT' EQ ' ').ED6ST10                              00116700
+         @NATEDIT                                                       00116800
+.ED6ST10 ANOP                                                           00116900
+&DLBL7   DC    CL8'&EDITOUT'           NEXT ENVIRINMENT ID (8 CHARS)    00117000
+&NXTENV(&NBRMACS) SETC '&EDITOUT'                                       00117100
+.*                                                                      00117200
+.*       ENDEVOR DB BRIDGE OPTIONS AND FLAGS                            00117300
+.*                                                                      00117400
+&EDITIN  SETC  '&ENDBAVL'                                               00117500
+         DEFEDIT                                                        00117600
+&DFDBAVL DC    CL1'&EDITOUT'           DB-C1 CAPABLILITY AVAILABLE      00117700
+&EDITIN  SETC  '&ENDBACT'                                               00117800
+         DEFEDIT                                                        00117900
+&DFDBACT DC    CL1'&EDITOUT'           DB-C1 CAPABLILITY ACTIVE         00118000
+&EDITIN  SETC  '&ENDBOP1'                                               00118100
+         DEFEDIT                                                        00118200
+&DFDBOP1 DC    CL1'&EDITOUT'           DB-C1 OPTION 1                   00118300
+&EDITIN  SETC  '&ENDBOP2'                                               00118400
+         DEFEDIT                                                        00118500
+&DFDBOP2 DC    CL1'&EDITOUT'           DB-C1 OPTION 2                   00118600
+&EDITIN  SETC  '&ENDBOP3'                                               00118700
+         DEFEDIT                                                        00118800
+&DFDBOP3 DC    CL1'&EDITOUT'           DB-C1 OPTION 3                   00118900
+&EDITIN  SETC  '&ENDBOP4'                                               00119000
+         DEFEDIT                                                        00119100
+&DFDBOP4 DC    CL1'&EDITOUT'           DB-C1 OPTION 4                   00119200
+&EDITIN  SETC  '&STG2NME'                                               00119300
+         DEFEDIT                                                        00119400
+&DLBL8   DC    CL8'&EDITOUT'           STG 2 8 BYTE NAME                00119500
+&EDITIN  SETC  '&STG2VSM'                                               00119600
+         DEFEDIT                                                        00119700
+&DLBL9   DC    CL44'&EDITOUT'          STG 2 44 BYTE VSAM CLUSTER NAME  00119800
+.*                                                                      00119900
+&EDITIN  SETC  '&STG1ID'                                                00120000
+         DEFEDIT                                                        00120100
+&DLBLA   DC    CL1'&EDITOUT'           STG 1 ONE BYTE STAGE ID          00120200
+&STG1(&NBRMACS) SETC '&EDITOUT'                                         00120300
+.*                                                                      00120400
+&EDITIN  SETC  '&STG1TTL'                                               00120500
+         DEFEDIT                                                        00120600
+&DLBLB   DC    CL20'&EDITOUT'          STG 1 TWENTY BYTE TITLE          00120700
+.*                                                                      00120800
+&EDITIN  SETC  '&STG2ID'                                                00120900
+         DEFEDIT                                                        00121000
+&DLBLC   DC    CL1'&EDITOUT'           STG 2 ONE BYTE STAGE ID          00121100
+&STG2(&NBRMACS) SETC '&EDITOUT'                                         00121200
+.*                                                                      00121300
+&EDITIN  SETC  '&STG2TTL'                                               00121400
+         DEFEDIT                                                        00121500
+&DLBLD   DC    CL20'&EDITOUT'          STG 2 TWENTY BYTE TITLE          00121600
+.*                                                                      00121700
+&EDITIN  SETC  'N'                                                      00121800
+         AIF   ('&STG1PSAS' EQ '').PSASN1B                              00121900
+&EDITIN  SETC  '&STG1PSAS'                                              00122000
+.PSASN1B ANOP                                                           00122100
+         DEFEDIT                                                        00122200
+&DLBLS1  DC    CL1'&EDITOUT'           STG 1 PROM STOP AT STAGE         00122300
+.*                                                                      00122400
+&EDITIN  SETC  'N'                                                      00122500
+         AIF   ('&STG2PSAS' EQ '').PSASN2B                              00122600
+&EDITIN  SETC  '&STG2PSAS'                                              00122700
+.PSASN2B ANOP                                                           00122800
+         DEFEDIT                                                        00122900
+&DLBLS2  DC    CL1'&EDITOUT'           STG 2 PROM STOP AT STAGE         00123000
+         DC    CL2' '                  ** RESERVED **                   00123100
+*********************************************************************** 00123200
+         AIF   ('&JRNLGRP' EQ '').NOENVJ                                00123300
+&DFLBLJ1 DC    AL4(ENVJ&SYSNDX)                                         00123400
+DATAPOOL CSECT                                                          00123500
+ENVJ&SYSNDX DC CL8'&JRNLGRP(1) '       JOURNAL-GROUP NAME               00123600
+         DC    CL4'&JRNLGRP(2) '       JOURNAL-GROUP SUBSYSTEM ID       00123700
+&CSECT   CSECT                                                          00123800
+         AGO   .GOTENVJ                                                 00123900
+.NOENVJ  ANOP                                                           00124000
+&DFLBLJ1 DC    AL4(0)                  NO JOURNAL-GROUP NAME            00124100
+.GOTENVJ ANOP                                                           00124200
+*********************************************************************** 00124300
+&DFLBLE1 DC    CL1'&STG1ENTRY'         STAGE 1 ENTRY INDICATOR          00124400
+&DFLBLE2 DC    CL1'&STG2ENTRY'         STAGE 2 ENTRY INDICATOR          00124500
+&EDITIN  SETC  'N'                                                      00124600
+         AIF   ('&SYNC@BLOC' EQ '').NOENVK                              00124700
+&EDITIN  SETC  '&SYNC@BLOC'                                             00124800
+.NOENVK  ANOP                                                           00124900
+         DEFEDIT                                                        00125000
+&DFBLSLC DC    CL1'&EDITOUT'           SOURCE SYNC BEGIN LOCATION       00125100
+         ORG                                                            00125200
+         AGO   .DEFEND                                                  00125300
+.*  ERROR MESSAGES FOR TYPE=MAIN.                                       00125400
+.EM1     MNOTE 12,'DUPLICATE TYPE=MAIN SPECIFICATION'                   00125500
+         MEXIT                                                          00125600
+.EM3     MNOTE 12,'CUNAME REQUIRED'                                     00125700
+         MEXIT                                                          00125800
+.EM6     MNOTE 12,'MACDSN REQUIRED'                                     00125900
+         MEXIT                                                          00126000
+.EM7     MNOTE 12,'SITEID REQUIRED'                                     00126100
+         MEXIT                                                          00126200
+.EM8     MNOTE 12,'LINESPP REQUIRED'                                    00126300
+         MEXIT                                                          00126400
+.EM9     MNOTE 12,'LIBRPGM REQUIRED WHEN LIBENV=LB'                     00126500
+         MEXIT                                                          00126600
+.EM10    MNOTE 12,'LIBENV=&LIBENV INVALID'                              00126700
+         MEXIT                                                          00126800
+.EM12    MNOTE 12,'AUTHTBLS PARAMETER IS MISSING OR INVALID'            00126900
+         MEXIT                                                          00127000
+.EM13    MNOTE 12,'ELMCATL REQUIRED'                                    00127100
+         MEXIT                                                          00127200
+.EM14    MNOTE 12,'SPAWN COUNT VALUE (&SPAWNCNT) MUST BE 00 OR 02-99'   00127300
+         MEXIT                                                          00127400
+.EM15    MNOTE 12,'SPAWN MAXIMUM VALUE (&SPAWNMAX) MUST BE 02-99'       00127500
+         MEXIT                                                          00127600
+.EM16    MNOTE 12,'SPAWN COUNT (&SPAWNCNT) > THAN MAX CNT (&SPAWNMAX)'  00127700
+         MEXIT                                                          00127800
+.EM17    MNOTE 12,'LENGTH OF SPAWNPROC NAME MUST BE 1-8 CHARACTERS'     00127900
+         MEXIT                                                          00128000
+.EM18    MNOTE 12,'SPAWN INDICATOR MUST BE Y OR N. &SPAWN IS INVALID'   00128100
+         MEXIT                                                          00128200
+.*  ERROR MESSAGES FOR TYPE=ENVRNMNT.                                   00128300
+.EV1     MNOTE 12,'ENVNAME REQUIRED'                                    00128400
+         MEXIT                                                          00128500
+.EV2     MNOTE 12,'ENVTITL REQUIRED'                                    00128600
+         MEXIT                                                          00128700
+.EV3     MNOTE 12,'STG1NME REQUIRED'                                    00128800
+         MEXIT                                                          00128900
+.EV4     MNOTE 12,'STG1VSM REQUIRED'                                    00129000
+         MEXIT                                                          00129100
+.EV5     MNOTE 12,'STG1ID REQUIRED'                                     00129200
+         MEXIT                                                          00129300
+.EV6     MNOTE 12,'STG1TTL REQUIRED'                                    00129400
+         MEXIT                                                          00129500
+.EV7     MNOTE 12,'STG2NME REQUIRED'                                    00129600
+         MEXIT                                                          00129700
+.EV8     MNOTE 12,'STG2VSM REQUIRED'                                    00129800
+         MEXIT                                                          00129900
+.EV9     MNOTE 12,'STG2ID REQUIRED'                                     00130000
+         MEXIT                                                          00130100
+.EVA     MNOTE 12,'STG2TTL REQUIRED'                                    00130200
+         MEXIT                                                          00130300
+.EVB     MNOTE 12,'SMFREC# OMITTED ON TYPE=MAIN'                        00130400
+         MEXIT                                                          00130500
+.EVC     MNOTE 12,'INVALID ENTRYSTG#, MUST BE 1 OR 2'                   00130600
+         MEXIT                                                          00130700
+.EVD     MNOTE 12,'INVALID SYNC@BLOC, MUST BE Y OR N'                   00130800
+         MEXIT                                                          00130900
+.EVE1    MNOTE 12,' INVALID STG1PSAS, MUST BE Y, N OR NULL. &STG1PSAS IX00131000
+               S INVALID.'                                              00131100
+         MEXIT                                                          00131200
+.EVE2    MNOTE 12,' INVALID STG2PSAS, MUST BE Y, N OR NULL. &STG2PSAS IX00131300
+               S INVALID.'                                              00131400
+.EVF     MNOTE 12,'INVALID SMFPKGADM, MUST BE Y OR N'                   00131500
+         MEXIT                                                          00131600
+.EVF2    MNOTE 12,'INVALID SMFDYNENV, MUST BE Y OR N'
+         MEXIT
+.EVSM    MNOTE 12,'STAGE2 VSAM NAME CANNOT MATCH STAGE1 VSAM NAME'      00131700
+         MEXIT                                                          00131800
+.ESTID   MNOTE 12,'STAGE2 ID CANNOT MATCH STAGE1 ID FOR SAME ENV'       00131900
+         MEXIT                                                          00132000
+.ESTNM   MNOTE 12,'STAGE2 STAGE NAME CANNOT MATCH STAGE1 STAGE NAME'    00132100
+         MEXIT                                                          00132200
+.BADFMT  MNOTE 12,'AN INVALID VALUE WAS SPECIFIED ON THE MIXEDFMT PARAMX00132300
+               ETER'                                                    00132400
+         MEXIT                                                          00132500
+.YNREQD  MNOTE 12,'PASSWORDS ARE NO LONGER SPECIFIED IN C1DEFLTS - A Y/X00132600
+               N SPECIFICATION IS REQUIRED'                             00132700
+         MEXIT                                                          00132800
+*********************************************************************** 00132900
+*** TYPE=END PROCESSING ENTERS THE TOTAL NUMBER OF ENVS DEFINED     ***
+*********************************************************************** 00133100
+.DOEND   ANOP                                                           00133200
+         AIF   ('&TYPEND' EQ 'END').ED1                                 00133300
+&TYPEND  SETC  'END'                                                    00133400
+.*
+         AIF   (&NBRMACS LE &MAXENV).ENVOK
+         MNOTE 12,'THE NUMBER OF ENVIRONMENTS CANNOT EXCEED &MAXENV'
+         MEXIT
+.*
+.ENVOK   ANOP
+         AIF   (&NBRMACS LE 255).ENV255
+         ORG   DFT#CTLI                                                 00133500
+         DC    AL1(0)             NUMBER OF ENVIRONMENTS > 255
+         ORG   DFT#ENV
+         DC    AL2(&NBRMACS)      NUMBER OF ENVIRONMENTS > 255
+         ORG   ,
+         AGO   .ENVEND
+.ENV255  ANOP
+         ORG   DFT#CTLI
+         DC    AL1(&NBRMACS)      NUMBER OF ENVIRONMENTS 255 OR LESS
+         ORG   DFT#ENV
+         DC    AL2(&NBRMACS)      NUMBER OF ENVIRONMENTS 255 OR LESS
+         ORG   ,
+.ENVEND  ANOP
+.*
+*********************************************************************** 00133700
+*** TYPE=END VALIDATE NEXTENV (ENVIRONMENT AND STAGE)               *** 00133800
+*********************************************************************** 00133900
+.*                                                                      00134000
+.*                                                                      00134100
+&I       SETA  0                                                        00134200
+         AIF   (&I EQ &NBRMACS).DEFEND                                  00134300
+         AIF   (&I EQ &K).EM13                                          00134400
+.VALENV  ANOP                                                           00134500
+         ACTR  4096
+&I       SETA  &I+1                                                     00134600
+         AIF   (&I GT &NBRMACS).DEFEND                                  00134700
+         AIF   ('&NXTENV(&I)' EQ '').VALCKST                            00134800
+         AIF   ('&NXTENV(&I)' EQ ' ').VALCKST                           00134900
+&J       SETA  0                                                        00135000
+.VALFIND ANOP                                                           00135100
+&J       SETA  &J+1                                                     00135200
+         AIF   (&J GT &NBRMACS).VALERR1                                 00135300
+         AIF   ('&ENVNAM(&J)' NE '&NXTENV(&I)').VALFIND                 00135400
+         AIF   ('&NXTSTG(&I)' EQ '').VALENV                             00135500
+         AIF   ('&NXTSTG(&I)' EQ ' ').VALENV                            00135600
+         AIF   ('&NXTSTG(&I)' EQ '&STG1(&J)').VALENV                    00135700
+         AIF   ('&NXTSTG(&I)' EQ '&STG2(&J)').VALENV                    00135800
+         MNOTE 12,'ENVIRONMENT &ENVNAM(&I) - NEXT STAGE ID (&NXTSTG(&I)X00135900
+               ) IS NOT VALID FOR ENVIRONMENT &ENVNAM(&J)'              00136000
+         AGO   .VALENV                                                  00136100
+.VALERR1 MNOTE 12,'ENVIRONMENT &ENVNAM(&I) - NEXT ENVIRONMENT NAME (&NXX00136200
+               TENV(&I)) IS NOT VALID'                                  00136300
+         AGO   .VALENV                                                  00136400
+.VALCKST ANOP                                                           00136500
+         AIF   ('&NXTSTG(&I)' EQ '').VALENV                             00136600
+         AIF   ('&NXTSTG(&I)' EQ ' ').VALENV                            00136700
+         MNOTE 12,'ENVIRONMENT &ENVNAM(&I) - NEXTENV CONTAINS STAGE ID X00136800
+               (&NXTSTG(&I)) AND NO ENVIRONMENT NAME'                   00136900
+         AGO   .VALENV                                                  00137000
+*********************************************************************** 00137100
+.ED1     MNOTE 12,'DUPLICATE TYPE=END SPECIFICATION'                    00137200
+*********************************************************************** 00137300
+.DEFEND  ANOP                                                           00137400
+         MEND                                                           00137500

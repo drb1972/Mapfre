@@ -1,0 +1,37 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag @ uh elmsel
+tag ¢ sh element
+tag ~ sh elmtyns
+tag ` sh elmstage
+tag ^ sh elmvvll
+tag $ sh elmdates
+tag ) sh elmsys
+tag ! sh elmsbsys
+%---------------------------  Element Selection List  --------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++                                                        ---- DATES -----
++   SYSTEM   SUBSYSTEM  ELEMENT    TYPE    NS  S  VVLL   CURRENT GENERATE
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+@  )        !          ¢          ~           `  ^      $
+enddef

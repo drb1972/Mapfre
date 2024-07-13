@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPPARA Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPPARA command identifies each inserted or deleted paragraph in a
++WIP member. A paragraph is a block of lines that have the same operation
++(insert or delete) from the same Derivation file.
++
++The WIPPARA command adds a =NOTE= line immediately before the first line
++in the paragraph. The =NOTE= line identifies the type of paragraph. If the
++WIP file contains at least one paragraph, PDM positions the WIP member
++at the first paragraph found. To locate subsequent paragraphs you can use
++the ISPF/PDF LOCATE SPECIAL command. The ISPF/PDF RESET command will
++remove the =NOTE+ lines.
++
++To execute the WIPPARA command, type WIPPARA in the COMMAND field, then
++press ENTER.
++
++Use the WIPPARA command to assess the condition of the WIP file.
++
+)END

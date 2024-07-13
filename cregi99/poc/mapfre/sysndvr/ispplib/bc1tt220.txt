@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Tools for Consolidating and Resolving Conflicts \-\TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Build WIP process is the PDM mechanism for consolidating changes
++and identifying conflicts.  By automating the consolidation of changes
++and identification of conflicts, PDM both speeds up and increases the
++accuracy of this step in parallel development.
+
++PDM also provides editing tools to speed up the process of resolving
++any conflicts that exist.
+
++    Select%1-4+for information about:
++
+%    1+- Building WIP files         %3+- PDM editing tools
+%    2+- Editing WIP files          %4+- WIP file annotations
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T2000 2,BC1T1500 3,BC1T1530 4,BC1T1520)
+)END

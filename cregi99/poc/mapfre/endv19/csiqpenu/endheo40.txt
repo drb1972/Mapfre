@@ -1,0 +1,28 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_VARWKCMD                                                         +
++
++Foreground Options
++
+%   Element Column Width+- Element Column Width for selection list.
++     The range is 8 to 30. The initial value for this field is set
++     from the%&LIT1                 +ENDICNFG Configuration Table
++     parameter. Once the ISPF User Defaults panel is displayed the
++     value entered by the user is saved and restored each time the
++     panel is re-displayed.
++     This option is not displayed and cannot be used with CCOLS
++     option enabled. (CD19002)
++
+%   ISPF Browse/View Mode+- Specify "B" for BROWSE mode or "V" for
++     VIEW mode.
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit)  \ \
++
+)INIT
+   &LIT1 = 'SEL_LIST_ELM_COL_WIDTH'
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
++TUTORIAL%\-\ Submit Package Panel \-\+TUTORIAL
++SELECTION%===>_ZCMD                                                           +
+%
++Use the following options to submit a package for batch execution:
++
+%  S+- To submit the package for batch execution.
++      If%INCLUDE JCL+is set to%Y,+ additional JCL will be included
++      when the job is submitted.
++
+%  E+- To enter JCL to be included with the job.
++      For this JCL to be included, the%INCLUDE JCL+option must be
++      set to%Y.+
++
++
++  Select one of the following options for more information:
++
+%    1+- Package ID fields          %3+- Job Statement
+%    2+- Package Status             %4+- Concurrent Action Processing
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITJBST0 4,CITB0010)
+)END

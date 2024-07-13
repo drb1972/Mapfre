@@ -1,0 +1,23 @@
+@REM ****************************************************** #PSNWDMP ***
+@REM *    CONTENTS: ENDEVOR/MVS - TRANSMIT A PDS TO THE REMOTE
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: ADD A COPY COMMAND TO THE NDM PROCESS
+@REM *******************************************************************
+@REM *   P003400
+@REM *   P003487
+@REM *
+@IF &FDSN
+STEP&F4 COPY FROM (PNODE DISP=SHR -
+                DSN=&FDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@ENDIF
+@IF &RVOLSER
+                VOL=SER=&RVOLSER -
+@ENDIF
+@IF &C1SPDSNT
+@INCLUDE=L
+@ENDIF
+@IF &TDSN
+                DSN=&TDSN)
+@ENDIF

@@ -1,0 +1,16 @@
+      *****************************************************************
+      *
+      *            BACKIN A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APBKI-RQ.
+           05  APBKI-RQ-HEADER.
+               10  APBKI-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APBKI-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APBKI-RQ-ID         PIC 9(04) COMP VALUE 1552.
+               10  APBKI-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APBKI-RQ-EYE        PIC X(04)      VALUE 'PBIQ'.
+           05  APBKI-RQ-DATAAREA.
+               10  APBKI-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APBKI-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

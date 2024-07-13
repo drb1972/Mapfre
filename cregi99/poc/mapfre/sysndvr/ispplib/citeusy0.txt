@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Symbolics \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel allows you to view or override symbolics contained in the
++processor you selected on the processor group definition panel.
++
++This panel shows:
++ * The environment, Stage ID, system and type to which the processor
++      group is assigned.
++ * The name and description of the processor group.
++ * The name of the processor containing the symbolics, and the load
++      library where the executable form of the processor resides
++ * If in update mode, instructions for working with the symbolics.
++ * Symbolics fields, as described below.
++
+%Symbolic+- Name of a symbolic in the PROC statement of the processor.
+%D/O+- Indicates the status of the symbolic value.
+%        D+- Default value for the symbolic in the processor.
+%        O+- Override value for the symbolic.
+%Value+- Value for the symbolic during next execution of the processor.
++
++                                            (%PF3+to return)
+)END
++

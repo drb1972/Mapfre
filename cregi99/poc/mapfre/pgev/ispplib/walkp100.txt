@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+      /*  % TYPE(TEXT) INTENS(HIGH)      defaults displayed for      */
+      /*  + TYPE(TEXT) INTENS(LOW)       information only            */
+      /*  _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+  $ TYPE(INPUT) INTENS(LOW) PAD(_)    /* input field padded with '_' */
+  ! TYPE(INPUT) INTENS(LOW) PAD(' ')  /* input field padded with ' ' */
+)BODY EXPAND(\\)
+%\-\  ADD/UPDATE WALKER DB2 ELEMENT  \-\
+%COMMAND ===>_ZCMD                                                             +
+%
++
++ENVIRONMENT  ===>!Z    +                      (UNIT, SYST, ACPT or PROD)
++
++ELEMENT      ===>!Z                             + (LEAVE BLANK FOR LIST)
++
++TYPE         ===>!Z  +                    (DOC, DOP, ERR, FID, GMT, MVT,
++                                         NAM, RPT, SCR, TGS, TID or VMS)
++
++ENDEVOR CCID ===>!Z       +
++
++
++
++SUBSYSTEM    ===>!Z  +
++
++
++JOB STATEMENT INFORMATION:
++   ===> !Z                                                         +
++   ===> !Z                                                         +
++   ===> !Z                                                         +
++   ===> !Z                                                         +
+)INIT
+    .ZVARS = '(ENVT,ELE,TYPE,CCID,ESYS,JOB1,JOB2,JOB3,JOB4)'
+    &zcmd = &z
+)PROC
+    VER (&ENVT,NB,LIST,UNIT,SYST,ACPT,PROD)
+    VER (&TYPE,NB,LIST,DOC,DOP,ERR,FID,GMT,MVT,NAM,RPT,SCR,TGS,TID,VMS)
+    VER (&CCID,NB)
+    VER (&CCID,PICT,ANNNNNNN,MSG=WALKM100)
+    VER (&ESYS,NB,LIST,CJ1,CJ2,CJ3,CJ4,CJ5,CJ6,CJ7,CJ8,CJ9,EM1,-
+                                MSG=WALKM108)
+    VPUT (ENVT ELE TYPE CCID ESYS JOB1 JOB2 JOB3 JOB4) SHARED
+)END

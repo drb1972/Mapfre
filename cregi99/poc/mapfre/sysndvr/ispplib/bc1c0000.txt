@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Features \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++This release allows PDM to store merged output to a CA Endevor SCM location
++where each derivation is recorded in a separate element change level.
++This process can only occur when the Root and derivations are all
++CA Endevor SCM elements.
++
++Each derivation will have a change level created with its associated CCID,
++Comment, Userid, Date and Time.
++
++How merged elements are stored into CA Endevor SCM depends upon whether or not
++the element exists at the target location or up the map from the target.
++
++ Select %1-3+ for information on the construction of the element when:
++
+%    1+- PDM's Output Element is new to the target and does not exist
++        up the map.
+%    2+- A same-named element already exists at PDM's target.
+%    3+- A same-named element exists up the map from PDM's target.
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1C1000 2,BC1C2000 3,BC1C3000)
+)END

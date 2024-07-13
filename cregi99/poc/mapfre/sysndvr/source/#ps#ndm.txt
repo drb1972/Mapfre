@@ -1,0 +1,9 @@
+./ ADD NAME=SUBMIT
+./ NUMBER NEW1=1,INCR=1
+*REM ****************************************************** #PS#NDM  ***
+*REM *    CONTENTS: ENDEVOR/MVS - IEBUPDTE CONTROL CARDS AND TEXT
+*REM * TRANSMITTER: NETWORK DATA MOVER
+*REM *     PURPOSE: CREATE A MEMBER WHICH WILL CONTAIN AN NDM "SUBMIT"
+*REM *              COMMAND FOR EACH PROCESS IN THIS SHIPMENT
+*REM *******************************************************************
+*REM *

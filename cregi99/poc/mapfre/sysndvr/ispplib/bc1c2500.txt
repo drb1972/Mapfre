@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - New Automatic Merge Feature \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++If the Build WIP process detects no conflicts between the Root and
++Derivation file(s), PDM can automatically create a Merge Output file
++from the WIP member.
++
++The auto-Merge function is enabled only if the user explicitly
++requests the function to be performed. The Merge Output member name
++is the same as the WIP member name specified for the Build WIP action.
++
++
+)END

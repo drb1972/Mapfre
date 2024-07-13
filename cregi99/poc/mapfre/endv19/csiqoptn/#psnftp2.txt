@@ -1,0 +1,17 @@
+@REM ****************************************************** #PSNFTP2 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: NETVIEW FILE TRANSFER PROGRAM (FTP)
+@REM *     PURPOSE: CREATE A JOBSTEP AND CONTROL CARDS TO TRANSMIT
+@REM *              A SINGLE PDS.  FOR A MORE DETAILED DESCRIPTION,
+@REM *              REFER TO #PSNFTP1.
+@REM *******************************************************************
+@REM
+@PASS=10
+@IF &FDSN
+@INCLUDE=J                       COPY HOST JOBSTEP TO EXECUTE XMISSION
+@ENDIF
+@INCLUDE=P                       COPY CONTROL CARDS TO EXECUTE XMISSION
+@PASS=20
+@IF HDISP=DELETE
+@INCLUDE=#                       DELETE HOST STAGING DATASET
+@ENDIF

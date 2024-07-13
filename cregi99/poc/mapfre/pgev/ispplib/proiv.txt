@@ -1,0 +1,20 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+^ TYPE(INPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++\-\%Pro-IV Utility Menu+\-\
+%OPTION  ===>_ZCMD                                                             +
+%
+%
+%   1 +DLG Insurance PRO-IV
+%
+%
+)INIT
+  .HELP = CITUSER0
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+                1,'CMD(PROIVINS)'
+                *,'?' )
+  &ZTRAIL = .TRAIL
+)END

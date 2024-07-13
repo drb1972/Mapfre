@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - User Data \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
++User Data is a field in the element records of the Master Control File.
++Value can be 1 through 80 bytes in length and is case-sensitive.
++
++User Data can be stored with the element records, by means of an exit 2
++(before action) on an Add, Update, or Generate action. It can also be
++updated using the Alter action.
++
++This data can be used in processors with the symbolic C1EUDATA and
++supports sub-stringing.
++
++Note: Binary zeroes and special characters may appear as blanks for
++      the User Data value on the Element Master Panel.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

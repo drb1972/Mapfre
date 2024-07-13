@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - General Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
+%Comment+and%CCID+- Indicates whether comments and/or CCIDs must be
++   provided for actions against this system. Acceptable values are:
+%      Y+- Each action must have a comment and/or CCID.
+%      N+- Default. Comments and/or CCIDs are not required.
++
+%Req elm jump acknowledgement+- Indicates whether users must specify
++   ACKNOWLEDGE ELM JUMP=Y on the Move panel to Move elements.
++   Acceptable values are:
+%      Y+- User must specify ACKNOWLEDGE ELM JUMP=Y .
+%      N+- Default. User does not have to specify ACKNOWLEDGE ELM JUMP=Y.
++
+%Duplicate element name check+- Indicates whether the duplicate element
++   name registration check feature is activated. If enabled, element
+%   names are checked for duplicates across other systems and subsystems.
++   If activated, the acceptable error severity level value are:
+%      W+- Issue a warning message
+%      C+- Issue a caution message
+%      E+- Issue an error level message
++
++                                          (MORE)
+)PROC
+   &ZCONT = CITE2112
+)END

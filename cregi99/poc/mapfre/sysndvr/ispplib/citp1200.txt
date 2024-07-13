@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Approver Groups \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel displays the approver groups associated with a package and
++allows you to display detailed information about one or more groups.
++This panel lists for each approver group:
++
+%  Environment+- Environment to which the approver group is defined.
+%  Approver group+- Approver group(s) associated with the package.
+%  Approval status+- Status of the package. No value appears in this
++     until the approval process has been completed.
+%  Quorum+- Minimum number of approvals required to approve a package.
+%  Number approvers+- Number of approvers in the group.
+%  Number approved+- The number of approvers in the group who have
++     already approved the package.
+%  Number denied+- The number of approvers in the group who have
++     denied the package.
++
++    Select%1+-%3+for information about
++
+%    1+- Package ID fields          %3+- Approver group display panel
+%    2+- Package status
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITP1300)
+)END

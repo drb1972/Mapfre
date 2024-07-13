@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Executing Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The package can be either executed online or submitted in batch. The
++user performing the execution must be an approver and must have the
++authority to perform the actions contained in the pac kage.
++
++The outputs of packages that have been executed can be backed out,
++backed in, or shipped to remote locations.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

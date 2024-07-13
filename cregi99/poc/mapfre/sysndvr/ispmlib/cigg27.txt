@@ -1,0 +1,17 @@
+CIGG270E 'IMR Error Occurred'                            .ALARM=YES
+'C1G0270E See &C1MDSN for more information.'
+
+CIGG272C 'DD Statement Missing'                          .ALARM=YES
+'C1G0272C See &C1MDSN for more information.'
+
+CIGG272E 'DD Statement Missing'                          .ALARM=YES
+'C1G0272E See &C1MDSN for more information.'
+
+CIGG275I 'Signout Overridden'                            .ALARM=YES
+'C1G0275I OVERRIDE SIGNOUT was specified. The action has completed.     '
+
+CIGG275W 'Signout Overridden'                            .ALARM=YES
+'C1G0275W OVERRIDE SIGNOUT was specified. The action has completed.     '
+
+CIGG277E 'Action Processing Error'                       .ALARM=YES
+'C1G0277E See &C1MDSN for more information.'

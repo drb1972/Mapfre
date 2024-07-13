@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Remote Path Name or Mask \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++A 1- to 248-character name or mask for a path at the remote site. The
++drive letter/colon/backslash take up the first 3 positions. The
++The remainder of the name or mask is made up of qualifiers separated by
++backslashes. A qualifier contains 1 to 8 characters. It can be
++explicit, fully wild, or partially wild.
++
++Explicit  - The qualifier is made up of any characters except
++            blanks, periods, backslashes, and asterisks.
++Full Wild - The qualifier consists of a single asterisk.
++Part Wild - Same as explicit, except that the final character is an *.
++
++In mapping datasets to paths the most specific match between the DSN
++mapped and a Host Dataset Name Mask is found. The related Remote
++Path Mask will be used to build the remote path name. White space at
++the end of each remote path line is compressed out.
++
++    Select%1+-%2+for more information about DSN mapping
++
+%    1+- Host data set name or mask   %2+- Workstation mapping rule examples
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITHMSK0 2,CITRMAP0)
+)END

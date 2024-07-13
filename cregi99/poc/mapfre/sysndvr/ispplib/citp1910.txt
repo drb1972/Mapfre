@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Action Backout \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++  List fields on this panel:
++   %SCL    +- SCL statement number of the action within the package.
++   %Stmt   +  The statement number is%required+for%batch SCL+execution of the
++              Element Action Backout action.
++   %Message+- Panel message field.
++   %Backout+- Backout status of the element action output members:
++   %Status +   %blank     +- The output members are not backed out.
++               %BACKED-OUT+- The output members are backed out.
++               %N/A       +- Element Action Backout Not Applicable.
++                          +  This value is based solely on the action, not on
++                          +  the information in the package.
++   %Action +- Element action performed during execution of the package.
++   %Element+- Name of the element.
++              The element name is%required+for%batch SCL+execution of the
++              Element Action Backout action.
++   %Type   +- Name of the element's type.
++
++ %Note:+You can sort the selection list by column, by using the%ESORT+(ES)
++  command on the command line, followed by the first three characters of the
++  column heading.                                       %(Continued)
+)PROC
+  &ZCONT = CITP1920
+)END

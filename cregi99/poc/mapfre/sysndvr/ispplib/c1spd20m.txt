@@ -1,0 +1,80 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ¬ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(ASIS)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY
+%MODIFY -----------------  CREATE/MODIFY DESTINATION  --------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++ %blank+- Update Destination        %D+- Display DSN Mapping Rules for Update+
++ %    C+- Create DSN Mapping Rule   %T+- Test DSN Mapping Rules              +
++ %CU, DU, TU+- Create, Display for Update, or Test USS Mapping Rules
++
++DESTINATION ....|VNBSSDST+           SHIP COMPLEMENTARY DATASETS (N/Y)%===>_Z+
++DESCRIPTION%===>~VDDDESCR                      +
++TRANSMISSION METHOD%===>_VDDXMETH   +REMOTE NODENAME%===>_VDDXNODE        +
++UPDATED:¢Z      ¢Z    +BY¢VDDUUSER+ +CREATED:¢Z      ¢Z    +BY¢VDDCUSER+
+$SAREA                                                                         $
+)AREA SAREA
++REMOTE IPNAME/IPPORT (XCOM ONLY):
++  IPNAME%===>_VDDXIPNM                                                       +
++  IPPORT%===>_Z    +
++
++REMOTE JOB STATEMENT INFORMATION:
++ %===>_VDDRJC1
++ %===>_VDDRJC2
++ %===>_VDDRJC3
++ %===>_VDDRJC4
++
++STAGING INFORMATION:
++  For DATASET:              HOST Site               REMOTE Site
++    DSN PREFIX             %===>_VDDHSPFX      +   %===>_VDDRSPFX      +
++    DISPOSITION            %===>_Z     +           %===>_Z     +
++    UNIT                   %===>_VDDHUNIT+         %===>_VDDRUNIT+
++    VOLUME SERIAL          %===>_Z     +           %===>_Z     +
++
++  For UNIX SYSTEM SERVICES Files:
++    Enter HOST Path Name PREFIX below:            DISPOSITION%===>_Z     +
++   %===>¬VDDHPN01                                                        +*
++   %===>¬VDDHPN02                                                        +*
++   %===>¬VDDHPN03                                                        +*
++   %===>¬VDDHPN04                                                        +*
++   %===>¬VDDHPN05                                                        +*
++   %===>¬VDDHPN06                                                        +*
++   %===>¬VDDHPN07                                                        +*
++   %===>¬VDDHPN08                                                        +*
++   %===>¬VDDHPN09                                                        +*
++   %===>¬VDDHPN10                                                        +*
++   %===>¬VDDHPN11                                                        +*
++   %===>¬VDDHPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
++
++    Enter REMOTE Path Name PREFIX below:          DISPOSITION%===>_Z     +
++   %===>¬VDDRPN01                                                        +*
++   %===>¬VDDRPN02                                                        +*
++   %===>¬VDDRPN03                                                        +*
++   %===>¬VDDRPN04                                                        +*
++   %===>¬VDDRPN05                                                        +*
++   %===>¬VDDRPN06                                                        +*
++   %===>¬VDDRPN07                                                        +*
++   %===>¬VDDRPN08                                                        +*
++   %===>¬VDDRPN09                                                        +*
++   %===>¬VDDRPN10                                                        +*
++   %===>¬VDDRPN11                                                        +*
++   %===>¬VDDRPN12                    +*  *  *  *  *  *  *  *  *  *  *  *  *
+)INIT
+  .HELP = CITPD200
+  .ZVARS = '( VDDSHCMP +
+              VDDUPDAT VDDUPTIM +
+              VDDCRDAT VDDCRTIM +
+              VDDXIPPT VDDHDISP VDDRDISP +
+              VDDHVSER VDDRVSER +
+              VDDHPDIS VDDRPDIS )'
+)PROC
+VER (&VDDXIPPT,NUM,MSG=PKMR353E)
+)END

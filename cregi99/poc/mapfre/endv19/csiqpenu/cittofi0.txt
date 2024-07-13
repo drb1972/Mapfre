@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ TO FILE \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Archive action only. Use this field to specify the DDname of an archive
++data set.
++
++Make sure to include JCL for this data set when you submit a batch job
++for execution. Do this using the INCLUDE JCL field on the Batch Options
++menu.
++
++The DCB must specify variable blocked records (RECFM=VB), and the DSORG
++should be PS.
+%-+The minimum LRECL should be 2940 or the TYPE-LENGTH plus 14, whichever is
++  greater.
+%-+When archiving to disk, the recommended block size is one-half a track, and
++  the recommended LRECL is one-half a track minus (-) 4 unless the previous
++  rule requires a bigger LRECL/BLKSIZE.
+%-+When archiving to tape, the recommended block size is 32760 and the
++  recommended LRECL is 32756.
++
++
++                                            (%PF3+to return)
+)END

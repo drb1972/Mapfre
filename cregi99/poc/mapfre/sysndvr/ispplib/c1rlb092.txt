@@ -1,0 +1,36 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage
+TAG _ MUH TENV TSYS TSUBSYS TELM TTYPE TSTAGE COMMENT
+tag | sh msg s1id s2id
+tag ¢ s   s1name s2name
+TAG ! s dislist
+TAG & MUH CCID WPGRP
+tag & muh accid bypassd bypassg override pgrp sync withhist
+TAG & MUH RETSIGN SIGNTO
+%-----------------------------  Transfer Elements  -----------------------------
+%OPTION  ===>_   +
+|
+%                             +Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   T+- Transfer element         %M+- Master   %C+- Changes
++
++FROM LOCATION:
++  ENVIRONMENT %===>_        +       LIST OPTIONS:
++  SYSTEM      %===>_        +         DISPLAY LIST     %===>!Y+ (Y/N)
++  SUBSYSTEM   %===>_        +         WHERE CCID EQ    %===>&            +
++  ELEMENT     %===>_          +       WHERE PROC GRP EQ%===>&        +
++  TYPE        %===>_        +
++  STAGE       %===>_ +             ACTION OPTIONS:
++        | +-¢        | +-¢        +   CCID                 %===>&            +
++TO LOCATION:                          BYPASS ELEMENT DELETE%===>&Y+ (Y/N)
++  ENVIRONMENT %===>_        +         BYPASS GEN PROCESSOR %===>&Y+ (Y/N)
++  SYSTEM      %===>_        +         OVERRIDE SIGNOUT     %===>&N+ (Y/N)
++  SUBSYSTEM   %===>_        +         PROCESSOR GROUP      %===>&        +
++  ELEMENT     %===>_          +       SYNCHRONIZE          %===>&N+ (Y/N)
++  TYPE        %===>_        +         WITH HISTORY         %===>&N+ (Y/N)
++  STAGE       %===>_ +                RETAIN SIGNOUT       %===>&N+ (Y/N)
++                                      SIGNOUT TO           %===>&        +
++  COMMENT     %===>_                                        +
+enddef

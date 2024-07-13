@@ -1,0 +1,20 @@
+IMGR001E 'NO ENVIRONMENT MATCH'                          .ALARM=YES
+'&VARWLTXT'
+IMGR002E 'NO MAP INFO AVAILABLE'                         .ALARM=YES
+'&VARWLTXT'
+IMGR003E 'INVALID TARGET'                                .ALARM=YES
+'&VARWLTXT'
+IMGR004E 'INVALID ENV TARGET'                            .ALARM=YES
+'&VARWLTXT'
+IMGR005E 'NO SYSTEM MATCH'                               .ALARM=YES
+'&VARWLTXT'
+IMGR006E 'UNKNOWN PROCESSOR TYPE'                        .ALARM=YES
+'&VARWLTXT'
+IMGR007E 'NO SUBSYSTEM MATCH'                            .ALARM=YES
+'&VARWLTXT'
+IMGR008E 'NO SYMBOLICS DEFINED'                          .ALARM=YES
+'&VARWLTXT'
+IMGR009E 'NO ELEMENT MATCH'                              .ALARM=YES
+'&VARWLTXT'
+IMGR009W 'NO ELEMENT MATCH'                              .ALARM=YES
+'&VARWLTXT'

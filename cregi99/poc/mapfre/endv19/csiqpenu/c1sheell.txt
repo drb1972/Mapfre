@@ -1,0 +1,22 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ List Listing Panel \-\ TUTORIAL
+%Option ===>_ZCMD                                                              +
++
++
++  The LL option displays an elements output listings. One line
++  is displayed for each listing. The following information is
++  provided:
++
++     MEMBER -- Member name of the listing
++     STEP   -- Process STEP name where the listing was created
++     DDNAME -- DD name within the step where the listing was created
++     DSNAME -- DSN within the DD statement where the listing was created
++
++
++  By placing an L in the selection field, to the left of the member name,
++  you can view any of the listings displayed. A standard browse panel
++  displays the selected member.
++
++
++                                       (%END+to return)
+)END

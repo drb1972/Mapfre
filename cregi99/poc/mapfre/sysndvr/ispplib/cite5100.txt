@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Processing Sequence \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to review the processing sequence for types defined
++to this stage.
++
++To resequence a type, overtype the appropriate RELATIVE PROCESSING
++SEQUENCE field with a number:
++   * Smaller than that of the type you want it to precede
++   * Greater than that of the type you want it to follow
++Then press ENTER.
++
++
++
++
++
++    Select%1+-%4+for information about specific enhancements
++
+%    1+- Current Location           %3+- Type/description
+%    2+- Next location              %4+- Relative processing sequence
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITE5110)
+)END

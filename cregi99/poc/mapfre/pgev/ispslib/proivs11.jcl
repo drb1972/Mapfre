@@ -1,0 +1,1 @@
+ COPY GMSG &GMSNAME(R)

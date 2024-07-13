@@ -1,0 +1,201 @@
+XIT3MSG TITLE 'ENDEVOR - CA-UNICENTER EVENT CONSOLE MSG'
+***********************************************************************
+*   DESCRIPTION: THIS SAMPLE EXIT CASES THE ENDEVOR MESSAGING
+*                FACILITY TO SEND A MSG TO ACA-UNICENTER. THE MESSAGE
+*                IS SENT TO EACH CA-UNICENTER CONSOLE ADDRESS DEFINED
+*                IN THE BC1TIPAD IP ADDRESS TABLE.
+*
+*   HOW TO USE:  BUILD A MAXIMUM 102 CHARACTER MESSAGE STRING, CALL
+*                THE EXIT INTERFACE PROGRAM, BC1PTRPO, PASSING THE
+*                ADDRESS OF THE MESSAGE STRING AND AN ADDRESS FOR THE
+*                INTERFACE PROGRAM TO PLACE THE RESULTS.
+*
+*   HOW TO USE:  ASSEMBLE AND LINK-EDIT THIS MODULE
+*
+*   LINK EDIT:   RENT, AMODE=31, RMODE=24
+*
+*   REGISTERS ON ENTRY:
+*
+*                0(R1) --> $ECBDS     EXIT CONTROL BLOCK
+*                4(R1) --> $REQPDS    EXIT REQUEST BLOCK
+*
+*   REGISTER USAGE:
+*
+*                R6     -> $ECBDS
+*                R7     -> $REQPDS
+*                R8     -> $ENVDS
+*                R12    -> BASE PROGRAM
+*                R13    -> STANDARD USAGE........
+*   ==>                 -> WE USE STANDARD STACK SAVEAREA USAGE
+*
+***********************************************************************
+*   EXIT CONTROL BLOCK
+***********************************************************************
+         $ECBDS
+***********************************************************************
+*   REQUEST INFORMATION BLOCK
+***********************************************************************
+         $REQPDS
+***********************************************************************
+*   ENVIRONMENT BLOCK
+***********************************************************************
+         $ENVDS
+***********************************************************************
+*   REQISTER EQUATES
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+***********************************************************************
+*   WORKAREA
+***********************************************************************
+WORKAREA DSECT
+SAVEAREA DS    18F
+WPARMLST DS   0F                       PARMLIST AREA
+WPARM1   DS    A                       FIRST PARM
+WPARM2   DS    A                       SECOND PARM
+         DS   0D
+WLINK    LINK EP=*-*,SF=L
+WLINKL   EQU   *-WLINK
+WMSGTEXT DS    CL102                   SEND MESSAGE AREA
+WERRTEXT DS    CL80                    RESULTS OF SEND
+WERRTXTL EQU   *-WERRTEXT              LENGTH OF RESULTS MSG AREA
+WTMEDTE  DS   0F                       SYSTEM TIME/DATE
+WSYSTME  DS    F                       SYSTEM TIME
+WSYSDTE  DS    F                       SYSTEM DATE
+UNPKTME  DS    CL8                     UNPACKED TIME (HH:MM:SS)
+UNPKDTE  DS    CL5                     UNPACKED DATE (YYDDD)
+WORKLN   EQU   *-WORKAREA
+         TITLE 'XIT3MSG: MESSAGE EXIT'
+***********************************************************************
+XIT3MSG CSECT
+***********************************************************************
+*   MAIN LOGIC
+***********************************************************************
+         SAVE  (14,12)                 SAVE CALLERS REG 12(13)
+         LR    R12,R15                 POINT TO THIS PROGRAM
+        USING XIT3MSG,R12
+         L     R6,0(,R1)               POINT TO THE $ECBDS
+        USING $ECBDS,R6
+         L     R7,ECBREQA              $REQPDS BLOCK OFF OF $ECBDS
+        USING $REQPDS,R7
+         L     R8,4(,R1)               POINT TO THE $ENVDS BLOCK
+        USING $ENVDS,R8
+***********************************************************************
+*   GET STORAGE FOR WORKAREA
+***********************************************************************
+         L     R0,=A(WORKLN)           GET SIZE OF W.A
+         GETMAIN R,LV=(0)              GET WORKING STORAGE
+         ST    R1,8(R13)               STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)               STORE OLD STACK +4(NEW)
+         LR    R13,R1                  POINT R13 TO OUR STACK
+*
+        USING WORKAREA,R13             ESTABLISH ADDRESSIBILIY
+***********************************************************************
+*   REQUEST INFORMATION BLOCK: IS THERE AN ACTION ERROR?
+***********************************************************************
+         CLC   REQRTCOD,=F'4'          IS RC GT 4?
+         BNH   MAINEXIT                NO, EXIT THE EXIT
+         SPACE ,
+***********************************************************************
+*   INITIALIZE THE SEND AND RETURN MESSAGE AREAS
+***********************************************************************
+MAIN0100 DS    0H
+         MVI   WERRTEXT,C' '           CLEAR O/P MSG TEXT
+         MVC   WERRTEXT+1(L'WERRTEXT-1),WERRTEXT
+         MVI   WMSGTEXT,C' '           CLEAR SENDING MSG TEXT FIELD
+         MVC   WMSGTEXT+1(L'WMSGTEXT-1),WERRTEXT
+***********************************************************************
+*   BUILD SEND MESSAGE FOR UNICENTER CONSOLE INTERFACE HERE
+***********************************************************************
+         LA    R14,WMSGTEXT
+        USING  EVTMSGDS,R14
+         MVC   EVTMSGID,=CL8'ENDV0001' MESSAGE ID
+*
+         TIME  DEC                     GET SYSTEM TIME/DATE
+         STM   R0,R1,WSYSTME
+*        CONVERT THE TIME
+         UNPK  UNPKTME(3),WSYSTME(2)   CONVERT TO (HH:MM:SS) FORMAT
+         MVI   UNPKTME+2,C':'
+         UNPK  UNPKTME+3(3),WSYSTME+1(2)
+         MVI   UNPKTME+5,C':'
+         UNPK  UNPKTME+6(3),WSYSTME+2(2)
+*        CONVERT THE DATE
+         MVC   EVTTIME,UNPKTME         SAVE THE TIME (HH:MM:SS)
+         UNPK  UNPKDTE,WSYSDTE         CONVERT TO (YYDDD) FORMAT
+         MVC   EVTDATE,UNPKDTE         SAVE THE DATE (YYDDD)
+*
+         MVC   EVTJOB,ECBUSER          JOBNAME/USERID
+         MVI   EVTPKGID,C' '           CLEAR PKGID FLD
+         MVC   EVTPKGID+1(L'EVTPKGID-1),EVTPKGID
+         MVC   EVTACT,ECBFUNAM         ACTION NAME
+*
+         MVC   EVTENV,ENVENVM          ENVIRONMENT NAME
+         MVC   EVTSTGCD,ENVSTGCD       STAGE CODE FROM DEFAULTS TBL
+         MVC   EVTSYS,ENVSYSTM         SYSTEM NAME
+         MVC   EVTSBS,ENVSUBSY         SUBSYSTEM NAME
+         MVC   EVTELM,ENVELEMT         ELEMENT NAME
+         MVC   EVTTYPE,ENVTYPE         ELEMENT TYPE NAME
+        DROP   R8                      (ENVDS)
+        DROP   R14                     (EVTMSGDS)
+***********************************************************************
+*   CALL USER-EXIT INTERFACE PROGAM
+***********************************************************************
+         MVC   WLINK(WLINKL),CLINK
+         LINK  EP=BC1PTRP0,MF=(E,WPARMLST),SF=(E,WLINK),               X
+               PARAM=(WMSGTEXT,WERRTEXT),VL=1
+         CLC   WERRTEXT(2),=CL2'OK'    ANY ERROR DETECTED?
+         BE    MAINEXIT                NO, RETURN
+***********************************************************************
+*   UNABLE TO COMPLETE THIS TASK
+***********************************************************************
+         MVC   ECBRTCD,=A(ECB$FAIL)    SERIOUS ERROR, FAIL ACTION
+         MVC   ECBMSG,WERRTEXT         RETURN ERROR MSG
+         MVC   ECBMSGLN,WERRTXTL       LENGTH OF ERROR MSG
+         SPACE ,
+MAINEXIT DS    0H
+         LR    R5,R13                  SAVE SAVEAREA ADDRESS
+         L     R13,4(R13)              POINT TO PREVIOUS SAVEAREA
+***********************************************************************
+*   CLEAN UP THIS PROGRAM'S STORAGE
+*   NOTE: THIS HAS TO BE DONE BEFORE THE "LOAD MULTIPLE" IS
+*   DONE BECAUSE YOU LOSE THE POINTER TO YOUR STORAGE
+***********************************************************************
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(R5),LV=(R0)          FREE STORAGE
+         RETURN  (14,12)                    RESTORE
+***********************************************************************
+*   PROGRAM CONSTANTS
+***********************************************************************
+CLINK    LINK EP=*-*,SF=L
+EVTMSGDS DSECT
+EVTMSG   DS    CL102
+         ORG   EVTMSG
+EVTMSGID DS    CL8                     MESSAGE ID
+EVTDATE  DS    CL5                     DATE YYDDD
+EVTTIME  DS    CL8                     TIME HH:MM:SS
+EVTJOB   DS    CL8                     JOBNAME/USERID
+EVTPKGID DS    CL16                    PACKAGE ID
+EVTACT   DS    CL8                     ENDEVOR ACTION NAME
+EVTENV   DS    CL8                     ENVIRONMENT NAME
+EVTSTGCD DS    CL1                     STAGE NUMBER
+EVTSYS   DS    CL8                     SYSTEM NAME
+EVTSBS   DS    CL8                     SUBSYSTEM NAME
+EVTELM   DS    CL10                    ELEMENT NAME
+EVTTYPE  DS    CL8                     ELEMENT TYPE NAME
+         DS    CL6                     ** RESERVED **
+         ORG
+         END

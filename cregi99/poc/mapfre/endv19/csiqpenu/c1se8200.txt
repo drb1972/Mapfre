@@ -1,0 +1,47 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+|VARFLIT%--------------- APPROVER GROUP DEFINITION -----------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++    APPROVER GROUP: ¢VARAGNME        +           ENVIRONMENT: ¢VAREVNME+
++    TITLE      %===>~VARAGTTL                                          +
++    QUORUM SIZE%===>_Z    +          DISQUALIFICATION%===>_Z+
++
++    UPDATED:        ¢Z      ¢Z    +BY¢VARLUUID+
++
++              APPROVER      REQ'D (Y/N)      APPROVER      REQ'D (Y/N)
+%         ===>_VARAGU01% ===>_Z%         ===>_VARAGU02% ===>_Z%
+%         ===>_VARAGU03% ===>_Z%         ===>_VARAGU04% ===>_Z%
+%         ===>_VARAGU05% ===>_Z%         ===>_VARAGU06% ===>_Z%
+%         ===>_VARAGU07% ===>_Z%         ===>_VARAGU08% ===>_Z%
+%         ===>_VARAGU09% ===>_Z%         ===>_VARAGU10% ===>_Z%
+%         ===>_VARAGU11% ===>_Z%         ===>_VARAGU12% ===>_Z%
+%         ===>_VARAGU13% ===>_Z%         ===>_VARAGU14% ===>_Z%
+%         ===>_VARAGU15% ===>_Z%         ===>_VARAGU16% ===>_Z%
++
++
++
++
++
++
+)INIT
+  .HELP = CITE8100
+  .ZVARS = '(VARAGQRM +
+             VARADISQ +
+             VARLUDTE VARLUTME +
+             VARAUR01 VARAUR02 VARAUR03 VARAUR04 +
+             VARAUR05 VARAUR06 VARAUR07 VARAUR08 +
+             VARAUR09 VARAUR10 VARAUR11 VARAUR12 +
+             VARAUR13 VARAUR14 VARAUR15 VARAUR16)'
+)PROC
+)END

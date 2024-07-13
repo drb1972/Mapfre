@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ RESTful API Support for Element Actions and Package Notes \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%RESTful API Support for Element Actions and Package Notes
++
++ The RESTful API has been enhanced to support the following Element Actions:
++ Add, Update, Generate, Move, Print, Transfer, Signin, and Delete.
++
++ In addition, the Package Approve and Deny actions allow the user to add a
++ Package note when approving or denying a Package.
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18270
+)END

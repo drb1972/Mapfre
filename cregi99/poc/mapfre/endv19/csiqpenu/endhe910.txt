@@ -1,0 +1,39 @@
+)ATTR
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit COPYELM/COMPELM Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++Use the Element Selection List to select an element that you wish
++to copy, or compare with, the element you are editing.
++
++Select an element by placing an%'CO'+in the selection field next to
++the desired element. Only one element can be selected from this list.
++If you select more than one element, the first element is copied and
++any subsequent selected elements are ignored.
++
++To initiate the COPYELM processing, press%ENTER+.
++
++By default, selecting an element will return the current version.  To
++select a prior level, use option%'S'+to return a summary list for the
++Element, and then%'CO'+to pick a particular version.
++
++You can also use%'B'+to Browse the element,%'C'+for changes,%'H'+for
++history, or%'M'+to display the element master, in order to confirm the
++element you are selecting the element/version you need.
++
++If you specify an element name on the%COPYELM+or%COMPELM+command, or
++use the%NEXT+or%ALL+keywords, then the Element filter panel(ENDIE900)
++will be bypassed.  This allows you to 'fast-path' a copy or compare
++request. In this case you can use PF3 to return to it, if you need to
++add or adjust your search criteria.
++
++You can also use the special character%'='+to stand in for the current
++element name or type, for example%"COPYELM = JCL"+will use the current
++element name and set the TYPE to JCL and skip the filter environment
++confirmation panel.
++
++                                       (%END+to return)
+)END

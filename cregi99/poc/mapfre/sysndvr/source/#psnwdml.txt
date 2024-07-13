@@ -1,0 +1,11 @@
+@REM ****************************************************** #PSNWDML ***
+@REM *    CONTENTS: ENDEVOR/MVS - TRANSMIT A PDS TO THE REMOTE
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: ADD A COPY COMMAND TO THE NDM PROCESS
+@REM *******************************************************************
+@REM * P003847
+@REM * P003922
+@REM *
+@IF &FDSN
+                DSNTYPE=LIBRARY -
+@ENDIF

@@ -1,0 +1,61 @@
+         MACRO
+         $PCOLREQ &DSCT=YES
+         AIF ('&DSCT' EQ 'YES').DSCT1
+$PCOLREQ  DS   0D
+         AGO .START1
+.DSCT1   ANOP
+$PCOLREQ DSECT
+.START1  ANOP
+.*         **********************************************
+.*         *  BLOCK INTIALIZATION DATA                  *
+.*         **********************************************
+PCOLLEN    DC    AL2(PCOLSIZE)         LENGTH OF BOD TABLE ENTRY
+PCOLVERS   DC    AL2(PCOL$VER)         VERSION OF BOD TABLE BLK
+PCOL$VER   EQU   1                     RELEASE 1
+PCOLID     DC    CL4'PCOL'             ID OF CONTROL BLOCK
+.*         **********************************************
+.*         *  BLOCK TOTAL DATA                          *
+.*         **********************************************
+PCOLSEQ#     DS  H                  SEQUENTIAL # OF THIS ENTRY
+*---------------------------------------------------------------------*
+PCOLPKID    DS  CL16                ID OF PACKAGE COLLECTED
+PCOLTYPE    DS  CL3                 TYPE OF PACKAGE COLLECTED
+PCOL$PKG    EQU C'P'                  PKG = PACKAGE COLLECTED
+PCOL$BKT    EQU C'B'                  BKO = BACKOUT COLLECTED
+*---------------------------------------------------------------------*
+*  COMPLETION CODES:                                                  *
+*      FUNCTION COMPLETED:           RC=##  - RC=###  - R=####        *
+*      CANCELLED BY EXIT:            XC=##  - XC=###  - X=####        *
+*      ABEND DETECTED:               S/###  - U####                   *
+*---------------------------------------------------------------------*
+PCOLCCST    DS  CL6                   COLLECTION STAGING COMPL CODE
+PCOLCCCR    DS  CL6                   COLLECTION REQUEST COMPL CODE
+PCOLC$RC    EQU C'R'                  CC IS A RETURN CODE
+PCOLC$XX    EQU C'X'                  CC IS AN EXIT CANCELLATION
+PCOLC$SA    EQU C'S'                  CC IS A SYSTEM ABEND
+PCOLC$UA    EQU C'U'                  CC IS A USER ABEND
+*---------------------------------------------------------------------*
+PCOLDSUB    DS  CL7                   DATE SUBMITTED (DDMONYY)
+PCOLTSUB    DS  CL5                   TIME SUBMITTED (HH:MM)
+PCOLCONN    DS  CL8                   CONNECTION ID
+PCOLSTARTD  DS  CL8                   DISTRIBULINK START COLLECT DATE
+PCOLSTARTT  DS  CL8                   DISTRIBULINK START COLLECT TIME
+PCOLDLNAME  DS  CL20                  DISTRIBULINK PRODUCT NAME
+PCOLDLDESC  DS  CL30                  DISTRIBULINK PRODUCT DESCRIPTION
+PCOLDLVERS  DS  CL15                  DISTRIBULINK PRODUCT VERSION
+PCOLDLNUMB  DS  CL15                  DISTRIBULINK PRODUCT NUMBER
+PCOLDLVEND  DS  CL15                  DISTRIBULINK PRODUCT VENDOR
+PCOLDLOPSY  DS  CL15                  DISTRIBULINK PRODUCT OP SYS
+PCOLDLESCP  DS  CL1                   DISTRIBULINK PRODUCT ESCAPE CHAR
+PCOLDLTYPE  DS  CL1                   DISTRIBULINK PRODUCT TYPE
+PCOLDL$EXT  EQU C'E'                  . EXTERNAL
+PCOLDL$GEN  EQU C'G'                  . GENERATION
+PCOLDL$NOR  EQU C'N'                  . NORMAL
+PCOLDLINST  DS  CL1                   DISTRIBULINK "INSTALLED WHEN"
+PCOLDL$DELD EQU C'D'                  . DELIVERED
+PCOLDL$INST EQU C'I'                  . INSTALLED
+.*
+         SPACE ,
+.*
+PCOLSIZE  EQU    *-$PCOLREQ            LNG OF BOD TABLE ENTRY
+         MEND

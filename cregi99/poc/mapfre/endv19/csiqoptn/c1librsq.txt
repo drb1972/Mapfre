@@ -1,0 +1,104 @@
+         MACRO                                                          00010000
+         C1LIBRSQ &LANG=,&SEQCOLS=(73,80),&END=NO                       00020000
+         GBLB  &FIRST                                                   00030000
+         LCLA  &COL1,&COL2                                              00040001
+.*                                                                      00041009
+.*  LIBRARIAN LANGUAGE/SEQ SPECS TABLE MACRO: KEEP IN SYNC WITH         00042009
+.*  @LSQDS MACRO INTERNALLY. R.E.LEE 8/88                               00043009
+.*                                                                      00044009
+         AIF   (&FIRST).NOT1ST                                          00050000
+&FIRST   SETB  1                                                        00060000
+         TITLE 'C1LIBRSQ: LIBRARIAN LANGUAGE/SEQ # SPECS'               00070000
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 00080000
+*                                                                     + 00090004
+*  ** BST ENDEVOR-C1 TO ADR/LIBRARIAN OPTIONAL LANGUAGE SPECS TABLE **+ 00100007
+*                                                                     + 00110004
+*  THIS MACRO ASSEMBLES A TABLE DEFINING SEQUENCE NUMBER FIELDS FOR   + 00120000
+*  ENDEVOR-C1 'PV/LB LANGUAGE' NAMES AS ENTERED ON THE ENDEVOR-C1 TYPE+ 00130007
+*  DEFINITION PANEL.  THIS LANGUAGE TABLE IS NEEDED ONLY IF YOU NEED  + 00140000
+*  MEMBERS RETRIEVED FROM ENDEVOR-C1 INTO EXTERNAL LIBRARIAN DATASETS + 00150007
+*  TO BE ADDED OR REPLACED WITHOUT RESEQUENCING.                      + 00160000
+*                                                                     + 00170007
+*  ONE SUCH USE IS SUBSEQUENT MERGING BY MEMBER SEQUENCE COLUMNS      + 00180007
+*  (USING THE 'SEQUPD' OPTION)                                        + 00190007
+*                                                                     + 00200000
+*  WITHIN ENDEVOR-C1 BASE AND DELTA LIBRARIES (IF IN LIBRARIAN FILES) + 00210007
+*  AND ANY FOR TYPES NOT COVERED BY THIS LANGUAGE TABLE, (BY DEFAULT) + 00220007
+*  ALL MEMBERS WILL BE STORED WITH SEQ=/81,6/ TO PRECLUDE OVERLAYING  + 00230007
+*  ANY DATA COLUMNS PRESENTED AT ADD OR UPDATE POINT.                 + 00240007
+*                                                                     + 00250000
+*        SAMPLE INPUT:                                                + 00260000
+*    <------------------------->                                      + 00270000
+*        C1LIBRSQ LANG=COB,SEQCOLS=(1,6)                              + 00280000
+*        C1LIBRSQ LANG=JCL,SEQCOLS=(73,80)                            + 00290000
+*        C1LIBRSQ LANG=FRT,SEQCOLS=(73,80)                            + 00300000
+*        C1LIBRSQ LANG=DAT,SEQCOLS=(81,86)                            + 00310000
+*        C1LIBRSQ END=YES                                             + 00320000
+*        END                                                          + 00330000
+*                                                                     + 00340000
+*  WITH THE ABOVE SPECS, ANY ELEMENT WHOSE PV/LB LANGUAGE IS 'COB'    + 00350007
+*  AND WHOSE COMPARE COLUMNS ARE 1 TO 72 WILL BE ASSUMED TO HAVE      + 00360007
+*  VALID LIBRARIAN SEQUENCE NUMBERS IN COLUMNS 1-6.  WHEN RETRIEVED,  + 00370007
+*  THE -OPT NORESEQ ... AND SEQCHK=/1,6/, SEQ=/1,6/ WILL BE USED FOR  + 00380007
+*  ADD OR REP ALL.                                                    + 00390007
+*                                                                     + 00400007
+*  ON THE OTHER HAND, AN ELEMENT WHOSE TYPE RECORD SPECIFIES LANGUAGE + 00410007
+*  'COB' BUT COMPARE COLUMNS 7 TO 72 WILL ASSUME UNSAFE DATA IN 1-6   + 00420007
+*  WHEN RETRIEVED, THE ADD OR REP ALL WILL SPECIFY SEQ=/81,6/ SO NO   + 00430007
+*  DATA COLUMNS ARE EVER OVERLAID.                                    + 00440007
+*                                                                     + 00450007
+*  THUS, ONLY TYPES THAT MATCH ON 'PV/LB LANGUAGE' AND ALSO COMPARE   + 00460007
+*  ACROSS THE SEQUENCE COLUMNS SPECIFIED IN THIS TABLE WILL UTILIZE   + 00470007
+*  THE LIBRARIAN 'NORESEQ' AND 'SEQCHK' OPTION WHEN ENDEVOR-C1 WRITES + 00480007
+*  ELEMENTS TO EXTERNAL LIBRARIAN DATASETS.                           + 00490007
+*                                                                     + 00500007
+*  THE OUTPUT OF THE ASSEMBLY MUST BE LINK EDITED INTO YOUR 'CONLIB'  + 00500108
+*  LIBRARY AS MODULE NAME 'C1LIBRSQ':                                 + 00500208
+*                                                                     + 00500308
+*    //LINK     EXEC PGM=IEWL,REGION=300K,PARM='RENT,REUS,LIST'       + 00500408
+*    //SYSPRINT DD SYSOUT=*                                           + 00500508
+*    //SYSLMOD  DD DSN=USER.CONLIB(C1LIBRSQ),DISP=SHR        ***      + 00500608
+*    //SYSUT1   DD UNIT=SYSDA,SPACE=(TRK,5)                           + 00500708
+*    //SYSLIN   DD DSN=&&OBJECT,DISP=(OLD,DELETE)                     + 00500808
+*                                                                     + 00502008
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 00510000
+         EJECT                                                          00520000
+C1LIBRSQ CSECT                                                        + 00530000
+         DC    Y(C1LIDSLN,0,123,1)               SELF-CHECK HEADER    + 00540006
+         DC    CL4'@LSQ'                         EYECATCHER           + 00550004
+         DC    A((C1LIBRND-C1LIBRBG)/12)         NUMBER OF ENTRIES    + 00560004
+C1LIDSLN EQU   *-C1LIBRSQ                        LENGTH OF HEADER     + 00570004
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 00571008
+C1LIBRBG EQU   *                                 START OF TABLE       + 00580005
+.NOT1ST  ANOP                                                           00590000
+         AIF   ('&END' EQ 'YES').ENDUP                                  00600000
+         AIF   ('&LANG' EQ '').BADLANG                                  00610000
+         AIF   ('&LANG'(1,1) EQ '''').QUOTES                            00620000
+         DC    CL8'&LANG'                         LANGUAGE NAME       + 00630008
+         AGO   .DOCOLS                                                  00640000
+.QUOTES  ANOP                                                           00650000
+         DC    CL8&LANG                           LANGUAGE NAME       + 00660008
+         AGO   .DOCOLS                                                  00670000
+.BADLANG ANOP                                                           00680000
+         MNOTE 8,'LANG=XXX OR LANG=''XXX'' IS REQUIRED'                 00690002
+*  'XXX' IS THE LIBRARIAN LANGUAGE NAME SPECIFIED ON A C1 TYPE RECORD   00700000
+         AGO   .DONE                                                    00710000
+.DOCOLS  AIF   (N'&SEQCOLS NE 2).BADCOLS                                00720000
+&COL1    SETA  &SEQCOLS(1)                                              00730003
+&COL2    SETA  &SEQCOLS(2)                                              00740003
+         AIF   (&COL1 GT &COL2).BADCOLS                                 00750000
+         AIF   (&COL1 LT 1).BADCOLS                                     00760000
+         AIF   (&COL2 GT 86).BADCOLS                                    00770000
+         DC    Y(&COL1,&COL2.)                    SEQCOLS FOR LANGUAGE+ 00780008
+*****+                                                                  00790000
+         AGO   .DONE                                                    00800000
+.BADCOLS ANOP                                                           00810000
+         MNOTE 8,'SEQCOLS=(NN,MM) IS REQUIRED FOR LANGUAGE'             00820000
+*  'NN' IS THE STARTING COLUMN OF SEQUENCE # FIELD IN DATA RANGE 1-81   00830000
+*  'MM' IS THE ENDING COLUMN OF SEQUENCE # FIELD IN DATA RANGE 2-86     00840000
+         AGO   .DONE                                                    00850000
+.ENDUP   ANOP                                                           00860000
+C1LIBRND DC    XL12'00'            END OF LANGUAGE TABLE                00870002
+.DONE    ANOP                                                           00880000
+*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++* 00890000
+         MEND                                                           00900000

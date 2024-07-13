@@ -1,0 +1,27 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%-----------------------------  TYPE DISPLAY  ----------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display type definition
++
++ENVIRONMENT%===>_VAREVNME+
++
++SYSTEM     %===>_VARSYNME+
++
++TYPE       %===>_VARTYNME+
++
++STAGE      %===>_Z+      ¢Z+-|Z        ¢Z+-|Z
++
+)INIT
+  .ZVARS = '(VARWKSID VARS1ID VARS1NME VARS2ID VARS2NME)'
+  .HELP = CITRQST0
+)PROC
+)END

@@ -1,0 +1,32 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIPH087                                                     */
+ /*-----------------------------------------------------------------------*/
+  _ TYPE(INPUT) JUST(LEFT) CAPS(ON)
+)BODY
++-------------------------------%Batch Package+---------------------------------
++ Command ==>_ZCMD                                                             +
++
++                   Extended HELP text for message ENIP087E
++
++    You attempted to perform the &PDVACTN action against package ID
++  '&PDVCPKGI'.  You are not allowed to perform this action for one of
++  the following reasons:
++
++     1) The package is in the wrong state for the &PDVACTN action.
++     2) The package is Non-Sharable and you are NOT the owner of the
++        package.
++     3) The package has one or more Approver Groups associated with it
++        and you are not a member of any of the Approver Groups.
++
++  The Package Selection List contains ALL packages that match the Package ID
++ mask, the Status filter criteria and the WHERE OLDER THAN criteria that you
++ specified on the Package Specification Panel.  You may NOT be authorized to
++ perform all actions against every package in the list.
++
++
++
++  Enter the END command to return to the Package Selection List.
++
+)END

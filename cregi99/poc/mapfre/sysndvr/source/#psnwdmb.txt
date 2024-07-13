@@ -1,0 +1,7 @@
+@REM ****************************************************** #PSNWDMB ***
+@REM *    CONTENTS: ENDEVOR/MVS - SUBMIT A PROCESS FOR A DESTINATION
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: ADD THE SUBMIT COMMAND TO THE NDM INPUT MEMBER
+@REM *******************************************************************
+@REM *
+      SUBMIT PROC=&DESTID.P

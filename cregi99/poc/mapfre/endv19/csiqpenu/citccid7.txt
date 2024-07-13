@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Transfers \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
+%Transfer+
++ without    Set from    Set if      Set      Clear       Set from   Set if
++  history   origin      generated                        last       generated
++            value                                        origin
++                                                         delta
++
++ with       Set from    Set if      Set      Clear       Carried w/ Set if
++  history   origin      generated                        delta lvls generated
++
++    with    Set from    Set if      Set      Clear       Set from   Set if
++     sync   origin      generated                        base.      generated
++            value                                        Carried w/
++                                                         delta &
++                                                         sync lvls
++
+)END

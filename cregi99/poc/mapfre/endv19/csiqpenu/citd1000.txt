@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Display Elements Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Display Elements option to display source and Master Control File
++information about an element.
++
++The Display Elements/Component Lists panel displays if you are an
++ACM user.
++
++  Select one of the options below for more information:
+%    1+- Panel options
+%    2+- Inventory fields
+%    3+- Element and Uppercase fields
+%    4+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITD1001 2,CITNDVR0 3,CITNDVRL 4,CITLOPT0)
+)END

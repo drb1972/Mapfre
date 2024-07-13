@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Using the Inventory Structure \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The software inventory structure allows you to:
++
+%  Work+with program modules without having to know where they are
++     physically located, or how they are compiled.
+%  List+all the program components that make up an application,
++     regardless of type.
+%  Determine+the location(s) of an element simply by entering the
++     element name on a display screen.
+%  Act+on a cross section of your program inventory.  For example,
++     you can list all COBOL code in your shop, or promote an entire
++     new release of the payroll application with a single command.
++     Selection lists can be produced, for example, of:
++       * All the JCL in the shop
++       * All the software currently in QA
++       * All the manufacturing software currently being unit tested
++
++There are many other ways to use this structure to your advantage.
++
++                                            (%PF3+to return)
+)END

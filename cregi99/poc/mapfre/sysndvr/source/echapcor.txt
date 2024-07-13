@@ -1,0 +1,26 @@
+      *****************************************************************
+      *
+      *  CREATE, DELETE OR MODIFY A CORRELATION RECORD - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APCOR-RQ.
+           05  APCOR-RQ-HEADER.
+               10  APCOR-RQ-LEN        PIC 9(04) COMP VALUE 148.
+               10  APCOR-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APCOR-RQ-ID         PIC 9(04) COMP VALUE 1616.
+               10  APCOR-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APCOR-RQ-EYE        PIC X(04)      VALUE 'PCOQ'.
+           05  APCOR-RQ-DATAAREA.
+               10  APCOR-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APCOR-RQ-FUNC       PIC X(01) VALUE SPACES.
+                   88  APCOR-RQ-FUNCC            VALUE 'C'.
+                   88  APCOR-RQ-FUNCD            VALUE 'D'.
+                   88  APCOR-RQ-FUNCM            VALUE 'M'.
+               10  APCOR-RQ-TYPE       PIC X(01) VALUE SPACES.
+                   88  APCOR-RQ-TYPEH            VALUE 'H'.
+                   88  APCOR-RQ-TYPEI            VALUE 'I'.
+                   88  APCOR-RQ-TYPEU            VALUE 'U'.
+               10  APCOR-RQ-CORRID     PIC X(32) VALUE SPACES.
+               10  APCOR-RQ-DATA       PIC X(80) VALUE SPACES.
+               10  APCOR-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

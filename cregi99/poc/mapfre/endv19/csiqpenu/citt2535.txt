@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Storage Formats - continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Log delta format+- continued
++
++  You can store the element base either as is or as encrypted and compressed.
++  If you store the element base as is:
++     * Source is directly readable by programs (compilers, search utilities).
++     * Base/delta format is the same as regular PDS format, eliminating the
++         need for source output libraries.
++     * List and query functions perform more efficiently.
++  If you store the element base in encrypted/compressed format:
++     * Compression provides DASD savings.
++     * Encryption allows a single base library to contain multiple
++         elements with the same name, but different system, subsystem,
++         or type specifications.
++
+%Note:+If you select reverse, full-image, or log delta format, only
++one instance of the element can be stored in the same base library.
++
++
++                                            (%PF3+to return)
+)END

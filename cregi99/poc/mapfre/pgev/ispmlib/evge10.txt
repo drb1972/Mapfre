@@ -1,0 +1,12 @@
+EVGE101E 'No elements selected'                         .ALARM = YES
+'No elements selected for processing'
+EVGE102I 'Elements selected'  '                         .ALARM = YES
+'Some elements were selected'
+EVGE103I 'Elements excluded'  '                         .ALARM = YES
+'Some element were excluded'
+EVGE104I 'All elements selected'                        .ALARM = YES
+'All entries in the list were selected'
+EVGE105E 'Member not found'                             .ALARM = YES
+'Locate failed, member not found in list'
+EVGE106E 'No members is dataset'                        .ALARM = YES
+'The dataset specified contains no members'

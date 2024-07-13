@@ -1,0 +1,7 @@
+ENDE110S 'Macro ABEND'                .HELP=ENDIEH10   .ALARM=YES
+'ENDE110S &EEVPGMNM: A &EEVABCOD ABEND occurred during processing'
+ENDE111I 'Element Synchronized'       .ALARM=YES
+'ENDE111I Element was successfully synchronized'
+ENDE112I 'Element Already in Sync'    .ALARM=YES
+'ENDE112I Element is already in sync'
+

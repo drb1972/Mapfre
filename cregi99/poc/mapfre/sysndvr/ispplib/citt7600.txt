@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Backout \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Should you discover a problem once you have executed the package, or
++if the execution failed, you can%back out+the package. You can also
++reinstate backed out packages, using the%back in+option.
++
++When you back out a package, you must use the BSTCOPY utility, not IEBCOPY.
++BSTCOPY is discussed in Chapter 5 of the Administrator's Guide.
++
+%Note:+Package backout alters processor output libraries - not base and
++ delta libraries.  If reverse or image delta format is being used, the
++ base library member will not be backed out.
++
++ Select%1+-%2+for information about
++
+%    1+- Why backout does not       %2+- Backout and package
++          affect source                   dependencies
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT7610 2,CITT7620)
+)END

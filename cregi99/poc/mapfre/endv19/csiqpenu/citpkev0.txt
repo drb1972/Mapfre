@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Event Fields \-\ TUTORIAL
+%COMMAND ===>_ZCMD                                                             +
+%
++One or more of these fields display on package action panels. Each
++event is logged by user ID, date, and time.
++
+%  Created+- Indicates when the package was created.
+%  Last Updated+- Indicates when the package was last modified.
+%  Cast+-  Indicates when the package was cast.
+%  Approved+- Indicates when the package was approved.
+%  Executed+- Indicates when the package has been executed.
+%  Last Shipped+- Indicates when the package was last shipped.
+%  Dest-ID+- Indicates ID of destination package was last shipped to.
+%            *MULTI*+indicates there are multiple destinations.
+%  Backed Out+- Indicates when the package was last backed out.
+%  Backed In+- Indicates when the package was last backed in.
+%  Committed+- Indicates when the package was committed.
++
+%  Action RC+- The highest action return code received when processing
++     this package. Blank until the package has been executed.
+
++
++\ \ (%PF3+to return) \ \
+)END

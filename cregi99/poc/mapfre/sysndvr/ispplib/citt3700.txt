@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Map and Signout \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When the map is searched during an action, and the element is found
++at a location other than the current location, the action fails if
++that element is not signed out to the user requesting the action.
++
++Before requesting an action that uses the map, make sure that
++the element(s) involved in the action are signed out to you at
++all locations on the map route used by the action.
++
++For example, if you try to Add element PROG01 to Stage 1 of
++environment DEV, but PROG01 is signed out to another user in
++environment PROD, your Add request will fail.
++
++
++
++
++
++                                            (%PF3+to return)
+)END

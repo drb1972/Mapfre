@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Filter Promotion Packages \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Option to Filter Promotion Packages +
+
++ This enhancement adds an option to filter the list of packages on the
+  Package Foreground Options Menu by%promotion flag+and%target location.
+ +There are several new fields on the Package Foreground Options Menu:
+ %> Promotion Pkg+- Valid values are:
+   %A+- Display promotion and non-promotion packages in the list.
+   %P+- Limit the list to promotion packages.
+   %X+- Exclude promotion packages from the list.
+ %> Tgt Environment and Tgt Stage ID+- These fields can be used to limit the
+    list of promotion packages returned to just those that match the %target
+    environment+and%stage ID+specified. Filtering by target location can
+    only be used with%PROMOTION PKG+option set to%P+or%A.+ For option A,
+    all promotion packages matching the target location will be listed along
+    with all non-promotion packages.  Note that if you specify a target
+    location, any promotion packages that are in-edit will not be returned.
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E5
+)END

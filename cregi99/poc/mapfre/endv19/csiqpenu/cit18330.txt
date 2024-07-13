@@ -1,0 +1,18 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Fingerprint data added to End-to-End Logging Output \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Fingerprint data added to End-to-End Logging Output
++
++ End-to-End logging output now includes the Element fingerprint data
++ in JSON format. The MF Webhook server can read this data and format it
++ for event based sync-back in support of GIT integration functionality.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18340
+)END

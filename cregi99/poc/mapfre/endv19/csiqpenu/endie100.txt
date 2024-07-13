@@ -1,0 +1,57 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*                                                                       */
+/* Note: The installation can force the Generate Processor Mode to       */
+/* be BATCH by performing the following steps:                           */
+/*  1) Change the underscore attribute character (_) one the             */
+/*     'Generate Processor Mode' line to a horizontal bar (|)            */
+/*  2) Uncomment the assignement statement in the )INIT section and      */
+/*     set the EEVPRMOD variable to B for BATCH mode or F for fore-      */
+/*     ground mode.                                                      */
+/* These steps will make the variable an unmodifiable value.             */
+/*                                                                       */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ @ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+)BODY EXPAND(\\)
+%\-\ Endevor Quick Edit \-\
+%Command ===>_VARWKCMD                                                         +
++
++ Dialog Commands:
++  %D+Dialog Defaults   %AO+Action Options
++ Element Options:
++  %blank+ Element list %B+Browse %CR+Create  %E+Edit %C+Changes
++  %G+Generate          %#+Delete  %M+Masters %O+Move %S+Summary %H+History
++ %LC+List Components  %LL+List Listing      %LO+List Outputs   %LI+List Inputs
++
++Inventory Location:               List Options:
++  Environment.._VAREVNME+           Where CCID is...............^EEVWCCID    +
++  System......._SYS     +           Where Processor Group is...._EEVWPGRP+
++  Subsystem...._SBS     +           Build Using Map............._Z+(Y/N)
++  Element......@CIELM     +         Return First Found.........._Z+(Y/N)
++  Type........._TYPEN   +           Display System/Subsys List.._Z+(Y/N)
++
++Action Options:
++  CCID.........................^EEVCCID     +
++  Comment......................`EEVCOMM                                 +
++  Processor Group.............._EEVPRGRP+
++  Override Signout............._Z+(Y/N)
++
++    Copyright (C) 2022 Broadcom. All rights reserved.
+)INIT
+  .ZVARS = '(EEVSRCHM EEVFFND EEVDLIST EEVOOSGN)'
+  /*---------------------------------------------------------------*/
+  /* The default value of the 'Generate Processor Mode' field can  */
+  /* be set by uncommenting the following statement.               */
+  /*---------------------------------------------------------------*/
+  /* &EEVPRMOD = B        */
+  .HELP = ENDHE100
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Quick Edit Support for Mixed-Case Long-Named Elements \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Quick Edit Support for Mixed-Case Long-Named Elements
++
++ With this enhancement, Quick Edit now fully supports Mixed-Case and
++ Long-Named Elements, meaning that you can perform all of the available
++ Quick Edit actions against these Elements.  In addition, you can set the
++ Element Column Width for selection lists via the Dialog Defaults option
++ in Quick Edit to specify a width of from 8 to 30 characters. Support for
++ a 132 character wide screen on the Element selection list is also provided,
++ allowing more columns of data to be displayed.
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18140
+)END

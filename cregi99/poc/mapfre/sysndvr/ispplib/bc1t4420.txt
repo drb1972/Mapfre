@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Merge Process \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM creates CA Endevor SCM change levels from the WIP file. Each derivation is
++represented in a change level. The element is built at your specified
++CA Endevor SCM location.
++
++Before invoking the Merge process you must edit all conflicts out of
++the WIP file or the merge process will fail. The WIP file can contain
++non-conflicting inserts and deletes.
++
++When building Merged Output PDM:
++
++  * Removes the WIP header information.
++
++  * Inserts and deletes lines as necessary
++
++  * Removes the WIP annotations.
++
++  * Ignores comment lines.
++
+)END

@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Transfer Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use Transfer to move elements from one location to another location
++that is not on the same map route. You can transfer from:
+
+   * Inventory location to inventory location
+   * Inventory location to an external location
+   * An external location to an inventory location
+
++Use the%FROM LOCATION+fields to specify a source location, and the
+%TO LOCATION+fields to specify a target location.
+
++To Transfer to or from an archive data set, first specify the request,
++providing either%FROM LOCATION+or%TO LOCATION+information, then edit the
++request data set. See the SCL Reference for Transfer syntax.
+
++Select one of the options below for more information:
++
+%   1+- Panel options                    %4+- Action options
+%   2+- Inventory fields                 %5+- List options
+%   3+- Element and Uppercase fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF9001 2,CITNDVR0 3,CITNDVRL
+                   4,CITF9002 5,CITLOPT0)
+)END

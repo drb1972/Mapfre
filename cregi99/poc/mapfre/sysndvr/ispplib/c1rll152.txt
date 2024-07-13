@@ -1,0 +1,35 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+TAG $ SH MSG
+tag & sh dsname
+tag @ uh memsel
+tag ¢ sh memname8
+TAG ~ SH TBLNAME
+tag ` sh memfoot2
+%----------------------------  Member Selection List  --------------------------
+%COMMAND INPUT ===>_   +                                      %SCROLL ===>_FULL+
+$
++FROM  Data set: &
++
++                     |-----------------  F O O T P R I N T  ------------------|
++  MEMBER              SYSTEM   SUBSYS   ELEMENT    TYPE     VVLL  DATE    TIME
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+@ ¢        ~          `
+enddef

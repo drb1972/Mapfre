@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive - Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%3+for information about Archive action options
++
+%    1+- CCIDs and Comments         %3+- Override signout
+%    2+- Delete from element
+
+
+
+
+
+
+
+
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITBYED1 3,CITORSO0)
+)END

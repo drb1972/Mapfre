@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Endevor Web Services \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
+%
+%Endevor Web Services +
++
+ This feature is a middleware layer that runs in a z/OS USS environment and
+ connects internet client applications to a CA Endevor SCM repository through
+ the CA Endevor SCM API. The Eclipse Plug-in uses Endevor Web Services to
+ connect to CA Endevor SCM. In addition, you can use Endevor Web Services to
+ enable your user-written client applications to access CA Endevor SCM.
+ Possible client applications include browser, mobile, anonymous, or
+ Rich Client Platform (RCP) programs.
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1540
+)END

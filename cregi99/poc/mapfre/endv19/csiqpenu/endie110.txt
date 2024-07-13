@@ -1,0 +1,211 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Note: The installation can force the Generate Processor Mode to       */
+/* be BATCH by performing the following steps:                           */
+/*  1) Change the underscore attribute character (_) on the              */
+/*     'Generate Processor Mode' line to a horizontal bar (|)            */
+/*  2) Uncomment the assignement statement in the )INIT section and      */
+/*     set the EEVPRMOD variable to B for BATCH mode or F for fore-      */
+/*     ground mode.                                                      */
+/* These steps will make the variable an unmodifiable value.             */
+/*                                                                       */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(TEXT)   INTENS(&VARQEPIN)
+ ~ TYPE(TEXT)   INTENS(&VARQEQIN)
+ | TYPE(OUTPUT) INTENS(HIGH)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ! TYPE(&VARQETY )  CAPS(ON) INTENS(&VARQEIN ) PADC(_)
+ @ TYPE(&VARQETY )  CAPS(OFF) INTENS(&VARQEIN ) PADC(_)
+ $ AREA(SCRL) EXTEND(ON)
+ 1D TYPE(OUTPUT) COLOR(BLUE) CAPS(OFF) /* Help text heading     */
+ 11 TYPE(SAC)                          /* Select Action Choice */
+ {  TYPE(PS)                           /* Point and shoot */
+ }  TYPE(CH)                           /* Column heading */
+ 10 TYPE(ET)                           /* Emphasised Text */
+)BODY EXPAND(\\)
+%\-\ Endevor Quick Edit &VARINCRN \-\
+%Command ===>_VARWKCMD                                        %Scroll ===>_AMT +
+$SAREA                                                                         $
+)AREA SAREA
+<SELECT - Dynamic Help Options>
+<WHEN &VNTUIHID=Y>
+MyPrmpt             {U{SQ{AO{D{PD{P{Blank{B{CR{E{C{SI{G{#{M{O{S{H{LL{LC{LO{LI+
++
+<OTHERWISE>
+MyPrmpt               U{User Menu        ~SQ{Sub Queue+&QUREQS
+  AO{Action Options   D{Dialog Defaults  ¢PD{Parallel Dev     P{Packages   +
+}Element Options:+
+  blank{Element list  B{Browse CR{Create E{Edit C{Changes SI{Signin     +
+      G{Generate      #{Delete  M{Master O{Move S{Summary  H{History    +
+     LL{List Listing LC{List Components  LO{List Outputs    LI{List Inputs+
++
+</SELECT>
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++Location:                         List Options:
++  Environment .!QEPEVNME+           Apply List Filters . . . . ._Z+(Y/N)
++  System. . . .!QEPSYS  +           Build Using Map. . . . . . ._Z+(Y/N)
++  Subsystem . .!QEPSBS  +           Return First Found . . . . ._Z+(Y/N)
++  Element . . .@QEPELM    |QEPIND+  Display Env/Sys/Subsys List._Z+(Y/N)
++  Type. . . . .!QEPTYP  +
++
++Action Options:
++  CCID. . . . . . .^EEVCCID     +
++  Comment . . . . .`EEVCOMM                                 +
++  Processor Group ._EEVPRGRP+
++  Override Signout._Z+(Y/N)         Preserve VB Record Length. ._Z+(Y/N)
+<OTHERWISE>
++Element. .@QEPELM                                             |QEPIND
++  Type . .!QEPTYP  +
++  CCID . .^EEVCCID     + Comment. .`EEVCOMM                                 +
++
++Location:                         List Options:
++  Environment.!QEPEVNME+            Build Using Map. . . . . . ._Z+(Y/N)
++  System . . .!QEPSYS  +            Return First Found . . . . ._Z+(Y/N)
++  Subsystem. .!QEPSBS  +            Apply List Filters . . . . ._Z+(Y/N)
++                                    Display Env/Sys/Subsys List._Z+(Y/N)
++                                    Case-sensitive Elm Name. . ._Z+(Y/N)
++Action Options:
++  Override Signout ._Z+(Y/N)        Uppercase Elm Name . . . . ._Z+(Y/N)
++  Processor Group. ._EEVPRGRP+      Preserve VB Record Length. ._Z+(Y/N)
+</SELECT>
+<SELECT Dynamic Endevor Learn More option>
+<WHEN &VNTUIDLM=N>
++
++            Copyright (C) 2022 BROADCOM. All Rights Reserved.
+<OTHERWISE>
++
++           Learn More at&VNTUIURL                                  +
++            Copyright (C) 2022 BROADCOM. All Rights Reserved.
+</SELECT>
+)INIT
+&VNTUIURL              = 'https://www.broadcom.com/Endevor-Learn-More'
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(EEVALF EEVSRCHM EEVFFND EEVDLIST +
+                              EEVOOSGN EEVOOPRE)'
+  &EEVCASE  = 'Y'                              /* Force uppercase on         */
+  &EEVMIXEL = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+  .ZVARS = '(EEVSRCHM EEVFFND EEVALF EEVDLIST EEVCASE  +
+             EEVOOSGN EEVMIXEL EEVOOPRE)'
+</SELECT>
+
+/* For QE Batch Action Queue Feature show if the option is active and if  */
+/* There are any pending requests                                         */
+  VGET (EEVQUREQ) ASIS                      /* Fetch latest value         */
+  IF (&EEVQUREQ = '00000000')               /* If request Queue is empty  */
+      &VARQEQIN = 'LOW'                     /* . show it as unavailable   */
+      &QUREQS   = ''                        /* . and blank out the REQs   */
+  ELSE
+      &VARQEQIN = 'HIGH'                    /* Otherwise HiGHLIGHT the opt*/
+      *REXX( EEVQUREQ QUREQS)               /* and use REXX to format the */
+       QUREQS = '(' || STRIP(EEVQUREQ,'L','0') || ')' /* REQS number by   */
+       RETURN                               /* removing the leading zeros */
+      *ENDREXX
+
+/*For some panels it makes sense to default the cursor position, maybe not   */
+/*though for the Q/E primary panel - the first key stroke should be the cmd  */
+/*&tcursor = .cursor                           -* Get cursor field           */
+/*if (.CURSOR = VARWKCMD AND .MSG = &Z)        -* if cursor is top and no msg*/
+/*    .CURSOR = 'QEPELM'                       -* If on top put cursor here  */
+  &CTLITRML = 'E'                    /* We are using English panels*/
+  VPUT (CTLITRML) PROFILE
+  /* Adjust the Dialog Prompt text for hidden or expanded */
+  if (.MSG = FLOW000E)                      /* invalid option?     */
+     if (&VARWKCMD = ZREDISPLAY)            /* and we wanted refsh */
+         &VARWKCMD = &Z                     /* clear it            */
+         .MSG = ENDE218W                    /* and show saved msg  */
+  if (&VNTUIHID = 'Y')
+      &MyPrmpt = 'Dialog Commands: +'
+  else
+      &MyPrmpt = 'Dialog Commands: -'
+      &VNTUIHID = 'N'
+  /*---------------------------------------------------------------*/
+  /* The default value of the 'Generate Processor Mode' field can  */
+  /* be set by uncommenting the following statement.               */
+  /*---------------------------------------------------------------*/
+  /* &EEVPRMOD = B        */
+  .HELP = ENDHE100
+  &LIST2 = 'Y N'
+  IF (&EEVALF = ' ')
+    &EEVALF = 'N'
+  VGET (AMT)
+  IF (&AMT = ' ')
+    &AMT = 'PAGE'
+  IF (&QTMPCASE = ' ')
+    &EEVCASE = 'Y'
+    &QTMPCASE = 'Y'
+  IF (&EEVMIXEL = ' ')
+    &EEVMIXEL = 'Y'
+
+ VGET (ZSCREENW) ASIS
+ VPUT (ZSCREENW) PROFILE
+
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+  &ENABWAIE = TRANS(&QEPEVNME, '','*' *,*)
+  &ENABWAIS = TRANS(&QEPSYS    '','*' *,*)
+  &ENABWAIB = TRANS(&QEPSBS    '','*' *,*)
+  &ENABWAIL = TRANS(&QEPELM    '','*' *,*)
+  &ENABWAIT = TRANS(&QEPTYP    '','*' *,*)
+  &ENABWAI = '&ENABWAIE/&ENABWAIS/&ENABWAIB/&ENABWAIL/&ENABWAIT'
+  VPUT (ENABWAI) SHARED
+  VPUT (EEVOOSGN EEVCCID EEVCOMM AMT) PROFILE
+  VER  (&EEVALF,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER  (&EEVCASE,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER  (&EEVMIXEL,NB,LISTV,&LIST2,MSG=CIFV005)
+  VGET (MYBYPASS) Shared /* Check current setting of bypass       */
+  if (&MYBYPASS = 'Y')   /* was bypass set on prompt panel?       */
+      &MYBYPASS = 'N'    /* Turn it off again because we're back  */
+      VPUT (MYBYPASS) Shared /* and user might change their mind  */
+
+  if (.CURSOR = MYPRMPT) /* If cursor in Dialog Promt (help area) */
+     if (&VNTUIHID = 'Y')
+         &MyPrmpt  = 'Dialog Commands: -'
+         &VNTUIHID = 'N'
+     else
+         &MyPrmpt  = 'Dialog Commands: +'
+         &VNTUIHID = 'Y'
+     VPUT (VNTUIHID) PROFILE
+     &zedsmsg='Help Text Hide:&VNTUIHID'   /* Set a message       */
+     &zedlmsg='Toggled the Endevor Help Text display'
+     &VARWKCMD = 'ZREDISPLAY'              /* jump to defaults    */
+     .RESP = ENTER                         /* Press Enter         */
+/* Save PARM to top level commands so that they are available     */
+/* to the subsequently called routines, or through FLOWBLOCK      */
+/* select program/command in the PGMPARM field                    */
+  &TEMP = TRUNC(&VARWKCMD,' ')
+  &VARWKPRM = .TRAIL
+  VPUT(VARWKPRM) SHARED
+
+)FIELD
+ FIELD(QEPELM) IND(QEPIND) SCROLL(ON)
+ FIELD(VARWKCMD)           SCROLL(NO)  LEN(255)
+)PNTS
+ FIELD(ZPS01001) VAR(VARWKCMD) VAL(U)
+ FIELD(ZPS01002) VAR(VARWKCMD) VAL(SQ)
+ FIELD(ZPS01003) VAR(VARWKCMD) VAL(AO)
+ FIELD(ZPS01004) VAR(VARWKCMD) VAL(D)
+ FIELD(ZPS01005) VAR(VARWKCMD) VAL(PD)
+ FIELD(ZPS01006) VAR(VARWKCMD) VAL(P)
+ FIELD(ZPS01007) VAR(VARWKCMD) VAL(' ')
+ FIELD(ZPS01008) VAR(VARWKCMD) VAL(B)
+ FIELD(ZPS01009) VAR(VARWKCMD) VAL(CR)
+ FIELD(ZPS01010) VAR(VARWKCMD) VAL(E)
+ FIELD(ZPS01011) VAR(VARWKCMD) VAL(C)
+ FIELD(ZPS01012) VAR(VARWKCMD) VAL(SI)
+ FIELD(ZPS01013) VAR(VARWKCMD) VAL(G)
+ FIELD(ZPS01014) VAR(VARWKCMD) VAL('#')
+ FIELD(ZPS01015) VAR(VARWKCMD) VAL(M)
+ FIELD(ZPS01016) VAR(VARWKCMD) VAL(O)
+ FIELD(ZPS01017) VAR(VARWKCMD) VAL(S)
+ FIELD(ZPS01018) VAR(VARWKCMD) VAL(H)
+ FIELD(ZPS01019) VAR(VARWKCMD) VAL(LL)
+ FIELD(ZPS01020) VAR(VARWKCMD) VAL(LC)
+ FIELD(ZPS01021) VAR(VARWKCMD) VAL(LO)
+ FIELD(ZPS01022) VAR(VARWKCMD) VAL(LI)
+)END

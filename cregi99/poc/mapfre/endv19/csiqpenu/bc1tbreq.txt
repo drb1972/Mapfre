@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Batch Specification \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the%Batch Specification+fields on the PDM Primary Option Panel to
++specify a data set for storing PDM batch requests.
++
+%Batch Request Data Set+- The batch request data set must be either a
++   sequential data set or a partitioned data set with an explicitly
++   identified member. The data set can contain either fixed or variable
++   length records. For fixed length records, the LRECL must be 80. For
++   variable length records, the LRECL must be 84.
++
+%Other Partitioned or Sequential Data Set+- Use as an alternative area
++   for specifying the request data set, using standard ISPF conventions.
++
+%Append or Replace+- Required. Specify%R+if PDM is to replace like-named
++   members in the request data set, or%A+if PDM is to append the
++   statements to an existing data set.
++
++The batch request data set can be dynamically allocated if the data set
++specified is not catalogued.
+)END

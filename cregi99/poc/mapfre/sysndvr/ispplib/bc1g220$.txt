@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%BUILD WIP ------------  DERIVATION 1 SPECIFICATION PANEL  ---------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Specify%"DERIVATION 1"+location below, then press%ENTER+key.
++
++DERIVATION 1 LIBRARY:+
++   PROJECT %===>_PTBD1PRJ+
++   GROUP   %===>_PTBD1LIB+
++   TYPE    %===>_PTBD1TYP+
++   MEMBER  %===>_PTBD1MEM  +       THRU MEMBER%===>_PTBD1TMB  +
++
++DERIVATION 1 OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_PTBD1OTH
+)INIT
+   .HELP = BCTG2200
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ ISPF Library Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++ISPF library fields appear as FROM ISPF LIBRARY or TO ISPF LIBRARY.
++They are standard ISPF data set specification fields used to identify
++an external data set and member(s) that are the
+
+   *Source for Add, Update, Restore, and certain Transfer actions.
+
+   *Target for Archive, Retrieve, and certain Transfer actions.
+
++The data set can be a PDS, Librarian, or Panvalet library, or a
++sequential file.
+
++Use the%Other Partitioned or Sequential Data Sets+field as an
++alternative to the FROM ISPF LIBRARY or TO ISPF LIBRARY fields to
++define source or target external data sets and members. Type the
++data set and member specification in 'data set(member)' format.
++
++ Several actions such as ADD, RETRIEVE, LIST MEMBER and PRINT MEMBER
++ support%USS PATH+and%FILE+name. Type the path and file names in USS
++ path and file format.
++\ \ (Press%PF3+to return) \ \
+)END

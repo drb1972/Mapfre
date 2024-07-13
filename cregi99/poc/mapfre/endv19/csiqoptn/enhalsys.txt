@@ -1,0 +1,120 @@
+         MACRO
+         ENHALSYS &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST SYSTEM - REQUEST BLOCK                                  *
+*                                                                     *
+***********************************************************************
+ALSYS_VER       EQU 3                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALSYS_VER,          CONTROL BLOCK VERSION           X
+               EYE='LSYQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALSYS_RQ
+         SPACE ,
+ALSYS_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSYS_RQ_DATA
+ALSYS_RQ_PATH     DC CL1'L'            (L)OGICAL -OR- (P)HYSICAL
+ALSYS_RQ_RETURN   DC CL1'F'            (F)IRST -OR- (A)LL
+ALSYS_RQ_SEARCH   DC CL1'A'            (A)LL -OR- (B)ETWEEN -OR-       X
+                                       N(E)XT -OR- (N)O -OR- (R)ANGE
+ALSYS_RQ_RESERVE1 DC CL1' '            ** RESERVED **
+ALSYS_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+ALSYS_RQ_TOENV    DC CL8' '            RANGE-TO ENVIRONMENT NAME -OR-  X
+                                       BETWEEN-TO ENVIRONMENT NAME
+ALSYS_RQ_STG_ID   DC CL1' '            STAGE ID
+ALSYS_RQ_TOSTG_ID DC CL1' '            RANGE-TO STAGE ID -OR-          X
+                                       BETWEEN-TO STAGE ID
+ALSYS_RQ_SYSTEM   DC CL8' '            SYSTEM NAME/MASK
+                  DS 0X
+ALSYS_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALSYS_RQ_VER#1_DATADSLN EQU *-ALSYS_RQ_DATA
+ALSYS_RQ_VER#1_DSLN     EQU *-ALSYS_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSYS_RQ_VER#2_DATADSLN EQU *-ALSYS_RQ_DATA
+ALSYS_RQ_VER#2_DSLN     EQU *-ALSYS_RQ
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+ALSYS_RQ_VER#3_DATADSLN EQU *-ALSYS_RQ_DATA
+ALSYS_RQ_VER#3_DSLN     EQU *-ALSYS_RQ
+         SPACE ,
+.* ADD VERSION 4 FIELDS AFTER THIS POINT
+ALSYS_RQ_DATADSLN EQU *-ALSYS_RQ_DATA
+ALSYS_RQ_DSLN     EQU *-ALSYS_RQ
+         ORG      ALSYS_RQ_DATA
+ALSYS_RQ_DATAAREA DS XL(ALSYS_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        LIST SYSTEM - RESPONSE BLOCK                                 *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALSYS_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LSYS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALSYS_RS
+         SPACE ,
+ALSYS_RS_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALSYS_RS_DATA
+ALSYS_RS_SITE     DC CL1' '            SITE ID
+ALSYS_RS_ENV      DC CL8' '            ENVIRONMENT NAME
+ALSYS_RS_SYSTEM   DC CL8' '            SYSTEM NAME
+ALSYS_RS_STG_NAME DC CL8' '            STAGE NAME
+ALSYS_RS_STG_ID   DC CL1' '            STAGE ID
+ALSYS_RS_STG_REL  DC ZL4'0'            RELATIVE STAGE NUMBER
+ALSYS_RS_UPD_CNT  DC ZL8'0'            RECORD UPDATE COUNT
+ALSYS_RS_UPD_DATE DC ZL8'0'            UPDATE DATE 'YYYYMMDD'
+ALSYS_RS_UPD_TIME DC ZL8'0'            UPDATE TIME 'HHMMSSTH'
+ALSYS_RS_UPD_USER DC CL8' '            UPDATE USER ID
+ALSYS_RS_TITLE    DC CL50' '           SYSTEM TITLE
+ALSYS_RS_NXT_SYS  DC CL8' '            NEXT SYSTEM NAME IN PATH
+ALSYS_RS_LOADLIB  DC CL44' '           PROCESSOR LOAD LIBRARY
+ALSYS_RS_LISTING  DC CL44' '           PROCESSOR LISTING LIBRARY
+ALSYS_RS_COMMENT  DC CL1' '            Y/N - COMMENT REQUIRED?
+ALSYS_RS_CCID     DC CL1' '            Y/N - CCID REQUIRED?
+ALSYS_RS_SISO1    DC CL1' '            Y/N - SIGNOUT REQUIRED?
+ALSYS_RS_SISO2    DC CL1' '            Y/N - VALIDATE RETRIEVE DATASET?
+                  DC CL1' '
+ALSYS_RS_JUMP     DC CL1' '            Y/N - JUMP OPTION REQUIRED?
+ALSYS_RS_BAK_DATE DC ZL8'0'            BACKUP DATE 'YYYYMMDD'
+ALSYS_RS_BAK_TIME DC ZL8'0'            BACKUP TIME 'HHMMSSTH'
+ALSYS_RS_FMID     DC ZL5'0'            RECORD CREATED RELEASE ID
+ALSYS_RS_DREG     DC CL1' '            Y/N - DUPLICATE ELM REGISTRATION
+ALSYS_RS_DREGS    DC CL1' '            W/C/E/BLANK-DUP ELM REG SEV LVL
+ALSYS_RS_PREG     DC CL1' '            Y/N - PROC OUTPUT REGISTRATION
+ALSYS_RS_PREGS    DC CL1' '            W/C/E/BLANK-PROC O/P REG SEV LVL
+                  DC CL9' '            ALIGNMENT
+                  DS 0X
+ALSYS_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALSYS_RS_VER#1_DATADSLN EQU *-ALSYS_RS_DATA
+ALSYS_RS_VER#1_DSLN     EQU *-ALSYS_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+ALSYS_RS_EAURET   DC CL1' '      ELE LVL AUTO AGE RETENT FLAG
+ALSYS_RS_EAURETM  DC CL3' '      MONTHS TO RETAIN ELE LEVELS
+ALSYS_RS_CAURET   DC CL1' '      COMP LVL AUTO AGE RETENT FLAG
+ALSYS_RS_CAURETM  DC CL3' '      MONTHS TO RETAIN COMP LEVELS
+ALSYS_RS_X2       DS 0F          LABEL NEEDED FOR CHDR GEN
+ALSYS_RS_VER#2_DATADSLN EQU *-ALSYS_RS_DATA
+ALSYS_RS_VER#2_DSLN     EQU *-ALSYS_RS
+         SPACE ,
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+ALSYS_RS_PREGXSBS DC CL1' '      PROC O/P TYPE CHECK ACROSS SBS (Y/N)
+ALSYS_RS_X3       DS 0F          LABEL NEEDED FOR CHDR GEN
+ALSYS_RS_VER#3_DATADSLN EQU *-ALSYS_RS_DATA
+ALSYS_RS_VER#3_DSLN     EQU *-ALSYS_RS
+         SPACE ,
+.* ADD VERSION 4 FIELDS AFTER THIS POINT
+         SPACE ,
+ALSYS_RS_DATADSLN EQU *-ALSYS_RS_DATA
+ALSYS_RS_DSLN     EQU *-ALSYS_RS
+         ORG      ALSYS_RS_DATA
+ALSYS_RS_DATAAREA DS XL(ALSYS_RS_DATADSLN)     DATA AREA
+         MEND

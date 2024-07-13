@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Create GENERATE SCL  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++APPEND (Y/N) - The APPEND option enables you to add the SCL to an existing
++  member or data set.
++STOPRC: Use this field to insert a SET STOPRC card in your SCL. Acceptable
++  values are between 4 and 99.
++  In case you append SCL and this existing SCL already contains a SET STOPRC
++  card, then this option will not modify the existing SET STOPRC card.
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

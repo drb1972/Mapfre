@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ USS Mapping Rules \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use these panels to create, display, modify, or test USS mapping rules.
++
++From the CREATE USS MAPPING RULE panel, fill in the description, host path
++name and remote path name (leave the remote path name blank if the host path
++is to be excluded from transmission) and hit enter to create the mapping rule.
++
++From the MODIFY USS MAPPING RULE panel, change the description, host or remote
++path names and hit enter to modify the mapping rule. To delete the mapping
++rule, type%#+on the COMMAND line and hit enter; the mapping rule will be
++deleted.
++
++From the TEST USS MAPPING RULES panel, enter a host path name and hit enter.
++The mapping rules for this destination will be searched and a remote path
++name will be generated from the host path name using the best matching
++mapping rule. The mapping rule used in the transformation is also displayed.
++
++  Select from the following options for more information:
+%    1+- Destination name           %4+- Remote path name
+%    2+- Mapping rule description   %5+- Created/updated fields
+%    3+- Host path name             %PF3+to return
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITMRUL0 3,CITHUSS0
+                  4,CITRUSS0 5,CITPDBTM)
+)END

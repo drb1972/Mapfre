@@ -1,0 +1,13 @@
+Heading1 = "(Y/N)           (REQ''D) (REQ''D)  (REQ''D)"
+NT = 'NewTbl '
+E = 'ElemTble '
+O = 'Output- '
+S = 'System-- '
+SS = 'Subsystem '
+T = 'Type---- '
+PG = 'Procgrp- '
+D1 = 'DfltCCID---- '
+D2 = 'DfltComment----------------------------- '
+U1 = 'UsingDataSet1------------------------------- '
+U2 = 'UsingDataSet2-------------------------------'
+Heading2 = NT || E || O || S || SS || T || PG || D1 || D2 || U1 || U2

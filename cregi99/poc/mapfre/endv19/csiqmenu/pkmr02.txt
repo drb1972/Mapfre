@@ -1,0 +1,12 @@
+PKMR020E 'Correlation error 11'                        .ALARM=YES
+'&VARWLTXT'
+PKMR021E 'Correlation error 12'                        .ALARM=YES
+'&VARWLTXT'
+PKMR022E 'Correlation error 13'                        .ALARM=YES
+'&VARWLTXT'
+PKMR023E 'Correlation error 14'                        .ALARM=YES
+'&VARWLTXT'
+PKMR024E 'Correlation error 15'                        .ALARM=YES
+'&VARWLTXT'
+PKMR025E 'No Correlation exists'                       .ALARM=YES
+'&VARWLTXT'

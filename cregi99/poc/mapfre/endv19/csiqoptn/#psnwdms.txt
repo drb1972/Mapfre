@@ -1,0 +1,54 @@
+@REM ****************************************************** #PSNWDMS ***
+@REM *    CONTENTS: ENDEVOR/MVS - TRANSMIT SEQUENTIAL FILES TO REMOTE
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: ADD COPY COMMANDS FOR REMOTE JOBS TO THE NDM PROCESS
+@REM *******************************************************************
+@REM *
+STEPAJOB COPY FROM (PNODE DISP=SHR -
+                DSN=&AHJOBDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@IF &RVOLSER
+                VOL=SER=&RVOLSER -
+@ENDIF
+                DSN=&ARJOBDSN)
+@IF &CHJOBDSN
+STEPCJOB COPY FROM (PNODE DISP=SHR -
+                DSN=&CHJOBDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@INCLUDE=J
+                DSN=&CRJOBDSN)
+@ENDIF
+STEPAREF COPY FROM (PNODE DISP=SHR -
+                DSN=&AHREFDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@IF &RVOLSER
+                VOL=SER=&RVOLSER -
+@ENDIF
+                DSN=&ARREFDSN)
+@IF &AHUCDDSN
+STEPASTD COPY FROM (PNODE DISP=SHR -
+                DSN=&AHUCDDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@INCLUDE=J
+                DSN=&ARUCDDSN)
+@ENDIF
+@IF &CHUCDDSN
+STEPCSTD COPY FROM (PNODE DISP=SHR -
+                DSN=&CHUCDDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@INCLUDE=J
+                DSN=&CRUCDDSN)
+@ENDIF
+@IF &AHPAXDSN
+STEPAPAX COPY FROM (PNODE DISP=SHR -
+                DSN=&AHPAXDSN) -
+              TO   (DISP=(NEW,CATLG) -
+                UNIT=&RUNIT -
+@INCLUDE=J
+                DSN=&ARPAXDSN)
+@ENDIF

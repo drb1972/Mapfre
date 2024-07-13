@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - WIP Edit Commands \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIP edit function provides edit commands for performing common
++editing functions. These commands enhance the ISPF editor so that a user
++can more easily manipulate the WIP element during the edit process. The
++following WIP edit commands are provided:
++
+%WIPCOUNT+- Counts the number of records from the Root, Derivation 1 and
++   Derivation 2 files.  The result of the count is placed in the ISPF
++   message line at the top of the WIP member.
++
+%WIPLDEL+- Logically deletes all the records from the Root, Derivation 1
++   or Derivation 2 file. A record is logically deleted by placing a
++   comment indicator ("*") in the first column of the record.
++
+%WIPUNDEL+- Reverses the logical deletions made by a previous WIPLDEL
++   command. WIPUNDEL automatically invokes the WIPCOUNT command to
++   recalculate the WIP statistics.
++
++                                      (%ENTER+for more edit commands )
+)PROC
+   &ZCONT = BC1C2210
+)END

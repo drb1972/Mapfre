@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+ /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+ /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+ /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+ ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+ # TYPE(&VARTAUTG) INTENS(&VARIAUTG) CAPS(ON) JUST(LEFT)
+)BODY
+%----------------------------  ADD/UPDATE ELEMENTS  ----------------------------
+%OPTION  ===>_ZCMD                                                             +
++
+%   blank+- Member list    %A+- Add an element   %U+- Update an element
++
++CCID%===>^CTLNBR      +  COMMENT%===>`DESCRPT1                                +
++
++TO LOCATION:                          ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+            GENERATE ELEMENT    %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +            DELETE INPUT SOURCE %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +            NEW VERSION         %===>_VV+
++  ELEMENT    %===>_TOFRNAME  +          OVERRIDE SIGNOUT    %===>_Z+(Y/N)
++  TYPE       %===>_TYPEN   +            PROCESSOR GROUP     %===>_VARFPGRP+
++                                        UPDATE IF PRESENT   %===>_Z+(Y/N)
++FROM ISPF LIBRARY:+                     AUTOGEN (BATCH ONLY)%===>#Z+(Y/N)
++  PROJECT%===>_PRJ0    +                  SPAN %===>#Z   +(NONE/ALL/SYS/SUB)
++  LIBRARY%===>_LIB0    +
++  TYPE   %===>_TYP0    +              LIST OPTIONS:
++  MEMBER %===>_ISPFMB    +              DISPLAY LIST%===>_Z+(Y/N)
++    THRU MEMBER%===>_C1DSPTNM  +
++
++FROM OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++  DATA SET NAME%===>_OTHDSN                                                  +
++
+)INIT
+  .HELP = CITF1000
+  .ZVARS = '(VARNOGEN VARDELIP C1SISOFR VARADDUP VAROAUTG VAROSPAN VARWKLST)'
+)PROC
+)END

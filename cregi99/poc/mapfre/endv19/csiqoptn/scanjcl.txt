@@ -1,0 +1,19 @@
+************************************************************************00033400
+**                                                                    **
+** SAMPLE SYNTAX FOR THE ENDEVOR CONSCAN PROCESSOR PROGRAM            **
+**                                                                    **
+************************************************************************00033400
+*                                                                       00034100
+* COMMENT IS '//*' IN COLUMN 1
+*                                                                       00034100
+************************************************************************00010000
+          COMMENT
+          FIND1 STRING='//*',POS=1
+          END1  CARD
+* //PROC EXEC NDVR
+* //EXEC PGM=ABC
+          SCANTYPE ELEMENT
+          FIND1 STRING='EXEC',POS=ANY
+          FIND2 REJECT,STRING='PGM',POS=ANY
+          START TYPE=DFLT
+          END1  TYPE=SPAC

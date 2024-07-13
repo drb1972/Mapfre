@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%\-\ Endevor  - New Features \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
++
++The following panels present information about the features and
++enhancements that are available with V15.0 of Endevor.
++
++Select one of the options listed below for more information               Last+
++                                                                       Changed+
+% 1+- Package Element Action Backout                                      %base+
+% 2+- Endevor Web Services                                                %base+
+% 3+- Log Delta Format for Element Types                                  %base+
+% 4+- Package Shipment Destinations for XCOM Transmission                 %base+
++
++
++
++
++
++
++
++
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITC1520 2,CITC1530 3,CITC1540 4,CITC1550)
+   &ZCONT = CITC1520
+)END

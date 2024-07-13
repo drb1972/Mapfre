@@ -1,0 +1,154 @@
+         SYSSTATE OSREL=ZOSV1R6   USE ADVANCED LINKAGE                  00000100
+*---------------------------------------------------------------------* 00000200
+*                                                                     * 00000300
+* NAME:    ENUXSITE                                                   * 00000400
+*                                                                     * 00000500
+* PURPOSE: SELECT A NAMED C1DEFLTS TABLE INSTANCE BASED ON THE        * 00000600
+*          PRESENCE OF A SPECIAL DDNAME BEGINNING WITH EN$DFT.        * 00000700
+*          THE FOLLOWING TWO CHARACTERS WILL BE USED TO DERIVE        * 00000800
+*          THE NAME OF THE C1DEFLTS LOAD MODULE TO BE USED BY         * 00000900
+*          ENDEVOR.                                                   * 00001000
+*                                                                     * 00001100
+* EXAMPLES:                                                           * 00001200
+*                                                                     * 00001300
+* //EN$DFTXX DD DUMMY    CAUSES C1DEFLXX TO BE USED BY ENDEVOR        * 00001400
+* //EN$DFT03 DD DUMMY    CAUSES C1DEFL03 TO BE USED BY ENDEVOR        * 00001500
+*                                                                     * 00001600
+* NOTE: ONLY ONE EN$DFTXX DD CARD MAY BE SPECIFIED. IF MORE THAN ONE  * 00001700
+* EN$DFTXX DD CARD IS SPECIFIED UNPREDICTABLE RESULTS MAY OCCUR. IF   * 00001800
+* NO EN$DFTXX DD CARD IS PRESENT THEN THE DEFAULT NAME, C1DEFLTS,     * 00001900
+* WILL BE USED BY ENDEVOR.                                            * 00002000
+*                                                                     * 00002100
+*                                                                     * 00002200
+* ENTRY ENVIRONMENT                                                   * 00002300
+*                                                                     * 00002400
+* AMODE:         31                                                   * 00002500
+* RESIDENCY:     ABOVE THE 16M LINE                                   * 00002600
+* AUTHORIZATION: NONE                                                 * 00002700
+* PSW KEY:       8                                                    * 00002800
+*                                                                     * 00002900
+* RESTRICTIONS:                                                       * 00003000
+*                                                                     * 00003100
+* ENUXSITE MUST BE LINKED WITH THE RENT ATTRIBUTE AND RESIDE IN AN    * 00003200
+* APF-AUTHORIZED LOAD LIBRARY.                                        * 00003300
+*                                                                     * 00003400
+*                                                                     * 00003500
+* INPUT REGISTERS:                                                    * 00003600
+*                                                                     * 00003700
+* R1 - A(PARMLIST)                                                    * 00003800
+*                                                                     * 00003900
+* ON ENTRY, GENERAL PURPOSE REGISTER ONE POINTS TO A PARAMETER LIST.  * 00004000
+* THE FIRST WORD OF THE PARAMETER LIST POINTS TO A 16-BYTE AREA       * 00004100
+* MAPPED AS FOLLOWS:                                                  * 00004200
+*                                                                     * 00004300
+* +0  8 BYTE CHARACTER FIELD CONTAINING "C1DEFLTS". TO CHANGE THE     * 00004400
+*     NAME USED BY ENDEVOR TO LOAD A C1DEFLTS TABLE OF A DIFFERENT    * 00004500
+*     NAME, THIS FIELD SHOULD BE SET TO THE NAME OF THE C1DEFLTS      * 00004600
+*     TABLE DESIRED.                                                  * 00004700
+*                                                                     * 00004800
+* +8  8 BYTE CHARACTER FIELD CONTAINING THE USER ID OF THE ADDRESS    * 00004900
+*     SPACE WHERE ENDEVOR IS EXECUTING. THE USER ID IS OBTAINED FROM  * 00005000
+*     ASXBUSR8.                                                       * 00005100
+*                                                                     * 00005200
+* UPON EXIT, GENERAL PURPOSE REGISTER 15 IS EXPECTED TO BE SET TO 0.  * 00005300
+* HOWEVER AT THIS TIME, THE RETURN CODE IS NOT PART OF THE INTERFACE. * 00005400
+*                                                                     * 00005500
+*---------------------------------------------------------------------* 00005600
+ENUXSITE TITLE 'ENDEVOR C1DEFLTS SELECTION EXIT'                        00005700
+ENUXSITE AMODE 31                                                       00005800
+ENUXSITE RMODE ANY                                                      00005900
+ENUXSITE CSECT                                                          00006000
+         BAKR  R14,R0                                                   00006100
+         LR    R12,R15                                                  00006200
+         USING ENUXSITE,R12                                             00006300
+                                                                        00006400
+                                                                        00006500
+         L     R7,0(,R1)          LOAD A(INPUT PARMLIST)                00006600
+         USING ENUXPARM,R7        GET ADDRESSABILITY TO ENUXPARM        00006700
+                                                                        00006800
+                                                                        00006900
+*---------------------------------------------------------------------* 00007000
+* SINCE THE ADVENT OF XTIOT SUPPORT IT IS NO LONGER SAFE TO SCAN THE  * 00007100
+* TIOT CHAIN. RATHER, WE WILL SET UP TO SCAN THE DSAB CHAIN.          * 00007200
+* SEE Z/OS: DFSMS USING DATA SETS FOR DETAILS.                        * 00007300
+*---------------------------------------------------------------------* 00007400
+         L     R3,PSATOLD-PSA(0)                                        00007500
+         ICM   R3,B'0111',TCBJSCBB-TCB(R3)                              00007600
+         L     R3,JSCBACT-IEZJSCB(,R3)                                  00007700
+         L     R3,JSCDSABQ-IEZJSCB(,R3)                                 00007800
+         USING QDB,R3                                                   00007900
+                                                                        00008000
+                                                                        00008100
+*---------------------------------------------------------------------* 00008200
+* NOTE THAT WHEN USING THE GETDSAB SERVICE IT IS NECESSARY TO SERIAL- * 00008300
+* IZE ON SYSZTIOT AND DSAB.QDB + ASID. ALTHOUGH THE SERIALIZATION     * 00008400
+* REQUIREMENT IS NOTED IN THE AUTHORIZED ASSEMBLER SERVICES REFERENCE * 00008500
+* FOR GETDSAB, THE DETAILS OF HOW THE MINOR NAME IS SPECIFIED ARE     * 00008600
+* NOT.  SURPRISINGLY, THE DATA AREAS FOR QDB AND DSAB DO NOT NOTE ANY * 00008700
+* SERIALIZATION REQUIREMENTS AND IT IS ON THAT BASIS THAT THIS CODE   * 00008800
+* WAS WRITTEN.                                                        * 00008900
+*                                                                     * 00009000
+* AT THIS POINT IN PROCESSING ENDEVOR HAS EITHER NOT STARTED OR IS    * 00009100
+* STOPPED ON ANOTHER TSO SPLIT SCREEN. IT WOULD SEEM UNLIKELYI THAT   * 00009200
+* THE DSAB CHAIN WOULD BE UPDATED CONCURRENTLY. HOWEVER, IF DATASET   * 00009300
+* ALLOCATION DOES OCCUR WHILE WE ARE RUNNING THE DSAB CHAIN IT COULD  * 00009400
+* LEAD TO UNPREDICTABLE RESULTS INCLUDING ABENDS. HOWEVER, DRIVING    * 00009500
+* THE EXIT AGAIN WOULD BE EXPECTED TO WORK.                           * 00009600
+*---------------------------------------------------------------------* 00009700
+         L     R4,QDBFELMA        LOAD A(1ST DSAB ON CHAIN)             00009800
+         USING DSAB,R4                                                  00009900
+                                                                        00010000
+                                                                        00010100
+ENUX0100 DS    0H                                                       00010200
+         LTR   R4,R4              ANY DDS PRESENT?                      00010300
+         BZ    ENUX8000           NO -- CONTINUE PROCESSING             00010400
+                                                                        00010500
+         L     R5,DSABTIOT        LOAD A(TIOENTRY)                      00010600
+         CLC   TIOEDDNM-TIOENTRY(6,R5),=CL6'EN$DFT'                     00010700
+         BE    ENUX0200                                                 00010800
+                                                                        00010900
+         L     R4,DSABFCHA        LOAD A(NEXT DSAB)                     00011000
+         B     ENUX0100           CONTINUE PROCESSING                   00011100
+         DROP  R3,R4                                                    00011200
+                                                                        00011300
+                                                                        00011400
+*---------------------------------------------------------------------* 00011500
+* WE HAVE LOCATED AN EN$DFTXX DD STATEMENT.                           * 00011600
+*---------------------------------------------------------------------* 00011700
+ENUX0200 DS    0H                                                       00011800
+         MVC   ENUXC1DN+6(2),TIOEDDNM-TIOENTRY+6(R5)                    00011900
+         DROP  R7                                                       00012000
+                                                                        00012100
+                                                                        00012200
+*---------------------------------------------------------------------* 00012300
+* RETURN TO INVOKER.                                                  * 00012400
+*---------------------------------------------------------------------* 00012500
+ENUX8000 DS    0H                                                       00012600
+         SLR   R15,R15            SET RETURN CODE ZERO                  00012700
+         PR    ,                  UNSTACK AND RETURN                    00012800
+         DROP  R12                                                      00012900
+                                                                        00013000
+                                                                        00013100
+         LTORG ,                                                        00013200
+                                                                        00013300
+                                                                        00013400
+*---------------------------------------------------------------------* 00013500
+* ENUXPARM MAPS THE 1ST INPUT PARAMETER TO ENUXSITE.                  * 00013600
+*---------------------------------------------------------------------* 00013700
+ENUXPARM DSECT                                                          00013800
+ENUXC1DN DS    CL8                C1DEFLTS OR AS SET BY THIS ENUXSITE   00013900
+ENUXUSR8 DS    CL8                INPUT USERID FROM ASXBUSR8            00014000
+                                                                        00014100
+                                                                        00014200
+*---------------------------------------------------------------------* 00014300
+* SYSTEM DSECTS AND MACROS.                                           * 00014400
+*---------------------------------------------------------------------* 00014500
+         YREGS ,                  IBM REGISTER EQUATES                  00014600
+         IHAPSA ,                                                       00014700
+         IKJTCB ,                                                       00014800
+         IEZJSCB ,                                                      00014900
+         IHADSAB ,                                                      00015000
+         IHAQDB ,                                                       00015100
+TIOT     DSECT                                                          00015200
+         IEFTIOT1 ,                                                     00015300
+         END                                                            00015400

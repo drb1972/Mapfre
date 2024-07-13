@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Alter Action Field Level Security Enhancement \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++                                                                 %Page 2 of 2
+%Alter Action Field Level Security Enhancement
++
++   A separate call to the security exit is performed for each field
++   specified in an Alter action request. All fields in the Alter
++   request are verified, even if a previous field had failed the
++   security check. Fields%ECBALTRF+(Assembler) and%ECB-ALTER-FIELD+
++   (COBOL) were added to the exit control blocks to provide the
++   name of the field being altered during user exit 1 processing.
++
++   Values passed in%ALTERFLD+to the External Security Interface:
++     %Value:      Alter Request:+
++      ALTRPRG     REPLACE PROCESSOR GROUP
++      ALTRSGN     REPLACE SIGNOUT USERID
++      ALTRDES     REPLACE DESCRIPTION
++      ALTRUSR     REPLACE USER DATA
++      ALTRCCL     REPLACE LAST ACTION CCID
++      ALTRCCG     REPLACE GENERATE CCID
++      ALTRCCR     REPLACE RETRIEVE CCID
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'ACTION_INITIATION'
+)PROC
+   &ZCONT = CIT18050
+)END

@@ -1,0 +1,28 @@
+ENDE230E 'Mismatched Quotes'                            .ALARM=Y NOKANA
+'ENDE230E A search string starting with a quote must end with a quote.    '
+
+ENDE231E 'Strings too long'                             .ALARM=Y NOKANA
+'ENDE231E The combined length of all search strings cannot cannot ' +
+'exceed 255. This sum includes +4 characters per each separate ' +
+'search string.'
+
+ENDE232E 'Disabled'                                     .ALARM=Y NOKANA
+'Optional feature CD19003_TEXT_SEARCH is not enabled.'
+
+ENDE233I .WINDOW=NORESP NOKANA
+'Searched &EEFTSCNT of &EEFTTCNT, Found &EEFTFCNT '
+
+ENDE234I 'Search Cancelled'                             .ALARM=Y NOKANA
+'ENDE234I The search has been cancelled. &EEFTFCNT matches found.' +
+' Search stopped on row &EEFTSCNT.'
+
+ENDE235E 'Invalid Parameter'                            .ALARM=Y NOKANA
+'ENDE235E Only one search string can be specified as parameter.'   +
+' Use ESEARCH without a parameter to open a panel allowing' +
+' multiple search strings to be specified.'
+
+ENDE236E 'Enter 1 - 9999'                               .ALARM=Y NOKANA
+'ENDE236E The field requires a number between 1 and 9999'
+
+ENDE237E 'Command too long'                             .ALARM=Y NOKANA
+'ENDE237E The specified command exceeds the maximum length of 50'

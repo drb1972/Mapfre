@@ -1,0 +1,16 @@
+PKMR340E 'Batch LU Required'                           .ALARM=YES
+'The DistribuLink Batch LU Name is a required field'
+PKMR341E 'Batch LU Invalid'                            .ALARM=YES
+'The DistribuLink Batch LU name contains an invalid character'
+PKMR342E '1st Connection Selected'                     .ALARM=YES
+'Only one connection can be selected per collection request  '
+PKMR343E 'NO &VNBDORC ON FILE    '                     .ALARM=YES
+'THE PACKAGE FILE CONTAINS NO &VNBDORC RECORDS               '
+PKMR344E '"USER=" Reqd on Job Card'                    .ALARM=YES
+'DistribuLink MVS batch API requires authorized AWS Admin "USER=tsoid"'
+PKMR345E 'Inv Model Member Root'                       .ALARM=YES
+'Model member root must be alphanumeric/national - no imbedded blanks'
+PKMR346E 'NO Env/Stg name match'                       .ALARM=YES
+'For the element selected, no match environment/stage match was found'
+PKMR347E 'Invalid Inventory Loc'                       .ALARM=YES
+'The action "FROM" field must point to a valid inventory location.'

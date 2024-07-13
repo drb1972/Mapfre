@@ -1,0 +1,49 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP3000                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ | TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+ @ TYPE(TEXT)   INTENS(&PDVPNINT)
+ * TYPE(TEXT)   INTENS(HIGH)
+ ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
++------------------------------%Package Summary+--------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Select an option to continue or use the END command to exit:
++   _Z+*1+ End Summary Display   @N+ Display Package Notes
++
++PACKAGE ID:   |PDVSLPKG        +       STATUS:|PDVSLSTA    + SHARABLE PKG:  |Z+
++DESCRIPTION:  |PDVSLDSC                                          +
++PACKAGE TYPE: |PDVSLTYP  +             BACKOUT ENABLED: |Z+
++PROMOTION PKG:|Z+
++CA-7 SCHEDULED PKG EXEC JOB:|PDVSBCA7+ DEPENDENT JOB:   |PDVSBDJB+
++EXECUTION WINDOW FROM:|Z      |Z    +  TO:|Z      |Z    +
++
++              USER ID  DATE    TIME
++CREATED:     |PDVSLDUI|Z      |Z    +
++LAST UPDATED:|PDVSLLUI|Z      |Z    +
++CAST:        |PDVSLCUI|Z      |Z    +
++APPROVED/DENIED:      |Z      |Z    +
++EXECUTED:    |PDVSLEUI|Z      |Z    +  RC:|Z    + |Z         +
++BACKED OUT:  |PDVSLOUI|Z      |Z    +  BACKED IN: |PDVSLIUI|Z      |Z    +
++COMMITTED:   |PDVSLTUI|Z      |Z    +
+)INIT
+  .HELP = enit3000
+  .ZVARS = '(VARWKCMD, PDVSLSHR,                        +
+             PDVSLBOE,                                  +
+             PDVSLPRO,                                  +
+             PDVSLWSD, PDVSLWST, PDVSLWED, PDVSLWET,    +
+             PDVSLDDT, PDVSLDTM,                        +
+             PDVSLLDT, PDVSLLTM,                        +
+             PDVSLCDT, PDVSLCTM,                        +
+             PDVSLADT, PDVSLATM,                        +
+             PDVSLEDT, PDVSLETM, PDVSLERC, PDVSLBOS,    +
+             PDVSLODT, PDVSLOTM, PDVSLIDT, PDVSLITM,    +
+             PDVSLTDT, PDVSLTTM)'
+)PROC
+)END

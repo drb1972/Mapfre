@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Endevor Quick Edit Eclipse-Based UI \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Endevor Quick Edit Eclipse-Based UI +
++
+ The functions of the Endevor Quick Edit option are now
+ available in the Eclipse integrated development environment
+ (IDE). This user interface provides all of the Endevor
+ application developer capabilities utilized for developing,
+ modifying, building and promoting software including viewing
+ master file data, component data, change history, listings and
+ very powerful, yet intuitive filtering capabilities.
+
+ Support is added for all element actions in the Eclipse-Based UI.
+ With the exception of Packages and PDM, all the functions
+ supported on the Quick Edit panel are supported, including browse
+ and filtering. Your site must have a license for the Endevor
+ Quick Edit product to use this feature.
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16020
+)END

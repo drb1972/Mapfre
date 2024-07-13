@@ -1,0 +1,29 @@
+)ATTR DEFAULT(%+_)
+ ¢ TYPE(OUTPUT) INTENS(LOW)
+ $ TYPE(INPUT) INTENS(HIGH) PAD(_) COLOR(RED)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Selection -}-}-
+Option ===>_ZCMD                                             +System ID :¢Z   +
+%
+%
+%
+%
+%
+%
++            Enter Required TestStream  :$Z +
+%
++            Blank Displays Member List of Streams Already Defined
+%
+%
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+ .ZVARS = 'ZSYSID STREAMID'
+)PROC
+  VER (&STREAMID,PICT,'AC')
+  VPUT (STREAMID) PROFILE
+)END

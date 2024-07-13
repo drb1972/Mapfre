@@ -1,0 +1,38 @@
+         MACRO                                                          00010000
+&NAME    $PFILDS &DSCT=YES                                              00020000
+         AIF   ('&DSCT' NE 'YES').SKPDSCT                               00030000
+$PFILDS  DSECT                                                          00040000
+         AGO   .SKPEQU                                                  00050000
+.SKPDSCT ANOP                                                           00060000
+$PFILDS  DS    0F                                                       00070000
+.SKPEQU  ANOP                                                           00071000
+**********************************************************************  00082000
+*                                                                    *  00090000
+*         $PFILDS - BLOCK FOR FILE INFORMATION ASSOCIATED WITH       *  00100000
+*                   PACKAGE FUNCTIONS   7/20/90                      *  00110000
+*                                                                    *  00130000
+*                                                                    *  00132000
+*                                                                    *  00133000
+*                                                                    *  00134000
+**********************************************************************  00140000
+PFILLEN   DC    AL2(PFILSIZE)     LENGTH OF THE BLOCK                   00160000
+PFILVERS  DC    AL2(PFIL$VER)     VERSION OF THE BLOCK                  00170000
+PFIL$VER  EQU   2                      VERSION 2                        00180001
+PFILID    DC    CL4'PFIL'          BLOCK ID                             00190000
+PFILDSN   DS    CL44' '            DATASET NAME                         00200000
+PFILMEM   DS    CL10' '            MEMBER NAME                          00210000
+PFILDDN   DS    CL8                DDNAME                               00211000
+PFILDSTY  DS    CL3' '             DATASET TYPE (DA,PSU,PO,IS,...)      00220000
+*                                  FOR USS (H@,H$,H/,HW)                00230000
+          DC    CL21' '            ** RESERVED **                       00231000
+          SPACE 1                                                       00240000
+*                                                                       00241000
+*  OFFSET (FROM BEGINNING OF $PFILDS) TO THE PATH AND FILE NAME AREAS.  00242000
+*  THE FIRST 2 BYTES IN AREA = THE LENGTH OF THE NAME. THIS IS THEN     00243000
+*  FOLLOWED BY THE NAME.                                                00244000
+*                                                                       00245000
+PFILPAOFF DS    H                  PATH AREA OFFSET                     00246000
+PFILNAOFF DS    H                  NAME AREA OFFSET                     00247000
+PFILBFAREA DS   XL1027             AREA BUFFER SPACE                    00248000
+PFILSIZE  EQU   *-$PFILDS          LENGTH OF THE $FILDS BLOCK           00540000
+         MEND                                                           00550000

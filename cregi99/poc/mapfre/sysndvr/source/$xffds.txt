@@ -1,0 +1,86 @@
+         MACRO                                                          00010000
+&LABEL   $XFFDS                                                         00020001
+***                                                                     00030000
+***  XFFDS: EXTRACTED OBJECT FOOTPRINT FILE: PRODUCED BY 'PUNCH'        00040001
+***         OPTION OUT OF OBJECT FOOTPRINT REPORTER PROGRAM.            00050000
+***                                                                     00060000
+         AIF   ('&LABEL' EQ '').SKPLBL                                  00070001
+&LABEL   EQU   $XFFDS                                                   00080001
+.SKPLBL  ANOP                                                           00090001
+$XFFDS  DSECT                                                           00100001
+XFFREC   DS   0CL80            EXTRACT RECORD IS CARD-IMAGE FORM.       00110001
+XFFRECID DS    CL1             RECORD TYPE CODE:                        00120001
+XFFREC#1   EQU  C'1'              1 = FILE HEADER RECORD                00130001
+XFFREC#2   EQU  C'2'              2 = MEMBER HEADER RECORD              00140001
+XFFREC#3   EQU  C'3'              3 = CSECT INFO RECORD                 00150001
+XFFREC#4   EQU  C'4'              4 = CSECT FOOTPRINT RECORD            00160001
+XFFREC#5   EQU  C'5'              5 = FILE TRAILER RECORD               00170001
+         DS    CL79                                                     00180001
+         SPACE 3                                                        00190001
+*                                                                       00200001
+*  REC TYPE 1 - FILE HEADER.                                            00210001
+*      - OR -                                                           00220001
+*  REC TYPE 5 - FILE TRAILER.                                           00230002
+*                                                                       00240001
+         ORG   XFFREC                                                   00250001
+XFF1REC  DS    0CL80                                                    00260001
+XFF1REC# DS    CL1                 SEE XFFRECID ABOVE.                  00270001
+XFF1LIB  DS    CL8                 LIBRARY DDNAME (MVS) SPACES IF N/A.  00280001
+XFF1DATE DS    CL8'YYYYMMDD'       DATE OF EXTRACT RUN                  00290001
+XFF1TIME DS    CL6'HHMMSS'         TIME OF EXTRACT RUN                  00300001
+*                                                                       00310001
+*  THE FOLLOWING STATS APPEAR ONLY IF RECID = '5' (FILE TRAILER)        00320001
+*                                                                       00330001
+         DS    C                   ALIGN TO FULLWORD                    00340001
+XFF1#MEM DS    F                   0 ON HEADER, # MEMBER RECS IN FILE   00350001
+XFF1#CS  DS    F                   0 ON HEADER, # CSECT RECS IN FILE    00360001
+XFF1#OBJ DS    F                   0 ON HEADER, # +OBJFOOT RECS         00370002
+         ORG   ,                                                        00380001
+         SPACE 3                                                        00390001
+*                                                                       00400001
+*  REC TYPE 2 - MEMBER HEADER                                           00410001
+*                                                                       00420001
+         ORG   XFFREC                                                   00430001
+XFF2REC  DS    0CL80                                                    00440001
+XFF2REC# DS    CL1                 SEE XFFRECID ABOVE.                  00450001
+XFF2MEM  DS    CL8                 MEMBER (LOAD MODULE / PHASE) NAME.   00460001
+         DS    CL3                 ALIGN TO FULLWORD.                   00470001
+XFF2EPA  DS    F                   OFFSET OF ENTRY POINT IN MEMBER      00480001
+XFF2SIZE DS    F                   LENGTH OF MEMBER (MEMORY SIZE)       00490001
+XFF2CS#  DS    F                   NUMBER OF CSECTS (TYPE 3 RECS)       00500001
+         ORG   ,                                                        00510001
+         SPACE 3                                                        00520001
+*                                                                       00530001
+*  REC TYPE 3 - CSECT  HEADER                                           00540001
+*                                                                       00550001
+         ORG   XFFREC                                                   00560001
+XFF3REC  DS    0CL80                                                    00570001
+XFF3REC# DS    CL1                 SEE XFFRECID ABOVE.                  00580001
+XFF3NAME DS    CL8                 CSECT OR '+OBJFOOT' OR '+PRIVATE'.   00590001
+XFF3FVAL DS    C                   FOOTPRINT FORMAT VALID INDICATOR:    00600002
+XFF3FPC1   EQU  C'Y'               THE FRONT OF FP DATA MAPS VIA $XFPDS 00610002
+XFF3FPNO   EQU  C'N'               THE FOOTPRINT IS NOT $XFPDS          00620002
+XFF3SEQ# DS    H                   CSECT REC SEQ # WITHIN IN MEMBER     00630001
+XFF3DISP DS    F                   DISPLACEMENT WITHIN IN MEMBER MODULE 00640002
+XFF3NULL   EQU  X'FFFFFFFF'      -- IF UNRESOLVED CSECT OR +PRIVATE     00650002
+XFF3SIZE DS    F                   LENGTH OF CSECT                      00660001
+XFF3FPLN DS    H                   LENGTH OF FOOTPRINT (MAX 256)        00670001
+         ORG   ,                                                        00680001
+         SPACE 3                                                        00690001
+*                                                                       00700001
+*  REC TYPE 4 - FOOTPRINT DATA     (SEE $XFPDS DSECT FOR STD FOOTPRT)   00710002
+*                                                                       00720001
+         ORG   XFFREC                                                   00730001
+XFF4REC  DS    0CL80                                                    00740001
+XFF4REC# DS    CL1                 SEE XFFRECID ABOVE.                  00750001
+XFF4NAME DS    CL8                 CSECT OR '+OBJFOOT' OR '+PRIVATE'.   00760001
+XFF4FVAL DS    C                   FOOTPRINT FORMAT VALID INDICATOR:    00761002
+XFF4FPC1   EQU  C'Y'               THIS FOOTPRINT DATA MAPS VIA $XFPDS  00762002
+XFF4FPNO   EQU  C'N'               THIS FOOTPRINT IS NOT $XFPDS         00763002
+XFF4SEQ# DS    H                   CSECT REC SEQ # WITHIN IN MEMBER     00800002
+XFF4DISP DS    H                   DISPLACEMENT WITHIN FOOTPRINT        00810001
+XFF4SIZE DS    H                   LENGTH OF FOOTPRINT ON THIS CARD.    00820001
+XFF4DATA DS    CL64                1-64 BYTES OF FOOTPRINT DATA.        00830002
+         ORG   ,                                                        00840001
+XFFDSLN  EQU   *-$XFFDS                                                 00841003
+         MEND                                                           00850000

@@ -1,0 +1,12 @@
+PKMR100E '------- ALLOCATION ERROR'                      .ALARM=YES
+'&VARWLTXT'
+PKMR101I '-------- CAUTIONARY MSGS'                      .ALARM=YES
+'&VARWLTXT'
+PKMR102E '--------- PACKAGE IN USE'                      .ALARM=YES
+'&VARWLTXT'
+PKMR103E '--------- ABEND OCCURRED'                      .ALARM=YES
+'&VARWLTXT'
+PKMR104C 'MULT REFS TO SAME LOCATN'                      .ALARM=YES
+'&VARWLTXT'
+PKMR105E 'INVALID PATH NAME'                             .ALARM=YES
+'CHECK QUALIFIER LENGTH, DSN 1-8, PATHS 1-255 ALLOW FOR START/END SLASH'

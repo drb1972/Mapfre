@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%\-\ Non-Auth'd Execution \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Limited Functionality Available for Non-Auth'd Programs +
+
++ User programs may directly invoke the CSV utility, Endevor report utility,
+  Endevor API, footprint extract utility from a non-authorized program.
+
+  Note that the Endevor alternate id facility is not available when executing
+  Endevor from a non-authorized program; users must have the necessary security
+  access rights.
+
+  Also, only limited API functionality, such as list and print functions are
+  available to non-authorized programs.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7130
+)END

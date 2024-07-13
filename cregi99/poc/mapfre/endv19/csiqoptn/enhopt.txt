@@ -1,0 +1,656 @@
+         MACRO
+.**********************************************************************
+.* Revision History:                                                  *
+.**********************************************************************
+.* Date: By: Issue #: Description                                     *
+.* ----- --- -------- -----------------------------------------------**
+.* 04/02 PhG         Major structural change                          *
+.* 03/96 RAD         Initial creation.                                *
+.**********************************************************************
+&LABEL   ENHOPT                                                        X
+               &DO,                                                    X
+               &MSGSEVERITY_SMGR116=,        INDEX=01                  X
+               &XFER_COMMENTS=,              Index=02                  X
+               &QE_CMDCHAR=,                 Index=03                  X
+               &QE_MIXED=,                   Index=04                  X
+               &UNLOAD_NOSHARE=,             Index=05                  X
+               &INCLUDE_COB=,                Index=06                  X
+               &NO_PROC_PRINT=,              Index=07                  X
+               &NO_LMOD_FP=,                 Index=08                  X
+               &ATTACH_BM3000=,              Index=09                  X
+               &BANNER_PAGES=,               Index=10                  X
+               &MSGSEVERITY_C1G0275=,        Index=11                  X
+               &MSGSEVERITY_C1G0295=,        INDEX=12                  X
+               &C1SORTIO_SMALL=,             Index=13                  X
+               &C1SORTIO_MODE=,              Index=14                  X
+               &NO_EXCP=,                    Index=15                  X
+               &USE_CONCOMP1=,               Index=16                  X
+               &NO_ALTID_EXIT=,              Index=17                  X
+               &PARSER_HEAP_SIZE=,           Index=18                  X
+               &VALIDATE_PVLB=,              Index=19                  X
+               &NEW_COMPARE=,                Index=20                  X
+               &UNUSED21=,                   Index=21                  X
+               &VSAM_INPUT_OK=,              Index=22                  X
+               &BC1PSRVL_USE=,               Index=23                  X
+               &ALLOW_NON_PKG_ACTIONS=,      Index=24                  X
+               &RESERVE_OPSYS_STG=,          Index=25                  X
+               &BYPASS_C1G0501=,             INDEX=26                  X
+               &GEN_WHERE_SCL=,              Index=27                  X
+               &FIXED_PANEL_OPT#S=,          Index=28                  X
+               &VFY_FP_FAILURES=,            Index=29                  X
+               &PKG_ELEMENT_LOCK=,           Index=30                  X
+               &ALTID_SYSOUT=,               Index=31                  X
+               &BLKSIZE_CONCAT=,             Index=32                  X
+               &CCID_LST_LAST_ACT=,          Index=33                  X
+               &CCID_WHERE_ALL=,             Index=34                  X
+               &PKGID_PROMPT=,               Index=35                  X
+               &ELMNM_PROMPT=,               Index=36                  X
+               &UNUSED37=,                   INDEX=37                  X
+               &REGISTER_ACROSS_SYSTEMS=,    INDEX=38                  X
+               &SUPER_USER=,                 Index=39                  X
+               &DS_C1TEMPR1_SUFFX=,          Index=40                  X
+               &DS_INTERNAL_TEMP=,           Index=41                  X
+               &MONOCASE_SEARCH=,            Index=42                  X
+               &IGNORE_SKIP_ALLOC=,          Index=43                  X
+               &SHIP_DEST_LIST_MAP_RULE_ONLY=, Index=44                X
+               &UNUSED45=,                   Index=45                  X
+               &UNUSED46=,                   Index=46                  X
+               &RESTRICT_BACKOUT=,           Index=47                  X
+               &LB_CNTL_CHAR=,               Index=48                  X
+               &LB_SEQNUM=,                  Index=49                  X
+               &LB_SUPPRESS_AUDIT=,          Index=50                  X
+               &PKG_ACTIONS_NO_APPRVR=,      Index=51                  X
+               &ISSUE_ELEMENT_REFERENCED_MSGS=, index=52               X
+               &PROC_MOVE_DFLT=,             Index=53                  X
+               &PV_CNTL_CHAR=,               Index=54                  X
+               &SEC_BYP_LST_PRT=,            Index=55                  X
+               &SEC_MOVE_TARGET=,            Index=56                  X
+               &SHP_DISP_SHR=,               Index=57                  X
+               &SHP_EXEC_FAIL=,              Index=58                  X
+               &ALLOW_DUP_SYMBOLS=,          Index=59                  X
+               &UNLOCK_FAILED_ACTION=,       Index=60                  X
+               &SYMB_UNDERSCORE=,            Index=61                  X
+               &TRANSFER_NO_VVLL=,           Index=62                  X
+               &BYPASS_GENERATE_XFER=,       Index=63                  X
+               &DEFAULT_REVERSE=,            Index=64                  X
+               &RESTORE_GENERATE_DATE=,      INDEX=65                  X
+               &DONT_SAVE_AO=,               Index=66                  X
+               &SCAN_STOP=,                  Index=67                  X
+               &KEEP_PDM_OTHERDSN=,          Index=68                  X
+               &DYNAM_PANELS_UPPER=,         Index=69                  X
+               &BYPASS_C1G0333W=,            Index=70                  X
+               &SET_STOPRC12=,               Index=71                  X
+               &BYPASS_C1G0147E=,            Index=72                  X
+               &BYPASS_C1G0334W=,            Index=73                  X
+               &NO_SECURITY_USERID=,         Index=74                  X
+               &ACM_USE_ELEMENT_NAME=,       Index=75                  X
+               &NO_VERSION_LEVEL=,           Index=76                  X
+               &NO_SYS_SBS_SELECTION_LIST=,  Index=77                  X
+               &EXIT_LOAD=,                  Index=78                  X
+               &DO_NOT_SAVE_CCIDCOMM=,       Index=79                  X
+               &EXIT2_FAIL_EXIT3=,           Index=80                  X
+               &MSGSEVERITY_C1X0103=,        INDEX=81                  X
+               &MSGSEVERITY_IMGR009=,        INDEX=82                  X
+               &MSGSEVERITY_C1G0296=,        INDEX=83                  X
+               &MSGSEVERITY_C1G0272=,        INDEX=84                  X
+               &MSGSEVERITY_C1G0231=,        INDEX=85                  X
+               &MSGSEVERITY_ENBX043=,        INDEX=86                  X
+               &MSGSEVERITY_FPVL004=,        INDEX=87                  X
+               &MSGSEVERITY_C1G0507=,        INDEX=88                  X
+               &MSGSEVERITY_C1G0336=,        INDEX=89                  X
+               &LIBR_INC_STMT=,              INDEX=90                  X
+               &MSGSEVERITY_ENBE027=,         INDEX=91                 X
+               &ALWAYS_CALL_GENPKGID=,        INDEX=92                 X
+               &MSG_C1G0208=,                 INDEX=93                 X
+               &QE_BUILD_MAP=,                INDEX=94                 X
+               &RESERVED_OTHERDSN=,           INDEX=95                 X
+               &BYPASS_CIIO0092=,             INDEX=96                 X
+               &BYPASS_PKMR514E=,             INDEX=97                 X
+               &COPY_COBOL2_REPLACE=,         INDEX=98                 X
+               &AUTO_ACMQ_FILE_REORG=,        INDEX=99                 X
+               &SCL_IN_CAST_REPORT=,          INDEX=100                X
+               &CAST_INSPECT_EXIT02=,         INDEX=101                X
+               &BACKOUT_PROMPT=,              INDEX=102                X
+               &MSGSEVERITY_C1BMX21=,         INDEX=103                X
+               &MSGSEVERITY_ENBP001=,         INDEX=104                X
+               &INCLUDE_ORIGINAL_COPY=,       INDEX=105                X
+               &DYNAMIC_APPROVERS=,           INDEX=106                X
+               &SUPPRESS_OVERRIDE_EMAIL=,     INDEX=107                X
+               &DO_NOT_SYNC_AT_TARGET=,       INDEX=108                X
+               &UPPERCASE_TEXT=,              INDEX=109                X
+               &INTRDR_ALTID=,                INDEX=110                X
+               &SUPPRESS_LLACOPY=,            INDEX=111                X
+               &PKG_CAST_IGNORE_JUMP=,        INDEX=112                X
+               &GEN_DO_NOT_CHK_SIGNOUT=,      INDEX=113                X
+               &GEN_INPLACE_DO_NOT_SET_SIGNOUT=,   INDEX=114           X
+               &GEN_COPYBCK_DO_NOT_SET_SIGNOUT=,   INDEX=115           X
+               &PKG_NOT_REQUIRED=,            INDEX=116                X
+               &PROCESSOR_DISP_OLD_DDNS=,     INDEX=117                X
+               &ELM_REG_CHK_OUTPTYPE_ACROSS_SYSTEMS=,  INDEX=118       X
+               &USE_C1#TMPL_LIST=,            INDEX=119                X
+               &SYMBOL_CASE_UPLOW=,           INDEX=120                X
+               &SUPPRESS_SHIPCONF_EMAIL=,     INDEX=121                X
+               &MSGSEVERITY_C1G0119=,         INDEX=122                X
+               &IMPLICIT_DELETE_APPROVAL_CHECK=, INDEX=123             X
+               &ACMQ_CMNT_QUERY_PERF=,        INDEX=124                X
+               &UNUSED125=,                   INDEX=125                X
+               &MSGSEVERITY_SMGR117=,         INDEX=126                X
+               &LB_ARC=,                      INDEX=127                X
+               &LB_ARC_NORESEQ=,              INDEX=128                X
+               &RACF_TEMPDSN_OPTION=,         INDEX=129                X
+               &PROM_PKG_SUPPRESS_AUTOCAST=,  INDEX=130                X
+               &CCID_VAL_IF_NOT_REQ=,         INDEX=131                X
+               &KEEP_SYMDATA_TRAILING_SPACE=, INDEX=132                X
+               &SUPPRESS_FPVL007=,            INDEX=133                X
+               &PROCESS_DELETE_ACTIONS_FIRST=,   INDEX=134             X
+               &ALLOW_SHIP_AFTER_ELEMENT_DELETE=,    INDEX=135         X
+               &ENABLE_ALTID_USS_SECURITY=,   INDEX=136                X
+               &COMPONENT_SEARCH=,            INDEX=137                X
+               &MSGSEVERITY_FPVL002=,         INDEX=138                X
+               &ACMQ_REORG_BY_WTO=,           INDEX=139                X
+               &MSGSEVERITY_JRCV011=,         INDEX=140                X
+               &PACKAGE_SHIP_WITH_ALTID=,     INDEX=141                X
+               &AUTOGEN_SOURCE=,              INDEX=142                X
+               &MSGSEVERITY_PKMR632=,         INDEX=143                X
+               &SHIP_OUTPUTS_ASIS=,           INDEX=144                X
+               &EINE_ACTIVE=,                 INDEX=145                X
+               &EXCLUDE_SITEID_FROM_FP_VERIFY=, INDEX=146              X
+               &SPAN_NONE_ALWAYS=,            INDEX=147                X
+               &APPROVER_DISQUALIFIED=,       INDEX=148                X
+               &MSGSEVERITY_C1X0503=,         INDEX=149                X
+               &PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP=, INDEX=150         X
+               &CD18101_QE_QUE_BATCH_ACT=,    INDEX=151                X
+               &CD18102_QE_USER_ROUTINES=,    INDEX=152                X
+               &SYNC_NOTIF_EMAIL_TO_LAST_LVL_USER=, INDEX=153          X
+               &CD18104_SYNC_ACTION=,         INDEX=154                X
+               &CD18105_ADMIN_ACT_IN_PROCESSOR=, INDEX=155             X
+               &ALWAYS_CALL_ENUXSITE=,        INDEX=156                X
+               &SEC_ALTERNATIVE_MENUAUTH=,    INDEX=157                X
+               &QE_DEPLOY_FOR_TEST=,          INDEX=158                X
+               &SEC_RETRIEVE_WITH_SIGNOUT=,   INDEX=159                X
+               &CD19002_QE_CCOLS=,            INDEX=160                X
+               &CD19003_TEXT_SEARCH=,         INDEX=161                X
+               &UNUSED162=,                   INDEX=162                X
+               &UNUSED163=,                   INDEX=163                X
+               &UNUSED164=,                   INDEX=164                X
+               &UNUSED165=,                   INDEX=165                X
+               &UNUSED166=,                   INDEX=166                X
+               &UNUSED167=,                   INDEX=167                X
+               &UNUSED168=,                   INDEX=168                X
+               &UNUSED169=,                   INDEX=169                X
+               &UNUSED170=,                   INDEX=170                X
+               &UNUSED171=,                   INDEX=171                X
+               &UNUSED172=,                   INDEX=172                X
+               &UNUSED173=,                   INDEX=173                X
+               &UNUSED174=,                   INDEX=174                X
+               &UNUSED175=,                   INDEX=175                X
+               &UNUSED176=,                   INDEX=176                X
+               &UNUSED177=,                   INDEX=177                X
+               &UNUSED178=,                   INDEX=178                X
+               &UNUSED179=,                   INDEX=179                X
+               &UNUSED180=,                   INDEX=180                X
+               &UNUSED181=,                   INDEX=181                X
+               &UNUSED182=,                   INDEX=182                X
+               &UNUSED183=,                   INDEX=183                X
+               &UNUSED184=,                   INDEX=184                X
+               &UNUSED185=,                   INDEX=185                X
+               &UNUSED186=,                   INDEX=186                X
+               &UNUSED187=,                   INDEX=187                X
+               &UNUSED188=,                   INDEX=188                X
+               &UNUSED189=,                   INDEX=189                X
+               &UNUSED190=,                   INDEX=190                X
+               &UNUSED191=,                   INDEX=191                X
+               &UNUSED192=,                   INDEX=192                X
+               &UNUSED193=,                   INDEX=193                X
+               &UNUSED194=,                   INDEX=194                X
+               &UNUSED195=,                   INDEX=195                X
+               &UNUSED196=,                   INDEX=196                X
+               &UNUSED197=,                   INDEX=197                X
+               &UNUSED198=,                   INDEX=198                X
+               &UNUSED199=,                   INDEX=199                X
+               &UNUSED200=,                   INDEX=200                X
+               &UNUSED201=,                   INDEX=201                X
+               &UNUSED202=,                   INDEX=202                X
+               &UNUSED203=,                   INDEX=203                X
+               &UNUSED204=,                   INDEX=204                X
+               &UNUSED205=,                   INDEX=205                X
+               &UNUSED206=,                   INDEX=206                X
+               &UNUSED207=,                   INDEX=207                X
+               &UNUSED208=,                   INDEX=208                X
+               &UNUSED209=,                   INDEX=209                X
+               &UNUSED210=,                   INDEX=210                X
+               &UNUSED211=,                   INDEX=211                X
+               &UNUSED212=,                   INDEX=212                X
+               &UNUSED213=,                   INDEX=213                X
+               &UNUSED214=,                   INDEX=214                X
+               &UNUSED215=,                   INDEX=215                X
+               &UNUSED216=,                   INDEX=216                X
+               &UNUSED217=,                   INDEX=217                X
+               &UNUSED218=,                   INDEX=218                X
+               &UNUSED219=,                   INDEX=219                X
+               &UNUSED220=,                   INDEX=220                X
+               &UNUSED221=,                   INDEX=221                X
+               &UNUSED222=,                   INDEX=222                X
+               &UNUSED223=,                   INDEX=223                X
+               &UNUSED224=,                   INDEX=224                X
+               &UNUSED225=,                   INDEX=225                X
+               &UNUSED226=,                   INDEX=226                X
+               &UNUSED227=,                   INDEX=227                X
+               &UNUSED228=,                   INDEX=228                X
+               &UNUSED229=,                   INDEX=229                X
+               &UNUSED230=,                   INDEX=230                X
+               &UNUSED231=,                   INDEX=231                X
+               &UNUSED232=,                   INDEX=232                X
+               &UNUSED233=,                   INDEX=233                X
+               &UNUSED234=,                   INDEX=234                X
+               &UNUSED235=,                   INDEX=235                X
+               &UNUSED236=,                   INDEX=236                X
+               &UNUSED237=,                   INDEX=237                X
+               &UNUSED238=,                   INDEX=238                X
+               &UNUSED239=,                   INDEX=239                X
+               &UNUSED240=,                   INDEX=240                X
+               &UNUSED241=,                   INDEX=241                X
+               &UNUSED242=,                   INDEX=242                X
+               &UNUSED243=,                   INDEX=243                X
+               &UNUSED244=,                   INDEX=244                X
+               &UNUSED245=,                   INDEX=245                X
+               &UNUSED246=,                   INDEX=246                X
+               &UNUSED247=,                   INDEX=247                X
+               &UNUSED248=,                   INDEX=248                X
+               &UNUSED249=,                   INDEX=249                X
+               &UNUSED250=,                   INDEX=250                X
+               &UNUSED251=,                   INDEX=251                X
+               &UNUSED252=,                   INDEX=252                X
+               &UNUSED253=,                   INDEX=253                X
+               &UNUSED254=,                   INDEX=254                X
+               &UNUSED255=,                   INDEX=255                X
+               &UNUSED256=,                   INDEX=256                X
+               &INDEX=,                A generic Index entry           X
+               &MAXENT=,               Number of entries in the table  X
+               &TRACE=NO               Trace option
+.*
+         LCLA  &I
+         LCLA  &K
+         GBLA  &NDXMAX
+         LCLB  &GEN,&ENTRY,&EQU,&INIT
+         LCLC  &ID
+         LCLC  &PARMACMQ1
+         LCLC  &TEMP
+         LCLC  &PARMFCT
+         LCLC  &PARMUSS
+         GBLC  &PARMACMQ
+         GBLC  &PARMFCTN
+         GBLC  &PARMUSSN
+         GBLB  &TBLFIRST
+         GBLB  &OPTTRACE
+         GBLC  &INDEXTBL(256)
+         GBLC  &VALTBL(256)
+         GBLC  &TYPTBL(256)
+         GBLC  &VALPARM(256)
+.**********************************************************************
+.*  Start of option index table. add 1 to the NDXMAX variable that
+.*  defines the last used index number.  Add an entry to the table
+.*  using that index number.
+.**********************************************************************
+&PARMACMQ1 SETC '&ISSUE_ELEMENT_REFERENCED_MSGS'
+&PARMFCT   SETC '&SUPPRESS_OVERRIDE_EMAIL'
+&PARMUSS   SETC '&ENABLE_ALTID_USS_SECURITY'
+         ENHOPTNS ENHOPT,                                              *
+               MSGSEVERITY_SMGR116=&MSGSEVERITY_SMGR116,               X
+               XFER_COMMENTS=&XFER_COMMENTS,                           X
+               QE_CMDCHAR=&QE_CMDCHAR,                                 X
+               QE_MIXED=&QE_MIXED,                                     X
+               UNLOAD_NOSHARE=&UNLOAD_NOSHARE,                         X
+               INCLUDE_COB=&INCLUDE_COB,                               X
+               NO_PROC_PRINT=&NO_PROC_PRINT,                           X
+               NO_LMOD_FP=&NO_LMOD_FP,                                 X
+               ATTACH_BM3000=&ATTACH_BM3000,                           X
+               BANNER_PAGES=&BANNER_PAGES,                             X
+               MSGSEVERITY_C1G0275=&MSGSEVERITY_C1G0275,               X
+               MSGSEVERITY_C1G0295=&MSGSEVERITY_C1G0295,               X
+               C1SORTIO_SMALL=&C1SORTIO_SMALL,                         X
+               C1SORTIO_MODE=&C1SORTIO_MODE,                           X
+               NO_EXCP=&NO_EXCP,                                       X
+               USE_CONCOMP1=&USE_CONCOMP1,                             X
+               NO_ALTID_EXIT=&NO_ALTID_EXIT,                           X
+               PARSER_HEAP_SIZE=&PARSER_HEAP_SIZE,                     X
+               VALIDATE_PVLB=&VALIDATE_PVLB,                           X
+               NEW_COMPARE=&NEW_COMPARE,                               X
+               UNUSED21=&UNUSED21,                                     X
+               VSAM_INPUT_OK=&VSAM_INPUT_OK,                           X
+               BC1PSRVL_USE=&BC1PSRVL_USE,                             X
+               ALLOW_NON_PKG_ACTIONS=&ALLOW_NON_PKG_ACTIONS,           X
+               RESERVE_OPSYS_STG=&RESERVE_OPSYS_STG,                   X
+               BYPASS_C1G0501=&BYPASS_C1G0501,                         X
+               GEN_WHERE_SCL=&GEN_WHERE_SCL,                           X
+               FIXED_PANEL_OPT#S=&FIXED_PANEL_OPT#S,                   X
+               VFY_FP_FAILURES=&VFY_FP_FAILURES,                       X
+               PKG_ELEMENT_LOCK=&PKG_ELEMENT_LOCK,                     X
+               ALTID_SYSOUT=&ALTID_SYSOUT,                             X
+               BLKSIZE_CONCAT=&BLKSIZE_CONCAT,                         X
+               CCID_LST_LAST_ACT=&CCID_LST_LAST_ACT,                   X
+               CCID_WHERE_ALL=&CCID_WHERE_ALL,                         X
+               PKGID_PROMPT=&PKGID_PROMPT,                             X
+               ELMNM_PROMPT=&ELMNM_PROMPT,                             X
+               UNUSED37=&UNUSED37,                                     X
+               DS_C1TEMPR1_SUFFX=&DS_C1TEMPR1_SUFFX,                   X
+               DS_INTERNAL_TEMP=&DS_INTERNAL_TEMP,                     X
+               MONOCASE_SEARCH=&MONOCASE_SEARCH,                       X
+               IGNORE_SKIP_ALLOC=&IGNORE_SKIP_ALLOC,                   X
+               SHIP_DEST_LIST_MAP_RULE_ONLY=&SHIP_DEST_LIST_MAP_RULE_ONX
+               LY,                                                     X
+               UNUSED45=&UNUSED45,                                     X
+               UNUSED46=&UNUSED46,                                     X
+               RESTRICT_BACKOUT=&RESTRICT_BACKOUT,                     X
+               LB_CNTL_CHAR=&LB_CNTL_CHAR,                             X
+               LB_SEQNUM=&LB_SEQNUM,                                   X
+               LB_SUPPRESS_AUDIT=&LB_SUPPRESS_AUDIT,                   X
+               PKG_ACTIONS_NO_APPRVR=&PKG_ACTIONS_NO_APPRVR,           X
+               ISSUE_ELEMENT_REFERENCED_MSGS=&PARMACMQ1,               X
+               PROC_MOVE_DFLT=&PROC_MOVE_DFLT,                         X
+               PV_CNTL_CHAR=&PV_CNTL_CHAR,                             X
+               SEC_BYP_LST_PRT=&SEC_BYP_LST_PRT,                       X
+               SEC_MOVE_TARGET=&SEC_MOVE_TARGET,                       X
+               SHP_DISP_SHR=&SHP_DISP_SHR,                             X
+               SHP_EXEC_FAIL=&SHP_EXEC_FAIL,                           X
+               ALLOW_DUP_SYMBOLS=&ALLOW_DUP_SYMBOLS,                   X
+               UNLOCK_FAILED_ACTION=&UNLOCK_FAILED_ACTION,             X
+               SYMB_UNDERSCORE=&SYMB_UNDERSCORE,                       X
+               TRANSFER_NO_VVLL=&TRANSFER_NO_VVLL,                     X
+               BYPASS_GENERATE_XFER=&BYPASS_GENERATE_XFER,             X
+               DEFAULT_REVERSE=&DEFAULT_REVERSE,                       X
+               RESTORE_GENERATE_DATE=&RESTORE_GENERATE_DATE,           X
+               DONT_SAVE_AO=&DONT_SAVE_AO,                             X
+               SCAN_STOP=&SCAN_STOP,                                   X
+               KEEP_PDM_OTHERDSN=&KEEP_PDM_OTHERDSN,                   X
+               DYNAM_PANELS_UPPER=&DYNAM_PANELS_UPPER,                 X
+               BYPASS_C1G0333W=&BYPASS_C1G0333W,                       X
+               SET_STOPRC12=&SET_STOPRC12,                             X
+               BYPASS_C1G0147E=&BYPASS_C1G0147E,                       X
+               BYPASS_C1G0334W=&BYPASS_C1G0334W,                       X
+               NO_SECURITY_USERID=&NO_SECURITY_USERID,                 X
+               ACM_USE_ELEMENT_NAME=&ACM_USE_ELEMENT_NAME,             X
+               NO_VERSION_LEVEL=&NO_VERSION_LEVEL,                     X
+               NO_SYS_SBS_SELECTION_LIST=&NO_SYS_SBS_SELECTION_LIST,   X
+               EXIT_LOAD=&EXIT_LOAD,                                   X
+               DO_NOT_SAVE_CCIDCOMM=&DO_NOT_SAVE_CCIDCOMM,             X
+               EXIT2_FAIL_EXIT3=&EXIT2_FAIL_EXIT3,                     X
+               MSGSEVERITY_C1X0103=&MSGSEVERITY_C1X0103,               X
+               MSGSEVERITY_IMGR009=&MSGSEVERITY_IMGR009,               X
+               MSGSEVERITY_C1G0296=&MSGSEVERITY_C1G0296,               X
+               MSGSEVERITY_C1G0272=&MSGSEVERITY_C1G0272,               X
+               MSGSEVERITY_C1G0231=&MSGSEVERITY_C1G0231,               X
+               MSGSEVERITY_ENBX043=&MSGSEVERITY_ENBX043,               X
+               MSGSEVERITY_FPVL004=&MSGSEVERITY_FPVL004,               X
+               MSGSEVERITY_C1G0507=&MSGSEVERITY_C1G0507,               X
+               MSGSEVERITY_C1G0336=&MSGSEVERITY_C1G0336,               X
+               LIBR_INC_STMT=&LIBR_INC_STMT,                           X
+               MSGSEVERITY_ENBE027=&MSGSEVERITY_ENBE027,               X
+               ALWAYS_CALL_GENPKGID=&ALWAYS_CALL_GENPKGID,             X
+               MSG_C1G0208=&MSG_C1G0208,                               X
+               QE_BUILD_MAP=&QE_BUILD_MAP,                             X
+               RESERVED_OTHERDSN=&RESERVED_OTHERDSN,                   X
+               BYPASS_CIIO0092=&BYPASS_CIIO0092,                       X
+               BYPASS_PKMR514E=&BYPASS_PKMR514E,                       X
+               COPY_COBOL2_REPLACE=&COPY_COBOL2_REPLACE,               X
+               AUTO_ACMQ_FILE_REORG=&AUTO_ACMQ_FILE_REORG,             X
+               REGISTER_ACROSS_SYSTEMS=&REGISTER_ACROSS_SYSTEMS,       X
+               SCL_IN_CAST_REPORT=&SCL_IN_CAST_REPORT,                 X
+               SUPER_USER=&SUPER_USER,                                 X
+               CAST_INSPECT_EXIT02=&CAST_INSPECT_EXIT02,               X
+               BACKOUT_PROMPT=&BACKOUT_PROMPT,                         X
+               MSGSEVERITY_C1BMX21=&MSGSEVERITY_C1BMX21,               X
+               MSGSEVERITY_ENBP001=&MSGSEVERITY_ENBP001,               X
+               INCLUDE_ORIGINAL_COPY=&INCLUDE_ORIGINAL_COPY,           X
+               DYNAMIC_APPROVERS=&DYNAMIC_APPROVERS,                   X
+               SUPPRESS_OVERRIDE_EMAIL=&PARMFCT,                       X
+               DO_NOT_SYNC_AT_TARGET=&DO_NOT_SYNC_AT_TARGET,           X
+               UPPERCASE_TEXT=&UPPERCASE_TEXT,                         X
+               INTRDR_ALTID=&INTRDR_ALTID,                             X
+               SUPPRESS_LLACOPY=&SUPPRESS_LLACOPY,                     X
+               PKG_CAST_IGNORE_JUMP=&PKG_CAST_IGNORE_JUMP,             X
+               GEN_DO_NOT_CHK_SIGNOUT=&GEN_DO_NOT_CHK_SIGNOUT,         X
+               GEN_INPLACE_DO_NOT_SET_SIGNOUT=&GEN_INPLACE_DO_NOT_SET_SX
+               IGNOUT,                                                 X
+               GEN_COPYBCK_DO_NOT_SET_SIGNOUT=&GEN_COPYBCK_DO_NOT_SET_SX
+               IGNOUT,                                                 X
+               PKG_NOT_REQUIRED=&PKG_NOT_REQUIRED,                     X
+               PROCESSOR_DISP_OLD_DDNS=&PROCESSOR_DISP_OLD_DDNS,       X
+               ELM_REG_CHK_OUTPTYPE_ACROSS_SYSTEMS=&ELM_REG_CHK_OUTPTYPX
+               E_ACROSS_SYSTEMS,                                       X
+               USE_C1#TMPL_LIST=&USE_C1#TMPL_LIST,                     X
+               SYMBOL_CASE_UPLOW=&SYMBOL_CASE_UPLOW,                   X
+               SUPPRESS_SHIPCONF_EMAIL=&SUPPRESS_SHIPCONF_EMAIL,       X
+               MSGSEVERITY_C1G0119=&MSGSEVERITY_C1G0119,               X
+               IMPLICIT_DELETE_APPROVAL_CHECK=&IMPLICIT_DELETE_APPROVALX
+               _CHECK,                                                 X
+               ACMQ_CMNT_QUERY_PERF=&ACMQ_CMNT_QUERY_PERF,             X
+               UNUSED125=&UNUSED125,                                   X
+               MSGSEVERITY_SMGR117=&MSGSEVERITY_SMGR117,               X
+               LB_ARC=&LB_ARC,                                         X
+               LB_ARC_NORESEQ=&LB_ARC_NORESEQ,                         X
+               RACF_TEMPDSN_OPTION=&RACF_TEMPDSN_OPTION,               X
+               PROM_PKG_SUPPRESS_AUTOCAST=&PROM_PKG_SUPPRESS_AUTOCAST, X
+               CCID_VAL_IF_NOT_REQ=&CCID_VAL_IF_NOT_REQ,               X
+               KEEP_SYMDATA_TRAILING_SPACE=&KEEP_SYMDATA_TRAILING_SPACEX
+               ,                                                       X
+               SUPPRESS_FPVL007=&SUPPRESS_FPVL007,                     X
+               PROCESS_DELETE_ACTIONS_FIRST=&PROCESS_DELETE_ACTIONS_FIRX
+               ST,                                                     X
+               ALLOW_SHIP_AFTER_ELEMENT_DELETE=&ALLOW_SHIP_AFTER_ELEMENX
+               T_DELETE,                                               X
+               ENABLE_ALTID_USS_SECURITY=&PARMUSS,                     X
+               COMPONENT_SEARCH=&COMPONENT_SEARCH,                     X
+               MSGSEVERITY_FPVL002=&MSGSEVERITY_FPVL002,               X
+               ACMQ_REORG_BY_WTO=&ACMQ_REORG_BY_WTO,                   X
+               MSGSEVERITY_JRCV011=&MSGSEVERITY_JRCV011,               X
+               PACKAGE_SHIP_WITH_ALTID=&PACKAGE_SHIP_WITH_ALTID,       X
+               AUTOGEN_SOURCE=&AUTOGEN_SOURCE,                         X
+               MSGSEVERITY_PKMR632=&MSGSEVERITY_PKMR632,               X
+               SHIP_OUTPUTS_ASIS=&SHIP_OUTPUTS_ASIS,                   X
+               EINE_ACTIVE=&EINE_ACTIVE,                               X
+               EXCLUDE_SITEID_FROM_FP_VERIFY=&EXCLUDE_SITEID_FROM_FP_VEX
+               RIFY,                                                   X
+               SPAN_NONE_ALWAYS=&SPAN_NONE_ALWAYS,                     X
+               APPROVER_DISQUALIFIED=&APPROVER_DISQUALIFIED,           X
+               MSGSEVERITY_C1X0503=&MSGSEVERITY_C1X0503,               X
+               PRESERVE_GEN_TIME_IN_SOL_MEMBER_FP=&PRESERVE_GEN_TIME_INX
+               _SOL_MEMBER_FP,                                         X
+               CD18101_QE_QUE_BATCH_ACT=&CD18101_QE_QUE_BATCH_ACT,     X
+               CD18102_QE_USER_ROUTINES=&CD18102_QE_USER_ROUTINES,     X
+               SYNC_NOTIF_EMAIL_TO_LAST_LVL_USER=&SYNC_NOTIF_EMAIL_TO_LX
+               AST_LVL_USER,                                           X
+               CD18104_SYNC_ACTION=&CD18104_SYNC_ACTION,               X
+               CD18105_ADMIN_ACT_IN_PROCESSOR=&CD18105_ADMIN_ACT_IN_PROX
+               CESSOR,                                                 X
+               ALWAYS_CALL_ENUXSITE=&ALWAYS_CALL_ENUXSITE,             X
+               SEC_ALTERNATIVE_MENUAUTH=&SEC_ALTERNATIVE_MENUAUTH,     X
+               QE_DEPLOY_FOR_TEST=&QE_DEPLOY_FOR_TEST,                 X
+               SEC_RETRIEVE_WITH_SIGNOUT=&SEC_RETRIEVE_WITH_SIGNOUT,   X
+               CD19002_QE_CCOLS=&CD19002_QE_CCOLS,                     X
+               CD19003_TEXT_SEARCH=&CD19003_TEXT_SEARCH,               X
+               UNUSED162=&UNUSED162,                                   X
+               UNUSED163=&UNUSED163,                                   X
+               UNUSED164=&UNUSED164,                                   X
+               UNUSED165=&UNUSED165,                                   X
+               UNUSED166=&UNUSED166,                                   X
+               UNUSED167=&UNUSED167,                                   X
+               UNUSED168=&UNUSED168,                                   X
+               UNUSED169=&UNUSED169,                                   X
+               UNUSED170=&UNUSED170,                                   X
+               UNUSED171=&UNUSED171,                                   X
+               UNUSED172=&UNUSED172,                                   X
+               UNUSED173=&UNUSED173,                                   X
+               UNUSED174=&UNUSED174,                                   X
+               UNUSED175=&UNUSED175,                                   X
+               UNUSED176=&UNUSED176,                                   X
+               UNUSED177=&UNUSED177,                                   X
+               UNUSED178=&UNUSED178,                                   X
+               UNUSED179=&UNUSED179,                                   X
+               UNUSED180=&UNUSED180,                                   X
+               UNUSED181=&UNUSED181,                                   X
+               UNUSED182=&UNUSED182,                                   X
+               UNUSED183=&UNUSED183,                                   X
+               UNUSED184=&UNUSED184,                                   X
+               UNUSED185=&UNUSED185,                                   X
+               UNUSED186=&UNUSED186,                                   X
+               UNUSED187=&UNUSED187,                                   X
+               UNUSED188=&UNUSED188,                                   X
+               UNUSED189=&UNUSED189,                                   X
+               UNUSED190=&UNUSED190,                                   X
+               UNUSED191=&UNUSED191,                                   X
+               UNUSED192=&UNUSED192,                                   X
+               UNUSED193=&UNUSED193,                                   X
+               UNUSED194=&UNUSED194,                                   X
+               UNUSED195=&UNUSED195,                                   X
+               UNUSED196=&UNUSED196,                                   X
+               UNUSED197=&UNUSED197,                                   X
+               UNUSED198=&UNUSED198,                                   X
+               UNUSED199=&UNUSED199,                                   X
+               UNUSED200=&UNUSED200,                                   X
+               UNUSED201=&UNUSED201,                                   X
+               UNUSED202=&UNUSED202,                                   X
+               UNUSED203=&UNUSED203,                                   X
+               UNUSED204=&UNUSED204,                                   X
+               UNUSED205=&UNUSED205,                                   X
+               UNUSED206=&UNUSED206,                                   X
+               UNUSED207=&UNUSED207,                                   X
+               UNUSED208=&UNUSED208,                                   X
+               UNUSED209=&UNUSED209,                                   X
+               UNUSED210=&UNUSED210,                                   X
+               UNUSED211=&UNUSED211,                                   X
+               UNUSED212=&UNUSED212,                                   X
+               UNUSED213=&UNUSED213,                                   X
+               UNUSED214=&UNUSED214,                                   X
+               UNUSED215=&UNUSED215,                                   X
+               UNUSED216=&UNUSED216,                                   X
+               UNUSED217=&UNUSED217,                                   X
+               UNUSED218=&UNUSED218,                                   X
+               UNUSED219=&UNUSED219,                                   X
+               UNUSED220=&UNUSED220,                                   X
+               UNUSED221=&UNUSED221,                                   X
+               UNUSED222=&UNUSED222,                                   X
+               UNUSED223=&UNUSED223,                                   X
+               UNUSED224=&UNUSED224,                                   X
+               UNUSED225=&UNUSED225,                                   X
+               UNUSED226=&UNUSED226,                                   X
+               UNUSED227=&UNUSED227,                                   X
+               UNUSED228=&UNUSED228,                                   X
+               UNUSED229=&UNUSED229,                                   X
+               UNUSED230=&UNUSED230,                                   X
+               UNUSED231=&UNUSED231,                                   X
+               UNUSED232=&UNUSED232,                                   X
+               UNUSED233=&UNUSED233,                                   X
+               UNUSED234=&UNUSED234,                                   X
+               UNUSED235=&UNUSED235,                                   X
+               UNUSED236=&UNUSED236,                                   X
+               UNUSED237=&UNUSED237,                                   X
+               UNUSED238=&UNUSED238,                                   X
+               UNUSED239=&UNUSED239,                                   X
+               UNUSED240=&UNUSED240,                                   X
+               UNUSED241=&UNUSED241,                                   X
+               UNUSED242=&UNUSED242,                                   X
+               UNUSED243=&UNUSED243,                                   X
+               UNUSED244=&UNUSED244,                                   X
+               UNUSED245=&UNUSED245,                                   X
+               UNUSED246=&UNUSED246,                                   X
+               UNUSED247=&UNUSED247,                                   X
+               UNUSED248=&UNUSED248,                                   X
+               UNUSED249=&UNUSED249,                                   X
+               UNUSED250=&UNUSED250,                                   X
+               UNUSED251=&UNUSED251,                                   X
+               UNUSED252=&UNUSED252,                                   X
+               UNUSED253=&UNUSED253,                                   X
+               UNUSED254=&UNUSED254,                                   X
+               UNUSED255=&UNUSED255,                                   X
+               UNUSED256=&UNUSED256,                                   X
+               TRACE=NO
+.**********************************************************************
+.*  END of option index table
+.**********************************************************************
+         AIF   ('&MAXENT' EQ '').OPT020
+&NDXMAX  SETA  &MAXENT
+.OPT020  ANOP
+&OPTTRACE SETB ('&TRACE' EQ 'YES' OR '&TRACE' EQ 'Y')
+&EQU     SETB  ('&DO' EQ 'EQU')
+&GEN     SETB  ('&DO' EQ 'GEN')
+&INIT    SETB  ('&DO' EQ 'INIT')
+&ENTRY   SETB  ('&DO' EQ 'ENTRY' OR '&DO' EQ '')
+         AIF   (&INIT OR &GEN OR &ENTRY OR &EQU).OPT040
+         MNOTE 12,'Unsupported entry function specifed: &DO'
+.OPT040  ANOP
+.*
+&ID      SETC  'ENCOPTBL'
+         AIF   ('&LABEL' EQ '').OPT100
+&ID      SETC  '&LABEL'
+.OPT100  ANOP
+         AIF   (&TBLFIRST).OPT200
+         AIF   ('&NDXMAX' NE '' AND '&NDXMAX' GE '1' AND               X
+               '&NDXMAX' LE '256').OPT120
+         MNOTE 12,'Unsupported number of entries requested via MAXENT: X
+               &NDXMAX'
+         MEXIT
+.OPT120  ANOP
+&PARMACMQ  SETC '(ON,1)'
+&PARMFCTN  SETC '(ON,1)'
+&PARMUSSN  SETC '(ON,55)'
+.*
+         ENHOPT@ 'ENHOPT  Initializing options table'
+&ID      ENHOPT# INIT,ENTRIES=&NDXMAX
+&TBLFIRST SETB 1
+         AIF   (&EQU).OPT8000
+         AIF   (&INIT).OPT9990
+.**********************************************************************
+.* Process INDEX option if specified. This is a special keyword to
+.* be used only in those rare instances when a new optional faeture
+.* is issued to the field without this macro being updated with the
+.* new option.  Use sparingly.
+.**********************************************************************
+.OPT200  ANOP
+         AIF   ('&INDEX'                EQ '').OPT280
+         AIF   (N'&INDEX EQ 2).OPT260
+         MNOTE 12,'Invalid number of parameters for the generic index kX
+               eyword'
+         AGO   .OPT280
+.OPT260  ANOP
+         ENHOPT# INDEX=&INDEX(1),PARM=&INDEX(2),                       X
+               OPTION=INDEX(1)
+.OPT280  ANOP
+.OPTENTS ANOP
+&K       SETA  1
+.OPT1000 ANOP
+         AIF   (&K GT &NDXMAX).OPT2000
+         AIF   ('&VALPARM(&K)' EQ '').OPT1100
+&TEMP    SETC  '&VALPARM(&K)'
+         AIF   ('&TEMP'(1,1)  EQ '(').OPT1050
+         AIF   ('&TEMP'  EQ 'ON').OPT1050
+         AIF   ('&TEMP'  EQ 'OFF').OPT1050
+&TEMP    SETC  '(ON,&VALPARM(&K))'
+.OPT1050 ANOP
+         ENHOPT# PARM=&TEMP,                                           X
+               OPTION=&INDEXTBL(&K),                                   X
+               VALID=&VALTBL(&K),                                      X
+               PARMTYP=&TYPTBL(&K)
+.OPT1100 ANOP
+&K       SETA  &K+1
+         AGO   .OPT1000
+.OPT2000 ANOP
+         AIF   ('&DO' EQ 'GEN').OPT9000
+         MEXIT
+.**********************************************************************
+.* GENERATE THE TABLE.
+.**********************************************************************
+.OPT8000 ANOP
+         ENHOPT@ 'ENHOPT Generating Equates'
+         ENHOPT# EQU
+         MEXIT
+.**********************************************************************
+.* GENERATE THE TABLE.
+.**********************************************************************
+.OPT9000 ANOP
+         ENHOPT@ 'ENHOPT  Final call, generating the table'
+&ID      ENHOPT# FINAL
+&TBLFIRST SETB 0
+.OPT9990 ANOP
+         MEXIT
+         MEND

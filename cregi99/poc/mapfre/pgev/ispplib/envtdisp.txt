@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Environment Display -/-/-
+%Command ===>_zcmd
+%
++
++      Environment                                              Next
++Cmd Name     Description                                       Environment
+)Model
+ _Z+?envname ?envtitl                                          ?Nextenv
+)Init
+  .ZVARS = '(usel)'
+)Reinit
+)Proc
+                                  /* Process )BODY fields here      */
+  If (&ztdsels ^= 0000)           /* If user selected some rows ... */
+     ver (&usel,LIST,s,S)
+)End

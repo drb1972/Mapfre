@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ Endevor Source Symbolics during Move/Xfer with Gen Proc \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Source symbolics for Generate Processor during MOVE/TRANSFER+
+
++ Source symbolics are now available in the GENERATE process executed
+  during the MOVE and TRANSFER actions.  The C1S source symbolics will
+  contain data that reflects the FROM location of the MOVE or TRANSFER
+  action.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7180
+)END

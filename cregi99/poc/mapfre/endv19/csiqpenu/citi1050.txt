@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit Sync Actions Feature \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Admin Actions in Processors Feature                      \ \+Enabled:%&VNTQADMA
++
++
++  CD18105   ADMIN ACTIONS IN PROCESSORS FEATURE
++
++  This feature enables the Batch Admin interface, ENBE1000, to be used
++  as a processor utility to perform admin actions as part of processor
++  execution.
++
++  ENBE1000 will use altid for the admin access security check,
++  if an Alternate id is defined in C1DEFLTS and the processor step
++  isn't coded with ALTID=N. Turning the feature on effectively means giving
++  admin access to all environments where altid has admin access to all users
++  who are allowed to edit any processors.
++
++
++  This feature is enabled by adding the following option to your optional
++  feature table:
++
++        ENHOPT%CD18105_ADMIN_ACT_IN_PROCESSOR=ON+       +DEFAULT IS OFF
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)PROC
+ &ZUP = ENDHE150
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01003) VAR(ZCMD) VAL(END)
+)END

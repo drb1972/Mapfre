@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPUNDEL Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPUNDEL command undeletes any lines logically deleted by
++WIPLDEL.  The command then automatically invokes WIPCOUNT to
++recount the WIP statistics.
++
++To execute the WIPUNDEL command, type WIPUNDEL and the desired
++parameters (R, 1, 2) in the command field, then press ENTER.
++
++Use the WIPUNDEL in conjunction with the WIPLDEL and WIPSHOW
++commands to try out different editing scenarios before beginning the
++merge process.
++
++
++
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%\-\ New and Changed Messages \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%New and Changed messages.
+
++ The%Copyright Notice+in all the Endevor listings has been changed.
+
++ The%CSV+file contents will list undefined dates (null dates) as zeroes
+  instead of spaces.
+
+% EPRINT+outputs have been reformatted to enable it to be used as CSV input.
+
+% BSTCOPY+will list the input and output data set names on MSG C1X0511I.
+
+% PRINT MEMBER+outputs will contain carriage control characters and the
+  standard Endevor report headings.
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7000
+)END

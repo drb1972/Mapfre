@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%\-\ SCL changes \-\
+%Option ===>_ZCMD                                              %(Screen 4 of 4)+
+%
+%Processor group definition restrictions+
+
++ The SCL for%DEFINE PROCESSOR GROUP+for processor groups called%*NOPROC*+will
+  no longer accept the inclusion of the following clauses:
+     %MOVE ACTION USES+
+     %TRANSFER ACTION USES+
+
++ Definitions containing these clauses will fail with message
+ %ENBE957E: When processor group is *NOPROC* this clause cannot be specified+
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7210
+)END

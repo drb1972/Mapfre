@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The SORT Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The SORT command sorts the matrix into ascending sequence based on
++the value of column-name. SORT command syntax is:
++
+%  SORT column-name+
++
++Valid values for column-name include
+%   WIPSEQ+ To sort by WIP sequence number. This is the default sort column.
+%   WIP+    To sort by WIP member name.
+%   ROOT+   To sort by Root member name.
+%   DER1  + To sort by Derivation 1 member name.
+%   DER2  + To sort by Derivation 2 member name.
++
++Example:
++   SORT ROOT   Sorts the matrix based on the Root column.
++
+%Note:+After you issue a SORT command, the SORT column parameter
++      becomes the default for subsequent LOCATE requests.
++
+)END

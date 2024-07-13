@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Element Activity Logging for Webhook Support \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Element Activity Logging for Webhook Support
++
++ Certain Element actions can be logged to USS files, which can be used to
++ support Webhooks. These actions are: Retrieve, Add, Update, Generate,
++ Move, Delete and Transfer (From Endevor to Endevor).
++ The administrator can specify which Element actions get logged depending
++ on their inventory location (Environment and Stage) and application
++ classification (System and Subsystem).
++
++ To enable Package action logging or Element action logging, the administrator
++ codes SCL statements in the PARMLIB member that is pointed to by the
++ E2ELOGMBR setting in the C1DEFLTS table. Previously, to enable Package action
++ logging, the PARMLIB member only had to contain the USS directory name that
++ was used for logging.
++
++ Note: Package action logging was introduced in increment 18.0.08.
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18280
+)END

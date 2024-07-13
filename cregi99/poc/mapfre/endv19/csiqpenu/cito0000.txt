@@ -1,0 +1,27 @@
+%TUTORIAL  ---------------------  USER DEFAULTS  ---------------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++Use the USER DEFAULTS panel to establish custom default settings
+ for Endevor processing.               You can:
+
+  - Allocate space for work and browse data sets used in foreground
+    processing.
+
+  - Define printer output class and page size settings for use in fore-
+    ground processing.
+
+  - Set a threshold return code above which the execution report for
+    actions requested in foreground will display automatically, and
+    specify whether ISPF RETURN/JUMP commands are intercepted.
+    Also, you can indicate that ISPF BROWSE or VIEW mode is to be used.
+
+  - Record job card settings for use when submitting batch jobs.
+
+ Default specifications remain in effect until you change them again, in
+ this session or a subsequent session.
+
+
+                        %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITO0010
+)END

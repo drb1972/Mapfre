@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_VARWKCMD                                                         +
++
++Component List Information
++
+%   Listing Dataset String+- This is the string value which is used
++   by the%LL - List Listing+option for dataset selection.  Any string
++   from%1-8+characters may be specified.  This field is initially set
++   to the value of the%C1DEFLTS+table parameter%COMPLISTWD.+ If the
++   parameter is not coded or blank, a default value of%LIST+is used.
++   If you modify this field, the value you specify remains until
++   modified again.  Clearing the value causes the field to be set
++   to LIST.
++
++   The%LL+option selects datasets from the output component list by
++   examining each dataset name for the specified string.  If the
++   string is found in the dataset name, then that entry will be added
++   to the outputs selection list.  This is intended to be used as a
++   shortcut for viewing a stored listing for the selected member.
++
++\ \ (Type%END+to return)  \ \
++
+)END

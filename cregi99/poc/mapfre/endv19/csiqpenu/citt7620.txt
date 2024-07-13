@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Backout and Package Dependencies \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++As with package commitment, package backout and backin takes into
++consideration dependencies between packages.
+
++Assume you execute package PKG1, containing elements COPYA, COPYB,
++COPYC, and COPYF. You then execute package PKG2, also containing
++element COPYF, as well as COPYD and COPYE.
+
++You then decide to back out PKG1. Because the execution of PKG2 has
++affected element COPYF, which is in both packages, you must back out
++PKG2 first. Otherwise, COPYF will not be returned to its original,
++pre-execution state.
++
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ REPORTING INTERFACE \-\
++OPTION%===>_ZCMD                                                              +
+%
+%   1 +MASTER           - Build Master Control File report JCL
+%   2 +SMF              - Build SMF historical report JCL
+%   3 +PACKAGE          - Build Package report JCL
+%   4 +FOOTPRINT        - Build Footprint report JCL
+%   5 +UNLOAD           - Build Unload/Reload report JCL
+%   6 +SHIPMENTS        - Build Package Shipment report JCL
+%   7 +ARCHIVED PACKAGE - Build Archived Package report JCL
+%
+%   E +EDIT             - Edit Report JCL
+%   S +SUBMIT           - Submit Report JCL for Batch execution
+%
+%
+%
++ Job statement information:
+%
++  ===>_C1BJC1
++  ===>_C1BJC2
++  ===>_C1BJC3
++  ===>_C1BJC4
++
+%
+)INIT
+ .HELP = CITR1000
+ IF (&C1BJC1 = ' ' & &C1BJC2 = ' ' & &C1BJC3 = ' ' & &C1BJC4 = ' ')
+   &C1BJC1 = '&C1PJC1'
+   &C1BJC2 = '&C1PJC2'
+   &C1BJC3 = '&C1PJC3'
+   &C1BJC4 = '&C1PJC4'
+)PROC
+)END

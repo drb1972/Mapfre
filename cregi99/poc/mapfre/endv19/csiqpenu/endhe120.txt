@@ -1,0 +1,51 @@
+)ATTR DEFAULT($+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND (\\)
+$TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+$Command ===>_ZCMD                                                             +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++The inventory location fields specify the location where the search
++begins for a specified element.
++
+$Environment+- The environment associated with the element.
++
+$System+- The system associated with the element.
++
+$Subsystem+- The subsystem associated with the element.
++
+$Type+- The type associated with the element.
++
+$Element+- The name of the element, with support for up to a 255
++  character name or mask.
++
++ $Extended masking+is available for specifying the element name to
++  generate an element list. An asterisk (*) wildcard character
++  represents 0 or more characters and a percent (%) exactly 1
++  character. The * and % characters can be used multiple times and can
++  be placed anywhere within the element name mask.
++
++  For example, the element name mask specification$*a*%b+will match any
++  element name that contains an 'a' in any position that is followed by
++  at least 1 of any character which is then followed with 'b' as the
++  last character. An element name of at least 3 characters is required
++  to match this mask.
++
++  The$Case-sensitive Elm Name+and$Uppercase Elm Name+settings are
++  always honored, including for extended masking.
++
+$Uppercase Elm Name+- When this option is set to$Y,+the element name is
++  uppercased before any list or action processing takes place. When
++  displaying the selection list, the argument to the$LOCATE (L)+command
++  is uppercased. Set this field to$N+if you do not want uppercasing to
++  occur.
++
+$  Note+- The$Uppercase+and$Case-Sensitive Elm Name+fields are hidden if
++  the short layout is selected in the User Defaults panel.
++
++\ \($END+to return) \ \
+)INIT
+ &VARC1LR = '        '
+)PROC
+ IF (.RESP = END) &VARC1LR = PASSTHRU
+)END

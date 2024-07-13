@@ -1,0 +1,17 @@
+          MACRO                                                         00080000
+&NAME    $FUNDSCT  &SNAME,&VALUE,&LNAME                                 00090000
+.*                                                                      00100000
+.*       &SNAME - SHORT NAME FOR DSECTS                                 00110000
+.*       &VALUE - VALUE FOR DSECT EQUATE                                00120000
+.*       &LNAME - LONG NAME FOR GENERATING CONSTANTS                    00121000
+.*                                                                      00130000
+         GBLC  &GPRE                   GLOBAL PREFIX                    00140000
+         GBLC  &GMAXVAL                GLOBAL PREFIX                    00141001
+         AIF    ('&VALUE' EQ '999').LAST                                00142001
+&GPRE.$&SNAME $MACLINE EQU,&VALUE,&LNAME                                00150102
+&GMAXVAL SETC  '&VALUE'                                                 00151001
+         AGO    .MEND                                                   00151101
+.LAST    ANOP                                                           00151201
+&GPRE.$&SNAME $MACLINE EQU,&GMAXVAL,&LNAME                              00151302
+.MEND    ANOP                                                           00152001
+         MEND                                                           00160000

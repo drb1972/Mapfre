@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Cast - Approver Determination \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The first step in casting a package is to determine if approvers are
++associated with the inventory areas referenced in the package.
+
+%      Action                       Inventory Area+
++       Add/Update                      Target
++       Restore                         Target
++       Generate:
++          With COPYBACK                Target
++          Without COPYBACK             Source
++       Move                            Target
++       Delete                          Source
++       Signin                          Source
++       Transfer:
++           With DELETE                 Source and Target
++           Without DELETE              Target
++       Archive:
++           With DELETE                 Source
++
++                                            (%PF3+to return)
+)END

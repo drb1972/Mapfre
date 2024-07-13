@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Request Panels \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use request panels to access definition panels for systems, subsystems,
++types, processor groups, approver groups and relationships, type data
++sets, and type processing sequences. When working with request panels:
++
++   If you qualify the request fully (no blanks or name masks), the
++   definition panel is displayed when you press ENTER. The definition
++   panel will be in the mode specified on the request panel (display,
++   create, update, or delete).
++
++   If your request contains blanks or name masks, a selection list is
++   displayed to enable you to fully qualify the request.
++
++Select%1+-%2+for information about specific request panel fields.
++
+%    1+- Request options            %2+- Request fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITROPT0 2,CITNAM00)
+)END

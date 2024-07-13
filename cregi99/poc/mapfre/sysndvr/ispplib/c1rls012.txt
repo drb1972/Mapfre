@@ -1,0 +1,37 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+TAG @ uh envsel
+tag ¢ sh env
+tag ^ sh envtitle
+tag ! sh envesid
+tag & sh envs1id
+tag * sh envs1nam
+tag ~ sh envs2id
+tag ` sh envs2nam
+%------------------------  Environment Selection List  -------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++    ENVIRONMENT                                     ENTRY
++  NAME      TITLE                                    ID  STAGE 1    STAGE 2
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+@ ¢         ^                                        !   & *        ~ `
+enddef

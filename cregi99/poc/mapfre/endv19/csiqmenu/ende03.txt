@@ -1,0 +1,27 @@
+ENDE030I 'Element Created'                             .ALARM=YES
+'ENDE030I Element has been created'
+
+ENDE031I 'Element Edited'                              .ALARM=YES
+'ENDE031I Element has been saved and generated'
+
+ENDE032I 'Element Saved'                              .ALARM=YES
+'ENDE032I The element was saved but not generated due to action option settings'
+
+ENDE033I 'VVLL &EEVVERN&EEVLVLN Created'              .ALARM=YES
+'ENDE033I VVLL &EEVVERN&EEVLVLN has been created'
+
+ENDE034E 'Source Management Failed'                    .ALARM=YES
+'ENDE034E Source Management has failed'
+
+ENDE036E 'Element Name Required'                       .ALARM=YES
+'ENDE036E The CREATE action requires a fully specified element name'
+
+ENDE037E 'Element Exists'                              .ALARM=YES
+'ENDE037E The element already exists.  It cannot be created'
+
+ENDE038I 'New Element'                                 .ALARM=YES
+'ENDE038I The element will be created when the END or SAVE command is issued'
+
+ENDE039E 'Wildcard not Allowed'                        .ALARM=YES
+'ENDE039E The element name cannot be wild carded on a CREATE request'
+

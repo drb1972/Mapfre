@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Input Package ID Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates the name of the package you want to copy.
++
++Required for option C, COPY PACKAGE; ignored for other options.
++
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

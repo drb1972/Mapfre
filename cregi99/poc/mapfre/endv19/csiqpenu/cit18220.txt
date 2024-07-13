@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Documentation Additions \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Documentation Additions
++
++%Concurrent Development Configuration
++ This new article describes the Endevor sandbox development method for
++ concurrent development. This method includes using the delivered generate and
++ delete processors,@GSANDBX and @DSANDBX, which automate the creation and
++ deletion of sandbox Subsystems.
++
++%IT Audit Guidelines Video
++ A new video is available from the IT Audit Guidelines article.
++ This video provides an overview of the recommended IT audit procedure.
++ It also describes best practices for data security and integrity
++ and explains why they are important.
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18230
+)END

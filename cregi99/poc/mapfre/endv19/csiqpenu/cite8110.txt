@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ About Approver Groups \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                  +Page 1 of 2+
+%
++Packages can be approved or denied for execution by people identified
++as approvers. An approver group is a set of approvers.
+
++You can specify the following for approver groups:
+
++ %Disqualification+- This setting has no effect if ENCOPTBL option
++ %&LIT1                +is ON:
++    Y - Disqualification processing for approvers will take place.
++    N - Disqualification processing for approvers will not take place.
++    Approvers can be disqualified (prevented from approving a package)
++    if they have updated the package or an element within the package.
++ %Quorum size+- The number of approvers in a group that must approve a
++    package before it can be executed.
++ %Required approvers+- Required approvers must approve a package before
++    it can be executed.
+
++Even if quorum requirements are met, a package cannot be executed until
++all required approvers have approved it.
+
++  ---- Press%ENTER+to continue to the next panel or%END+to exit ----
+)INIT
+  &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+  &ZCONT = 'CITE8111'
+)END

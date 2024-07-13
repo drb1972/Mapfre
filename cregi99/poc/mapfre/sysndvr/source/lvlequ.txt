@@ -1,0 +1,203 @@
+         MACRO
+&LABEL   LVLEQU &CNT=,&GEN=NONE
+.*
+         LCLA  &I,&J
+         LCLA  &ACTNLEN(15)
+         LCLA  &LVLCNT
+         LCLA  &MAXNAME
+         LCLA  &OFFSET,&LENGTH
+         LCLA  &SAVNDX
+         LCLC  &ACTIONS(15)
+         LCLC  &STRING
+         LCLC  &WORK
+         LCLC  &WRKOFF,&WRKLEN
+.**********************************************************************
+.* Actions definition table. This table identifies the allowed
+.* symbnolic names.
+.**********************************************************************
+&ACTIONS(1)    SETC  '**LITERAL**'
+&ACTNLEN(1)    SETA  8
+&ACTIONS(2)    SETC  'ENVIRONMENT'
+&ACTNLEN(2)    SETA  8
+&ACTIONS(3)    SETC  'STAGENAME'
+&ACTNLEN(3)    SETA  8
+&ACTIONS(4)    SETC  'STAGENO'
+&ACTNLEN(4)    SETA  1
+&ACTIONS(5)    SETC  'SYSTEM'
+&ACTNLEN(5)    SETA  8
+&ACTIONS(6)    SETC  'SUBSYSTEM'
+&ACTNLEN(6)    SETA  8
+&ACTIONS(7)    SETC  'TYPE'
+&ACTNLEN(7)    SETA  8
+&ACTIONS(8)    SETC  'ELEMENT'
+&ACTNLEN(8)    SETA  8
+&ACTIONS(9)    SETC  'ELEM-10'
+&ACTNLEN(9)    SETA  10
+&ACTIONS(10)   SETC  'ACTION'
+&ACTNLEN(10)   SETA  8
+&ACTIONS(11)   SETC  'CCID'
+&ACTNLEN(11)   SETA  12
+&ACTIONS(12)   SETC  'MENUAUTH'
+&ACTNLEN(12)   SETA  8
+&ACTIONS(13)   SETC  'MENUITEM'
+&ACTNLEN(13)   SETA  8
+&ACTIONS(14)   SETC  'STAGEID'
+&ACTNLEN(14)   SETA  1
+&ACTIONS(15)   SETC  'PKGID'
+&ACTNLEN(15)   SETA  16
+&ACTIONS(16)   SETC  'PKGTYPE'
+&ACTNLEN(16)   SETA  8
+&ACTIONS(17)   SETC  'PKGBOE'
+&ACTNLEN(17)   SETA  1
+&ACTIONS(18)   SETC  'PKGSHR'
+&ACTNLEN(18)   SETA  1
+&ACTIONS(19)   SETC  'PKGSTAT'
+&ACTNLEN(19)   SETA  8
+&ACTIONS(20)   SETC  'PKGSUBFC'
+&ACTNLEN(20)   SETA  8
+&ACTIONS(21)   SETC  'PKGAPPGR'
+&ACTNLEN(21)   SETA  16
+&ACTIONS(22)   SETC  'PKGDEST'
+&ACTNLEN(22)   SETA  8
+&ACTIONS(23)   SETC  'PKGPROM'
+&ACTNLEN(23)   SETA  1
+&MAXNAME SETA  23
+         AIF   ('&GEN' EQ 'TABLE').LVL1000
+         AIF   ('&GEN' EQ 'LENTAB').LVL2000
+.**********************************************************************
+.* GENERATE A TABLE IN THE FOLLOWING FORMAT:
+.*
+.*       DC    AL1(NUMBER OF PIECES MAKING UP AN INDEX LEVEL)
+.*
+.*       FOR EACH "PIECE"...
+.*
+.*             DC    AL1(C1 ELEMENT TYPE FROM &ACTIONS TABLE)
+.*             DC    AL1(OFFSET INTO ELEMENT)
+.*             DC    AL1(LENGTH TO USE FROM ELEMENT)
+.*             ...  FOR A LITERAL ELEMENT, THE LITERAL WILL
+.*             ...  APPEAR HERE, IMMEDIATELY FOLLOWING THE LENGTH
+.**********************************************************************
+&SAVNDX  SETA  &SYSNDX
+&LVLCNT  SETA  0
+         DC    AL1(&CNT)           NUMBER OF PIECES IN NAME
+.**********************************************************************
+.* PROCESS THE NEXT PIECE
+.*   o IF THE PIECE BEGINS WITH A QUOTE, ASSUME IT IS A LITERAL STRING.
+.*   o IF THE PIECE ENDS WITH A PARENTHESIS, ASSUME THAT SUBSTRINGING
+.*     IS BEING USED.
+.**********************************************************************
+.NXTLVL  ANOP
+&LVLCNT  SETA  &LVLCNT+1
+         AIF   (&LVLCNT GT &CNT).MEND
+&STRING  SETC  '&SYSLIST(&LVLCNT)'
+         AIF   ('&STRING' EQ '').NXTLVL
+         AIF   ('&STRING'(1,1) EQ '''').LITERAL
+&J       SETA  K'&STRING
+         AIF   ('&STRING'(&J,1) EQ ')').BKUP
+.* NO SUBSTRING, CLEAR &WORK FOR LATER
+&WORK    SETC  ''
+         AGO   .LOOKUP
+.**********************************************************************
+.* SETUP SUBSTRING INFO FROM C1 ELEMENT NAME
+.*  &WORK = SUBSTRING INFO
+.*  &STRING = C1 ELEMENT NAME
+.**********************************************************************
+.BKUP    ANOP
+&J       SETA  &J-1
+         AIF   ('&STRING'(&J,1) NE '(').BKUP
+&I       SETA  K'&STRING-&J-1
+&WORK    SETC  '&STRING'(&J+1,&I)
+&STRING  SETC  '&STRING'(1,&J-1)
+.**********************************************************************
+.* LOOKUP &STRING IN THE C1 ELEMENT NAME TABLE
+.**********************************************************************
+.LOOKUP  ANOP
+&I       SETA  1
+.FINDNAM ANOP
+&I       SETA  &I+1
+         AIF   (&I GT &MAXNAME).NAMERR
+         AIF   ('&STRING' NE '&ACTIONS(&I)').FINDNAM
+.* ASSUME DEFAULT SUBSTRING VALUES
+&OFFSET  SETA  1
+&LENGTH  SETA  &ACTNLEN(&I)
+         AIF   ('&WORK' EQ '').GENERAT
+.* PROCESS THE SUPPLIED SUBSTRING VALUES.
+.* SEARCH FOR AN EMBEDDED COMMA
+&J       SETA  0
+&OFFSET  SETA  1
+.GETCOMA ANOP
+&J       SETA  &J+1
+         AIF   (&J GT K'&WORK).NOCOMA
+         AIF   ('&WORK'(&J,1) NE ',').GETCOMA
+&WRKOFF  SETC  '&WORK'(1,&J-1)
+&WRKLEN  SETC  '&WORK'(&J+1,K'&WORK-&J)
+&OFFSET  SETA  &WRKOFF
+&LENGTH  SETA  &WRKLEN
+         AGO   .VALIDAT
+.NOCOMA  ANOP
+&OFFSET  SETA  &WORK
+&LENGTH  SETA  &ACTNLEN(&I)-&OFFSET+1
+.VALIDAT ANOP
+         AIF   (&OFFSET GT &ACTNLEN(&I)).OFFERR
+&J       SETA  &OFFSET+&LENGTH-1
+         AIF   (&J GT &ACTNLEN(&I)).LENERR
+.GENERAT ANOP
+         DC    AL1(&I,&OFFSET-1,&LENGTH)
+         AGO   .NXTLVL
+.*
+.* THIS APPEARS TO BE A QUOTED STRING, LET THE ASSEMBLER GENERATE
+.* ANY ERRORS.
+.*
+.LITERAL ANOP
+         DC    AL1(1,0,L'LIT&SAVNDX.L&LVLCNT)
+LIT&SAVNDX.L&LVLCNT DC    C&STRING
+         AGO   .NXTLVL
+.*
+.* ERROR MESSAGES
+.*
+.NAMERR  ANOP
+         MNOTE 8,'"&SYSLIST(&LVLCNT)" IS NOT A SUPPORTED C1 ELEMENT.'
+         AGO   .MEND
+.OFFERR  ANOP
+         MNOTE 8,'SUBSTRING OFFSET EXCEEDS THE BOUNDARY OF THE'
+         MNOTE *,' SELECTED C1 ELEMENT - &ACTIONS(&I) (&ACTNLEN(&I)).'
+         AGO   .MEND
+.LENERR  ANOP
+         MNOTE 8,'SUBSTRING OFFSET+LENGTH EXCEEDS THE BOUNDARY OF THE'
+         MNOTE *,' SELECTED C1 ELEMENT - &ACTIONS(&I) (&ACTNLEN(&I)).'
+         AGO   .MEND
+.*
+.* GENERATE EQUATES FOR THE ACTIONS TABLE.
+.*
+.LVL1000 ANOP
+         AIF   ('&LABEL' EQ '').LVL1020
+&LABEL   DS    0H
+.LVL1020 ANOP
+&I       SETA  1
+LVLACTLEN EQU   12
+.LVL1040 ANOP
+         AIF   (&I GT &MAXNAME).LVL1080
+         AIF   ('&ACTIONS(&I)' NE '**LITERAL**').LVL1060
+LVLACTLIT EQU  &I                       LITERAL ACTION CODE
+.LVL1060 ANOP
+LVLACT&I DC    CL(LVLACTLEN)'&ACTIONS(&I)'
+&I       SETA  &I+1
+         AGO   .LVL1040
+.LVL1080 ANOP
+         AGO   .MEND
+.LVL2000 ANOP
+         AIF   ('&LABEL' EQ '').LVL2020
+&LABEL   DS    0H
+.LVL2020 ANOP
+&I       SETA  1
+.LVL2040 ANOP
+         AIF   (&I GT &MAXNAME).LVL2080
+LVLLEN&I DC    AL1(&ACTNLEN(&I))
+&I       SETA  &I+1
+         AGO   .LVL2040
+.LVL2080 ANOP
+.*
+.* PROCESS IS COMPLETE.
+.*
+.MEND    ANOP
+         MEND

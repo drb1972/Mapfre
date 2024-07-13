@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCIDs and Comments \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the CCID and Comment fields to associate a 1- to 12-character
++CCID and/or 1- to 40-character comment with an action.
++
++CCIDs and comments may be required. If you do not provide a required
++CCID or comment on the action request panel, you must do so on the
++Action Prompt panel that appears when you press ENTER.
++
++See 'Using CCIDs' in the Administrator's Guide.
++
++Select an option below for information on the impact of CCIDs
++and comments when provided for specific actions.
++
+%    1+- Add/Update                 %5+- Signin
+%    2+- Retrieve                   %6+- Restore
+%    3+- Generate                   %7+- Transfer
+%    4+- Move
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID1 2,CITCCID2 3,CITCCID3 4,CITCCID4
+                  5,CITCCID5 6,CITCCID6 7,CITCCID7)
+)END

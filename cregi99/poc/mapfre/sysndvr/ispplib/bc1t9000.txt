@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Navigating the Help Panels \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PDM help system has available the same navigation keys as the
++standard ISPF/PDF tutorial facility. These include:
++
+%   ENTER+to display the next panel in a sequence of panels.
++
+%   UP+to return to the immediately preceding help panel.
++
+%   END+to return to PDM.
++
++See the ISPF/PDF HELP TUTORIAL for a complete list of available keys.
++
++
++
+)END

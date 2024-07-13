@@ -1,0 +1,43 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP0000                                                     */
+ /*-----------------------------------------------------------------------*/
+  _ TYPE(INPUT) PADC(_) JUST(LEFT) CAPS(ON)
+  # TYPE(INPUT)JUST(LEFT) CAPS(ON)
+  @ TYPE(TEXT) JUST(LEFT) CAPS(ON) INTENS(NON)
+)BODY
++-------------------------------%Batch Package+---------------------------------
++ Command ==>#ZCMD                                                             +
++
++ Enter the SCL data set name and select an action:
++  _Z+1. Build SCL             2. Edit SCL              3. Browse SCL
++    @4. Validate SCL         +5. Build Additional JCL  6. Submit JCL
++
++ SCL data set name:
++   Project.._VNBRPRO +
++   Group...._VNBRGRP +
++   Type....._VNBRTYP +
++   Member..._VNBRMBR +
++ Other sequential or partitioned data set:
++   Data set name.._VNBROTH                                                 +
++
++ SCL processing options:
++   Append to existing SCL.._Z+(Y/N)
++   Include additional JCL.._Z+(Y/N)
++ JCL JOB statements
++  _C1BJC1                                                                  +
++  _C1BJC2                                                                  +
++  _C1BJC3                                                                  +
++  _C1BJC4                                                                  +
++
+)INIT
+  .HELP = ENIT0000
+  .ZVARS = '(VARWKCMD,PDVAPPSC,PDVINCJC)'
+  IF (&C1BJC1 = ' ' & &C1BJC2 = ' ' & &C1BJC3 = ' ' & &C1BJC4 = ' ')
+    &C1BJC1 = '&C1PJC1'
+    &C1BJC2 = '&C1PJC2'
+    &C1BJC3 = '&C1PJC3'
+    &C1BJC4 = '&C1PJC4'
+)PROC
+)END

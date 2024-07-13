@@ -1,0 +1,12 @@
+EVSY001E 'Endevor system'                               .ALARM = YES
+'Please use the two character Endevor system code.'
+EVSY002E 'Endevor subsystem'                            .ALARM = YES
+'Please use either * or a specific Endevor subsystem.'
+EVSY003E 'Enter e-mail'                                 .ALARM = YES
+'Please enter your external e-mail address.'
+EVSY004E 'Y or N?'                                      .ALARM = YES
+'Only a Y or N are valid in this field.'
+EVSY005E 'Invalid Infoman class'                          .ALARM = YES
+'Code an Infoman entry privilege class (e.g. ???ENTRY) or VIEWER.'
+EVSY006E 'Select Environment'                           .ALARM = YES
+'You must set at least one environment to Y.'

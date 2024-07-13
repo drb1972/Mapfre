@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Member Selection List - Add/Update \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%To fields+- Identify the environment, system, subsystem, and Stage
++into which selected members will be added or updated.
++
+%Element+- Defaults to the member name. Can be changed here to make
++   element name differ from the member name.
++
+%Type+- Defaults to the type specified on the Add/Update panel. Can be
++   changed here.
++
+%Comment+- Defaults to the comment specified on the Add/Update panel.
++   Can be changed here.
++
+%New version+- Defaults to the value on the Add/Update panel. Can be
++   changed here.
++
+
++
++                                            (%PF3+to return)
+)END

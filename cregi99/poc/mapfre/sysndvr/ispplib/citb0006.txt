@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Request Data Set \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use these fields to specify the data set and member to which you want
++to write batch requests. Use standard ISPF naming conventions.
+
++This file must be a partitioned data set or a sequential file, and
++must be allocated prior to referencing it on this panel.
+
++If you use the OTHER PARTITIONED OR SEQUENTIAL DATA SET field, type
++the information in 'data set name(member name)' format.
+
+
+
+
+
+
+
++
++                                            (%PF3+to return)
+)END

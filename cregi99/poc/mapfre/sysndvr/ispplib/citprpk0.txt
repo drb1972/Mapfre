@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Promotion Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PROMOTION PKG selection field defined on the Package Foreground
++Options Menu can be used to limit the package selection list.
++Valid values are:
++
+%  A+- Display promotion and non-promotion packages in the list
+%  P+- Limit the list to promotion packages
+%  X+- Exclude promotion packages from the list.
++
+%Target Environment+and%Target Stage ID+fields can be used to further filter
++the promotion packages.
++
++Filtering by target location can only be used with PROMOTION PKG option
++set to P or A. For option A, all promotion packages matching the target
++location will be listed along with all non-promotion packages. Name
++masking is supported for the target environment and target stage id fields.
++
++
++
++                                    +(%PF3+to return)
+)END

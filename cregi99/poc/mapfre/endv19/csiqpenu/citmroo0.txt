@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Remote Job Model Member Root \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Remote Job Model Member Root+- The root portion of a member named
++   #RJrootx, where "root" is the character string specified in this
++   field and "x" is a suffix.  Such a set of members are used to
++   generate a JCL stream to be executed at the remote site after
++   the shipment staging data sets have been transmitted.  The members
++   are stored in iprfx.iqual.CSIQOPTN
++
++   If this field is left blank, the value specified in ENDICNFG will
++   be used.  The field can be from 1 to 4 characters long.  Valid
++   characters are A-Z, 0-9, $, #, and @. Imbedded blanks are not
++   allowed.
++
++   The roots of remote JCL model members distributed with the product are:
++
++   BLUE - IEBCOPY and IDCAMS are used to copy/delete members into
++          remote production datasets.
++
++   FAST - FASTCOPY is used to copy/delete members
++
++\ \ (%PF3+to return) \ \
+)END

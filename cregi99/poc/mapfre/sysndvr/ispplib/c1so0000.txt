@@ -1,0 +1,52 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(INPUT) INTENS(HIGH) JUST(LEFT)
+)BODY
+%UPDATE -------------------  User Defaults  ------------------------------------
+%COMMAND ===>_ZCMD                                                             +
++
++WORK DATASET ALLOCATION INFORMATION:    LIST DATASET ALLOCATION INFORMATION:
++  PRIMARY QUANTITY  %===>¢C1WP+           PRIMARY QUANTITY  %===>¢C1PP+
++  SECONDARY QUANTITY%===>¢C1WS+           SECONDARY QUANTITY%===>¢C1PS+
++  UNIT NAME         %===>_C1WU    +       RECORD LENGTH     %===>¢C1PL +
++  SPACE UNITS       %===>_C1W+   (TRK/CYL/BLK)               (ZERO FOR DEFAULT)
++  VOLUME SERIAL     %===>_C1WV  +(BLANK FOR DEFAULT)
++
++PRINT OPTIONS:                          FOREGROUND OPTIONS:
++  SYSOUT CLASS    %===>_C+                DISPLAY MSGS WHEN RC GE%   ===>_Z +
++  LINES PER PAGE  %===>¢PLP+              INTERCEPT ISPF RETURN CMD %===>_Z+
++                                          ISPF BROWSE OR VIEW MODE  %===>_Z+
++COMPONENT LIST INFORMATION:
++  LISTING DATASET STRING%===>_C1VLLCHR+ (USED FOR DETERMINING LIST DATASET)
++
++JOB STATEMENT INFORMATION:
+% ===>_C1PJC1                                                                  +
+% ===>_C1PJC2                                                                  +
+% ===>_C1PJC3                                                                  +
+% ===>_C1PJC4                                                                  +
+)INIT
+  .HELP= CITO0000
+  .ZVARS = '(C1MSGRC ENVDCRUD VARBRWVW)'
+)PROC
+    VER (&C1WP,NUM,MSG=CISO001)
+    VER (&C1WP,RANGE,0,255,MSG=CISO001)
+    VER (&C1WS,NUM,MSG=CISO002)
+    VER (&C1WS,RANGE,0,255,MSG=CISO002)
+    VER (&C1PP,NUM,MSG=CISO001)
+    VER (&C1PP,RANGE,0,255,MSG=CISO001)
+    VER (&C1PS,NUM,MSG=CISO002)
+    VER (&C1PS,RANGE,0,255,MSG=CISO002)
+    VER (&C1PL,NUM,MSG=CISO013)
+    VER (&C1PL,RANGE,0,32756,MSG=CISO013)
+    VER (&PLP,NUM,MSG=CISO007)
+    VER (&PLP,RANGE,20,130,MSG=CISO007)
+    VER (&C1MSGRC,NUM,MSG=CISO008)
+    VER (&C1MSGRC,RANGE,0,16,MSG=CISO008)
+    VER (&VARBRWVW,LIST,B,V,MSG=CISO012)
+    VER (&ENVDCRUD,LIST,Y,N,MSG=CISO010)
+    &VIMXDCAS = N
+)END

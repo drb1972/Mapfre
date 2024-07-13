@@ -1,0 +1,56 @@
+         MACRO                                                          00000001
+&LABEL   $PRSYM &SYMBOL=,              SYMBOL                          X00000002
+               &VALUE=                 SYMBOL DEFAULT VALUE             00000003
+.********************************************************************** 00000004
+.*                                                                    * 00000005
+.*       PROCESSOR SYMBOLIC DATA DEFINITION BLOCK                     * 00000006
+.*                                                                    * 00000007
+.*       CREATED BY C1GJTRNS                                          * 00000008
+.*                                                                    * 00000009
+.*       CONTAINS:      PROCESSOR SYMBOLIC DATA DEFAULTS              * 00000010
+.*                                                                    * 00000011
+.********************************************************************** 00000012
+         GBLA  &PRLSTPR                GLOBAL FOR LAST PROCESSOR MACRO  00000013
+         GBLC  &PRSYM                  GENERATED NEXT DATA LABEL        00000014
+         GBLC  &PRCSECT                CSECT NAME FOR MODULE            00000015
+         LCLC  &BLKLBL                 LABEL FOR CURRENT BLOCK          00000016
+&BLKLBL  SETC  '&PRSYM'                ASSIGN CURRENT BLOCK LABEL       00000017
+         AIF   (&PRLSTPR EQ 100).CONT  DOES THIS FOLLOW A $PRHDR?       00000018
+         AIF   (&PRLSTPR EQ 200).CONT  DOES THIS FOLLOW A $PRSYM?       00000019
+         AIF   (&PRLSTPR EQ 300).CONT  DOES THIS FOLLOW A $PRPGM?       00000020
+         AIF   (&PRLSTPR EQ 400).CONT  DOES THIS FOLLOW A $PRCC?        00000021
+         AIF   (&PRLSTPR EQ 500).LOGIC DOES THIS FOLLOW A $PRDDA?       00000022
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?       00000023
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?       00000024
+         MNOTE 8,'INTERNAL LOGIC ERROR, STATEMENT SEQUENCE PROBLEM'     00000025
+         AGO   .MEXIT                                                   00000026
+.CONT    ANOP                                                           00000027
+&PRLSTPR SETA  200                     THIS IS A SYMBOL                 00000028
+         $PRLBL ,                      GENERATE ANY NECESSARY LABELS    00000029
+&PRCSECT CSECT                                                          00000030
+         DC    A(&BLKLBL)                                               00000031
+         DC    A(&PRSYM)               NEXT COND CODE IN CHAIN          00000032
+&BLKLBL  DS    0F                                                       00000033
+         DC    Y(PRSYMEQU)             THIS IS A HEADER RECORD          00000034
+         DC    Y(&BLKLBL.L)            LENGTH OF THIS BLOCK             00000035
+         DC    Y(PRSYMVER)             ENDEVOR VERSION GENERATING PROC  00000036
+         DC    Y(&BLKLBL.#)            NUMBER OF VARIABLE FIELDS        00000037
+         SPACE ,                                                        00000038
+         DS    0F                                                       00000039
+         DC    AL1(0)                  FLAG BYTE 1                      00000040
+         DC    AL1(0)                  FLAG BYTE 2                      00000041
+         DC    H'0'                    ** RESERVED **                   00000042
+         DC    4F'0'                   ** RESERVED **                   00000043
+         ORG   &BLKLBL+PRYFLDS-@PRSYMDS  LOCATE VARIABLE FIELD AREA     00000044
+&BLKLBL.$ DS   0F                                                       00000045
+         $PRFLD FIELD=SYMBL,VALUE=&SYMBOL                               00000046
+         $PRFLD FIELD=SYMVL,VALUE=&VALUE                                00000047
+&BLKLBL.# EQU  ((*-&BLKLBL.$)/8)                                        00000048
+&BLKLBL.L EQU  *-&BLKLBL                                                00000049
+         AGO   .MEXIT                                                   00000050
+.LOGIC   ANOP                                                           00000051
+         MNOTE 8,'LOGICAL ERROR, $PRSYM MAY NOT FOLLOW A $PRDDA CARD.'  00000052
+         AGO   .MEXIT                                                   00000053
+.MEXIT   ANOP                                                           00000054
+         SPACE 2                                                        00000055
+         MEND                                                           00000056

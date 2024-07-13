@@ -1,0 +1,12 @@
+ENIP070E 'Internal Dialog Error'                         .ALARM=YES
+'The SCL data set object could not be created'
+
+ENIP071E 'Internal Dialog Error'                         .ALARM=YES
+'The Package Dialog Work Area (PWA) could not be allocated'
+
+ENIP072E 'Internal Dialog Error'                         .ALARM=YES
+'The dialog flow-of-control table could not be loaded'
+
+ENIP073E 'Internal Dialog Error'                         .ALARM=YES
+'The XP Service Object does not exist'
+

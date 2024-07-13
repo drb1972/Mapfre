@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%\-\ ESORT \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%ESORT command for sorting Endevor ISPF selection lists +
+
++ The ESORT (abbreviated ES) command can be used to sort any Endevor
+  selection list by column.  To sort a list, type "ES column heading"
+  on the ISPF command line.  Column heading is the name appearing at the
+  top of the column.  If you would like to sort the list in descending
+  sequence, prepend the column heading name with a "-".
+
+  Example:   ES GENERATE  sorts the Display Element selection list by
+                          generate date.
+
+             ES -VVLL     sorts the selection list by verson and level
+                          in descending sequence
+
+             ES           sorts the selection list in the default sequence
+
+
+ \*\ Refer to the Endevor for OS/390 documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)END

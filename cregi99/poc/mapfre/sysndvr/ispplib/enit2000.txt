@@ -1,0 +1,29 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Submit Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Submit Package panel to submit a JCL job stream to execute a package.
++To submit a package specify the appropriate Submit action information, select
++action 1, Submit Package, and press enter.  To cancel the Submit action select
++action 2 and press enter.
++
++
++Select 1 - 3 for information about:
+%   1+- Package identification fields
+%   2+- JOB card data set name fields
+%   3+- Submit options fields
+%
+%
++ Select a Help topic, or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,enit2010
+                 3,enit2020
+                )
+)END

@@ -1,0 +1,53 @@
+         MACRO
+         ENHAEDEL &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        DELETE ELEMENT - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+AEDEL_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AEDEL_RQ$EYE    EQU C'EDEQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AEDEL_RQ
+         SPACE ,
+AEDEL_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEDEL_RQ_DATA
+*                 ELEMENT DATA
+AEDEL_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEDEL_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEDEL_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEDEL_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEDEL_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEDEL_RQ_TYPE     DC CL8' '            TYPE NAME
+AEDEL_RQ_STG_ID   DC CL1' '            STAGE ID
+AEDEL_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 ACTION OPTIONS
+AEDEL_RQ_CCID     DC CL12' '           CCID
+AEDEL_RQ_COMM     DC CL40' '           COMMENT
+AEDEL_RQ_ONLY_CMP DC CL1' '            ONLY COMPONENT   (Y/N)
+AEDEL_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AEDEL_RQ_RESERVE  DC CL3' '            ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AEDEL_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE (A/C/R)
+AEDEL_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AEDEL_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AEDEL_RQ_VER#1_DATADSLN EQU *-AEDEL_RQ_DATAAREA
+AEDEL_RQ_VER#1_DSLN     EQU *-AEDEL_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEDEL_RQ_DATADSLN EQU *-AEDEL_RQ_DATAAREA
+AEDEL_RQ_DSLN     EQU *-AEDEL_RQ
+         ORG      AEDEL_RQ_DATA
+AEDEL_RQ_DATAAREA DS XL(AEDEL_RQ_DATADSLN)   DATA AREA
+         MEND

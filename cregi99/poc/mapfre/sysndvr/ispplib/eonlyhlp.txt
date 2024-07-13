@@ -1,0 +1,30 @@
+)ATTR DEFAULT(%+|)
+       %   TYPE(TEXT) INTENS(HIGH)
+       +   TYPE(TEXT) INTENS(LOW)
+       |   TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+)BODY EXPAND(\\)
+%\-\ ISPF Selection List EONLY Option \-\
+%Option ===>|ZCMD                                              %(Screen 1 of 1)+
+%
+%EONLY Column Selection Option +
+
++ EONLY is an option that allows you to filter selection list columns, either
+  by including or excluding the rows that match your selection criteria.
+
++ To include all rows containing a certain value in a column, type "EONLY
+  columnname value" on the command line, where columnname is the name of
+  the column you want to select by and value is the value that every row
+  must contain in that column.
++ Conversely, to exclude all rows not containing a certain value in a
+  column, type "EONLY -columnname value" where columnname is the name of
+  the column you want to select by and value is the value that every row
+  must not contain in that column.
+
++ You are allowed to specify the > (greater than) or < (less than) symbol
+  when entering date values. Enter the date value in DDMMMYY format.
+  To specify a date range, specify the dash symbol between the two date
+  values "EO DAT 01JAN02-30SEP02".
++ The EONLY command can be entered as EONLY or EO. Only the 1st three characters
+  of the column name are required.             %(ENTER+to continue,%END+to exit)
+)PROC
+)END

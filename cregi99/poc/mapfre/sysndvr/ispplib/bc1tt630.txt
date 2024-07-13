@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ SAS Reporting for PDM \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PDM SAS reporting system provides two categories of reports,
++Build reports, and Merge reports.
++
++Build reports contain information about the Build WIP action:
++ * The%Build WIP Summary Report+(Report 01) identifies the Root, Derivation 1,
++     and Derivation 2 members for each WIP data set member, along with
++     complexity factor and comon insert/delete information.
++ * The%Build WIP Summary Report by Complexity Factor+(Report 02) sorts
++     the Summary report information by complexity factor.
++ * The%Build WIP Summary Report by WIP Member Name+(Report 03) sorts
++     the Summary report information by WIP data set member name.
++
++The%Merge Summary Report+(Report 04) provides summary information about
++the Merge action.
++
++All PDM SAS reports are generated from the statistics created when you
++code the WRITE STATISTIC TO clause in BUILD WIP or MERGE requests.
++
+)END

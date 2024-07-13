@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Write Stats to Data Set \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this field to name the data set to which you want PDM to write
++statistical information. The name must conform to ISPF naming
++conventions.
++
++PDM can optionally create data records containing detail and summary
++information about Build WIP or Merge actions. These statistical
++records can then be processed by a user program or passed as input
++to a SAS reporting system.
++
++See the appendix "Statistical Data Control Blocks" in the Parallel
++Development Option Guide for information about the formats of the
++statistical control blocks and about allocating the statistics
++data set.
++
++
++
++
++
+)END

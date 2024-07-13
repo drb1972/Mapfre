@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Display/Print Actions and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++     Display and Print processing also work across the environment map,
++     making it possible to view elements anywhere in the software
++     development life cycle from a single panel.
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

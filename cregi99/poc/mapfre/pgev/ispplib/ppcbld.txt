@@ -1,0 +1,46 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Build -}-}-
+Command ===>_ZCMD                                            +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%
+%
++            Build Type ===>_BUILDTYP+(COMPLETE/TESTONLY)
+%                          
++                            COMPLETE = ENVT/TEST/PROD
++                            TESTONLY = ENVT/TEST
+%
+%                          
++            Tracker ID To Build TestStream ===>_Z     +
+%
+%
++            Always Display Log ===>_Z+(Y/N)
+%
+%
+%            JCL/CHECK+to continue or%PF3/END+to return.
+)INIT
+  .ZVARS = '(ZSYSID STREAMID TRACKER SHOWLOG)'
+  IF (&SHOWLOG = ' ')
+    &SHOWLOG = 'N'
+)REINIT
+  &ZCMD = ' '
+  REFRESH (ZCMD,BUILDTYP)
+)PROC
+  VER (&ZCMD,LIST,JCL,CHECK)
+  &BUILDTYP = TRANS ( TRUNC (&BUILDTYP,1)
+              C,COMPLETE
+              T,TESTONLY
+              *,&BUILDTYP)
+  VER (&BUILDTYP,NB,LIST,COMPLETE,TESTONLY)
+  VER (&TRACKER,NB,PICT,NNNNNN)
+  VER (&SHOWLOG,NB,LIST,Y,N)
+  VPUT (TRACKER SHOWLOG BUILDTYP)
+)END

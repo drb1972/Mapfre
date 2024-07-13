@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%\-\ SCL changes \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 4)+
+%
+%Modifications to the SCL to define the SHIPMENT MAPPING RULE+
+
++ Beginning with Endevor SP3, a new clause allows you to define the clause
+ %APPROXIMATE HOST MEMBERS PER CYLINDER nnn+on the SCL used to define the
+  shipment mapping rules.
+  The number nnn must be expressed in three or less digits ranging from
+  .01 thru .99, or 1.0 thru 9.9, or 10 thru 999.
+
++ The SCL that gets built by the%BUILD SCL FOR SHIPMENT DESTINATION+syntax
+  will contain the new%APPROXIMATE HOST MEMBERS PER CYLINDER+ representing the
+  value that is currently stored in Endevor.
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7201
+)END

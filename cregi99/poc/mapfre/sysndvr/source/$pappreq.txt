@@ -1,0 +1,142 @@
+         MACRO                                                          00000100
+         $PAPPREQ &DSCT=YES                                             00000200
+*           ************************************                        00000300
+*           **     PACKAGE EXIT APPROVER MAP  **                        00000400
+*           ************************************                        00000500
+         AIF ('&DSCT' EQ 'YES').DSCT1                                   00000600
+$PAPPREQ DS   0D                                                        00000700
+         AGO .START1                                                    00000800
+.DSCT1   ANOP                                                           00000900
+$PAPPREQ DSECT                                                          00001000
+.START1  ANOP                                                           00001100
+*           ************************************                        00001200
+*           **     BLOCK INTIALIZATION FIELDS **                        00001300
+*           ************************************                        00001400
+PAPPLEN     DC  AL2(PAPPSIZE)                                           00001500
+PAPPVERS    DC  AL2(PAPP$VER)                                           00001600
+PAPP$VER   EQU  1                                                       00001700
+PAPPID      DC  CL4'PAPP'                                               00001800
+*           ************************************                        00001900
+*           **     BLOCK TOTAL DATA           **                        00002000
+*           ************************************                        00002100
+PAPPSEQ#    DS  H                     SEQUENTIAL NUMBER OF THIS ENTRY   00002200
+*           ************************************                        00002300
+*           **     APPROVER RECORD FIELDS     **                        00002400
+*           ************************************                        00002500
+         SPACE 1                                                        00002600
+PAPPGPNM     DS  CL16                  GROUP NAME                       00002700
+PAPPEVNM     DS  CL8                   ENVIRONMENT NAME                 00002800
+PAPPQUOR     DS  H                     REQUIRED APPROVER QUORUM COUNT   00002900
+PAPPFLAG     DS  CL8                   OVERALL PACKAGE APPROVER FLAG    00003000
+PAPPGTYP     DS  CL1                   INT/EXT APPR GRP FLAG (I/E)      00003100
+PAPPFILL     DS  CL7                   UNUSED (EXPANSION BYTES)         00003200
+PAPPAPP#     DS  H                  NBR OF APPROVERS IN THE GROUP       00003300
+**                                                                      00003400
+** THE FOLLOWING FIELDS OCCUR PAPPAPP# TIMES.                           00003500
+** THE RECURRING FIELDS ARE INDIVIDUALLY LABELED SO THAT THEY           00003600
+** WILL SHOW UP IN THE EXIT TRACE.                                      00003700
+**                                                                      00003800
+PAPPAPID     DS  CL8                   APPROVER ID                      00003900
+PAPPAPDA     DS  CL7                   APPROVAL/DENIAL DATE             00004000
+PAPPAPTI     DS  CL5                   APPROVAL/DENIAL TIME             00004100
+PAPPAFLG     DS  CL8                   INDIVIDUAL APPROVER FLAG         00004200
+PAPPAREQ     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00004300
+PAPPAPLN     EQU *-PAPPAPID           LNG OF INDIVIDUAL APPR SEGMENT    00004400
+*                                                                       00004500
+PAPPID02     DS  CL8                   APPROVER ID                      00004600
+PAPPDT02     DS  CL7                   APPROVAL/DENIAL DATE             00004700
+PAPPTI02     DS  CL5                   APPROVAL/DENIAL TIME             00004800
+PAPPFL02     DS  CL8                   INDIVIDUAL APPROVER FLAG         00004900
+PAPPRQ02     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00005000
+*                                                                       00005100
+PAPPID03     DS  CL8                   APPROVER ID                      00005200
+PAPPDT03     DS  CL7                   APPROVAL/DENIAL DATE             00005300
+PAPPTI03     DS  CL5                   APPROVAL/DENIAL TIME             00005400
+PAPPFL03     DS  CL8                   INDIVIDUAL APPROVER FLAG         00005500
+PAPPRQ03     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00005600
+*                                                                       00005700
+PAPPID04     DS  CL8                   APPROVER ID                      00005800
+PAPPDT04     DS  CL7                   APPROVAL/DENIAL DATE             00005900
+PAPPTI04     DS  CL5                   APPROVAL/DENIAL TIME             00006000
+PAPPFL04     DS  CL8                   INDIVIDUAL APPROVER FLAG         00006100
+PAPPRQ04     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00006200
+*                                                                       00006300
+PAPPID05     DS  CL8                   APPROVER ID                      00006400
+PAPPDT05     DS  CL7                   APPROVAL/DENIAL DATE             00006500
+PAPPTI05     DS  CL5                   APPROVAL/DENIAL TIME             00006600
+PAPPFL05     DS  CL8                   INDIVIDUAL APPROVER FLAG         00006700
+PAPPRQ05     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00006800
+*                                                                       00006900
+PAPPID06     DS  CL8                   APPROVER ID                      00007000
+PAPPDT06     DS  CL7                   APPROVAL/DENIAL DATE             00007100
+PAPPTI06     DS  CL5                   APPROVAL/DENIAL TIME             00007200
+PAPPFL06     DS  CL8                   INDIVIDUAL APPROVER FLAG         00007300
+PAPPRQ06     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00007400
+*                                                                       00007500
+PAPPID07     DS  CL8                   APPROVER ID                      00007600
+PAPPDT07     DS  CL7                   APPROVAL/DENIAL DATE             00007700
+PAPPTI07     DS  CL5                   APPROVAL/DENIAL TIME             00007800
+PAPPFL07     DS  CL8                   INDIVIDUAL APPROVER FLAG         00007900
+PAPPRQ07     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00008000
+*                                                                       00008100
+PAPPID08     DS  CL8                   APPROVER ID                      00008200
+PAPPDT08     DS  CL7                   APPROVAL/DENIAL DATE             00008300
+PAPPTI08     DS  CL5                   APPROVAL/DENIAL TIME             00008400
+PAPPFL08     DS  CL8                   INDIVIDUAL APPROVER FLAG         00008500
+PAPPRQ08     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00008600
+*                                                                       00008700
+PAPPID09     DS  CL8                   APPROVER ID                      00008800
+PAPPDT09     DS  CL7                   APPROVAL/DENIAL DATE             00008900
+PAPPTI09     DS  CL5                   APPROVAL/DENIAL TIME             00009000
+PAPPFL09     DS  CL8                   INDIVIDUAL APPROVER FLAG         00009100
+PAPPRQ09     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00009200
+*                                                                       00009300
+PAPPID10     DS  CL8                   APPROVER ID                      00009400
+PAPPDT10     DS  CL7                   APPROVAL/DENIAL DATE             00009500
+PAPPTI10     DS  CL5                   APPROVAL/DENIAL TIME             00009600
+PAPPFL10     DS  CL8                   INDIVIDUAL APPROVER FLAG         00009700
+PAPPRQ10     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00009800
+*                                                                       00009900
+PAPPID11     DS  CL8                   APPROVER ID                      00010000
+PAPPDT11     DS  CL7                   APPROVAL/DENIAL DATE             00010100
+PAPPTI11     DS  CL5                   APPROVAL/DENIAL TIME             00010200
+PAPPFL11     DS  CL8                   INDIVIDUAL APPROVER FLAG         00010300
+PAPPRQ11     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00010400
+*                                                                       00010500
+PAPPID12     DS  CL8                   APPROVER ID                      00010600
+PAPPDT12     DS  CL7                   APPROVAL/DENIAL DATE             00010700
+PAPPTI12     DS  CL5                   APPROVAL/DENIAL TIME             00010800
+PAPPFL12     DS  CL8                   INDIVIDUAL APPROVER FLAG         00010900
+PAPPRQ12     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00011000
+*                                                                       00011100
+PAPPID13     DS  CL8                   APPROVER ID                      00011200
+PAPPDT13     DS  CL7                   APPROVAL/DENIAL DATE             00011300
+PAPPTI13     DS  CL5                   APPROVAL/DENIAL TIME             00011400
+PAPPFL13     DS  CL8                   INDIVIDUAL APPROVER FLAG         00011500
+PAPPRQ13     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00011600
+*                                                                       00011700
+PAPPID14     DS  CL8                   APPROVER ID                      00011800
+PAPPDT14     DS  CL7                   APPROVAL/DENIAL DATE             00011900
+PAPPTI14     DS  CL5                   APPROVAL/DENIAL TIME             00012000
+PAPPFL14     DS  CL8                   INDIVIDUAL APPROVER FLAG         00012100
+PAPPRQ14     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00012200
+*                                                                       00012300
+PAPPID15     DS  CL8                   APPROVER ID                      00012400
+PAPPDT15     DS  CL7                   APPROVAL/DENIAL DATE             00012500
+PAPPTI15     DS  CL5                   APPROVAL/DENIAL TIME             00012600
+PAPPFL15     DS  CL8                   INDIVIDUAL APPROVER FLAG         00012700
+PAPPRQ15     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00012800
+*                                                                       00012900
+PAPPID16     DS  CL8                   APPROVER ID                      00013000
+PAPPDT16     DS  CL7                   APPROVAL/DENIAL DATE             00013100
+PAPPTI16     DS  CL5                   APPROVAL/DENIAL TIME             00013200
+PAPPFL16     DS  CL8                   INDIVIDUAL APPROVER FLAG         00013300
+PAPPRQ16     DS  CL8                   APPROVER'S APPROVAL REQUIRED     00013400
+*                                                                       00013500
+             DS  0D                                                     00013600
+PAPPAP$L     EQU *-PAPPAPID             LENGTH OF APPROVER LIST         00013700
+PAPPSIZE     EQU *-$PAPPREQ             PHYSICAL RECORD LENGTH          00013800
+*********************************************************************** 00013900
+**             E N D   O F   $ P A P P T B L                         ** 00014000
+*********************************************************************** 00014100
+         MEND                                                           00014200

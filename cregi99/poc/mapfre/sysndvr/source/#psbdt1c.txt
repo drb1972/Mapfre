@@ -1,0 +1,19 @@
+@REM ****************************************************** #PSBDT1C ***
+@REM *    CONTENTS: ENDEVOR/MVS - COPY COMPLEMENTARY DATASET JOB
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: COPY FILE "CHJOB" TO "CRJOB".
+@REM *******************************************************************
+@REM PTF C9224280 APPLIED TO CORRECT RELEASE PARAMETER
+@REM PTF C9226020 APPLIED TO CORRECT MISPLACED INPC&F4 DD CARD
+@REM *******************************************************************
+//JCLC&F4  DD DATA,DLM=$2
+//OUTC&F4  DD DISP=(NEW,CATLG,DELETE),UNIT=&RUNIT,
+@IF &RVOLSER
+//            VOL=SER=&RVOLSER,
+@ENDIF
+//            DSN=&CRJOBDSN,
+//            SPACE=(TRK,(10,10),RLSE)
+//INPC&F4  DD *
+$2
+//INPC&F4  DD DISP=(OLD,&HDISP),
+//            DSN=&CHJOBDSN

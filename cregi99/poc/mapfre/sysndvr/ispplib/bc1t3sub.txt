@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - Subsystem Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a subsystem when specifying Root,
++Derivation 1, or Derivation 2 as an%inventory location+during
++the Build WIP process.
++
++To select a subsystem, type%S+next to the subsystem name, then press ENTER.
++
++
++
++
++
++
+)END

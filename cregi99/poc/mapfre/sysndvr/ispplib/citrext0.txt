@@ -1,0 +1,23 @@
+)BODY EXPAND(^^)
+%Tutorial ^-^ Remote File Extension ^-^ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++Rules which map an MVS dataset name to a non-MVS path name can include
++a 1- to 3- character extension. The remote file name will be built
++using the following structure:  pathname\membername.extension
++
++The extension cannot contain a period, space, or backslash.
++
++
++
++
++
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

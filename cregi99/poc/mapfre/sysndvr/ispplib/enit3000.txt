@@ -1,0 +1,36 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Summary \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Package Summary panel to display and review the contents of a package
++in greater detail.  You can display any notes associated with the package by
++selecting option N and pressing enter.   You can exit the Package Summary
++panel by selecting option 1 and pressing enter or by using the end command.
++
++Select 1 - 7 for information about:
+%   1+- Package identification fields
+%   2+- Package status
+%   3+- Promotion package
+%   4+- Sharable package
+%   5+- Enable backout
+%   6+- Execution window
+%   7+- Package event fields
+%
+%
++Select a Help topic, or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citstat0
+                 3,citprom0
+                 4,citshpk0
+                 5,citbken0
+                 6,citxwin0
+                 7,citpkev0
+                )
+)END

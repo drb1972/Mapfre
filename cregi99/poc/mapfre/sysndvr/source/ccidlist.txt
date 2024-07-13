@@ -1,0 +1,79 @@
+SECTION  PRINT(N)  SEPARATION(1)  TEST(N)                               01111000
+                                                                        01111500
+/*********************************************************************/ 01112000
+/* TITLES FOR:                                                       */ 01112500
+/*              INFORMATION/MAN SEARCH RESULTS LIST REPORT           */ 01113000
+/*                                                                   */ 01113500
+/*********************************************************************/ 01114000
+                                                                        01114500
+TITLE                                        /* TITLE DEFINITION        01115000
+  PUT COLUMN(001) VALUE(DATE &ZECDATE)       /* REPORT DATE      @01C*/ 01115500
+  PUT COLUMN(037) VALUE(***  ENDEVOR/MVS INFO/INTERFACE VALID CCID LIST+01116000
+       ***)                                  /* REPORT TITLE            01116500
+  PUT COLUMN(123) VALUE(PAGE)                /* REPORT PAGE NUMBER      01117000
+  PUT COLUMN(128) VALUE(&ZPAGENO) LENGTH(4) JUSTIFY(R) /* PAGE NUMBER   01117500
+                                                                        01118000
+  PUT COLUMN(001) VALUE(TIME &ZCTIME)        /* REPORT TIME      @01C*/ 01118500
+  PUT COLUMN(042) VALUE(------------------------------------------)     01119000
+  SPACE LINES(2) EXECUTE(U)                                             01119500
+ETITLE                                       /* END OF REPORT TITLES    01120000
+EJECT                                       /* GO TO NEXT PAGE          01129000
+ESECTION                                    /* END 1ST SECTION          01129500
+                                                                        01130000
+SECTION  PRINT(N)  SEPARATION(1)  TEST(N)                               01130500
+                                                                        01131000
+/*********************************************************************/ 01131500
+/* HEADING FOR:  ENDEVOR/MVS INFO/INTERFACE CCID LIST                */ 01132000
+/*                                                                   */ 01133000
+/*********************************************************************/ 01133500
+                                                                        01134000
+HEADING                                                                 01134500
+    PUT COLUMN(058) VALUE(LAST MOD  )                                   01137000
+    PUT COLUMN(068) VALUE(LAST MOD  )                                   01137200
+    PUT COLUMN(078) VALUE(LAST MOD  )                                   01137300
+    PUT COLUMN(088) VALUE(CHANGE    )                                   01137400
+    PUT COLUMN(098) VALUE(APPROVAL  )                                   01137500
+                                                                        01137600
+    PUT COLUMN(001) VALUE(CCID     )                                    01137700
+    PUT COLUMN(012) VALUE(DESCRIPTION OF INFO CHANGE RECORD  )          01137800
+    PUT COLUMN(058) VALUE(USERID    )                                   01137900
+    PUT COLUMN(068) VALUE(DATE      )                                   01138000
+    PUT COLUMN(078) VALUE(TIME      )                                   01138100
+    PUT COLUMN(088) VALUE(STATUS    )                                   01138200
+    PUT COLUMN(098) VALUE(STATUS    )                                   01138300
+                                                                        01138400
+    PUT COLUMN(001) VALUE(---------)                                    01138500
+    PUT COLUMN(012) VALUE(----------------------------------  )         01138600
+    PUT COLUMN(058) VALUE(--------  )                                   01138700
+    PUT COLUMN(068) VALUE(--------  )                                   01138800
+    PUT COLUMN(078) VALUE(--------  )                                   01138900
+    PUT COLUMN(088) VALUE(--------  )                                   01139000
+    PUT COLUMN(098) VALUE(--------  )                                   01139100
+    SPACE LINES(1) EXECUTE(C)                                           01139500
+EHEADING                                                                01140500
+                                                                        01141000
+/*********************************************************************/ 01141500
+/* PROCESSING FOR:                                                   */ 01142000
+/*                  INFORMATION/MVS SEARCH RESULTS LIST REPORT       */ 01142500
+/*                                                                   */ 01143000
+/*********************************************************************/ 01143500
+                                                                        01144000
+SEARCH  EXECUTE(C) MAP(N) MERGE(0) SORT(RNID/.)                         01144500
+                                                                        01145000
+/*********************************************************************/ 01145500
+/* DATA FOR:                                                         */ 01146000
+/*            INFORMATION/MVS SEARCH RESULTS LIST REPORT             */ 01150000
+/*                                                                   */ 01200000
+/*********************************************************************/ 01250000
+                                                                        01500000
+PUT COLUMN(001) LENGTH(008) DATA(RNID/.)    /* RECORD ID                01525000
+PUT COLUMN(012) LENGTH(040) DATA(!S0E0F)    /* DESCRIPTION              01550000
+PUT COLUMN(058) LENGTH(8) DATA(USER/.)      /* USERID LAST ALTERED      01560000
+PUT COLUMN(068) LENGTH(8) DATA(DATM/.)      /* DATE LAST ALTERED        01570000
+PUT COLUMN(078) LENGTH(8) DATA(TIMM/.)      /* TIME LAST ALTERED        01571000
+PUT COLUMN(088) LENGTH(8) DATA(STAC/.)      /* TIME LAST ALTERED        01572000
+PUT COLUMN(098) LENGTH(12) DATA(STAP/.)    /* TIME LAST ALTERED         01573000
+SPACE LINES(1) EXECUTE(C)                   /* SPACE ONE LINE           01575000
+                                                                        01600000
+ESEARCH                                     /* END OF REPORT            01650000
+ESECTION                                    /* END OF SECTION           01700000

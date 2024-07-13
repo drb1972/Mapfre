@@ -1,0 +1,56 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ End-to-End Package Logging by Action \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%End-to-End Package Logging by Action                     \ \+Enabled:%&VNTE2ELG
++
++
++  CD18107   End-to-End Package Logging by Action Feature
++
++  With this enhancement, you can now filter the Package Actions to be logged
++  and specify a different%TO PATH+in each Package Logging statement.
++  The updated Package logging syntax supports supplying a%FOR ACTIONS+
++  option, similar to the Element Logging syntax.
++  Included with this update is the addition of the%data set name/member name
++  or%path name/file name+as the result of an Add or Retrieve action in the
++  JSON format element action output.
++
++  Below is a%PACKAGE LOGGING+SCL example, coded in the%E2ELOGMBR+member:
++
++  PACKAGE LOGGING ON
++   %FOR ACTIONS (CREATE)
++    TO PATH "/u/users/endevor/1801/end2end/pkglog/CREATE/"
++  .
++  PACKAGE LOGGING ON
++   %FOR ACTIONS (CAST,APPROVE,DENY)
++    TO PATH "/u/users/endevor/1801/end2end/pkglog/CASTAPPDNY/"
++  .
++  PACKAGE LOGGING ON
++    TO PATH "/u/users/endevor/1801/end2end/pkglog/ALL/"
++  .
++
++  In the above example:
++   - Package%create+actions are logged to the%"CREATE"+path
++   - Package%cast/approve/deny+actions are logged to the%"CASTAPPDNY"+path
++   -%All other+actions are logged to the%"ALL"+path
++
++  Note that the ALL entry%does not include+the%FOR ACTIONS+option, therefore
++  any action that has not already been logged would be logged here. If the
++ %ALL entry+were not present or if logging was%OFF+for this statement, only
++  create, cast, approve and deny actions would be logged, logging would be
++  skipped for all other package actions.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

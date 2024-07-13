@@ -1,0 +1,46 @@
+         MACRO
+         ENHAPCOR &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        CREATE/MODIFY OR DELETE A PACKAGE CORRELATION - REQUEST BLOCK
+*
+***********************************************************************
+APCOR_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APCOR_RQ$EYE    EQU C'PCOQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APCOR_RQ
+         SPACE ,
+APCOR_RQ_DATA@    DS X                 BEGINNING OF DATA AREA
+         ORG      APCOR_RQ_DATA@
+APCOR_RQ_PKGID    DC CL16' '           PACKAGE ID
+APCOR_RQ_FUNC     DC CL1' '            FUNCTION
+APCOR_RQ_FUNC$C   EQU C'C'                CREATE A CORRELATION
+APCOR_RQ_FUNC$D   EQU C'D'                DELETE A CORRALATION
+APCOR_RQ_FUNC$M   EQU C'M'                MODIFY A CORRELATION
+APCOR_RQ_TYPE     DC CL1' '            CORRELATION TYPE
+APCOR_RQ_TYPE$H   EQU C'H'                HARVEST
+APCOR_RQ_TYPE$I   EQU C'I'                INFORMAN
+APCOR_RQ_TYPE$P   EQU C'P'                PAC
+APCOR_RQ_TYPE$U   EQU C'U'                USER DEFINED
+APCOR_RQ_CORRID   DC CL32' '           CORRELATION ID
+APCOR_RQ_DATA     DC CL80' '           FREE FORM DATA
+*                 RESERVED AREA
+APCOR_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APCOR_RQ_VER#1_DATADSLN EQU *-APCOR_RQ_DATA@
+APCOR_RQ_VER#1_DSLN     EQU *-APCOR_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APCOR_RQ_DATADSLN EQU *-APCOR_RQ_DATA@
+APCOR_RQ_DSLN     EQU *-APCOR_RQ
+         ORG      APCOR_RQ_DATA@
+APCOR_RQ_DATAAREA DS XL(APCOR_RQ_DATADSLN)    DATA AREA
+         MEND

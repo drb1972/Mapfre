@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Terminology, continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++A%Complexity Factor+is a value assigned to the WIP file. The
++complexity factor is a function of the number of:
++ * Records in (size of) the WIP file.
++ * Derivation 1 records in conflict.
++ * Derivation 2 records in conflict.
++ * Conflict areas and contention areas.
++
++The complexity factor ranges from 0-5:
+% 0+Indicates that no changes occurred in the member.
+% 1+Indicates that changes occurred but there are no conflict or
++    contention areas.
+% 2-5+Indicate that the member contains conflicts: 2 signifies simple
++     conflicts and 5 signifies complex conflicts.
++
++The complexity factor reflects the number of conflict/contention areas
++in the WIP file, not the number of changes. The higher the number of
++conflict/contention areas, the higher the complexity factor.
++
+)END

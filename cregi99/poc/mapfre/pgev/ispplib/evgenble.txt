@@ -1,0 +1,16 @@
+)ATTR
++ TYPE(TEXT) INTENS(LOW)  SKIP(ON)
+% TYPE(TEXT) INTENS(HIGH) SKIP(ON)
+- TYPE(TEXT) INTENS(HIGH) HILITE(BLINK)
+^ TYPE(INPUT) INTENS(HIGH)
+! TYPE(OUTPUT) INTENS(HIGH)
+)BODY WINDOW(72,10)
++
++
++
++  -**Component &CMPNAM Type &CMPTYP already added to control file**-
++
++
++
++  Press Enter to continue
+)END

@@ -1,0 +1,9 @@
+@REM ****************************************************** #PSBDT1J ***
+@REM *    CONTENTS: ENDEVOR/MVS - HOST EXECUTION OF BDTXMIT JOBSTEP
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: EXECUTE AND UTILITY DD CARDS FOR BDTXMIT
+@REM *******************************************************************
+@REM
+//HOSTXMIT EXEC PGM=BDTXMIT
+//SYSPRINT  DD  SYSOUT=*
+//INTRDR    DD  SYSOUT=(A,INTRDR)

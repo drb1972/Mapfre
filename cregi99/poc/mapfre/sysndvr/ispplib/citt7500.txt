@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Committing Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Package processing provides you with the ability to backout and
++and subsequently backin, change packages. The backout/backin option
++is available only after you have executed a package. All package
++event information, as well as backout/backin data, is maintained
++with the package until you commit the package.
++
++Committing a package removes any backout/backin data while retaining
++package event information.  A package should be committed only when
++you are sure that you will no longer need to back it in.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

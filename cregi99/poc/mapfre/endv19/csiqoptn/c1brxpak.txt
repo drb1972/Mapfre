@@ -1,0 +1,734 @@
+         MACRO
+         C1BRXPAK &DSECT=YES,                                          X
+               &PFX=XPK,                                               X
+               &HDR=XPAK
+*---------------------------------------------------------------------*
+*                                                                     *
+* COPYRIGHT (C) 2022 BROADCOM. ALL RIGHTS RESERVED.                   *
+*                                                                     *
+* MACRO: C1BRXPAK                                                     *
+*                                                                     *
+* PURPOSE: THE C1BRXPAK MACRO IS USED TO MAP THE PACKAGE EXTRACT      *
+*  RECORDS THAT ARE CREATED BY THE ENDEVOR/MVS REPORTING SYSTEM.      *
+*                                                                     *
+*  EACH EXTRACT RECORD CONTAINS A FIXED LENGTH HEADER SECTION THAT    *
+*  IDENTIFIES THE RECORD TYPE.                                        *
+*                                                                     *
+*---------------------------------------------------------------------*
+         AIF   ('&DSECT' EQ 'YES').DSCT1
+C1BRXPAK DS    0F
+         AGO   .START
+.DSCT1   ANOP
+C1BRXPAK DSECT
+.START   ANOP
+&HDR.RDW   DS   0F
+&HDR.RDW1  DS   H
+&HDR.RDW2  DS   H
+&HDR.HDR   DS   0C
+&HDR.REP#  DS   X                       REPORT NUMBER
+&HDR.TAPID DS   XL8                     UNLOAD TAPE DATE
+&HDR.PAKID DS   CL16                    PACKAGE ID
+&HDR.PVER  DS   X                       PROMOTION PACKAGE VERSION
+&HDR.RECTYP DS  X                       EXTRACT RECORD TYPE
+&HDR.$TYPH EQU  X'01'                    1: PACKAGE HEADER
+&HDR.$TYPA EQU  X'02'                    2: APPROVER GROUP
+&HDR.$TYPS EQU  X'03'                    3: RAW SCL RECORD
+&HDR.$TYPI EQU  X'04'                    4: SCL ACTION ID RECORD
+&HDR.$TYPB EQU  X'05'                    5: BACKOUT INFO RECORD
+&HDR.$TYPR EQU  X'06'                    6: CAST REPORT RECORD
+&HDR.$TYPC EQU  X'07'                    7: CORRELATION RECORD
+*
+         SPACE
+&HDR.SEQ#  DS   H                       SCL SEQUENCE
+&HDR.FILL2 DS   X                       FILLER, SET TO X'00'
+&HDR.DATA  DS   0F                      START OF DATA
+         SPACE
+*---------------------------------------------------------------------*
+* PACKAGE APPROVER RECORD.                                            *
+*---------------------------------------------------------------------*
+         ORG   &HDR.DATA
+&PFX.APP    DS   0F
+&PFX.ARGRPNM DS  CL16                  APPROVER GROUP NAME
+&PFX.AROFUNIQUE   DS FL8               APPRUNIQUE IDENTIFIER
+&PFX.ARRUCNT DS  H                     RECORD UPDATE COUNT
+&PFX.ARRUTSTP DS 2F                    TIMESTAMP OF LAST UPDATE
+&PFX.ARRUUID DS  CL8                   USERID/JOBID OF LAST UPDATE
+&PFX.ARAPPR# DS  H                    NUMBER OF APPROVERS IN GROUP
+&PFX.ARQUORUM DS H                    APPROVER QUORUM
+&PFX.$QOFL   EQU X'80'                 OVERFLOW RECORD
+&PFX.AFRUCNT DS  CL5                  NBR OF PHYSICAL RECORD UPDATES
+&PFX.AFRUD  DS   CL7                 DATE OF LAST PHYSICAL REC UPDATE
+&PFX.AFRUT  DS   CL5                  TIME OF LAST PHYSICAL REC UPDATE
+&PFX.AFQUORUM DS CL5                  QUORUM COUNT
+&PFX.AFFLG DS    CL8                   PACKAGE APPROVAL STATUS
+&PFX.AFAPPR# DS  CL3                   NBR OF APPROVERS IN GROUP
+&PFX.AGRPTYPE DS  CL1                  GROUP TYPE
+&PFX.$GRPSTA  EQU C' '                   STANDARD GROUP TYPE
+&PFX.$GRPEXT  EQU C'*'                   EXTERNAL APPROVERS
+&PFX.AADISQ DS   CL1                   APPROVER DISQUALIFICATION
+&PFX.AFDS$LN EQU *-&PFX.AFRUCNT
+&PFX.$MXAPPRS EQU 16
+*---------------------------------------------------------------------*
+* THE FOLLOWING FIELDS OCCUR &PFX.ARAPPR# TIMES.                      *
+*---------------------------------------------------------------------*
+&PFX.AFFLAP DS   0F
+&PFX.ARAPDT1 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID1 DS   CL8                   APPROVER ID
+&PFX.AFAPD1  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT1  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG1 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ1 DS CL8                     "REQUIRED"/BLANK
+&PFX.AFAP$LN EQU *-&PFX.AFFLAP         LENGTH OF VARIABLE SEGMENT
+&PFX.ARAPDT2 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID2 DS   CL8                   APPROVER ID
+&PFX.AFAPD2  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT2  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG2 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ2 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT3 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID3 DS   CL8                   APPROVER ID
+&PFX.AFAPD3  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT3  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG3 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ3 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT4 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID4 DS   CL8                   APPROVER ID
+&PFX.AFAPD4  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT4  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG4 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ4 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT5 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID5 DS   CL8                   APPROVER ID
+&PFX.AFAPD5  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT5  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG5 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ5 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT6 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID6 DS   CL8                   APPROVER ID
+&PFX.AFAPD6  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT6  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG6 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ6 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT7 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID7 DS   CL8                   APPROVER ID
+&PFX.AFAPD7  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT7  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG7 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ7 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT8 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID8 DS   CL8                   APPROVER ID
+&PFX.AFAPD8  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT8  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG8 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ8 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDT9 DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPID9 DS   CL8                   APPROVER ID
+&PFX.AFAPD9  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPT9  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLG9 DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQ9 DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTA DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDA DS   CL8                   APPROVER ID
+&PFX.AFAPDA  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTA  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGA DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQA DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTB DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDB DS   CL8                   APPROVER ID
+&PFX.AFAPDB  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTB  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGB DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQB DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTC DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDC DS   CL8                   APPROVER ID
+&PFX.AFAPDC  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTC  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGC DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQC DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTD DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDD DS   CL8                   APPROVER ID
+&PFX.AFAPDD  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTD  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGD DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQD DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTE DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDE DS   CL8                   APPROVER ID
+&PFX.AFAPDE  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTE  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGE DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQE DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTF DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDF DS   CL8                   APPROVER ID
+&PFX.AFAPDF  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTF  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGF DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQF DS CL8                     "REQUIRED"/BLANK
+&PFX.ARAPDTO DS   2F                    APPROVAL/DENIAL DATE
+&PFX.AFAPIDO DS   CL8                   APPROVER ID
+&PFX.AFAPDO  DS   CL7                   APPROVAL/DENIAL DATE (DDMMMYY)
+&PFX.AFAPTO  DS   CL5                   APPROVAL/DENIAL TIME (HH:MM)
+&PFX.AFAPFLGO DS CL8                    "APPROVED"/"DENIED"/BLANK
+&PFX.AFAPRQO DS CL8                     "REQUIRED"/BLANK
+&PFX.AFFLN  EQU *-&PFX.AFFLAP          LEN OF FIXED PIECE
+&PFX.ADS$LN EQU *-&HDR.RDW             TOTAL LENGTH APPROVER GROUP
+         SPACE 2
+         ORG   &HDR.DATA
+*---------------------------------------------------------------------*
+* PACKAGE BACKOUT INFORMATION.                                        *
+*---------------------------------------------------------------------*
+&PFX.BRRUCNT DS  H                     RECORD UPDATE COUNT
+&PFX.BRRUTSTP DS 2F                    TIMESTAMP OF LAST UPDATE
+&PFX.BRRUUID DS  CL8                   USERID/JOBID OF LAST UPDATE
+&PFX.BRFLG   DS  X                     BACKOUT FLG
+&PFX.B$SOURCE EQU X'80'                B.O. REC ASSOC W/ACTION SOURCE
+&PFX.B$TARGET EQU X'40'                B.O. REC ASSOC W/ACTION TARGET
+&PFX.B$USS    EQU X'20'                FILE TYPE = USS, NOT PDS
+&PFX.B$BACKOUT EQU X'08'               MEMBER HAS BEEN BACKED-OUT
+&PFX.B$BACKIN EQU X'04'                MEMBER HAS BEEN BACKED-IN
+&PFX.BRDSN   DS  CL44                  DATA SET NAME
+&PFX.BRCMBR  DS  CL8                   CURRENT MEMBER
+&PFX.BRNMBR  DS  CL8                   NEW MEMBER  (BLANK IF DELETED)
+&PFX.BRSMBR  DS  CL8                   SAVE MEMBER (BLANK IF NEW MBR)
+&PFX.BRDS$LN EQU *-&PFX.BRRUCNT
+&PFX.BFRUCNT DS  CL5                   NBR OF PHYSICAL RECORD UPDATES
+&PFX.BFRUD   DS  CL7                   DATE OF LAST PHYSICAL REC UPDATE
+&PFX.BFRUT   DS  CL5                   TIME OF LAST PHYSICAL REC UPDATE
+&PFX.BFFLG   DS  CL10                  TRANSLATED &PFX.BRFLG
+&PFX.BFUSS   DS  CL1                   USS INDICATOR 'Y' OR 'N'
+&PFX.BFSNAME DS  CL8                   USS SAVE FILE NAME
+&PFX.BFCNLNG DS  H                     USS CURR FILE NAME LENGTH
+&PFX.BFCNAME DS  CL255                 USS CURR FILE NAME
+&PFX.BFNNLNG DS  H                     USS NEW  FILE NAME LENGTH
+&PFX.BFNNAME DS  CL255                 USS NEW  FILE NAME
+&PFX.BFPNLNG DS  H                     USS PATH NAME LENGTH
+&PFX.BFPATH  DS  CL768                 USS PATH NAME
+&PFX.BFDS$LN EQU *-&PFX.BFRUCNT
+&PFX.BDS$LN  EQU *-&HDR.RDW            TOTAL LENGTH OF BACKOUT RECORD
+         SPACE 2
+*---------------------------------------------------------------------*
+* PACKAGE CORRELATION INFORMATION (INFO/MAN AND PAC INTERFACES)       *
+* CURRENTLY ONLY USED BY THE PAC INTERFACE                            *
+*---------------------------------------------------------------------*
+         ORG   &HDR.DATA
+&PFX.CINUM DS  H                       NUMBER OF LINES FORMATTED
+&PFX.CIREC DS  8CL133                  UP TO 8 LINES POSSIBLE
+&PFX.CIDS$LN  EQU *-&HDR.RDW           TOTAL LENGTH OF CORRELATION REC
+         SPACE 2
+*---------------------------------------------------------------------*
+* PACKAGE HEADER INFORMATION.                                         *
+*---------------------------------------------------------------------*
+         ORG   &HDR.DATA
+&PFX.HRTYPE   DS  H                     PACKAGE TYPE
+&PFX.H$STD    EQU 1                      STANDARD PACKAGE
+&PFX.H$EMER   EQU 2                      PACKAGE IS AN EMERGENCY FIX
+         SPACE
+&PFX.HRSTAT  DS  H                     PACKAGE STATUS
+&PFX.H$INEDIT EQU 1                      IN-EDIT STATUS
+&PFX.H$INAPPR EQU 2                      IN-APPROVAL STATUS (CASTED)
+&PFX.H$DENIED EQU 3                      PACKAGE HAS BEEN DENIED
+&PFX.H$APPRVD EQU 4                      PACKAGE HAS BEEN APPROVED
+&PFX.H$INEXEC EQU 5                      PACKAGE IS IN EXECUTION
+&PFX.H$EXECDONE EQU 6                   PACKAGE EXECUTION HAS COMPLETED
+&PFX.H$COMMITTD EQU 7                   PACKAGE EXECUTION HAS COMPLETED
+&PFX.H$MXSTAT EQU 7                      MAXIMUM VALID STATUS CODE
+         SPACE
+&PFX.HRCRDT   DS FL8                   DATE/TIME PACKAGE WAS CREATED
+&PFX.HRCRUID  DS CL8                   USERID THAT CREATED PACKAGE
+&PFX.HRPUDT   DS FL8                   DATE/TIME OF LAST UPDT TO PKG
+&PFX.HRPUUID  DS CL8                   USERID ASSOC W/LAST UPDT TO PKG
+         SPACE
+&PFX.HRXFLG1 DS   X                     PACKAGE EXECUTION FLG BYTE
+&PFX.H$NOBKOUT EQU X'80'                BACK-OUT NOT IN EFFECT FOR PKG
+&PFX.H$BOEXIST EQU X'40'                PKG BACK-OUT RECORD(S) EXIST
+&PFX.H$ABTERM  EQU X'20'                PKG EXEC ABNORMALLY TERMINATED
+&PFX.H$BACKOUT EQU X'08'                PACKAGE HAS BEEN BACKED OUT
+&PFX.H$BBACK   EQU X'04'                PACKAGE BI/BO HAS BEGUN
+         SPACE
+&PFX.HRSFLG1 DS X                      PACKAGE STATUS FLG BYTE
+&PFX.H$APEXIST EQU X'80'               APPROVER GROUP RECORD(S) EXIST
+&PFX.H$CREXIST EQU X'40'               CAST REPORT RECORDS EXIST
+&PFX.H$CIEXIST EQU X'20'               CORRELATION RECORDS EXIST
+&PFX.H$ENEXIST EQU X'08'               ENTERPRISE CORRELATION
+&PFX.H$PHEXIST EQU X'04'               PROMOTION HISTORY RECS
+         SPACE
+&PFX.HRXRC   DS  H                   EXECUTION RETURN CODE
+&PFX.HRRCFL  EQU &PFX.HRXRC             1ST BYTE OF RC HAS ABEND FLG
+&PFX.H$SABN  EQU X'20'                  RC FIELD REFLECTS SYS ABEND
+&PFX.H$UABN  EQU X'10'                  RC FIELD REFLECTS USER ABEND
+&PFX.HRCDT   DS  FL8                   CAST DATE/TIME
+&PFX.HRCUID  DS  CL8                   USERID ASSOC W/ CAST
+&PFX.HRADT   DS  FL8                   FINAL APPROVAL/DENIAL DATE/TIME
+&PFX.HRWSDT  DS  FL8                   EXECUTION WINDOW START DATE/TIME
+&PFX.HRWEDT  DS  FL8                   EXECUTION WINDOW END   DATE/TIME
+&PFX.HRXDT   DS  FL8                   BEGIN EXECUTION DATE/TIME
+&PFX.HRXUID  DS  CL8                   USERID ASSOC W/EXECUTION
+&PFX.HRODT   DS  FL8                   PACKAGE BACK-OUT DATE/TIME
+&PFX.HROUID  DS  CL8                   USERID ASSOC W/PACKAGE BACK-OUT
+&PFX.HRIDT   DS  FL8                   PACKAGE BACK-IN DATE/TIME
+&PFX.HRIUID  DS  CL8                   USERID ASSOC W/PACKAGE BACK-IN
+&PFX.HRCOMM  DS  CL50                  COMMENT ASSOCIATED WITH PACKAGE
+&PFX.HRPSHR  DS  CL1                   PACKAGE EDIT/CAST SHARE OPTION
+&PFX.HR$SHR  EQU C'Y'                  ANYONE MAY EDIT/CAST PACKAGE
+&PFX.HR$NSHR EQU C'N'                  ONLY OWNER MAY EDIT/CAST PACKAGE
+&PFX.HR$CVAL DS  XL1                   COMPONENTS VALIDATED Y/N/W
+             DS  XL4                   RESERVED
+&PFX.HRCMDT  DS  FL8                   PACKAGE COMMIT DATE/TIME
+&PFX.HRCMUID DS  CL8                   USERID ASSOC W/PACKAGE COMMIT
+&PFX.HREEXDT DS  FL8                   END EXECUTION DATE/TIME
+&PFX.HRCINUM DS  H                     NUMBER OF CORRELATIONS
+&PFX.HR#NOTES DS H                     NUMBER OF PACKAGE NOTES
+&PFX.HRNOTEOFF DS H                    OFFSET TO THE NOTES SECTION
+             DS  H                     RESERVED
+&PFX.HRCA7DT DS  FL8                   CA-7 DEMAND (SCHEDULE) DATE/TIME
+&PFX.HRCA7UID DS CL8                   USERID ASSOCIATED WITH CA-7 DMND
+&PFX.HRCA7JOB DS CL8                   DEMANDED (SCHEDULED) JOBNAME
+&PFX.HRCA7JOB# DS CL4                  DEMANDED (SCHEDULED) JOB NBR
+*
+             DS  CL3                   UNUSED
+&PFX.HRPROM  DS  CL1                   PROMOTION PACKAGE FLAG (Y/N)
+&PFX.HROPKGID DS CL16                  ORIGINAL PKG ID (PROMOTION PKG)
+&PFX.HRPPKGID DS CL16                  PREVIOUS PKG ID (PROMOTION PKG)
+*
+&PFX.HRENV   DS  CL8                   TARGET ENV LOC AT TIME OF CAST
+&PFX.HRSTGID DS  CL1                   TARGET STG ID LOC @ TIME OF CAST
+&PFX.HUNLN   EQU *-&PFX.HRTYPE         UNFORMATTED SECTION LENGTH
+         SPACE 2
+*---------------------------------------------------------------------*
+* FORMATTED PACKAGE HEADER FIELDS.                                    *
+*---------------------------------------------------------------------*
+&PFX.HFLNG   DS  0C
+&PFX.HFRUCNT DS  CL5                   NBR OF PHYSICAL RECORD UPDATES
+&PFX.HFRUD   DS  CL7                   LAST PHYSICAL RECORD UPDT DATE
+&PFX.HFRUT   DS  CL5                   LAST PHYSICAL RECORD UPDT TIME
+&PFX.HFTYPE  DS  CL10                  PACKAGE TYPE (EMERGENCY/STD)
+&PFX.HFSTAT  DS  CL12                  PACKAGE STATUS
+&PFX.HFXSTAT DS  CL20                  PACKAGE EXECUTION STATUS
+&PFX.HFBSTAT DS  CL10                  PACKAGE BACK-OUT  STATUS
+&PFX.HFCRD   DS  CL7                   PACKAGE CREATION DATE
+&PFX.HFCRT   DS  CL5                   PACKAGE CREATION TIME
+&PFX.HFXRC   DS  CL5                   EXEC RETURN CODE (READ-ONLY)
+&PFX.HFPUD   DS  CL7                   DATE OF LAST UPDT TO PKG SCL
+&PFX.HFPUT   DS  CL5                   TIME OF LAST UPDT TO PKG SCL
+&PFX.HFCD    DS  CL7                   CAST DATE
+&PFX.HFCT    DS  CL5                   CAST TIME
+&PFX.HFAD    DS  CL7                   FINAL APPROVAL/DENIAL DATE
+&PFX.HFAT    DS  CL5                   FINAL APPROVAL/DENIAL TIME
+&PFX.HFWSD   DS  CL7                   EXECUTION WINDOW START DATE
+&PFX.HFWST   DS  CL5                   EXECUTION WINDOW START TIME
+&PFX.HFWED   DS  CL7                   EXECUTION WINDOW END DATE
+&PFX.HFWET   DS  CL5                   EXECUTION WINDOW END TIME
+&PFX.HFXD    DS  CL7                   EXECUTION DATE
+&PFX.HFXT    DS  CL5                   EXECUTION TIME
+&PFX.HFCMD   DS  CL7                   COMMIT DATE
+&PFX.HFCMT   DS  CL5                   COMMIT TIME
+&PFX.HFOD    DS  CL7                   PACKAGE BACK-OUT DATE
+&PFX.HFOT    DS  CL5                   PACKAGE BACK-OUT TIME
+&PFX.HFID    DS  CL7                   PACKAGE BACK-IN DATE
+&PFX.HFIT    DS  CL5                   PACKAGE BACK-IN TIME
+&PFX.HFBOFLG DS  CL1                   BACK-OUT STATUS
+&PFX.H$BOON  EQU C'Y'                    "Y" - ENABLED
+&PFX.H$BOOFF EQU C'N'                    "N" - NOT ENABLED
+&PFX.HFEEXD  DS  CL7                   END EXECUTION DATE
+&PFX.HFEEXT  DS  CL5                   END EXECUTION TIME
+&PFX.HFSAFLG DS  XL1                   EXTERNAL SAF FLAGS
+&PFX.HFSAFGR EQU X'80'                  - SAF GROUP MODE
+&PFX.HFEPKG  DS  CL1                   ENTERPISE PKG FLAG
+&PFX.HFCA7SCHD  DS CL7                 CA-7 SCHED EXEC DATE DDMMMYY
+&PFX.HFCA7SCHT  DS CL5                 CA-7 SCHED EXEC TIME HH:MM
+&PFX.HFCA7DPJOB DS CL8                 CA-7 DEPNDNT JOBNAME SCHED PARM
+&PFX.HFCA7DMDD  DS CL7                 CA-7 DEMAND-ISSUED DATE
+&PFX.HFCA7DMDT  DS CL5                 CA-7 DEMAND-ISSUED TIME
+&PFX.HFCA7JBJB# DS CL14                CA-7 SCHED JOB W/NUMBER FMT
+&PFX.HFDS$LN EQU *-&PFX.HFLNG          LNG OF FORMATTED  FIELDS SEGMENT
+&PFX.TAPNM   DS  CL44    INTERNAL USE ONLY   TAPENAME
+&PFX.HNOTES  DS  0C                    PACKAGE NOTES
+&PFX.HNOTE1  DS  CL60                  NOTE TEXT FIELD 1
+&PFX.HNOTE2  DS  CL60                  NOTE TEXT FIELD 2
+&PFX.HNOTE3  DS  CL60                  NOTE TEXT FIELD 3
+&PFX.HNOTE4  DS  CL60                  NOTE TEXT FIELD 4
+&PFX.HNOTE5  DS  CL60                  NOTE TEXT FIELD 5
+&PFX.HNOTE6  DS  CL60                  NOTE TEXT FIELD 6
+&PFX.HNOTE7  DS  CL60                  NOTE TEXT FIELD 7
+&PFX.HNOTE8  DS  CL60                  NOTE TEXT FIELD 8
+&PFX.HNOTE$LN EQU *-&PFX.HNOTES        LENGTH OF THE NOTES SECTION
+&PFX.HDS$LN EQU *-&HDR.RDW             TOTAL LNG - PHYS RECORD + FORMAT
+         ORG   &HDR.DATA
+*           ************************************
+*           **    PACKAGE SOURCE ID FIELDS    **
+*           ************************************
+         SPACE 1
+*---------------------------------------------------------------------*
+* ACTION IDENTIFICATION INFORMATION.
+*---------------------------------------------------------------------*
+&PFX.IRACTN  DS  H                     C1 ACTION
+&PFX.I$LIST  EQU 1                     LIST
+&PFX.I$REST  EQU 2                     RESTORE
+&PFX.I$COPY  EQU 3                     COPY
+&PFX.I$ADD   EQU 4                     ADD
+&PFX.I$UPDT  EQU 5                     UPDATE
+&PFX.I$ARC   EQU 6                     ARCHIVE
+&PFX.I$GEN   EQU 7                     GENERATE
+&PFX.I$MOVE  EQU 8                     MOVE
+*            EQU 9                     N/A
+&PFX.I$DEL   EQU 10                    DELETE
+&PFX.I$RETR  EQU 11                    RETRIEVE
+&PFX.I$PRNT  EQU 12                    PRINT
+&PFX.I$XFER  EQU 13                    TRANSFER
+&PFX.I$NONE  EQU 14                    NONE (&C1ACTION)
+*            EQU 15                    N/A
+&PFX.I$SIGNIN EQU 16                   SIGN-IN
+&PFX.IRNDVRRC DS H                     ENDEVOR RETURN CODE
+&PFX.IRPROCRC DS H                     HIGH PROCESSOR RETURN CODE
+&PFX.IRFLG   DS  XL1                   RESERVED
+             DS  XL1                   RESERVED
+&PFX.IRBEXDT DS  FL8                   BEGIN EXECUTION TIMESTAMP
+&PFX.IREEXDT DS  FL8                   END EXECUTION TIMESTAMP
+*---------------------------------------------------------------------*
+* SOURCE ELEMENT/MEMBER ID FIELDS                                     *
+*---------------------------------------------------------------------*
+&PFX.IRSINFO DS  0H
+&PFX.IRSFLG DS   X                     SOURCE ID FLG
+&PFX.I$APPVL EQU X'80'                 APPROVAL REQUIRED
+&PFX.I$VALID EQU X'40'                 VALIDATION REQUIRED
+             SPACE ,
+&PFX.IRSLOC  DS  X                     SOURCE LOCATION
+&PFX.I$C1    EQU X'80'                 C1 IS THE LOCATION
+&PFX.I$FILE  EQU X'40'                 DDNAME IS THE LOCATION
+&PFX.I$DSN   EQU X'20'                 DSNAME IS THE LOCATION
+&PFX.I$ARCH  EQU X'10'                 C1 ARCHIVE IS THE LOCATION
+&PFX.I$PATH  EQU X'04'                 PATH IS THE LOCATION
+&PFX.I$NA    EQU X'00'                 LOCATION IS NOT APPLICABLE
+             DS  XL2                   RESERVED
+&PFX.IRSSITE DS  CL1                   SITE ID
+&PFX.IRSENVN DS  CL8                   ENVIRONMENT
+&PFX.IRSSYSN DS  CL8                   SYSTEM
+&PFX.IRSSBSN DS  CL8                   SUBSYSTEM
+&PFX.IRSELMN DS  CL10                  ELEMENT
+&PFX.IRSTYPN DS  CL8                   TYPE
+&PFX.IRSSTGN DS  CL8                   STAGE NAME
+&PFX.IRSSTGI DS  CL1                   STG ID (TEMPORARY)
+&PFX.IRSID$LN EQU *-&PFX.IRSLOC LENGTH OF ELEMENT ID SECTION
+&PFX.IRSVV   DS  H                     VERSION NUMBER
+&PFX.IRSLL   DS  H                     LEVEL NUMBER
+&PFX.IRSDDT  DS  FL8                   DELTA TIMESTAMP
+&PFX.IRSGDT  DS  FL8                   GENERATE TIMESTAMP
+&PFX.IRSPDT  DS  FL8                   LAST PROCESS TIMESTAMP
+         SPACE ,
+             ORG &PFX.IRSSITE
+*---------------------------------------------------------------------*
+* EXTERNAL DATA SET FIELDS                                            *
+*---------------------------------------------------------------------*
+&PFX.IRSDSN  DS  CL44                  EXTERNAL DATA SET NAME
+&PFX.IRSMBR  DS  CL10                  EXTERNAL MEMBER NAME
+             DS  XL2                   RESERVED
+&PFX.IRSCHKSUM DS F                    CHECKSUM FIELD
+             ORG &PFX.IRSPDT+L'&PFX.IRSPDT
+             SPACE ,
+&PFX.IRSPPKGID DS CL16                 PREV PKG ID ASSOCIATED W/SRC
+&PFX.IRSPPKGTS DS FL8                  CAST TIMESTAMP ASSOCIATED W/SRC
+         SPACE 2
+*---------------------------------------------------------------------*
+* TARGET ELEMENT/MEMBER ID FIELDS                                     *
+*---------------------------------------------------------------------*
+&PFX.IRTINFO DS  0H
+&PFX.IRTFLG DS   X                    SOURCE ID FLG (SEE &PFX.IRSFLG)
+&PFX.IRTLOC  DS  X                    SOURCE LOCATION (SEE &PFX.IRSLOC)
+             DS  XL2                   RESERVED
+&PFX.IRTSITE DS  CL1                   SITE ID
+&PFX.IRTENVN DS  CL8                   ENVIRONMENT
+&PFX.IRTSYSN DS  CL8                   SYSTEM
+&PFX.IRTSBSN DS  CL8                   SUBSYSTEM
+&PFX.IRTELMN DS  CL10                  ELEMENT
+&PFX.IRTTYPN DS  CL8                   TYPE
+&PFX.IRTSTGN DS  CL8                   STAGE NAME
+&PFX.IRTSTGI DS  CL1                   STG ID (TEMPORARY)
+&PFX.IRTID$LN EQU *-&PFX.IRTLOC LENGTH OF ELEMENT ID SECTION
+&PFX.IRTVV   DS  H                     VERSION NUMBER
+&PFX.IRTLL   DS  H                     LEVEL NUMBER
+&PFX.IRTDDT  DS  FL8                   DELTA TIMESTAMP
+&PFX.IRTGDT  DS  FL8                   GENERATE TIMESTAMP
+&PFX.IRTPDT  DS  FL8                   LAST PROCESS TIMESTAMP
+&PFX.IRT$LN  EQU *-&PFX.IRTLOC
+         SPACE ,
+             ORG &PFX.IRTSITE
+*---------------------------------------------------------------------*
+* EXTERNAL DATA SET FIELDS                                            *
+*---------------------------------------------------------------------*
+&PFX.IRTDSN  DS  CL44                  EXTERNAL DATA SET NAME
+&PFX.IRTMBR  DS  CL10                  EXTERNAL MEMBER NAME
+             DS  XL2                   RESERVED
+             DS  F                     RESERVED
+             ORG &PFX.IRTPDT+L'&PFX.IRTPDT
+             SPACE ,
+&PFX.IRTPPKGID DS CL16                 PREV PKG ID ASSOCIATED W/TGT
+&PFX.IRTPPKGTS DS FL8                  CAST TIMESTAMP ASSOCIATED W/TGT
+             DS  0D
+&PFX.IRDS$LN EQU *-&PFX.IRACTN         LENGTH OF UNFORMATTED
+&PFX.IRCCID  DS  CL12                  ACTION CCID
+&PFX.IRCOMM  DS  CL40                  ACTION COMMENT
+         SPACE 2
+*---------------------------------------------------------------------*
+* FORMATTED PACKAGE SOURCE ID RECORD                                  *
+*---------------------------------------------------------------------*
+&PFX.IFRUCNT DS  CL5                   NBR OF PHYSICAL RECORD UPDATES
+&PFX.IFRUD DS    CL7                   DATE OF LAST PHYSICAL REC UPDATE
+&PFX.IFRUT DS    CL5                   TIME OF LAST PHYSICAL REC UPDATE
+*---------------------------------------------------------------------*
+* FORMATTED ACTION FIELDS                                             *
+*---------------------------------------------------------------------*
+&PFX.IFACTN  DS  CL8                   ENDEVOR ACTION
+&PFX.IFNDVRRC DS CL5                   HIGH ENDEVOR/MVS RETURN CODE
+&PFX.IFPROCRC DS CL5                   HIGH PROCESSOR RETURN CODE
+&PFX.IFBEXD  DS  CL7                   BEGIN EXECUTION DATE
+&PFX.IFBEXT  DS  CL5                   BEGIN EXECUTION TIME
+&PFX.IFEEXD  DS  CL7                   END   EXECUTION DATE
+&PFX.IFEEXT  DS  CL5                   END   EXECUTION TIME
+*---------------------------------------------------------------------*
+* FORMATTED SOURCE ELEMENT ID FIELDS                                  *
+*---------------------------------------------------------------------*
+&PFX.IFSVVLL DS  CL5                   VERSION.LEVEL NUMBER
+&PFX.IFSDD   DS  CL7                   DELTA DATE (OR BASE IF LVL 0)
+&PFX.IFSDT   DS  CL5                   DELTA TIME (OR BASE IF LVL 0)
+&PFX.IFSGD   DS  CL7                   GENERATE DATE
+&PFX.IFSGT   DS  CL5                   GENERATE TIME
+&PFX.IFSPD   DS  CL7                   LAST PROCESS DATE
+&PFX.IFSPT   DS  CL5                   LAST PROCESS TIME
+*---------------------------------------------------------------------*
+* FORMATTED TARGET ELEMENT ID FIELDS                                  *
+*---------------------------------------------------------------------*
+&PFX.IFTVVLL DS  CL5                   VERSION.LEVEL NUMBER
+&PFX.IFTDD   DS  CL7                   DELTA DATE
+&PFX.IFTDT   DS  CL5                   DELTA TIME
+&PFX.IFTGD   DS  CL7                   GENERATE DATE
+&PFX.IFTGT   DS  CL5                   GENERATE TIME
+&PFX.IFTPD   DS  CL7                   LAST PROCESS DATE
+&PFX.IFTPT   DS  CL5                   LAST PROCESS TIME
+         SPACE
+&PFX.IFDS$LN EQU *-&PFX.IFRUCNT       LNG OF TRANSLATED FIELD SEGMENT
+&PFX.IDS$LN EQU *-&HDR.RDW            TOTAL LNG - PHYS RECORD + FORMAT
+         SPACE 2
+*---------------------------------------------------------------------*
+* UNEDITED SCL IMAGE                                                  *
+*---------------------------------------------------------------------*
+         ORG   &HDR.DATA
+&PFX.SCLIMAGE DS  CL80                 RAW SCL IMAGE
+&PFX.SCL$LN EQU *-&HDR.RDW             LENGTH OF SCL RECORD
+         SPACE 2
+*---------------------------------------------------------------------*
+* CAST REPORT RECORD IMAGE                                            *
+*---------------------------------------------------------------------*
+         ORG   &HDR.DATA
+&PFX.CASIMAGE DS  CL133                RAW CAST IMAGE      C9223090
+&PFX.CAS$LN EQU *-&HDR.RDW             LENGTH OF CAST RECORD
+         SPACE 2
+*---------------------------------------------------------------------*
+* PACKAGE SHIPMENT DESTINATION RECORD                                 *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.DEST DS   CL8        DESTINATION ID FOR UNLOAD REPORTS
+*---------------------------------------------------------------------*
+*        XTYPE = X'00' INDICATES DESTINATION DATA                     *
+*        XTYPE = X'01' INDICATES DSN MAPPING/EXCLUDE DATA             *
+*---------------------------------------------------------------------*
+&PFX.XTYPE DS  XL1        0 = DESTINATION REC, 1 = DSN MAPPED/EXCL REC
+         DS    CL1        FILLER
+&PFX.SEQNO DS  F          SEQUENCE NUMBER FOR DSN MAPPED/EXCLUDE RECS
+&PFX.NODE DS   CL16       REMOTE NODENAME
+&PFX.TRANS DS  CL10       TRANSMISSION METHOD
+&PFX.DESC DS   CL30       DESTINATION DESCRIPTION
+&PFX.HPREF DS  CL14       HOST DATASET PREFIX
+&PFX.RPREF DS  CL14       REMOTE DATASET PREFIX
+&PFX.HDISP DS  CL6        HOST DISPOSITION
+&PFX.RDISP DS  CL6        REMOTE DISPOSITION
+&PFX.HUNIT DS  CL8        HOST UNIT
+&PFX.RUNIT DS  CL8        REMOTE UNIT
+&PFX.HVOL DS   CL8        HOST VOLUME
+&PFX.RVOL DS   CL8        REMOTE VOLUME
+&PFX.UDATE DS  CL8        DESTINATION UPDATE DATE
+&PFX.UTIME DS  CL8        DESTINATION UPDATE TIME
+&PFX.UUSER DS  CL8        DESTINATION UPDATE USER
+&PFX.CDATE DS  CL8        DESTINATION CREATE DATE
+&PFX.CTIME DS  CL8        DESTINATION CREATE TIME
+&PFX.CUSER DS  CL8        DESTINATION CREATE USER
+&PFX.JCL1 DS   CL72       REMOTE JOB STATEMENT #1
+&PFX.JCL2 DS   CL72       REMOTE JOB STATEMENT #2
+&PFX.JCL3 DS   CL72       REMOTE JOB STATEMENT #3
+&PFX.JCL4 DS   CL72       REMOTE JOB STATEMENT #4
+&PFX.COMP DS   CL1        SHIP COMPLE FILES IND
+@&PFX.DELN EQU *-&HDR.RDW TOTAL LENGTH DESTINATION
+&PFX.DSNX ORG  &PFX.NODE
+&PFX.MAP DS    CL8        MAPPED/EXCLUDE VALUE
+&PFX.HDSN DS   CL44       HOST DATASET NAME
+&PFX.RDSN DS   CL44       REMOTE DATASET NAME
+&PFX.MDESC DS  CL40       DESCRIPTION
+&PFX.AMPSC DS  CL3        APPROXIMATE MEMBERS PER STAGING DATASET CYL
+@&PFX.MALN EQU  *-&HDR.RDW TOTAL LENGTH DESTINATION DSN MAPPING
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE SHIPMENT BY PACKAGE ID RECORD                            *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.PACK DS   CL16       PACKAGE ID
+&PFX.DESTP DS  CL8        DESTINATION ID
+         DS    CL3        FILLER
+&PFX.IDATE DS  F          SHIPMENT DATE
+&PFX.ITIME DS  F          SHIPMENT TIME
+&PFX.TYPE DS   CL3        SHIPMENT TYPE
+&PFX.COMPL DS  CL3        COMPLEMENT VALUE
+&PFX.EDATE DS  CL8        SHIPMENT DATE
+&PFX.ETIME DS  CL8        SHIPMENT TIME
+&PFX.HSTRC DS  CL6        HOST STAGE STATUS
+&PFX.HSTXM DS  CL6        HOST XMIT  STATUS
+&PFX.RSTRE DS  CL6        REMOTE REC STATUS
+&PFX.RSTMO DS  CL6        REMOTE MOVE STATUS
+&PFX.RJOBN DS  CL8        REMOTE JOB NAME
+@&PFX.SPLN EQU  *-&HDR.RDW TOTAL LENGTH PACKAGE SHIPMENT BY PACKAGE REC
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE SHIPMENT BY DESTINATION RECORD                           *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.DESTD DS   CL8       DESTINATION ID
+&PFX.PACKD DS   CL16      PACKAGE ID
+          DS    CL3       FILLER
+&PFX.IDATED DS  F         SHIPMENT DATE
+&PFX.ITIMED DS  F         SHIPMENT TIME
+&PFX.TYPED DS   CL3       SHIPMENT TYPE
+&PFX.COMPLD DS  CL3       COMPLEMENT VALUE
+&PFX.EDATED DS  CL8       SHIPMENT DATE
+&PFX.ETIMED DS  CL8       SHIPMENT TIME
+&PFX.HSTRCD DS  CL6       HOST STAGE STATUS
+&PFX.HSTXMD DS  CL6       HOST XMIT  STATUS
+&PFX.RSTRED DS  CL6       REMOTE REC STATUS
+&PFX.RSTMOD DS  CL6       REMOTE MOVE STATUS
+&PFX.RJOBND DS  CL8       REMOTE JOB NAME
+@&PFX.SDLN EQU  *-&HDR.RDW TOTAL LENGTH PACKAGE SHIPMENT BY DESTINATION
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE SHIPMENT BY SHIPMENT DATE RECORD                         *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+            DS CL3        RESERVED
+&PFX.IDATEA DS F          SHIPMENT DATE
+&PFX.ITIMEA DS F          SHIPMENT TIME
+&PFX.PACKA DS  CL16       PACKAGE ID
+&PFX.DESTA DS  CL8        DESTINATION ID
+&PFX.TYPEA DS  CL3        SHIPMENT TYPE
+&PFX.COMPLA DS CL3        COMPLEMENT VALUE
+&PFX.EDATEA DS CL8        SHIPMENT DATE
+&PFX.ETIMEA DS CL8        SHIPMENT TIME
+&PFX.HSTRCA DS CL6        HOST STAGE STATUS
+&PFX.HSTXMA DS CL6        HOST XMIT  STATUS
+&PFX.RSTREA DS CL6        REMOTE REC STATUS
+&PFX.RSTMOA DS CL6        REMOTE MOVE STATUS
+&PFX.RJOBNA DS CL8        REMOTE JOB NAME
+@&PFX.SALN EQU *-&HDR.RDW TOTAL LENGTH PACKAGE SHIPMENT BY DATE
+*---------------------------------------------------------------------*
+* DISTRIBULINK CONNECTION RECORD
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.LCONN DS  CL8        CONNECTION ID FOR UNLOAD REPORTS
+*---------------------------------------------------------------------*
+*       LXTYPE = X'00' INDICATES CONNECTION DATA                      *
+*       LXTYPE = X'01' INDICATES PATH MAPPING/EXCLUDE DATA            *
+*---------------------------------------------------------------------*
+&PFX.LXTYPE DS XL1        0 = CONNECTION REC, 1 = PATH MAPPED/EXCL REC
+&PFX.LSEQNO DS XL4        SEQUENCE NUMBER FOR PATH MAPPED/EXCLUDE RECS
+&PFX.LSLUN DS  CL16       DISTRIBULINK SERVER LU NAME
+&PFX.LCDESC DS CL30       CONNECTION DESCRIPTION
+&PFX.LHPREF DS CL14       HOST DATASET PREFIX
+&PFX.LHDISP DS CL6        HOST DISPOSITION
+&PFX.LHUNIT DS CL8        HOST UNIT
+&PFX.LHVOL DS  CL8        HOST VOLUME
+&PFX.LUDATE DS CL8        CONNECTION UPDATE DATE
+&PFX.LUTIME DS CL8        CONNECTION UPDATE TIME
+&PFX.LUUSER DS CL8        CONNECTION UPDATE USER
+&PFX.LCDATE DS CL8        CONNECTION CREATE DATE
+&PFX.LCTIME DS CL8        CONNECTION CREATE TIME
+&PFX.LCUSER DS CL8        CONNECTION CREATE USER
+@&PFX.LDELN EQU *-&HDR.RDW TOTAL LENGTH CONNECTION
+&PFX.LPATH ORG &PFX.LSLUN
+&PFX.LMAP DS   CL8        MAPPED/EXCLUDE VALUE
+&PFX.LHDSN DS  CL44       HOST DATASET NAME
+&PFX.LRPTH DS  CL256      REMOTE PATH NAME
+&PFX.LREXT DS  CL3        REMOTE EXTENSION
+&PFX.LMDESC DS CL40       DESCRIPTION
+&PFX.LAMPSC DS CL3        APPROXIMATE MEMBERS PER STAGING DATASET CYL
+@&PFX.LMALN EQU *-&HDR.RDW TOTAL LENGTH CONNECTION PATH MAPPING
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE COLLECTION BY PRODUCT NAME RECORD                        *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.LPROD  DS CL10       PRODUCT NAME
+&PFX.LCONNP DS CL8        CONNECTION ID
+         DS    CL2        FILLER
+&PFX.LIDATE DS XL4        COLLECTION DATE
+&PFX.LITIME DS XL4        COLLECTION TIME
+&PFX.LPACK DS  CL16       PACKAGE ID
+&PFX.LTYPE DS  CL3        COLLECTION TYPE
+&PFX.LEDATE DS CL8        COLLECTION DATE
+&PFX.LETIME DS CL8        COLLECTION TIME
+&PFX.LHSTRC DS CL6        HOST STAGE STATUS
+&PFX.LHSTCR DS CL6        HOST COLLECTION REQUEST STATUS
+&PFX.LVERS  DS CL15       PRODUCT VERSION
+&PFX.LNUMB  DS CL15       PRODUCT NUMBER
+&PFX.LVEND  DS CL15       PRODUCT VENDOR
+&PFX.LDESC  DS CL40       PRODUCT DESCRIPTION
+&PFX.LOPSY  DS CL15       OPERATING SYSTEM
+&PFX.LFLLU  DS CL15       FILELIST LU NAME
+&PFX.LESCP  DS CL15       ESCAPE CHARACTER
+&PFX.LCSDT  DS CL8        COLLECTION START DATE
+&PFX.LCSTM  DS CL8        COLLECTION START TIME
+@&PFX.LSPLN EQU *-&HDR.RDW TOTAL LENGTH PACKAGE COLLECTION BY PROD REC
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE COLLECTION BY CONNECTION RECORD                          *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.LCONND DS  CL8       CONNECTION ID
+&PFX.LPRODD DS  CL10      PRODUCT NAME
+&PFX.LIDATED DS XL4       COLLECTION DATE
+&PFX.LITIMED DS XL4       COLLECTION TIME
+&PFX.LPACKD DS  CL16      PACKAGE ID
+&PFX.LTYPED DS  CL3       COLLECTION TYPE
+&PFX.LEDATED DS CL8       COLLECTION DATE
+&PFX.LETIMED DS CL8       COLLECTION TIME
+&PFX.LHSTRCD DS CL6       HOST STAGE STATUS
+&PFX.LHSTCRD DS CL6       HOST COLLECTION REQUEST STATUS
+&PFX.LVERSD DS CL15       PRODUCT VERSION
+&PFX.LNUMBD DS CL15       PRODUCT NUMBER
+&PFX.LVENDD DS CL15       PRODUCT VENDOR
+&PFX.LDESCD DS CL40       PRODUCT DESCRIPTION
+&PFX.LOPSYD DS CL15       OPERATING SYSTEM
+&PFX.LFLLUD DS CL15       FILELIST LU NAME
+&PFX.LESCPD DS CL15       ESCAPE CHARACTER
+&PFX.LCSDTD DS CL8        COLLECTION START DATE
+&PFX.LCSTMD DS CL8        COLLECTION START TIME
+@&PFX.LSDLN EQU *-&HDR.RDW TOTAL LENGTH COLLECTION BY CONNECTION
+         SPACE 2
+*---------------------------------------------------------------------*
+*    PACKAGE COLLECTION BY COLLECTION DATE RECORD                     *
+*---------------------------------------------------------------------*
+         ORG   &HDR.PAKID
+&PFX.LIDATEA DS XL4       COLLECTION DATE
+&PFX.LITIMEA DS XL4       COLLECTION TIME
+&PFX.LPRODA DS CL20       PRODUCT NAME
+&PFX.LCONNA DS CL8        CONNECTION ID
+&PFX.LPACKA DS CL16       PACKAGE ID
+&PFX.LTYPEA DS CL3        COLLECTION TYPE
+&PFX.LEDATEA DS CL8       COLLECTION DATE
+&PFX.LETIMEA DS CL8       COLLECTION TIME
+&PFX.LHSTRCA DS CL6       HOST STAGE STATUS
+&PFX.LHSTCRA DS CL6       HOST COLLECTION REQUEST STATUS
+&PFX.LVERSA DS CL15       PRODUCT VERSION
+&PFX.LNUMBA DS CL15       PRODUCT NUMBER
+&PFX.LVENDA DS CL15       PRODUCT VENDOR
+&PFX.LDESCA DS CL40       PRODUCT DESCRIPTION
+&PFX.LOPSYA DS CL15       OPERATING SYSTEM
+&PFX.LFLLUA DS CL15       FILELIST LU NAME
+&PFX.LESCPA DS CL15       ESCAPE CHARACTER
+&PFX.LCSDTA DS CL8        COLLECTION START DATE
+&PFX.LCSTMA DS CL8        COLLECTION START TIME
+@&PFX.LSALN EQU *-&HDR.RDW TOTAL LENGTH PACKAGE COLLECTION BY DATE
+         MEND

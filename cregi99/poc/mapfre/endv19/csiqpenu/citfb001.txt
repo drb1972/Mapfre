@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+     applies if DISPLAY LIST=Y.
++
+%V+- Use this option to archive one or more elements.
++    The archive action cannot be used on source-less elements.
++    Source-less elements are created by the Generate NOSOURCE action.
++
++
++
++
++
++
++                           (%PF3+to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

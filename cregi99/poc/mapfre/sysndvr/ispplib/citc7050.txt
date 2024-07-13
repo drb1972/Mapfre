@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%\-\ API/CSV List Destination\-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%API/CSV List Destination +
+
++ A new list package action, List Destination for API and CSV, allows you to
+  produce a list of destinations that packages can be shipped to. You can
+  request package shipment destination information using a user-written API
+  program or by executing the CSV utility.
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7060
+)END

@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Staging Information \-\ TUTORIAL
+%Option ===>_ZCMD                                                              +
+%
++Staging information can be provided for the HOST and REMOTE site staging
++data sets and USS path names.
++
++Use the%LEFT+and%RIGHT+commands (usually PF10 and PF11) to scroll through the
++information on this panel.
+$SAREA                                                                         $
+)AREA SAREA
++The following fields apply to HOST and REMOTE staging%data sets:
++
+%  DSN Prefix+- The user must provide a prefix for the staging data sets
++    that are created in the first ship utility step. The prefix can
++    be 1 to 14 characters. It can be different for the HOST SITE and
++    the REMOTE SITE. The default prefix is TSO userid.
++
+%  Disposition+- Staging data sets can be deleted (D) or kept (K). The
++    default is D. When DISPOSITION=D, a step is included in the
++    host and remote job streams to delete the staging data sets.
++
+%  Unit+- The allocation unit for staging data sets. Default is SYSDA.
++
+%  Volume serial+- The VOLSER used when allocating staging datasets.
++    Providing this is optional. There is no default.
++
++
++The following fields apply to HOST and REMOTE staging%USS path names+and%files:
++
+%  Path Name Prefix+- The user can provide a prefix for the USS staging paths
++    that are used in the first ship utility step. The prefix can
++    be 1 to 732 characters. It can be different for the HOST SITE and
++    the REMOTE SITE. The default is /tmp/.
++
+%  Disposition+- USS staging files and the directories created by the
++    staging process can be deleted (D) or kept (K). The default is D.
++    When DISPOSITION=D, a step is included in the host and remote job
++    streams to delete the USS staging files and directories. The only
++    directories that are deleted are the directories created by the
++    shipping process.
++    No directories specified in the host or remote path name prefixes
++    on the destination panel will be deleted.
++
++                               %PF3+to return
+)END

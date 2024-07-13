@@ -1,0 +1,2 @@
+JLOG099S 'JOURNAL ERROR'                                 .ALARM=YES
+'JOURNAL ERROR'

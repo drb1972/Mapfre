@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Selection - Transfer \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
+*-----------------------------------------------------------------------------*
+|          |                             At Target                            |
+|          |------------------------------------------------------------------|
+|          |      Type same, element         |     Type different, element    |
+|          |---------------------------------|--------------------------------|
+|          |   Exists |   Does not exist, is |  Exists  |  Does not exist, is |
+|          |----------|----------------------|----------|---------------------|
+|  Action  |          | not on map|  on map  |          |not on map|  on map  |
+|==========|==========|======================|==========|=====================|
+|          | override |       override       | override |      override       |
+| Transfer |    or    |          or          |    or    |         or          |
+|          | target   |    source element    | target   |  default at target  |
+|          | element  |                      |  element |                     |
+*-----------------------------------------------------------------------------*
+)END

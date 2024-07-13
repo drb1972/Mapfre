@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++                                                                 %Page 3 of 4+
++These panels provide information about features and enhancements
++introduced in%Endevor Version 18.0
++
++Enter one of the following options for more information:            Increment:
++
+%21+- Web Services RESTful API client & Eclipse-Based UI               18.0.09
+%22+- Documentation Additions                                          18.0.09
+%23+- Redesign of Eclipse Plug-In Local File Management                18.0.10
+%24+- Element Delta Levels Moved With History Indicator                18.0.11
+%25+- ISPF Apply List Filters for CCID in Element Change Levels        18.0.11
+%26+- RESTful API Support for Element Actions and Package Notes        18.0.11
+%27+- Element Activity Logging for Webhook Support                     18.0.12
+%28+- Intelligent Package Shipment Destination Selection Lists         18.0.12
+%29+- User option for ISPF panel layout (Dynamic Panel support)        18.0.12
+%30+- Eclipse Based UI Enhancements                                    18.0.12
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++
++\ \ (Press%ENTER+for the previous options or%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 21,CIT18210 22,CIT18220 23,CIT18230 24,CIT18240
+                       25,CIT18250 26,CIT18260 27,CIT18270 28,CIT18280
+                       29,CIT18290 30,CIT18300)
+   &ZCONT = CIT18003
+)END

@@ -1,0 +1,46 @@
+         MACRO                                                          00010001
+&LABEL   $PREND ,                                                       00020001
+.********************************************************************** 00030001
+.*                                                                    * 00040001
+.*       PROCESSOR TRAILER DEFINITION                                 * 00050001
+.*                                                                    * 00060001
+.*       CREATED BY C1GJTRNS                                          * 00070001
+.*                                                                    * 00080001
+.*       CONTAINS:  NOTHING                                           * 00090001
+.*                                                                    * 00100001
+.********************************************************************** 00110001
+         GBLA  &PRLSTPR                GLOBAL FOR LAST PROCESSOR MACRO  00120001
+         GBLA  &PRSTEP#                                                 00130001
+         GBLA  &PRSYM#                                                  00140001
+         GBLB  &PRGEN                                                   00150001
+         GBLC  &PRCSECT                CSECT NAME FOR MODULE            00160001
+         GBLC  &ITESTRT                ITE START SECTION NAME           00160001
+         LCLA  &LSTSTP#                                                 00170001
+         LCLA  &LSTSYM#                                                 00180001
+         LCLC  &ENDLBL                 LABEL FOR CURRENT BLOCK          00190001
+&ENDLBL  SETC  'END&SYSNDX'            ASSIGN CURRENT BLOCK LABEL       00200001
+         AIF   (&PRLSTPR EQ 300).CONT  DOES THIS FOLLOW A $PRPGM?       00210001
+         AIF   (&PRLSTPR EQ 400).CONT  DOES THIS FOLLOW A $PRCC?        00220001
+         AIF   (&PRLSTPR EQ 600).CONT  DOES THIS FOLLOW A $PRDDB?       00230001
+         AIF   (&PRLSTPR EQ 700).CONT  DOES THIS FOLLOW A $PRSIN?       00240001
+         AIF   (&PRLSTPR EQ 800).CONT  DOES THIS FOLLOW A $PRJCL?       00000025
+         MNOTE 8,'LOGICAL ERROR, $PREND MUST BE LAST IN THIS MODULE'    00250001
+         MNOTE *,' AND FOLLOW EITHER A $PRPGM, $PRCC, $PRDDB, $PRSIN ORX00000027
+               $PRJCL.'                                                 00000028
+         AGO   .MEXIT                                                   00280001
+.CONT    ANOP                                                           00290001
+&PRGEN   SETB  (0)                                                      00300001
+&PRLSTPR SETA  999                     TRAILER IS LAST BLOCK GENERATED  00310001
+&LSTSTP# SETA  &PRSTEP#-1              SET TO TOTAL NUMBER OF STEPS     00320001
+&LSTSYM# SETA  &PRSYM#-1               SET TO TOTAL NUMBER OF SYMBOLS   00330001
+         $PRLBL ,                                                       00340001
+         SPACE ,                                                        00350001
+&PRCSECT CSECT                                                          00360001
+         CNOP  0,8                                                      00370001
+&ENDLBL  DS    0D                                                       00380001
+PRSTEP#  EQU   &LSTSTP#                EQUATE TOTAL NUMBER OF STEPS     00390001
+PRSYM#   EQU   &LSTSYM#                EQUATE TOTAL NUMBER OF SYMBOLS   00400001
+         AGO   .MEXIT                                                   00410001
+.MEXIT   ANOP                                                           00420001
+         SPACE 2                                                        00430001
+         MEND                                                           00440001

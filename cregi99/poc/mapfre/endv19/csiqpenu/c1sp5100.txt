@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(&VCAPFT) INTENS(&VCAPFI) CAPS(ON) JUST(LEFT)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY EXPAND(\\)
++SUBMIT%\-\ SUBMIT PACKAGE \-\-------
++OPTION%===>_VARWKCMD                                                         +
++
++  %S+- Submit job for Batch Processing
++  %E+- Enter additional JCL to be included with the job
++
++Package ID:  |VPHPKGID        +        Status: |VPHSTAT     +
++Description: ~VPHCOMM                                           +
++Package Type:|VPHTYPE   +
+
++Include JCL%===>_Z+(Y/N)   +Concurrent Action Processing%===>$Z+ (Y/N)
+                            +           Concurrent Number%===>$Z +Max¢Z +
++Job Statement Information:
+%===>_C1BJC1                                                                  +
+%===>_C1BJC2                                                                  +
+%===>_C1BJC3                                                                  +
+%===>_C1BJC4                                                                  +
++
+)INIT
+  .HELP = CITP5100
+  .ZVARS = '( VNBINCF VCAPYN VCAPRN VCAPMN )'
+  &YNLIST = 'Y N'
+  IF (&C1BJC1 = ' ' & &C1BJC2 = ' ' & &C1BJC3 = ' ' & &C1BJC4 = ' ')
+    &C1BJC1 = '&C1PJC1'
+    &C1BJC2 = '&C1PJC2'
+    &C1BJC3 = '&C1PJC3'
+    &C1BJC4 = '&C1PJC4'
+)PROC
+  VER  (&VNBINCF,NB,LISTV,&YNLIST,MSG=CISB006)
+  IF (&VNBINCF = 'Y')
+    VGET (VNBDD01 VNBDD02 VNBDD03 VNBDD04 VNBDD05 VNBDD06 VNBDD07)
+    VGET (VNBDD08 VNBDD09 VNBDD10 VNBDD11 VNBDD12 VNBDD13 VNBDD14)
+    VGET (VNBDD15 VNBDD16 VNBDD17 VNBDD18 VNBDD19 VNBDD20)
+  VER (&VCAPYN,NB,LISTV,&YNLIST,MSG=CIFV005)
+  IF (&VCAPYN = 'Y')
+    IF (&VCAPRN NE '  ')
+      VER (&VCAPRN,NB,RANGE,2,&VCAPMN)
+)END

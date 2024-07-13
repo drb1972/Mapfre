@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Web Services Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%                                                                  Page 2 of 2
+%Web Services Enhancements +
++
+
+%Dynamic modification of a data source configuration+
+ You can add, modify, or delete a data source configuration file
+ without shutting down Tomcat. This enhancement enables you to
+ add or modify the STC pool parameters, or other configuration
+ file parameters, while Tomcat is live. The new%setConfiguration+
+ service makes dynamic modification possible.
+
+%Miscellaneous+
+ In addition, client programs can use various new%get<Object>+
+ services that extract information from the Master Control File,
+ Package File, or repository objects.
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT160A0
+)END

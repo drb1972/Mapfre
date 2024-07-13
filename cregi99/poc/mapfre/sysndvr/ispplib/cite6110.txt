@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Data Sets - Names and Types \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Data Set Name+- Name of a library for an element type defined within
+   this system. For each element type, the list includes the base
+   library, delta library, INCLUDE library, and source output library
+
+%Type+- Type of library: Partitioned Data Set (PO), ELIB (EL),
+   Panvalet (PV), or Librarian (LB).
+
+
+
+
+
+
+
+
+
+
++
++\ \ (%PF3+to return) \ \
+)END

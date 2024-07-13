@@ -1,0 +1,53 @@
+         MACRO
+         ENHAEADD &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        ADD ELEMENT - REQUEST BLOCK                                  *
+*                                                                     *
+***********************************************************************
+AEADD_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AEADD_RQ$EYE    EQU C'EADQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AEADD_RQ
+         SPACE ,
+AEADD_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEADD_RQ_DATA
+*                 ELEMENT DATA
+AEADD_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEADD_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEADD_RQ_DDN      DC CL8' '            FROM DD OR FILE NAME
+AEADD_RQ_DSN      DC CL44' '           FROM DATA SET NAME
+AEADD_RQ_MBR      DC CL10' '           FROM MEMBER NAME
+*                 TARGET LOCATION DATA
+AEADD_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEADD_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEADD_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEADD_RQ_TYPE     DC CL8' '            TYPE NAME
+*                 ACTION OPTIONS
+AEADD_RQ_CCID     DC CL12' '           CCID
+AEADD_RQ_COMM     DC CL40' '           COMMENT
+AEADD_RQ_NEWVER   DC CL2' '            NEW VERSION (1-99)
+AEADD_RQ_UPDT     DC CL1' '            UPDATE IF PRESENT (Y/N)
+AEADD_RQ_DEL      DC CL1' '            DELETE INPUT SOURCE (Y/N)
+AEADD_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AEADD_RQ_BYP_GEN  DC CL1' '            BYPASS GENERATE PROCESSOR (Y/N)
+AEADD_RQ_PROGRO   DC CL8' '            PROCESSOR GROUP NAME
+AEADD_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AEADD_RQ_VER#1_DATADSLN EQU *-AEADD_RQ_DATA
+AEADD_RQ_VER#1_DSLN     EQU *-AEADD_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AEADD_RQ_DATADSLN EQU *-AEADD_RQ_DATA
+AEADD_RQ_DSLN     EQU *-AEADD_RQ
+         ORG      AEADD_RQ_DATA
+AEADD_RQ_DATAAREA DS XL(AEADD_RQ_DATADSLN)   DATA AREA
+         MEND

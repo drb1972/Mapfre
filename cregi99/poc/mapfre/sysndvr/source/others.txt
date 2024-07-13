@@ -1,0 +1,47 @@
+**********************************************************************
+  ESTABLISH TYPE COBOL GROUP GCOBLNK
+     WHEN LANG = COBOL AND PRIMARY TRANSLATOR NOT = '*'
+     AND DBMS = ''.
+   ESTABLISH TYPE COBOLSRC GROUP COBOLSRC
+      WHEN LANG = COBOLSRC
+      AND DBMS = ''.
+  ESTABLISH TYPE ASMSRC  GROUP ASMSRC
+     WHEN LANG = ASMSRC
+      AND DBMS = ''.
+  ESTABLISH TYPE REXX GROUP GREXX
+     WHEN LANG = REXX.
+**********************************************************************
+** THE FOLLOWING ESTABLISH TYPES AND GROUPS FOR REPORT WRITERS
+**********************************************************************
+  ESTABLISH TYPE SAS  GROUP *NOPROC*
+     WHEN LANG = SAS.
+  ESTABLISH TYPE EZTRIEVE GROUP *NOPROC*
+     WHEN LANG = EZTRIEVE.
+  ESTABLISH TYPE RPG GROUP *NOPROC*
+     WHEN LANG = RPG.
+**********************************************************************
+** THE FOLLOWING ESTABLISH TYPES AND GROUPS FOR JCL,PROCS,MACROS,ETC
+**********************************************************************
+  ESTABLISH TYPE PROC GROUP *NOPROC*
+     WHEN LANG = JCLPROC.
+  ESTABLISH TYPE JCL GROUP *NOPROC*
+     WHEN LANG = JCLJOB.
+  ESTABLISH TYPE MACRO GROUP *NOPROC*
+     WHEN LANG = '' AND
+     (ANY LINE = DSECT OR  ANY LINE = MACRO).
+  ESTABLISH TYPE COPYBOOK GROUP *NOPROC*
+     WHEN LANG = COPYBOOK.
+**ESTABLISH TYPE CLIST GROUP *NOPROC*
+**   WHEN LANG = '' AND ANY LINE = TSOCLIST
+**   AND FEATURE NOT = (IMSDBD OR IMSPSB) .
+**ESTABLISH TYPE PROCESS GROUP PROCESS
+**   WHEN LANG = PROCESS .
+**********************************************************************
+** THE FOLLOWING ESTABLISH TYPES AND GROUPS FOR DATABASE COMPONENTS
+**********************************************************************
+  ESTABLISH TYPE IMSDEF  GROUP IMSPSB
+     WHEN LANG = ASMH AND IMSOPT = IMSPSB AND DBMS = '' AND
+     TPMON = ''.
+  ESTABLISH TYPE IMSDEF  GROUP IMSDBD
+     WHEN LANG = ASMH AND IMSOPT = IMSDBD AND DBMS = '' AND
+     TPMON = ''.

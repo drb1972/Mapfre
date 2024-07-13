@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Environment Options Menu \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++The Environment Options menu allows you to create, update, display and
++delete site definitions. Select the information you want to work
++with by typing its number in the OPTION field and pressing ENTER.
++
++
++
++    Choose from the following options for more information:
++
+%    1+- Site information           % 7+- Type processing sequence
+%    2+- Stage                      % 8+- Type data sets
+%    3+- System                     % 9+- Approver groups
+%    4+- Subsystem                  % A+- Approver group relationships
+%    5+- Type                       % D+- Destinations
+%    6+- Processor groups           % E+- Environment information
+%    S+- Site Symbols
+
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITES000 2,CITE1000 3,CITE2100 4,CITE3100
+                  5,CITE4100 6,CITPGDF0 7,CITE5101 8,CITE6100
+                  9,CITE8100 A,CITAGR00 D,CITPD000 E,CITE7000
+                  S,CITDSSYM)
+)END

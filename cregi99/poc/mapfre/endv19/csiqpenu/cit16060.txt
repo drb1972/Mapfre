@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ UNIX System Services Package Ship Batch Administration \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%UNIX System Services Package Ship Batch Administration +
++
+%Support for UNIX System Services mapping rules+
+ Batch administration supports package ship destination and mapping
+ rules for UNIX System Services (USS) supported files.
+
+%API/CSV Utility List Destination output+
+ The API/CSV List Destination output is enhanced to include the
+ new USS fields.
+
+%ENDEFINE/ENDELETE macros+
+ The ENDEFINE/ENDELETE macros are enhanced to support the
+ DESTINATION and USS Mapping Rule templates.
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16070
+)END

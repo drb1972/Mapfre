@@ -1,0 +1,34 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage comment dsname dsnmem
+tag _ muh ccid wpgrp
+tag ^ sim dsnthru
+tag | sh msg s1id s2id
+tag ¢ s s1name s2name dislist
+tag & muh accid expand copyonly override replace
+%-----------------------------  Retrieve Elements  -----------------------------
+%OPTION  ===>_   +
+|
+%                             +Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   R+- Retrieve element         %M+- Master   %C+- Changes
++
++FROM LOCATION:                      ACTION OPTIONS:
++  ENVIRONMENT %===>_        +          CCID             %===>&            +
++  SYSTEM      %===>_        +          EXPAND INCLUDES  %===>&N+ (Y/N)
++  SUBSYSTEM   %===>_        +          NO SIGNOUT       %===>&N+ (Y/N)
++  ELEMENT     %===>_          +        OVERRIDE SIGNOUT %===>&N+ (Y/N)
++  TYPE        %===>_        +          REPLACE MEMBER   %===>&N+ (Y/N)
++  STAGE       %===>_ +      | +-¢            | +-¢            +
++  COMMENT     %===>_                                        +
++
++TO PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_                                                 +
++   MEMBER %===>_          +                        ^          +
++
++LIST OPTIONS:
++   DISPLAY LIST     %===>¢Y+ (Y/N)
++   WHERE CCID EQ    %===>_            +
++   WHERE PROC GRP EQ%===>_         +
+enddef

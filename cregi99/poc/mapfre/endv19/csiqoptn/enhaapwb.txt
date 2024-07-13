@@ -1,0 +1,34 @@
+         MACRO
+         ENHAAPWB &DSECT=YES,                                          X
+               &PREFIX=AAPWB_RQ,                                       X
+               &EYE=APWB,                                              X
+               &VER=2
+         ENHAAID#                      API ID DEFINITIONS
+***********************************************************************
+*        PASSWORD BLOCK
+***********************************************************************
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=&VER,               CONTROL BLOCK VERSION           X
+               EYE='&EYE',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=&PREFIX
+.*
+         LCLC  &P
+&P       SETC  '&PREFIX'
+.*
+&P._DATA DS    0X
+&P._USERBLK DS  CL9     USER BLOCK (1 BYTE LENGTH + USER NAME)
+         ORG &P._USERBLK
+&P._USER_LEN DS X          LENGHT OF USERID
+&P._USER DS    CL8         USERID
+.*
+&P._PASS DS   CL224      ENCRYPTED PASSWORD/PASSTICKET/PASSPHRASE
+         ORG &P._PASS
+&P._PASS_DECRYPT_LEN DS XL1 LENGTH OF DECRYPTED PASSWORD/TICKET/PHRASE
+&P._PASS_DECRYPT DS   CL223 DECRYPTED PASSWORD/PASSTICKET/PASSPHRASE
+.*
+         DS    0F         REQUIRED FOR CHDR GEN
+&P._DATADSLN   EQU *-&P._DATA
+&P._DSLN EQU   *-&P
+         ORG   &P._DATA
+&P._DATAAREA   DS XL(&P._DATADSLN)  STORAGE FOR AREA
+         MEND

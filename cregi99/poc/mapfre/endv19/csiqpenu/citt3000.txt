@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Lifecycle Maps \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++A major piece of the implementation is to define the stages in the
++software lifecycles at your site, then organize these stages into
++environments. See Chapter 1 of the Administrator's Guide.
+
++Applications in each life cycle follow a unique route through the
++environment/stage locations that you have defined.  You can set up as
++many routes as you need to accommodate different life cycles at your
++site.  These%routes+make up the%map+for your site.
+
++These routes are used to automate the adding, displaying, retrieving,
++moving, and generating of inventory in a given life cycle.
++
++    Select%1+-%8+for information about
++
+%    1+- One route map - example      %5+- The map and actions
+%    2+- Two route map - example      %6+- The map and lists
+%    3+- Establishing routes          %7+- The map and signout
+%    4+- Mapping inventory locations  %8+- Implementation checklist
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT3100 2,CITT3200 3,CITT3300 4,CITT3400
+                  5,CITT3500 6,CITT3600 7,CITT3700 8,CITT3800)
+)END

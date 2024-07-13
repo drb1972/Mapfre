@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+   ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%------------------------ Site Information from|CIDFLTNM%-----------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++ Customer Name.....~VARSICNM                                          +
++ ------------------ Function Controls --------------------      - Options -
++ Site ID...........¢VARSIID#+  SMTP Table........¢VARESMT +     ACM......¢Z+
++ Version...........¢VARINCRN+  Access Table......¢VARSCACC+     DB2......¢Z+
++ Environments......¢VARSI#EV+  SMF Record Number.¢VARSISF#+     QuickEdit¢Z+
++ Userid Start......¢VARSIUIS+  Library System....¢VARSILBE+     ESI......¢Z+
++ Userid Length.....¢VARSIUIL+  Library Program...¢VARSILBP+     LIBENV...¢Z+
++ Batch ID..........¢VARSIUIB+  VIO Unit..........¢VARSIVIO+     PDM......¢Z+
++ SPFEDIT QNAME.....¢VARSISPF+  Work Unit.........¢VARSIWKU+     PROC.....¢Z+
++ SYSIEWL QNAME.....¢VARSIIEW+  Work Volser.......¢VARSIWKV+
++ Authorized Tables.¢VARSIATB+  Lines per Page....¢VARSILPP+
++ Alternate ID......¢VARALTID+  MODHLI............¢VARMODHL+
++ PITR Journal Grp..¢VARSJGRP+  Signout on fetch..¢VARSSOFT+
++ CA-LSERV JRNL SBS.¢Z   +      Mixed Format......¢VARSIMFM
++ Symbolics Table...¢VARSYMBT+  Listing ID string.¢VARLLCHR+
++ User Exits Table..¢VARUEX  +  Source Sync Check.¢Z+
++ Options Table.....¢VAROPT  +  Sync Sev Msg......¢Z+
++ Config Table......¢VARCNFG +  MFA Appl Name.....¢VARSIMFA+
++ SMF Admin Records for Dyn. Env. (Define/Delete).¢VARSMFEN+
++                                               (Press Enter for Next Panel)
+)INIT
+  .ZVARS = '(VARSIASC VARSIDB2 VARSIEDE VARSIESS  +
+             VARSILEV VARSIPDM VARSIPRC  +
+             VARSJSBS VARSCHK VARSMSV )'
+  .HELP = CITES000
+)END

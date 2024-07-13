@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - Signin/Signout Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Activate Option+-%Y+indicates that SIGNOUT validation will be done.
++   When set to%N+, SIGNOUT validation will not be done for this system.
++   Either option will allow the SIGNOUT and SIGNIN of elements.
++
+%Validate Data Set+- Indicates if data set validation has been enabled
++   for this system.%Y+(validation enabled).%N+(validation not enabled).
++
++   When an element is retrieved, the RETRIEVE TO data set name and
++   member name are recorded in the Master Control File. When an Add or
++   Update action is performed against this element, the RETRIEVE TO
++   data set name is compared to the input data set name specified
++   on the action.
++
++     * If the data set (and member) names match, the action continues.
++
++     * If the names do not match, the value in the OVERRIDE SIGNOUT field
++       is checked.  If this value is Y, processing continues. Otherwise
++       the action fails.
++
++\ \ (%PF3+to return) \ \
+)END

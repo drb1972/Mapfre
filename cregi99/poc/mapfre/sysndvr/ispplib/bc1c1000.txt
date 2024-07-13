@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ New PDM Output Element \-\ TUTORIAL
+%SELECTION ===>_ZCMD
++
++When PDM creates an element from a PDM WIP file where the element is new
++to the target location and route, the element construction is as follows:
++
++ - The Base element contains the Root's statements and has its base
++   attributes set to the Root's CCID, Comment, Userid, Date and Time.
++
++ - The First derivation changes are recorded in a change level using the
++   derivation's CCID, Comment, Userid, Time and Date.
++
++ - If a second derivation was used during the WIP process, another change
++   level is created using this derivation's CCID, Comment, Userid, Time
++   and Date.
++
++ Select%1-3+for more information about new PDM Endevor Merge Options:
++
+%    1+- Delete NDVR DV1 DV2 after Merge        %3+- Processor Group Name
+%    2+- Bypass Generate Processor after Merge
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1C1010 2,BC1C1020 3,BC1C1030)
+)END

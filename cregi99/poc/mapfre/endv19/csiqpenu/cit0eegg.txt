@@ -1,0 +1,31 @@
+)ATTR
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Endevor - The Top 10 ASMMAC contributors         \-\
+%Option ===>_ZCMD
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++
++The 10 best Contributors to the ASMMAC code:
++
++ Rank     Score      Pmfkey
+% --------------------------
+%  1st+      437     MCCPE01
+%  2nd+      424     BUCFR02
+%  3rd+      393     OLEJU01
+%  4th+      331     RICAR01
+%  5th+      243     GAUPH01
+%  6th+      173     MORMI08
+%  7th+      158     KILNA01
+%  8th+      150     VANJA01
+%  9th+      119     BERBE02
+% 10th+      108     BRASC02
++
++
++Created based on statistics for V18.0 code at Sep 13th 2019.
++
++\ \ (Press%END+to exit) \ \
+)INIT
+)PROC
+   &ZCONT = CITORELS
+)END

@@ -1,0 +1,55 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ PRINT MEMBER \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++  %blank+- Member/file list       %B+- Browse member/file    %P+- Print action
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++FROM ISPF LIBRARY:+                   +LIST OPTIONS:
++  PROJECT%===>_PRJ0    +              +  DISPLAY LIST           %===>_Z+(Y/N)
++  LIBRARY%===>_LIB0    +
++  TYPE   %===>_TYP0    +
++  MEMBER %===>_ISPFMB    +
++    THRU MEMBER%===>_C1DSPTNM  +
++
++OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++ %===>_OTHDSN                                                  +
+<OTHERWISE>
++FROM ISPF LIBRARY:+                   +OPTIONS:
++  PROJECT    %===>_PRJ0    +            +DATA SET TYPE(USS/ISPF)%===>_Z+(U/D)
++  LIBRARY    %===>_LIB0    +            +DISPLAY LIST           %===>_Z+(Y/N)
++  TYPE       %===>_TYP0    +
++  MEMBER     %===>_ISPFMB    +
++    THRU MEMBER%===>_C1DSPTNM  +
++
++FROM OTHER ISPF DATA SET:+
++  DATA SET   %===>_OTHDSN                                                  +
++
++FROM USS PATH AND FILE NAME:
++  PATH%===>@VNTPATH                                            |VNTIND1
++  FILE%===>@VNT1ENME                                           |VNTIND2
+</SELECT>
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(         VARWKLST)'
+  &VNTDSTYP = 'D'                              /* Force Dataset on           */
+<OTHERWISE>
+  .ZVARS = '(VNTDSTYP VARWKLST)'
+</SELECT>
+  .HELP = CITN1000
+)PROC
+)FIELD
+ FIELD(VNTPATH)  IND(VNTIND1) SCROLL(ON)
+ FIELD(VNT1ENME) IND(VNTIND2) SCROLL(ON)
+)END

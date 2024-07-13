@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%---------------------------  Display Options Menu  ----------------------------
+%OPTION  ===>_VARWKCMD                                                         +
+%
+%   1+ ELEMENT          - Display element/component list information
+%   2+ FOOTPRINT        - Display footprinted members and compressed listings
+%   3+ SITE             - Display site information
+%   4+ STAGE            - Display stage information
+%   5+ SYSTEM           - Display system definitions
+%   6+ SUBSYSTEM        - Display subsystem definitions
+%   7+ TYPE             - Display type definitions
+%   8+ PROCESSOR GROUP  - Display processor group definitions
+%   9+ APPROVER GROUP   - Display approver groups
+%   A+ RELATE GROUP     - Display inventory area/approver group relationships
+%   E+ ENVIRONMENT      - Display information about the current environment
+%   S+ SITE SYMBOLS     - Display site symbols definitions
+%   T+ TYPE SEQUENCE    - Display site type processing sequence
+%   D+ DEST CONFIG MBR  - Display package ship destination symbols and values
+%
+%
+%
+%
+%
+%
+%
+)INIT
+  .HELP = CITD0000
+)END

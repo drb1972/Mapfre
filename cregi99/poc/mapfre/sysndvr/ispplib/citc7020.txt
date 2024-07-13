@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%\-\ Dynamic Approvers\-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Dynamic Approvers +
+
++ This option provides Endevor package approvers with the ability to add
+  additional approvers to a package while it is in the in-approval state. This
+  enhances the approval process by allowing one or more individuals to be
+  dynamically defined as one-time approvers for a particular package. When an
+  approver is added to a dynamic approver group, Endevor can automatically
+  send email notification to that approver.
+
++ This feature is supported in Endevor ISPF Foreground Package processing and
+  can be allowed or disallowed through the Endevor options table (ENCOPTBL).
+  By default, it is disallowed. You can activate the dynamic approvers feature
+  by setting DYNAMIC-APPROVERS=ON in ENCOPTBL.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7030
+)END

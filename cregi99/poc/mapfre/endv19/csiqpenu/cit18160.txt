@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ End-to-End Package Action Logging for ALC \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%End-to-End Package Action Logging for ALC
++
++ This enhancement allows customers to turn on logging of Endevor Package
++ actions to a USS directory for integration with the Application Lifecycle
++ Conductor product.  A new C1DEFLTS table parameter, E2ELOGMBR, is
++ available to specify the PARMLIB member that contains the USS directory
++ name to be used for logging of these actions.
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18170
+)END

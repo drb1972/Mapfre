@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Action Summary, Add - List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Action     Is available in    And does this+
+%             f/g    batch+
++
++ Add          x       x       ADDs a member form an external data set.
++ Archive              x       Writes the current version of an element
++                                 to a sequential data
++ Copy                 x       Copies an element from an archive data set
++                                 to an data set.
++ Delete       x       x       Erases base and delta forms of an
++                                 element and remove related information
++                                 from the master control file.
++ Display      x               Displays information about an element.
++ Generate     x       x       Creates an executable form of an element.
++ List                 x       Creates a list of elements that meet
++                                 specific selection criteria.
++
++
++                             (%PF3+to return,%ENTER+for Move - Update)
+)PROC
+   &ZCONT = CITT4110
+)END

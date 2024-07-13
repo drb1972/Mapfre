@@ -1,0 +1,10 @@
+@REM ****************************************************** #PSBDT26 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING SEQUENTIAL DATASETS
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: INCLUDE #PSBDT2S TO WRITE A "Q" COMMAND TO TRANS-
+@REM *              MIT THE 3 REMOTE SEQUENTIAL DATASETS (ARJOB, CRJOB,
+@REM *              ARREF).
+@REM *******************************************************************
+@REM *
+@PASS=20
+@INCLUDE=S

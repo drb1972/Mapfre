@@ -1,0 +1,27 @@
+)ATTR DEFAULT(!+_)
+       /* ! TYPE(TEXT) INTENS(HIGH)    FOR BOLD TEXT     */
+       /* + TYPE(TEXT) INTENS(LOW)     REGULAR TEXT      */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) */
+)BODY EXPAND(\\)
+!TUTORIAL \-\ The WIPSHOW Command \-\ TUTORIAL
+!OPTION ===>_ZCMD                                                              +
+!
++The WIPSHOW command displays the lines in either the Root, the Derivation 1,
++or Derivation 2 file. It does not display lines that have been logically
++deleted.
++
++To display only those lines that are from the Root and Derivation 1 file and
++have not been logically deleted, type the command!WIPSHOW R 1+on the
++command line, then press ENTER. WIPSHOW output looks like this.
++
++****** ***************************** TOP OF DATA *****************************
++- - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 9 LINE(S) NOT DISPLAYED
++000010         THIS IS ROOT LINE 1
++- - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 1 LINE(S) NOT DISPLAYED
++000012 % I-1   INSERT BY DV1, LINE 2
++- - -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - 1 LINE(S) NOT DISPLAYED
++000014         THIS IS A ROOT LINE
++
++Refer to the "WIP Edit Commands" section of Chapter 3 of the PDM User's
++Guide for more information.
+)END

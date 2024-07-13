@@ -1,0 +1,8 @@
+@REM ****************************************************** #PSNDVRN ***
+@REM *    CONTENTS: ENDEVOR/MVS - COPY CONTROL CARD WITHOUT REPLACE
+@REM * TRANSMITTER: ALL
+@REM *     PURPOSE: COPY UTILITY CONTROL STATEMENT WHICH WILL COPY
+@REM *              WITHOUT REPLACING A MEMBER IN THE OUTPUT DATASET
+@REM *******************************************************************
+@REM
+ COPY    INDD=I&F5,OUTDD=O&F5

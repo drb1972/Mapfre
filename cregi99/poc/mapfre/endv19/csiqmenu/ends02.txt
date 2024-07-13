@@ -1,0 +1,6 @@
+ENDS021C 'Endevor Defaults:&DFLTNDVR          .T=ACTION  .ALARM=YES
+'Endevor defaults:&DFLTSELD requested but Endevor is already active ' +
+'on another split screen using defaults suffix:&DFLTNDVR..  '         +
+'To change defaults, make sure you exit all instances of Endevor '    +
+'and try again.'
+

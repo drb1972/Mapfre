@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Environment Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                           %(Screen 2 of 2)+
++
+%Journal+- Name of the journal file used by the Point In Time
+      Recovery facility.
+
+%SMF Activity+- Indicates whether the SMF facility is active for this
+      environment.  %Y+(yes) or%N+(no).
+
+%SMF Security+- Indicates whether SMF security has been turned on for
+      this environment.  %Y+(yes) or%N+(no).
+
+%MVS/DB Bridge+- Indicates whether the MVS/DB Bridge is in use
+      in this environment.  %Y+(yes) or%N+(no).
+
+%Out-of-Sync Alerts+- Indicates whether this environment is marked for
+      source synchronization.  %Y+(yes) or%N+(no).
+)END

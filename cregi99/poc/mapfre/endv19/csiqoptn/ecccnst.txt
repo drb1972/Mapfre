@@ -1,0 +1,22 @@
+      *****************************************************************
+      * ENDEVOR API CONSTANTS                                         *
+      *****************************************************************
+       01  EAC-CONSTANTS.
+           05  EAC-ENDEVOR-APINAME     PIC X(8)      VALUE 'ENA$NDVR'.
+           05  EAC-SHUTDOWN-YES        PIC X         VALUE 'Y'.
+           05  EAC-SHUTDOWN-NO         PIC X         VALUE 'N'.
+           05  EAC-PATH-LOGICAL        PIC X         VALUE 'L'.
+           05  EAC-PATH-PHYSICAL       PIC X         VALUE 'P'.
+           05  EAC-RETURN-FIRST        PIC X         VALUE 'F'.
+           05  EAC-RETURN-ALL          PIC X         VALUE 'A'.
+           05  EAC-SEARCH-ALL          PIC X         VALUE 'A'.
+           05  EAC-SEARCH-BETWEEN      PIC X         VALUE 'B'.
+           05  EAC-SEARCH-NEXT         PIC X         VALUE 'E'.
+           05  EAC-SEARCH-NO           PIC X         VALUE 'N'.
+           05  EAC-SEARCH-RANGE        PIC X         VALUE 'R'.
+           05  EAC-RTYPE-ELEMENT       PIC X         VALUE 'E'.
+           05  EAC-RTYPE-COMPONENT     PIC X         VALUE 'C'.
+           05  EAC-FORMAT-EXTRACT      PIC X         VALUE ' '.
+           05  EAC-FORMAT-BROWSE       PIC X         VALUE 'B'.
+           05  EAC-FORMAT-CHANGE       PIC X         VALUE 'C'.
+           05  EAC-FORMAT-HISTORY      PIC X         VALUE 'H'.

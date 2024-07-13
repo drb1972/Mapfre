@@ -1,0 +1,102 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*                                                                       */
+/* Note: The UPPERCASE and CASE-SENSITIVE options do not appear to be    */
+/*       supported, I made the Panel changes now, but further code       */
+/*       changes will be required to fully support.                      */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ @ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+ { TYPE(PS)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Quick Edit &MODE Element \-\
+%Command ===>_VARWKCMD                                        %Scroll ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++Inventory Location:
++  Environment ._QEPEVNME+
++  System. . . ._QEPSYS  +
++  Subsystem . ._QEPSBS  +
++  Element . . .@QEPELM    ¢QEPIND
++  Type. . . . ._QEPTYP  +
++  Stage . . . ._Z+
++
++List Options:
++  Apply List Filters . . . . ._Z+(Y/N)
++  Build Using Map. . . . . . ._Z+(Y/N)
++  Return First Found . . . . ._Z+(Y/N)
++  Display System/Subsys List ._Z+(Y/N)
+<OTHERWISE>
++Element. . .@QEPELM                                             |QEPIND
++  Type . . ._QEPTYP  +
++
++Inventory Location:
++  Environment ._QEPEVNME+
++  System. . . ._QEPSYS  +
++  Subsystem . ._QEPSBS  +
++  Stage . . . ._Z+
++
++Options:
++  Apply List Filters . . . . ._Z+(Y/N)
++  Build Using Map. . . . . . ._Z+(Y/N)
++  Return First Found . . . . ._Z+(Y/N)
++  Display System/Subsys List ._Z+(Y/N)
++  Uppercase Elm Name . . . . ._Z+(Y/N)
++  Case-sensitive Elm Name. . ._Z+(Y/N)
+</SELECT>
++
++
++  Press{ENTER+to continue with the COPY function.
++  Press{END+to cancel the COPY function and return to ISPF/PDF Edit.
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(QEPSTG EEVALF EEVSRCHM EEVFFND EEVDLIST)'
+  &EEVCASE  = 'Y'                              /* Force uppercase on         */
+  &EEVMIXEL = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+  .ZVARS = '(QEPSTG EEVALF EEVSRCHM EEVFFND EEVDLIST EEVMIXEL EEVCASE)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+  .HELP = ENDHE900
+  if (.MSG = 'SMGR164E') .MSG = '' /* clear not in sync message */
+  &VARWKCMD = '  '
+  &MODE = 'Copy'         /* Default Copy mode
+  VGET (COMPELMF COMPALLB) SHARED /* get flags to see if comp or compare */
+  if (&COMPELMF = 'Y')   /* Are we doing a compare? */
+     &MODE = 'Compare'   /* ... Set the text mode switch */
+     &EEVSRCHM = 'Y'     /* ... Deafut to searching up the map */
+     &EEVFFND = 'N'      /* ... and turn off first found */
+  if (&COMPALLB = 'Y')   /* Did user request ALL? */
+     &QEPSBS = '*'       /* ... set Subsystem (Sandbox to '*')
+  if (.MSG = &Z)         /* IF there are no messages to show... */
+     if (&VARWKCMD = ' ' AND &QEPELM NE ' ' AND &FPDONE NE 'Y')
+        &VARWKCMD = 'CO'    /* Allow speed path if element is specified */
+        .RESP = ENTER
+)PROC
+  &FPDONE   = 'Y'        /* Allow speed path only once           */
+  if (&VARWKCMD = 'END','CAN','CANCEL')
+      &VARWKCMD = ' '
+      .RESP = END
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+  if (&EEVCASE = 'Y')    /* perform uppercase if required */
+     &QEPELM = UPPER(QEPELM)
+)FIELD
+ FIELD(VARWKCMD) SCROLL(NO)  LEN(255)
+ FIELD(QEPELM) IND(QEPIND) SCROLL(ON)
+)PNTS
+ FIELD(ZPS01001) VAR(VARWKCMD) VAL(' ')
+ FIELD(ZPS01002) VAR(VARWKCMD) VAL(END)
+)END

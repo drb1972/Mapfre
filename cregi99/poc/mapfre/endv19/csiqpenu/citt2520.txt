@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Symbolics To Define Base and Delta Libraries \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These symbolics can be used to define base, delta, source output and
++include libraries on the Type Definition panel.
++
+%Category           Symbolic      Alias for symbolic+
++ Site              &&C1SITE
++ Environment       &&C1ENVMNT         &&C1EN
++ Stage             &&C1STAGE          &&C1ST
++ Stage 1           &&C1STAGE1         &&C1ST1
++ Stage 2           &&C1STAGE2         &&C1ST2
++ Stage ID          &&C1STGID          &&C1SI
++ Stage 1 ID        &&C1STGID1         &&C1SI1
++ Stage 2 ID        &&C1STGID2         &&C1SI2
++ Stage number      &&C1STGNUM         &&C1S#
++ System            &&C1SYSTEM         &&C1SY
++ Subsystem         &&C1SUBSYS         &&C1SU
++ Type              &&C1ELTYPE         &&C1TY
++
++Example: system name.&&C1SUBSYS..&&C1STGID..SRCLIB
++                                                     (%PF3+to return)
+)END

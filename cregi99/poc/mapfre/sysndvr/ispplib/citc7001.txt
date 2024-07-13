@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ AllFusion Endevor Change Manager r7 - New Features \-\
+%Option ===>_ZCMD                                                              +
+%                                                      %(Screen 2 of 2)+
++
++    The following panels present information about the new features and
++    enhancements that are available with r7 of Endevor Change Manager.
++    Select%13+-%22+for information about the topics listed below:
+%                                                                          Last+
+%                                                                       Changed+
++
+%    13+- Optional Feature to Remember CCID/Comment Across Sessions        %sp1+
+%    14+- Element Fetch for Delta Synchronization Option                   %sp3+
+%    15+- Email Administration Usability Enhancements                      %sp1+
+%    16+- Processor EXEC Statement Parameter to Suppress ALT ID Switch     %sp1+
+%    17+- Source symbolics for Generate processor in MOVE/TRANSFER action  %sp2+
+%    18+- CMEW support for package shipments                               %sp2+
+%    19+- ACMQ and CONRELE related components                              %sp2+
+%    20+- SCL modifications (4 screens)                                    %sp3+
+%    21+- New pop-ups in Quick-Edit                                        %sp3+
+%    22+- Eprint and CSV output changes                                    %sp3+
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 13,CITC7130 14,CITC7140
+                       15,CITC7150 16,CITC7160 17,CITC7170 18,CITC7180
+                       19,CITC7190 20,CITC7200 21,CITC7210 22,CITC7220
+                                  )
+   &ZCONT = CITC7000
+)END

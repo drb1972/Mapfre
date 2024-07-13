@@ -1,0 +1,27 @@
+)ATTR DEFAULT(!+_)
+       /* ! TYPE(TEXT) INTENS(HIGH)    FOR BOLD TEXT     */
+       /* + TYPE(TEXT) INTENS(LOW)     REGULAR TEXT      */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) */
+)BODY EXPAND(\\)
+!TUTORIAL \-\ WIP Edit Command Parameters \-\ TUTORIAL
+!OPTION ===>_ZCMD                                                              +
+!
++When a command can use parameters, the acceptable values are!R+to specify
++a Root file,!1+to specify a Derivation 1 file, and!2+to specify a
++Derivation 2 file.
++
++For example, to use the WIPSHOW command to display records for the
++Root and Derivation 2 files, you would type!WIPSHOW R 2+
++
++When you specify more than one file in a command, the command executes
++against lines that include identifiers for any or all of the specified
++files. For example, when you issue the command!WIPLDEL 1 2+the WIPLDEL
++command will logically delete lines that were inserted from the Derivation
++1 file (%I-1), the Derivation 2 file (%I-2), or both files (% I-1,2).
++
++When you specify one file in a command, the command executes against lines
++that include the specified identifier. For example, when you issue the
++command!WIPLDEL 1+the WIPLDEL command will logically delete lines that
++were inserted from the Derivation 1 file (%I-1), or both files (%I-1,2)
++
+)END

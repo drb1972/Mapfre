@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Endevor Fields \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
+%Environment, System, Subsystem,+and%Type+must be explicit. Selection
++lists are provided if necessary. If you provide an invalid Stage ID,
++acceptable Stage ID values are displayed to the right of this field
++when you press ENTER.
++
++Select an option at the bottom of this panel for information on element
++specification.
++
+%VVLL+ - This field allows you to build a WIP member using
++   a specific version and level of an element. You can:
++
++     * Type a VVLL value on the Specification Panel.
++     * Use a Summary of Levels panel to select a specific VVLL.
++
++   Select%1-3+for information about
++
+%    1+- Specifying Root elements   %3+- Specifying Derivation 2
+%    2+- Specifying Derivation 1          elements
++          elements
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TRMEM 2,BC1TD1MM 3,BC1TD2MM)
+)END

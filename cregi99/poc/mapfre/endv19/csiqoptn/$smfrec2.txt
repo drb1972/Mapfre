@@ -1,0 +1,39 @@
+         MACRO                                                          00010004
+&NAME    $SMFREC2           &DSCT=YES                                   00020004
+         AIF   ('&DSCT' NE 'YES').NODSCT                                00050004
+$SMFREC2 DSECT                                                          00060004
+         AGO   .START                                                   00070004
+.NODSCT  ANOP                                                           00080004
+$SMFREC2 DS     0D                 ALIGN IT
+.START   ANOP                                                           00100004
+*********************************************************************** 00110000
+*                                                                     * 00111000
+*        $SMFREC2 - DESCRIPTION FOR THE ACTIVITY RECORD               * 00120000
+*                                                                     * 00130000
+*********************************************************************** 00140100
+SM2REC1  EQU   *                   START OF THE SMF 2 RECORD            00141000
+SM2RECLN DS    H                   LENGTH OF THE ACTIVITY RECORD        00142001
+SM2RECVN DS    H                   VERSION OF THE RECORD                00143004
+SM2$V1   EQU   X'01'                    VERSION 1                       00144004
+SM2$V2   EQU   X'02'                    VERSION 2                       00144004
+SM2$CURV EQU   SM2$V2                   CURRENT VERSION 2               00144004
+SM2FUNC  DS    F                   ACTION CODE                          00145000
+*                                  SEE ECBFUNC OF $ECBDS FOR LIST OF    00145100
+*                                  ACTIONS.                             00145200
+SM2FUNNM  DS    CL8                 FUNCTION NAME                       00146004
+SM2BLKS   DS    F                   NUMBER OF BLOCKS IN RECORD          00147004
+SM2RECHD  DS    H                   SIZE OF THE SM2 HEADER              00149315
+SM2IFUNC  DS    H                   INTERNAL SECURITY FUNCTION          00149400
+*                                  SEE ECBFUNC OF $ECBDS FOR LIST OF    00149500
+*                                  ACTIONS.                             00149600
+SM2DATA   DS    0D
+SM2HDRLN  EQU   *-SM2REC1          OFFSET TO START OF RECORD            00149506
+          DS    (SM2LCHLN)CL1           ONE LAST ACTION BLOCK
+          DS    (SM2PRCLN)CL1           ONE PROCESSOR INFO
+          DS    (SM2REQLN)CL1           ONE REQUEST PARM BLOCK
+          DS    (SM2ALTLN)CL1           ONE ALTER INFO BLOCK
+          DS    (SM2ENVLN)CL1           ENV 1 BLOCK
+          DS    (SM2ENVLN)CL1           ENV 2 BLOCK
+          DS    100CL1              EXTRA ROOM                          00151014
+SM2SIZ   EQU    *-$SMFREC2         SIZE OF THE RECORD                   00160010
+          MEND                                                          00360000

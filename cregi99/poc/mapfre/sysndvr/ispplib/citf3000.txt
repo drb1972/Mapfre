@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Generating an element creates outputs: object modules, load modules,
++listings, etc. You determine the kinds of outputs produced in the
++generate processor(s) that you write for each type in your software
++inventory. See Chapter 4, Processors, and Chapter 5, Processor Groups,
++in the Administrator's Guide.
++
+%Warning:+Do not execute a standalone Generate action against a load module.
++   Doing so can result in change regression because of the way generate
++   processors handle load modules. See Chapter 6 of the Users Guide 6.9.5
++   Generating Elements Without Copyback and 6.9.6 Generating Elements
++   with Copyback.
++
++    Select%1+-%4+for information about specific enhancements
++
+%    1+- panel options              %3+- Action options
+%    2+- Inventory fields           %4+- List options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF3001 2,CITNDVR0 3,CITF3002 4,CITLOPT0)
+)END

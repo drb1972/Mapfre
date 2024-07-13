@@ -1,0 +1,53 @@
+BC1TEI90 TITLE 'ENDEVOR/INFO STARTUP BLOCK'                             00010000
+*********************************************************************** 00020000
+*                                                                     * 00030000
+*  THIS IS A SAMPLE ENDEVOR/INFO STARTUP BLOCK. DURING EXIT 5 PROCESS-* 00040000
+*  ING THIS BLOCK WILL BE PROVIDE THE INTERFACE THE REQUIRED PARMS    * 00050000
+*  AND SESSION ID TO INITIALIZE THE INTERFACE AND THE INFO/MAN 4.2    * 00060000
+*  API SERVER.                                                        * 00070000
+*                                                                     * 00090000
+*********************************************************************** 00100000
+*********************************************************************** 00020000
+*                                                                     * 00030000
+*  THERE ARE FIVE MAIN PIECES OF INPUT.                               * 00040000
+*                                                                     * 00030000
+*              BLGSESS=00        <===  STANDARD INFO/MAN SESSION      * 00090000
+*                                      SUFFIX. DEFAULT IS 00.         * 00090000
+*                                       (BLGSES00)                    * 00090000
+*                                                                     * 00090000
+*              APISESID=USERID   <===  THE 4.2 API WILL ALLOW USERS   * 00090000
+*                                      TO HAVE SESSION IDS.           * 00090000
+*                                      IF THIS FIELD IS NOT MODIFIED  * 00090000
+*                                      THEN THE REAL TIME USERID WILL * 00090000
+*                                      BE SUBSTITUTED AT EXEC TIME.   * 00090000
+*                                                                     * 00090000
+*              ENDVPIDT=ENDEVOR  <===  THE NAME OF THE LOAD MODULE    * 00090000
+*                                      THAT WAS CREATED BY THE BATCH  * 00090000
+*                                      UTILITY. THIS IS THE TABLE     * 00090000
+*                                      NAME. DEFAULT IS ENDEVOR.      * 00090000
+*                                                                     * 00090000
+*              INVCLASS=MASTER   <===  INFO/MAN HAS ITS OWN SECURITY  * 00090000
+*                                      SYSTEM. THROUGH THE USE OF     * 00090000
+*                                      CLASSES, USERIDS ARE REGISTERED* 00090000
+*                                      IN ONE OR MORE CLASSES. EACH   * 00090000
+*                                      CLASS HAS A SET OF PRIVLEDGES. * 00090000
+*                                      DEFAULT IS MASTER.             * 00090000
+*              WAITTIME=300      <===  THE MAX TIME THE INTERFACE     * 00090000
+*                                      WILL WAIT FOR A REPSONSE BACK  * 00090000
+*                                      FROM THE INFO/MAN SERVER.      * 00090000
+*                                      DEFAULT IS 300 SECS.           * 00090000
+*********************************************************************** 00100000
+         @EINFO ENTRY=START,                                           X00110000
+               BLGSESS=00,                                             X00111000
+               APISESID=USERID,                                        X00111000
+               ENDVPIDT=ENDEVOR,                                       X00111000
+               INVCLASS=MASTER,                                        X00111000
+               WAITTIME=300,                                           X00111000
+               RECTYPE=CHANGE                                           00111000
+         @EINFO ENTRY=END                                               00112000
+*********************************************************************** 00020000
+*  THIS INPUT SHOULD BE ASSEMBLED AND LINKED INTO A STEPLIB DATASET.  * 00040000
+*  PLEASE REFER TO THE INTERFACE CHAPTER COVERING IMPLEMENTATION AND  * 00050000
+*  INSTALLATION.                                                      * 00060000
+*                                                                     * 00090000
+*********************************************************************** 00100000

@@ -1,0 +1,46 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP2100                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ @ TYPE(OUTPUT) INTENS(HIGH) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH) PADC(_)
+)BODY
++-------------------------@PDVDEFT                   +--------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the package information below and select an action:
++   _Z+ 1  Define Package      2  Cancel the Define Action
++       N  Enter Package Notes
++
++  Package ID.............#Z               +
++  Description............~Z                                                 +
++  Package Type..........._Z         + Promotion Package......_Z+ (Y/N)
++  Sharable Package......._Z+ (Y/N)    Enable Backout........._Z+ (Y/N)
++  Append to Package......_Z+ (Y/N)
++  Execution window from.._Z      +_Z    +to_Z      +_Z    +
++  Package to be copied..._PDVCPPKG        +
++
++  SCL import data set name
++    Project.._PDVSCPRO+
++    Group...._PDVSCGRP+
++    Type....._PDVSCTYP+
++    Member..._PDVSCMBR+
++  Other SCL partitioned or sequential data set:
++   Data set name.._PDVSCOTH                                                +
++
+)INIT
+   .HELP = enit2100
+   .ZVARS = '(VARWKCMD, PDVCPKGI, PDVSLDSC,                      +
+              PDVSLTYP, PDVSLPRO, PDVSLSHR,                      +
+              PDVSLBOE, PDVPKGAP, PDVSLWSD, PDVSLWST, PDVSLWED,  +
+              PDVSLWET )'
+)PROC
+  &PDVSLTYP = TRANS(&PDVSLTYP S,STANDARD
+                              E,EMERGENCY
+                              *,*)
+  VER (&PDVSLDSC,NONBLANK,EBCDIC,MSG=ENIP011I)
+)END

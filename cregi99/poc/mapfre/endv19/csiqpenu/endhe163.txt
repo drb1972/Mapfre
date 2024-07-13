@@ -1,0 +1,76 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Using the SY Command \-\ TUTORIAL
+%Command ===>~ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%  The Quick Edit SY line command+is used to initiate a%"SYNC in PLACE"
++  action to mark a resolved%"out-of-sync"+as completed and rebuild
++  the element deltas appropriately.
++
++  This option works only in case where%CD18104_SYNC_ACTION+feature
++  is turned on.
++
++  The SY command will display a panel asking the user to confirm they
++  have already fixed any source code conflicts between the element and its
++  next version up the map, and allowing them to select the following options:
++
++ %CCID+- The CCID associated with this request. The CCID must
++     conform to CCID syntax rules.
++
++ %Comment+- The comment associated with this request. Comments can
++     be up to 40 characters and cannot include imbedded single
++     quotation marks.
++
++ %Override Signout+- Indicates whether you can synchronize this
++     element when it has been signed out to a user other than
++     yourself.
++
++       %Y+- Override the current signout and allow access to the
++            element.
++       %N+- (Default). Do not override the current signout.
++
++ %With History+- Indicates whether change levels of the element
++     should be kept.
++
++       %Y+- Keep all change levels of the element.
++
++       %N+- Keep only the latest change level.
++
++ %Generate after Sync+- Indicates whether the element will be
++     generated after the synchronization.
++
++       %Y+- Generate the element after synchronization.
++
++       %N+- Do not generate the element.
++
++ %Generate Action Mode+- Indicates whether the generate action
++     should be executed in foreground or batch.
++
++       %F+- Execute the generate in the foreground session.
++
++       %B+- Submit a batch job to execute the generate action.
++
++ %Caution+
++
++  The intended usage of this feature in Quick Edit is for elements whose
++  source code has already been corrected (manually or by an outside tool),
++  and any changes from up the map were merged into the element version
++  being synchronized. Using the sync in place without making sure that
++  the source code has been correctly merged can result in code changes
++  getting reverted once the element is moved up the map.
++
++ %Note+
++
++  The element levels created by a sync in place match the levels obtained
++  by using a Move/Transfer action with Sync option as closely as possible.
++
++                                 (Press}END+to return)
+)PROC
+&ZUP = ENDHE150
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(END)
+)END

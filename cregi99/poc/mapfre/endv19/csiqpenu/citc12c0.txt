@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API & CSV Utility New Function \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 3 of 3+
+% List Package Ship +
+
++ Another new function added to the API and CSV Utility is%List Package Ship.+
+  This function returns data corresponding to all or only the last shipment of a
+  Endevor package. Each shipment of a package can contain up to %10+
+  destinations, resulting in up to%10+response records for each shipment.
+
+
+
+
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12D0
+)END

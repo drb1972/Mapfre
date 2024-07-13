@@ -1,0 +1,47 @@
+%-----------------------  Walker Type Selection Menu ------------------ --------
+%OPTION  ===>_ZCMD                                                             +
+%
+%
+%    1  +DOC      - Help TEXT
+%    2  +DOP      - Dialogue Object Processor
+%    3  +ERR      - Error Message
+%    4  +FID      - File Definition & Data Dictionary Definitions
+%    5  +GMT      - Maintainer Transaction Definition
+%    6  +IFE      - Integrator Event
+%    7  +IFI      - Integrator Move Set
+%    8  +NAM      - TGS Name
+%    9  +PSU      - Walker Production Software Update
+%   10  +RPT      - Report Builder Report Program
+%   11  +SCR      - Screenbuilder Screen Definition
+%   12  +TGS      - Transaction Generator Program
+%   13  +TID      - Transaction Definition
+%   14  +VAL      - Value Definition
+%   15  +VMS      - Validation Set
+%
+%
+%
+%
+%
++Enter%END+command to return to PRIMARY OPTIONS PANEL
+)INIT
+  .HELP = TUTORPAN              /* insert name of tutorial panel    */
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+                1,'CMD(%WALKUDOC)'
+                2,'CMD(%WALKUDOP)'
+                3,'CMD(%WALKUERR)'
+                4,'CMD(%WALKUFID)'
+                5,'CMD(%WALKUGMT)'
+                6,'CMD(%WALKUIFE)'
+                7,'CMD(%WALKUIFI)'
+                8,'CMD(%WALKUNAM)'
+                9,'CMD(%WALKUPSU)'
+                10,'CMD(%WALKURPT)'
+                11,'CMD(%WALKUSCR)'
+                12,'CMD(%WALKUTGS)'
+                13,'CMD(%WALKUTID)'
+                14,'CMD(%WALKUVAL)'
+                15,'CMD(%WALKUVMS)'
+                *,'?' )
+  &ZTRAIL = .TRAIL
+)END

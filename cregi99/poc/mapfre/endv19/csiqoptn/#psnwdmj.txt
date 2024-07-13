@@ -1,0 +1,11 @@
+@REM ****************************************************** #PSNWDMJ ***
+@REM *    CONTENTS: ENDEVOR/MVS - CONDITIONAL REMOTE VOLSER FOR COPY
+@REM * TRANSMITTER: NETWORK DATA MOVER
+@REM *     PURPOSE: IF A VOLSER WAS SPECIFIED FOR REMOTE STAGING
+@REM *              DATASETS (DESTINATION DEFINITION), INCLUDE IT IN
+@REM *              THE COPY COMMAND
+@REM *******************************************************************
+@REM *
+@IF &RVOLSER
+                VOL=SER=&RVOLSER -
+@ENDIF

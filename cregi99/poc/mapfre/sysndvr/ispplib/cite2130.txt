@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - Last System Backup \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields contain the date and time of the most recent backup of
++the system.  They appear on the System Definition panel in Display and
++Delete modes only.
++
+%   Date+- Date of most recent system backup.
++
+%   Time+- Time of most recent system backup.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

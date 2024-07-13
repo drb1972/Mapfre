@@ -1,0 +1,184 @@
+         MACRO                                                          00000001
+&LABEL   FUNCEQU &SAFAUTH=,        RACF AUTHORITY TO BE ASSIGNED       X00000002
+               &C1ACTNS=,          C1 ACTIONS RELATED TO AUTHORITY     X00000003
+               &TYPE=              USE TO INDICATE "TYPE=END"           00000004
+         COPY  ESIGLBL
+         LCLA  &I,&J,&K                                                 00000008
+         LCLA  &MAXNAME                                                 00000009
+         LCLA  &RACFLGS(5)                                              00000010
+         LCLC  &ACTIONS(256)                                            00000011
+         LCLC  &RACF(5)                                                 00000012
+.*                                                                      00000013
+&ACTIONS(1)    SETC  'ADD'                                              00000014
+&ACTIONS(2)    SETC  'ARCHIVE'                                          00000015
+&ACTIONS(3)    SETC  'CHGTYPE'                                          00000016
+&ACTIONS(4)    SETC  'DELETE'                                           00000017
+&ACTIONS(5)    SETC  'DISPLAY'                                          00000018
+&ACTIONS(6)    SETC  'ENVRNMGR'                                         00000019
+&ACTIONS(7)    SETC  'MOVE'                                             00000020
+&ACTIONS(8)    SETC  'GENERATE'                                         00000021
+&ACTIONS(9)    SETC  'RETRIEVE'                                         00000022
+&ACTIONS(10)   SETC  'SIGNOVR'                                          00000023
+&ACTIONS(11)   SETC  'UPDATE'                                           00000024
+&ACTIONS(12)   SETC  'VALIDATE'                                         00000025
+&ACTIONS(13)   SETC  'TRANSFER'                                         00000026
+&ACTIONS(14)   SETC  'RESTORE'                                          00000028
+&ACTIONS(15)   SETC  'SIGNIN'                                           00000028
+&ACTIONS(16)   SETC  'PBACKOUT'                                         00000028
+&ACTIONS(17)   SETC  'PCAST'                                            00000028
+&ACTIONS(18)   SETC  'PCOMMIT'                                          00000028
+&ACTIONS(19)   SETC  'PCREATE'                                          00000028
+&ACTIONS(20)   SETC  'PDISPLAY'                                         00000028
+&ACTIONS(21)   SETC  'PEXECUTE'                                         00000028
+&ACTIONS(22)   SETC  'PLIST'                                            00000028
+&ACTIONS(23)   SETC  'PMODIFY'                                          00000028
+&ACTIONS(24)   SETC  'PREVIEW'                                          00000028
+&ACTIONS(25)   SETC  'PSHIP'                                            00000028
+&ACTIONS(26)   SETC  'PUTILITY'                                         00000028
+&ACTIONS(27)   SETC  'PDYNAMIC'                                         00000028
+&ACTIONS(28)   SETC  'ALTER'                                            00000028
+&ACTIONS(29)   SETC  'SIGNOUT'                                          00000028
+&MAXNAME       SETA  29                                                 00000029
+.*                                                                      00000026
+&RACF(1)       SETC  'NONE'                                             00000027
+&RACFLGS(1)    SETA  0                                                  00000028
+&RACF(2)       SETC  'READ'                                             00000029
+&RACFLGS(2)    SETA  2                                                  00000030
+&RACF(3)       SETC  'UPDATE'                                           00000031
+&RACFLGS(3)    SETA  4                                                  00000032
+&RACF(4)       SETC  'CONTROL'                                          00000033
+&RACFLGS(4)    SETA  8                                                  00000034
+&RACF(5)       SETC  'ALTER'                                            00000035
+&RACFLGS(5)    SETA  128                                                00000036
+.*                                                                      00000037
+&I       SETA  1
+.CHKTABL ANOP
+         AIF   (&I GT &MAXNAME).CHKT800
+&J       SETA  1
+&K       SETA  0
+.CHKT020 ANOP
+         AIF   (&J GT &MAXNAME).CHKT040
+         AIF   ('&ACTIONS(&I)' NE '&ACTIONS(&J)').CHKT030
+&K       SETA  &K+1
+.CHKT030 ANOP
+&J       SETA  &J+1
+         AGO   .CHKT020
+.CHKT040 ANOP
+         AIF   (&K LE 1).CHKT050
+         MNOTE 4,'ACTION &ACTIONS(&I) DUPLICATED IN ACTION TABLE &K TIM++
+               E'
+.CHKT050 ANOP
+&I       SETA  &I+1
+         AGO   .CHKTABL
+.*
+.CHKT800 ANOP
+         AIF   ('&TYPE' NE 'END').TYPEOK                                38
+.TYPEGN  ANOP
+         AIF   ('&SAFAUTH' EQ '' AND '&C1ACTNS' EQ '').GENERAT          00000039
+.TYPEOK  ANOP                                                           00000040
+.*                                                                      00000041
+.* FIRST VALIDATE THE "SAFAUTH" VALUE.                                  00000042
+.* IT SHOULD BE IN THE &RACF TABLE.                                     00000043
+.*                                                                      00000044
+&K       SETA  0                                                        00000045
+.SAFCHK  ANOP                                                           00000046
+&K       SETA  &K+1                                                     00000047
+         AIF   (&K GT 5).SAFERR                                         00000048
+         AIF   ('&SAFAUTH' NE '&RACF(&K)').SAFCHK                       00000049
+.*                                                                      00000050
+.* NOW, FOR EACH ACTION SPECIFIED, VERIFY AND UPDATE THE                00000051
+.* APPROPRIATE FLAGS ENTRIES.                                           00000052
+.*                                                                      00000053
+&I       SETA  0                                                        00000054
+.NXTACTN ANOP                                                           00000055
+&I       SETA  &I+1                                                     00000056
+         AIF   (&I GT N'&C1ACTNS).ACTNOK                                00000057
+.*                                                                      00000058
+.* LOOKUP THE ACTION SPECIFIED IN THE &ACTIONS TABLE.                   00000059
+.*                                                                      00000060
+&J       SETA  0                                                        00000061
+.ACTCHK  ANOP                                                           00000062
+&J       SETA  &J+1                                                     00000063
+         AIF   (&J GT &MAXNAME).ACTERR                                  00000064
+         AIF   ('&C1ACTNS(&I)' EQ 'TRANSFER').ACTBAD                    00000064
+         AIF   ('&C1ACTNS(&I)' EQ 'CHGTYPE').ACTBAD                     00000064
+         AIF   ('&C1ACTNS(&I)' EQ 'RESTORE').ACTBAD                     00000064
+         AIF   ('&C1ACTNS(&I)' EQ 'VALIDATE').ACTBAD                    00000064
+         AIF   ('&C1ACTNS(&I)' NE '&ACTIONS(&J)').ACTCHK                00000065
+.*                                                                      00000066
+.* CHECK IF ACTION HAS ALREADY BEEN SPECIFIED, IF SO, CHECK THE         00000067
+.* AUTHORITY LEVEL.                                                     00000068
+.*                                                                      00000069
+         AIF   (NOT &AMASK(&J)).ACTNEW                                  00000070
+.* IGNORE IF DUPLICATE SPECIFICATION.                                   00000071
+         AIF   (&AMASK1(&J) EQ &RACFLGS(&K)).SAMEACT                    00000072
+         AIF   (&AMASK1(&J) LT &RACFLGS(&K)).PREVACT                    00000073
+         ESIERR 4,'ACTION &C1ACTNS(&I) WAS PREVIOUSLY SPECIFIED'        00000074
+         ESIERR *,'  WITH A HIGHER LEVEL OF AUTHORITY.  THIS'           00000075
+         ESIERR *,'  SPECIFICATION WILL BE USED.'                       00000076
+         AGO   .ACTNEW                                                  00000077
+.PREVACT ANOP                                                           00000078
+         ESIERR 4,'ACTION &C1ACTNS(&I) WAS PREVIOUSLY SPECIFIED'        00000079
+         ESIERR *,'  WITH A LOWER LEVEL OF AUTHORITY.  PREVIOUS'        00000080
+         ESIERR *,'  SPECIFICATION WILL BE USED.'                       00000081
+         AGO   .NXTACTN                                                 00000082
+.SAMEACT ANOP                                                           00000083
+         ESIERR *,'ACTION &C1ACTNS(&I) WAS PREVIOUSLY SPECIFIED'        00000084
+         ESIERR *,'  WITH THE SAME LEVEL OF AUTHORITY.  DUPLICATE'      00000085
+         ESIERR *,'  SPECIFICATION IGNORED.'                            00000086
+         AGO   .NXTACTN                                                 00000087
+.ACTNEW  ANOP                                                           00000088
+&AMASK(&J)     SETB  1                                                  00000089
+&AMASK1(&J)    SETA  &RACFLGS(&K)                                       00000090
+&AMASK2(&J)    SETA  0                                                  00000091
+         AGO   .NXTACTN                                                 00000092
+.*                                                                      00000093
+.*                                                                      00000094
+.*                                                                      00000095
+.*                                                                      00000096
+.ACTNOK  ANOP                                                           00000097
+         AIF   ('&TYPE' NE 'END').MEND                                  00000098
+.GENERAT ANOP                                                           00000099
+&LABEL   ESIGNEQU
+         AIF   (&FUNCEND).GENERR                                        00000101
+&FUNCEND SETB  1                   INDICATE TABLE GENERATED             00000104
+&I       SETA  0                                                        00000102
+&J       SETA  3                   NUMBER OF BLANK SLOTS                00000103
+FUNCTBL  DC    H'&MAXNAME'         NUMBER OF ACTION ENTRIES             00000105
+.GENEXT  ANOP                                                           00000106
+&I       SETA  &I+1                                                     00000107
+         AIF   (&I GT &MAXNAME).GENDONE                                 00000108
+         AIF   (K'&ACTIONS(&I) LE 12).GENOK
+         ESIERR 8,'ACTION &ACTIONS(&I) EXCEEDS 12 CHARACTERS AND WILL B+++
+                E TRUNCATED'
+.GENOK   ANOP
+         DC    CL8'&ACTIONS(&I)'                                        00000109
+         DC    AL1(&AMASK1(&I),&AMASK2(&I))                             00000110
+         AGO   .GENEXT                                                  00000111
+.GENDONE ANOP                                                           00000112
+         AIF   (&J EQ 0).GENEND                                         00000113
+&J       SETA  &J-1                                                     00000114
+         DC    CL12' '                                                  00000115
+         DC    AL1(0,0)                                                 00000116
+         AGO   .GENDONE                                                 00000117
+.GENEND  ANOP                                                           00000112
+         ESIGNEND
+         AGO   .MEND
+.SAFERR  ANOP                                                           00000118
+         ESIERR 8,'SAFAUTH PARAMETER "&SAFAUTH" IS INVALID.'            00000119
+         ESIERR *,'  MACRO PROCESSING TERMINATED.'                      00000120
+         AGO   .MEND                                                    00000121
+         ESIERR 4,'ACTION &C1ACTNS(&I) WAS PREVIOUSLY SPECIFIED'        00000122
+.ACTERR  ANOP                                                           00000123
+         ESIERR 8,'ACTION PARAMETER "&C1ACTNS(&I)" IS INVALID.'         00000124
+         ESIERR *,'  PARAMETER IGNORED.'                                00000125
+         AGO   .NXTACTN                                                 00000126
+.ACTBAD  ANOP                                                           00000123
+         ESIERR 8,'ACTION VALUE "&C1ACTNS(&I)" IS NOT SUPPORTED.'       00000124
+         ESIERR *,'  PARAMETER IGNORED.'                                00000125
+         AGO   .NXTACTN                                                 00000126
+.GENERR  ANOP                                                           00000127
+         ESIERR 8,'TABLE GENERATION HAS ALREADY OCCURRED.'              00000128
+         AGO   .MEND                                                    00000129
+.MEND    ANOP                                                           00000130
+         MEND                                                           00000131

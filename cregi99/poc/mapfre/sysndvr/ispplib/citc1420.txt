@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Promotion Package Stop-At-Stage \-\
+%Option ===>_ZCMD                                                   %Release 14+
+%
+%Promotion Package Stop-At-Stage +
++
+ The Promotion Package Stop-at-Stage feature lets administrators define
+ inventory lifecycle stages at which the automatic processing of promotion
+ packages is suspended. This allows promotion packages to be shipped from a
+ location other than the final location defined in the map. To enable this
+ feature, the administrator sets the stop-at-stage parameters in the
+ environment section of the C1DEFLTS table.
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1430
+)END

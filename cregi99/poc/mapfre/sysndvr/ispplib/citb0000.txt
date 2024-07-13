@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
++TUTORIAL%\-\ Batch Options Menu \-\+TUTORIAL
++SELECTION%===>_ZCMD                                                           +
+%
++Use the Batch Options menu to access panels that allow you to build,
++edit, validate, and submit batch jobs.
++
++    Select one of the following options for more information:
++
+%    1+- Building SCL              % 7+- Job Statement
+%    2+- Editing Batch Requests    % 8+- Append
+%    3+- Submitting Jobs           % 9+- Include JCL
+%    4+- Validating SCL Syntax     %10+- STOPRC
+%    5+- Building Additional JCL   %11+- Concurrent Action Processing
+%    6+- Request Data Set
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITB0001 2,CITB0002 3,CITB0003 4,CITB0004
+                  5,CITB0005 6,CITB0006 7,CITJBST0 8,CITB0007
+                    9,CITB0008 10,CITB0009 11,CITB0010)
+)END

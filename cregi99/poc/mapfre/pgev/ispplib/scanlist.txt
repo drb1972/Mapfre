@@ -1,0 +1,60 @@
+%------------------------- Scan Endevor Listings -------------------------------
+%OPTION  ===>_ZCMD                                                             +
+%
+%  S +SUB           - Submit scan job
+%  J +JCL           - Edit scan job JCL
+%
++TYPE           ===>_SLTYPE  +  e.g.%ASMC+or%COBB+or%COB*+etc.
++ENDEVOR SYSTEM ===>_Z +
++ENDEVOR STAGE  ===>_Z+
++STRING         ===>_SL1                                     +
++STRING2        ===>_SL2                                     + <- Optional
++STRING3        ===>_SL3                                     + <- Optional
++STRING4        ===>_SL4                                     + <- Optional
++SEARCH MODE    ===>_Z+       %F+- Fast Scan %E+- Expanded source only scan
++SPLIT RESULTS  ===>_Z+       %Y/N+For multiple strings (Fast scan only)
++BUILD SCL      ===>_Z+       %R+- Retrieve,%N+- NoSCL
++
++ JOB STATEMENT INFORMATION:
++    ===>_C1BJC1
++    ===>_C1BJC2
++    ===>_C1BJC3
++    ===>_C1BJC4
+)INIT
+ .HELP = SCANLISH
+ .CURSOR = ZCMD
+ .ZVARS = '(SLSYS,SLSTG,SLMODE,SLSPLIT,SLSCL)'
+ *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+ VGET (SLTYPE SLSYS SLSTG SL1 SL2 SL3 SL4 SLMODE SLSPLIT SLSCL) PROFILE
+)PROC
+&DSN = PREV.&SLSTG&SLSYS..LISTINGS
+&st1 = ³&SL1³
+&st2 = ³&SL2³
+&st3 = ³&SL3³
+&st4 = ³&SL4³
+&typ3 = TRUNC(&sltype,3)
+&ZSEL = TRANS( TRUNC (&ZCMD,'.')
+   S,'CMD(SCAN1 S &SLTYPE &DSN &SLMODE &SLSPLIT &SLSCL &ST1 &ST2 &ST3 &ST4)'
+   J,'CMD(SCAN1 J &SLTYPE &DSN &SLMODE &SLSPLIT &SLSCL &ST1 &ST2 &ST3 &ST4)'
+   ' ',' '
+   *,'?' )
+VER (&SLTYPE,NB,LISTX,*)
+VER (&SLSTG,NB,LIST,T,U,A,B,C,D,E,F,O,P,Z)
+VER (&SLSYS,NB,LEN,'=',2)
+VER (&SLSYS,ALPHAB)
+VER (&SL1,NB)
+VER (&SLMODE,NB,LIST,E,F)
+VER (&SLSPLIT,NB,LIST,Y,N)
+VER (&SLSCL,NB,LIST,R,N)
+IF (&SLMODE EQ 'E')
+  VER (&SLSPLIT,NB,LIST,N,MSG=SLST001)
+IF (&SLMODE EQ 'E')
+  VER (&TYP3,LIST,COB,ASM,EAS,MSG=SLST002)
+VPUT(C1BJC1)
+VPUT(C1BJC2)
+VPUT(C1BJC3)
+VPUT(C1BJC4)
+&ZTRAIL = .TRAIL
+VPUT (SLTYPE SLSYS SLSTG SL1 SL2 SL3 SL4 SLMODE SLSPLIT SLSCL) PROFILE
+*REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Print Element - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+      applies if DISPLAY LIST=Y.
++
+% P+- To print all statements in the current level of the element.
++     Corresponds to display option B.
+%PC+- To print a change report showing all inserts and deletions to the
++     current level of the element. Corresponds to display option C.
+%PS+- To print a summary report showing all levels of the element.
+      Corresponds to display option S.
+%PM+- To print a report showing Master Control File information for the
++     element. Corresponds to display option M.
+%PH+- To print a history report showing all statements in all levels of
++     the element. Corresponds to display option H.
++
++The P, PC, PS, and PH options cannot be used on source-less elements.
++Source-less elements are created by the Generate NOSOURCE action.
++
++                          (%PF3+ to return,%ENTER+to continue)
+)PROC
+   &ZCONT = CITF6002
+)END

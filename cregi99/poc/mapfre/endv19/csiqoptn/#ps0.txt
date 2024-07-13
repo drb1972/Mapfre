@@ -1,0 +1,12 @@
+@REM ****************************************************** #PS0     ***
+@REM *    CONTENTS: ENDEVOR/MVS - START OF RUN
+@REM * TRANSMITTER: ANY - BUT ONLY ONCE PER RUN
+@REM *     PURPOSE: ALLOW TRACING OF A RUN - REVERSE THE POSITION OF
+@REM *              THE @EOF AND THE @TRACEON.  INSURE THAT A SEQUENTIAL
+@REM *              FILE DCB=(RECFM=FBA,DSORG=PS,LRECL=133,BLKSIZE=1330)
+@REM *              HAS BEEN ALLOCATED AND THAT A DDCARD FOR IT HAS BEEN
+@REM *              ADDED TO THE C1BMXJOB SKELETON (//C1BMXTRC DD ETC).
+@REM *******************************************************************
+@REM
+@TRACEON
+@EOF

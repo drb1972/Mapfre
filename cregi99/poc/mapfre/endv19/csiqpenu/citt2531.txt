@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Storage Formats - continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Forward delta format+- The element base is the source form of the
++   element when it is first added.  When elements are stored in this
++   format, all delta levels are applied to the base to create the current
++   image of the element.
++
++   If you select this format, the base and delta member names are
++   generated and the content compressed.
++
++
++
++
++
++
++
++
++
++                  (%PF3+to return,%ENTER+for%image delta+)
+)PROC
+   &ZCONT = CITT2532
+)END

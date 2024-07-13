@@ -1,0 +1,21 @@
+      *****************************************************************
+      *                                                               *
+      *            PRINT MEMBER - REQUEST BLOCK                       *
+      *                                                               *
+      *****************************************************************
+       01  AEPRM-RQ.
+           05  AEPRM-RQ-HEADER.
+               10  AEPRM-RQ-LEN        PIC 9(04) COMP VALUE 92.
+               10  AEPRM-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEPRM-RQ-ID         PIC 9(04) COMP VALUE 1328.
+               10  AEPRM-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEPRM-RQ-EYE        PIC X(04)      VALUE 'EPMQ'.
+           05  AEPRM-RQ-DATAAREA.
+      *        MEMBER DATA
+               10  AEPRM-RQ-MBR        PIC X(10)      VALUE SPACES.
+               10  AEPRM-RQ-MBR-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEPRM-RQ-DDN        PIC X(08)      VALUE SPACES.
+               10  AEPRM-RQ-DSN        PIC X(44)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AEPRM-RQ-TDDN       PIC X(08)      VALUE SPACES.

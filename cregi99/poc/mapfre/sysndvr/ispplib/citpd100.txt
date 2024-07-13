@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++From the%Destination Options+menu, use this list to select a
++   destination for modification or deletion.
++
++From the%Package Options+Menu, use this list to select one or more
++   destinations to receive the package displayed in the list heading.
++
++
++
++
++    Select%1+-%4+for information about specific fields.
++
+%    1+- Destination name/description   %3+- Remote Node name
+%    2+- Transmission method            %4+- Remote IPNAME/IPPORT
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITTMTD0 3,CITNODE0 4,CITIPNM0)
+)END

@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - New Features \-\
+%Option ===>_ZCMD
++                                                                 %Page 4 of 4+
++These panels provide information about features and enhancements
++introduced in%Endevor Version 18.0
++
++Enter one of the following options for more information:            Increment:
++
+%31+- Quick Edit Additional Columns in Element Selection List          SO06486
+%32+- CSV Support for List Directory                                   SO07287
+%33+- Fingerprint data added to End-to-End Logging Output              SO07346
+%34+- Quick Edit Add compare support for COMPELM (like COPYELM)        SO07890
+%35+- Quick Edit COPYELM support for Summary of levels & Browse        SO07891
+%36+- Alter Exact Match Option                                         SO07919
+%37+- Add Fingerprint Info to List Element CSV, API, RESTapi Output    SO08787
+%38+- Transfer Option to Bypass Duplicate Output Check                 SO08892
+%39+- Endevor Learn More link added to ISPF panels                     SO09821
++
++\ \ See the%Endevor+documentation at%https://techdocs.broadcom.com/endevor \ \
++\ \ for detailed information \ \
++
++\ \ (Press%ENTER+for the previous options or%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 31,CIT18310 32,CIT18320 33,CIT18330 34,CIT18340
+                       35,CIT18350 36,CIT18360 37,CIT18370 38,CIT18380
+                       39,CIT18390 40,CIT18400)
+   &ZCONT = CIT18000
+)END

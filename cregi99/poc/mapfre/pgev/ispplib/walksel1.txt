@@ -1,0 +1,25 @@
+%-----------------------  Walker Type Selection Menu ------------------ --------
+%OPTION  ===>_ZCMD                                                             +
+%
+%
+%   1   +ADD UPDATE  -  Add or Update Endevor with new source
+%   2   +RETRIEVE    -  Retrieve Element From Endevor
+%   3   +DELETE      -  Delete Element From Endevor
+%   4   +DISPLAY     -  Display Status of Elament
+%
+%
+%
+%
+%
++Enter%END+command to return to PRIMARY OPTIONS PANEL
+)INIT
+  .HELP = TUTORPAN              /* insert name of tutorial panel    */
+)PROC
+   &ZSEL=TRANS(TRUNC(&ZCMD,'.')
+             1,'PANEL(WALKSEL2)'
+             2,'PANEL(WALKSEL3)'
+             3,'PANEL(WALKSEL4)'
+             4,'PANEL(WALKSEL5)'
+             ' ',' '
+             *,'?')
+)END

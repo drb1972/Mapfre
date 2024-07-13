@@ -1,0 +1,47 @@
+         MACRO
+         ENHAAPTK &DSECT=YES,                                          X
+               &PREFIX=AAPTK,                                          X
+               &EYE=PTK,  ENA$NDVR VALIDATION CODE NEEDS EYECATCHER    X
+               &VER=1     TO END WITH LETTER Q - IM NOT KIDDING..
+*
+         ENHAAID#                      API ID DEFINITIONS
+***********************************************************************
+*        PASSTICKET REQUEST BLOCK
+***********************************************************************
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=&VER,               CONTROL BLOCK VERSION           X
+               EYE='&EYE.Q',           CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=&PREFIX._RQ
+*
+         LCLC  &P
+&P       SETC  '&PREFIX._RQ'
+*
+&P._DATA DS    0X
+&P._USER_LEN DS X                 USER ID LENGTH
+&P._USER DS    CL8                USER ID
+&P._PW   DS    CL224              PASSWORD/PASSPHRASE (ENCRYPTED)
+*
+         DS    0F                 REQUIRED FOR CHDR GEN
+&P._DATADSLN   EQU *-&P._DATA
+&P._DSLN EQU   *-&P
+         ORG   &P._DATA
+&P._DATAAREA DS XL(&P._DATADSLN)  STORAGE FOR AREA
+***********************************************************************
+*        PASSTICKET RESPONSE BLOCK
+***********************************************************************
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=&VER,               CONTROL BLOCK VERSION           X
+               EYE='&EYE.S',           CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=&PREFIX._RS
+*
+&P       SETC  '&PREFIX._RS'
+*
+&P._DATA DS    0X
+&P._PT   DS    CL8                RETURNED PASSTICKET (ENCRYPTED)
+*
+         DS    0F                 REQUIRED FOR CHDR GEN
+&P._DATADSLN   EQU *-&P._DATA
+&P._DSLN EQU   *-&P
+         ORG   &P._DATA
+&P._DATAAREA DS XL(&P._DATADSLN)  STORAGE FOR AREA
+         MEND

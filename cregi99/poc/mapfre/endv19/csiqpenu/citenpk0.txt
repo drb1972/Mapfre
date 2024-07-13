@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Enterprise Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Enterprise packages are established and executed using the
++Enterprise CCM (Change Control Management) facility.
++
++The ENTERPRISE PKG selection field defined on the Package Foreground
++Options Menu can be used to limit the package selection list.
++Valid values are:
++
+%  A+- Display enterprise and non-enterprise packages in the list.
+%  E+- Limit the list to enterprise packages.
+%  X+- Exclude enterprise packages from the list.
++
++The ENTERPRISE PKG field defined on the Package Display panel
++indicates whether the current package is an enterprise package.
++Valid values are:
++
+%  Y+- The package is an enterprise package.
+%  N+- The package is not an enterprise package.      +(%PF3+to return)
+)END

@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Transfer Option to Bypass Duplicate Output Check \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Transfer Option to Bypass Duplicate Output Check
++
++  This enhancement provides support for a%new option+for the%Transfer+
++  action,%"Bypass Duplicate Output Check".+ Specifying this option will
++  cause the check to be skipped even though the%"duplicate processor
++ %output type check"+is active for this system, avoiding an%IMGR255E+
++  error. This option may be needed when transferring elements from one
++  inventory location to another.
++
++ %Care should be taken+to ensure that specifying this option will not
++  result in processor output being%overlaid.+
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18390
+)END

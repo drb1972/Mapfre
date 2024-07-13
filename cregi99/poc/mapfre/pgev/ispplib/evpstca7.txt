@@ -1,0 +1,59 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Post CA7 Holds for Endevor Package C* jobs  \-\
+%COMMAND ==>_ZCMD
++
++ Change Record Number  ==>$Z       +
++ Which CA7?         ALL==>$Z+ (Y/N) ALL PLEXES
++
++                    P02==>$Z+ (Y/N)%P-Plex
++                    P03==>$Z+ (Y/N)%N-Plex
++                    P04==>$Z+ (Y/N)%Q-Plex
++                    P05==>$Z+ (Y/N)%M-Plex
++                    P06==>$Z+ (Y/N)%E-Plex
++                    P07==>$Z+ (Y/N)%C-Plex
++                    P08==>$Z+ (Y/N)%D-Plex
++                    P09==>$Z+ (Y/N)%F-Plex
++
++   Submit or Edit JCL? ==>$Z+ (S/E)
++
++ Enter the CMR Number and which CA7 you need to release the HOLD for.
++ "ALL" will release the Endevor "C" Job in all CA7's (DEFAULT).
++ The individual release must only be used if the Package has been
++ manually released in some but not all locations.
++
++                    (Hit enter to continue)
+)INIT
+  .ZVARS = '(CMRNO C7ALL C7P02 C7P03 C7P04 C7P05 C7P06 C7P07 +
+             C7P08 C7P09 SUBED)'
+  .cursor = CMRNO
+
+)REINIT
+  .cursor = CMRNO
+)PROC
+  VER (&CMRNO,NB,LEN,'=',8,MSG=EVPS001E)
+  &PRE = trunc(&CMRNO,1)
+  VER (&PRE,NB,LIST,C,MSG=EVPS00CM)
+  &CMNO = .trail
+  VER (&CMNO,NB,RANGE,0000000,0999999,MSG=EVPS00CM)
+  VER (&C7ALL,NB,LIST,Y,N)
+  VER (&C7P02,NB,LIST,Y,N)
+  VER (&C7P03,NB,LIST,Y,N)
+  VER (&C7P04,NB,LIST,Y,N)
+  VER (&C7P05,NB,LIST,Y,N)
+  VER (&C7P06,NB,LIST,Y,N)
+  VER (&C7P07,NB,LIST,Y,N)
+  VER (&C7P08,NB,LIST,Y,N)
+  VER (&C7P09,NB,LIST,Y,N)
+  VER (&SUBED,NB,LIST,S,E)
+
+  &PFK = .PFKEY
+VPUT (CMRNO C7ALL C7P02 C7P03 C7P04 C7P05) PROFILE
+VPUT (C7P06 C7P07 C7P08 C7P09 SUBED) PROFILE
+)END

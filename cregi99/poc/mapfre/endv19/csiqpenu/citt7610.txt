@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Why Backout Does Not Affect Source \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Package backout is designed to restore load modules and other
++executables to their pre-package execution state. Backout does not
++restore the source to its previous image, because the "bad" source is
++the audit trail of the change. This audit trail should not be
++disrupted for any reason, because it allows you to view change history
++and changes only online, facilitating problem resolution.
++
++It is known that the executables have been backed out even if the
++source isn't, by flagging the element in the MCF.  Users are warned when
++they subsequently retrieve the backed-out element, that the element has
++been backed out.
++
+%Note:+If you want to restore the prior level of source, you can do so
++  online using the Summary of Levels panel on the Retrieve action. The
++  prior level of source, after retrieval, can then be added back, creating
++  a new change level and preserving the audit trail of the bad change.
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Create/Modify Connection \-\ Tutorial
+%Selection ===>_ZCMD                                                           +
+%
++Use this panel to build (i.e., create or modify) a DistribuLink
++connection and access data set mapping rule panels.
++
+%   blank+- Build the connection.
+%     C+- Create a data set mapping rule for this connection.
+%     D+- Display data set mapping rules for this connection.
+%     T+- Test data set mapping rules for this connection.
++
++
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Connection ID/Description  %3+- Staging Data Set Info
+%    2+- Server LU Name             %4+- Created/Updated Fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCONN0 2,CITSLUN0
+                  3,CITSTDS0 4,CITPDBTM)
+)END

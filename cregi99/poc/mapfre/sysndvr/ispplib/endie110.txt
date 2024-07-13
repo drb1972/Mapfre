@@ -1,0 +1,63 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*                                                                       */
+/* Note: The installation can force the Generate Processor Mode to       */
+/* be BATCH by performing the following steps:                           */
+/*  1) Change the underscore attribute character (_) one the             */
+/*     'Generate Processor Mode' line to a horizontal bar (|)            */
+/*  2) Uncomment the assignement statement in the )INIT section and      */
+/*     set the EEVPRMOD variable to B for BATCH mode or F for fore-      */
+/*     ground mode.                                                      */
+/* These steps will make the variable an unmodifiable value.             */
+/*                                                                       */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(TEXT)   INTENS(&VARQEPIN)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ! TYPE(&VARQETY )  CAPS(ON) INTENS(&VARQEIN ) PADC(_)
+ @ TYPE(&VARQETY )  CAPS(OFF) INTENS(&VARQEIN ) PADC(_)
+)BODY EXPAND(\\)
+%\-\ CA Endevor SCM Quick Edit \-\
+%Command ===>_VARWKCMD                                                         +
++
++ Dialog Commands:     %U +User Menu                                          +
++  %D+Dialog Defaults  %AO+Action Options  %P+Packages  ¢PD+Parallel Dev
++ Element Options:
++  %blank+Element list %B+Browse %CR+Create %E+Edit %C+Changes %SI+Signin
++      %G+Generate     %#+Delete  %M+Master %O+Move %S+Summary  %H+History
++
++  %LC+List Components  %LL+List Listing  %LO+List Outputs  %LI+List Inputs
++
++Location:                         List Options:
++  ENVIRONMENT..!QEPEVNME+           APPLY LIST FILTERS.........._Z+(Y/N)
++  SYSTEM.......!QEPSYS  +           BUILD USING MAP............._Z+(Y/N)
++  SUBSYSTEM....!QEPSBS  +           RETURN FIRST FOUND.........._Z+(Y/N)
++  ELEMENT......@QEPELM    +         DISPLAY ENV/SYS/SUBSYS LIST._Z+(Y/N)
++  TYPE.........!QEPTYP  +
++Action Options:
++  CCID..............^EEVCCID     +
++  Comment...........`EEVCOMM                                 +
++  Processor Group..._EEVPRGRP+
++  Override Signout.._Z+(Y/N)        Preserve VB record length..._Z+(Y/N)
++    &VARQETYP   &VARQEINT
++    Copyright (C) 1986-2013 CA. All Rights Reserved.
+)INIT
+  &CTLITRML = 'E'
+  VPUT (CTLITRML) PROFILE
+  .ZVARS = '(EEVALF EEVSRCHM EEVFFND EEVDLIST EEVOOSGN EEVOOPRE)'
+  /*---------------------------------------------------------------*/
+  /* The default value of the 'Generate Processor Mode' field can  */
+  /* be set by uncommenting the following statement.               */
+  /*---------------------------------------------------------------*/
+  /* &EEVPRMOD = B        */
+  .HELP = ENDHE100
+  &LIST2 = 'Y N'
+  IF (&EEVALF = ' ')
+    &EEVALF = 'N'
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+  VER  (&EEVALF,NB,LISTV,&LIST2,MSG=CIFV005)
+)END

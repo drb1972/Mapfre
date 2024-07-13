@@ -1,0 +1,204 @@
+         MACRO                                                          00010000
+&NAME    $ELMDS &DSCT=YES                                               00020000
+         AIF   ('&DSCT' NE 'YES').SKPDSCT                               00030000
+$ELMDS   DSECT                                                          00040000
+         AGO   .SKPEQU                                                  00050000
+.SKPDSCT ANOP                                                           00060000
+$ELMDS   DS    0F                                                       00070000
+.SKPEQU  ANOP                                                           00071000
+**********************************************************************  00080000
+*                                                                    *  00090000
+*         $ELMDS - BLOCK FOR ELEMENT INFORMATION                     *  00100000
+*                                      01/18/99                      *
+*                                                                    *  00130000
+**********************************************************************  00140000
+ELMLEN   DC     AL2(ELMSIZE)       LENGTH OF THE BLOCK                  00160001
+ELMVERS  DC     AL2(ELM$VERS)      VERSION OF THE BLOCK                 00170001
+ELM$VERS EQU    6                      VERSION 6                        00180001
+ELMID    DC     CL4'$ELM'          BLOCK ID                             00190001
+ELMFLAGS DC     F'0'               FLAGS                                00200001
+ELMMVERS DS     H                  ELEMENT VERSION                      01511000
+ELMMLLVL DS     H                  ELEMENT LEVEL NUMBER                 01512000
+ELMMINS  DS     F                  NUMBER OF INSERTS - HIGH DELTA       01513100
+ELMMDEL  DS     F                  NUMBER OF DELETES - HIGH DETLA       01513200
+ELMNAME  DS     CL10               ELEMENT NAME                         01513301
+ELMCCID  DS     CL12               USER'S CHANGE CONTROL NUMBER         01513401
+ELMM1STL DS     H                  BASE LEVEL (PROD=0,STAGE=PROD LL)    01513501
+*                                                                       01514000
+*         BASE  INFORMATION                                             01515000
+*                                                                       01516000
+ELMMBTOT DS     F                  BASE # STATEMENTS                    01610000
+ELMMBDTE DS     CL6                BASE DATE (YYMMDD)                   01620000
+ELMMBTIM DS     CL4                BASE TIME (HHMM)                     01630000
+ELMBCOM  DS     CL40               BASE COMMENT                         01631000
+ELMBUSID DS     CL8                BASE USER ID                         01632000
+*                                                                       01632100
+*         ADD/UPDATE/GEN INFORMATION                                    01632200
+*                                                                       01632300
+ELMPUSID DS     CL8                GENERATE USER ID                     01632400
+ELMPDSTP DS     CL6                GENERATE DATE (YYMMDD)               01632500
+ELMPTSTP DS     CL4                GENERATE TIME (HHMM)                 01632600
+ELMFDSN  DS     CL44               ADDED/UPDATED/RESTORED FROM - DSN    01632700
+ELMFMBR  DS     CL10               ADDED/UPDATED/RESTORE  FROM - MEMBER 01632800
+*                                                                       01633000
+*         PROCESS INFORMATION                                           01634000
+*                                                                       01635000
+ELMPRFLG DS     BL1                PROCESSOR FLAG                       01640000
+ELMPRONX EQU    B'00000000'            NO PROCESSOR EXECUTED            01641000
+ELMPROFL EQU    B'10000000'            PROCESSOR FAILED
+ELMPROGN EQU    B'01000000'            LAST PROCESSOR WAS GENERATE
+ELMPROMV EQU    B'00100000'            LAST PROCESSOR WAS MOVE
+ELMPRODL EQU    B'00010000'            LAST PROCESSOR WAS DELETE
+ELMPROUN EQU    B'00001000'            RESTORE PROCESS NOT SPECIFIED
+         DS     CL3                ** RESERVED **                       01645101
+ELMLPROD DS     CL6                PROCESSOR LAST DATE
+ELMLPROT DS     CL4                PROCESSOR LAST TIME
+ELMLPROU DS     CL8                PROCESSOR USER ID
+ELMLPRON DS     CL10               PROCESSOR NAME                       01649000
+ELMMPRC  DS     H                  PROCESSOR RETURN CODE
+ELMMRC   DS     H                  PROCESSOR C1 RETURN CODE
+ELMMPRSA EQU    B'00100000'             PROCESSOR HAD A SYSTEM ABEND
+ELMMPRUA EQU    B'00010000'             PROCESSOR HAD A USER  ABEND
+ELMPCOM  DS     CL40               PROCESSOR - LAST COMMENT
+*                                                                       01649800
+*         LAST CHANGE INFORMATION                                       01649900
+*                                                                       01650000
+ELMCCOM  DS     CL40               LEVEL COMMENT                        01650100
+ELMMLDTE DS     CL6                LEVEL DATE (YYMMDD)                  01650200
+ELMMLTME DS     CL4                LEVEL TIME (HHMM)                    01650300
+ELMLUSID DS     CL8                LEVEL USER ID                        01650401
+ELMMLACT DS     CL8                LAST ACTION                          01650501
+ELMMLTOT DS     F                  LAST LEVEL TOTAL                     01650600
+*                                                                       01651000
+*         MOVE  INFORMATION                                             01652000
+*                                                                       01653000
+*  (NOTE:  THE FOLLOWING THREE FIELDS ARE VALID ONLY FOR                00750000
+*          RELEASES OF ENDEVOR/MVS PRIOR TO 3.5)                        00760000
+*                                                                       00770000
+ELMMVDTE DS     CL6                MOVE DATE (STAGE II ONLY)            01660000
+ELMMVTIM DS     CL4                MOVE TIME (STAGE II ONLY)            01670000
+ELMMUSID DS     CL8                MOVE - USER ID                       01680000
+*                                                                       01840000
+*         RETRIEVE INFORMATION                                          01850000
+*                                                                       01860000
+ELMRDSTP DS     CL6                RETRIEVE DATE (YYMMDD)               01990000
+ELMRTSTP DS     CL4                RETRIEVE TIME (HHMM)                 02000000
+ELMRIID  DS     CL8                RETRIEVE USER ID                     02010000
+ELMRCOM  DS     CL40               RETRIEVE COMMENT                     02020000
+ELMTDSN  DS     CL44               RETRIEVE - TO DSN                    02030000
+ELMTMBR  DS     CL10               RETRIEVE - TO MEM                    02040000
+         DS     CL30               ** RESERVED **                       02050001
+*                                                                       01840000
+*         NEW 3.5 FIELDS                                                01850000
+*                                                                       01860000
+ELMRCCID DS     CL12               RETRIEVE CCID
+ELMGCCID DS     CL12               GENERATE CCID
+*                                                                       00960000
+*     THE FOLLOWING LAST ACTION FIELDS CONTAIN INFORMATION              00970000
+*     ASSOCIATED WITH THE LAST ELEMENT-MODIFYING ACTION                 00980000
+*                                                                       00990000
+ELMODACT DS     CL8                LAST ELEMENT-MODIFYING ACTION        01000000
+ELMLCCID DS     CL12               LAST ACTION CCID
+ELMLCOMM DS     CL40               LAST ACTION COMMENT
+ELMLUID  DS     CL8                LAST ACTION USER
+ELMLADT  DS     CL6                LAST ACTION DATE
+ELMLATM  DS     CL4                LAST ACTION TIME
+*                                                                       01060000
+ELMSOID  DS     CL8                SIGNOUT ID
+*                                                                       01080000
+*     THE FOLLOWING FROM ENDEVOR LOCATION FIELDS CONTAIN                01090000
+*     INFORMATION ASSOCIATED WITH THE LAST MOVE, TRANSFER               01100000
+*     OR RESTORE ACTION                                                 01110000
+*                                                                       01120000
+ELFRFLAG DS     X                  FROM ENDEVOR LOCATION FLAG FIELD     01130000
+ELFR$VAL EQU    X'80'              FIELDS CONTAIN INFORMATION           01140000
+ELFRACT  DS     CL8                ACTION NAME                          01150000
+ELFRUSID DS     CL8                USERID ASSOCIATED WITH ACTION        01160000
+ELFRDATE DS     CL6                DATE ASSOCIATED WITH ACTION          01170000
+ELFRTIME DS     CL4                TIME ASSOCIATED WITH ACTION          01180000
+ELFRSITE DS     CL1                FROM ENDEVOR LOCATION SITE           01190000
+ELFRENV  DS     CL8                FROM ENDEVOR LOCATION ENVIRONMENT    01200000
+ELFRSYS  DS     CL8                FROM ENDEVOR LOCATION SYSTYEM        01210000
+ELFRSBS  DS     CL8                FROM ENDEVOR LOCATION SUBSYSTEM      01220000
+ELFRELM  DS     CL10               FROM ENDEVOR LOCATION ELEMENT        01230000
+ELFRTYPE DS     CL8                FROM ENDEVOR LOCATION TYPE           01240000
+ELFRSTG# DS     CL1                FROM ENDEVOR LOCATION STAGE NBR      01250000
+ELFRVER  DS     H                  FROM ENDEVOR LOCATION VERSION        01260000
+ELFRLVL  DS     H                  FROM ENDEVOR LOCATION LEVEL          01270000
+*                                                                       01120000
+* ADDITIONAL ELEMENT FIELDS WHICH WERE ADDED FOR E/MVS 3.6 FOLLOW       01120000
+*                                                                       01120000
+ELMUPDT  DS     CL10               UPDATE NAME
+ELMBASE  DS     CL10               BASE NAME
+ELMLOWL  DS     CL2                LOWER LEVEL (STAGE) REACHED LEVEL
+ELMIPCTG DS     XL1                PERCENT OF PREV INSERTS DELETED
+ELMDPCTG DS     XL1                PERCENT OF PREV DELETES RE-INSERTED
+ELMFPESD DS     CL8                ESD NAME FOOTPRINTED (IF OBJECT)
+ELMEDFMT DS     CL1                ELEMENT DELTA FORMAT
+ELMENPAK DS     CL1                Y=ELE BASE NOT PACKED
+ELMLPROV DS     XL1                LAST PROCESSOR VERSION NUMBER
+ELMPROL  DS     XL1                LAST PROCESSOR LEVEL NUMBER
+ELMFMID  DS     XL1                RECORD FORMAT ID
+ELMV2R1  EQU     21                RELEASE 2.1 FORMAT ID
+ELMV2R5  EQU     25                RELEASE 2.5 FORMAT ID
+ELMV3R5  EQU     35                RELEASE 3.5 FORMAT ID
+ELMV3R6  EQU     36                RELEASE 3.6 FORMAT ID
+ELMCFMID EQU     36                CURRENT RECORD FORMAT ID
+ELMXDNAM DS     CL8                CONFIGURATION DELTA MEMBER NAME
+ELMXBVER DS     H                  CONFIGURATION DELTA VERSION NUMBER
+ELMXBTOT DS     F                  CONFIGURATION BASE TOTAL
+ELMXLTOT DS     F                  CONFIGURATION LAST LEVEL TOTAL
+ELMXBLVL DS     H                  CONFIGURATION BASE LEVEL NUMBER
+ELMXLLVL DS     H                  CONFIGURATION LAST LEVEL NUMBER
+ELMXINS  DS     H                  INSERTS AT LAST LEVEL
+ELMXDLS  DS     H                  DELETES AT LAST LEVEL
+ELMXRGIN DS     H                  CONFIGURATION REGRESSION INSERT PCT
+ELMXRGDL DS     H                  CONFIGURATION REGRESSION DELS   PCT
+ELMXBDTE DS     CL6                CONFIGURATION BASE DATE (YYMMDD)
+ELMXBTIM DS     CL4                CONFIGURATION BASE TIME (HHMM)
+ELMXLDTE DS     CL6                CONFIGURATION LAST LVL DATE (YYMMDD)
+ELMXLTIM DS     CL4                CONFIGURATION LAST LVL TIME (HHMM)
+ELMXFLAG DS     XL1                CONFIGURATION COMPONENT STAT FLAG
+ELMX$MON EQU    X'80'              CONFIGURATION BUILT BY MONITOR=...
+ELMX$CPY EQU    X'40'              CONFIGURATION BUILT BY COPY/RESTORE
+ELMXDFMT DS     CL1                CONFIGURATION DELTA FORMAT
+ELMXUPDT DS     CL1                Y = COMP BASE IN DELTA LIB
+ELMSPKG  DS     CL16               LAST PROCESSED PACKAGE ID
+ELMSPKGT DS     FL8                TIMESTAMP ASSOC WITH PACKAGE
+ELMOPKG  DS     CL16               PACKAGE ASSOC WITH ELEMENT OUTPUTS
+ELMOPKGT DS     FL8                TIMESTAMP ASSOC WITH PACKAGE
+ELMPRGRP DS     CL8                PROCESSOR GROUP NAME
+ELMCPKG  DS     CL16               PACKAGE ASSOC WITH ELEMENT OUTPUTS
+ELMCPKGT DS     FL8                TIMESTAMP ASSOC WITH PACKAGE
+ELMFFFLG DS     CL1                "FROM" FLAG FILE TYPE
+ELMFFNONE EQU   C' '               NO "FROM" D/S INFO
+ELMFFPATH EQU   C'P'               P = PATH, DATA IN PATH AREA
+ELMFFDSN  EQU   C'D'               D = DSN, DATA IN ELMFDSN/ELMFMBR
+ELMTFFLG DS     CL1                "TO" FLAG FILE TYPE
+ELMTFNONE EQU   C' '               NO "TO" D/S INFO
+ELMTFPATH EQU   C'P'               P = PATH, DATA IN PATH AREA
+ELMTFDSN  EQU   C'D'               D = DSN, DATA IN ELMTDSN/ELMTMBR
+*                                                                       01840000
+*   OFFSET (FROM BEGINNING OF ELMDS) TO THE PATH AND FILE NAME AREAS.   01850000
+*   FIRST 2 BYTES IN AREA = THE LENGTH OF THE NAME, THIS IS THEN        01860000
+*   FOLLOWED BY THE NAME.                                               01860000
+*                                                                       01860000
+ELMFPAOFF DS    H                  "FROM" PATH AREA OFFSET
+ELMFNAOFF DS    H                  "FROM" FILE NAME AREA OFFSET
+ELMTPAOFF DS    H                  "TO" PATH AREA OFFSET
+ELMTNAOFF DS    H                  "TO" FILE NAME AREA OFFSET
+*                                                                       01840000
+*   OFFSET (FROM BEGINNING OF ELMDS) TO THE ELEMENT NAME AREA.          01850000
+*   FIRST 2 BYTES IN AREA = THE LENGTH OF THE NAME, THIS IS THEN        01860000
+*   FOLLOWED BY THE NAME.                                               01860000
+*                                                                       01860000
+ELMEAOFF  DS    H                  ELEMENT AREA OFFSET
+ELMBVERS  DS    H                  ELEMENT BASE VERSION NBR
+ELMXLVER  DS    H                  COMPONENT LAST VERSION NBR
+ELMNOSRC  DS    CL1                Y - SOURCE-LESS ELEMENT
+         DS     CL27                   ** RESERVED **
+ELMBFAREA DS    XL2320             AREA BUFFER SPACE
+ELMUSR    DS    XL80               ELEMENT USER DATA
+          DS    XL40                   ** RESERVED **
+ELMSIZE   EQU   *-$ELMDS           LENGTH OF THE $ELMDS BLOCK           02150000
+         MEND                                                           02160000

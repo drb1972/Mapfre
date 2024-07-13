@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY EXPAND(//)
+%/-/ Site Information from|CIDFLTNM%/-/
+%Command ===>_VARWKCMD                                                         +
++
++ /-/ Concurrent Action Processing Values /-/
++ Spawn Indicator...¢VARSPWNI+
++ Spawn Count.......¢VARSPWNC+
++ Spawn Count Max...¢VARSPWNM+
++ Spawn Proc Name...¢VARSPWNP+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                (Press Enter for First Panel)
+)INIT
+  .HELP = CITES000
+)END

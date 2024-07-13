@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ FOOTPRINT REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT REPORTS:
+ _Z%80 +Library member footprint     _Z%82 +Library ZAPped CSECT profile
+ _Z%81 +Library CSECT listing        _Z%83 +Footprint exception report
++
++FROM ISPF LIBRARY:+
++   PROJECT%===>_PRJ0    +
++   LIBRARY%===>_LIB0    +
++   TYPE   %===>_TYP0    +
++   MEMBER %===>_ISPFMB    +          THRU MEMBER%===>_C1DSPTNM  +
++
++FROM OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_OTHDSN                                                  +
++
++FOOTPRINT EXTRACT FILE ===>_F+       (Y/N)
++
++EXCLUDE INFORMATION:
++   MEMBER %===>_EXCMEM    +          THRU MEMBER%===>_EXCMEMT   +
++   CSECT  %===>_EXCCST    +          THRU CSECT %===>_EXCCSTT   +
++
++CORRELATE ENVIRONMENT ===>_VAREVNME+
+%
+)INIT
+ .ZVARS = '(RPT80 RPT82 RPT81 RPT83)'
+ .HELP = CITR1400
+)PROC
+)END

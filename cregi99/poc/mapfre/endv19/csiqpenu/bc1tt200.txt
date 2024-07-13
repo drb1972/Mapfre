@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Tools \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Parallel Development Manager (PDM) is a powerful tool to help both
++developers and managers address the problems inherent in the three
++steps of parallel development projects.  PDM can help
+
++  * Analyze the complexity of parallel development projects.
+
++  * Consolidate changes and identify conflicts more quickly.
+
++  * Automate the integration process.
+
++    Select%1-3+for information about:
++
+%    1+- Analysis tools             %3+- Integration tools
+%    2+- Tools for consolidation
+           and resolution
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TT210 2,BC1TT220 3,BC1TT230)
+)END

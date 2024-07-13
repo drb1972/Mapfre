@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%Primary Quantity+- The number of units of space in the primary
++   allocation. Values are numeric, 1-255.  See Space Units below.
++
+%Secondary Quantity+- The number of units of space in the
++   secondary allocation. Values are numeric, 1-255.
++
+%Space units+- The units in which space is allocated. Acceptable
++   units are Track (TRK) or Cylinder (CYL). Any abbreviation that
++   uniquely identifies the unit is acceptable. 1 CYL = 15 TRK.
++
++ The Endevor administrator should set the minimum value of the
++ 'Primary Quantity + Secondary Quantity + Space Unit' combination.
++ User is not allowed to use a lower value than that.
++
+%Unit Name+- Required. The 1-8 character name of the disk device.
++
+%Volume Serial+- Leave blank to use the installation default.
++   Otherwise, provide the 1-6 character name of the device you
++   want to use for your work areas.
++
++\ \ (Press%ENTER+to continue or%END+to exit)  \ \
+)END

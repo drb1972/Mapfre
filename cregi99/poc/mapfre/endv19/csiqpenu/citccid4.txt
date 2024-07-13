@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Moves \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
+%Move+
++ without    Set from    Set from    Set      Clear       Set from   Set from
++  history   origin      origin                           last       last
++            value       value                            origin     origin
++                                                         delta      delta
++
++ with       Set from    Set from    Set      Clear       Moved w/   Moved w/
++  history   origin      origin                           delta      delta
++            value       value                            levels     levels
++
++
++
+)END

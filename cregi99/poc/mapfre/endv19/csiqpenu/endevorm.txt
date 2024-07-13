@@ -1,0 +1,60 @@
+)ATTR DEFAULT(%ø_)
+ {  TYPE(PS)                               /* Point and shoot */
+ }  TYPE(CH)                               /* Column heading */
+ 10 TYPE(ET)                               /* Emphasised Text */
+ ±  TYPE(OUTPUT) JUST(LEFT)  COLOR(BLUE)   /* Data outputs   */
+ * AREA(DYNAMIC) SCROLL(ON)
+ $ TYPE(OUTPUT) INTENS(HIGH)
+ R TYPE(CHAR) HILITE(REVERSE) COLOR(RED)
+ B TYPE(CHAR) HILITE(REVERSE) COLOR(BLUE)
+ T TYPE(CHAR) HILITE(REVERSE) COLOR(TURQ)
+ P TYPE(CHAR) HILITE(REVERSE) COLOR(PINK)
+ W TYPE(CHAR) HILITE(REVERSE) COLOR(WHITE)
+ Y TYPE(CHAR) HILITE(REVERSE) COLOR(YELLOW)
+ ^ TYPE(DATAOUT) INTENS(LOW) COLOR(WHITE)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* SCROLLABLE AREA - SUPPORT SMALL SCREENS */
+)BODY EXPAND(\\)
+%-\-\ Endevor OPTION MENU \-\-
+%OPTION  ===>_ZCMD
+%                                                          øSYSTEM   -±ZSYSID  ø
+}Dialog Options:                                           øAPPLID   -±ZAPPLID ø
+ø                                                           &DFLTSTR  ±DFLTNDVRø
+% 1 {Endevorø
+% 2 {Quick Editø
+% 3 {Parallel Development Managerø *THUMBA,THUMBS                              *
+ø                                  *                                           *
+% S {Settingsø                     *                                           *
+ø                                  *                                           *
+% X {Exitø                         *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø                                  *                                           *
+ø           Learn More at&VNTUIURL                                  ø
+ø            Copyright (C) 2022 Broadcom. All rights reserved.
+)INIT
+.HELP = ENDEVORH
+VGET(THUMBA THUMBS) ASIS  /* refresh thumbnail */
+&VNTUIURL              = 'https://www.broadcom.com/Endevor-Learn-More'
+IF (&DFLTNDVR NE &Z)
+   &DFLTSTR = 'DEFAULTS -'
+ELSE
+   &DFLTSTR = ''
+IF (&ZTRAIL NE &Z)
+   &ZCMD = &ZTRAIL
+   .RESP = ENTER
+&ZDYNSCR='YYYY' /* ENABLE SCROLLING */
+)REINIT
+ REFRESH(*)
+)PNTS
+ FIELD(ZPS00001) VAR(ZCMD) VAL(1)
+ FIELD(ZPS00002) VAR(ZCMD) VAL(2)
+ FIELD(ZPS00003) VAR(ZCMD) VAL(3)
+ FIELD(ZPS00004) VAR(ZCMD) VAL(S)
+ FIELD(ZPS00005) VAR(ZCMD) VAL(X)
+)END

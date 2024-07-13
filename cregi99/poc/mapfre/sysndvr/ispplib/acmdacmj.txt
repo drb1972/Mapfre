@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ ACM JCL Statements \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel is used for one of two purposes:
++
++You may provide 1 to 4 lines of Job Card and press ENTER to
++    submit the batch request
++
++                %OR+
++
++Type any character in the CANCEL Checkoff field and press ENTER to
++    terminate the batch request.
++
++At least one line of Job Card is required to complete the request.
++
++
++
+)END

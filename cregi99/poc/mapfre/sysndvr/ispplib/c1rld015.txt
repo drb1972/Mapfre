@@ -1,0 +1,33 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+TAG & SH ELM ENV SYS SBS TYPE PGRP STAGE VVLL ACTION SIGNID
+tag ^ sh ruid rdate rtime rccid rcom rdsn
+tag ~ sh buid bdate btime bcom
+TAG $ SH MUID MDATE MTIME MACT MELM MENV MSYS MSBS MTYPE
+TAG ¢ SH MSTAGE MVVLL
+%------------------------------  Element Master  -------------------------------
+%COMMAND ===>_  +                                               (PANEL 2 OF 2)
+|
++ELEMENT:&           +ENV:&         +SYS:&        +SUB:&        +TYPE:&        +
++PROC GRP:&          +STG:& +       VVLL:&     +          LAST ACTION:&        +
++                                                          SIGNOUT ID:&        +
++
++--------------------------------  RETRIEVE  ----------------------------------
++USERID:^        +  DATE/TIME:^        ^              +CCID:^            +
++COMMENT:^                                          +
++RETRIEVE TO DSN:^                                                        +
++
++----------------------------------  BASE  ------------------------------------
++USERID:~          +DATE/TIME:~        ~       +
++COMMENT:~                                        +
++
++-----------------------------  FROM LOCATION  --------------------------------
++USERID:$           +DATE/TIME:$        $        +ACTION:$
++ELEMENT:$          +ENV:$        +SYS:$         +SUB:$        +TYPE:$        +
++    STG:¢        +VVLL:¢     +
++
++                                              (Press ENTER for previous panel)
+enddef

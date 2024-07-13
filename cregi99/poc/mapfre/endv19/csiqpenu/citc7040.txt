@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ API SCL Format Action\-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%API SCL Format Action +
+
++ This new method of building requests allows your user-written program to
+  build and pass free-form SCL statements in a new SCL style request structure.
+  The SCL is passed to and processed by existing Endevor batch utility programs.
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7050
+)END

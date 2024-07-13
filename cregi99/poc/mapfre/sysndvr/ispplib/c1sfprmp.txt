@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   @ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%-------------------------------- ACTION PROMPT --------------------------------
+%COMMAND ===>_ZCMD                                                             +
++
++
++   Specification Required:
++        CCID:   ¢Z+ (Y/N)
++        COMMENT:¢Z+ (Y/N)
++
++   Action:¢VARAACTN+           Element:@VARAELMN  +
++
++   Environment:¢VARAENVN+       System:¢VARASYSN+       Subsystem:¢VARASBSN+
++   Type:       ¢VARATYPN+       Stage: ¢VARASTGN+
++
++
++
++   CCID    %===>^C1RQCCID    +
++   COMMENT %===>`C1RQCOMM                                +
++
++
++
++
++
++
++
+)INIT
+  .ZVARS = '(VARSYCID VARSYCMT)'
+)PROC
+)END

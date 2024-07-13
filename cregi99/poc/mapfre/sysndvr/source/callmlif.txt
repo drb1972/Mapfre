@@ -1,0 +1,102 @@
+      *-----------------------------------------------------------------
+       IDENTIFICATION DIVISION.
+      *-----------------------------------------------------------------
+      *
+      *  NOTE: PROGRAM-ID Name must match the expected exit number
+      *        C1UEXTnn irrespective of the name that is given to the
+      *        final load module.
+      *
+      *-----------------------------------------------------------------
+       PROGRAM-ID.      C1UEXT03.
+       AUTHOR.          CA - RUI SANTOS.
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SOURCE-COMPUTER. IBM-S390.
+       OBJECT-COMPUTER. IBM-S390.
+       DATA DIVISION.
+      *-----------------------------------------------------------------
+       WORKING-STORAGE SECTION.
+      *-----------------------------------------------------------------
+       01  PGM                                   PIC X(8).
+       01  MYSMTP-MESSAGE                        PIC X(80).
+       01  MYSMTP-USERID                         PIC X(8).
+       01  MYSMTP-FROM                           PIC X(50).
+       01  MYSMTP-SUBJECT                        PIC X(50).
+       01  MYSMTP-TEXT.
+           03  MYSMTP-COUNTER                    PIC 9(2).
+           03  MYSMTP-MSG-TEXT.
+               05  MYSMTP-LINE                   PIC X(133) OCCURS 99.
+       01  MYSMTP-URL                            PIC X(1)   VALUE 'Y'.
+      *-----------------------------------------------------------------
+       LINKAGE SECTION.
+      *-----------------------------------------------------------------
+       COPY EXITBLKS.
+      *-----------------------------------------------------------------
+       PROCEDURE DIVISION USING
+               EXIT-CONTROL-BLOCK
+               REQUEST-INFO-BLOCK
+               SRC-ENVIRONMENT-BLOCK
+               SRC-ELEMENT-MASTER-INFO-BLOCK
+               SRC-FILE-CONTROL-BLOCK
+               TGT-ENVIRONMENT-BLOCK
+               TGT-ELEMENT-MASTER-INFO-BLOCK
+               TGT-FILE-CONTROL-BLOCK.
+      *-----------------------------------------------------------------
+       MAIN SECTION.
+      *-----------------------------------------------------------------
+           INITIALIZE MYSMTP-MESSAGE
+                      MYSMTP-USERID
+                      MYSMTP-FROM
+                      MYSMTP-SUBJECT
+                      MYSMTP-TEXT
+      *-----------------------------------------------------------------
+      * Use Endevor userid (caller) as person to receive message.
+      * And provide retrun address and email subject
+      *-----------------------------------------------------------------
+           MOVE ECB-USER-ID              TO MYSMTP-USERID
+           MOVE 'SAMPMLIF_Endevor_eMail' TO MYSMTP-FROM
+           MOVE 'Sample EXIT3 calling BC1PMLIF to send email.'
+                                         TO MYSMTP-SUBJECT
+      *-----------------------------------------------------------------
+      * Build message lines as needed (Up to 99 lines possible)
+      * Remember to set the counter to actual number of lines required
+      *-----------------------------------------------------------------
+           MOVE 'Dear Endevor User,'     TO MYSMTP-LINE(2)
+           MOVE 'This is a sample email generated from Endevor Exit 3. '
+                                         TO MYSMTP-LINE(4)
+           MOVE 'It has full access to the Endevor exit blocks (where'
+                                         TO MYSMTP-LINE(6)
+           MOVE 'it can get information about the current Action,'
+                                         TO MYSMTP-LINE(7)
+           MOVE 'Element, System, Subsystem, CCID etc.).'
+                                         TO MYSMTP-LINE(8)
+           MOVE 'Message text can be written line by line, up to 133'
+                                         TO MYSMTP-LINE(10)
+           MOVE 'Characters, and up to 99 lines.  Trailing blanks/'
+                                         TO MYSMTP-LINE(11)
+           MOVE 'nulls will stripped in the final email.'
+                                         TO MYSMTP-LINE(12)
+           MOVE 15                       TO MYSMTP-COUNTER
+      *-----------------------------------------------------------------
+      * Send mail and exit
+      *-----------------------------------------------------------------
+           PERFORM P-NOTIFY-MAIL
+           GOBACK.
+      *-----------------------------------------------------------------
+       P-NOTIFY-MAIL.
+      *-----------------------------------------------------------------
+           MOVE 'BC1PMLIF'    TO    PGM
+           CALL PGM           USING MYSMTP-MESSAGE
+                                    MYSMTP-USERID
+                                    MYSMTP-FROM
+                                    MYSMTP-SUBJECT
+                                    MYSMTP-TEXT
+                                    MYSMTP-URL
+           EVALUATE TRUE
+             WHEN RETURN-CODE = 0
+               EXIT
+             WHEN OTHER
+               DISPLAY 'CALL BC1PMLIF RC = ' RETURN-CODE
+               DISPLAY MYSMTP-MESSAGE
+           END-EVALUATE
+           EXIT.

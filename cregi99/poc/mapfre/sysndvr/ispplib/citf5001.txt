@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an element selection list. This only
+      applies if DISPLAY LIST=Y.
++
+%#+- Use this option to delete one or more members.
++
++
++
++                           (%PF3+to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

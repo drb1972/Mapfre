@@ -1,0 +1,36 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+ /* Panelid: ENIP2E00                                                     */
+ /*-----------------------------------------------------------------------*/
+  $ TYPE(INPUT)         JUST(LEFT) CAPS(ON)
+  ` TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW) PADC(_) JUST(ASIS)
+)BODY
++--------------------------%Enter Package Note Text+----------------------------
++ Command ==>$ZCMD                                                             +
++
++        .........1.........2.........3.........4.........5.........6
++    1. `PDVSLPN1                                                    +
++    2. `PDVSLPN2                                                    +
++    3. `PDVSLPN3                                                    +
++    4. `PDVSLPN4                                                    +
++    5. `PDVSLPN5                                                    +
++    6. `PDVSLPN6                                                    +
++    7. `PDVSLPN7                                                    +
++    8. `PDVSLPN8                                                    +
++
++
++    Press ENTER to process the Package Notes.  When all the note
++    text has been entered, press ENTER and then enter the END
++    command.
++
++    To cancel the Package Notes, enter the END command.
++
++
++
++
++
+)INIT
+   .HELP = enit2E00
+)PROC
+)END

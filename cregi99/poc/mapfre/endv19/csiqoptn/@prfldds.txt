@@ -1,0 +1,17 @@
+         MACRO                                                          00000001
+         @PRFLDDS ,                                                     00000002
+         GBLB  &@PRFLD                                                  00000003
+         AIF   (&@PRFLD).GENNED                                         00000004
+&@PRFLD  SETB  (1)                                                      00000005
+.********************************************************************** 00000006
+.*                                                                    * 00000007
+.*       VARIABLE FIELD ENTRY DEFINITION                              * 00000008
+.*                                                                    * 00000009
+.********************************************************************** 00000010
+@PRFLDDS DSECT                                                          00000011
+PRFLDKEY DS    Y                       FIELD KEY VALUE                  00000012
+PRFLDLEN DS    H                       FIELD DATA LENGTH                00000013
+PRFLDATA DS    A                       ADDRESS OF FIELD DATA            00000014
+PRFLD$LN EQU   *-@PRFLDDS                                               00000015
+.GENNED  ANOP                                                           00000016
+         MEND                                                           00000017

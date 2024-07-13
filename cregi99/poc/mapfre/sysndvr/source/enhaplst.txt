@@ -1,0 +1,407 @@
+ENHAPPGM TITLE 'ENDEVOR - API SAMPLE ASSEMBLER PROGRAM'
+***********************************************************************
+*   DESCRIPTION: THIS SAMPLE PROGRAM ISSUES A REQUEST TO THE
+*                ENDEVOR API TO EXECUTE EACH OF THE PACKAGE ACTION
+*                FUNCTIONS SUPPORTED BY THE API.
+*
+*   HOW TO USE:  POPULATE THE CONTROL AND REQUEST BLOCKS WITH THE
+*                DESIRED VALUES.
+*                ASSEMBLE AND LINK-EDIT THIS MODULE.
+*
+*   LINK EDIT:   AMODE=31,RMODE=24,RENT,REUS (RECOMMENDED)
+*                OR
+*                AMODE=24,RMODE=24,RENT,REUS
+*
+*   REGISTERS ON ENTRY:
+*
+*   REGISTER USAGE:
+*                R2     -> SAVE RETURN CODE
+*                R3     -> SAVE REASON CODE
+*                R12    -> BASE PROGRAM
+*                R13    -> STANDARD USAGE........
+*                R15    -> RETURN CODE FROM CALL
+*   ==>                 -> WE USE STANDARD STACK SAVEAREA USAGE
+*
+*   THIS TEST PROGRAM PERFORMS THE FOLLOWING PACKAGE ACTIONS;
+*         -- LAPP     LIST APPROVER INFORMATION FOR A PKG
+*         -- LBKO     LIST BACK-OUT INFORMATION FOR A PKG
+*         -- LCAS     LIST CAST REPORT FOR A PKG
+*         -- LCOR     LIST CORRELATION RECORDS FOR A PKG
+*         -- LPKG     LIST PACKAGE HEADER INFORMATION FOR A PKG
+*         -- LSCL     LIST SCL ASSOCIATED WITH A PKG
+*         -- LSUM     LIST SUMMARY (ACTIONS) INFO ASSOC WITH A PKG
+*         REQUIRED MODIFICATIONS TO MAKE THIS EXECUTE:
+*         -- NOTE: THERE ARE LINES OF CODE THAT ARE COMMENTED OUT.
+*            THEY EXIST AS PLACE HOLDERS TO OTHER FEATURES OR OPTIONS
+*            NOT USED BY THIS EXAMPLE. THEY CAN BE IDENTIFIED BY
+*            THE **CMT IN COLUMNS 1 THROUGH 5.
+*         -- CHANGE THE PACKAGE ID FIELD VALUES TO VALUES THAT
+*            EXIST AT YOUR SITE.
+*         -- MAKE SURE THE MSG AND LST DDNAMES ARE ALLOCATED IN
+*            THE JCL USED TO EXECUTE THIS PROGRAM.
+*         NOTE: THE WCNT VARIABLE CAN BE SET TO CONTROL WHICH AND
+*            HOW MANY ACTIONS ARE EXECUTED.  AS DELIVERED, ALL 7
+*            LIST PACKAGE ACTION WILL BE EXECUTED.
+***********************************************************************
+*   WORKAREA
+***********************************************************************
+WORKAREA DSECT
+SAVEAREA DS    18F
+WPARMLST DS    3A                      PARAMETER LIST
+WCNT     DS    H                       ACTION COUNTER
+         DS     0D
+***********************************************************************
+* API CONTROL BLOCK
+***********************************************************************
+         ENHAACTL DSECT=NO
+***********************************************************************
+* API PACKAGE ACTION REQUEST BLOCKS
+***********************************************************************
+         ENHALAPP DSECT=NO
+         ENHALBKO DSECT=NO
+         ENHALCAS DSECT=NO
+         ENHALCOR DSECT=NO
+         ENHALPKG DSECT=NO
+         ENHALSCL DSECT=NO
+         ENHALSUM DSECT=NO
+WORKLN   EQU   *-WORKAREA
+***********************************************************************
+*   REQISTER EQUATES
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+***********************************************************************
+ENHAPPGM CSECT
+ENHAPPGM AMODE 31
+ENHAPPGM RMODE ANY
+***********************************************************************
+*   HOUSEKEEPING
+***********************************************************************
+         SAVE  (14,12)                 SAVE CALLERS REG 12(13)
+         LR    R12,R15                 POINT TO THIS PROGRAM
+        USING ENHAPPGM,R12
+***********************************************************************
+*   GET STORAGE FOR WORKAREA
+***********************************************************************
+         L     R0,=A(WORKLN)           GET SIZE OF W.A
+         GETMAIN R,LV=(0)              GET WORKING STORAGE
+         ST    R1,8(R13)               STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)               STORE OLD STACK +4(NEW)
+         LR    R13,R1                  POINT R13 TO OUR STACK
+        USING SAVEAREA,R13             ESTABLISH ADDRESSIBILIY
+         SPACE ,
+************************************************************
+*        INITIALIZE AND POPULATE THE CONTROL STRUCTURE
+*        NOTE: IF ANY INVENTORY MANAGEMENT MESSAGES ARE ISSUED, THEY
+*        ARE WRITTEN TO THE MSG DATA SET. THE OUTPUT FROM THIS REQUEST
+*        IS WRITTEN TO THE LIST DATA SET.
+************************************************************
+         API$INIT STG=AACTL,BLOCK=AACTL
+         MVI   AACTL_SHUTDOWN,C'N'
+         MVC   AACTL_MSG_DDN,=CL8'APIMSGS '
+         MVC   AACTL_LIST_DDN,=CL8'       '
+         MVC   AACTL_STOPRC,=H'16'
+*        THIS PROGRAM IS A LARGE LOOP TO PROCESS ALL PACKAGE ACTIONS.
+*        WCNT DETERMINES WHICH ACTION THE PROGRAM SHOULD
+*        START THE PROCESSING WITH. CHANGING THE VALUE MAYBE DESIRED
+*        FOR RESTARTING THIS PROGRAM IF AN ERROR OCCURS OR TO TEST
+*        SPECIFIC ACTIONS.
+         MVC   WCNT,=H'1'                START PROCESS WITH 1ST ACTION
+**CMT    MVC   WCNT,=H'4'                START PROCESS WITH NTH ACTION
+************************************************************
+XLOOP    DS    0H
+         CLC   WCNT,=H'1'                ACTION COUNTER MATCH?
+         BH    XLOOP2                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LAPMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LAPLST '
+         B     XLAP000                   LIST APPROVERS ACTION LOGIC
+XLOOP2   DS    0H
+         CLC   WCNT,=H'2'                ACTION COUNTER MATCH?
+         BH    XLOOP3                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LBKMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LBKLST '
+         B     XLBK000                   LIST BACKOUT ACTION LOGIC
+XLOOP3   DS    0H
+         CLC   WCNT,=H'3'                ACTION COUNTER MATCH?
+         BH    XLOOP4                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LCAMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LCALST '
+         B     XLCA000                   LIST CAST REPORT ACTION LOGIC
+XLOOP4   DS    0H
+         CLC   WCNT,=H'4'                ACTION COUNTER MATCH?
+         BH    XLOOP5                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LCOMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LCOLST '
+         B     XLCO000                   LIST PKG HEADER ACTION LOGIC
+XLOOP5   DS    0H
+         CLC   WCNT,=H'5'                ACTION COUNTER MATCH?
+         BH    XLOOP6                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LPKMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LPKLST '
+         B     XLPK000                   LIST PKG HEADER ACTION LOGIC
+XLOOP6   DS    0H
+         CLC   WCNT,=H'6'                ACTION COUNTER MATCH?
+         BH    XLOOP7                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LSCMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LSCLST '
+         B     XLSC000                   LIST PACKAGE SCL ACTION LOGIC
+XLOOP7   DS    0H
+         CLC   WCNT,=H'7'                ACTION COUNTER MATCH?
+         BH    XLOOP8                    NO, TRY NEXT ACTION
+         MVC   AACTL_MSG_DDN,=CL8'LSUMSG  '
+         MVC   AACTL_LIST_DDN,=CL8'LSULST '
+         B     XLSU000                   LIST ACT SUMMARY ACTION LOGIC
+XLOOP8   DS    0H
+         B     XSHUTDWN                  TIME TO SHUTDOWN
+*
+************************************************************
+* LIST APPROVERS REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLAP000  DS    0H
+         API$INIT STG=ALAPP_RQ,BLOCK=ALAPP_RQ
+         API$INIT STG=ALAPP_RS,BLOCK=ALAPP_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALAPP_RQ_PKGID,=CL16'PKGIDVALUE      '
+* RESERVE FIELD
+**CMT    MVC   ALAPP_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALAPP_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALAPP_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE BACKOUT INFORMATION REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLBK000  DS    0H
+         API$INIT STG=ALBKO_RQ,BLOCK=ALBKO_RQ
+         API$INIT STG=ALBKO_RS,BLOCK=ALBKO_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALBKO_RQ_PKGID,=CL16'PKGIDVALUE      '
+* RESERVE FIELD
+**CMT    MVC   ALBKO_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALBKO_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALBKO_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE CAST REPORT REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLCA000  DS    0H
+         API$INIT STG=ALCAS_RQ,BLOCK=ALCAS_RQ
+         API$INIT STG=ALCAS_RS,BLOCK=ALCAS_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALCAS_RQ_PKGID,=CL16'PKGIDVALUE      '
+* RESERVE FIELD
+**CMT    MVC   ALCAS_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALCAS_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALCAS_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE CORRELATION REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLCO000  DS    0H
+         API$INIT STG=ALCOR_RQ,BLOCK=ALCOR_RQ
+         API$INIT STG=ALCOR_RS,BLOCK=ALCOR_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALCOR_RQ_PKGID,=CL16'PKGIDVALUE      '
+         MVI   ALCOR_RQ_TYPE,C'H'
+* RESERVE FIELD
+**CMT    MVC   ALCOR_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALCOR_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALCOR_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLPK000  DS    0H
+         API$INIT STG=ALPKG_RQ,BLOCK=ALPKG_RQ
+         API$INIT STG=ALPKG_RS,BLOCK=ALPKG_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALPKG_RQ_PKGID,=CL16'PKGID*          '
+*        PACKAGE TYPE STANDARD OR EMERGENCY (S/E)
+         MVI   ALPKG_RQ_PKG_TYPE,C'S'    PACKAGE TYPE
+*        PACKAGE STATUS (Y/N)
+         MVI   ALPKG_RQ_IN_EDIT,C'Y'     IN EDIT
+         MVI   ALPKG_RQ_IN_APPR,C'Y'     IN APPROVAL
+         MVI   ALPKG_RQ_DENIED,C'Y'      DENIED
+         MVI   ALPKG_RQ_APPROVED,C'Y'    APPROVED
+         MVI   ALPKG_RQ_IN_EXEC,C'Y'     IN EXECUTION
+         MVI   ALPKG_RQ_EXEC,C'Y'        EXECUTED
+         MVI   ALPKG_RQ_COMMIT,C'Y'      COMMITTED
+*        ENTERPRISE PKG FLAG: ALL, ENT ONLY, EXCLUDE ENT (A/E/X)
+         MVI   ALPKG_RQ_ENTPFLG,C'A'     ENTERPRISE PKG FLAG
+*        DATE TYPE AND NUMBER OF DAYS OLD
+*        (CR)EATE, (MO)DIFY, (CA)ST, (AP)PROVAL,
+*        (EX)ECUTION, (BO)BACKOUT, (BI)BACKIN, (CO)MIT
+         MVC   ALPKG_RQ_DTE_TYPE,=CL2'CR'
+         MVC   ALPKG_RQ_DAYS_OLD,=CL3' 7 '
+*        APPROVER ID
+         MVC   ALPKG_RQ_APPRID,=CL8'        '
+* RESERVE FIELD
+**CMT    MVC   ALPKG_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALPKG_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALPKG_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE SCL REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLSC000  DS    0H
+         API$INIT STG=ALSCL_RQ,BLOCK=ALSCL_RQ
+         API$INIT STG=ALSCL_RS,BLOCK=ALSCL_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALSCL_RQ_PKGID,=CL16'PKGIDVALUE      '
+* RESERVE FIELD
+**CMT    MVC   ALSCL_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALSCL_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALSCL_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+* LIST PACKAGE SCL REQUEST
+*        INITIALIZE AND POPULATE THE REQUEST STRUCTURE
+************************************************************
+XLSU000  DS    0H
+         API$INIT STG=ALSUM_RQ,BLOCK=ALSUM_RQ
+         API$INIT STG=ALSUM_RS,BLOCK=ALSUM_RS
+* PACKAGE SELECTION CRITERIA
+         MVC   ALSUM_RQ_PKGID,=CL16'PKGIDVALUE      '
+* RESERVE FIELD
+**CMT    MVC   ALSUM_RQ_RESERVE,=CL3'   '
+*
+************************************************************
+*        BUILD PARMLIST
+************************************************************
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         LA    R14,ALSUM_RQ
+         ST    R14,4(0,R1)
+         LA    R14,ALSUM_RS
+         ST    R14,8(0,R1)
+         OI    8(R1),X'80'
+         B     XCALLAPI
+*
+************************************************************
+*        CALL THE ENDEVOR API INTERFACE PROGRAM
+************************************************************
+XCALLAPI DS    0H
+         L     R15,=V(ENA$NDVR)
+         BALR  R14,R15
+         LR    R2,R15                    HOLD ONTO THE RETURN CODE
+         LR    R3,R0                     HOLD ONTO THE REASON CODE
+         CH    R15,=H'8'                 RETURN CODE GT THAN CAUTION?
+         BH    XSHUTDWN                  YES, ISSUE API SHUTDOWN
+         CLC   WCNT,=H'7'                ALL ACTIONS PROCESSED?
+**CMT    CLC   WCNT,=H'4'                NTH ACTION PROCESSED?
+         BNL   XSHUTDWN                  YES, ISSUE API SHUTDOWN
+         LH    R1,WCNT                   GET CURRENT COUNT
+         LA    R1,1(R1)                  ADD ONE TO COUNT
+         STH   R1,WCNT                   SAVE UPDATED COUNT
+         B     XLOOP                     NO, PROCESS NEXT ACTION
+************************************************************
+* SHUTDOWN THE API SERVER. ONLY THE AACTL BLOCK IS REQUIRED.
+************************************************************
+XSHUTDWN DS    0H
+         API$INIT STG=AACTL,BLOCK=AACTL
+         MVI   AACTL_SHUTDOWN,C'Y'
+         LA    R1,WPARMLST
+         LA    R14,AACTL
+         ST    R14,0(0,R1)
+         OI    0(R1),X'80'
+         L     R15,=V(ENA$NDVR)
+         BALR  R14,R15
+***********************************************************************
+* PROGRAM EXIT
+***********************************************************************
+         LR    R5,R13                  SAVE SAVEAREA ADDRESS
+         L     R13,4(R13)              POINT TO PREVIOUS SAVEAREA
+*   CLEAN UP THIS PROGRAM'S STORAGE
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(R5),LV=(R0)          FREE STORAGE
+         LR    R15,R2                       SET RETURN CODE FROM CALL
+         L     R14,12(R13)
+         LM    R0,R12,20(R13)
+         BSM   0,R14                        RETURN
+         END

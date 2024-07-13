@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (SU) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Submit - Submit current Element for batch processing
++
++  This sample user routine (NDUSRSU) retrieves the selected element to
++  a temporary file and then issues a SUBMIT command for it. The submitted
++  job name and number are returned in the ISPF message.
++
+%  Intended Use:+
++  If the element contains simple JCL, for example a test case, instead of
++  having to invoke (E) to Edit it and then issue the SUBmit command you
++  Can just submit it directly using the%SU+line command.
++  Use this routine to assist when building and user routines that require
++  a copy of the source element.
++
+%  Note:+
++  Use this routine as an example when building and user routines that require
++  a copy of the source element, for example custom edit, print, routines etc.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

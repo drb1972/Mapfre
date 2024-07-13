@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Alter \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
++The Alter action lets you to change Master Control File metadata. The
++following Element Master fields are related to the Alter action. Unlike
++other element actions, the Alter action does not update the Last Element
++Action data. The Alter action also does not change the current Signout ID.
++
+%First Date/Time+- Date and time the first Alter action was performed
+                   against this copy of the element.
+%Cumulative # of fields altered+- Total number of times that fields were
+                             updated by all the Alter actions performed
+                             against this copy of the element.
+%Last Date/Time+- Date and time the last Alter action was performed
+                  against this copy of the element.
+%Last UserID+- UserID associated with the last Alter action performed
+               against this copy of the element.
+%Fields updated by last Alter action+- Indicates which of the element master
++                                      fields were updated by the last Alter
++                                      action. A value of Y indicates the
++                                      field was updated by the last Alter
++                                      action.
++                                            (%PF3+to return)
+)END

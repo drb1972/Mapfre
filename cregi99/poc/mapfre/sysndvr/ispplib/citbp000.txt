@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package Option \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this option to initiate package processing in batch.  To do so select
++option 6 and press ENTER.  The Batch Package panel appears.
++
++
++To return to the Primary Options Panel select the END command.
++
++
+)END

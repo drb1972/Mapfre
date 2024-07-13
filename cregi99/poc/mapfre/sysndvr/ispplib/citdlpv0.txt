@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Product Version \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Version+- 1- to 15-character product version information. This is an
++   optional field.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

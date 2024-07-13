@@ -1,0 +1,14 @@
+@REM ****************************************************** #PSNWDM2 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: NETWORD DATA MOVER
+@REM *     PURPOSE: ADD A COPY COMMAND TO THE PROCESS MEMBER AND
+@REM *              ADD AN IDCAMS DELETE COMMAND TO THE HOST STAGING
+@REM *              DATASET DELETION JOB.
+@REM *******************************************************************
+@REM
+@PASS=20
+@INCLUDE=P
+@PASS=30
+@IF HDISP=DELETE
+@INCLUDE=#
+@ENDIF

@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ NOSOURCE \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to generate the element at the From stage
++using the element's source up the map from the target location.
++By using this option, you create a source-less element. Components and
++outputs are generated at the target without the element source being
++copied back.
++
++  %N+- Do not generate without source.
++
++  %Y+- Generate the element using the source from up the map. Do not
++       copy the element back.
++
++
++
++
++                                            (%PF3+ to return)
+)PROC
+)END

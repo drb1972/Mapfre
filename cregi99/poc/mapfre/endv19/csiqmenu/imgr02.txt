@@ -1,0 +1,2 @@
+IMGR025E 'NO NEXT ENVIRONMENT'                           .ALARM=YES
+'&VARWLTXT'

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Include JCL \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to include JCL in addition to the standard
++execution JCL. Acceptable values are:
++
+   %N+- Default. Do not include additional JCL.
+   +
+   %Y+- Include additional JCL. This JCL must already have been defined.
+
+
+
+
+
+
+
+
+
+
++
++                                            (%PF3+to return)
+)END

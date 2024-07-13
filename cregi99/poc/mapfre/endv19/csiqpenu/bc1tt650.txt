@@ -1,0 +1,13 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Running PDM Reports in Foreground \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When running PDM in foreground, the execution reports are written to a
++data set named userid.C1TEMPRn.MSGS.
++
++To review the reports, split the ISPF screen and use the ISPF/PDF
++browse function to view the data set. This data set is automatically
++deleted when the PDM session terminates.
++
++
+)END

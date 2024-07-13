@@ -1,0 +1,8 @@
+PKEX600I 'Path Not Found'                                .ALARM=NO
+'The End-2-End Logging Path was not found, logging skipped'
+PKEX601I 'Error Opening File'                            .ALARM=NO
+'Error opening the End-2-End Logging output file, logging skipped'
+PKEX602I 'Log Write Error'                               .ALARM=NO
+'Error writing to the End-2-End logging file, logging skipped'
+PKEX603I 'Error Closing File'                            .ALARM=NO
+'Error closing the End-2-End Logging output file'

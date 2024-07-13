@@ -1,0 +1,96 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW) CAPS(OFF)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ RETRIEVE ELEMENTS \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+   %blank+- Element list           %S+- Summary  %B+- Browse  %H+- History
+   %R+- Retrieve element           %M+- Master   %C+- Changes
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++CCID%===>^CTLNBR      +   COMMENT%===>`DESCRPT1
++
++FROM LOCATION:                         ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             EXPAND INCLUDES        %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             SIGNOUT ELEMENT        %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             OVERRIDE SIGNOUT       %===>_Z+(Y/N)
++  ELEMENT    %===>@VNT1ENME  |VNTIND1   +REPLACE MEMBER         %===>_R+(Y/N)
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +   LIST OPTIONS:
++                      ¢Z+-|CLU2ID  +     DISPLAY LIST           %===>_Z+(Y/N)
++TO ISPF LIBRARY:                         APPLY LIST FILTERS     %===>_Z+(Y/N)
++  PROJECT    %===>_PRJ0    +             BUILD USING MAP        %===>_Z+(Y/N)
++  LIBRARY    %===>_LIB0    +             RETURN FIRST FOUND     %===>_Z+(Y/N)
++  TYPE       %===>_TYP0    +
++  MEMBER     %===>_ISPFMB    +
++TO OTHER ISPF DATA SET:
++  DATA SET   %===>_OTHDSN                                                  +
+<OTHERWISE>
++ELEMENT%===>@VNT1ENME                                           |VNTIND1
++  TYPE %===>_TYPEN   +
++  CCID %===>^CTLNBR      +COMMENT%===>`DESCRPT1
++
++FROM LOCATION:                         OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DATA SET TYPE(USS/ISPF)%===>_Z+(U/D)
++  SYSTEM     %===>_SYS     +             SIGNOUT ELEMENT        %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             OVERRIDE SIGNOUT       %===>_Z+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +     REPLACE MEMBER         %===>_R+(Y/N)
++                      ¢Z+-|CLU2ID  +     EXPAND INCLUDES        %===>_Z+(Y/N)
++TO ISPF LIBRARY:                         DISPLAY LIST           %===>_Z+(Y/N)
++  PROJECT    %===>_PRJ0    +             APPLY LIST FILTERS     %===>_Z+(Y/N)
++  LIBRARY    %===>_LIB0    +             BUILD USING MAP        %===>_Z+(Y/N)
++  TYPE       %===>_TYP0    +             RETURN FIRST FOUND     %===>_Z+(Y/N)
++  MEMBER     %===>_ISPFMB    +           UPPERCASE ELM NAME     %===>_Z+(Y/N)
++                                         CASE-SENSITIVE ELM NAME%===>_Z+(Y/N)
++TO OTHER ISPF DATA SET:
++  DATA SET   %===>_OTHDSN                                                  +
++
++TO USS PATH AND FILE NAME:
++  PATH%===>@VNTPATH                                            |VNTIND2
++  FILE%===>@VNT2ENME                                           |VNTIND3
+</SELECT>
+)INIT
+  .HELP = CITF2000
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(VAREXPIN C1SISOCP C1SISOFR CLU1I CLU2I VARWKLST VARWHPNL +
+             VARSHMAP VARRTNFF )'
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+  &VNTDSTYP = 'D'                              /* Force ISPF Dataset type    */
+<OTHERWISE>
+  .ZVARS = '(VNTDSTYP C1SISOCP C1SISOFR CLU1I CLU2I VAREXPIN VARWKLST  +
+             VARWHPNL VARSHMAP VARRTNFF VNTUPPER VNTSCASE)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+  IF (&AMT = ' ')
+     &AMT = PAGE
+  IF (&ETMPCASE = ' ')
+    &VNTSCASE = 'Y'
+    &ETMPCASE = 'Y'
+)PROC
+  VPUT (AMT) PROFILE
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND1) SCROLL(ON)
+ FIELD(VNTPATH)  IND(VNTIND2) SCROLL(ON)
+ FIELD(VNT2ENME) IND(VNTIND3) SCROLL(ON)
+)END

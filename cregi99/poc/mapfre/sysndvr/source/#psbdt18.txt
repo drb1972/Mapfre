@@ -1,0 +1,12 @@
+@REM ****************************************************** #PSBDT18 ***
+@REM *    CONTENTS: ENDEVOR/MVS - FINISH PROCESSING DESTINATION
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO
+@REM *              AND EXECUTE THE HOST CONFIRMATION JCL.  FOR A
+@REM *              DETAILED FLOW DESCRIPTION, REFER TO #PSBDT11.
+@REM *******************************************************************
+@REM
+@PASS=60
+$$
+@INCLUDE=(E)
+&HCONFJCL

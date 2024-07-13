@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls \-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 4 of 6)+
+%
+%VIO Unit+- The symbolic device name for temporary disk data sets
++     stored on a virtual I/O unit.
+
+%Work Unit+- The symbolic device name for temporary disk data sets
++     not stored on a virtual I/O unit.
+
+%Work Volser+- The volume serial number of the disk used to store
++     temporary data sets.
+
+%Lines per Page+- Number of lines printed on each page of output.
+
+%Listing ID string+- Character string used against an element's output
++     data sets to identify its listing data set.
+
+%MODHLI+- High level qualifier for system defined temporary datasets.
+
+                                               (%ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITES014
+)END

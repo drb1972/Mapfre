@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Action Backout \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++  List fields (continued):
++   %BDate  +- Element action execution begin date and time.
++   %BTime  +
++
++   %EDate  +- Element action execution end date and time.
++   %ETime  +
++
++   %Actn   +- Element action execution return code.
++   %RC     +  Use%ESORT ARC+to sort the selection list by this column.
++
++   %Proc   +- Element action processor return code.
++   %RC     +
++
++   %Source Information+
++           +- FROM information used in the execution of the action.
++
++   %Target Information+
++           +- TO information used in the execution of the action.
++
++   %Options+- CCID and Comment used for the execution of the action.
+)PROC
+)END

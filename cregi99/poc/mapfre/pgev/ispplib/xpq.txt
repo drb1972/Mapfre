@@ -1,0 +1,27 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+)BODY EXPAND (\\)
+%\-\  &zsysid  EXPORT XPEDITER LISTING TO PLEXQ1 \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++                     +
++
++  FROM DDIO    %===>_DDIOFILE              +E.G. TTRG.X#11.DDIOCICS
++  TO DDIO      %===>_DDIOFIL2              +E.G. TTSP.X#21.DDIOCICS
++  PROGRAM      %===>_DDIOMEM                  +     Listing Member
++
++  EXPORT DSN   %===>_exportds
+
+)INIT
+ .help = xpqh
+)REINIT
+  REFRESH(*)
+)PROC
+ VER  (&DDIOFILE,NB,DSNAME)
+ VER  (&DDIOFIL2,NB,DSNAME)
+ VER  (&DDIOMEM,NB,NAME)
+ VER  (&EXPORTDS,NB,DSNAME)
+)END

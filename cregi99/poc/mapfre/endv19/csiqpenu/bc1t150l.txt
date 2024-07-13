@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Edit WIP Member Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to select a WIP member for editing.
++
++To select a member, type%S+next to the member name, then press ENTER.
++
++    Select%1-3+for information about:
++
+%    1+- WIP header information     %3+- WIP edit commands
+%    2+- WIP file annotations
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T1510 2,BC1T1520 3,BC1T1530)
+)END

@@ -1,0 +1,11 @@
+  STGREF = Substr(Envname,1,3,'$') || '&STGNUM'
+  Prim   = '&Primary'
+  Secdry = '&Secondary'
+  Dir    = '&Directory'
+  $delimiter = '$'
+  ct1 = $row#
+  IF Envname = AdministratorEnv THEN $SkipRow = 'Y'
+  IF Envname = UnclaimedEnv THEN $SkipRow = 'Y'
+  IF Envname = ProductionEnv THEN Prim = '&PrimaryFct'
+  IF Envname = ProductionEnv THEN Secdry = '&SecondaryFct'
+  IF Envname = ProductionEnv THEN Dir = '&DirectoryFct'

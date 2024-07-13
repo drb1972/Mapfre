@@ -1,0 +1,141 @@
+         MACRO
+&NAME    $ALTRDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$ALTRDS  DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$ALTRDS  DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $ALTRDS - EXIT BLOCK CONTAINING INFORMATION ASSOCIATED     *
+*                   WITH THE ALTER ACTION                            *
+*                                                                    *
+**********************************************************************
+ALTLEN   DS    AL2(ALTSIZE)            LENGTH OF THE BLOCK
+ALTVERS  DS    AL2(ALT$VERS)           CURRENT VERSION OF THE BLOCK
+ALT$VERS       EQU   1                    VERSION OF THE BLOCK
+ALTID    DC    CL4'$ALT'               BLOCK ID
+*
+* ALTER ACTION REQUEST FLAGS
+ALTRCCG  DS    CL1                     REQ REPLACE GENERATE CCID
+ALTRCCGY       EQU  C'Y'                  YES - REPLACE GENERATE CCID
+ALTRCCGN       EQU  C'N'                  NO  - REPLACE GENERATE CCID
+ALTRCCL  DS    CL1                     REQ REPLACE LAST ACTION CCID
+ALTRCCLY       EQU  C'Y'                  YES - REPLACE LAST ACT CCID
+ALTRCCLN       EQU  C'N'                  NO  - REPLACE LAST ACT CCID
+ALTRCCR  DS    CL1                     REQ REPLACE RETRIEVE CCID
+ALTRCCRY       EQU  C'Y'                  YES - REPLACE RETRIEVE CCID
+ALTRCCRN       EQU  C'N'                  NO  - REPLACE RETRIEVE CCID
+ALTRDES  DS    CL1                     REQ REPLACE DESCRIPTION
+ALTRDESY       EQU  C'Y'                  YES - REPLACE DESCRIPTION
+ALTRDESN       EQU  C'N'                  NO  - REPLACE DESCRIPTION
+ALTRPRG  DS    CL1                     REQ REPLACE PROCESSOR GROUP
+ALTRPRGY       EQU  C'Y'                  YES - REPLACE PROC GRP
+ALTRPRGN       EQU  C'N'                  NO  - REPLACE PROC GRP
+ALTRSGN  DS    CL1                     REQ REPLACE SIGNOUT USERID
+ALTRSGNY       EQU  C'Y'                  YES - REPLACE SIGNOUT ID
+ALTRSGNN       EQU  C'N'                  NO  - REPLACE SIGNOUT ID
+ALTRUSR  DS    CL1                     REQ REPLACE USER DATA
+ALTRUSRY       EQU  C'Y'                  YES - REPLACE USER DATA
+ALTRUSRN       EQU  C'N'                  NO  - REPLACE USER DATA
+         DS    CL32                    ** UNUSED RESERVED AREA **
+*
+* REPLACE CLAUSE MATCH FOUND FLAG
+*    NOTE: THE MATCH FLAGS ARE NOT SET AT THE TIME OF THE EXIT 02
+*    CALLS. THEY ARE SET AND AVAILABLE AT THE TIME OF THE EXIT 03
+*    CALLS.
+ALTMATCH DS    CL1                     ANY MATCHES FOUND?
+ALTMATCHY      EQU  C'Y'                  YES - AT LEAST 1 MATCH FOUND
+ALTMATCHN      EQU  C'N'                  NO -  NO MATCHES FOUND
+* INDIVIDUAL FIELD MATCH FLAGS
+ALTMCCG  DS    CL1                     FOUND GENERATE CCID MATCH
+ALTMCCGY       EQU  C'Y'                  YES - FOUND GEN CCID MATCH
+ALTMCCGN       EQU  C'N'                  NO -  FOUND GEN CCID MATCH
+ALTMCCL  DS    CL1                     FOUND LAST ACTION CCID MATCH
+ALTMCCLY       EQU  C'Y'                  YES - FND LAST ACT CCID MATCH
+ALTMCCLN       EQU  C'N'                  NO -  FND LAST ACT CCID MATCH
+ALTMCCR  DS    CL1                     FOUND RETRIEVE CCID MATCH
+ALTMCCRY       EQU  C'Y'                  YES - FOUND RET CCID MATCH
+ALTMCCRN       EQU  C'N'                  NO -  FOUND RET CCID MATCH
+ALTMDES  DS    CL1                     FOUND DESCRIPTION MATCH
+ALTMDESY       EQU  C'Y'                  YES - FOUND DESCRIPTION MATCH
+ALTMDESN       EQU  C'N'                  NO -  FOUND DESCRIPTION MATCH
+ALTMPRG  DS    CL1                     FOUND PROCESSOR GROUP MATCH
+ALTMPRGY       EQU  C'Y'                  YES - FOUND PROC GRP MATCH
+ALTMPRGN       EQU  C'N'                  NO -  FOUND PROC GRP MATCH
+ALTMSGN  DS    CL1                     FOUND SIGNOUT USERID MATCH
+ALTMSGNY       EQU  C'Y'                  YES - FOUND SIGNOUT ID MATCH
+ALTMSGNN       EQU  C'N'                  NO -  FOUND SIGNOUT ID MATCH
+ALTMUSR  DS    CL1                     FOUND USER DATA MATCH
+ALTMUSRY       EQU  C'Y'                  YES - FOUND USER DATA MATCH
+ALTMUSRN       EQU  C'N'                  NO -  FOUND USER DATA MATCH
+         DS    CL1                     ** UNUSED RESERVED AREA **
+         DS    CL32                    ** UNUSED RESERVED AREA **
+*
+* REPLACE CLAUSE UPDATED FLAG
+*
+ALTUPDTE DS    CL1                     ANY FIELDS UPDATED?
+ALTUPDTEY      EQU  C'Y'                 YES - AT LEAST 1 FIELD UPDATED
+ALTUPDTEN      EQU  C'N'                 NO -  NO FIELDS UPDATED
+* INDIVIDUAL FIELD UPDATED FLAGS
+ALTUCCG  DS    CL1                     UPDATED GENERATE CCID
+ALTUCCGY       EQU  C'Y'                  YES - UPDATED GEN CCID
+ALTUCCGN       EQU  C'N'                  NO -  UPDATED GEN CCID
+ALTUCCL  DS    CL1                     UPDATED LAST ACTION CCID
+ALTUCCLY       EQU  C'Y'                  YES - UPDATED LAST ACT CCID
+ALTUCCLN       EQU  C'N'                  NO -  UPDATED LAST ACT CCID
+ALTUCCR  DS    CL1                     UPDATED RETRIEVE CCID
+ALTUCCRY       EQU  C'Y'                  YES - UPDATED RET CCID
+ALTUCCRN       EQU  C'N'                  NO -  UPDATED RET CCID
+ALTUDES  DS    CL1                     UPDATED DESCRIPTION
+ALTUDESY       EQU  C'Y'                  YES - UPDATED DESCRIPTION
+ALTUDESN       EQU  C'N'                  NO -  UPDATED DESCRIPTION
+ALTUPRG  DS    CL1                     UPDATED PROCESSOR GROUP
+ALTUPRGY       EQU  C'Y'                  YES - UPDATED PROC GRP
+ALTUPRGN       EQU  C'N'                  NO -  UPDATED PROC GRP
+ALTUSGN  DS    CL1                     UPDATED SIGNOUT USERID
+ALTUSGNY       EQU  C'Y'                  YES - UPDATED SIGNOUT ID
+ALTUSGNN       EQU  C'N'                  NO -  UPDATED SIGNOUT ID
+ALTUUSR  DS    CL1                     UPDATED USER DATA
+ALTUUSRY       EQU  C'Y'                  YES - UPDATED USER DATA
+ALTUUSRN       EQU  C'N'                  NO -  UPDATED USER DATA
+         DS    CL1                     ** UNUSED RESERVED AREA **
+         DS    CL32                    ** UNUSED RESERVED AREA **
+*
+* BEFORE-VALUE, FROM-VALUE AND TO-VALUE FOR EACH OF THE FIELDS
+*    NOTE: THE FOLLOWING FIELDS CONTAIN THE FROM AND TO VALUES THAT
+*    WERE CODED ON THE ACTION REQUEST.
+*
+ALTBGCID DC    CL12' '                 BEFORE GENERATE CCID
+ALTFGCID DC    CL12' '                 FROM GENERATE CCID
+ALTTGCID DC    CL12' '                 TO GENERATE CCID
+ALTBLCID DC    CL12' '                 BEFORE LAST ACTION CCID
+ALTFLCID DC    CL12' '                 FROM LAST ACTION CCID
+ALTTLCID DC    CL12' '                 TO LAST ACTION CCID
+ALTBRCID DC    CL12' '                 BEFORE RETRIEVE CCID
+ALTFRCID DC    CL12' '                 FROM RETRIEVE CCID
+ALTTRCID DC    CL12' '                 TO RETRIEVE CCID
+ALTBDESC DC    CL40' '                 BEFORE DESCRIPTION/BASE COMMENT
+ALTFDESC DC    CL40' '                 FROM DESCRIPTION/BASE COMMENT
+ALTTDESC DC    CL40' '                 TO   DESCRIPTION/BASE COMMENT
+ALTBPRGN DC    CL8' '                  BEFORE PROC GRP NAME
+ALTFPRGN DC    CL8' '                  FROM PROC GRP NAME
+ALTTPRGN DC    CL8' '                  TO   PROC GRP NAME
+ALTBSGNI DC    CL8' '                  BEFORE SIGNOUT ID
+ALTFSGNI DC    CL8' '                  FROM SIGNOUT ID
+ALTTSGNI DC    CL8' '                  TO   SIGNOUT ID
+*              USER DATA FIELDS
+ALTBUSRD DC    CL80' '                 BEFORE USER DATA
+ALTFPOS  DC    H'0'                    FROM START POSITION
+ALTFTXL  DC    H'0'                    FROM LENGTH OF TEXT STRING
+ALTFUSRD DC    CL80' '                 FROM USER DATA
+ALTTPOS  DC    H'0'                    TO   START POSITION
+ALTTLEN  DC    H'0'                    TO   LENGTH VALUE CODED
+ALTTTXL  DC    H'0'                    TO   LENGTH OF TEXT STRING
+ALTTPAD  DC    CL1' '                  TO   PAD CHARACTER
+ALTTUSRD DC    CL80' '                 TO   USER DATA
+*
+         DS    XL256                   ** UNUSED RESERVED AREA **
+ALTSIZE        EQU   *-$ALTRDS         LENGTH OF $ALTRDS BLOCK
+         MEND

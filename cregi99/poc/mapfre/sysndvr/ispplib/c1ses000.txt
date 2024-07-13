@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+%------------------------ Site Information from|CIDFLTNM%-----------------------
+%Command ===>_VARWKCMD                                                         +
++
++ Customer Name.....~VARSICNM                                          +
++ ------------------ Function Controls --------------------      - Options -
++ Site ID...........¢VARSIID#+  Access Table......¢VARSCACC+     ACM......¢Z+
++ Version...........¢VARSITPE+  SMF Record Number.¢VARSISF#+     DB2......¢Z+
++ Environments......¢VARSI#EV+  Library System....¢VARSILBE+     QuickEdit¢Z+
++ Userid Start......¢VARSIUIS+  Library Program...¢VARSILBP+     ESI......¢Z+
++ Userid Length.....¢VARSIUIL+  VIO Unit..........¢VARSIVIO+     INFO.....¢Z+
++ Batch ID..........¢VARSIUIB+  Work Unit.........¢VARSIWKU+     LIBENV...¢Z+
++ SPFEDIT QNAME.....¢VARSISPF+  Work Volser.......¢VARSIWKV+     NETMAN...¢Z+
++ SYSIEWL QNAME.....¢VARSIIEW+  Lines per Page....¢VARSILPP+     PDM......¢Z+
++ Authorized Tables.¢VARSIATB+  MODHLI............¢VARMODHL+     PROC.....¢Z+
++ Alternate ID......¢VARALTID+  Signout on fetch..¢VARSSOFT+
++ PITR Journal Grp..¢VARSJGRP+  Mixed Format......¢VARSIMFM
++ CA-LSERV JRNL SBS.¢Z   +      Listing ID string.¢VARLLCHR+
++ Symbolics Table...¢VARSYMBT+  Source Sync Check.¢Z+
++ User Exits Table..¢VARUEX  +  Sync Sev Msg......¢Z+
++ Options Table.....¢VAROPT  +
++ Config Table......¢VARCNFG +
++ SMTP Table........¢VARESMT +
++                                               (Press Enter for Next Panel)
+)INIT
+  .ZVARS = '(VARSIASC VARSIDB2 VARSIEDE VARSIESS  +
+             VARSINFO VARSILEV VARSINET VARSIPDM VARSIPRC  +
+             VARSJSBS VARSCHK VARSMSV )'
+  .HELP = CITES000
+)END

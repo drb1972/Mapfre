@@ -1,0 +1,7 @@
+@REM ****************************************************** #PSLOCLE ***
+@REM *    CONTENTS: ENDEVOR/MVS - EXECUTE REMOTE COPY/DELETE JOB
+@REM * TRANSMITTER: LOCAL (SHARED DASD) TRANSFER
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO.
+@REM *******************************************************************
+@REM
+ SUBMIT '&AHJOBDSN'

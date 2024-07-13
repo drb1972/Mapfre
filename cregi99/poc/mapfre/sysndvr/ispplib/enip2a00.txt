@@ -1,0 +1,41 @@
+)ATTR
+ /*-----------------------------------------------------------------------*/
+ /* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+ /* Panelid: ENIP2A00                                                     */
+ /*-----------------------------------------------------------------------*/
+ # TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+ $ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT)
+ _ TYPE(INPUT)  INTENS(HIGH) JUST(LEFT) PADC(_)
+ ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+ @ TYPE(TEXT)   INTENS(&PDVPNINT)
+)BODY
++-------------------------------%Export Package+--------------------------------
++ Command ==>$ZCMD                                                             +
++
++  Complete the Export data set information below and select an action:
++   _Z+ 1  Export package         2  Cancel the Export action
++      @N  Display Package Notes
++
++  Package ID.............#PDVSLPKG        +
++  Description............~PDVSLDSC                                          +
++  Created by user#Z       +on date#Z      +at time#Z    +
++  PKG last updated by user#Z       +on date#Z      +at time#Z    +
++
++  Export to data set name:
++    Project.._PDVEXPRO+
++    Group...._PDVEXGRP+
++    Type....._PDVEXTYP+
++    Member..._PDVEXMBR+
++
++  Other partitioned or sequential data set:
++    Data set name.._PDVEXOTH                                                 +
++
++  Export options
++    Replace member.._Z+ (Y/N)
++
+)INIT
+  .HELP = enit2a00
+  .ZVARS = '(VARWKCMD, PDVSLDUI, PDVSLDDT, PDVSLDTM,   +
+             PDVSLLUI, PDVSLLDT, PDVSLLTM, PDVEXREP)'
+)PROC
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Ship Command File HLQ Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Package Ship Command File HLQ Enhancement +
+
++ In foreground, the Ship Command File Prefix can be specified on the
+  Confirm Shipment panel.
+
++ In batch, the Package SHIP API action SCL is enhanced to include a
+  new option. The name of this optional keyword is PREfix followed by a
+  one to eight-character value, which is used as the HLQ for the command
+  file. The Package SHIP action SCL is documented in the Package Guide
+  Appendix. Note that the TO DESTINATION clause must be coded prior to
+  the OPTION clause.
+
++ In both batch and foreground, the Prefix value is used as the high
+  level qualifier for XCOM or Connect:Direct command files.
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12EA
+)END

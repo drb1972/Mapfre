@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%Build WIP ------------ Merge Output Specification Panel -----------------------
+%Command ===>_VARWKCMD                                                         +
++
++Specify%MERGE OUTPUT+location below, then press the%ENTER+key.
++
++Merge Library:+
++   Project%===>_PTBOTPRJ+
++   Group  %===>_PTBOTLIB+
++   Type   %===>_PTBOTTYP+
++
++Merge Other partitioned or sequential data set:+
++   Data Set Name %===>_PTBOTOTH
++
++Merge Data Set Options:
++   If partitioned, replace like-name members%===>_Z+   (Yes/No)
++
++Merge Options:
++   Delete WIP member after MERGE%===>_Z+   (Yes/No)
++   Panvalet/Librarian language  %===>_PTBMRGLN+
++
++
++
++
++
+)INIT
+   .ZVARS = '(PTBREPOP PTBMRDWP)'
+   .HELP = BC1T4400
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the Merge   */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VGET (PTBOTOTH) PROFILE                                        */
+)PROC
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the Merge   */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VPUT (PTBOTOTH) PROFILE                                        */
+)END

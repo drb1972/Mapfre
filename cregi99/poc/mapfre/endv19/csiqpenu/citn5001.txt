@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Member - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return a list of members from a PDS or a list
++    of USS files from a path. This only applies if the DISPLAY LIST
++    option is set to Y. You can also build a file of LIST action SCL
++    statements using this function.
++
+%B+- Use this option to display the contents of a specified member or
++    USS file. The member/file must be footprinted to use this feature.
++
+%L+- Use this option to generate List requests for specified members
++    or USS files. The requests can then be submitted for execution.
++
++
++
++
++
++                                                     (%PF3+to return)
+)END

@@ -1,0 +1,36 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY EXPAND(//)
+%/-/ Site Information from|CIDFLTNM%/-/
+%COMMAND ===>_VARWKCMD                                                         +
++
++ ---------------------------- CA-7 Interface Values ---------------------------
++ CA-7 Region CCI Nodename...¢VARC7CCI                                 +
++ JCL Data Set Index Number..¢VARC7JID                                 +
++ JCL Data Set Index Symbol..¢VARC7JIB                                 +
++ JCL Data Set Name..........¢VARC7JDS                                 +
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                (Press Enter for Next Panel)
+)INIT
+  .HELP = CITES000
+)END

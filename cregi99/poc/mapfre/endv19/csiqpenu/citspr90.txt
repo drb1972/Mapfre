@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ FOREGROUND PRINT REQUEST OPTIONS \-\
+%OPTION  ===>_ZCMD                                                             +
+
++The FOREGROUND PRINT REQUEST OPTIONS panel allows you to decide
+ how you want to handle your foreground print requests.  Three options
+ are available:
+
+  %Enter    To+
+
+    %J+     Submit the print requests that have been queued for execu-
+            tion.  The data set containing the foreground print requests
+            will be deleted.
+
+    %D+     Delete the print request data set, created by foreground
+            processing, that contains the print requests.  With this
+            option, the PRINT action is not performed.
+
+    %K+     Keep the request data set, created using the PRINT ELEMENTS
+            panel (in foreground), that contains the print requests.
+            With this option, the PRINT action is performed.
+
+                                               %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITSPR91
+)END

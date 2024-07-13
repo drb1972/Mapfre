@@ -1,0 +1,38 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ MASTER CONTROL FILE REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT REPORTS:
+ _Z%01 +System inventory profile   _Z%07 +System definition profile
+ _Z%02 +System inventory summary   _Z%08 +Element signed out profile - by system
+ _Z%03 +Element catalog            _Z%09 +Element signed out profile - by user
+ _Z%04 +Element activity profile   _Z%10 +Approver group definition
+ _Z%05 +Element activity summary   _Z%11 +Approver group usage
+ _Z%06 +Element catalog by CCID    _z%12 +Element catalog by retrieve CCID
++
+            +Inventory Location:
+               +  ENVIRONMENT %===>_VAREVNME+
+               +  SYSTEM      %===>_SYS     +
+               +  SUBSYSTEM   %===>_SBS     +
+               +  ELEMENT     %===>_CIELM     +
+               +  TYPE        %===>_TYPEN   +
+               +  STAGE       %===>_D+
++
+               +  DAYS        %===>_DAYS +
++
++      SEARCH ENVIRONMENT MAP %===>_S+(Y/N) +
+%
+)INIT
+ .ZVARS = '(RPT01 RPT07 RPT02 RPT08 RPT03 RPT09 +
+            RPT04 RPT10 RPT05 RPT11 RPT06 RPT12)'
+ .HELP = CITR1100
+)PROC
+)END

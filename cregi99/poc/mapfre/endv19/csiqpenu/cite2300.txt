@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ System Definition - Clone Panel \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The clone option for system definition allows you to copy system,
++subsystem, type, and processor group definitions within or across
++environments.
++
++Note: The cloned information is not validated.
++
+%To Information+- Names of the environment and system to which information
++   will be cloned, and the system description.
++
+%From Information+- Names of the environment and system from which information
++   will be cloned.
++
+%General Options+- Indicate whether to copy subsystem, type, and
++    processor group definitions. Acceptable values are:
+       %Y+- Default. Clone the definitions.
+       %N+- Do not clone the definitions.
+
++
++                                            (%PF3+to return)
+)END

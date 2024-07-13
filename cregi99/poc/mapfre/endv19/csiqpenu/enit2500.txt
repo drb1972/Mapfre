@@ -1,0 +1,37 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Execute Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Execute Package panel to execute a package.  To execute a package
++select action 1 and press enter.  You can cancel the Execute Package action by
++selecting action 2 and pressing enter.
++
++You can change the Execution Window field only if the execution window has
++been missed.  If the execution window falls within the current date and time
++you will not be allowed to change these values.
+%
++Select 1 - 6 for information about:
+%   1+- Package identification fields
+%   2+- Sharable package
+%   3+- Validate component
+%   4+- Enable backout
+%   5+- Execution window
+%   6+- Package event fields
+%
+%
++ Select a Help topic, or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citshpk0
+                 3,citcval0
+                 4,citbken0
+                 5,citxwin0
+                 6,citpkev0
+                )
+)END

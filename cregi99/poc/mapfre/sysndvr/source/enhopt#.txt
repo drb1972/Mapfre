@@ -1,0 +1,338 @@
+         MACRO
+&LABEL   ENHOPT#                                                       +
+               &DO,                   What to do on this call          +
+               &INDEX=,               The table entry index            +
+               &PARM=,                The table parm value             +
+               &PARMTYP=HEX,          Parm data type (hex, char,...)   +
+               &OPTION=,              Keyword invoking this macro      +
+               &ENTRIES=,             Number of entries in table       +
+               &VALID=(1)             Valid parm values
+         LCLA  &I
+         LCLA  &K
+         LCLA  &NDX
+         LCLC  &P
+         LCLA  &PA
+         LCLA  &MIN
+         LCLA  &MAX
+         LCLC  &KW
+         GBLC  &LIBTAB
+         GBLA  &TBLSIZE
+         GBLB  &TBLINIT
+         GBLB  &TBLSECT
+         GBLB  &TBLENTRY
+         GBLB  &TBLGEN
+         GBLC  &TABLEID
+         GBLC  &TBLEND
+         GBLC  &CODETBL(256)
+         GBLC  &PARMTBL(256)
+         GBLC  &TYPETBL(256)
+         GBLC  &INDEXTBL(256)
+         GBLC  &RELNUM,&TAPSER
+.*
+         LCLC   &ADTABSU
+         GBLC   &AIGUSR
+         GBLC   &TABUSR(256)
+         GBLA   &NBRU
+.*
+         lclC   &ADTABDD
+         GBLC   &AIGDDN
+         GBLC   &TABDDN(256)
+         GBLA   &NBRDDN
+.*
+         AIF   ('&DO' EQ 'EQU').OPT800
+         AIF   ('&DO' EQ 'INIT').OPT100
+         AIF   ('&DO' EQ 'FINAL').OPT900
+         AIF   ('&DO' EQ 'ENTRY' OR '&DO' EQ '').OPT200
+         MNOTE 16,'UNKNOWN OR UNEXPECTED CALL FUNCTION: &DO'
+         MEXIT
+.**********************************************************************
+.* INITIALIZE THE OPTIONS TABLE
+.**********************************************************************
+.OPT100  ANOP
+&TABLEID SETC  'ENCOPTBL'
+         AIF   ('&LABEL' EQ '').OPT120
+&TABLEID SETC  '&LABEL'
+.OPT120  ANOP
+&TBLEND  SETC  '&TABLEID._END'
+&TBLSIZE SETA  &ENTRIES
+&I       SETA  1
+.OPT140  ANOP
+         AIF   (&I GT &TBLSIZE).OPT180
+&K       SETA  &I*4+32768
+&CODETBL(&I)   SETC  '&K'
+&PARMTBL(&I)   SETC '**'
+&TYPETBL(&I)   SETC 'C'                ALWAYS ASSUME CHARACTER
+&I       SETA  &I+1
+         AGO   .OPT140
+.OPT180  ANOP
+&TBLINIT SETB  1
+         MEXIT
+.**********************************************************************
+.* UPDATE THE TABLE DEPENDING UPON THE OPTIONAL PARMS SPECIFIED.
+.**********************************************************************
+.OPT200  ANOP
+         AIF   (&TBLINIT).OPT220
+         MNOTE 16,'SEQUENCE ERROR, INIT MUST BE PERFORMED BEFORE ENTRY +
+               CAN BE ADDED'
+         MEXIT
+.OPT220  ANOP
+.**********************************************************************
+.* If the INDEX prm is not null, the use that as the tabl index.
+.* Otherwise, use the KED parm to lookup the keyword in the index
+.* table. Use therelative entry number as the index number.
+.**********************************************************************
+.OPT240  ANOP
+         AIF   ('&PARM' EQ '').OPTEND
+&NDX     SETA  &INDEX
+         AIF   (&NDX GT 0).OPT400
+         AIF   ('&OPTION' NE '').OPT320
+         MNOTE 12,'UNSUPPORTED TABLE INDEX VALUE: &INDEX/&TBLSIZE'
+         MEXIT
+.OPT320  ANOP
+&NDX     SETA  1
+.OPT340  ANOP
+         AIF   (&NDX GT &TBLSIZE).OPT360
+         AIF   ('&OPTION' EQ '&INDEXTBL(&NDX)').OPT400
+&NDX     SETA  &NDX+1
+         AGO   .OPT340
+.OPT360  ANOP
+         MNOTE 16,'Unsupported keyword &OPTION.. Not found in index tab+e'
+               le'
+         MEXIT
+.**********************************************************************
+.* Ensure that the entry is not being multiply updated. Only one
+.* specification is allowed for each entry.
+.**********************************************************************
+.OPT400  ANOP
+         AIF   ('&PARMTBL(&NDX)' NE '**').OPT410
+         AIF   ('&CODETBL(&NDX)' GT '32768').OPT420
+.OPT410  ANOP
+         MNOTE 16,'Multiple entries found for option &OPTION, index(&ND+)'
+               X)'
+         MEXIT
+.**********************************************************************
+.* Process the parm input. This is in the format PARM=ON or
+.* PARM=(ON,value), where value is the parm to be included in the
+.* table. If value is not coded, then the first value of the VALID
+.* parameter is used in the table entry. If PARM(1) is not ON, then
+.* the entry is not generated and an error message is generated if
+.* it is not OFF.
+.**********************************************************************
+.OPT420  ANOP
+&KW      SETC  '&OPTION'(2,K'&OPTION-2)
+         AIF   ('&OPTION'(1,1) EQ '''').OPT430
+&KW      SETC  '&OPTION'
+.OPT430  ANOP
+&P       SETC  '&PARM(1)'
+         AIF   ('&P' EQ 'OFF').OPTOFF
+         AIF   ('&P' EQ 'ON').OPT440
+         MNOTE 12,'Unsupported parm option for keyword &KW: &P.. Specif+
+               y ON, OFF, or (ON,pp)'
+         AGO   .OPTEND
+.OPTOFF  ANOP
+         AIF   (N'&PARM LT 2).OPTEND
+         MNOTE 12,'Illogical parm option specification: &KW: &P.. No ot+
+               her parms are valid if ''OFF'' specified'
+         AGO   .OPTEND
+.OPT440  ANOP
+&P       SETC  '1'
+         AIF ('&PARMTYP' NE 'ADR').OPT445
+&P       SETC  '&PARM(2)'
+         AGO   .OPT600
+.OPT445  ANOP
+         AIF   ('&VALID' EQ '').OPT600
+&P       SETC  '&VALID(1)'
+         AIF   ('&P' NE 'RANGE').OPT450
+&P       SETC  '&VALID(2)'
+.OPT450  ANOP
+         AIF   (N'&PARM LT 2).OPT600
+&P       SETC  '&PARM(2)'
+         AIF   (N'&PARM LE 2).OPT500
+         MNOTE 4,'Extraneous parm options are ignored for keyword &KW'
+         AGO   .OPT500
+.OPT460  ANOP
+.**********************************************************************
+.* Lookup the specified parm value in the valid parm list.
+.**********************************************************************
+.OPT500  ANOP
+&K       SETA  1
+         AIF   ('&VALID(1)' EQ 'RANGE').OPT540
+.OPT520  ANOP
+         AIF   (&K GT N'&VALID).OPT580
+         AIF   ('&P' EQ '&VALID(&K)').OPT600
+&K       SETA  &K+1
+         AGO   .OPT520
+.OPT540  ANOP
+         AIF   (N'&VALID EQ 3).OPT550
+         MNOTE 16,'Incorrect number of parameters for valid-list range,+
+               &KW/&VALID'
+&MIN     SETA   1
+&MAX     SETA   64*1024
+         AGO   .OPT560
+.OPT550  ANOP
+         AIF   (T'&VALID(2) NE 'N').OPT570
+         AIF   (T'&VALID(3) NE 'N').OPT570
+&MIN     SETA   &VALID(2)
+&MAX     SETA   &VALID(3)
+.OPT560  ANOP
+         AIF   (T'&P  NE 'N').OPT570
+&PA      SETA  &P
+         AIF   (&PA LT  &MIN).OPT570
+         AIF   (&PA LE  &MAX).OPT600 ITS GOOD -- CONTINUE
+.OPT570  ANOP
+         MNOTE 12,'&KW Numeric parm is outside valid range (&MIN to &MA+
+               X: &P'
+&P       SETC  '-1'
+         AGO   .OPT600
+.OPT580  ANOP
+         MNOTE 12,'&KW UNSUPPORTED OPTIONAL PARM VALUE: &P'
+.**********************************************************************
+.* Set the table entry values.
+.**********************************************************************
+.OPT600  ANOP
+&K       SETA  &NDX*4
+&PARMTBL(&NDX) SETC '&P'
+&CODETBL(&NDX) SETC '&K'
+         AIF   ('&PARMTYP' EQ 'ADR').OPT670
+         AIF   ('&PARMTYP' EQ 'CHAR' OR '&PARMTYP' EQ '').OPT640
+         AIF   ('&PARMTYP' EQ 'HEX').OPT650
+         AIF   ('&PARMTYP' EQ 'HEXCHAR').OPT660
+         MNOTE 16,'&KW UNSUPPORTED PARMTYP VALUE: &PARMTYP: CHAR ASSUME+
+               D'
+.OPT640  ANOP
+&TYPETBL(&NDX) SETC 'C'                TYPE IS CHARACTER
+         AIF   (K'&P LE 2).OPT645
+         MNOTE 12,'&KW PARM LENGTH ERROR, MUST BE NO MORE THAN 2 CHARAC+
+               TERS'
+.OPT645  ANOP
+         AGO   .OPT680
+.OPT650  ANOP
+&TYPETBL(&NDX) SETC 'H'                TYPE IS HEX
+         AGO   .OPT680
+.OPT660  ANOP
+&TYPETBL(&NDX) SETC 'XC'               TYPE IS HEX
+         AGO   .OPT680
+.OPT670  ANOP
+&TYPETBL(&NDX) SETC 'A'
+         AGO   .OPT680
+.OPT680  ANOP
+         ENHOPT@ 'ENHOPT Defined option &OPTION, index(&NDX), parm(&P)'
+         AGO   .OPT880
+.OPT800  ANOP
+&NDX     SETA  1
+.OPT820  ANOP
+         AIF   (&NDX GT &TBLSIZE).OPT880
+&P       SETC  'OPTIONAL_PTF_&INDEXTBL(&NDX)'
+&P       EQU   &NDX
+&NDX     SETA  &NDX+1
+         AGO   .OPT820
+.OPT880  ANOP
+         MEXIT
+.**********************************************************************
+.* GENERATE THE TABLE.
+.**********************************************************************
+.OPT900  ANOP
+&I       SETA  1
+         AIF   (&TBLSECT).OPT240
+&TBLSECT SETB  1
+&LIBTAB  SETC  'TABLIB'
+&TABLEID CSECT
+         $RELEASE ,
+ENHRLSE  DC    CL4'&RELNUM'  RELEASE NUMBER
+ENHOPT   DC    A(TABLEOPT)   ADDRESS OF OPTIONS TABLE
+ENHLIT   DC    A(&LIBTAB.)   ADDRESS OF LITERALS TABLE
+.*
+&USRLAB  SETC  '0'
+&DDNLAB  SETC  '0'                            ADDRESS OF ENCATBL
+         AIF   ('&AIGUSR' NE 'Y').OPT0910     NO SUPER-USER
+&USRLAB  SETC  'TABLESUP'                   ADDRESS OF SUP-USER TBL
+.OPT0910 ANOP
+.*
+         AIF   ('&AIGDDN' NE 'Y').OPT0915     NO ENCADDOL
+&DDNLAB  SETC  'TABLEDDN'                     ADDRESS OF ENCATBL
+.OPT0915 ANOP
+ENHSUT   DC    A(&USRLAB)    ADDRESS OF SUPER-USER TABLE
+ENHDDT   DC    A(&DDNLAB)    ADDRESS OF ENCADDOL TABLE
+ENHPTR1  DC    A(0)          RESERVED
+ENHPTR2  DC    A(0)          RESERVED
+ENHPTR3  DC    A(0)          RESERVED
+ENHPTR4  DC    A(0)          RESERVED
+ENHPTR5  DC    A(0)          RESERVED
+ENHPTR6  DC    A(0)          RESERVED
+ENHPTR7  DC    A(0)          RESERVED
+ENHPTR8  DC    A(0)          RESERVED
+ENHPTR9  DC    A(0)          RESERVED
+ENHPTR10 DC    A(0)          RESERVED
+.*
+TABLEOPT DS  0F
+         DC    Y((&TBLEND-TABLEOPT)/4),C'**'
+.OPT920  ANOP
+         AIF   (&I GT &TBLSIZE).OPT990
+         AIF   ('&TYPETBL(&I)' EQ 'H').OPT940
+         AIF   ('&TYPETBL(&I)' EQ 'XC').OPT960
+         AIF   ('&TYPETBL(&I)' EQ 'A').OPT970
+&P       SETC  '&PARMTBL(&I)'
+         DC    0Y(&I),AL2(&CODETBL(&I)),CL2'&P'
+         AGO   .OPT980
+.OPT940  ANOP                          PROCESS HEX PARM
+&P       SETC  '&PARMTBL(&I)'
+         DC    0Y(&I),AL2(&CODETBL(&I)),Y(&P)
+         AGO   .OPT980
+.OPT960  ANOP                          PROCESS HEXCHAR PARM
+&P       SETC  '&PARMTBL(&I)'
+         DC    0Y(&I),AL2(&CODETBL(&I)),Y(C'&P')
+         AGO   .OPT980
+.OPT970  ANOP
+&P       SETC  '&PARMTBL(&I)'
+         DC    0Y(&I)
+         DC    AL2(&CODETBL(&I))
+         DC    AL2(&P.)
+         AGO   .OPT980
+.OPT980  ANOP
+&I       SETA  &I+1
+         AGO   .OPT920
+.OPT990  ANOP
+&TBLEND  EQU   *
+&LIBTAB  DS    0F
+         DC    CL8'ENCOPTBL'           TABLE NAME
+         DC    CL8'&SYSDATE '          Assembly Date
+         DC    CL8'&SYSTIME '          Assembly Time
+&I       SETA  1
+.OPT991  ANOP
+         DC    CL60'&INDEXTBL(&I)'
+&I       SETA  &I+1
+         AIF   (&I   GT &TBLSIZE).OPT1000
+         AGO   .OPT991
+.OPT1000 ANOP
+.*------------------------------------------------------*
+.*   generate super-user table                          *
+.*------------------------------------------------------*
+         AIF   ('&AIGUSR' NE 'Y').OPT2000    no super-user defined
+&I       SETA  1
+&TBLINIT SETB  0
+TABLESUP DS    0D
+         DC    H'&NBRU'                 number of super-uesr defined
+.OPT1200 ANOP
+         DC    CL8'&TABUSR(&I)'
+&I       SETA  &I+1
+         AIF   (&I   GT &NBRU).OPT2000
+         AGO   .OPT1200
+.*
+.*------------------------------------------------------*
+.*   generate DDNAME table  (encaddol)                  *
+.*------------------------------------------------------*
+.OPT2000 ANOP
+         AIF   ('&AIGDDN' NE 'Y').OPTEND      no ddname defined
+&I       SETA  1
+&TBLINIT SETB  0
+TABLEDDN DS    0D
+         DC    H'&NBRDDN'                     number of ddname defined
+.OPT2001 ANOP
+         DC    CL8'&TABDDN(&I)'
+&I       SETA  &I+1
+         AIF   (&I   GT &NBRDDN).OPTEND
+         AGO   .OPT2001
+.*
+.OPTEND  ANOP
+         MEXIT
+         MEND

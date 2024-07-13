@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+! TYPE(TEXT) COLOR(GREEN)
+@ TYPE(TEXT) COLOR(TURQ)
+¢ TYPE(OUTPUT) COLOR(GREEN) CAPS(OFF)
+^ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF)
+)BODY EXPAND(\\)
+%\-\  ENDEVOR WIZARD  \-\
+%Option ===>_ZCMD
++
++   Use this panel to prepare an Endevor Wizard change.
++
++   First: Use ISPF option 3.3 to copy members you want to change
++
++      Copy From: ^PREVDSN
++           To  : ^TTOSDSN                 +(ISPF 3.3 can create it)
++
++   1: Use option 1 to work with members to be changed
++
++   2: Use option 2 to create wizard control members to add
++
++   3: Use option 3 to modify the wizard control members
++
++   4: Use option 4 to peer check a change after the package is cast
++
++   5: Use option 5 to build JCL to ADD to Endevor
++
++   #: Use option # to delete all elements and the package relating
++      to a change. N.B. The CMR for this change must be active.
++
++   Comment: The comment supplied is used on each of the batch actions.
++            The package will have use the CMR description as its' comment.
+)INIT
+ &PREVDSN = PREV.P&C1SYSTEM.1.type
+ &TTOSDSN = TT&SUFFIX..&CHANGE..type
+)END

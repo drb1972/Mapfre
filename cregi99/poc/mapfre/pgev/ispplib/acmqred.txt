@@ -1,0 +1,49 @@
+)BODY EXPAND (\\)
+%\-\ Search for Redundant Input Components \-\
+%OPTION  ===>_ZCMD
+%
+%  S+- Submit job
+%
+%
++TYPE              ===>_ARTYPE  +  %COPYBOOK MACRO EASYMAC EARLMAC
++ENDEVOR SUBSYSTEM ===>_Z  +
++ENDEVOR STAGE     ===>_Z+
++
++
++   This utility will report on input components that are not used.
++   It will build delete SCL for all unused input components that
++   you can either submit or copy into a package.
++
++   Finding and deleting redundant input components improves impact
++   analysis making searches quicker and results more accurate.
++
+%   N.B.+Elements deleted from stage P are automatically transferred
++   to the ARCH environment so can easily be recovered.
++
+)INIT
+ .CURSOR = ZCMD
+ .ZVARS = '(ARSUBSYS,ARSTG)'
+ VGET (ARTYPE ARSUBSYS ARSTG) PROFILE
+)PROC
+&ZSEL = TRANS( TRUNC (&ZCMD,'.')
+   S,'cmd(evftincl ACMQRED S)'
+   ' ',' '
+   *,'?' )
+&ARSYS = TRUNC(&ARSUBSYS,2)
+VER (&ARTYPE,NB,LISTX,*)
+VER (&ARTYPE,NB,LIST,COPYBOOK,MACRO,EASYMAC,EARLMAC,PROCINC)
+VER (&ARSUBSYS,NB,LEN,'=',3)
+VER (&ARSTG,NB,LIST,T,U,A,B,C,D,E,F,O,P)
+IF (&ARSTG = 'T') &ARENVR = 'UTIL'
+IF (&ARSTG = 'U') &ARENVR = 'UTIL'
+IF (&ARSTG = 'A') &ARENVR = 'UNIT'
+IF (&ARSTG = 'B') &ARENVR = 'UNIT'
+IF (&ARSTG = 'C') &ARENVR = 'SYST'
+IF (&ARSTG = 'D') &ARENVR = 'SYST'
+IF (&ARSTG = 'E') &ARENVR = 'ACPT'
+IF (&ARSTG = 'F') &ARENVR = 'ACPT'
+IF (&ARSTG = 'O') &ARENVR = 'PROD'
+IF (&ARSTG = 'P') &ARENVR = 'PROD'
+&ZTRAIL = .TRAIL
+VPUT (ARTYPE ARSUBSYS ARSTG) PROFILE
+)END

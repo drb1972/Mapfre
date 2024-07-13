@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ CCID/Comment Updates on Restores \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                   MCF CCID/Comment                       Delta CCID/Comment
+%            -----------------------------------------    --------------------
+%Action      current     generate     last    retrieve    Source     component
+%            source                  action
++
++
+%Restore+    Set from    Set if      Set      set from    Set from   Set if
++            archive     generated            archive     archive    generated
++
++
+)END

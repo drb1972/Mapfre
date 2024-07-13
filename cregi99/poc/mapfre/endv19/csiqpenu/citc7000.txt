@@ -1,0 +1,32 @@
+)BODY EXPAND(\\)
+%\-\ AllFusion Endevor Change Manager r7 - New Features \-\
+%Option ===>_ZCMD                                                              +
+%                                                      %(Screen 1 of 2)+
++
++    The following panels present information about the new features and
++    enhancements that are available with r7 of Endevor Change Manager.
++    Select%1+-%12+for information about the topics listed below:
+%                                                                          Last+
+%                                                                       Changed+
++
+%     1+- Global Type Sequencing                                          %base+
+%     2+- Dynamic Approvers                                               %base+
+%     3+- Multiple Entry-Stage Environments                               %base+
+%     4+- API SCL Format Action                                           %base+
+%     5+- API/CSV List Destination                                        %base+
+%     6+- API and CSV Utility Inventory Wildcarding                       %base+
+%     7+- Type Definition Enhanced For Enterprise Workbench               %base+
+%     8+- Package Display Panel Package Shipment Information              %base+
+%     9+- User Data in Element Record                                     %base+
+%    10+- Move Component List Enhancement                                 %base+
+%    11+- ISPF VIEW Mode Support                                           %sp1+
+%    12+- Limited Functionality Available for Non-Authorized Programs      %sp1+
++
++                                         (%ENTER+to continue,%END+to exit)
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITC7010 2,CITC7020 3,CITC7030 4,CITC7040
+                       5,CITC7050 6,CITC7060 7,CITC7070 8,CITC7080
+                       9,CITC7090 10,CITC70A0
+                       11,CITC7110 12,CITC7120)
+   &ZCONT = CITC7001
+)END

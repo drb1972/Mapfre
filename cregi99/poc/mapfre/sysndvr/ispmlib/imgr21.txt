@@ -1,0 +1,20 @@
+IMGR210E 'SYSTEM NOT DEFINED'                            .ALARM=YES
+'&VARWLTXT'
+IMGR211E 'TYPES DEFINED'                                 .ALARM=YES
+'&VARWLTXT'
+IMGR212E 'SUBSYSTEMS DEFINED'                            .ALARM=YES
+'&VARWLTXT'
+IMGR213E 'SUBSYSTEM DEFINED'                             .ALARM=YES
+'&VARWLTXT'
+IMGR214E 'SUBSYSTEM NOT DEFINED'                         .ALARM=YES
+'&VARWLTXT'
+IMGR215E 'ELEMENTS EXIST'                                .ALARM=YES
+'&VARWLTXT'
+IMGR216E 'VSAM I/O ERROR'                                .ALARM=YES
+'&VARWLTXT'
+IMGR217E 'TYPE ALREADY DEFINED'                          .ALARM=YES
+'&VARWLTXT'
+IMGR218E 'TYPE SEQ NOT DEFINED'                          .ALARM=YES
+'&VARWLTXT'
+IMGR219E 'TYPE MAXIMUM REACHED'                          .ALARM=YES
+'&VARWLTXT'

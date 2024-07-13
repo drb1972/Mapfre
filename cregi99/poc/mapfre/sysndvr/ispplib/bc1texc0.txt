@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The EXCLUDE Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the EXCLUDE command to exclude a matrix row from Build WIP processing.
++This allows you to quickly eliminate unnecessary Build WIP processing.
++
++To exclude a WIP member(s) from processing, type%X+in the selection
++field next to the WIP member(s) to be excluded, then press ENTER.
++
++The screen then displays the message *EXCLUDED in the RENAME field,
++next to the appropriate WIP member(s). Note that there is no longer a
++WIP sequence number for this row.
++
++
+)END

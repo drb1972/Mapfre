@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Add, Update, Retrieve & Transfer Panels Made Scrollable \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%ISPF Add, Update, Retrieve & Transfer Panels Made Scrollable
++
++ In the ISPF Classic interface, the Add, Update, Retrieve & Transfer
++ panels are now vertically scrollable.  This change allows all of the
++ Action Options to be specified on each of the action panels, so that
++ you no longer have to go to a separate panel to change these options.
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18150
+)END

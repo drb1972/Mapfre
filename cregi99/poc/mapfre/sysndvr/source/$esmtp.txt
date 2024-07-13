@@ -1,0 +1,334 @@
+         MACRO
+&LABEL  $ESMTP &DSECT=NO,              DROP TABLE DSECT (OR NOT)       X
+               &HOSTNAME=,   (REQ'D)   SMTP HOST NAME                  X
+               &DFTDOMAIN=,  (REQ'D)   DEFAULT DOMAIN NAME             X
+               &DFTURL=,     (OPT)     DEFAULT ENDEVOR URL             X
+               &MFID=,       (REQ'D)   MAINFRAME APPROVER GRP/USER ID  X
+               &EMAILID=,    (REQ'D)   EMAIL ID                        X
+               &DOMAIN=,     (OPT)     DEFAULT DOMAIN NAME OVERRIDE    X
+               &URL=,        (OPT)     DEFAULT URL OVERRIDE            X
+               &SMTPTASKNAME=SMTP, (REQ'D) NAME OF THE SMTP ADDR SPACE X
+               &SMTPCLASS=B, (REQ'D)   SYSOUT CLASS ASSOC W/SMTP       X
+               &DFTID=,      (OPT)     BLANK OR "USERID".              X
+               &ATSIGN=7C,   (OPT)     ATSIGN VALUE                    X
+               &MAILFROM=,   (OPT)     VALUE TO BE USED IN MAIL FROM   X
+               &CALL=        (REQ'D)   SPECIFY "END" FOR TO END TABLE
+.**********************************************************************
+.* COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.                   *
+.*                                                                    *
+.*                                                                    *
+.*  NAME:      $ESMTP                                                 *
+.*                                                                    *
+.*  FUNCTION:  $ESMTP IS USED TO DEFINE THE OPTIONAL MAINFRAME APPR.  *
+.*             GROUP OR USER ID EMAIL LIST.  THIS LIST IS USED BY     *
+.*             ENDEVOR TO SEND EMAIL NOTIFICATION MESSAGES TO PACKAGE *
+.*             APPROVERS AT CAST TIME.                                *
+.*                                                                    *
+.*             THE TABLE BUILT BY THIS MACRO HAS TWO SECTIONS.  THE   *
+.*             FIRST SECTION DEFINES THE SMTP HOSTNAME, DOMAIN NAME   *
+.*             AND THE URL OF THE ENDEVOR WEBSTATION SERVER.  THE URL *
+.*             IS OPTIONAL.  IF SPECIFIED, IT WILL BE PLACED IN THE   *
+.*             EMAIL TEXT SO THAT THE EMAIL RECIPIENT CAN EASILY      *
+.*             START AN ENDEVOR ECCM OR WEBSTATION SESSION.           *
+.*                                                                    *
+.*             THE SECOND SECTION CONTAINS THE MAINFRAME APPROVER     *
+.*             GROUP ID OR USER ID, THE ASSOCIATED EMAIL ID AND       *
+.*             OPTIONAL OVERRIDES FOR THE DOMAIN, AND URL.            *
+.*                                                                    *
+.*             THE HOSTNAME AND DOMAIN (DFTDOMAIN) ARE REQUIRED ON    *
+.*             THE FIRST SPECIFICATION OF $ESMTP.                     *
+.*             OPTIONALLY, DFTID=USERID CAN BE SPECIFIED              *
+.*                THIS OPTION WILL ALLOW TO SEND EMAILS TO USER-IDS   *
+.*                THAT ARE NOT DEFINED IN ESMTPTBL.                   *
+.*                THEY WILL BE SENT TO THE ENDEVOR-USERID@DFTDOMAIN   *
+.*                                                                    *
+.*             THE MFID AND EMAILID PARAMETERS ARE REQUIRED ON        *
+.*             SUBSEQUENT SPECIFICATIONS OF $ESMTP.                   *
+.*                                                                    *
+.*             ALL OTHER PARAMETERS ARE OPTIONAL.                     *
+.*                                                                    *
+.*             WHEN ALL MAINFRAME IDS HAVE BEEN DEFINED, YOU MUST     *
+.*             TERMINATE THE TABLE BY SPECIFYING THE "CALL=END" PARM  *
+.*                                                                    *
+.*             INFORMATION REGARDING THE SMTP ADDRESS SPACE CAN BE    *
+.*             FOUND IN THE FOLLOWING IBM MANUAL:                     *
+.*                                                                    *
+.*             IBM TCP/IP VXRX FOR MVS: PLANNING AND CUSTOMIZATION    *
+.*                                                                    *
+.*             THE DEFAULT SMTP ADDRESS SPACE IS SMTP AND THE DEFAULT *
+.*             SYSOUT CLASS IS B.  IF YOUR SITE HAS MODIFIED THESE    *
+.*             SETTINGS, YOU MUST OVERRIDE THE SMTPNAME AND SMTPCLASS *
+.*             PARAMETERS OF THIS MACRO.                              *
+.*                                                                    *
+.*  NORMAL USAGE:                                                     *
+.*                                                                    *
+.*       $ESMTP HOSTNAME=USILDAMA,DFTDOMAIN=CA.COM,         X         *
+.*             DFTURL='HTTP://ENDEVOR/WEBPAGES/LOGIN.JSP',  X         *
+.*             DFTID=USERID,                                X         *
+.*             MAILFROM='YOURCHOICE' OR 'YOURCHOICE@YOURDOMAIN' *
+.*       $ESMTP MFID=DA1GW00,EMAILID='GEORGE.WASHINGTON'              *
+.*       $ESMTP MFID=DA1JJ00,EMAILID='JOHN.JONES'                     *
+.*             DOMAIN=MIT.EDU                                         *
+.*       $ESMTP MFID=OPERGRP,EMAILID=OPERATIONS                       *
+.*             DOMAIN=CAI.COM,URL='HTTP://ENDEVOR/HTTPPAGEA/LOGIN.JSP'*
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       . . .                                                        *
+.*       $ESMTP CALL=END                                              *
+.*                                                                    *
+.*                                                                    *
+.*       REVISION HISTORY                                             *
+.* ------------------------------------------------------------------ *
+.* BRB   12/01 MISSING URL CAUSES S0C4 DURING EXECUTION TIME          *
+.*                                                                    *
+.* JVK   12/04 NEW PARAMETER DFTID=USERID:                            *
+.*       IF USERID NOT FOUND, SEND A MAIL WITH DEFAULT URL TO         *
+.*       THE-ENDEVOR-USER-ID@DFTDOMAIN                                *
+.*                                                                    *
+.**********************************************************************
+         GBLB  &SMTP
+         GBLC  &EDITIN,&EDITOUT,&TABLE1(500),&DFTUSR,&DFTATS
+         GBLA  &EDITLNG,&#MFIDS,&MFIDL,&USERSUB
+         LCLC  &K1,&K2
+         LCLA  &LATS
+         LCLA  &LNG,&LOOPCTR
+         LCLC  &STR1,&STR2
+         AIF   ('&CALL' EQ 'END').TBLEND
+         AIF   ('&DSECT' EQ 'YES').DSECT
+         AIF   (&SMTP).SMUSER
+&SMTP    SETB  1
+         AIF   ('&HOSTNAME' EQ '').HOSTREQ
+         AIF   ('&DFTDOMAIN' EQ '').DMNMREQ
+         AIF   ('&MFID' NE '').BADMFSPEC
+         AIF   ('&EMAILID' NE '').BADEMSPEC
+         AIF   ('&DOMAIN' NE '').BADODMSPEC
+         AIF   ('&URL' NE '').BADOURLSPEC
+&DFTUSR  SETC  'N'
+         AIF   ('&DFTID' EQ '').DFTID
+&DFTUSR  SETC  'Y'
+         AIF   ('&DFTID' EQ 'USERID').DFTID
+         MNOTE 12,'DFTID= MUST BE CODED AS DTFTID=USERID'
+         AGO   .MACEND
+.DFTID ANOP
+&DFTATS  SETC  '&ATSIGN'
+         AIF   (T'&ATSIGN NE 'O').A0
+&DFTATS  SETC  '7C'
+.A0      ANOP
+&LATS    SETA  K'&DFTATS
+         AIF   (&LATS NE 2).ATSIGNM
+&K1      SETC  '&DFTATS'(1,1)
+&K2      SETC  '&DFTATS'(2,1)
+.*
+         AIF   ('&K1' LT 'A').ATSIGNM
+         AIF   ('&K1' GT 'F').A1
+         AGO   .VK2
+.A1      ANOP
+         AIF   ('&K1' LT '0').ATSIGNM
+         AIF   ('&K1' GT '9').ATSIGNM
+.*
+.VK2     ANOP
+.*
+         AIF   ('&K2' LT 'A').ATSIGNM
+         AIF   ('&K2' GT 'F').A2
+         AGO   .VK3
+.A2      ANOP
+         AIF   ('&K2' LT '0').ATSIGNM
+         AIF   ('&K2' GT '9').ATSIGNM
+.*
+.VK3     ANOP
+         AIF   ('&DFTATS' EQ '00').ATSIGNI
+         AIF   ('&DFTATS' EQ '40').ATSIGNI
+.*
+ESMTPTBL CSECT
+ESMTPSTP DC    A(ESMTPHDR)             ADDR OF SORTED ID LIST
+         DC    CL8'&HOSTNAME'          SMTP HOST NAME
+&LNG     SETA  K'&DFTDOMAIN
+         DC    H'&LNG'                 LENGTH OF DEFAULT DOMAIN SPEC
+&LNG     SETA  K'&DFTURL
+         AIF   ('&DFTURL' EQ '').SMTP010
+         AIF   ('&DFTURL'(1,1) NE '''').SMTP010
+&LNG     SETA  K'&DFTURL-2
+.SMTP010 ANOP
+         DC    H'&LNG'                 LENGTH OF DEFAULT URL
+         DC    A(DFTDOMAIN&SYSNDX)     ADDR OF DEFAULT DOMAIN NAME
+         AIF   ('&DFTURL' EQ '').SMTP012       IF DFTURL = ''
+         DC    A(DFTURL&SYSNDX)        ADDR OF DEFAULT URL SPEC
+         AGO   .SMTP013
+.SMTP012 ANOP
+&ADDR    SETA K'&DFTURL                SET ADDR = 0
+         DC    A(&ADDR)
+.SMTP013 ANOP
+         DC    CL8'&SMTPTASKNAME'      SMTP TASK (ADDR SPACE) NAME
+         DC    CL1'&SMTPCLASS'         SYSOUT CLASS FOR SMTP
+         DC    C'&DFTUSR'              USE NDVR USERID IF NOT FOUND?
+         DC    X'&DFTATS'              ATSIGN VALUE
+         DC    F'121'                  SET RELEASE VALUE
+         DC    CL60'&MAILFROM'         SET MAIL FROM VALUE
+         DC    20F'00'                   ** RESERVED **
+DATAPOOL CSECT
+&EDITIN  SETC  '&DFTDOMAIN'
+         DEFEDIT
+DFTDOMAIN&SYSNDX DC C'&EDITOUT'
+&EDITIN  SETC  '&DFTURL'
+         DEFEDIT
+DFTURL&SYSNDX    DC C'&EDITOUT'
+         AGO   .MACEND
+.SMUSER  ANOP
+         AIF   ('&HOSTNAME' NE '').BADHOSTSPEC
+         AIF   ('&DFTDOMAIN' NE '').BADDDMNNSPEC
+         AIF   ('&DFTURL'    NE '').BADDURLSPEC
+         AIF   ('&MFID' EQ '').MFIDREQ
+         AIF   ('&EMAILID' EQ '').EMAILIDREQ
+         AIF   ('&DFTID' NE '').BADDFTID
+ESMTPTBL CSECT
+&#MFIDS  SETA  &#MFIDS+1
+&TABLE1(&#MFIDS) SETC 'MFID&SYSNDX'.'&MFID'
+MFID&SYSNDX DC CL16'&MFID'             MAINFRAME APPR GRP/USER ID
+&LNG     SETA  DCLEN('&EMAILID')
+         DC    H'&LNG'                 LENGTH OF EMAIL ID SPEC
+&LNG     SETA  K'&DOMAIN
+         DC    H'&LNG'                 LENGTH OF OPTIONAL DOMAIN SPEC
+&LNG     SETA  K'&URL
+         AIF   ('&URL' EQ '').SMTP020
+         AIF   ('&URL'(1,1) NE '''').SMTP020
+&LNG     SETA  K'&URL-2
+.SMTP020 ANOP
+         DC    H'&LNG'                 LENGTH OF OPTIONAL URL SPEC
+         DC    A(EMAILID&SYSNDX)       ADDR OF EMAIL ID SPEC
+DATAPOOL CSECT
+&EDITIN   SETC '&EMAILID'
+         DEFEDIT
+EMAILID&SYSNDX DC C'&EDITOUT'
+ESMTPTBL CSECT
+         AIF   ('&DOMAIN' NE '').ODOM
+         DC    A(0)                    NO OPTIONAL DOMAIN OVERRIDE
+         AGO   .ODOMDONE
+.ODOM    ANOP
+         DC    A(DOMAIN&SYSNDX)        ADDR OF OPT DOMAIN OVERRIDE
+DATAPOOL CSECT
+&EDITIN  SETC  '&DOMAIN'
+         DEFEDIT
+DOMAIN&SYSNDX  DC C'&EDITOUT'
+ESMTPTBL CSECT
+.ODOMDONE ANOP
+         AIF   ('&URL' NE '').OURL
+         DC    A(0)                    NO OPTIONAL URL OVERRIDE
+         AGO   .OURLDONE
+.OURL    ANOP
+         DC    A(URL&SYSNDX)           ADDR OF OPT URL OVERRIDE
+DATAPOOL CSECT
+&EDITIN  SETC  '&URL'
+         DEFEDIT
+URL&SYSNDX     DC C'&EDITOUT'
+ESMTPTBL CSECT
+.OURLDONE ANOP
+         AGO   .MACEND
+ESMTPTBL CSECT
+.TBLEND  ANOP
+ESMTPHDR DS    0D
+         AIF  (&#MFIDS EQ 0).NOTAB
+         DC    H'&#MFIDS',H'20',H'15'  NBR OF USERIDS,
+*                                      LENGTH OF SORTED TABLE ENTRY,
+*                                      LENGTH OF KEY-1
+.*
+.*
+.* TABLE DEFINITIONS ARE COMPLETE - NOW SORT THE USERID LIST
+.*
+&USERSUB SETA  &#MFIDS                 SET GLOBAL VARIABLE FOR MSORT
+         MSORT KEYSTRT=9,KEYLEN=16
+.*
+.* TABLE  IS SORTED, NOW DROP THE SORTED LIST
+.*
+&LOOPCTR SETA  1
+.*
+.GENLOOP ANOP
+&STR1    SETC  '&TABLE1(&LOOPCTR)'(1,8)
+&STR2    SETC  '&TABLE1(&LOOPCTR)'(9,17)
+         DC    CL16'&STR2',AL4(&STR1)
+&LOOPCTR SETA  &LOOPCTR+1
+         AIF   (&LOOPCTR LE &#MFIDS).GENLOOP
+         END
+         AGO   .MACEND
+.NOTAB   ANOP
+         AIF   ('&DFTUSR' NE 'Y').BADUSRSPEC
+         DC    H'1',H'20',H'15'  NBR OF USERIDS
+         DC    X'FF',CL6'TABEND',X'FF',CL8' ',A(0)
+         END
+         AGO   .MACEND
+.ATSIGNM MNOTE 12,'ATSIGN (&ATSIGN) VALUE MUST BE 2 HEXADECIMAL DIGITS'
+        AGO   .MACEND
+.ATSIGNI MNOTE 12,'ATSIGN=&ATSIGN NOT ALLOWED'
+        AGO   .MACEND
+.HOSTREQ MNOTE 12,'HOSTNAME PARAMETER REQUIRED ON FIRST $ESMTP MACRO DEX
+               FINITION'
+        AGO   .MACEND
+.DMNMREQ MNOTE 12,'DFTDOMAIN PARAMETER REQUIRED ON FIRST $ESMTP MACRO DX
+               EFINITION'
+        AGO   .MACEND
+.BADMFSPEC   MNOTE 12,'MFID PARAMETER NOT ALLOWED ON FIRST $ESMTP MACROX
+               DEFINITION'
+        AGO   .MACEND
+.BADEMSPEC  MNOTE 12,'EMAILID PARAMETER NOT ALLOWED ON FIRST $ESMTP MACX
+               RO DEFINITION'
+        AGO   .MACEND
+.BADODMSPEC  MNOTE 12,'OPTDOMAIN PARAMETER NOT ALLOWED ON FIRST $ESMTP X
+               MACRO DEFINITION'
+        AGO   .MACEND
+.BADOURLSPEC  MNOTE 12,'OPTURL PARAMETER NOT ALLOWED ON FIRST $ESMTP MAX
+               CRO DEFINITION'
+        AGO   .MACEND
+.BADHOSTSPEC  MNOTE 12,'HOSTNAME PARAMETER ONLY ALLOWED ON FIRST $ESMTPX
+               MACRO DEFINITION'
+        AGO   .MACEND
+.BADDURLSPEC  MNOTE 12,'DFTURL PARAMETER ONLY ALLOWED ON FIRST $ESMTP MX
+               ACRO DEFINITION'
+        AGO   .MACEND
+.BADDDMNSPEC  MNOTE 12,'DFTDOMAIN PARAMETER ONLY ALLOWED ON FIRST $ESMTX'
+               P MACRO DEFINITION'
+        AGO   .MACEND
+.MFIDREQ MNOTE 12,'MFID PARAMETER REQUIRED ON 2ND THRU N $ESMTP MACRO DX
+               EFINITION'
+        AGO   .MACEND
+.EMAILIDREQ MNOTE 12,'EMAILID PARAMETER REQUIRED ON 2ND THRU N $ESMTP MX
+               ACRO DEFINITION'
+        AGO   .MACEND
+.BADDFTID MNOTE 12,'DFTID PARAMETER ONLY ALLOWED ON FIRST $ESMTP MACRO X
+               DEFINITION'
+         AGO   .MACEND
+.BADUSRSPEC MNOTE 12,'NO EMAIL-IDS SPECIFIED AND DFTID=USERID WAS NOT CX
+               ODED'
+         AGO   .MACEND
+.*
+.DSECT   ANOP
+@SMTPDS   DSECT
+SMHEADER  EQU  *
+SMSUIDTP  DS   A             ADDR OF SORTED USERID LIST
+SMHOSTNM  DS   CL8           SMTP HOST NAME
+SMDDOMNML DS   H             LENGTH OF DEFAULT DOMAIN NAME
+SMDURLL   DS   H             LENGTH OF DEFAULT URL
+SMDDOMNM  DS   A             DEFAULT DOMAIN NAME
+SMDURL    DS   A             DEFAULT ENDEVOR WEBSTATION URL
+SMHSMTPN  DS   CL8           NAME OF SMTP ADDRESS SPACE
+SMHSMTPC  DS   CL1           SYSOUT CLASS ASSOCITED W/SMTP
+SMHSMTUS  DS   C             USE NDVR USERID IF NOT FOUND IN ESMTPTBL
+*                            'Y' IF DFTID=USERID IS CODED
+SMHATSIGN DS   X             ATSIGN  VALUE
+SMVERSION DS   F             IDENTIFIER TO AVOID S0C4S.
+SMAILFROM DS   CL60          MAIL FROM VALUE
+          DS   20F'00'          ** RESERVED **
+SMHEADERL EQU  *-SMHEADER    LENGHT OF HEADER ENTRY
+         SPACE ,
+SMENTRY  DSECT               TABLE ENTRY ADDRESS
+SMMFID    DS   CL16          MAINFRAME APPROVER GROUP NAME OR USERID
+SMEMIDL   DS   H             LENGTH OF EMAIL ID
+SMODOMNML DS   H             LENGTH OF OPTIONAL DOMAIN NAME OVERRIDE
+SMOURLL   DS   H             LENGTH OF OPTIONAL URL OVERRIDE
+          DS   H             ** RESERVED **
+SMEMID    DS   A             ADDR OF EMAIL ID
+SMODOMNM  DS   A             ADDR OF OPTIONAL DOMAIN NAME OVERRIDE
+SMOURL    DS   A             ADDR OF OPTIONAL URL OVERRIDE
+SMENTRYL  EQU  *-SMENTRY     LENGTH OF TABLE ENTRY
+         AGO   .MACEND
+.MACEND  ANOP
+         MEND

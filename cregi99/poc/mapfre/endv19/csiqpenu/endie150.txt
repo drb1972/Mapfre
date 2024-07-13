@@ -1,0 +1,139 @@
+)INEXIT LOAD,ENDDYNPX
+)PANEL
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*                                                                       */
+/* Note: The installation can force the Generate Processor Mode to       */
+/* be BATCH by performing the following steps:                           */
+/*  1) Change the underscore attribute character (_) one the             */
+/*     'Generate Processor Mode' line to a horizontal bar (|)            */
+/*  2) Uncomment the assignement statement in the )INIT section and      */
+/*     set the EEVPRMOD variable to B for BATCH mode or F for fore-      */
+/*     ground mode.                                                      */
+/* These steps will make the variable an unmodifiable value.             */
+/*                                                                       */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+ { TYPE(PS)
+)BODY EXPAND(\\)
+%\-\ Action Options \-\
+%Command ===>_VARWKCMD                                                         +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
++  Override Signout. . ._Z+(Y/N)
++  CCID . .^EEVCCID     +  Comment . .`EEVCOMM                                 +
++
++  CReate/Edit/Generate Action Options:     Move Action Options:
++    Generate after Edit . . ._Z+(Y/N)        Sync . . . . . . . . . ._Z+(Y/N)
++    Generate in Place . . . ._Z+(Y/N)        With History . . . . . ._Z+(Y/N)
++    Generate NoSource . . . ._Z+(Y/N)        Retain Signout . . . . ._Z+(Y/N)
++    Generate Action Mode. . ._Z+(F/B)        Signout to . . . . . . ._EEVSETSO+
++    Generate with AUTOGEN . ._Z+(Y/N)        Acknowledge Element Jump_Z+(Y/N)
++      SPAN (NONE/ALL/SYS/SUB)_Z   +          Delete%FROM+Element. . ._Z+(Y/N)
++    Processor Group . . . . ._EEVPRGRP+      Move Action Mode . . . ._Z+(F/B)
++    Preserve VB Record Length_Z+(Y/N)
++                                           Signin (SI) Action Options:
++  Delete Action Options:                     Signout To . . . . . . ._EEVSITSO+
++    Only Component. . . . . ._Z+(Y/N)        Signin Action Mode . . ._Z+(F/B)
++    Delete Action Mode. . . ._Z+(F/B)
++                                           Signout (SO) Action Options:
+<SELECT QE Batch Act Feat>
+<WHEN &VNTQUENA=E>
++  Batch Action Mode:                       Signout Action Mode. . . ._Z+(F/B)
++    Queue actions for Batch ._Z+(Y/N)
++      Prompt after Edit . . ._Z+(Y/N)
+<OTHERWISE>
++                                           Signout Action Mode. . . ._Z+(F/B)
++
+</SELECT>
++
++  Make the necessary changes and hit{ENTER+to continue,{END+to cancel
++
+)INIT
+<SELECT QE Batch Act Feat>
+<WHEN &VNTQUENA=E>
+  .ZVARS = '(EEVOOSGN EEVOGENE EEVSYNC  EEVOCPBK EEVMOVWH +
+             EEVONSRC EEVRTNSO EEVPRMOD EEVOAUTG EEVJMPEL +
+             EEVOSPAN EEVF9NOD EEVMVMOD EEVOOPRE EEVONLCM +
+             EEVSIMOD EEVDLMOD EEVSOMOD VNTQUQUE VNTQUPRO)'
+<OTHERWISE>
+  .ZVARS = '(EEVOOSGN EEVOGENE EEVSYNC  EEVOCPBK EEVMOVWH +
+             EEVONSRC EEVRTNSO EEVPRMOD EEVOAUTG EEVJMPEL +
+             EEVOSPAN EEVF9NOD EEVMVMOD EEVOOPRE EEVONLCM +
+             EEVSIMOD EEVDLMOD EEVSOMOD)'
+</SELECT>
+  /*---------------------------------------------------------------*/
+  /* The default value of the 'Generate Processor Mode' field can  */
+  /* be set by uncommenting the following statement.               */
+  /*---------------------------------------------------------------*/
+  /* &EEVPRMOD = B        */
+  IF (&VNTQUQPR = 'Y')
+     VGET (VNTQUQUE) PROFILE
+  ELSE
+     VGET (VNTQUQUE) SHARED
+
+  IF (VER(&VNTQUQUE,NB,LIST,Y,N))   /* IF WE HAVE A GOOD VALUE     */
+     &LGVQUQUE = &VNTQUQUE          /* SAVE IT AS LAST KNOWN GOOD  */
+  ELSE
+     &VNTQUQUE = &VNTQUQUD          /* OTHERWISE RESET TO CONFIG   */
+     &LGVQUQUE = &VNTQUQUE          /* AND SAVE THAT               */
+
+  VGET (VNTQUPRO) PROFILE           /* FETCH VAR FROM PROFILE POOL */
+  IF (VER(&VNTQUPRO,NB,LIST,Y,N))   /* IF WE HAVE A GOOD VALUE     */
+     &LGVQUPRO = &VNTQUPRO          /* SAVE IT AS LAST KNOWN GOOD  */
+  ELSE
+     &VNTQUPRO = &VNTQUPRD          /* OTHERWISE RESET TO CONFIG   */
+     &LGVQUPRO = &VNTQUPRO          /* AND SAVE THAT               */
+
+  .HELP = ENDHE150
+)PROC
+   VPUT (EEVCCID EEVCOMM   /* save CCID and COMMENT & MOVE/GEN OPTIIONS */
+         EEVOOSGN EEVOCPBK EEVONSRC EEVOAUTG EEVOSPAN EEVPRGRP
+         EEVSYNC  EEVMOVWH EEVRTNSO EEVSETSO EEVJMPEL EEVF9NOD
+         EEVSITSO EEVONLCM) SHARED
+
+   if (&VARWKCMD = 'END')
+       &VARWKCMD = ' '
+       .RESP = END
+
+<SELECT QE Batch Act Feat>
+<WHEN &VNTQUENA=E>
+  IF (&VARWKCMD = &Z & .RESP = ENTER )
+     IF (&EEVQUREQ NE '00000000')              /* ANY REQUESTS ALREADY? */
+        VER (&VNTQUQUE,NB,LIST,Y,MSG=ENDE211E) /* MUST CANCEL OR SUBMIT */
+     ELSE
+        VER (&VNTQUQUE,NB,LIST,Y,N,MSG=ENDE210E)
+     &LGVQUQUE = &VNTQUQUE                     /* SAVE VALID VALUE      */
+  ELSE
+     IF (VER(&VNTQUQUE,NB,LIST,Y,N))
+        &LGVQUQUE = &VNTQUQUE
+     ELSE
+        &VNTQUQUE = &LGVQUQUE
+  IF (&VNTQUQPR = 'Y')
+     VPUT (VNTQUQUE) PROFILE
+  ELSE
+     VPUT (VNTQUQUE) SHARED
+  VER (&VNTQUPRO,NB,LIST,Y,N,MSG=ENDE003E)
+  IF (VER(&VNTQUPRO,NB,LIST,Y,N))              /* CHECK PROMPT VARIABLE */
+     &LGVQUPRO = &VNTQUPRO                     /* IF OK-SET LAST KNOWN  */
+  ELSE                                         /* OTHERWISE - RETRIEVE  */
+     &VNTQUPRO = &LGVQUPRO                     /* FROM LAST KNOWN AND   */
+  VPUT (VNTQUPRO) PROFILE                      /* UPD PROFILE POOL VAR  */
+<OTHERWISE>
+</SELECT>
+
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+  VGET (MYBYPASS) Shared /* Get current Bypass option and check...*/
+  if (&MYBYPASS = 'Y')   /* was bypass set on prompt panel?       */
+      &MYBYPASS = 'N'    /* Turn it off again because we're back  */
+      VPUT (MYBYPASS) Shared /* and user might change their mind  */
+)PNTS
+ FIELD(ZPS01001) VAR(VARWKCMD) VAL(' ')
+ FIELD(ZPS01002) VAR(VARWKCMD) VAL(END)
+)END

@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ¢ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF)
+   | TYPE(OUTPUT) INTENS(LOW) CAPS(ON)
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+)BODY EXPAND(\\)
+%\-\  SCL GENERATION  \-\
+%OPTION  ===>_VARWKCMD                                                         +
++
++   1  DISPLAY       - Display an element
++   2  ADD/UPDATE    - Add or update an element into entry stage
++   3  RETRIEVE      - Retrieve or copy an element
++   4  GENERATE      - Execute the Generate Processor for this element
++   5  MOVE          - Move an element to the next inventory location
++   6  DELETE        - Delete an element
++   7  PRINT ELEMENT - Print elements, changes and detail change history
++   8  SIGNIN        - Explicitly sign-in an element
++   9  TRANSFER      - Transfer elements between two locations
++  10  PRINT MEMBER  - Print a compressed listing or member
++  11  LIST ELEMENT  - Create List actions for elements
++  12  LIST MEMBER   - Create List actions for external members
++  13  ARCHIVE       - Archive elements
++
++
++      REQUEST DATA SET:|VNBDFDSN
++      APPEND:          |VNBSCLA
++
+)INIT
+  .HELP = CITB3000
+)PROC
+)END

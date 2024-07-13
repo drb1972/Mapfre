@@ -1,0 +1,80 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(HIGH) JUST(LEFT) CAPS(OFF) PAD(NULLS)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ LIST ELEMENTS \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%   blank+- Element list           %S+- Summary  %B+- Browse  %H+- History
+%   L+- LIST element action        %M+- Master   %C+- Changes
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++FROM LOCATION:                         LIST OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DISPLAY LIST           %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             APPLY LIST FILTERS     %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             BUILD USING MAP        %===>_Z+(Y/N)
++  ELEMENT    %===>@VNT1ENME  |VNTIND+
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +
++                      ¢Z+-|CLU2ID  +
+<OTHERWISE>
++ELEMENT%===>@VNT1ENME                                           |VNTIND
++  TYPE %===>_TYPEN   +
++
++FROM LOCATION:                         OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             DISPLAY LIST           %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             APPLY LIST FILTERS     %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             BUILD USING MAP        %===>_Z+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +     UPPERCASE ELM NAME     %===>_Z+(Y/N)
++                      ¢Z+-|CLU2ID  +     CASE-SENSITIVE ELM NAME%===>_Z+(Y/N)
+</SELECT>
++
++WHERE TEXT STRING EQ:
++  %===>$VNB50TXT                                                              +
++   SCAN COLUMNS: START%===>_Z  + END%===>_Z  + SHOW TEXT%===>_Z+(Y/N)+
++
++WHERE COMPONENT EQ%===>_VARCMPNT  +
++ACTION TO BE GENERATED WHEN LIST IS CREATED%===>_VNB50ACT+
++WRITE LIST TO OUTPUT DATA SET%===>_Z+(Y/N)+
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(VARWKLST VARWHPNL VARSHMAP          CLU1I CLU2I +
+                      VNB50BEG VNB50END VNB50STX VNBWOFLG)'
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+  .ZVARS = '(VARWKLST VARWHPNL VARSHMAP CLU1I VNTUPPER CLU2I VNTSCASE +
+              VNB50BEG VNB50END VNB50STX VNBWOFLG)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+  .HELP = CITFA000
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+  IF (&AMT = ' ')
+     &AMT = PAGE
+  IF (&ETMPCASE = ' ')
+    &VNTSCASE = 'Y'
+    &ETMPCASE = 'Y'
+)PROC
+  VPUT (AMT) PROFILE
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND) SCROLL(ON)
+)END

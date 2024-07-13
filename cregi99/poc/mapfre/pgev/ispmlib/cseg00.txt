@@ -1,0 +1,6 @@
+CSEG001I 'Element set for retrieve'                       .ALARM = YES
+'Element selected for retrieval to CaseGen Server'
+CSEG002I 'Element de-selected'                            .ALARM = YES
+'Element has been de-selected for processing'
+CSEG002E 'Select an element'                              .ALARM = YES
+'Please select an element from the list before the sub command'

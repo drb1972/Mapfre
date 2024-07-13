@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+)BODY
+%------------------------------  Footprint Display  ----------------------------
+%Option ===>_ZCMD                                                              +
++
+%   blank+- Member selection list
+%   I+- Display load module CSECTS and footprints
+%   L+- Display the library member
++
++
++FROM ISPF LIBRARY:+
++   PROJECT%===>_VARFPPRJ+
++   LIBRARY%===>_VARFPLIB+
++   TYPE   %===>_VARFPTYP+
++   MEMBER %===>_ISPFMB    +THRU MEMBER%===>_C1DSPTNM  +
++
++OTHER PARTITIONED DATA SET:+
++   DATA SET NAME%===>_OTHDSN                                                  +
++
++
++
++
++
++
++
++
+)INIT
+  .HELP = CITD4000
+)PROC
+)END

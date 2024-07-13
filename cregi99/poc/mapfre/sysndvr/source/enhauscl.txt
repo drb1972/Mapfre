@@ -1,0 +1,66 @@
+         MACRO
+         ENHAUSCL &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        SCL ACTION - REQUEST BLOCK                                   *
+*                                                                     *
+***********************************************************************
+AUSCL_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+AUSCL_RQ$EYE    EQU C'USCQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=AUSCL_RQ
+         SPACE ,
+AUSCL_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AUSCL_RQ_DATA
+AUSCL_RQ_SCLTYPE  DC CL1' '            TYPE OF SCL
+AUSCL_RQ_SCLTYPE_A   EQU C'A'             ENVIRONMENT ADMINISTRATION
+AUSCL_RQ_SCLTYPE_C   EQU C'C'             COMMA SEPARATED VARIABLES
+AUSCL_RQ_SCLTYPE_E   EQU C'E'             ELEMENT ACTIONS
+AUSCL_RQ_SCLTYPE_P   EQU C'P'             PACKAGE ACTIONS
+AUSCL_RQ_SCLTYPE_S   EQU C'S'             SHIP    ACTIONS
+AUSCL_RQ_SCL      DS CL2000            SCL STATEMENT(S)
+         ORG      AUSCL_RQ_SCL
+AUSCL_RQ_SCL1     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL2     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL3     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL4     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL5     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL6     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL7     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL8     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL9     DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL10    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL11    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL12    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL13    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL14    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL15    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL16    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL17    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL18    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL19    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL20    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL21    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL22    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL23    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL24    DS CL80              SCL STATEMENT
+AUSCL_RQ_SCL25    DS CL80              SCL STATEMENT
+         ORG
+AUSCL_RQ_RESERVE  DC CL3' '            ** RESERVED FIELD **
+                  DS 0X
+                  DS 0F
+         SPACE ,
+AUSCL_RQ_VER#1_DATADSLN EQU *-AUSCL_RQ_DATA
+AUSCL_RQ_VER#1_DSLN     EQU *-AUSCL_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AUSCL_RQ_DATADSLN EQU *-AUSCL_RQ_DATA
+AUSCL_RQ_DSLN     EQU *-AUSCL_RQ
+         ORG      AUSCL_RQ_DATA
+AUSCL_RQ_DATAAREA DS XL(AUSCL_RQ_DATADSLN)     DATA AREA
+         MEND

@@ -1,0 +1,3 @@
+        PROC 1 SUBDSN
+        CONTROL PROMPT
+        SUBMIT '&SUBDSN'

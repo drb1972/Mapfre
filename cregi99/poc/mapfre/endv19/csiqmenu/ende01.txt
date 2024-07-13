@@ -1,0 +1,27 @@
+ENDE011E 'No Environments Match'                       .ALARM=YES
+'ENDE011E There are no Environments that match the Environment mask'
+
+ENDE012E 'No Systems Match'                            .ALARM=YES
+'ENDE012E There are no Systems that match the System mask'
+
+ENDE013E 'No Subsystems Match'                         .ALARM=YES
+'ENDE013E There are no Subsystems that match the Subsystem mask'
+
+ENDE014E 'No Types Match'                              .ALARM=YES
+'ENDE014E There are no Types that match the Type mask. A system may be required'
+
+ENDE015E 'No Processor Grps Match'                     .ALARM=YES
+'ENDE015E There are no Processor Groups that match the Processor Group Mask'
+
+ENDE016E 'Element not Found'                           .ALARM=YES
+'ENDE016E The element specified was not found'
+
+ENDE017E 'No Elements Match'                           .ALARM=YES
+'ENDE017E There are no elements that match the Element mask'
+
+ENDE018E 'Invalid Element Name '                       .ALARM=YES
+'ENDE018E The element name specified is invalid'
+
+ENDE019E 'No Elements Selected '                       .ALARM=YES
+'ENDE019E The were no elements found that match the selection criteria'
+

@@ -1,0 +1,61 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+)BODY EXPAND (\\)
+%\-\  &zsysid - Listing Copy Utility  \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++
++   %E+- Copy Endevor listing to Xpediter    %X+- Copy Xpediter to Xpediter
++   %P+- Copy Endevor listing to PDS
++
++- - - - - - - - - - - -+SOURCE INFORMATION+- - - - - - - - - - - - - - - - -
++
++  FROM ENDEVOR:                         FROM XPEDITER DDIO file:
++    Subsystem %==>_SUB  +                  +Project %==>_IDDIO1  +
++    Element   %==>_ELE     +               +Group   %==>_IDDIO2  +
++    Stage     %==>_Z+                      +Type    %==>_IDDIO3  +
++    Type      %==>_TYP    + e.g. COBB      +Member  %==>_XPEDMEM +
++
++              %==>_CORB  +(BATCH or CICS for COBD only)
++
+)INIT
+ .help = EVXPED1H
+ .ZVARS = '(STG)'
+)REINIT
+  REFRESH(*)
+)PROC
+  IF (&ZCMD = 'E' | &ZCMD = 'P')
+     VER (&SUB,NB)
+     VER (&ELE,NB)
+     VER (&TYP,NB)
+     VER (&STG,NB)
+     VER (&SUB,LEN,'=',3,MSG=EVXP001A)
+     VER (&SUB,PICT,'AAC')
+  IF (&ZCMD = 'E')
+     VER (&TYP,LIST,COBB,COBC,COBD,COBP,ASMB,ASMC,ASMP,SEPB,SEPC,
+          COBBSUB,COBCSUB,ASMBSUB,ASMCSUB,PLIB,PLIC,
+          ASMC310,ASMB310,COBB310,COBC310,MSG=EVXP001F)
+  &CORB = TRUNC(&CORB,1)
+  IF (&ZCMD = 'E' & &TYP = 'COBD')
+     VER (&CORB,NB)
+     VER (&CORB,LIST,B,C)
+  IF (&TYP ^= 'COBD')
+     &CORB = ' '
+  IF (&ZCMD = 'X')
+     VER (&IDDIO1,NB)
+     VER (&IDDIO2,NB)
+     VER (&IDDIO3,NB)
+     VER (&XPEDMEM,NB,NAME)
+  IF (&ZCMD = 'P')
+     VER (&UPDS1,NB)
+     VER (&UPDS2,NB)
+     VER (&UPDS3,NB)
+  IF (&SUB = 'ADMIN')
+     VER(&STG,LIST,1,2,MSG=EVXP006B)
+  IF (&SUB ^= 'ADMIN')
+     VER (&STG,LIST,A,B,C,D,E,F,O,P,T,U,MSG=EVXP006C)
+  VER (&STG,LIST,A,B,C,D,E,F,O,P,T,U,1,2,MSG=EVXP006A)
+)END

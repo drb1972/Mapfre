@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(INPUT) INTENS(HIGH) JUST(LEFT)
+)BODY
+%Defaults --------------------- PDM User Defaults ------------------------------
+%Command ===>_ZCMD                                                             +
++
++Work Dataset Allocation Information:
++  Primary Quantity  %===>¢C1WP+
++  Secondary Quantity%===>¢C1WS+
++  Space Units       %===>_C1W+   (TRK/CYL/BLK)
++  Unit Name         %===>_C1WU    +
++  Volume Serial     %===>_C1WV  +(Blank for default)
++
++PRTMAT Output Defaults:
++  SYSOUT Class%===>_Z+
++  Destination %===>_PTBWMDST         + %or+  Writer Name %===>_PTBWMWTR+
++
++Disable the BUILD WIP and
++  MERGE performance enhancement%===>_Z+ (Yes/No)
++
++
++
++
++
++
++
++
+)INIT
+  .ZVARS='(PTBWMSYC,PTBWPDPE)'
+  .HELP= BC1T0200
+)PROC
+    VER (&C1WP,NUM,MSG=CISO001)
+    VER (&C1WP,RANGE,0,255,MSG=CISO001)
+    VER (&C1WS,NUM,MSG=CISO002)
+    VER (&C1WS,RANGE,0,255,MSG=CISO002)
+)END

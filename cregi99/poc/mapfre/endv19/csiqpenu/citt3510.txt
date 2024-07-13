@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Retrieve Action and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++  The Retrieve action searches for an element along the environment
++  map, beginning with the environment and stage specified in the action.
++  Thus, if you always retrieve from the lowest stage in the software life
++  cycle, the search capability allows the most current version of the
++  element to be found automatically.
++
++  When FIRST FOUND=Y, RETRIEVE obtains the first instance of the
++  element that it finds.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

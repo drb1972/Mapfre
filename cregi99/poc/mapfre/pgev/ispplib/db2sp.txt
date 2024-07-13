@@ -1,0 +1,44 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ " TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) COLOR(white)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Build DB2 Stored Procedure Create command  \-\
+%COMMAND ==>_ZCMD                                            + Date - &ZDATE
++
++   "amsg
++
++ System Id             ==>$Z +         (Endevor System)
++ Stored Procedure name ==>$Z                 +
++ Number of Dynamic
++       Result Sets     ==>$Z  +        (0-100)
++ Commit on Return      ==>$Z+          (Y/N)
++ Parameter Style       ==>$Z+          (G or N) Gen, or Gen with Nulls
++ Production WLM Env    ==>$Z +         (1-99)
++
++
++
++
+)INIT
+  .HELP = db2sph
+  .ZVARS = '(spsys splname sprsets spcomm spstyle spwlm)'
+
+)REINIT
+)PROC
+  VER (&spsys,NB,PICT,AA)
+
+  &esys  = TRUNC(&spsys,2)
+  &msys  = TRUNC(&splname,2)
+  VER (&msys,NB,LISTV,&esys,msg=DBSP001E)
+  VER (&sprsets,NB,RANGE,0,100)
+  VER (&spcomm,LIST,Y,N)
+  VER (&spstyle,LIST,G,N)
+  VER (&spwlm,NB,RANGE,1,99)
+
+  &PFK = .PFKEY
+
+)END

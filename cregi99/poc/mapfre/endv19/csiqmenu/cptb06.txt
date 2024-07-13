@@ -1,0 +1,30 @@
+CPTB060  'Element VVLL not fnd'                           .ALARM=YES
+'CPTB060 The element was found, but the specified VVLL does not exist'
+
+CPTB061 'Type "S" for Levels'                             .ALARM=YES
+'CPTB061 Type "S" on the Command line for Summary of levels or hit ENTER.'
+
+CPTB062  'No Level Selected'                               .ALARM=YES
+'CPTB062 A Level number was not specified.  The current level will be used.'
+
+CPTB063  'Invalid Command'                                 .ALARM=YES
+'CPTB063 The command entered in invalid.'
+
+CPTB064  'Invalid Command'                                 .ALARM=YES
+'CPTB064 The command is valid only when location option E is specified.'
+
+CPTB065  'No Matches found'                                .ALARM=YES
+'CPTB065 No matches were found for the member mask specified.'
+
+CPTB066  'Member not found'                                .ALARM=YES
+'CPTB066 The requested member was not found.'
+
+CPTB067  'WIP Member not Found'                            .ALARM=YES
+'CPTB067 The WIP member was not found in the WIP dataset.'
+
+CPTB068  'Merge Member not Found'                          .ALARM=YES
+'CPTB068 The Merge Output member was not found in the Merge dataset'
+
+CPTB069  'Member Exists'                                   .ALARM=YES
+'CPTB069 The Merge member exists and NO REPLACE was specified'
+

@@ -1,0 +1,51 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%Build WIP ------------- Derivation 1 Specification Panel ----------------------
+%Command ===>_VARWKCMD                                                         +
++
++Specify%Derivation 1+location below, then press the%ENTER+key.
++
++Build Derivation 1 from %===>_Z+%D+- Data set  %E+- Inventory Location
++
++Derivation 1 Library:+
++   Project %===>_PTBD1PRJ+
++   Group   %===>_PTBD1LIB+
++   Type    %===>_PTBD1TYP+
++   Member  %===>_PTBD1MEM  +       Thru Member%===>_PTBD1TMB +
++
++Derivation 1 Other partitioned or sequential data set:+
++   Data Set Name%===>_PTBD1OTH
++
++Location:                          List Options:
++   Environment %===>_PTBD1ENV+       Where CCID %===>^PTBD1CCI    +
++   System      %===>_PTBD1SYS+       CCID Type  %===>_Z+ (Any/Base/Generate/
++   Subsystem   %===>_PTBD1SUB+                            Retrieve/Last action)
++   Element     %===>_PTBD1ELM  +   VVLL %===>_Z   +
++   Type        %===>_PTBD1TYN+
++   Stage       %===>_Z+           ¢Z+-|Z       +   ¢Z+-|Z       +
+)INIT
+   .ZVARS = '(PTBD1ED  PTBD1CCT PTBD1VVL +
+              PTBD1STG PTBD1SI1 PTBD1SN1 PTBD1SI2 PTBD1SN2)'
+   .HELP = BC1T2200
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the Deriv 1 */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VGET (PTBD1OTH) PROFILE                                        */
+)PROC
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the Deriv 2 */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VPUT (PTBD1OTH) PROFILE                                        */
+)END

@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Vendor Type \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Vendor+- 1- to 15-character DistribuLink vendor type to be assigned
++   to this product. Vendor types are defined by the DistribuLink
++   administrator through an Administrator Workstation function. This
++   is a required field. Verification that the vendor type is valid
++   for a given DistribuLink MVS server is not performed.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

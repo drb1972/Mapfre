@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection - STATUS \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++To display the STATUS of collection request(s) you can provide:
++
+%         Product+- Limit the display to certain collected product(s).
+%      Date Range+- Limit the display to collection requests which executed
++                   between two dates (mm/dd/yy or ddMONyy).
++
++Then type%5+in the Option field and press ENTER to display status.
++
++
++   Select%1+for status field meanings
++
+%   1+- Status Field Meanings
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPC951)
+)END

@@ -1,0 +1,2 @@
+CIGG320E 'Compression error'                             .ALARM=YES
+'C1G0320E Concomp1 compression exceeded maximum 255 record size'

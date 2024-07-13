@@ -1,0 +1,45 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+ @ TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+ # AREA(SCRL) EXTEND(ON)
+)BODY
+%------------------------ Element Footprint Corruption -------------------------
+%Command ===>_VARWKCMD                                                         +
++
+#MYAREA -----------------------------------------------------------------------#
+)AREA MYAREA
++
++****************************************************************************
++*                     **** FOOTPRINT CORRUPTION ****                       *
++*    The@BSDLT          +member footprint is missing or it doesn't match   *
++*    the element master record.                                            *
++*                                                                          *
++*    Message ID..@EEVERRMS+                                                *
++*    Message Text:                                                         *
++*                                                                          *
++*@EEVERRML                                                                +*
++*                                                                          *
++*    To repair the element, either                                         *
++*     - Delete the element                                                 *
++*     - Restore the element from an unload or archive                      *
++*    or                                                                    *
++*     - Retrieve the current version of the element                        *
++*         Note: this latest level may be corrupted and incomplete          *
++*     - Delete the element                                                 *
++*     - Correct the current source and add the element back                *
++*                                                                          *
++*    If you are in browse, press ENTER to browse the current source.       *
++*    Hit END to return to the previous panel.                              *
++*                                                                          *
++*                                                                          *
++****************************************************************************
++
+)INIT
+)PROC
+)END

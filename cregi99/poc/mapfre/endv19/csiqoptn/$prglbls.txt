@@ -1,0 +1,49 @@
+.************************************  ********************************
+.* Processor source macro global variables. This member is copied
+.* into each $PRxxx macro and allows an isolated place to stuff all
+.* common globals used by more than one macro.
+.**********************************************************************
+         GBLA  &PRLSTPR                GLOBAL FOR LAST PROCESSOR MACRO  00000023
+         GBLA  &PRCC#                  GENERATED NEXT COND NUMBER       00000024
+         GBLA  &PRDDA#                 GENERATED NEXT DDA NUMBER        00000025
+         GBLA  &PRDDA#B                NUMBER OF $PRDDB FOR $PRDDA      00000026
+         GBLA  &PRDDB#                 GENERATED NEXT DDB NUMBER        00000027
+         GBLA  &PRDDB#S                NUMBER OF $PRSIN FOR $PRDDB      00000028
+         GBLA  &PRSTEP#                GENERATED NEXT STEP NUMBER       00000029
+         GBLA  &PRPGM#A                NUMBER OF $PRDDA FOR $PRPGM      00000030
+         GBLA  &PRPGM#B                NUMBER OF $PRDDB FOR $PRPGM      00000031
+         GBLA  &PRJCL#                 GENERATED NEXT JCL NUMBER        00000033
+         GBLA  &PRSYM#                 GENERATED NEXT SYMBOL NUMBER     00000032
+         GBLA  &PRSIN#                 GENERATED NEXT SYSIN DATA        00000033
+         GBLB  &PRGEN                                                   00000030
+         GBLB  &PRFIRSTGEN             First item in proc was generated 00000037
+         GBLB  &PREITEGEN              Generate an element name         00000040
+         GBLB  &PREPGMGEN              Generate an element name         00000040
+         GBLB  &PREDDAGEN              Generate an element name         00000040
+         GBLB  &PREDDBGEN              Generate an element name         00000040
+         GBLC  &PRCC                   GENERATED NEXT COND NAME         00000034
+         GBLC  &PRDDA                  GENERATED NEXT DDA NAME          00000035
+         GBLC  &PRDDA#C                footprnt=create
+         GBLC  &PRDDB                  GENERATED NEXT DDB NAME          00000036
+         GBLC  &PRSTEP                 GENERATED NEXT STEP NAME         00000037
+         GBLC  &PRFIRST                Generated first item in proc.    00000037
+         GBLC  &PRJCL                  GENERATED NEXT JCL NAME          00000040
+         GBLC  &PRSYM                  GENERATED NEXT SYMBOL NAME       00000038
+         GBLC  &PRSIN                  GENERATED NEXT SYSIN DATA NAME   00000039
+         GBLC  &PRCSECT                CSECT NAME FOR MODULE            00000040
+.*
+.* ITE GLOBALS
+.*
+         GBLA  &PRIFNUM                NEXT IF STATEMENT NUMBER            00040
+         GBLA  &PRITENODE              Processor entry type
+         GBLA  &PRITENODE#             ITE node number
+         GBLA  &PRITELEAF              ITE leaf number
+         GBLA  &PRITEBOOL              ITE boolean operator
+         GBLA  &PRITECOND              ITE conditional operator
+         GBLA  &PRIELNUM               ITE element number
+         GBLB  &PRSTART
+         GBLC  &PRITE                  ITE LABEL PREFIX                    00040
+         GBLC  &PRIFLBL                ITE block label
+         GBLC  &PRIBLKNM               ITE block name (START)
+         GBLC  &PRINEXT                ITE next element label
+         GBLC  &PREITE(5000)           ITE label table

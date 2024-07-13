@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Promotion Package Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Promotion Package+- Promotion packages allow the package to be reused
++  without having to manually reset the package, edit the SCL and CAST
++  the package. At the time of a successful execution of a package, the
++  package will automatically be reset, the SCL will be updated to point
++  to the next location and the package will be CAST. Promotion packages
++  can only contain MOVE actions and all the actions must have the same
++  environment and stage id.
++  The PROMOTION PKG field defined on the Package Display panel indicates
++  whether the current package is a promotion package. Valid values are:
++   %Y+- The package is a promotion package.
++   %N+- The package is not a promotion package.
++
+%Target Environment/Stage+- All the actions within a promotion package must
++  have the same target environment and stage id. This field contains the
++  target environment/stage name. It is populated as part of the CAST action.
++
+%Target Fields Note+- The target environment and stage literals and
++  data fields will only appear on the display panel when data
++  exists for the package.                                     (%PF3+to return)
+)END

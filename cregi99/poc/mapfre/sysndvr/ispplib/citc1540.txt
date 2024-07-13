@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Log Delta Format for Element Types \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
+%
+%Log Delta Format for Element Types
++
+ This enhancement introduces a new source management element delta format to CA
+ Endevor SCM. This delta format will keep activity information by version/level,
+ but will NOT keep source code changes between the levels in its delta member.
+ This feature addresses extremely large data files where source code management
+ is not needed, but an activity log is still required. The element's last level
+ source code will be kept in the element's base library.
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1550
+)END

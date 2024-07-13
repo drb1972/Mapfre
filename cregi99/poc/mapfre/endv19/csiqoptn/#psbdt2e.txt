@@ -1,0 +1,20 @@
+@REM ****************************************************** #PSBDT2E ***
+@REM *    CONTENTS: ENDEVOR/MVS - SUBMIT THE REMOTE COPY/DELETE JOB
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: SUBMIT THE REMOTE IEBCOPY/IDCAMS JOB FOR EXECUTION
+@REM *              AT THE REMOTE NODE.  THIS "Q" WILL NOT BE RELEASED
+@REM *              UNTIL ALL FILE TRANSFERS TO THIS DESTINATION
+@REM *              HAVE TAKEN PLACE.
+@REM *******************************************************************
+@REM *
+ Q JOBNAME(J&D4.AR)
+   NETID(T&SHIPTIME)
+   NETHOLD(&FILECOUNT)
+   FROM DATASET('&AHJOBDSN')
+        DAP(SEQ)
+        SHR
+        DISP(&HDISP,KEEP)
+   TO   INTRDR
+        BLKSIZE(1330)
+        LOC(&NODENAME)
+/EOT

@@ -1,0 +1,61 @@
+         MACRO
+.********************************************************************** ********
+.* NAME:       ENHOPTAC                                               *
+.*                                                                    *
+.* Description: Endevor Optional Features Table                       *
+.*                                                                    *
+.* Function: create option for                                        *
+.*        OPTIONAL_PTF_ISSUE_ELEMENT_REFERENCED_MSGS                  *
+.********************************************************************** ********
+         ENHOPTAC  &PARM=
+.*
+         LCLA  &ONACMQ
+         LCLC  &PARMT
+         GBLC  &PARMACMQ
+.*
+         AIF   ('&PARM' EQ '').OPT500
+         AIF  (N'&PARM LE 3).OPT005
+         MNOTE 12,'PAPARMETERS NUMBER ARE GREATER 3'
+         MEXIT
+.OPT005  ANOP
+         AIF  (N'&PARM GT 1).OPT100
+         AIF  ('&PARM(1)' NE 'ON').OPT010
+         AGO  .OPT220
+.OPT010  ANOP
+         AIF  ('&PARM(1)' NE 'OFF').OPT020
+&ONACMQ  SETA 4
+         AGO  .OPT400
+.OPT020  ANOP
+         MNOTE 12,'PARAMETER MUST BE ON OR OFF'
+         MEXIT
+.OPT100  ANOP
+         AIF  ('&PARM(1)' NE 'ON').OPT190
+&PARMT   SETC '&PARM(2)'
+         AIF  ('&PARM(2)' NE 'QE').OPT120
+&ONACMQ  SETA 1
+         AGO  .OPT200
+.OPT120  ANOP
+         AIF  ('&PARM(2)' NE 'BATCH').OPT290
+&ONACMQ  SETA 2
+         AGO  .OPT200
+.OPT190  ANOP
+         MNOTE 12,'PARAMETER MUST BE ON'
+         MEXIT
+.OPT200  ANOP
+         AIF  (N'&PARM LT 3).OPT400
+         AIF  ('&PARM(3)' NE '&PARMT').OPT210
+         MNOTE 12,'parameter ALREADY DEFINED'
+         MEXIT
+.OPT210  ANOP
+         AIF  ('&PARM(3)' EQ 'BATCH').OPT220
+         AIF  ('&PARM(3)' ne 'QE').OPT290
+.OPT220  ANOP
+&ONACMQ  SETA 3
+         AGO  .OPT400
+.OPT290  ANOP
+         MNOTE 12,'PARAMETER MUST BE QE OR BATCH'
+         MEXIT
+.OPT400  ANOP
+&PARMACMQ SETC '(ON,&ONACMQ)'
+.OPT500  ANOP
+         MEND

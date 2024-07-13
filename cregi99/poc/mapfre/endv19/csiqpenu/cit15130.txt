@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ BSTCOPY Utility Improvements \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
+%
+%BSTCOPY Utility Improvements+
+
+ The Processor utility BSTCOPY has been redesigned to make it more
+ efficient and to improve the sequence of the reported copy actions,
+ so that the member select statements line up with the input and output
+ DD statements.
+
+
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%Endevor+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15140
+)END

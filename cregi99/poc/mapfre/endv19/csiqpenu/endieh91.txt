@@ -1,0 +1,31 @@
+)ATTR
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ¢ TYPE(OUTPUT) INTENS(LOW) JUST(ASIS) CAPS(OFF)
+)BODY
+%------------------------- Quick Edit Error Messages ---------------------------
+%Command ===>_ZCMD                                                             +
++
++ The internal $IMR service passed a non-zero return code.  The following
++ information is available about the request that failed:
++
++ Invoking Routine. . . .¢EEVPGMNM+
++ $IMR Request. . . . . .¢EEVIMRVB                +
++ $IMR Return Code. . . .¢EEVERRRC+
++ $IMR Error Message ID .¢EEVERRMS+
++ $IMR Message Text:
++
+¢EEVERRML                                                                      +
++
++
++
++
++
++
++
++
++
++ Enter the END command to return to the previous panel.
++
+)INIT
+)PROC
+)END

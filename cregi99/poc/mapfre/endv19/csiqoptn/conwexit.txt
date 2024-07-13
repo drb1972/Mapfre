@@ -1,0 +1,276 @@
+         TITLE 'CONWEXIT - Sample CONWRITE exit'
+CONWEXIT CSECT
+CONWEXIT AMODE 24                      MUST reside below the 16M line
+CONWEXIT RMODE 24
+*---------------------------------------------------------------------*
+*                                                                     *
+*         COPYRIGHT (C) 2022 BROADCOM. ALL RIGHTS RESERVED.           *
+*                                                                     *
+* Disclaimer: This is a sample exit that can be used with the         *
+*  ENDEVOR CONWRITE processor utility.      This exit is distibuted   *
+*  as-is and is NOT supported by ENDEVOR Technical Support.           *
+*                                                                     *
+* Name: CONWEXIT                                                      *
+*                                                                     *
+* Purpose: This sample exit will add a single record to the front     *
+*  of the current element.  The record contains the COBOL Compiler    *
+*  parameters specified on the PROGRAM PARM clause.  If the clause    *
+*  was NOT specified, the exit will NOT write the data record.  For   *
+*  each data record received, the exit will write the data record to  *
+*  the ELMOUT DD statement.                                           *
+*                                                                     *
+* Assumptions:                                                        *
+*   1) The element length is EXACTLY 80 bytes long and the element    *
+*      contains fixed length records.                                 *
+*   2) The ELMOUT DD statement refers to either a sequential data set *
+*      or a partitioned data set with an explicit member specified.   *
+*   3) The CONWRITE step contains only a single WRITE ELEMENT         *
+*      request.                                                       *
+*   4) The program parameter, if passed, is syntactically valid.  The *
+*      exit does NOT validate the parameter.                          *
+*                                                                     *
+* Input: On extry, R1 points to the following parameter list:         *
+*  +0: Address of a 256 byte, double word aligned work area.  The     *
+*      work area is set to binary zeroes before the first invocation  *
+*      of the exit within a single processor step.                    *
+*  +4: The address of a halfword field that contains the length       *
+*      of the data record.                                            *
+*  +8: The address of the element data record.                        *
+*  +12: The address of a 100 byte area into which the exit can place  *
+*      an error message.                                              *
+*  +16: The address of the parameter specified on the OPTION PROGRAM  *
+*      PARM EQ statement.  The parameter is a halfword length field   *
+*      immediately followed by the parameter string.  If there was    *
+*      no parameter, the length will be set to zero.  The maximum     *
+*      length parameter supported is 60 characters.                   *
+*                                                                     *
+* Return Codes: The exit can set one of the following return codes:   *
+*  0: Normal completion. Continue processing the element.             *
+*  4: Terminate the current WRITE ELEMENT request.                    *
+*  8: Terminate CONWRITE processing.                                  *
+*                                                                     *
+* Attributes:                                                         *
+*  Reentrant, Reusable                                                *
+*  AMODE(24), RMODE(24)                                               *
+*                                                                     *
+* Use: The following JCL and control statements show how the exit     *
+*  is invoked:                                                        *
+*                                                                     *
+*   //CONWRITE EXEC PGM=CONWRITE                                      *
+*   //ELMOUT   DD DSN=&&ELMOUT,                                       *
+*   //            DISP=(NEW,PASS,DELETE),                             *
+*   //            DCB=(LRECL=80,RECFM=FB,BLKSIZE=0),                  *
+*   //            additional parameters                               *
+*   //CONWIN   DD *                                                   *
+*     WRITE ELEMENT &C1ELEMENT                                        *
+*       FROM ENVIRONMENT &C1ENVMNT                                    *
+*            SYSTEM &C1SYSTEM                                         *
+*            SUBSYS &C1SUBSYS                                         *
+*            TYPE   &C1ELTYPE                                         *
+*            STAGE  &C1STGID                                          *
+*       TO PROGRAM CONWEXIT                                           *
+*       OPTIONS PROGRAM PARM EQ 'cobol compiler parameters'           *
+*     .                                                               *
+*   //*                                                               *
+*                                                                     *
+*---------------------------------------------------------------------*
+         EJECT
+*---------------------------------------------------------------------*
+* Chain the save areas and establish R13 as the Work Area base reg-   *
+* ister.  Note: The exit does NOT GETMAIN a save area.  Instead, it   *
+* uses the first 18 words of the work area as the register save area. *
+*---------------------------------------------------------------------*
+CONW0000 DS    0H
+         STM   R14,R12,12(R13)         Save the callers registers
+         LR    R12,R15                 Use R12 as the CSECT
+         USING CONWEXIT,R12             base register
+         LR    R2,R1                   Use R2 as the Exit Parameter
+         USING XPLDSECT,R2              List base register
+         L     R3,XPLWORKA             R3 points to the work area
+         ST    R13,4(,R3)              Chain the
+         ST    R3,8(,R13)               save areas
+         LR    R13,R3                  Use R13 as the work area
+         USING XWADSECT,R13             base register
+         SPACE 2
+*---------------------------------------------------------------------*
+* If this is the first time that the exit has been called for this    *
+* element, extract the parameter that was passsed, if any, and open   *
+* the ELMOUT file.                                                    *
+*---------------------------------------------------------------------*
+CONW1000 DS    0H
+         TM    XWAFLAG,XWAFNFT         If this is NOT the first time
+         BO    CONW2000                 through for the element, do    X
+                                         NOT perform initialization
+         OI    XWAFLAG,XWAFNFT         Set the 'Not First Time         X
+                                        Through' flag
+         XC    XWARETCD,XWARETCD       Set the return code to zero
+         L     R6,XPLPARMA             R6 points to the program parm
+         LH    R7,0(R6)                R6 has the parameter length
+         LTR   R7,R7                   If the parameter length is zero,
+         BZ    CONW1100                 a parameter was not provided
+         OI    XWAFLAG,XWAFPARM        Indicate a parm was passed
+         CH    R7,=H'60'               If the parameter is too long,
+         BH    CONW8100                 generate an error
+         MVI   XWARECD,C' '            Clear the
+         MVC   XWARECD+1(L'XWARECD-1),XWARECD    parameter record
+         BCTR  R7,0                    Copy the parameter to the
+         EX    R7,CONWMVC1              parameter record area
+         B     CONW1100                Skip the executed instruction
+         SPACE 1
+CONWMVC1 MVC   XWARECD(0),2(R6)        EXecuted move
+         SPACE 1
+*---------------------------------------------------------------------*
+* Open the ELMOUT file.  If the file opened successfully and if a     *
+* parameter was passed, write the parameter record as the first rec-  *
+* ord in the output file.                                             *
+*---------------------------------------------------------------------*
+CONW1100 DS    0H
+         MVC   XWAODCB,MDCB            Otherwise, copy the model DCB
+         MVC   XWAOPEN,MOPEN            and OPEN parameter lists
+         OPEN  (XWAODCB,OUTPUT),       Open the ELMOUT data set        X
+               MF=(E,XWAOPEN)
+         LA    R3,XWAODCB              Use R3 as the DCB Base
+         USING IHADCB,R3                register
+         TM    DCBOFLGS,X'10'          If the data set did NOT open
+         BZ    CONW8000                 then generate an error
+         OI    XWAFLAG,XWAFODSO        Else, set the local flag
+         TM    XWAFLAG,XWAFPARM        If a PROGRAM PARM was NOT spec-
+         BZ    CONW2000                 ified, continue
+         PUT   XWAODCB,XWARECD         Else, write the parameter       X
+                                        record
+         EJECT
+*---------------------------------------------------------------------*
+* If this is not a 'clean up' call, then write the element record     *
+* to the output file.  If this is a 'clean up' call, close the output *
+* dataset and reset the work area fields.                             *
+* Note: A 'clean up' call is indicated by a record length of zero.    *
+*---------------------------------------------------------------------*
+CONW2000 DS    0H
+         L     R4,XPLRECL              R4 points to the record length
+         CLC   =H'0',0(R4)             If the record length is zero,
+         BE    CONW2100                 branch to the clean up code
+         L     R5,XPLRECA              Otherwise, R5 points to the     X
+                                        data record
+         PUT   XWAODCB,(R5)            Write the data record
+         B     CONW9000                When done, exit
+         SPACE 2
+CONW2100 DS    0H
+         TM    XWAFLAG,XWAFODSO        If the ELMOUT data set is NOT
+         BZ    CONW2110                 open, don't close it
+         MVC   XWAOPEN,MCLOSE          Copy the CLOSE parameter list
+         CLOSE (XWAODCB),              Close the ELMOUT data set       X
+               MF=(E,XWAOPEN)
+CONW2110 DS    0H
+         MVI   XWAFLAG,X'00'           Clear the flag byte
+         B     CONW9000                When done, exit
+         EJECT
+*---------------------------------------------------------------------*
+* The ELMOUT data set did not open.  Set the error message text and   *
+* set the return code to 8 to terminate CONWRITE.                     *
+*---------------------------------------------------------------------*
+CONW8000 DS    0H
+         L     R5,XPLMSGA              R5 points to the message text
+         MVC   0(L'ERRMSG1,R5),ERRMSG1  Copy the message text
+         LA    R15,8                   Set the return
+         STH   R15,XWARETCD             code to 8
+         B     CONW9000                branch to the exit code
+*---------------------------------------------------------------------*
+* The PROGRAM PARAMETER passed is too large.  Set the error message   *
+* text and set the return code to 8 to terminate CONWRITE.            *
+*---------------------------------------------------------------------*
+CONW8100 DS    0H
+         L     R5,XPLMSGA              R5 points to the message text
+         MVC   0(L'ERRMSG2,R5),ERRMSG2  Copy the message text
+         LA    R15,8                   Set the return
+         STH   R15,XWARETCD             code to 8
+         B     CONW9000                branch to the exit code
+         EJECT
+*---------------------------------------------------------------------*
+* Processing for this record is complete. Pass back the return code   *
+* in field XWARETCD.                                                  *
+*---------------------------------------------------------------------*
+CONW9000 DS    0H
+         LH    R15,XWARETCD            R15 has the return code
+         L     R13,4(,R13)             R13 has the callers save area
+         ST    R15,16(,R13)            Save the return code as R15
+         LM    R14,R12,12(R13)         Restore the callers registers
+         BR    R14                     Return to CONWRITE
+         EJECT
+*---------------------------------------------------------------------*
+* Program Constants                                                   *
+*---------------------------------------------------------------------*
+         PRINT NOGEN
+MDCB     DCB   DDNAME=ELMOUT,                                          X
+               DSORG=PS,                                               X
+               LRECL=80,                                               X
+               MACRF=PM
+MDCBLEN  EQU   *-MDCB                  Model DCB Length
+         SPACE 1
+MOPEN    OPEN  (0,(OUTPUT)),           Model OPEN Parameter List       X
+               MF=L
+         SPACE 1
+MOPENLEN EQU   *-MOPEN                 Model OPEN Length
+MCLOSE   CLOSE (0),                    Model CLOSE Parameter List      X
+               MF=L
+MCLOSELEN EQU  *-MCLOSE                Model CLOSE length
+         PRINT GEN
+ERRMSG1  DC    C'CONWEXIT: Unable to open the ELMOUT DD statement'
+ERRMSG2  DC    C'CONWEXIT: The parameter passed is too long'
+         LTORG
+         EJECT
+*---------------------------------------------------------------------*
+* Exit Work Area (XWA).  This DSECT maps the 256 byte work area       *
+* that CONWRITE provides.                                             *
+*---------------------------------------------------------------------*
+XWADSECT DSECT                         Exit Work Area
+XWAREGS  DS    18F                     Register Linkage area
+XWAOPEN  DS    XL(MOPENLEN)            OPEN/CLOSE parameter list
+XWAODCB  DS    XL(MDCBLEN)             ELMOUT DCB area
+XWARECD  DS    CL80                    Output record area
+XWARETCD DS    H                       Return Code
+XWAFLAG  DS    XL1                     Flag Byte
+XWAFNFT  EQU   X'01'                    - At least ONE element record  X
+                                          has been processed
+XWAFODSO EQU   X'02'                    - The output data set is open
+XWAFPARM EQU   X'04'                    - A PROGRAM PARM was specified
+XWAFILL  DS    XL(256-(*-XWADSECT))    Filler.  Will generate an error X
+                                        if the workarea is too large
+XWALEN   EQU   *-XWADSECT              Work Area Length (256 bytes max)
+         SPACE 1
+*---------------------------------------------------------------------*
+* CONWRITE Exit Parameter List                                        *
+*---------------------------------------------------------------------*
+XPLDSECT DSECT
+XPLWORKA DS    A                       Address of the 256 byte area
+XPLRECL  DS    A                       Address of record length
+XPLRECA  DS    A                       Address of the element record
+XPLMSGA  DS    A                       Address of the message area
+XPLPARMA DS    A                       Address of the PROGRAM PARM
+         SPACE 1
+*---------------------------------------------------------------------*
+* MVS Control Blocks                                                  *
+*---------------------------------------------------------------------*
+         PRINT NOGEN
+         DCBD DSORG=PS,DEVD=DA
+         PRINT GEN
+         SPACE 1
+*---------------------------------------------------------------------*
+* Register Equates                                                    *
+*---------------------------------------------------------------------*
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+         END

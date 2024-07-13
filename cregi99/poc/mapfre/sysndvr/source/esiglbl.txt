@@ -1,0 +1,15 @@
+         GBLA  &AMASK1(20),&AMASK2(20)                                  00000100
+         GBLA  &ESIQUAL                                                 00000200
+         GBLA  &ESIECNT                                                 00000300
+         GBLA  &NEQUFMT                                                 00000400
+         GBLB  &ESITNEQ                                                 00000500
+         GBLB  &AMASK(20)                                               00020000
+         GBLB  &FUNC1ST                                                 00040000
+         GBLB  &NAMEQU(18)                                              00050000
+         GBLB  &NAMELBL                                                 00060000
+         GBLB  &ESIDFLT                                                 00070000
+         GBLB  &FUNCEND,&NAMEEND                                        00071000
+         GBLC  &ESIDLBL                                                 00080000
+         GBLC  &ESIQLBL                                                 00090000
+         GBLC  &ENCMSGNO                                                00100000
+         GBLC  &ESINAME                 NAME OF NAME EQUATE TABLE       00110000

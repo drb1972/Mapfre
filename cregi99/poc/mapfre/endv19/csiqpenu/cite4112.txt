@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Default Processor Group \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Dflt Proc Grp+- Identifies the processor group for this type. The
++  default is *NOPROC*. When you type or update the name of the processor
++  group,then press ENTER, a Processor Group Definition panel appears.
++
++     * If the specified processor group exists, you can use the Processor
++       Group Definition Panel to verify or modify the processor group.
++
++     * If the specified processor group does not exist, you can use the
++       Processor Group Definition Panel to create it as a new processor group.
++
+
+
+
+
+
+
++
++                                            (%PF3+to return)
+)END

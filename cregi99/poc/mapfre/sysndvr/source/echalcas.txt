@@ -1,0 +1,43 @@
+      *****************************************************************
+      *
+      *            LIST PACKAGE CAST REPORT - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALCAS-RQ.
+           05  ALCAS-RQ-HEADER.
+               10  ALCAS-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALCAS-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALCAS-RQ-ID         PIC 9(04) COMP VALUE 1440.
+               10  ALCAS-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALCAS-RQ-EYE        PIC X(04)      VALUE 'LCAQ'.
+           05  ALCAS-RQ-DATAAREA.
+               10  ALCAS-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALCAS-RQ-PROMHIST   PIC X(01) VALUE SPACES.
+               10  ALCAS-RQ-RESERVE    PIC X(03) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *            LIST PACKAGE CAST REPORT - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALCAS-RS.
+           05  ALCAS-RS-HEADER.
+               10  ALCAS-RS-LEN        PIC 9(04) COMP VALUE 232.
+               10  ALCAS-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALCAS-RS-ID         PIC 9(04) COMP VALUE 1441.
+               10  ALCAS-RS-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALCAS-RS-EYE        PIC X(04)      VALUE 'LCAS'.
+           05  ALCAS-RS-DATAAREA.
+               10  ALCAS-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALCAS-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALCAS-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALCAS-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALCAS-RS-RUU        PIC X(08) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.
+               10  ALCAS-RS-SEQNO      PIC 9(08) COMP VALUE ZEROS.
+               10  ALCAS-RS-RPT        PIC X(133) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALCAS-RS-IPKGID     PIC X(16) VALUE SPACES.
+               10  ALCAS-RS-PKGVER     PIC 9(04) COMP VALUE ZERO.
+               10  FILLER              PIC X(22) VALUE SPACES.

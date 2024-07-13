@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - Environment Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select an environment when specifying Root,
++Derivation 1, or Derivation 2 as an%inventory location+during
++the Build WIP process.
++
++To select an environment, type%S+next to the environment name, then
++press ENTER.
++
++
++
++
++
++
+)END

@@ -1,0 +1,30 @@
+CPTB010  'Specify Required Option'                       .ALARM=YES
+'CPTB010 A valid option number must be specified.'
+
+CPTB011  'Y or N is required'                            .ALARM=YES
+'CPTB011 A Value of Y(es) or N(o) is required for this fields.'
+
+CPTB012  'Select Required Option'                        .ALARM=YES
+'CPTB012 Select a valid option from the list below.'
+
+CPTB013  'Invalid Dataset Name'                          .ALARM=YES
+'CPTB013 The dataset name is missing of the dataset is not catalogued.'
+
+CPTB014  'Invalid Option'                                .ALARM=YES
+'CPTB014 Select a valid option from the list below.'
+
+CPTB015  'Invalid Column Numbers'                        .ALARM=YES
+'CPTB015 Specify FROM and THRU columns between 1 and 255, inclusive'
+
+CPTB016  'Allocation Error'                            .ALARM=YES
+'CPTB016 &PTBALLER error while allocating the C1TEMPRX message dataset.'
+
+CPTB017  'Dataset Invalid'                               .ALARM=YES
+'CPTB017 The specified dataset is invalid or the dataset is not catalogued.'
+
+CPTB018  'Member Required'                               .ALARM=YES
+'CPTB018 A member name is required for a partitioned dataset.'
+
+CPTB019  'Member not Found'                              .ALARM=YES
+'CPTB019 The specified member does not exist.'
+

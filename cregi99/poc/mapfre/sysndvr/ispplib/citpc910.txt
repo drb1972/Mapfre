@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection - SELECT \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++To SELECT a connection and package(s) to collect you must provide:
++
+%   Connection ID+- The 1- to 7-character ID of a DistribuLink connection.
+%      Package ID+- The 1- to 16-character ID of package(s) to be collected.
+%     Pkg/backout+- Indicates whether you want to collect package outputs
++                   (P) or backout members (B). Default is P.
++
++Then type%1+in the Option field and press ENTER to build the request.
++
++   If the Collection ID or Package ID is wildcarded, the appropriate
++   selection list(s) will be presented. Select%one+connection and one
++   or more packages. For each package selected, a confirmation panel
++   will be presented.
++
++   Select%1+for information about confirming the selection
++
+%   1+- Confirming the collection
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPC911)
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Utilities \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to
++
+%  D+- Display package information.
+%  R+- Reset the package.
+%        Warning:+Resetting may make dependent packages unusable.
+%  E+- Export package SCL to an external data set. Specify the target
++        data set in the TO ISPF fields and REPLACE MEMBER=Y to replace
++        existing members with the same name.
+%  #+- Delete the package.
+%        Warning:+Deleting may make dependent packages unusable.
++
++
++
++    Select%1+-%4+for information about
++
+%    1+- Package ID fields          %3+- ISPF fields
+%    2+- Package status             %4+- Utility action options
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITISPF0 4,CITP8OPT)
+)END

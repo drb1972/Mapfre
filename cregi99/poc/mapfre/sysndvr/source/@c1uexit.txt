@@ -1,0 +1,172 @@
+         MACRO
+&LABEL   @C1UEXIT &TYPE=EXITDEF,      TYPE OF CALL (START,END,EXITDEF) X
+               &EXIT#=,               EXIT NUMBER                      X
+               &NAME=,                EXIT PROGRAM NAME                X
+               &ANCHID=0,             EXIT ANCHOR ID                   X
+               &AUTH=YES,             LOAD FROM AUTHORIZED LIBRARY     X
+               &CALLAPF=NO,           ATTACH APF AUTHORIZED            X
+               &USE_ALTID=Y,          SWITCH TO ALTID                  X
+               &XIT7BAT=,             DEFAULT VALUE FOR PECBBATX       X
+               &VERSION=2.00,&EYEC=XTBL VERSION AND EYECATCHER
+.*--------------------------------------------------------------------*
+.*  START       FIRST ENTRY                                           *
+.*              CREATES HEADER RECORD                                 *
+.*    &XIT7BAT  OPTIONAL PARM:  DEFAULT VALUE FOR PECBBATX (EXIT 7)   *
+.*                                                                    *
+.*  EXITDEF     DEFINE USER EXIT                                      *
+.*    &LABEL    REQUIRED PARM IF TYPE=START:  MUST BE C1UEXITS.       *
+.*    &NAME     REQUIRED PARM:  NAME OF EXIT PROGRAM.                 *
+.*    &EXIT#    REQUIRED PARM:  EXIT NUMBER.  CURRENTLY THERE ARE     *
+.*                              7 EXITS, AS FOLLOWS:                  *
+.*                              1 - SECURITY                          *
+.*                              2 - ACTION PRE-PROCESSING             *
+.*                              3 - ACTION POST-PROCESSING            *
+.*                              4 - DATASET ALLOCATION                *
+.*                              5 - INITIALIZATION                    *
+.*                              6 - TERMINATION                       *
+.*                              7 - PACKAGE EXITS                     *
+.*    &ANCHID   REQUIRED PARM:  ID NUMBER OF ANCHOR WORD THAT EXIT    *
+.*                              PROGRAM CAN REFERENCE OR UPDATE.      *
+.*                              DEFAULT = ANCHOR WORD 0.              *
+.*    &AUTH     REQUIRED PARM:  DOES EXIT REQUIRE LOADING FROM AN     *
+.*                              AUTHORIZED LIBRARY?  DEFAULT=YES.     *
+.*                                                                    *
+.*    &CALLAPF  OPTIONAL PARM:  DEFINES WHETHER THE EXIT WILL BE      *
+.*                              GIVEN CONTROL IN                      *
+.*                              - SUPERVISOR STATE (CALLAPF=YES), or  *
+.*                              - PROBLEM STATE (CALLAPF=NO)          *
+.*    IF UNDEFINED, CALLAPF=NO IS THE DEFAULT PARAMETER.              *
+.*    CALLAPF=Y REQUIRES AUTH=YES AS WELL                             *
+.*                                                                    *
+.*    &USE_ALTID REQUIRED PARM: SHOULD WE SWITCH TO THE ALT ID        *
+.*                              BEFORE CALLING EXIT? DEFAULT=Y.       *
+.*                                                                    *
+.*    &FLAGS    RESERVED PARM:  PACKAGE SET PROCESSING WILL FILL THIS *
+.*                              IN LATER                              *
+.*                                                                    *
+.*  END         END OF EXIT LIST                                      *
+.*              CALCULATES LENGTH OF TABLE AND NUMBER OF ENTRIES;     *
+.*              STORES THESE VALUES IN HEADER RECORD.                 *
+.*--------------------------------------------------------------------*
+         GBLA  &COUNT
+         GBLB  &LENDEF
+         GBLC  &YESORNO             VALUE FOR XIT7BAT
+.*--------------------------------------------------------------------*
+.*    DETERMINE THE TYPE (START, END, EXIT)                           *
+.*--------------------------------------------------------------------*
+         AIF   ('&TYPE' EQ 'START').UEX2000
+         AIF   ('&TYPE' EQ 'EXITDEF').UEX0100
+         AIF   ('&TYPE' EQ 'END').UEX3000
+         MNOTE 8,'** INVALID TYPE= PARAMETER SPECIFIED'
+.*--------------------------------------------------------------------*
+.*    EXIT DEFINITION PROCESSING                                      *
+.*--------------------------------------------------------------------*
+.UEX0100 ANOP
+&COUNT   SETA   &COUNT+1
+         AIF    ('&EXIT#' EQ '1').UEX0110
+         AIF    ('&EXIT#' EQ '2').UEX0110
+         AIF    ('&EXIT#' EQ '3').UEX0110
+         AIF    ('&EXIT#' EQ '4').UEX0110
+         AIF    ('&EXIT#' EQ '5').UEX0110
+         AIF    ('&EXIT#' EQ '6').UEX0110
+         AIF    ('&EXIT#' EQ '7').UEX0105
+         MNOTE  8,'** INVALID VALUE SPECIFIED ON EXIT#= PARAMETER'
+         MEXIT
+.UEX0105 ANOP
+         AIF   ('&YESORNO' NE 'W').UEX0110  BIF VALUE WAS CODED
+ MNOTE 4,'WARNING:'
+ MNOTE '          THE XIT7BAT KEYWORD WAS NOT SPECIFIED ON THE FIRST '
+ MNOTE '          @C1UEXIT MACRO (TYPE=START).  THE BATCH PACKAGE'
+ MNOTE '          FACILITY WILL NOT DRIVE EXIT 7 UNLESS XIT7BAT IS   '
+ MNOTE '          SET TO "Y" OR SPECIFIC EXIT 7 MODULES MOVE A "Y"'
+ MNOTE '          TO THE PECBBATX FIELD DURING THE SETUP CALL.  REFER'
+ MNOTE '          TO THE CHAPTER ENTITLED "PACKAGE EXITS" IN THE'
+ MNOTE '          ENDEVOR ADMINISTRATORS GUIDE.'
+&YESORNO SETC  'N'
+         AGO   .UEX0110
+.UEX0110 ANOP
+         AIF    ('&AUTH' EQ 'YES').UEX0115
+         AIF    ('&AUTH' EQ 'Y').UEX0115
+         AIF    ('&AUTH' EQ 'NO').UEX0115
+         AIF    ('&AUTH' EQ 'N').UEX0115
+         MNOTE 8,'** INVALID VALUE SPECIFIED ON AUTH= PARAMETER'
+         MEXIT
+.UEX0115 ANOP
+         AIF    ('&CALLAPF' EQ 'NO').UEX0120
+         AIF    ('&CALLAPF' EQ 'N').UEX0120
+         AIF    ('&CALLAPF' EQ '').UEX0120
+         AIF    ('&CALLAPF' EQ 'YES').UEX0118
+         AIF    ('&CALLAPF' EQ 'Y').UEX0118
+         MNOTE 8,'** INVALID VALUE SPECIFIED ON CALLAPF= PARAMETER'
+         MEXIT
+.UEX0118 ANOP
+         AIF    ('&AUTH' EQ 'YES').UEX0120
+         AIF    ('&AUTH' EQ 'Y').UEX0120
+         MNOTE 8,'** CALLAPF=Y(ES) REQUIRES AUTH=Y(ES)'
+         MEXIT
+.UEX0120 ANOP
+         AIF    ('&USE_ALTID' EQ 'Y').UEX0125
+         AIF    ('&USE_ALTID' EQ 'YES').UEX0125
+         AIF    ('&USE_ALTID' EQ 'N').UEX0125
+         AIF    ('&USE_ALTID' EQ 'NO').UEX0125
+         AIF    ('&USE_ALTID' EQ '+').UEX0125
+         MNOTE 8,'** INVALID VALUE SPECIFIED ON USE_ALTID= PARAMETER'
+         MEXIT
+.UEX0125 ANOP
+.*  must be mapped by @C1UEXE
+         DC     CL8'&NAME'             exit name
+         DC     F'00'                  ..   address
+         DC     F'&EXIT#'              ..   number
+         DC     F'00'                  ..   Anchor address
+         DC     F'&ANCHID'             ..   Anchor-ID
+         DC     CL1'&AUTH(1,1)'        ..   Called from AUTH library
+         DC     CL1'&CALLAPF(1,1)'     ..   called APF authorized
+         DC     CL1'&USE_ALTID'        ..   Using altid Y/N/+
+         DC     XL1'00'                ..   Reserved
+         DC     2F'00'                 ..   Reserved
+         DC     XL19'00'               ..   package setting bits
+         DC     XL1'00'                ..   RESERVED/SLACK
+         DS     0D
+         AIF    (&LENDEF).UEX0130
+C1UEXEEL EQU    *-C1UEX1ST             compute entry length
+&LENDEF  SETB   1                      indicate entry length defined
+.UEX0130 ANOP
+         MEXIT
+.*--------------------------------------------------------------------*
+.*    START PROCESSING                                                *
+.*--------------------------------------------------------------------*
+.UEX2000 ANOP
+&COUNT   SETA   0
+C1UEXITS START
+@C1UEE   DC     CL4'&EYEC'             EXIT Table Eyecatcher
+@C1UEV   DC     CL4'&VERSION'          Version
+@C1UEL   DC     Y(C1UEXLNG)            Length of EXIT Table
+@C1UEC   DC     Y(C1UEXCNT)            Number of Entries
+@C1UETSO DC     C'Y'                   Default value for PECBTSOX
+         AIF   (T'&XIT7BAT NE 'O').BAT#A
+&YESORNO SETC  'W'
+         AGO   .BAT#F
+         AIF   (('&XIT7BAT'(1,1) EQ 'Y'                                X
+               OR '&XIT7BAT'(1,1) EQ 'N')).BAT#A
+         MNOTE 12,'XIT7BAT KEYWORD MUST BE YES OR NO'
+         AGO   .BAT#Z
+.BAT#A   ANOP
+&YESORNO SETC   '&XIT7BAT'(1,1)
+.BAT#F   ANOP
+@C1UEBAT DC     C'&YESORNO'            Default value for PECBBATX
+@C1UEEL  DC     Y(C1UEXEEL)            Entry Length
+@C1UEHL  DC     Y(C1UEX1ST-C1UEXITS)   Header Length
+.BAT#Z ANOP
+C1UEX1ST DS     0D
+         MEXIT
+.*--------------------------------------------------------------------*
+.*    END PROCESSING                                                  *
+.*--------------------------------------------------------------------*
+.UEX3000 ANOP
+         AIF   (&LENDEF).UEX3002
+C1UEXEEL EQU   48
+.UEX3002 ANOP
+@C1UEFNC DC     4XL1'FF'               EXIT Table Fence
+C1UEXLNG EQU    *-C1UEXITS             EQUATE LENGTH OF DSECT
+C1UEXCNT EQU    &COUNT                 Equate number of entries
+         MEND

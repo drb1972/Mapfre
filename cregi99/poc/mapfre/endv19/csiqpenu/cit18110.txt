@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Long-Named Element Uppercase Option \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%ISPF Long-Named Element Uppercase Option
++
++ This enhancement changes the option "Mixed-Case" to "Uppercase" so
++ that the meaning of the option is clearer.  This option will
++ Uppercase the "to" Element name specified during an Add or Transfer
++ action.
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18120
+)END

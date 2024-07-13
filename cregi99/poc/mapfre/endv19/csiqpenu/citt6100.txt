@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprints - Synchronizing Source and Executables \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Footprints are used to ensure source is synchronized with executables
++by comparing the date and time when the element was last generated
++(from the Master Control File) with the footprint date and time.
++
++You can utilize this capability by:
++
++  * Including FOOTPRNT=VERIFY in processors. This automates footprint
++    verification whenever the processor runs. See Chapter 5 in the
++    Administrator's Guide.
++
++  * Utilizing Footprint reports on a regular basis. See the Reports
++    manual for examples of these reports and instructions for
++    producing them.
++
++
++
++                                            (%PF3+to return)
+)END

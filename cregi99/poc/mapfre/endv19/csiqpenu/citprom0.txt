@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Promotion Package Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether this package is a promotion package
++or not:
++
+%  Y+- The package is a promotion package.  The package can only
++      contain move statements and upon successfull execution will
++      automatically be re-cast with the "from" location updated to
++      reflect the new location of the elements.
++
+%  N+- The package is not a promotion package.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

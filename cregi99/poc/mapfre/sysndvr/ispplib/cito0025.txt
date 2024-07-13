@@ -1,0 +1,25 @@
+%TUTORIAL  ---------------  USER DEFAULTS (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %COMPONENT LIST INFORMATION:+
+
+    %Listing dataset string+-   A character string to identify an
+                        elements listing data set from component
+                        output data. Used during the foreground Print
+                        Element SCL build (PL) option and the
+                        foreground Display Element/Component list (LL)
+                        option.
+
+
+
+
+
+
+
+
+
+
+                           %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITO0030
+)END

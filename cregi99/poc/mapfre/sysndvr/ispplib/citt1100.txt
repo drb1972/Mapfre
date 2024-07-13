@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Functionality Overview \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Using this product, you can:
+%  Track+your changes against production, creating an online change
++    history, enabling you to know what was changed, by whom, when, and why.
+%  Prevent+conflicting changes to the same system component.
+%  Browse+and manipulate all components relating to an application from  a
++    a single screen, saving you time.
+%  Automate+executables creation.
+%  Ensure+that the source, executable, and any other form
++    (for example, listings) of an element correspond.
+%  Apply+the same procedures (including automating compiles, impact
++    analyses, and standards checking functions) to any component type.
+%  Put+change packages and approvals online, eliminating paperwork.
+%  View+or retrieve prior levels of any element.
+%  Report+on element definition, content, and change history.
+%  Enforce+change control procedures.
++
++
++                                            (%PF3+to return)
+)END

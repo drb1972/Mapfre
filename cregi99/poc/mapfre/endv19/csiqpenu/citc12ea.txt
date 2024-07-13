@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Banner Page Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Banner Page Enhancement +
+
++ This enhancement adds the following processor information to the
+  CONLIST Banner page produced in a listing, based on the processor
+  that produced the listing:
+
+      Processor Library
+      Processor Environment
+      Processor System
+      Processor Subsystem
+      Processor Stage
+      Processor Type
+      Processor Version
+      Processor Date & Time
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12EB
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ WIP Edit Commands \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++To help edit the WIP file, PDM includes several commands that you can
++invoke from the ISPF/PDF Edit command line.
++
++To use these commands you must have accessed the WIP file using
++Option 2 on the PDM Primary Option Panel.  These commands are not
++available if you edit the WIP file through the ISPF/PDF edit option.
++
++The command syntax for invoking these commands is:
++
++     COMMAND-NAME  parameter1  parameter2  parameter3...
++
++    Select%1-9+for information about:
++
+%    1+- Command parameters         %6+- WIPCHANG command
+%    2+- WIPCOUNT command           %7+- WIPPARA command
+%    3+- WIPLDEL command            %8+- WIPCON command
+%    4+- WIPUNDEL command           %9+- WIPMERGE command
+%    5+- WIPSHOW command
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T1531 2,BC1T1532 3,BC1T1533 4,BC1T1534
+                  5,BC1T1535 6,BC1T1536 7,BC1T1537 8,BC1T1538 9,BC1T1539)
+)END

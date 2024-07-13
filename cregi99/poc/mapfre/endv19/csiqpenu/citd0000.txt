@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Display Options Menu \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Display Options menu lists Endevor information available
++for display. To make a display request, type the appropriate number in
++the OPTION field, then press ENTER.
++
++
++    Choose from the following options for more information:
++
+%    1+- Element                    % 8+- Processor groups
+%    2+- Footprint                  % 9+- Approver groups
+%    3+- Site                       % A+- Approver group relationships
+%    4+- Stage                      % E+- Environment information
+%    5+- System                     % S+- Site Symbols
+%    6+- Subsystem                  % T+- Type processing sequence
+%    7+- Type                       % D+- Destination Configuration Member
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITD1000 2,CITD4000 3,CITES000 4,CITE1000
+                  5,CITE2100 6,CITE3100 7,CITE4100 8,CITPGDF0
+                  9,CITE8100 A,CITAGR00 E,CITE7000 S,CITDSSYM T,CITE5101
+                  D,CITDDCFG)
+)END

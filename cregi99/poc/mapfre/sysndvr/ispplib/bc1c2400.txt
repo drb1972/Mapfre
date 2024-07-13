@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Selection Matrix Commands \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The BUILD WIP Member Selection matrix provides new line commands:
++
+%PRTMAT+- Allows the user to print a formatted version of the WIP
++   Selection Matrix to SYSOUT. The destination of the formatted matrix
++   controlled by parameters to the PRTMAT command and by defaults
++   specified on the PDM User Default panel.
++
+%SORT+- Allows the user to SORT the Matrix table into ascending sequence
++   based on the contents of the WIP, Root, Derivation 1, Derivation 2
++   or WIP sequence number columns.
++
+%LOCATE+- Allows the user to position the Matrix to a specified row.
++   The default column used by the LOCATE command is the WIP Member
++   name column, or the last column against which a SORT has been
++   performed. Optionally, the user can specify the column in which
++   LOCATE is to search for the value.
++
+)END

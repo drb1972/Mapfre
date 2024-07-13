@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Naming Conventions \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Consider using generic type names, such as COBOL.  You can then create
++as many processor groups as you need to handle the variations within
++each type. For instance, for type COBOL, you could create processor
++groups to indicate what type of COBOL must be processed.
++
++A list of suggested naming standards for types follows.  This list is
++not complete and is presented here as a guideline only.
+
++ASEMBLER  LINKCARD  SORTCNTL  FORTRAN
++BASIC     MACRO     SPECS     RPG
++CLIST     MARKV     TABLES    JCL
++COBOL     NETRON    TELON     REPORTS
++COPYBOOK  PLI       TRNSFORM
++EASYTRE   VPROC     UTILITY
++
++
++
++                                            (%PF3+to return)
+)END

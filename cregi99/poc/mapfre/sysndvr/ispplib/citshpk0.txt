@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Sharable Package Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether this package can be edited by more
++than one person when in IN-EDIT status:
++
+%  Y+- The package is sharable, and can be edited by anyone.
++
+%  N+- The package can be edited only by its creator.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

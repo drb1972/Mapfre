@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to:
++
+%  D+- Display information about a package.
++
+%  S+- Select a package for processing.
++
++The list is scrollable%LEFT+and%RIGHT+and contains much of the information
++found in the%Display+option, including:
++  Package name, status, description, and attributes, as well as Create,
++  Last Update, Cast, Approved/Denied, Execution, and Commit information.
++
++The%ESORT+command is available on all columns, using the headings shown in the
++panels.  All date and time fields will sort as if the date and time were a
++single field, regardless of whether the sort is done on the date or time
++column.
++
++
++
++
++\ \ --%PF3+to return -- \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD LEFT,*CITPSEL0 RIGHT,*CITPSEL0 *,?)
+)END

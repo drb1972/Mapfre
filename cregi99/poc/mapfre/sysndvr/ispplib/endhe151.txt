@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Generate Element after Edit \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%    Generate Element after Edit+- Indicates whether the element will
++       be generated after editing.
++
+%          Y+- (Default) Generate the element after editing.
++
+%          N+- Do not generate the element.
++
++
++
++
++
++
++
++
++
++
++
++
++                                 (%END+to return)
++
++
+)END

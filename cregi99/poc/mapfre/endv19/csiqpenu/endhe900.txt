@@ -1,0 +1,28 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ COPYELM/COMPELM Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++  Use the%COPYELM+command to copy an element from an inventory
++  location into the Quick Edit ISPF/PDF Edit session.
++
++  Use the%COMPELM+command to compare the current element to another
++  version or element from a different inventory location.
++
++    Select one of the options below for more information:
+%      1+- Location fields
+%      2+- List options
+%      3+- COPYELM/COMPELM commands and options
++
++
++
++
++
++
++
++
++
++ \ \ (%END+to return) \ \
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITNDVR0  2,ENDHE130 3,ENDHE910)
+)END

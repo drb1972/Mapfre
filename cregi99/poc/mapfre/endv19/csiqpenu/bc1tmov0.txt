@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Moving a Derivation 1 or 2 Member \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Unmatched Derivation 1 and Derivation 2 member names are listed after
++the last sequenced row of the WIP Member Selection Matrix. PDM allows
++you to move these unmatched members into different matrix rows.
++
++To move the member, tab to the member name you want to move and type
++the sequence number of the row to which you want to move the member
++name, then press ENTER.  If the member being moved is replacing an
++existing member, PDM moves the old member to the first open slot in the
++after the last sequenced matrix row.
++
++
++
+)END

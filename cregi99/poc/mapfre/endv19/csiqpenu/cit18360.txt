@@ -1,0 +1,30 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ Alter Exact Match Option \-\
+%Option ===>_ZCMD                                                 %Version 18.0
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Alter "Exact Match" Option
++
++ This option is applicable for the%Alter Description, Last Action CCID,
++%Generate CCID+and%Retrieve CCID+fields and allows for specifying a
++ "from value" that includes &LIT1
++ to be matched and not treated as special charaters.
++
++ The exact match option is%ignored+for the other Alter actions:
++    %Processor group, Signout Userid and User Data.+
++
++ For example, with the option%"EXACT MATCH",+you could alter:
++     LAST ACTION CCID  %&LIT2       +WITH
++                      %"LAST ACTION"+
++
++ Without this new option, the above would be a syntax error.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'place holder (%) and wildcard (*) characters '
+    &LIT2  = 'LAST*%%*%**'
+)PROC
+   &ZCONT = CIT18370
+)END

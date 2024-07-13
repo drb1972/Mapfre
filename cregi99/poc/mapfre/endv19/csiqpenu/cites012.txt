@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls \-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 3 of 6)+
+
+%Mixed Format+- Determines whether mixed case is accepted in some fields:
+     %CCID+       - accept mixed case in CCID fields.
+     %COMMENT+    - accept mixed case in COMMENT fields.
+     %DESCRIPTION+- accept mixed case in DESCRIPTION fields.
+     %ALL+        - accept mixed case in all three fields named above.
+     %NONE+       - do not accept mixed case in any of the three fields.
+
+%Access Table+- Name of the Access Security Table currently in use.
+
+%SMF Record Number+- Record number used for SMF records written by Endevor.
+
+%SMF Dynamic Environments+- SMF recording flag for Dynamic Environment Actions.
+
+%Library System+- The library management system at your site.  Values are:
+     %blank+- OS/PDS.
+     %LB+   - LIBRARIAN and PDS.
+     %PV+   - PANVALET and LIBRARIAN.
+
+%Library Program+- The name of the LIBRARIAN load module at the site (if any).
+
++\ \ (%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITES013
+)END

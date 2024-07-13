@@ -1,0 +1,158 @@
+         MACRO
+.**********************************************************************
+.* Name:        $PRITE                                                *
+.* Description: IF-THEN-ELSE specification macro                      *
+.* Function:    Define processor conditional JCL blocks for           *
+.*                                                                    *
+.*              This macro builds a conditional tree. Each entry      *
+.*              represents either a node or a leaf entry. The node    *
+.*              represents either an AND or an OR variant (including  *
+.*              NOTs). Each leaf represents an expression.  The node  *
+.*              points to two expressions, the first being the left   *
+.*              expression and the second the right as in the         *
+.*              following expression: left_expr AND right_expr        *
+.*              where left_expr and right_expr are conditional        *
+.*              expressions in the form a=b.                          *
+.*                                                                    *
+.* Keywords/parameters:                                               *
+.*    TYPE - specify the tree entry type, node (NODE) or leaf (LEAF). *
+.*                                                                    *
+.*    LEFT - specify the address of the left expression (leaf or node)*
+.*                                                                    *
+.*    RIGHT- specify the address of the right expression (leaf or     *
+.*           node)                                                    *
+.*                                                                    *
+.*    OPER - Specify the Boolean operator connecting the two          *
+.*           expressions EXP1 and EXP2. Example: OPER=AND. Valid      *
+.*           values are AND, OR, NOT.                                 *
+.*                                                                    *
+.**********************************************************************
+&LABEL   $PRITE &TYPE,                 ITE entry type                  +
+               &LEFT=0,                First expression                +
+               &RIGHT=0,               Second expression               +
+               &OPER=OR,               Expression operator             +
+               &ELEM1=0,               For leaf, first element         +
+               &ELEM2=0,               For leaf, second element        +
+               &COND=EQ,               For leaf, expression operator   +
+               &LEVEL=0,               Nest level number               +
+               &STMTLBL=,              ITE statement label (//label)   +
+               &CHAIN=                 Processor chain type
+.*
+         COPY  $PRGLBLS                Copy the global variables
+         LCLB  &AND,&OR,&NOT
+         LCLC  &ENDLBL                 Local ITE label value
+         LCLC  &C,&K                   Local ITE label value
+         LCLC  &CIFBLK,&CELEM,&CNODE
+         LCLC  &CLABEL,&LBL
+         LCLC  &CPREITE,&CNXTITE
+.*
+&PRITE   SETC  'ITE'
+&START   SETB  ('&TYPE' EQ 'START')
+&END     SETB  ('&TYPE' EQ 'END')
+&ENDIF   SETB  ('&TYPE' EQ 'ENDIF')
+&ELSE    SETB  ('&TYPE' EQ 'ELSE')
+.ITE0120 ANOP
+         AIF   (&START).ITE1000
+         AIF   (&END).ITE1900
+         AIF   (&ENDIF).ITE1200
+         AIF   (&ELSE).ITE1200
+         MNOTE 16,'Invalid ITE specification: &TYPE'
+         AGO   .ITE2900
+.**********************************************************************
+.* Process START variables:
+.**********************************************************************
+.ITE1000 ANOP
+&PRITENODE  SETA   128
+&PRSTART  SETB     1
+&PRIELNUM SETA     &PRIELNUM+1             Bump the nest level
+&CNODE    SETC     '&RIGHT'                Starting node name
+&CNXTITE  SETC     '&PRIBLKNM'             Prior ITE block name
+.*
+&CIFBLK   SETC     'ITES&LEVEL'
+          AIF      ('&PRINEXT' EQ '').ITE1080
+&CIFBLK   SETC     '&PRINEXT'
+.ITE1080  ANOP
+.*
+&PRINEXT  SETC     'ITEX&PRIELNUM'
+.*        AIF      ('&PRIBLKNM' NE '0').ITE1180
+&PRIBLKNM SETC     '&CIFBLK'
+.ITE1180  ANOP
+          $PRIF     PUSH,LBL=&CIFBLK       Push IF block name
+&CPREITE  SETC     '&PRIFLBL'              Prior ITE block
+          AGO      .ITE2000
+.**********************************************************************
+.* Process ENDIF and ELSE entry
+.**********************************************************************
+.ITE1200   ANOP
+&PRSTART   SETB    0
+&PRITENODE SETA    &ENDIF*64+&ELSE*32
+&CNODE     SETC    '0'
+&CIFBLK    SETC    '&LABEL'
+&PRIELNUM  SETA    &PRIELNUM+1             Bump the nest level
+&PRINEXT   SETC    'ITEX&PRIELNUM'
+&CNXTITE   SETC    '&PRIBLKNM'                 Prior ITE block name
+&PRIBLKNM  SETC    '&LABEL'
+.ITE1260   ANOP
+           AIF     (&ELSE).ITE1280
+           $PRIF    POP                      POP IF block name
+&CPREITE   SETC     '&PRIFLBL'               Prior ITE block
+           $PRIF    POP                      POP IF block name
+&CPREITE   SETC     '&PRIFLBL'               Prior ITE block
+.* JDO     $PRIF    PUSH,LBL=&PRIBLKNM       POP IF block name
+           AGO      .ITE2000
+.ITE1280   ANOP
+           $PRIF    PUSH,LBL=&CIFBLK   JDO   Return IF block name
+&CPREITE   SETC     '&PRIFLBL'               Prior ITE block
+.ITE1290   ANOP
+           AGO      .ITE2000
+.**********************************************************************
+.* End tree processing
+.**********************************************************************
+.ITE1900 ANOP
+         AIF   (&PRSTART).ITE1920
+         MNOTE 16,'Misplaced end entry'
+.ITE1920 ANOP
+&PRSTART   SETB  0
+         AGO   .ITE2900
+***********************************************************************
+* Generate the tree entry
+***********************************************************************
+.ITE2000 ANOP
+&CLABEL  SETC     '&CIFBLK._LINE#'
+&PRCSECT CSECT
+         DC      A(&CIFBLK)
+.*       DC      A(&PRINEXT)
+         DC      A(0)
+&CIFBLK  DS    0F
+         DC    XL(PRIBLKSIZE)'00'
+         ORG   &CIFBLK
+         DC    Y(PRITEEQU)             Identify ITE block
+         DC    Y(PRI$LN)               Length of the ITE block
+         DC    Y(PRITEVER)             Endevor version generating proc
+         DC    Y(0)                    Number of variable fields
+         SPACE 2
+         DS    0F
+         DC    YL1(&PRITENODE)         Flag byte 1
+         DC    AL2(0)                  Flag byte 2
+         DC    AL1(255)                  Truth indicator (deflt: true)
+         DC    A(&CNODE)               A(first node)
+         DC    A(&CNXTITE)             A(Next ITE processor)
+         DC    A(&CPREITE)             A(prior ITE element)
+         DC    A(&CLABEL)              A(ITE statement label)
+         DC    3F'0'                   Reserved
+&CIFBLK.$ DS 0F
+         AIF      ('&STMTLBL' EQ '').ITE2740
+&LBL     SETC     '&STMTLBL'
+         AIF      ('&LBL'(1,1) EQ '''').ITE2720
+&LBL     SETC     '''&LBL'''
+.ITE2720 ANOP
+&CLABEL  DC       CL8&LBL                  ITE statement label
+         AGO      .ITE2800
+.ITE2740 ANOP
+&CLABEL  EQU      0                        No statement label specified
+.ITE2800 ANOP
+         ORG   ,                       Resume offset
+.ITE2900 ANOP
+.ITE3000 ANOP
+         MEXIT
+         MEND

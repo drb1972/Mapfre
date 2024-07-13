@@ -1,0 +1,42 @@
+)ATTR
+  ^ TYPE(TEXT) INTENS(NON)
+  + TYPE(TEXT) INTENS(LOW)
+  % TYPE(TEXT) INTENS(HIGH)
+)BODY
+%-----------------------------*  User Options Menu  *---------------------------
+% Option ===>_ZCMD                                                             +
+%
+%   1 +Reports     - Build Endevor Report Requests
+%   2 +ACMQ        - Impact Analysis
+%   3 +PDM         - Compare and Merge Utility
+%   4 +Quick Edit  - Endevor QuickEdit
+%   5 +DDIO copy   - Copy Endevor listings into Xpediter
+%   6 +Packages    - Execute Eplex development packages
+%   7 +CL Compare  - Compare two Component Lists and highlight differences
+%   8 +Scan        - Scan and search options
+%   9 +WizHist     - History of all OS items
+%  10 +RNEWS       - Endevor News Items
+%
++ Enter%END+to return to the Endevor Primary Options
+%
+)INIT
+  .HELP = NDTRUSER
+)PROC
+  /*--------------------------------------------------------------*/
+  /* The following ZSEL statement will invoke the command or panel*/
+  /* associated with each option identified above.                */
+  /*--------------------------------------------------------------*/
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+           1,'CMD(%C1SR1000 DEBUG(NOBUG))'
+           2,'CMD(%ACMQ     DEBUG(NOBUG)) NEWAPPL(CTLI) PASSLIB'
+           3,'PGM(BC1G1000) NOCHECK'
+           4,'PGM(ENDIE000) NOCHECK NEWAPPL(CTLI) PASSLIB'
+           5,'CMD(%EVXPED01)'
+           6,'CMD(%PPCM)'
+           7,'CMD(%CLCOMPMN)'
+           8,'PANEL(SCAN)'
+           9,'CMD(%HISWIZ)'
+          10,'CMD(%RNEWS NDVR)'
+           *,'?' )
+  &ZTRAIL = .TRAIL
+)END

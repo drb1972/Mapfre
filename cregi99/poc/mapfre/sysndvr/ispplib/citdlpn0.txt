@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Product Name/Description \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Product+- 1- to 20-character tag of the DistribuLink product. Package
++   inventory will be stored in the repository and associated with this
++   tag. %Note:+The product tag must be unique for each operating system
++   which will receive this inventory. This field is required.
++
++For panels which carry the product description:
++
+%Description+- 1- to 30-character description of the product. This
++   field is optional.
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

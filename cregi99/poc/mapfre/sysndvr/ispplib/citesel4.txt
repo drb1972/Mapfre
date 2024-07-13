@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Transfer \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Type%T+next to elements you want to transfer. Press ENTER to transfer them.
++       Transferring source-less elements is not supported.
++
++Use the%TO NAME+ field to change the name of the element at the target
++location of the transfer.
++
+%Note:+If you are invoking the move processor for transfers, you cannot
++   rename an element at the target location.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

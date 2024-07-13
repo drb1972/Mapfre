@@ -1,0 +1,36 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Product Collection - SUBMIT \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++To SUBMIT the queue of current collection requests, you must provide:
++
+%   Product Info+ - DistribuLink product definition data (selectable below).
+%   Host Job Info+- Four lines are provided at the bottom of the panel.
++                   The job statement information is retained across
++                   sessions.
++
++Then type%3+in the Option field and press ENTER to submit the request.
++
++   Select%1+-%11+for information about DistribuLink product definition data.
++
+%   1+- Product/Description           %7+- Collect Date/Time
+%   2+- FileList LU                   %8+- Escape
+%   3+- Batch LU                      %9+- Number
+%   4+- Operating System             %10+- Vendor
+%   5+- Version                      %11+- Mark Installed When
+%   6+- Product Type
+%
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDLPN0
+                       2,CITDLFL0
+                       3,CITDLBL0
+                       4,CITDLOS0
+                       5,CITDLPV0
+                       6,CITDLPT0
+                       7,CITDLCD0
+                       8,CITDLEC0
+                       9,CITDLP#0
+                       10,CITDLVT0
+                       11,CITDLMI0)
+)END

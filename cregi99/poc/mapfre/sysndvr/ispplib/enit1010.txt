@@ -1,0 +1,24 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Additional Selection Criteria \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The Additional Selection Criteria field appears on the Package Specification
++Panel. The field allows you to further specify the package selection list.
++When the Where Older Than field is specified a selection list of packages
++that are at least as old as the number of days specified.  The Where Older
++Than field can only contain numeric digits and can be any value between 1
++and 999.
++
++ %1+- Enterprise packages
++ %2+- Promotion packages and tgt location
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit1000
+  &ZSEL = TRANS(&ZCMD 1,CITENPK0 2,CITPRPK0)
+)END

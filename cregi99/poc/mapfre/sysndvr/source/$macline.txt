@@ -1,0 +1,37 @@
+         MACRO
+&NAME    $MACLINE      &OP1,&OP2,&COMM
+.*
+.*       THIS MACRO WILL TAKE THE FIELDS SPECIFIED AND FORMAT A LINE
+.*       FOR OUTPUT WITH THE LABEL AS WELL AS THE OTHER ITEMS
+.*
+.*       COMMENTS WILL APPEAR IN LINE 40
+.*       OP1 WILL BEGIN COLUMN    10
+.*       OP2 WILL BEGIN IN COLUMN 16
+.*
+.*
+         LCLA  &LEN1,&LEN2,&LEN3       LENGTH WORK WORDS
+         LCLA  &LEN4,&LEN5             LENGTH WORK WORDS
+         LCLC  &TEMP1,&TEMP2,&TEMP3    LINE VARIABLES
+         LCLC  &LINE1                  LINE OUTPUT
+         LCLC  &QUOTE                  QUOTE
+.*
+.*
+&QUOTE   SETC  ''''
+&LEN1    SETA  K'&OP1
+&TEMP1   SETC  '&OP1'.(16-10-&LEN1)' '
+&LEN2    SETA  K'&OP2
+&TEMP2   SETC  '&OP2'.(40-16-&LEN2)' '
+&TEMP3   SETC  ''
+         AIF   ('&COMM' EQ '').NOCOMM
+&LEN3    SETA  K'&COMM
+&LEN4    SETA  1             START POSITION
+&LEN5    SETA  0              0 - NO QUOTES
+         AIF   ('&COMM'(1,1) NE '&QUOTE').MGO
+&LEN4    SETA  2
+&LEN5    SETA  2              0 - NO QUOTES
+.MGO     ANOP
+&TEMP3   SETC  '&COMM'(&LEN4,&LEN3-&LEN5) GET COMMENTS
+.NOCOMM  ANOP
+&LINE1   SETC  '&TEMP2'.'&TEMP3'
+&NAME    &TEMP1 &LINE1
+         MEND

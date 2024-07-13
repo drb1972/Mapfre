@@ -1,0 +1,50 @@
+      *****************************************************************
+      *            LIST PACKAGE SHIP - REQUEST BLOCK
+      *****************************************************************
+       01  ALPKS-RQ.
+           05  ALPKS-RQ-HEADER.
+               10  ALPKS-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALPKS-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALPKS-RQ-ID         PIC 9(04) COMP VALUE 1888.
+               10  ALPKS-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  ALPKS-RQ-EYE        PIC X(04)      VALUE 'LSHQ'.
+           05  ALPKS-RQ-DATAAREA.
+               10  ALPKS-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALPKS-RQ-ROPT       PIC X(01) VALUE SPACES.
+               10  ALPKS-RQ-RESERVE    PIC X(01) VALUE SPACES.
+      *
+      *****************************************************************
+      *            LIST PACKAGE SHIP - RESPONSE BLOCK
+      *****************************************************************
+       01  ALPKS-RS.
+           05  ALPKS-RS-HEADER.
+               10  ALPKS-RS-LEN        PIC 9(04) COMP VALUE 104.
+               10  ALPKS-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALPKS-RS-ID         PIC 9(04) COMP VALUE 1889.
+               10  ALPKS-RS-VERS       PIC 9(04) COMP VALUE 1.
+               10  ALPKS-RS-EYE        PIC X(04)      VALUE 'LSHS'.
+           05  ALPKS-RS-DATAAREA.
+               10  ALPKS-RS-PKGID      PIC X(16)      VALUE SPACES.
+               10  ALPKS-RS-SHDT       PIC X(07)      VALUE SPACES.
+               10  ALPKS-RS-SHTM       PIC X(05)      VALUE SPACES.
+               10  ALPKS-RS-SUID       PIC X(08)      VALUE SPACES.
+               10  ALPKS-RS-UPDT       PIC X(07)      VALUE SPACES.
+               10  ALPKS-RS-UPTM       PIC X(05)      VALUE SPACES.
+               10  ALPKS-RS-UPCT       PIC X(05)      VALUE SPACES.
+               10  ALPKS-RS-TYPE       PIC X(01)      VALUE SPACES.
+               10  ALPKS-RS-CMPL       PIC X(01)      VALUE SPACES.
+               10  ALPKS-RS-CMOV       PIC X(01)      VALUE SPACES.
+               10  ALPKS-RS-METH       PIC X(01)      VALUE SPACES.
+                   88  ALPKS-RS-METH-B                VALUE 'B'.
+                   88  ALPKS-RS-METH-F                VALUE 'F'.
+                   88  ALPKS-RS-METH-L                VALUE 'L'.
+                   88  ALPKS-RS-METH-M                VALUE 'M'.
+                   88  ALPKS-RS-METH-N                VALUE 'N'.
+                   88  ALPKS-RS-METH-S                VALUE 'S'.
+                   88  ALPKS-RS-METH-X                VALUE 'X'.
+               10  ALPKS-RS-DSID       PIC X(07)      VALUE SPACES.
+               10  ALPKS-RS-HSRC       PIC X(06)      VALUE SPACES.
+               10  ALPKS-RS-HTRC       PIC X(06)      VALUE SPACES.
+               10  ALPKS-RS-RMRC       PIC X(06)      VALUE SPACES.
+               10  ALPKS-RS-RJNM       PIC X(08)      VALUE SPACES.
+               10  ALPKS-RS-RESERVE    PIC X(01)      VALUE SPACES.

@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Tutorial \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This tutorial contains information about:
++
++ * Parallel development generally
++ * Parallel Development Manager (PDM) tools to help programmers
++   and managers deal with parallel development issues
++ * How PDM works
++ * Basic PDM terminology
++ * PDM reporting capabilities
++
++    Select%1-6+for information about
++
+%    1+- Parallel development       %4+- PDM files
+%    2+- PDM tools                  %5+- How PDM works
+%    3+- PDM terms                  %6+- PDM reports
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TT100 2,BC1TT200 3,BC1TT500 4,BC1TT400
+                  5,BC1TT300 6,BC1TT600)
+)END

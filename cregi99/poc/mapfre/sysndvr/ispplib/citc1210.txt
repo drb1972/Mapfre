@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Concurrent Action Processing \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Concurrent Action Processing +
+
++ Concurrent action processing is a new feature that will selectively allow you
+  to process multiple actions at the same time and in TYPE sequence.  Using the
+ %EN$CAP+or%EN$CAPnn+DD statement in your CA Endevor SCM execution job step,
+  you can execute up to%99+actions at the same time, where%nn+is the number of
+  concurrent actions you would like to process.  Default (EN$CAP) and maximum
+  values for%nn+are set by new parameters in the C1DEFLTS table.  New panel
+  options will allow you to generate this DD statement with your CA Endevor SCM
+  execution JCL.  Using this feature with existing JCL requires the addition of
+  the%EN$CAP+or%EN$CAPnn+DD statement.
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1220
+)END

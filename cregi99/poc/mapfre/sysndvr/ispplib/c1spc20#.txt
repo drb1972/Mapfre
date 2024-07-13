@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+%Delete --------------------  Delete Connection  -------------------------------
+%Option  ===>_VARWKCMD                                                         +
++
++ %D+- Display DSN Mapping Rules+
++ %#+- Delete Connection and its DSN Mapping Rules+
++
++
++Connection ID:¢VNBSSDST+
++Description:~VDDDESCR                      +
++Server LU Name:¢VDDXNODE+
++
++
++Staging Data Set Info:      For Host Site                               +
++    DSN Prefix             ¢VDDHSPFX      +
++    Disposition            ¢Z     +
++    Unit                   ¢VDDHUNIT+
++    Volume Serial          ¢Z     +
++
++                                                                           +
++                                                                           +
++                                                                           +
++                                                                           +
++
++Updated:¢Z      ¢Z    +by¢VDDUUSER+     +Created:¢Z      ¢Z    +by¢VDDCUSER+
+)INIT
+  .HELP = CITPC20#
+    .ZVARS = '( VDDHDISP +
+                VDDHVSER +
+                VDDUPDAT VDDUPTIM +
+                VDDCRDAT VDDCRTIM )'
+)PROC
+)END

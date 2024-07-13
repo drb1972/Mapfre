@@ -1,0 +1,422 @@
+/* START OF SPECIFICATIONS *******************************************/ 00001000
+                                                                        00020000
+TABLE NAME(TS0B06I) USE(INQUIRY) CODE(0240) SEPARATOR(,);               00021000
+                                                                        00022000
+  FIELD PANEL(BTN00000) INDEX(S0B06)        /*  CHANGE RECORD AND    */ 00023000
+        RCDSWORD(Y);                                                    00024000
+  FIELD PANEL(BLG0F000) INDEX(S0B07)        /*  NOT CHANGE ACTIVITY  */ 00025000
+        REQUIRED(Y) NOTLOGIC(Y);                                        00026000
+                                                                        00027000
+  /* REQUESTER DATA                                                  */ 00028000
+    FIELD PANEL(BLG6REQN) INDEX(S0B59);     /*  REQUESTER NAME       */ 00029000
+    FIELD PANEL(BLG6RQDP) INDEX(S0B9B);     /*  REQUESTER DEPARTMENT */ 00030000
+    FIELD PANEL(BLG6PHON) INDEX(S0B2D);     /*  REQUESTER PHONE      */ 00031000
+    FIELD PANEL(BLG6NETN) INDEX(S0CA3);     /*  NETWORK NAME         */ 00032000
+    FIELD PANEL(BLG6SYSN) INDEX(S0CA5);     /*  SYSTEM NAME          */ 00033000
+    FIELD PANEL(BLG60APN) INDEX(S0CA8);     /*  PROGRAM NAME         */ 00034000
+    FIELD PANEL(BLG6DEVN) INDEX(S0CA9);     /*  DEVICE NAME          */ 00035000
+    FIELD PANEL(BLG6KIAF) INDEX(S0CBF);     /*  KEY ITEM AFFECTED    */ 00036000
+    FIELD PANEL(BLG6REQD) INDEX(S0C49);     /*  DATE REQUIRED        */ 00037000
+    FIELD PANEL(BLG6REQT) INDEX(S0C72);     /*  TIME REQUIRED        */ 00038000
+    FIELD PANEL(BLG6PTYP) INDEX(S0C09);     /*  CHANGE TYPE          */ 00039000
+    FIELD PANEL(BLG6STAT) INDEX(S0BEE);     /*  CHANGE STATUS        */ 00040000
+    FIELD PANEL(BLG6CRES) INDEX(S0C0A);     /*  CHANGE REASON        */ 00041000
+    FIELD PANEL(BLG6ACCN) INDEX(S0CCF);     /*  USER CHANGE NUMBER   */ 00042000
+    FIELD PANEL(BLG6PRII) INDEX(S0BE6);     /*  INITIAL PRIORITY     */ 00043000
+    FIELD PANEL(BLG6EDUR) INDEX(S0C95);     /*  ESTIMATED DURATION   */ 00044000
+    FIELD PANEL(BLG6FXPN) INDEX(S0CD3);     /*  PROBLEM FIXED        */ 00045000
+    FIELD PANEL(BLG6UCHN) INDEX(S0D14);     /*  USER FORM NUMBER     */ 00046000
+    FIELD PANEL(BLG6PLOC) INDEX(S0C0C);     /*  LOCATION CODE        */ 00047000
+    FIELD PANEL(BLG7DSAB) INDEX(S0E0F);     /*  DESCRIPTION          */ 00048000
+                                                                        00049000
+  /* STATUS DATA                                                     */ 00050000
+    FIELD PANEL(BLG600AA) INDEX(S0B5A);     /*  ASSIGNEE NAME        */ 00051000
+    FIELD PANEL(BLG600AG) INDEX(S0B9C);     /*  ASSIGNEE DEPARTMENT  */ 00052000
+    FIELD PANEL(BLG6PHON) INDEX(S0B2E);     /*  ASSIGNEE PHONE       */ 00053000
+    FIELD PANEL(BLG6ASSD) INDEX(S0C37);     /*  DATE ASSIGNED        */ 00054000
+    FIELD PANEL(BLG6ASST) INDEX(S0C64);     /*  TIME ASSIGNED        */ 00055000
+    FIELD PANEL(BLG8PTRF) INDEX(S0BCC);     /*  TRANSFER-TO CLASS    */ 00056000
+    FIELD PANEL(BLG6CPRI) INDEX(S0BE7);     /*  CURRENT PRIORITY     */ 00057000
+    FIELD PANEL(BLG600CN) INDEX(S0B5C);     /*  COORDINATOR NAME     */ 00058000
+    FIELD PANEL(BLG6CNDP) INDEX(S0B9E);     /*  COORDINATOR DEPT.    */ 00059000
+    FIELD PANEL(BLG6PHON) INDEX(S0B30);     /*  COORDINATOR PHONE    */ 00060000
+    FIELD PANEL(BLG6RSKA) INDEX(S0BF2);     /*  RISK ASSESSMENT      */ 00061000
+    FIELD PANEL(BLG6PHAC) INDEX(S0C0B);     /*  CURRENT PHASE        */ 00062000
+    FIELD PANEL(BLG6SCHD) INDEX(S0C41);     /*  PLANNED START DATE   */ 00063000
+    FIELD PANEL(BLG6SCHT) INDEX(S0C6E);     /*  PLANNED START TIME   */ 00064000
+    FIELD PANEL(BLG6DSTA) INDEX(S0C43);     /*  ACTUAL START DATE    */ 00065000
+    FIELD PANEL(BLG6TIMX) INDEX(S0C70);     /*  ACTUAL START TIME    */ 00066000
+    FIELD PANEL(BLG6TARD) INDEX(S0C42);     /*  PLANNED END DATE     */ 00067000
+    FIELD PANEL(BLG6TART) INDEX(S0C6F);     /*  PLANNED END TIME     */ 00068000
+    FIELD PANEL(BLG6ESEF) INDEX(S0C94);     /*  ESTIMATED EFFORT     */ 00069000
+    FIELD PANEL(BLG6CORQ) INDEX(S0CD4);     /*  CO-REQUISITES        */ 00070000
+    FIELD PANEL(BLG6PRRQ) INDEX(S0CD5);     /*  PRE-REQUISITES       */ 00071000
+                                                                        00072000
+  /* CLOSE DATA                                                      */ 00073000
+    FIELD PANEL(BLG600CR) INDEX(S0B5B);     /*  CLOSER NAME          */ 00074000
+    FIELD PANEL(BLG600CG) INDEX(S0B9D);     /*  CLOSER DEPARTMENT    */ 00075000
+    FIELD PANEL(BLG6PHON) INDEX(S0B2F);     /*  CLOSER PHONE         */ 00076000
+    FIELD PANEL(BLG6CLAR) INDEX(S0BB3);     /*  CLOSER PRIV. CLASS   */ 00077000
+    FIELD PANEL(BLG6CMPD) INDEX(S0C40);     /*  COMPLETION DATE      */ 00078000
+    FIELD PANEL(BLG6CMPT) INDEX(S0C71);     /*  COMPLETION TIME      */ 00079000
+    FIELD PANEL(BLG600CC) INDEX(S0C0E);     /*  COMPLETION CODE      */ 00080000
+    FIELD PANEL(BLG6ACEF) INDEX(S0C96);     /*  ACTUAL EFFORT        */ 00081000
+    FIELD PANEL(BLG6ACIM) INDEX(S0BE1);     /*  ACTUAL IMPACT        */ 00082000
+    FIELD PANEL(BLG6ADUR) INDEX(S0C97);     /*  ACTUAL DURATION      */ 00083000
+    FIELD PANEL(BLG6UNEX) INDEX(S0ECB);     /*  UNEXPECTED PROBLEMS  */ 00084000
+    FIELD PANEL(BLG6BACK) INDEX(S0EC9);     /*  BACKUP PLAN USED     */ 00085000
+    FIELD PANEL(BLG6DNOT) INDEX(S0C48);     /*  DATE REQ. NOTIFIED   */ 00086000
+                                                                        00087000
+  /* DETAIL DATA                                                     */ 00088000
+  FIELD PANEL(BLG0F090) INDEX(S143C);       /*  DETAIL DATA          */ 00089000
+                                                                        00090000
+    /* DETAIL DATA - SOFTWARE                                        */ 00091000
+    FIELD PANEL(BLG0C040) INDEX(S143D);     /*  SOFTWARE             */ 00092000
+                                                                        00093000
+      /* DETAIL DATA - SOFTWARE ADD                                  */ 00094000
+      FIELD PANEL(BLG0C050) INDEX(S143E);   /*  SOFTWARE ADD         */ 00095000
+        FIELD PANEL(BLG6SPIQ) INDEX(S143F)  /*   COMPID              */ 00096000
+              LIST(Y);                                                  00097000
+        FIELD PANEL(BLG6SLEQ) INDEX(S1440)  /*   LEVEL               */ 00098000
+              LIST(Y);                                                  00099000
+        FIELD PANEL(BLG6RMIQ) INDEX(S1441)  /*   ROUTINE             */ 00100000
+              LIST(Y);                                                  00101000
+        FIELD PANEL(BLG6MNAQ) INDEX(S1442)  /*   DEVICE              */ 00102000
+              LIST(Y);                                                  00103000
+        FIELD PANEL(BLG6FNAQ) INDEX(S1443)  /*   FILE                */ 00104000
+              LIST(Y);                                                  00105000
+        FIELD PANEL(BLG6APNQ) INDEX(S1444)  /*   APAR                */ 00106000
+              LIST(Y);                                                  00107000
+        FIELD PANEL(BLG6PTNQ) INDEX(S1445)  /*   PTF                 */ 00108000
+              LIST(Y);                                                  00109000
+        FIELD PANEL(BLG6UTIQ) INDEX(S1446)  /*   UPGRADE             */ 00110000
+              LIST(Y);                                                  00111000
+        FIELD PANEL(BLG6SUIQ) INDEX(S1447)  /*   SUBSET              */ 00112000
+              LIST(Y);                                                  00113000
+        FIELD PANEL(BLG6UMIQ) INDEX(S1448)  /*   USER MOD            */ 00114000
+              LIST(Y);                                                  00115000
+                                                                        00116000
+      /* DETAIL DATA - SOFTWARE ALTER                                */ 00117000
+      FIELD PANEL(BLG0C050) INDEX(S1449);   /*  SOFTWARE ALTER       */ 00118000
+        FIELD PANEL(BLG6SPQ1) INDEX(S144A)  /*   COMPID              */ 00119000
+              LIST(Y);                                                  00120000
+        FIELD PANEL(BLG6SLQ1) INDEX(S144B)  /*   LEVEL               */ 00121000
+              LIST(Y);                                                  00122000
+        FIELD PANEL(BLG6RMQ1) INDEX(S144C)  /*   ROUTINE             */ 00123000
+              LIST(Y);                                                  00124000
+        FIELD PANEL(BLG6MNQ1) INDEX(S144D)  /*   DEVICE              */ 00125000
+              LIST(Y);                                                  00126000
+        FIELD PANEL(BLG6FNQ1) INDEX(S144E)  /*   FILE                */ 00127000
+              LIST(Y);                                                  00128000
+        FIELD PANEL(BLG6APQ1) INDEX(S144F)  /*   APAR                */ 00129000
+              LIST(Y);                                                  00130000
+        FIELD PANEL(BLG6PTQ1) INDEX(S1450)  /*   PTF                 */ 00131000
+              LIST(Y);                                                  00132000
+        FIELD PANEL(BLG6UTQ1) INDEX(S1451)  /*   UPGRADE             */ 00133000
+              LIST(Y);                                                  00134000
+        FIELD PANEL(BLG6SUQ1) INDEX(S1452)  /*   SUBSET              */ 00135000
+              LIST(Y);                                                  00136000
+        FIELD PANEL(BLG6UMQ1) INDEX(S1453)  /*   USER MOD            */ 00137000
+              LIST(Y);                                                  00138000
+                                                                        00139000
+      /* DETAIL DATA - SOFTWARE ALTER-INSTALL                        */ 00140000
+      FIELD PANEL(BLG0C050) INDEX(S1454);   /* SOFTWARE ALTER-INSTALL*/ 00141000
+        FIELD PANEL(BLG6SPQ2) INDEX(S1455)  /*   COMPID              */ 00142000
+              LIST(Y);                                                  00143000
+        FIELD PANEL(BLG6SLQ2) INDEX(S1456)  /*   LEVEL               */ 00144000
+              LIST(Y);                                                  00145000
+        FIELD PANEL(BLG6RMQ2) INDEX(S1457)  /*   ROUTINE             */ 00146000
+              LIST(Y);                                                  00147000
+        FIELD PANEL(BLG6MNQ2) INDEX(S1458)  /*   DEVICE              */ 00148000
+              LIST(Y);                                                  00149000
+        FIELD PANEL(BLG6FNQ2) INDEX(S1459)  /*   FILE                */ 00150000
+              LIST(Y);                                                  00151000
+        FIELD PANEL(BLG6APQ2) INDEX(S145A)  /*   APAR                */ 00152000
+              LIST(Y);                                                  00153000
+        FIELD PANEL(BLG6PTQ2) INDEX(S145B)  /*   PTF                 */ 00154000
+              LIST(Y);                                                  00155000
+        FIELD PANEL(BLG6UTQ2) INDEX(S145C)  /*   UPGRADE             */ 00156000
+              LIST(Y);                                                  00157000
+        FIELD PANEL(BLG6SUQ2) INDEX(S145D)  /*   SUBSET              */ 00158000
+              LIST(Y);                                                  00159000
+        FIELD PANEL(BLG6UMQ2) INDEX(S145E)  /*   USER MOD            */ 00160000
+              LIST(Y);                                                  00161000
+                                                                        00162000
+      /* DETAIL DATA - SOFTWARE ALTER-MODIFY                         */ 00163000
+      FIELD PANEL(BLG0C050) INDEX(S145F);   /* SOFTWARE ALTER-MODIFY */ 00164000
+        FIELD PANEL(BLG6SPQ3) INDEX(S1460)  /*   COMPID              */ 00165000
+              LIST(Y);                                                  00166000
+        FIELD PANEL(BLG6SLQ3) INDEX(S1461)  /*   LEVEL               */ 00167000
+              LIST(Y);                                                  00168000
+        FIELD PANEL(BLG6RMQ3) INDEX(S1462)  /*   ROUTINE             */ 00169000
+              LIST(Y);                                                  00170000
+        FIELD PANEL(BLG6MNQ3) INDEX(S1463)  /*   DEVICE              */ 00171000
+              LIST(Y);                                                  00172000
+        FIELD PANEL(BLG6FNQ3) INDEX(S1464)  /*   FILE                */ 00173000
+              LIST(Y);                                                  00174000
+        FIELD PANEL(BLG6APQ3) INDEX(S1465)  /*   APAR                */ 00175000
+              LIST(Y);                                                  00176000
+        FIELD PANEL(BLG6PTQ3) INDEX(S1466)  /*   PTF                 */ 00177000
+              LIST(Y);                                                  00178000
+        FIELD PANEL(BLG6UTQ3) INDEX(S1467)  /*   UPGRADE             */ 00179000
+              LIST(Y);                                                  00180000
+        FIELD PANEL(BLG6SUQ3) INDEX(S1468)  /*   SUBSET              */ 00181000
+              LIST(Y);                                                  00182000
+        FIELD PANEL(BLG6UMQ3) INDEX(S1469)  /*   USER MOD            */ 00183000
+              LIST(Y);                                                  00184000
+                                                                        00185000
+      /* DETAIL DATA - SOFTWARE ALTER-REMOVE                         */ 00186000
+      FIELD PANEL(BLG0C050) INDEX(S146A);   /* SOFTWARE ALTER-REMOVE */ 00187000
+        FIELD PANEL(BLG6SPQ4) INDEX(S146B)  /*   COMPID              */ 00188000
+              LIST(Y);                                                  00189000
+        FIELD PANEL(BLG6SLQ4) INDEX(S146C)  /*   LEVEL               */ 00190000
+              LIST(Y);                                                  00191000
+        FIELD PANEL(BLG6RMQ4) INDEX(S146D)  /*   ROUTINE             */ 00192000
+              LIST(Y);                                                  00193000
+        FIELD PANEL(BLG6MNQ4) INDEX(S146E)  /*   DEVICE              */ 00194000
+              LIST(Y);                                                  00195000
+        FIELD PANEL(BLG6FNQ4) INDEX(S146F)  /*   FILE                */ 00196000
+              LIST(Y);                                                  00197000
+        FIELD PANEL(BLG6APQ4) INDEX(S1470)  /*   APAR                */ 00198000
+              LIST(Y);                                                  00199000
+        FIELD PANEL(BLG6PTQ4) INDEX(S1471)  /*   PTF                 */ 00200000
+              LIST(Y);                                                  00201000
+        FIELD PANEL(BLG6UTQ4) INDEX(S1472)  /*   UPGRADE             */ 00202000
+              LIST(Y);                                                  00203000
+        FIELD PANEL(BLG6SUQ4) INDEX(S1473)  /*   SUBSET              */ 00204000
+              LIST(Y);                                                  00205000
+        FIELD PANEL(BLG6UMQ4) INDEX(S1474)  /*   USER MOD            */ 00206000
+              LIST(Y);                                                  00207000
+                                                                        00208000
+      /* DETAIL DATA - SOFTWARE REMOVE                               */ 00209000
+      FIELD PANEL(BLG0C050) INDEX(S1475);   /*  SOFTWARE REMOVE      */ 00210000
+        FIELD PANEL(BLG6SPQ5) INDEX(S1476)  /*   COMPID              */ 00211000
+              LIST(Y);                                                  00212000
+        FIELD PANEL(BLG6SLQ5) INDEX(S1477)  /*   LEVEL               */ 00213000
+              LIST(Y);                                                  00214000
+        FIELD PANEL(BLG6RMQ5) INDEX(S1478)  /*   ROUTINE             */ 00215000
+              LIST(Y);                                                  00216000
+        FIELD PANEL(BLG6MNQ5) INDEX(S1479)  /*   DEVICE              */ 00217000
+              LIST(Y);                                                  00218000
+        FIELD PANEL(BLG6FNQ5) INDEX(S147A)  /*   FILE                */ 00219000
+              LIST(Y);                                                  00220000
+        FIELD PANEL(BLG6APQ5) INDEX(S147B)  /*   APAR                */ 00221000
+              LIST(Y);                                                  00222000
+        FIELD PANEL(BLG6PTQ5) INDEX(S147C)  /*   PTF                 */ 00223000
+              LIST(Y);                                                  00224000
+        FIELD PANEL(BLG6UTQ5) INDEX(S147D)  /*   UPGRADE             */ 00225000
+              LIST(Y);                                                  00226000
+        FIELD PANEL(BLG6SUQ5) INDEX(S147E)  /*   SUBSET              */ 00227000
+              LIST(Y);                                                  00228000
+        FIELD PANEL(BLG6UMQ5) INDEX(S147F)  /*   USER MOD            */ 00229000
+              LIST(Y);                                                  00230000
+                                                                        00231000
+    /* DETAIL DATA - HARDWARE                                        */ 00232000
+    FIELD PANEL(BLG0C040) INDEX(S1487);     /*  HARDWARE             */ 00233000
+                                                                        00234000
+      /* DETAIL DATA - HARDWARE ADD                                  */ 00235000
+      FIELD PANEL(BLG0C060) INDEX(S1488);   /*  HARDWARE ADD         */ 00236000
+        FIELD PANEL(BLG6DVNQ) INDEX(S1489)  /*   NAME                */ 00237000
+              LIST(Y);                                                  00238000
+        FIELD PANEL(BLG6DMSQ) INDEX(S148A)  /*   SERIAL              */ 00239000
+              LIST(Y);                                                  00240000
+        FIELD PANEL(BLG6LOCQ) INDEX(S148B)  /*   LOCATION            */ 00241000
+              LIST(Y);                                                  00242000
+        FIELD PANEL(BLG6ECIQ) INDEX(S148C)  /*   ECL                 */ 00243000
+              LIST(Y);                                                  00244000
+        FIELD PANEL(BLG6CNAQ) INDEX(S148D)  /*   CARD                */ 00245000
+              LIST(Y);                                                  00246000
+        FIELD PANEL(BLG6IPIQ) INDEX(S148E)  /*   ITEM                */ 00247000
+              LIST(Y);                                                  00248000
+        FIELD PANEL(BLG6ECNQ) INDEX(S148F)  /*   ECA                 */ 00249000
+              LIST(Y);                                                  00250000
+        FIELD PANEL(BLG6BONQ) INDEX(S1490)  /*   BOM                 */ 00251000
+              LIST(Y);                                                  00252000
+        FIELD PANEL(BLG6FEAQ) INDEX(S1491)  /*   FEATURE             */ 00253000
+              LIST(Y);                                                  00254000
+        FIELD PANEL(BLG6REAQ) INDEX(S1492)  /*   REA                 */ 00255000
+              LIST(Y);                                                  00256000
+        FIELD PANEL(BLG6RPQQ) INDEX(S1493)  /*   RPQ                 */ 00257000
+              LIST(Y);                                                  00258000
+                                                                        00259000
+      /* DETAIL DATA - HARDWARE ALTER                                */ 00260000
+      FIELD PANEL(BLG0C060) INDEX(S1494);   /*  HARDWARE ALTER       */ 00261000
+        FIELD PANEL(BLG6DVQ1) INDEX(S1495)  /*   NAME                */ 00262000
+              LIST(Y);                                                  00263000
+        FIELD PANEL(BLG6DMQ1) INDEX(S1496)  /*   SERIAL              */ 00264000
+              LIST(Y);                                                  00265000
+        FIELD PANEL(BLG6LOQ1) INDEX(S1497)  /*   LOCATION            */ 00266000
+              LIST(Y);                                                  00267000
+        FIELD PANEL(BLG6ECQ1) INDEX(S1498)  /*   ECL                 */ 00268000
+              LIST(Y);                                                  00269000
+        FIELD PANEL(BLG6CNQ1) INDEX(S1499)  /*   CARD                */ 00270000
+              LIST(Y);                                                  00271000
+        FIELD PANEL(BLG6IPQ1) INDEX(S149A)  /*   ITEM                */ 00272000
+              LIST(Y);                                                  00273000
+        FIELD PANEL(BLG6ENQ1) INDEX(S149B)  /*   ECA                 */ 00274000
+              LIST(Y);                                                  00275000
+        FIELD PANEL(BLG6BOQ1) INDEX(S149C)  /*   BOM                 */ 00276000
+              LIST(Y);                                                  00277000
+        FIELD PANEL(BLG6FEQ1) INDEX(S149D)  /*   FEATURE             */ 00278000
+              LIST(Y);                                                  00279000
+        FIELD PANEL(BLG6REQ1) INDEX(S149E)  /*   REA                 */ 00280000
+              LIST(Y);                                                  00281000
+        FIELD PANEL(BLG6RQU1) INDEX(S149F)  /*   RPQ                 */ 00282000
+              LIST(Y);                                                  00283000
+                                                                        00284000
+      /* DETAIL DATA - HARDWARE ALTER-INSTALL                        */ 00285000
+      FIELD PANEL(BLG0C060) INDEX(S14A0);   /* HARDWARE ALTER-INSTALL*/ 00286000
+        FIELD PANEL(BLG6DVQ2) INDEX(S14A1)  /*   NAME                */ 00287000
+              LIST(Y);                                                  00288000
+        FIELD PANEL(BLG6DMQ2) INDEX(S14A2)  /*   SERIAL              */ 00289000
+              LIST(Y);                                                  00290000
+        FIELD PANEL(BLG6LOQ2) INDEX(S14A3)  /*   LOCATION            */ 00291000
+              LIST(Y);                                                  00292000
+        FIELD PANEL(BLG6ECQ2) INDEX(S14A4)  /*   ECL                 */ 00293000
+              LIST(Y);                                                  00294000
+        FIELD PANEL(BLG6CNQ2) INDEX(S14A5)  /*   CARD                */ 00295000
+              LIST(Y);                                                  00296000
+        FIELD PANEL(BLG6IPQ2) INDEX(S14A6)  /*   ITEM                */ 00297000
+              LIST(Y);                                                  00298000
+        FIELD PANEL(BLG6ENQ2) INDEX(S14A7)  /*   ECA                 */ 00299000
+              LIST(Y);                                                  00300000
+        FIELD PANEL(BLG6BOQ2) INDEX(S14A8)  /*   BOM                 */ 00301000
+              LIST(Y);                                                  00302000
+        FIELD PANEL(BLG6FEQ2) INDEX(S14A9)  /*   FEATURE             */ 00303000
+              LIST(Y);                                                  00304000
+        FIELD PANEL(BLG6REQ2) INDEX(S14AA)  /*   REA                 */ 00305000
+              LIST(Y);                                                  00306000
+        FIELD PANEL(BLG6RQU2) INDEX(S14AB)  /*   RPQ                 */ 00307000
+              LIST(Y);                                                  00308000
+                                                                        00309000
+      /* DETAIL DATA - HARDWARE ALTER-MODIFY                         */ 00310000
+      FIELD PANEL(BLG0C060) INDEX(S14AC);   /* HARDWARE ALTER-MODIFY */ 00311000
+        FIELD PANEL(BLG6DVQ3) INDEX(S14AD)  /*   NAME                */ 00312000
+              LIST(Y);                                                  00313000
+        FIELD PANEL(BLG6DMQ3) INDEX(S14AE)  /*   SERIAL              */ 00314000
+              LIST(Y);                                                  00315000
+        FIELD PANEL(BLG6LOQ3) INDEX(S14AF)  /*   LOCATION            */ 00316000
+              LIST(Y);                                                  00317000
+        FIELD PANEL(BLG6ECQ3) INDEX(S14B0)  /*   ECL                 */ 00318000
+              LIST(Y);                                                  00319000
+        FIELD PANEL(BLG6CNQ3) INDEX(S14B1)  /*   CARD                */ 00320000
+              LIST(Y);                                                  00321000
+        FIELD PANEL(BLG6IPQ3) INDEX(S14B2)  /*   ITEM                */ 00322000
+              LIST(Y);                                                  00323000
+        FIELD PANEL(BLG6ENQ3) INDEX(S14B3)  /*   ECA                 */ 00324000
+              LIST(Y);                                                  00325000
+        FIELD PANEL(BLG6BOQ3) INDEX(S14B4)  /*   BOM                 */ 00326000
+              LIST(Y);                                                  00327000
+        FIELD PANEL(BLG6FEQ3) INDEX(S14B5)  /*   FEATURE             */ 00328000
+              LIST(Y);                                                  00329000
+        FIELD PANEL(BLG6REQ3) INDEX(S14B6)  /*   REA                 */ 00330000
+              LIST(Y);                                                  00331000
+        FIELD PANEL(BLG6RQU3) INDEX(S14B7)  /*   RPQ                 */ 00332000
+              LIST(Y);                                                  00333000
+                                                                        00334000
+      /* DETAIL DATA - HARDWARE ALTER-REMOVE                         */ 00335000
+      FIELD PANEL(BLG0C060) INDEX(S14B8);   /* HARDWARE ALTER-REMOVE */ 00336000
+        FIELD PANEL(BLG6DVQ4) INDEX(S14B9)  /*   NAME                */ 00337000
+              LIST(Y);                                                  00338000
+        FIELD PANEL(BLG6DMQ4) INDEX(S14BA)  /*   SERIAL              */ 00339000
+              LIST(Y);                                                  00340000
+        FIELD PANEL(BLG6LOQ4) INDEX(S14BB)  /*   LOCATION            */ 00341000
+              LIST(Y);                                                  00342000
+        FIELD PANEL(BLG6ECQ4) INDEX(S14BC)  /*   ECL                 */ 00343000
+              LIST(Y);                                                  00344000
+        FIELD PANEL(BLG6CNQ4) INDEX(S14BD)  /*   CARD                */ 00345000
+              LIST(Y);                                                  00346000
+        FIELD PANEL(BLG6IPQ4) INDEX(S14BE)  /*   ITEM                */ 00347000
+              LIST(Y);                                                  00348000
+        FIELD PANEL(BLG6ENQ4) INDEX(S14BF)  /*   ECA                 */ 00349000
+              LIST(Y);                                                  00350000
+        FIELD PANEL(BLG6BOQ4) INDEX(S14C0)  /*   BOM                 */ 00351000
+              LIST(Y);                                                  00352000
+        FIELD PANEL(BLG6FEQ4) INDEX(S14C1)  /*   FEATURE             */ 00353000
+              LIST(Y);                                                  00354000
+        FIELD PANEL(BLG6REQ4) INDEX(S14C2)  /*   REA                 */ 00355000
+              LIST(Y);                                                  00356000
+        FIELD PANEL(BLG6RQU4) INDEX(S14C3)  /*   RPQ                 */ 00357000
+              LIST(Y);                                                  00358000
+                                                                        00359000
+      /* DETAIL DATA - HARDWARE REMOVE                               */ 00360000
+      FIELD PANEL(BLG0C060) INDEX(S14C4);   /*  HARDWARE REMOVE      */ 00361000
+        FIELD PANEL(BLG6DVQ5) INDEX(S14C5)  /*   NAME                */ 00362000
+              LIST(Y);                                                  00363000
+        FIELD PANEL(BLG6DMQ5) INDEX(S14C6)  /*   SERIAL              */ 00364000
+              LIST(Y);                                                  00365000
+        FIELD PANEL(BLG6LOQ5) INDEX(S14C7)  /*   LOCATION            */ 00366000
+              LIST(Y);                                                  00367000
+        FIELD PANEL(BLG6ECQ5) INDEX(S14C8)  /*   ECL                 */ 00368000
+              LIST(Y);                                                  00369000
+        FIELD PANEL(BLG6CNQ5) INDEX(S14C9)  /*   CARD                */ 00370000
+              LIST(Y);                                                  00371000
+        FIELD PANEL(BLG6IPQ5) INDEX(S14CA)  /*   ITEM                */ 00372000
+              LIST(Y);                                                  00373000
+        FIELD PANEL(BLG6ENQ5) INDEX(S14CB)  /*   ECA                 */ 00374000
+              LIST(Y);                                                  00375000
+        FIELD PANEL(BLG6BOQ5) INDEX(S14CC)  /*   BOM                 */ 00376000
+              LIST(Y);                                                  00377000
+        FIELD PANEL(BLG6FEQ5) INDEX(S14CD)  /*   FEATURE             */ 00378000
+              LIST(Y);                                                  00379000
+        FIELD PANEL(BLG6REQ5) INDEX(S14CE)  /*   REA                 */ 00380000
+              LIST(Y);                                                  00381000
+        FIELD PANEL(BLG6RQU5) INDEX(S14CF)  /*   RPQ                 */ 00382000
+              LIST(Y);                                                  00383000
+                                                                        00384000
+    /* DETAIL DATA - DOCUMENT                                        */ 00385000
+    FIELD PANEL(BLG0C040) INDEX(S14D7);     /*  DOCUMENT             */ 00386000
+                                                                        00387000
+      /* DETAIL DATA - DOCUMENT ADD                                  */ 00388000
+      FIELD PANEL(BLG0C070) INDEX(S14D8);   /*  DOCUMENT ADD         */ 00389000
+        FIELD PANEL(BLG6DOCQ) INDEX(S14D9)  /*   DOCUMENT NAME       */ 00390000
+              LIST(Y);                                                  00391000
+        FIELD PANEL(BLG6DNUQ) INDEX(S14DA)  /*   DOCUMENT NUMBER     */ 00392000
+              LIST(Y);                                                  00393000
+        FIELD PANEL(BLG6NPRQ) INDEX(S14DB)  /*   PROCEDURE NAME      */ 00394000
+              LIST(Y);                                                  00395000
+        FIELD PANEL(BLG6NUPQ) INDEX(S14DC)  /*   PROCEDURE NUMBER    */ 00396000
+              LIST(Y);                                                  00397000
+                                                                        00398000
+      /* DETAIL DATA - DOCUMENT ALTER                                */ 00399000
+      FIELD PANEL(BLG0C070) INDEX(S14DD);   /*  DOCUMENT ALTER       */ 00400000
+        FIELD PANEL(BLG6DOQ1) INDEX(S14DE)  /*   DOCUMENT NAME       */ 00401000
+              LIST(Y);                                                  00402000
+        FIELD PANEL(BLG6DNQ1) INDEX(S14DF)  /*   DOCUMENT NUMBER     */ 00403000
+              LIST(Y);                                                  00404000
+        FIELD PANEL(BLG6NPQ1) INDEX(S14E0)  /*   PROCEDURE NAME      */ 00405000
+              LIST(Y);                                                  00406000
+        FIELD PANEL(BLG6NUQ1) INDEX(S14E1)  /*   PROCEDURE NUMBER    */ 00407000
+              LIST(Y);                                                  00408000
+                                                                        00409000
+      /* DETAIL DATA - DOCUMENT REMOVE                               */ 00410000
+      FIELD PANEL(BLG0C070) INDEX(S14E2);   /*  DOCUMENT REMOVE      */ 00411000
+        FIELD PANEL(BLG6DOQ2) INDEX(S14E3)  /*   DOCUMENT NAME       */ 00412000
+              LIST(Y);                                                  00413000
+        FIELD PANEL(BLG6DNQ2) INDEX(S14E4)  /*   DOCUMENT NUMBER     */ 00414000
+              LIST(Y);                                                  00415000
+        FIELD PANEL(BLG6NPQ2) INDEX(S14E5)  /*   PROCEDURE NAME      */ 00416000
+              LIST(Y);                                                  00417000
+        FIELD PANEL(BLG6NUQ2) INDEX(S14E6)  /*   PROCEDURE NUMBER    */ 00418000
+              LIST(Y);                                                  00419000
+                                                                        00420000
+  /* APPROVER DATA                                                   */ 00421000
+  FIELD PANEL(BLG0F090) INDEX(S0CFA);       /*  APPROVER DATA        */ 00422000
+    FIELD PANEL(BLG8SP01) INDEX(P0227);     /*  PENDING              */ 00423000
+    FIELD PANEL(BLG7SA01) INDEX(P0212);     /*  ACCEPT               */ 00424000
+    FIELD PANEL(BLG7SR01) INDEX(P0257);     /*  REJECT               */ 00425000
+    FIELD PANEL(BLG7PRIV) INDEX(P0076);     /*  ALL                  */ 00426000
+                                                                        00427000
+  /* CONTROL DATA                                                    */ 00428000
+  FIELD PANEL(BLG6POWN) INDEX(S0BB5);       /*  OWNING PRIV. CLASS   */ 00429000
+  FIELD PANEL(BLG6CLAE) INDEX(S0BB1);       /*  ENTRY PRIV. CLASS    */ 00430000
+  FIELD PANEL(BLG6CRDT) INDEX(S0C34);       /*  DATE ENTERED         */ 00431000
+  FIELD PANEL(BLG6CRTM) INDEX(S0C61);       /*  TIME ENTERED         */ 00432000
+  FIELD PANEL(BLG6ALTD) INDEX(S0C35);       /*  DATE LAST ALTERED    */ 00433000
+  FIELD PANEL(BLG7ALTT) INDEX(S0C62);       /*  TIME LAST ALTERED    */ 00434000
+  FIELD PANEL(BLG6USER) INDEX(S0B5E);       /*  USER LAST ALTERED    */ 00435000
+  FIELD PANEL(BLG7STAA) INDEX(S0BF0);       /*  APPROVER STATUS      */ 00436000
+  FIELD PANEL(BLG6ACTN) INDEX(S0CBC);       /*  ACTIVITY NAME        */ 00437000
+  FIELD PANEL(BLG6RVUR) INDEX(S0BCB);       /*  REVIEWER PRIV. CLASS */ 00438000
+                                                                        00439000
+ETABLE;                                                                 00440000

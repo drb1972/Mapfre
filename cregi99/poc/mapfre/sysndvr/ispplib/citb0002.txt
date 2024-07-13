@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Edit Request Data Sets \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the EDIT option to change existing statements, or to add
++additional SCL statements to an existing request data set.
++
++EDIT uses the standard TSO/ISPF edit facility.
++
++When you select the EDIT option, you must also specify the data set
++you want to edit using the REQUEST DATA SET or OTHER PARTITIONED OR
++SEQUENTIAL DATA SET fields.
++
++Press ENTER once you have filled in the necessary information to
++display an edit panel showing the request data set.
++
++
++
++
++
++                                            (%PF3+to return)
+)END

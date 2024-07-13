@@ -1,0 +1,17 @@
+/*
+/*--------------------------------------------------------------------*
+/*  The following message(s) are issued by Endevor exit DLGEXT07.     *
+/*--------------------------------------------------------------------*
+/*
+CIUU811I 'Use CZ to analyse'                             .ALARM=YES
+'Issue the CZ command to analyse the cast report'
+CIUU812E 'Reset not permitted'                           .ALARM=YES
+'The Reset action is not permitted'
+CIUU815E 'Invlaid Package name'                          .ALARM=YES
+'Package-id must be numeric or blank after Stage-id'
+CIUU816E 'Element data unavailable'                      .ALARM=YES
+'At least one Element is in use or locked by another Package'
+CIUU817E 'Promotion PKG not permitted'                   .ALARM=YES
+'Promotion Packages are not permitted'
+CIUU818E 'Emergency PKG not permitted'                   .ALARM=YES
+'Emergency Packages are not permitted'

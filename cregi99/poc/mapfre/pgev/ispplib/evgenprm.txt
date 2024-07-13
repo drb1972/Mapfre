@@ -1,0 +1,32 @@
+)ATTR DEFAULT(%+_)
+  %   TYPE(TEXT) INTENS(HIGH)
+  +   TYPE(TEXT) INTENS(LOW) SKIP(ON)
+  ^   TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+  !   TYPE(INPUT)  INTENS(HIGH) CAPS(ON)  JUST(LEFT)
+      PAD(_)
+)BODY EXPAND(\\)
++\-\%RBS Gener/ol Promotion to ACPT/PROD+\-\
+%Command ==>_ZCMD
++
++
++
++  Infoman Change Record Number      %===>^Z       +         (C0nnnnnn)
++
++  (Leave CMR field blank for a list of all elements)
++
++
++  Endevor Subsystem                 %===>^Z  +   (LN1/LN2/LN3/LN4/LNA)
++
++
++  Press PF3 to exit or PF1 for HELP
+)INIT
+   .HELP     = EVGENPRH
+   .ZVARS    = '(CHGNO C1SUB)'
+)REINIT
+   &PMSG = ''
+)PROC
+   &PFKEY = .PFKEY
+   &PMSG = ''
+   VER (&CHGNO,NB,PICT,C9999999)
+   VER (&C1SUB,NB,LIST,LN1,LN2,LN3,LN4,LNA)
+)END

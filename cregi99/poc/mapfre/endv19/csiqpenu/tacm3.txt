@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Query  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Query Options:
++  Where-used/Components used: Type of configuration display desired.
++     Valid values are COM for list components and WHE for where-used.
++
++  Foreground/Batch Mode: Perform query online or submit via a JOB
++     Valid values are F for forground request and B for batch request.
++
++  Create GENERATE SCL: Format configuration information in SCL.
++     Valid values are Y for yes or N for no.
++
++  Exclude circulars: Exclude circular references from the output.
++     Valid values are Y for yes or N for no.
++  Exclude indirect: Exclude indirect references from the output.
++     Valid values are Y for yes or N for no.
++  Exclude related: Exclude related references from the output.
++     Valid values are Y for yes or N for no.
++
++  Note: Values entered for these options are saved and restored the
++     next time the panel is displayed.
++                             (%END+to return)
+)END

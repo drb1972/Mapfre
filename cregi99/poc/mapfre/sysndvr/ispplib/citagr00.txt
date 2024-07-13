@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Relationship \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the Approver Group Relationship panel to define new or maintain
++existing approver group relationships.
++
+%Environment+- The environment within which the relationship is
++   or will be defined.
++
+%Approver group+- The approver group currently related, or that you want
++   to relate to the inventory area named below.
++
+%Approver type+- The approver type for the approver group for which this
++   relationship is defined. Acceptable values are EMERGENCY and
++   STANDARD.
++
+%Inventory area to which approver group is related+
++   The system, subsystem, type, and stage number within the named
++   environment to which the approver group is or will be related.
++   An asterisk (*) denotes all systems, subsystems, types, or stages.
++
++                                                    (%PF3+to return)
+)END

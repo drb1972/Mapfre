@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Backout Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel displays
++
++  * Package ID and status information
++
++  * Backed out members from the package
++
++  * Date and time of the backout
++
++  * Data set containing the members
++
++
++
++
++
++    Select%1+-%2+for information about
++
+%    1+- Package ID fields          %2+- Package status
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0)
+)END

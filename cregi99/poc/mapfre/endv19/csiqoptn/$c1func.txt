@@ -1,0 +1,47 @@
+          MACRO                                                         00010000
+&NAME     $C1FUNC  &FUNC=$FUNDSCT,&PREFIX=XXX                           00020000
+.*                                                                      00020100
+.*                                                                      00020200
+.*        &FUNC  CAN BE $FUNDSCT TO GENERATE A DSECT LINE               00020300
+.*                      $FUNNAME TO GENERATE A NAME TABLE               00020400
+.*                                                                      00020500
+          GBLC  &GPRE              PREFIX GLOBAL                        00020600
+&GPRE     SETC  '&PREFIX'                                               00020700
+          &FUNC    ADD,1,ADD                                            00020800
+          &FUNC    UPD,2,UPDATE                                         00020900
+          &FUNC    RETR,3,RETRIEVE                                      00021000
+          &FUNC    DEL,4,DELETE                                         00022000
+          &FUNC    GEN,5,GENERATE                                       00024000
+          &FUNC    DISP,6,DISPLAY                                       00025000
+          &FUNC    MOVE,7,MOVE                                          00026000
+          &FUNC    ARCH,8,ARCHIVE                                       00027000
+          &FUNC    SOUT,9,SIGNOUT                                       00028000
+          &FUNC    PANL,10,**-RESERVED-**                               00029000
+          &FUNC    CHGT,11,CHGTYPE                                      00030000
+          &FUNC    SINI,12,SIGNIN                                       00210000
+          &FUNC    SINO,13,SIGNOVR                                      00220000
+          &FUNC    ENVM,14,ENVRNMGR                                     00060000
+          &FUNC    PRNT,15,PRINT                                        00070000
+          &FUNC    TRNS,16,TRANSFER                                     00070100
+          &FUNC    VLDE,17,VALIDATE                                     00070200
+          &FUNC    REST,18,RESTORE                                      00070300
+.*
+.* PACKAGE-ESI DEFINITIONS
+.*
+          &FUNC   PARC,19,PARCHIVE
+          &FUNC   PBAC,20,PBACKOUT
+          &FUNC   PCAS,21,PCAST
+          &FUNC   PCOM,22,PCOMMIT
+          &FUNC   PCRE,23,PCREATE
+          &FUNC   PDIS,24,PDISPLAY
+          &FUNC   PEXE,25,PEXECUTE
+          &FUNC   PLIS,26,PLIST
+          &FUNC   PMOD,27,PMODIFY
+          &FUNC   PREV,28,PREVIEW
+          &FUNC   PSHI,29,PSHIP
+          &FUNC   PUTL,30,PUTILITY
+          &FUNC   PDYN,31,PDYNAMIC
+          &FUNC   ALTR,32,ALTER
+.*
+          &FUNC    FMAX,999,MAX-ACTION-VALUE                            00070400
+          MEND                                                          00070500

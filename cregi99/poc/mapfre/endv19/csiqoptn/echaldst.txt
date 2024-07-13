@@ -1,0 +1,81 @@
+      *****************************************************************
+      *            LIST DESTINATIONS - REQUEST BLOCK
+      *****************************************************************
+       01  ALDST-RQ.
+           05  ALDST-RQ-HEADER.
+               10  ALDST-RQ-LEN        PIC 9(04) COMP VALUE 20.
+               10  ALDST-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALDST-RQ-ID         PIC 9(04) COMP VALUE 1872.
+               10  ALDST-RQ-VERS       PIC 9(04) COMP VALUE 3.
+               10  ALDST-RQ-EYE        PIC X(04)      VALUE 'LDSQ'.
+           05  ALDST-RQ-DATAAREA.
+               10  ALDST-RQ-DESTID     PIC X(07) VALUE SPACES.
+               10  ALDST-RQ-RESERVE    PIC X(01) VALUE SPACES.
+      *
+      *****************************************************************
+      *            LIST DESTINATIONS - RESPONSE BLOCK
+      *****************************************************************
+       01  ALDST-RS.
+           05  ALDST-RS-HEADER.
+               10  ALDST-RS-LEN        PIC 9(04) COMP VALUE 1732.
+               10  ALDST-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALDST-RS-ID         PIC 9(04) COMP VALUE 1873.
+               10  ALDST-RS-VERS       PIC 9(04) COMP VALUE 3.
+               10  ALDST-RS-EYE        PIC X(04)      VALUE 'LDSS'.
+           05  ALDST-RS-DATAAREA.
+      *      **    DESTINATION INFORMATION
+               10  ALDST-RS-DESTID     PIC X(07)      VALUE SPACES.
+               10  ALDST-RS-DESC       PIC X(30)      VALUE SPACES.
+      *      **    TRANSMISSION METHOD INFORMATION
+               10  ALDST-RS-XMT-CDE    PIC X(01)      VALUE SPACES.
+                   88  ALDST-RS-XMT-CDE-B             VALUE 'B'.
+                   88  ALDST-RS-XMT-CDE-F             VALUE 'F'.
+                   88  ALDST-RS-XMT-CDE-M             VALUE 'M'.
+                   88  ALDST-RS-XMT-CDE-N             VALUE 'N'.
+                   88  ALDST-RS-XMT-CDE-L             VALUE 'L'.
+                   88  ALDST-RS-XMT-CDE-S             VALUE 'S'.
+                   88  ALDST-RS-XMT-CDE-X             VALUE 'X'.
+               10  ALDST-RS-XMT-DESC   PIC X(11)      VALUE SPACES.
+               10  ALDST-RS-XMT-NODE   PIC X(16)      VALUE SPACES.
+               10  ALDST-RS-CMPL-FLG   PIC X(01)      VALUE SPACES.
+                   88  ALDST-RS-CMPL-Y                VALUE 'Y'.
+                   88  ALDST-RS-CMPL-N                VALUE 'N'.
+      *      **    HOST DATASET INFORMATION
+               10  ALDST-RS-HDSNPFX    PIC X(14)      VALUE SPACES.
+               10  ALDST-RS-HDISP      PIC X(06)      VALUE SPACES.
+                   88  ALDST-RS-HDISP-D               VALUE 'DELETE'.
+                   88  ALDST-RS-HDISP-K               VALUE 'KEEP  '.
+               10  ALDST-RS-HUNIT      PIC X(08)      VALUE SPACES.
+               10  ALDST-RS-HVOLSER    PIC X(06)      VALUE SPACES.
+      *      **    REMOTE DATASET INFORMATION
+               10  ALDST-RS-RDSNPFX    PIC X(14)      VALUE SPACES.
+               10  ALDST-RS-RDISP      PIC X(06)      VALUE SPACES.
+                   88  ALDST-RS-RDISP-D               VALUE 'DELETE'.
+                   88  ALDST-RS-RDISP-K               VALUE 'KEEP  '.
+               10  ALDST-RS-RUNIT      PIC X(08)      VALUE SPACES.
+               10  ALDST-RS-RVOLSER    PIC X(06)      VALUE SPACES.
+      *      **    MISCELLANEOUS INFORMATION
+               10  ALDST-RS-SITE       PIC X(01)      VALUE SPACES.
+      *      **    FORMATS - DATE: DDMMMYY (31MAR04) TIME: HH:MM (23:59)
+      *      **    RECORD CREATION INFORMATION
+               10  ALDST-RS-RCD        PIC X(07)      VALUE SPACES.
+               10  ALDST-RS-RCT        PIC X(05)      VALUE SPACES.
+               10  ALDST-RS-RCU        PIC X(08)      VALUE SPACES.
+      *      **    RECORD UPDATE INFORMATION
+               10  ALDST-RS-RUD        PIC X(07)      VALUE SPACES.
+               10  ALDST-RS-RUT        PIC X(05)      VALUE SPACES.
+               10  ALDST-RS-RUU        PIC X(08)      VALUE SPACES.
+               10  ALDST-RS-RESERVE    PIC X(01)      VALUE SPACES.
+      *      **    REMOTE IPNAME/IPPORT FIELDS (XCOM ONLY)
+               10  ALDST-RS-XMT-IPNAME PIC X(63)      VALUE SPACES.
+               10  ALDST-RS-XMT-IPPORT PIC X(05)      VALUE SPACES.
+      *      **    HOST USS INFORMATION
+               10  ALDST-RS-HUSSPFX    PIC X(732)     VALUE SPACES.
+               10  ALDST-RS-HUDISP     PIC X(06)      VALUE SPACES.
+                   88  ALDST-RS-HUDISP-D              VALUE 'DELETE'.
+                   88  ALDST-RS-HUDISP-K              VALUE 'KEEP  '.
+      *      **    REMOTE USS INFORMATION
+               10  ALDST-RS-RUSSPFX    PIC X(732)     VALUE SPACES.
+               10  ALDST-RS-RUDISP     PIC X(06)      VALUE SPACES.
+                   88  ALDST-RS-RUDISP-D              VALUE 'DELETE'.
+                   88  ALDST-RS-RUDISP-K              VALUE 'KEEP  '.

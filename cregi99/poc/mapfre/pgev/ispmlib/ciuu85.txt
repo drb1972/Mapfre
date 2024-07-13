@@ -1,0 +1,7 @@
+/*
+/*--------------------------------------------------------------------*
+/*  The following message(s) are issued by Endevor exit DLGEXT72.     *
+/*--------------------------------------------------------------------*
+/*
+CIUU851E 'Unable to obtain storage'                      .ALARM=YES
+'Unable to obtain working storage - please contact Endevor Support'

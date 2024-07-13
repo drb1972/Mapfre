@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "TO" Element Name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Add new name panel appears when you select the%AN+option from
++the Element selection panel.
++
+%From Member+- The member name you selected on the previous panel
+        carries forward and is displayed.
+
+%To Element+- The 1 to 255 character name of the To Element. The From
+        Member+name is placed into the To Element+name as a default.
+        You can then modify it as necessary.
+
+
+
+
+
+
+
+
+
+
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

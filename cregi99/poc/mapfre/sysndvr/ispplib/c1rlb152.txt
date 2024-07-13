@@ -1,0 +1,29 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd dsname dsnmem dsnthru string action
+tag | sh msg
+tag ^ muhn start end
+tag ¢ muh dislist showtext wlout
+%-------------------------------  List Members  --------------------------------
+%OPTION  ===>_   +
+|
++  %blank+- Member list     %B+- Browse member      %L+- LIST action
++
++FROM PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_                                            +
++   MEMBER %===>_          +        THRU MEMBER%===>_          +
++
++LIST OPTIONS:
++   DISPLAY LIST %===>¢Y+ (Y/N)
++
++TEXT STRING:
++  %===>_                                                                      +
++SCAN COLUMNS:
++  START%===>^   +   END  %===>^   +
++  SHOW TEXT%===>¢N+ (Y/N)
++
++ACTION TO BE GENERATED WHEN LIST IS CREATED%===>_        +
++WRITE LIST TO OUTPUT DATA SET%===>¢N+ (Y/N)
++
+enddef

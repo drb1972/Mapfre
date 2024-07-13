@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Move - Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%7+for information about action options
++
+%    1+- CCIDs and Comments         %5+- Signout to
+%    2+- Sync                       %6+- Acknowledge elm jump
+%    3+- With history               %7+- Delete from element
+%    4+- Retain signout
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITSYNC0 3,CITWHIS0 4,CITRTSO0
+                  5,CITSOTO0 6,CITJUMP0 7,CITBYED0)
+)END

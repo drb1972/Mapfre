@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%\-\ Intelligent Package Shipment Destination Selection Lists \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Intelligent Package Shipment Destination Selection Lists
++
++ With this enhancement, when a Destination Selection List is displayed from the
++ Package Shipment panel, only relevant destinations are listed.  Relevant
++ destinations are those where at least one Package output can be shipped,
++ either by an explicit "maps to" mapping rule or by default (the output is
++ not "EXCLUDED"). This change will prevent selecting a shipment destination
++ from the list for a package where no outputs can be shipped.
++
++ This enhancement also introduces a new optional feature table (ENCOPTBL) entry
++%&LIT1                       +that causes only destinations that contain
++ an explicit "maps to" mapping rule for at least one of the package outputs
++ to be listed in the Package Shipment Destination Selection List panel.
++
++ Note that any defined destination can still be coded directly on the Package
++ Shipment panel, even if it would be excluded from the Package Shipment
++ Destination Selection List.
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)INIT
+    &LIT1  = 'SHIP_DEST_LIST_MAP_RULE_ONLY'
+)PROC
+   &ZCONT = CIT18290
+)END

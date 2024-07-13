@@ -1,0 +1,6 @@
+IMGR900E 'RECORD TRUNCATED'                              .ALARM=YES
+'&VARWLTXT'
+IMGR901E 'INVALID PARAMETER LIST'                        .ALARM=YES
+'&VARWLTXT'
+IMGR902E 'STORAGE UNAVAILABLE'                           .ALARM=YES
+'&VARWLTXT'

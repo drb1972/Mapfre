@@ -1,0 +1,28 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Archive Options \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The following Archive Options appear on the Archive Package panel and provide
++the following functions:
++
+%Delete After Archive -+Allows you to optionally delete the package after it
++is sucessfully archived to an external data set.The value specified is
++remembered across sessions.
++
+
+%Replace Member -+Replaces an existing like-named member.  The Replace
++Member field is valid only if the Archive data set specifies a member name.
++The default is N, do not replace member.  If the Archive data set specifies a
++member and Replace Member field is N, the member must not exist in the data
++set.
++
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit2d20
+)END

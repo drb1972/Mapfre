@@ -1,0 +1,15 @@
+@REM ****************************************************** #PSBDT1E ***
+@REM *    CONTENTS: ENDEVOR/MVS - REMOTE EXECUTION OF THE AHJOB
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO AT THE
+@REM *              REMOTE SITE.
+@REM *******************************************************************
+@REM
+//JCLR&D4   DD  DATA,DLM=$$
+//SUBMIT   EXEC PGM=IKJEFT01
+//SYSOUT    DD  SYSOUT=*
+//SYSTSPRT  DD  SYSOUT=*
+//SYSTSIN   DD  *
+ SUBMIT '&ARJOBDSN'
+/*
+$$

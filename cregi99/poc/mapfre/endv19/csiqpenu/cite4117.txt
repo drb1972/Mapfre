@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Workbench Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%DATA FORMAT+- Element classification type from the perspective of
++  distributed files accessed by Enterprise Workbench.  Values are:
+%     B+- Binary. Elements exchanged between Enterprise Workbench and
+          Endevor are not modified in either direction.
+%     T+- Text. Character set conversion is applied to element.  This
+%         is the default value.
++
+%FILE EXT+- Indicates the 0- to 8-character file extension to be used
+            by the Workbench for elements of this type. Valid
+            characters supported in this field are; 0-9, a-z, A-Z and
+            all blanks. Trailing blanks are supported, embedded blanks
+            are not.
++
+%USS RECFM+-Specifies the record delimiter.
+            Select%1+for more information about USS RECFM.
+%    1+- USS fields
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE4118)
+)END

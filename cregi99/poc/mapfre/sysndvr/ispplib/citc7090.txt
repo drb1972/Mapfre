@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%\-\ User Data in Element Record \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%User Data in Element Record +
+
++ This enhancement allows users to read and update a user data field in
+  the element records of the MCF. In addition, a symbolic has been
+  created that enables users to reference the field in processors and to
+  use sub-stringing on the field.
+
++ Users can store up to 80 bytes of user data with the element records, by
+  means of EXIT 2. This data can be used in processors with the new symbolic
+  C1EUDATA.
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC70A0
+)END

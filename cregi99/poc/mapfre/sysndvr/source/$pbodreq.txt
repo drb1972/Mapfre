@@ -1,0 +1,50 @@
+         MACRO
+         $PBODREQ &DSCT=YES
+         AIF ('&DSCT' EQ 'YES').DSCT1
+$PBODREQ  DS   0D
+         AGO .START1
+.DSCT1   ANOP
+$PBODREQ DSECT
+.START1  ANOP
+.*         **********************************************
+.*         *  BLOCK INTIALIZATION DATA                  *
+.*         **********************************************
+PBODLEN    DC    AL2(PBODSIZE)         LENGTH OF BOD TABLE ENTRY
+PBODVERS   DC    AL2(PBOD$CVER)        VERSION OF BOD TABLE BLK
+PBOD$VER   EQU   1                     RELEASE 1
+PBOD$V151  EQU   151                   RELEASE 15.1
+PBOD$CVER  EQU   151                   RELEASE 15.1
+PBODID     DC    CL4'PBOD'             ID OF CONTROL BLOCK
+.*         **********************************************
+.*         *  BLOCK TOTAL DATA                          *
+.*         **********************************************
+PBODSEQ#     DS  H                     SEQUENTIAL # OF THIS ENTRY
+.*         **********************************************
+.*         *  BACKOUT DATA FIELDS                       *
+.*         **********************************************
+PBODFLG1     DS  H                     BACKOUT FLAG
+PBOD$SRC     EQU 1                     B.O. REC ASSOC W/ACTION SOURCE
+PBOD$TRG     EQU 2                     B.O. REC ASSOC W/ACTION TARGET
+PBOD$USS     EQU 4                     B.O. FILES ON USS FILES
+PBODFLG2     DS  H                     BACKOUT FLAG
+PBOD$BKO     EQU 1                     MEMBER HAS BEEN BACKED-OUT
+PBOD$BKI     EQU 2                     MEMBER HAS BEEN BACKED-IN
+.*
+PBODDSN      DS  CL44                  DATA SET NAME
+PBODCMBR     DS  CL8                   CURRENT MEMBER
+PBODNMBR     DS  CL8                   NEW MEMBER  (BLANK IF DELETED)
+PBODSMBR     DS  CL8                   SAVE MEMBER (BLANK IF NEW MBR)
+.*
+         SPACE ,
+*  FIELDS: PBODCAOFF, PBODNAOFF, PBODPAOFF
+*  OFFSET (FROM BEGINNING OF $PBODREQ) TO THE PATH AND FILE NAME
+*  AREAS (IN PBODBFAREA). THE FIRST 2 BYTES = NAME LENGTH,
+*  IMMEDIATELY AFTER, FOLLOWS THE NAME VALUE.
+PBODSFILE   DS   CL8                   USS SAVE FILE NAME
+PBODCAOFF   DS   H                     CURRENT USS FILE NAME OFFSET
+PBODNAOFF   DS   H                     NEW USS FILE NAME OFFSET
+PBODPAOFF   DS   H                     USS PATH AREA OFFSET
+PBODBFAREA  DS   XL1300                USS BUFFER AREA
+.*
+PBODSIZE  EQU    *-$PBODREQ            LNG OF BOD TABLE ENTRY
+         MEND

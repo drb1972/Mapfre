@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Output Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Action to be Generated When List is Created+
++   Specify the kind of action that you want the List action to generate.
++   The default is &&ACTION (to specify the action at run time).You can
++   also specify one of the following:
++
++       Add        Delete        Move        Retrieve    Update
++       Archive    Generate      Print       Signin
++       Copy       List          Restore     Transfer
++
+%Write List to Output Data Set+- Indicates whether the element or member
++   list should be written to a data set. Acceptable values are:
++
+   %N+- Default. Do not write to an output data set.
+   %Y+- Write the list to an output data set.
++
+%Where Component Eq+- List Element only. Specify a component name to
++   limit the selection list to elements containing this component.
++
++                                            (%PF3+to return)
+)END

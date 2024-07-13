@@ -1,0 +1,56 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+       /* | TYPE(OUTPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)            */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%BUILD WIP ---------------- Root Specification Panel ---------------------------
+%Command ===>_VARWKCMD                                                         +
++
++Specify%Root+location below, then press the%ENTER+key.
++
++Build Root from %===>_Z+%D+- Data set  %E+- Inventory Location
++
++Root Library:+                                       Compare Columns:+
++   Project %===>_PTBROPRJ+                              From     %===>_Z    +
++   Group   %===>_PTBROLIB+                              Through  %===>_Z    +
++   Type    %===>_PTBROTYP+
++   Member  %===>_PTBROMEM  +     Thru Member%===>_PTBROTMB +
++
++Root Other partitioned or sequential data set:+
++   Data Set Name%===>_PTBROOTH
++
++Location:                          List Options:
++   Environment %===>_PTBROENV+       Where CCID %===>^PTBROCCI    +
++   System      %===>_PTBROSYS+       CCID Type  %===>_Z+ (Any/Base/Generate/
++   Subsystem   %===>_PTBROSUB+                            Retrieve/Last action)
++   Element     %===>_PTBROELM  +   VVLL %===>_Z   +
++   Type        %===>_PTBROTYN+
++   Stage       %===>_Z+           ¢Z+-|Z       +   ¢Z+-|Z       +
+)INIT
+   .ZVARS = '(PTBROED  PTBCMPFR PTBCMPTO PTBROCCT PTBROVVL +
+              PTBROSTG PTBROSI1 PTBROSN1 +
+              PTBROSI2 PTBROSN2)'
+   .HELP = BC1T2100
+   /*****************************************************************/
+   /* Uncomment the following VGET to allow PDM to save the Root    */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VGET (PTBROOTH) PROFILE                                        */
+)PROC
+     VER (&PTBCMPFR,NUM)
+     VER (&PTBCMPTO,NUM)
+     VER (&PTBCMPTO,RANGE,1,32000,MSG=CPTB095)
+   /*****************************************************************/
+   /* Uncomment the following VPUT to allow PDM to save the Root    */
+   /* Other Data Set Name field across sessions.                    */
+   /*****************************************************************/
+   /*VPUT (PTBROOTH) PROFILE                                        */
+)END

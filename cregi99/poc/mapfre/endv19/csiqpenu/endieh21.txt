@@ -1,0 +1,31 @@
+)PANEL
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(OUTPUT) INTENS(LOW)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY EXPAND(\\)
+%\-\  Element Name Not Specified  \-\
+%Command ===>_ZCMD                                                             +
++
++   ************************************************************************
++   *                                                                      *
++   *   The%element name+was not specified on the previous panel and       *
++   *   the%Build Using Map+option is set to%Y.+                           *
++   *                                                                      *
++   *   A%significant delay+can occur if there are a large number of       *
++   *   elements that meet the selection criteria.                         *
++   *                                                                      *
++   *   To return and refine your search, enter the%END+command.           *
++   *   To continue with your search, press the%ENTER+key.                 *
++   *                                                                      *
++   ************************************************************************
+)INIT
+)PROC
+)END

@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink "Mark When Installed" \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Mark When+- INSTALLED - Mark the product "installed" when the
+%Installed+              DistribuLink install script is executed
++                        at the DistribuLink destination.
++            DELIVERED - Mark the product "installed" when the
++                        inventory is delivered to the DistribuLink
++                        destination.
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

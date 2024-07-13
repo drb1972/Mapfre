@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ WIP Member Selection Matrix \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The WIP Member Selection Matrix:
++
++ * Identifies the WIP, Root, Derivation 1 and (when NUMBER OF DERIVATION
++      FILES=2) Derivation 2 libraries or inventory locations.
++ * Displays the member or element names within the Root, Derivation 1
++      and Derivation 2 libraries or inventory locations next to their
++      corresponding WIP member names. A%~+next to an element name indicates
++      that PDM will use a previous version/level to build the WIP file.
++
++The matrix allows you to view and manipulate Root and derivation members
++or elements prior to invoking the Build WIP process. Use the PF8 and PF7
++keys to scroll through the matrix. Type%QUIT+in the COMMAND field and
++press ENTER to exit the matrix.
+
++    Select%1-5+for information about
++
+%    1+- Matrix commands            %4+- Like-named members
+%    2+- Row commands               %5+- Accessing a Summary of Levels Panel
+%    3+- Moving members/elements
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1TMCMD 2,BC1TRCMD 3,BC1TMOV0 4,BC1TLKM0
+                  5,BC1TSLV0)
+)END

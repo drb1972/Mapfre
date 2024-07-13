@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++    The Destination Selection List can be displayed from the Destination
++    Options Menu under the Environment Options Menu or from the Package
++    Shipment panel under the Package Foreground Options Menu Ship option.
++    When displayed from the Destination Options Menu all Destinations
++    defined in the package file are displayed. When displayed from the
++    Package Shipment panel, only the destinations that contain a%MAPS TO+
++    mapping rule that matches at least one of the package backout records
++    dataset/path names are displayed.
++
++    If none of the%EXCLUDE+or%MAPS TO+mapping rules match a backout
++    record data set or path name, then the data set or path name is
++    shipped to the remote site using the host name as the remote name.
++    In this case, the destination also appears on the Ship Destination
++    Selection List unless the%ENCOPTBL &LIT1                       +
++    optional feature is activated.
++
++    Select one of the options below for more information:
++
+%    1+- Destination name/description   %3+- Remote Node name
+%    2+- Transmission method            %4+- Remote%IPNAME/IPPORT+
+
+)INIT
+   &LIT1='SHIP_DEST_LIST_MAP_RULE_ONLY'
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITTMTD0 3,CITNODE0 4,CITIPNM0)
+)END

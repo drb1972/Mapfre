@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - General Info \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
++
++The Element name column is a scrollable field and can display up to
++30 characters. It's width is controlled by the foreground options
++on Endevor's Default option panel. Use the%XE+display option or the
+%ZEXPAND+command to view the full element name. The plus sign next to
++the Element name indicates that the name exceeds the
+%SEL LIST ELEMENT COLUMN WIDTH+parameter value.
++
++The%XE+option displays the element name in a pop-up Window. The
++window can be moved by using:
++ 1) the%WINDOW+command using a PF function key (KEYS)
++ 2) by a double click on the pop-up boarder and double clicking
++    on the target location.
++To use the%ZEXPAND+enter the command then position your cursor
++on the Element name, and depress%ENTER.+
++
++
++
++
++
++\ \ (Press%PF3+to return) \ \
++
+)PROC
+  &ZCONT = CITESELA
+)END

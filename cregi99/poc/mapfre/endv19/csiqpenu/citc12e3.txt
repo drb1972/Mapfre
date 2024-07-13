@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ACM CSV-API Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% ACM CSV-API Enhancement +
+
++ This enhancement provides the following new capabilities:
+
+  - The ability to%extract ACM root+and%cross reference+data through
+    the use of the%CSV Utility.+The CSV utility returns the data in
+    CSV (Comma Separated Value) format.
+  - Allows the user to%eliminate Indirect, Related+and%Circular+
+    relationships in the output returned from the foreground%ACM Query,
+   +the%Batch ACM Query+and the%API List Component+functions.
+  - Allows the%API SCL+function to call the%Batch ACM Query Utility+
+    to obtain%ACM+data.
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E4
+)END

@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+|VARFLIT%----------------- PROCESSOR GROUP DEFINITION --------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++CURRENT ENV: ¢VAREVNME+  STAGE ID: ¢Z+  SYSTEM: ¢VARSYNME+  TYPE: ¢VARTYNME+
++NEXT    ENV: ¢VARNXENV+  STAGE ID: ¢Z+  SYSTEM: ¢VARNXSYS+  TYPE: ¢VARTYNS2+
++
++PROCESSOR GROUP:    ¢VARPRNME+    +PROCESSOR O/P TYPE:    ¢VARPRRGT
++DESCRIPTION:        ~VARPRDES                                          +
++NEXT PRCS GROUP:    ¢VARNXPRG+
++
++UPDATED:            ¢Z      ¢Z    +BY¢VARLUUID+
++
++-----------------------  OUTPUT MANAGEMENT INFORMATION  -----------------------
++
++                                     FOREGROUND EXECUTION
++   GENERATE PROCESSOR:    ¢VARTYPRG+    :    ¢Z+(Y/N)
++   DELETE PROCESSOR:      ¢VARTYPRD+    :    ¢Z+(Y/N)
++   MOVE PROCESSOR:        ¢VARTYPRM+    :    ¢Z+(Y/N)
++
++
++
++
++
++
+)INIT
+  .HELP = CITPGDF0
+  .ZVARS = '(VARWKSID VARNXSTG +
+             VARLUDTE VARLUTME +
+             VARTYFEG VARTYFED VARTYFEM)'
+)END

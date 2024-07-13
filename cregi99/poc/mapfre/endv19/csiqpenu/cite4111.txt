@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Element Storage \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Fwd/rev/img/log delta+- Specifies the delta storage format for elements
++   of this type. Acceptable values are:
++
+%      R+- Reverse delta format
+%      I+- Full image delta format
+%      L+- Log delta format
+%      F+- Default. Forward delta format.
++
+%Compress Base/Encrypt Name+- Indicates whether to encrypt and compress
++   the base form of elements stored in either reverse, image, or log
++   delta format. Acceptable values are:
++
+%     N+- Do not compress base and encrypt name.
+%     Y+- Default. Compress base and encrypt name.
+
+
+
+
++
++    (%PF3+to return,%ENTER+for more on reverse/forward/image/log delta)
+)PROC
+   &ZCONT = CITT2530
+)END

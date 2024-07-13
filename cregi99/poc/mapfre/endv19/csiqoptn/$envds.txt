@@ -1,0 +1,62 @@
+         MACRO
+&NAME    $ENVDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$ENVDS   DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$ENVDS   DS    0D
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $ENVDS  - BLOCK TO DESCRIBE THE CURRENT ENVIRONMENT        *
+*                   INFORMATION -  11/17/87                          *
+*                                                                    *
+**********************************************************************
+ENVLEN    DC    AL2(ENVSIZE)       LENGTH OF THE BLOCK
+ENVVERS   DC    AL2(ENV$VERS)      VERSION OF THE BLOCK
+ENV$VERS  EQU   3                      VERSION 3
+ENVID     DC    CL4'$ENV'          BLOCK ID
+ENVFLAG   DC    H'0'               SPECIAL FLAGS
+ENVSPEC   DC    CL1' '             TYPE OF ENVIRONMENT BLOCK
+ENV$C1    EQU   C'C'                        INTERNAL TO ENDEVOR-C1
+ENV$EXT   EQU   C'E'                        EXTERNAL INFORMATION
+ENV$ARCH  EQU   C'A'                        ENDEVOR-C1 ARCHIVE ELEM
+ENVIOTY   DC    CL1' '             I/O  TYPE FOR BLOCK
+ENV$INP   EQU   C'I'                        INPUT (SOURCE LOCATION)
+ENV$OUT   EQU   C'O'                        OUTPUT (TARGET LOCATION)
+ENVNEXT   DC    F'0'               ADDRESS OF TARGET $ENVDS BLOCK
+ENVFCBA   DC    A(0)               ADDRESS OF THE FILE INFORMATION
+*                                  INTERNAL - C1 ELEMENT INFO
+*                                  EXTERNAL - FILE INFO
+ENVSITE   DC    CL1' '             CURRENT SITE NAME
+ENVSTGID  DC    CL1' '                     STAGE ID ('1' OR '2')
+ENVSTGCD  DC    CL1' '                     STAGE CODE (FROM C1DEFLTS)
+ENVDATAC  DC    CL1' '             EXIT3, DATA CHANGED SINCE XIT2 (Y/N)
+ENVEVER   DC    H'0'                       VERSION OF THE ELEMENT
+ENVELVL   DC    H'0'                       LEVEL OF THE ELEMENT
+ENVENVM   DC    CL8' '                     ENVIRONMENT NAME
+ENVSTAGE  DC    CL8' '                     STAGE NAME
+ENVSYSTM  DC    CL8' '                     SYSTEM NAME
+ENVSYSUD  DC    CL8' '                     USER DATA - SYSTEM RECORD
+ENVSYSCC  DC    CL1' '                     SYSTEM CCID VALIDATION (Y/N)
+          DC    CL7' '                     RESERVED
+ENVSUBSY  DC    CL8' '                     SUBSYSTEM NAME
+ENVSUBUD  DC    CL8' '                     USER DATA - SUBSYSTEM RECORD
+ENVTYPE   DC    CL8' '                     TYPE NAME
+ENVTYPUD  DC    CL8' '                     USER DATA - ELM TYPE RECORD
+ENVELEMT  DC    CL10' '                    ELEMENT NAME - 1ST 10 CHARS
+ENVRES    DC    CL8' '                     RESERVED
+          ORG   ENVRES
+ENVNEW    DC    CL1' '             THE ELEMENT IS NEW IN ITS MAP (Y/N)
+          ORG   ,
+          DC    19F'0'                     RESERVED
+*
+*    OFFSET (FROM BEGINNING OF ENVDS) TO THE ELEMENT NAME AREA.
+*    FIRST 2 BYTES IN AREA = THE LENGTH OF THE NAME, THIS IS THEN
+*    FOLLOWED BY THE NAME.
+*
+ENVEAOFF  DC    H'0'                       ELEMENT AREA OFFSET
+          DC    H'0'                       RESERVED
+ENVBFAREA DS    XL257                      AREA BUFFER SPACE
+ENVSIZE   EQU   *-$ENVDS           LENGTH OF THE $ENVDS BLOCK
+         MEND

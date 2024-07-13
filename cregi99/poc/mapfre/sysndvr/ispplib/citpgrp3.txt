@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Selection - Generate \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
+*-----------------------------------------------------------------------------*
+|          |                             At Target                            |
+|          |------------------------------------------------------------------|
+|          |      Type same, element         |     Type different, element    |
+|          |---------------------------------|--------------------------------|
+|          |   Exists |   Does not exist, is |  Exists  |  Does not exist, is |
+|          |----------|----------------------|----------|---------------------|
+|  Action  |          | not on map|  on map  |          |not on map|  on map  |
+|==========|==========|======================|==========|=====================|
+|          |          |       override       |          |      override       |
+| Generate |    N/A   |          or          |   N/A    |         or          |
+|  with    |          |    fetched element   |          | default at target   |
+| copyback |          |                      |          |                     |
+|----------|----------|----------------------|----------|---------------------|
+|          | override |                      |          |                     |
+| Generate |    or    |         N/A          |   N/A    |         N/A         |
+| without  | target   |                      |          |                     |
+| copyback | element  |                      |          |                     |
+*-----------------------------------------------------------------------------*
+)END

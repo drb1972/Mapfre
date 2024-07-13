@@ -1,0 +1,40 @@
+         MACRO                                                          00010000
+         $PSCLREQ &DSCT=YES                                             00020001
+*           ************************************                        00030000
+*           **     PACKAGE EXIT SCL RECORD    **                        00040001
+*           ************************************                        00050000
+         AIF ('&DSCT' EQ 'YES').DSCT1                                   00290000
+$PSCLREQ DS   0D                                                        00300001
+         AGO .START1                                                    00310000
+.DSCT1   ANOP                                                           00320000
+$PSCLREQ DSECT                                                          00330001
+.START1  ANOP                                                           00330100
+*           *************************************                       00330202
+*           **     BLOCK INITIALIZATION FIELDS **                       00330302
+*           *************************************                       00330402
+PSCLLEN     DC  AL2(PSCLSIZE)                                           00331001
+PSCLVERS    DC  AL2(PSCL$VER)                                           00332001
+PSCL$VER   EQU  1                                                       00333001
+PSCLID      DC  CL4'PSCL'                                               00334001
+*           ************************************                        00335000
+*           **     BLOCK TOTAL DATA           **                        00336000
+*           ************************************                        00337000
+PSCLSEQ#    DS  H                     SEQUENTIAL NUMBER OF THIS ENTRY   00339001
+*           ************************************                        00370000
+*           **     SCL RECORDS                **                        00380001
+*           ************************************                        00390000
+         SPACE 1                                                        00400000
+PSCL#SMT     DS  H                     NBR OF SCL STATEMENTS IN RECORD  00460003
+**                                                                      00470000
+** THE FOLLOWING FIELDS OCCUR PSCL#SMT TIMES                            00480003
+**                                                                      00490000
+PSCLSTMT     DS  CL80                  SCL STATEMENT                    00510001
+PSCLSLNG     EQU *-PSCLSTMT            LNG OF INDIVIDUAL SCL SEG        00590003
+             DS  9XL(PSCLSLNG)         ROOM FOR NINE MORE STATEMENTS    00600003
+             DS  0D                                                     00610000
+PSCLSC$L     EQU *-PSCLSTMT             LENGTH OF SCL STATEMENT LIST    00611003
+PSCLSIZE     EQU *-$PSCLREQ             PHYSICAL RECORD LENGTH          00620001
+*********************************************************************** 00640000
+**             E N D   O F   $ P A P P T B L                         ** 00650000
+*********************************************************************** 00660000
+         MEND                                                           00670000

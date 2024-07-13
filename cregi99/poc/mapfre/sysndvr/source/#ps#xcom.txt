@@ -1,0 +1,9 @@
+./ ADD NAME=CONTROL
+./ NUMBER NEW1=1,INCR=1
+*REM ****************************************************** #PS#XCOM ***
+*REM *    CONTENTS: ENDEVOR/MVS - IEBUPDTE CONTROL CARDS AND TEXT
+*REM * TRANSMITTER: XCOM
+*REM *     PURPOSE: CREATE A MEMBER WHICH WILL CONTAIN ALL THE XCOM
+*REM *              CONTROL CARDS NEEDED FOR THIS SHIPMENT
+*REM *******************************************************************
+*REM *

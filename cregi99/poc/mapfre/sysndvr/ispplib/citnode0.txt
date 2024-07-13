@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Remote Nodename \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Identifies the site to which package outputs are to be shipped. The
++name must be valid for the utility identified in the TRANSMISSION
++METHOD field.
++
++
++
++
++
++
++
++
++
++
++
++
+
++
++                                            (%PF3+to return)
+)END

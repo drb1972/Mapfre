@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE Action \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The VALIDATE action performs element master, synchronization
++and component validation checks against the element you specify.
++
++The VALIDATE action is a batch element action and it is not supported
++in a package.
++
++    Select%1+-%4+for information about specific fields
++
+%    1+- Panel options              %3+- Action options
+%    2+- Inventory fields           %4+- List options
++
++
++
++
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITFC001 2,CITNDVR0 3,CITFC002 4,CITLOPT0)
+)END

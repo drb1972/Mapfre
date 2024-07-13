@@ -1,0 +1,31 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package panel actions\-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
++The following action options appear on the Batch Package Panel and provide
++the following functions:
+%1.  Build SCL -+Use this action to build the SCL necessary to perform
++    package processing in batch.
+%2.  Edit SCL -+Use this action to edit the batch package SCL using a standard
++    ISPF edit panel.
+%3.  Browse SCL -+Use this action to review the batch package SCL using a
++    a standard ISPF browse panel.
+%5.  Build Additional JCL -+Use this action to build additional JCL statements
++    to be submitted with the execution JCL.
+%6.  Submit JCL -+Use this action to submit a JCL job stream to execute one  or
+     more packages.  You must provide at least one JCL JOB statement to
++    complete this action.
+
++When you select the Build SCL, Edit SCL, Browse SCL and Submit JCL actions on
++the Batch Package panel you must also enter the name of the SCL data set or
++other sequential or partititioned data set to which the batch package SCL is
++to be written or is located.
++
++Press%PF7+for previous Help menu, or%End+to exit Help
+)PROC
+  &ZUP   = enit0000
+)END

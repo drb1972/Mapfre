@@ -1,0 +1,43 @@
+)ATTR DEFAULT(%+_)
+   /*------------------------------------------------------------*/
+   /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+   /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+   /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   /*------------------------------------------------------------*/
+   $ TYPE(INPUT)  INTENS(LOW) PAD(_)
+   ! TYPE(INPUT)  INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   < TYPE(TEXT)   INTENS(&VNBPKGD9)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%MODIFY -------------------- CREATE/MODIFY PACKAGE -----------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %B+- Build Package Actions            %I+ - Import SCL
++  %E+- Edit Package                     %C+ - Copy Package
++  %N+- Add Notes to Package
++
++PACKAGE ID:|VARSLPKG        +             STATUS:|VPHSTAT     +
++DESCRIPTION %===>~VPHCOMM                                           +
++PACKAGE TYPE%===>_VPHTYPE   +             PROMOTION PACKAGE%===>_Z+(Y/N)
++SHARABLE PACKAGE% ===>_Z+(Y/N)            ENABLE BACKOUT   %===>_Z+(Y/N)
++APPEND TO PACKAGE%===>_Z+(Y/N)            STOPRC          % ===>_Z +
++EXECUTION WINDOW FROM%===>_Z      _Z    + TO%===>_Z      _Z    +
++INPUT PACKAGE ID %===>_VAROTPKG        +
+<NOTES EXIST FOR PACKAGE+
++FROM ISPF LIBRARY:
++   PROJECT%===>_VNBRPRO +
++   GROUP  %===>_VNBRGRP +
++   TYPE   %===>_VNBRTYP +
++   MEMBER %===>_VNBRMBR +
++
++OTHER PARTITIONED OR SEQUENTIAL DATA SET:
++   DATA SET NAME%===>_VNBROTH                                                 +
+)INIT
+  .HELP = CITP2000
+  .ZVARS = '(VPHPROM VPHPSHR VPHBOFLG VNBSCLA VARSTPRC +
+             VPHWSD  VPHWST  VPHWED   VPHWET)'
+)PROC
+VER (&VARSTPRC,nb,RANGE,4,99)
+)END

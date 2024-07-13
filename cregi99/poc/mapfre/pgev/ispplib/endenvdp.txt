@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Environment Display -/-/-
+%Command ===>_zcmd
+%
++
++Endevor parameter dataset name...._parmdsn
++
++Member name......................._parmmemb+
+)Init
+.CURSOR = parmdsn
+&parmdsn = 'ENDEVOR.R36.B9202C.JCL'
+&parmmemb = 'BC1JDEF6'
+)Proc
+if (.RESP = ENTER)
+   ver (&parmdsn,NB,DSNAME)
+   ver (&parmmemb,NB,NAME)
+)End

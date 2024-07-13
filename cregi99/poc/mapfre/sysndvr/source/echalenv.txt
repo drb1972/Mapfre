@@ -1,0 +1,51 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST ENVIRONMENT - REQUEST BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  ALENV-RQ.
+           05  ALENV-RQ-HEADER.
+               10  ALENV-RQ-LEN        PIC 9(4) COMP VALUE 32.
+               10  ALENV-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALENV-RQ-ID         PIC 9(4) COMP VALUE 1024.
+               10  ALENV-RQ-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALENV-RQ-EYE        PIC X(4)      VALUE 'LENQ'.
+           05  ALENV-RQ-DATAAREA.
+               10  ALENV-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALENV-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALENV-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALENV-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALENV-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALENV-RQ-TOENV      PIC X(8)      VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST ENVIRONMENT - RESPONSE BLOCK                  *
+      *                                                               *
+      *****************************************************************
+       01  ALENV-RS.
+           05  ALENV-RS-HEADER.
+               10  ALENV-RS-LEN        PIC 9(4) COMP VALUE 136.
+               10  ALENV-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALENV-RS-ID         PIC 9(4) COMP VALUE 1025.
+               10  ALENV-RS-VERS       PIC 9(4) COMP VALUE 2.
+               10  ALENV-RS-EYE        PIC X(4)      VALUE 'LENS'.
+           05  ALENV-RS-DATAAREA.
+               10  ALENV-RS-SITE       PIC X         VALUE SPACE.
+               10  ALENV-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALENV-RS-TITLE      PIC X(40)     VALUE SPACES.
+               10  ALENV-RS-USEC       PIC X(8)      VALUE SPACES.
+               10  ALENV-RS-RSEC       PIC X(8)      VALUE SPACES.
+               10  ALENV-RS-SMFSEC     PIC X         VALUE SPACE.
+               10  ALENV-RS-SMFACT     PIC X         VALUE SPACE.
+               10  ALENV-RS-SMFENV     PIC X         VALUE SPACE.
+               10  ALENV-RS-DBAVL      PIC X         VALUE SPACE.
+               10  ALENV-RS-DBACT      PIC X         VALUE SPACE.
+               10  ALENV-RS-DBOPT1     PIC X         VALUE SPACE.
+               10  ALENV-RS-DBOPT2     PIC X         VALUE SPACE.
+               10  ALENV-RS-DBOPT3     PIC X         VALUE SPACE.
+               10  ALENV-RS-DBOPT4     PIC X         VALUE SPACE.
+               10  FILLER              PIC X(44)     VALUE SPACES.
+               10  FILLER              PIC XX        VALUE SPACES.
+               10  ALENV-RS-SYNCLOC    PIC X         VALUE SPACE.
+               10  FILLER              PIC X(3)      VALUE SPACES.

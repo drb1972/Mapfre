@@ -1,0 +1,95 @@
+         MACRO
+.**********************************************************************
+.* Name:        $PRITE                                                *
+.* Description: IF-THEN-ELSE specification macro                      *
+.* Function:    Define processor conditional JCL blocks for           *
+.*                                                                    *
+.*              This macro builds a conditional tree. Each entry      *
+.*              represents either a node or a leaf entry. The node    *
+.*              represents either an AND or an OR variant (including  *
+.*              NOTs). Each leaf represents an expression.  The node  *
+.*              points to two expressions, the first being the left   *
+.*              expression and the second the right as in the         *
+.*              following expression: left_expr AND right_expr        *
+.*              where left_expr and right_expr are conditional        *
+.*              expressions in the form a=b.                          *
+.*                                                                    *
+.* Keywords/parameters:                                               *
+.*    TYPE - specify the tree entry type, node (NODE) or leaf (LEAF). *
+.*                                                                    *
+.*    LEFT - specify the address of the left expression (leaf or node)*
+.*                                                                    *
+.*    RIGHT- specify the address of the right expression (leaf or     *
+.*           node)                                                    *
+.*                                                                    *
+.*    OPER - Specify the Boolean operator connecting the two          *
+.*           expressions EXP1 and EXP2. Example: OPER=AND. Valid      *
+.*           values are AND, OR, NOT.                                 *
+.*                                                                    *
+.**********************************************************************
+&LABEL   $PRNODE &LEFT=0,              First expression                +
+               &RIGHT=0,               Second expression               +
+               &INVERT=NO,             Truth value inversion option    +
+               &OPER=                  Expression operator
+.*
+         COPY  $PRGLBLS                Copy the global variables
+         LCLB  &AND,&OR,&NOT
+         LCLB  &INVNODE
+         LCLC  &C                      Local ITE label value
+         LCLC  &CNODE
+.*
+&PRLSTPR SETA  1000                    Identify as ITE block
+&PRITE   SETC  'ITE'
+&AND     SETB  ('&OPER' EQ 'AND')
+&NOT     SETB  ('&OPER' EQ 'NOT')
+&OR      SETB  ('&OPER' EQ 'OR')
+&INVNODE SETB  ('&INVERT' EQ 'YES')
+.**********************************************************************
+.* Validate the node type:
+.**********************************************************************
+         AIF   (&PRSTART).ITE0100
+         MNOTE 16,'Missplaced ITE node'
+.**********************************************************************
+.* Validate the node pointers:
+.**********************************************************************
+.ITE0100 ANOP
+.**********************************************************************
+.* Validate the boolean operator:
+.**********************************************************************
+&PRITEBOOL SETA &AND*128+&OR*64+&NOT*1
+         AIF   (&PRITEBOOL NE 0).ITE0200
+.*       MNOTE 16,'Invalid boolean operator: &OPER..'
+.ITE0200 ANOP
+         AIF   ('&LEFT' NE '').ITE0400
+         MNOTE 16,'Required left pointer is missing'
+.ITE0400 ANOP
+         AIF   ('&RIGHT' NE '' AND '&LEFT' NE '').ITE0500
+         AIF   ('&RIGHT' EQ '').ITE0500
+         MNOTE 16,'Required left pointer is missing'
+.ITE0500 ANOP
+&CNODE   SETC  '&LABEL'
+         AIF      ('&CNODE' NE '').ITE0520
+         MNOTE    12,'Required node entry name is missing'
+.ITE0520 ANOP
+.**********************************************************************
+.* Generate a node entry
+.**********************************************************************
+.ITE0600 ANOP
+&CNODELN SETC  '&CNODE._LEN'
+         DC      A(&CNODE)
+         DC      A(0)
+&CNODE   DS    0F                      ITE node entry
+         DC    Y(PRITEEQU)             Identify ITE block
+         DC    Y(&CNODELN)             Length of the ITE block
+         DC    Y(PRITEVER)             Endevor version generating proc
+         DC    Y(0)                    Number of variable fields
+         DC    AL1(128)                  Node entry type
+         DC    AL3(0)                    Reserved
+         DC    A(&LEFT)                  A(left branch)
+         DC    A(&RIGHT)                 A(right branch)
+         DC    AL1(&PRITEBOOL)           Boolean operator
+         DC    AL1(&INVNODE*255)         Node inversion option
+         DC    AL2(0)                    Reserved
+&CNODELN EQU   *-&CNODE
+         MEXIT
+         MEND

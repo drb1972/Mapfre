@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Element Action \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%                                   +
+%blank+- Use this option to return an element selection list. This only
+     applies if DISPLAY LIST=Y.
++
+%L+- Use this option to list one or more elements
++
++
++
++
++
++
++
++
++
++
++                           (%PF3+to return,%ENTER+for display options)
+)PROC
+   &ZCONT = CITDOPT0
+)END

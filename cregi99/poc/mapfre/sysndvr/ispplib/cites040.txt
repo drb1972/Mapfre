@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Control Data Set Names \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Element Catalog +- Identifies the data set used at your site for the
+      element catalog.
+
+%Element Catalog Eindex  +- Identifies the data set used at your site
+      for the element catalog eindex.
+
+%Package Control File+- Identifies the data set used at your site to
+      store package information.
+
+%Installation Macro Library+- Data set name of the source library
+      established for this site during installation.  This is the
+      library that contains the macros used by CA Endevor SCM.
+
+%CCID Validation Data Set+- Data set name of the sequential file
+      containg the definitions of the valid CCIDs established for this
+      site.  This field is blank if CCID validation is not in use.
+
+%ACM Index Root Data Set+- Data set name of the ACM Root File.
+
+%ACM Index Xref Data Set+- Data set name of the ACM Cross Reference file.
+)END

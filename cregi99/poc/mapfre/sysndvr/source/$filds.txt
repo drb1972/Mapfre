@@ -1,0 +1,35 @@
+         MACRO                                                          00010000
+&NAME    $FILDS &DSCT=YES                                               00020000
+         AIF   ('&DSCT' NE 'YES').SKPDSCT                               00030000
+$FILDS   DSECT                                                          00040000
+         AGO   .SKPEQU                                                  00050000
+.SKPDSCT ANOP                                                           00060000
+$FILDS   DS    0F                                                       00070000
+.SKPEQU  ANOP                                                           00071000
+**********************************************************************  00080000
+*                                                                    *  00090000
+*         $FILDS - BLOCK FOR FILE INFORMATION ASSOCIATED WITH        *  00100000
+*                   ACTIONS            12/30/87                      *  00110000
+*                                                                    *  00130000
+**********************************************************************  00140000
+FILLEN    DC    AL2(FILSIZE)       LENGTH OF THE BLOCK                  00160000
+FILVERS   DC    AL2(FIL$VERS)      VERSION OF THE BLOCK                 00170000
+FIL$VERS  EQU   2                      VERSION 2                        00180001
+FILID     DC    CL4'$FIL'          BLOCK ID                             00190000
+FILDSN    DS    CL44' '            DATASET NAME                         00200000
+FILDSMEM  DS    CL10' '            MEMBER NAME                          00210000
+FILDDN    DS    CL8                DDNAME                               00211000
+FILDSTY   DS    CL3' '             DATASET TYPE( DA,PSU,PO,IS,...)      00220000
+*                                      FOR HFS (H@,H$,H/,HW)            00230000
+          SPACE 1                                                       00231000
+*                                                                       00232000
+*   OFFSET (FROM BEGINNING OF FILDS) TO THE PATH AND FILE NAME AREAS.   00233000
+*   THE FIRST 2 BYTES IN AREA = THE LENGTH OF THE NAME, THIS IS THEN    00234000
+*   FOLLOWED BY THE NAME.                                               00235000
+*                                                                       00236000
+FILPAOFF  DS    H                  PATH AREA OFFSET, IF HFS             00240000
+FILNAOFF  DS    H                  FILE NAME AREA OFFSET, IF HFS        00241000
+          DC    CL21' '            ** RESERVED **                       00250000
+FILBFAREA DS    XL1027             AREA BUFFER SPACE                    00260000
+FILSIZE   EQU   *-$FILDS           LENGTH OF THE $FILDS BLOCK           00540000
+         MEND                                                           00550000

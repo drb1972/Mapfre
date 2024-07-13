@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Work In Process File Panel \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this panel to specify one or more WIP members to be merged. Do this
++by first specifying the library containing the WIP member, using
++standard ISPF naming conventions.
++
++You can type an explicit member name, an asterisk ( * ), or a name mask
++in the MEMBER field.  When you press ENTER, the Merge Output Specification
++Panel appears. This panel will ask you if you want the merged output to
++go into a file or to be placed as an element in CA Endevor SCM. Depending
++on your response, the proper Merge Output specification panel opens.
++
++
+)END

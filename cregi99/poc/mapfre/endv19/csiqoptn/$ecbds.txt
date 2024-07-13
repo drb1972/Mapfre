@@ -1,0 +1,84 @@
+         MACRO
+&NAME    $ECBDS  &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$ECBDS   DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$ECBDS   DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $ECBDS  - BLOCK TO DESCRIBE THE USER EXIT INTERFACE        *
+*                   EXIT CONTROL BLOCK                               *
+*                   11/17/87                                         *
+*                                                                    *
+**********************************************************************
+ECBLEN   DC    AL2(ECBSIZE)        LENGTH OF THE BLOCK                  00160019
+ECBVERS  DC    AL2(ECB$VERS)       CURRENT VERSION OF THE BLOCK         00170019
+ECB$VERS EQU   3                       VERSION 2                        00180019
+ECBID    DC    CL4'$ECB'           BLOCK ID                             00190019
+ECBFLAG  DC    F'0'                ANY SPECIAL FLAGS                    00200019
+         ORG   ECBFLAG             REUSE ECBFLAG FIELD                  00200019
+ECBSRCHR DC    CL1' '              SRCHREPL UTILITY FLAG
+ECB$ELEM EQU   C'E'                  ELEMENT ADDED/REPLACED
+ECB$COMP EQU   C'O'                  OUTPUT COMPONENT UPDATED
+         DC    CL3' '              UNUSED
+         ORG
+ECBRTCD  DC    F'0'                RETURN CODE FROM EXIT                00210019
+ECB$OK   EQU   0                       RETURN 0 ALL O.K.                00220019
+ECB$MOK  EQU   4                       RETURN 4 ALL O.K. WITH MODS      00230019
+ECB$FAIL EQU   8                       RETURN 8 ABORT
+ECBARGS  DC    F'0'                NUMBER OF PARMS PASSED (INCLUSIVE)   00250019
+ECBEXTN  DC    F'0'                EXIT NUMBER BEING INVOKED            00260019
+ECB$CON1 EQU   1                       C1UEXT01 - SECURITY              00270019
+ECB$CON2 EQU   2                       C1UEXT02 - PRE-ACTION            00280019
+ECB$CON3 EQU   3                       C1UEXT03 - POST-ACTION           00290019
+ECB$CON4 EQU   4                       C1UEXT04 - EXT DS VALIDATION     00300019
+ECB$CON5 EQU   5                       C1UEXT05 - JOB INITIATION        00300019
+ECB$CON6 EQU   6                       C1UEXT06 - JOB TERMINATION       00300019
+ECB$MEXT EQU   6                       MAX EXIT NUMBER DEFINED          00310019
+ECBUSER  DC    CL8' '              TSO USER/BATCH JOBNAME               00320019
+ECBMODE  DC    CL1' '              MODE FOR ONLINE(TSO) OR BATCH        00340019
+ECB$TSO  EQU   C'T'                     TSO MODE                        00350019
+EXB$BAT  EQU   C'B'                     BATCH MODE                      00360019
+ECBINTNL DC    CL1' '              INTERNAL CALL FLAG ( PANEL BUILD)    00370019
+ECB$YES  EQU   C'Y'                     YES - INTERNAL ONLY CALL        00370119
+ECB$NO   EQU   C'N'                     NO  - ACTUAL ACTION REQUEST     00370219
+ECBSMFAC DC    CL1' '              SMF OUTPUT ENABLED ( Y OR N)         00370320
+ECBSMFWR DC    CL1' '              SMF WRITE BUFFER ( Y OR N)           00370420
+ECBFUNC  DC    F'0'                CURRENT ACTIVITY                     00380019
+         $C1FUNC FUNC=$FUNDSCT,PREFIX=ECB                               00381014
+ECBFUNAM DC    CL8' '              ACTION NAME                          00382019
+ECBMSGCD DC    CL4' '              MESSAGE ID FOR ERROR MESSAGE         00490019
+*                                  MESSAGE CODE WILL BE C1XNNNNS
+ECBMSGLN DC    H'0'                LENGTH OF ERROR MESSAGE              00510019
+ECBMSGSZ EQU   132                     SIZE IS 132                      00520019
+ECBMSG   DC    CL(ECBMSGSZ)' '     MESSAGE                              00530019
+ECBCALR  DC    CL1' '              CALLERS ORIGIN
+ECB$NDV  EQU   C'E'                ENDEVOR
+ECB$QE   EQU   C'Q'                QUICK-EDIT
+ECBPKG    DC    CL1' '             RUNNING UNDER A PKG?
+ECBPKGN  EQU   C'N'                ACTION IS NOT RUN UNDER A PACKAGE
+ECBPKGY  EQU   C'Y'                ACTION IS PART OF EXECUTING PACKAGE
+ECBPKGI  EQU   C'I'                EXIT IS CALLED DURING CAST/INSPECT
+*                                    VALIDATION CALL
+ECBREQA  DC    F'0'                ADDRESS OF $REQDS
+ECBPNLT  DC    F'0'                PANEL TYPE IF INTERNAL
+ECB$NONE  EQU   0                       NO PANEL INFORMATION
+ECB$PENV  EQU   1                       ENVIRONMENT LEVEL PANEL
+ECB$PPRM  EQU   2                       TOP/MAIN    LEVEL PANEL
+ECB$PFOR  EQU   3                       FOREGROUND  LEVEL PANEL
+ECBUEXT  DC    F'0'                USER EXIT HOLD FIELD
+ECBIFUNC DC    F'0'                INTERNAL SECURITY FUNCTIONS
+*                                       SEE EQUATES FOLLOWING ECBFUNC
+ECBHIRC  DC    F'0'                HIGHEST RC SET BY PREVIOUS EXITS
+ECBCPKGI DC    CL16' '             CURRENT PACKAGE ID
+ECB255RC DC    X'0'                REGISTRATION ERR RC FOR IMGR255
+ECB257RC DC    X'0'                REGISTRATION ERR RC FOR IMGR257
+ECBAPI   DC    C' '                CIMDAPI VALUE
+         DC    XL1'0'              ** RESERVED **
+ECBALTRA DC    A(0)                ADDRESS ALTER ACTION $ALTRDS BLOCK
+ECBALTRF DC    CL8' '              ALTER FIELD - EXIT ONE ONLY
+         DC    4F'0'               ** RESERVED **
+ECBSIZE  EQU   *-$ECBDS            LENGTH OF $ECBDS BLOCK
+         MEND

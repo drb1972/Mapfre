@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ VALIDATE - Component Validation \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Component Validation+- If you enable the component validation option,
++   the VALIDATE action performs component validation checking.
++
+%      N+- Do not perform component validation checking.
+%      Y+- Perform component validation checking.
++
++The ACM option must be installed at your site in order to use this
++option. View the value of the ACM option on the Site Information
++panel to determine if ACM is installed at your site.
++
++The default component validation panel field value is obtained from the
+%&LIT                   +parameter in the Endevor Configuration Table
++(ENDICNFG). If this parameter is not coded in the table a value of Y
++is assumed.
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)INIT
+    &LIT   = 'VALIDATE_ACT_COMPONENTS'
+)END

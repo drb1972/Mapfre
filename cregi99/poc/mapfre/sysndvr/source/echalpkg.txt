@@ -1,0 +1,253 @@
+      *****************************************************************
+      *
+      *  LIST PACKAGE HEADER INFORMATION - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALPKG-RQ.
+           05  ALPKG-RQ-HEADER.
+               10  ALPKG-RQ-LEN        PIC 9(04) COMP VALUE 96.
+               10  ALPKG-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALPKG-RQ-ID         PIC 9(04) COMP VALUE 1472.
+               10  ALPKG-RQ-VERS       PIC 9(04) COMP VALUE 3.
+               10  ALPKG-RQ-EYE        PIC X(04)      VALUE 'LPKQ'.
+           05  ALPKG-RQ-DATAAREA.
+               10  ALPKG-RQ-PKGID      PIC X(16) VALUE SPACES.
+      *    *****  SELECTION CRITERIA  *****
+      *           PACKAGE TYPE
+               10  ALPKG-RQ-PKG-TYPE   PIC X(01) VALUE SPACES.
+                   88  ALPKG-RQ-PKG-ALL    VALUE SPACES.
+                   88  ALPKG-RQ-PKG-STD    VALUE 'S'.
+                   88  ALPKG-RQ-PKG-EMR    VALUE 'E'.
+      *           PACKAGE STATUS (Y/N) (IF BLANK, DEFAULTS TO Y)
+               10  ALPKG-RQ-IN-EDIT    PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-IN-APPR    PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-DENIED     PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-APPROVED   PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-IN-EXEC    PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-EXEC       PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-COMMIT     PIC X(01) VALUE SPACES.
+      *           ENTERPRISE PACKAGE SELECTION CRITERIA
+               10  ALPKG-RQ-ENTPFLG    PIC X(01) VALUE SPACES.
+                   88  ALPKG-RQ-ENT-ALL    VALUE 'A', ' '.
+                   88  ALPKG-RQ-ENT-ENT    VALUE 'E'.
+                   88  ALPKG-RQ-ENT-EXC    VALUE 'X'.
+      *           PACKAGE AGE SELECTION CRITERIA
+               10  ALPKG-RQ-DTE-TYPE   PIC X(02) VALUE SPACES.
+                   88  ALPKG-RQ-DTE-CR     VALUE 'CR'.
+                   88  ALPKG-RQ-DTE-MO     VALUE 'MO'.
+                   88  ALPKG-RQ-DTE-CA     VALUE 'CA'.
+                   88  ALPKG-RQ-DTE-AP     VALUE 'AP'.
+                   88  ALPKG-RQ-DTE-EX     VALUE 'EX'.
+                   88  ALPKG-RQ-DTE-BO     VALUE 'BO'.
+                   88  ALPKG-RQ-DTE-BI     VALUE 'BI'.
+                   88  ALPKG-RQ-DTE-CO     VALUE 'CO'.
+               10  ALPKG-RQ-DAYS-OLD   PIC X(03) VALUE SPACES.
+      *           APPROVER ID SELECTION CRITERIA
+               10  ALPKG-RQ-APPRID     PIC X(08) VALUE SPACES.
+               10  ALPKG-RQ-FLAG       PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-RESERVE    PIC X(02) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALPKG-RQ-WCAST-FDATE PIC X(07) VALUE SPACES.
+               10  ALPKG-RQ-WCAST-FTIME PIC X(05) VALUE SPACES.
+               10  ALPKG-RQ-WCAST-TDATE PIC X(07) VALUE SPACES.
+               10  ALPKG-RQ-WCAST-TTIME PIC X(05) VALUE SPACES.
+               10  ALPKG-RQ-PROMHIST    PIC X(01) VALUE SPACES.
+               10  ALPKG-RQ-PROMPKG     PIC X(01) VALUE SPACES.
+                   88  ALPKG-RQ-PROM-YES   VALUE 'Y'.
+                   88  ALPKG-RQ-PROM-NO    VALUE 'N'.
+               10  ALPKG-RQ-PROMFILTY   REDEFINES ALPKG-RQ-PROMPKG
+                                        PIC X(01).
+                   88  ALPKG-RQ-PROMFILTYA    VALUE 'A'.
+                   88  ALPKG-RQ-PROMFILTYP    VALUE 'P'.
+                   88  ALPKG-RQ-PROMFILTYX    VALUE 'X'.
+               10  ALPKG-RQ-PROMFILEN   PIC X(08) VALUE SPACES.
+               10  ALPKG-RQ-PROMFILSI   PIC X(01) VALUE SPACES.
+               10  FILLER               PIC X(05) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST PACKAGE HEADER INFORMATION - RESPONSE BLOCK (FULL)
+      *
+      *****************************************************************
+       01  ALPKG-RS.
+           05  ALPKG-RS-HEADER.
+               10  ALPKG-RS-LEN        PIC 9(04) COMP VALUE 1096.
+               10  ALPKG-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALPKG-RS-ID         PIC 9(04) COMP VALUE 1473.
+               10  ALPKG-RS-VERS       PIC 9(04) COMP VALUE 3.
+               10  ALPKG-RS-EYE        PIC X(04)      VALUE 'LPKS'.
+           05  ALPKG-RS-DATAAREA.
+      *           PACKAGE CREATION INFORMATION
+               10  ALPKG-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALPKG-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-COMMENT    PIC X(50) VALUE SPACES.
+               10  ALPKG-RS-PKG-TYPE   PIC X(10) VALUE SPACES.
+                   88  ALPKG-RS-PKG-TYPE-S VALUE 'STANDARD  '.
+                   88  ALPKG-RS-PKG-TYPE-E VALUE 'EMERGENCY '.
+               10  ALPKG-RS-PSHR       PIC X(01) VALUE SPACES.
+                   88  ALPKG-RS-PSHR-Y     VALUE 'Y'.
+                   88  ALPKG-RS-PSHR-N     VALUE 'N'.
+               10  ALPKG-RS-BOFLG      PIC X(01) VALUE SPACES.
+                   88  ALPKG-RS-BOFLG-Y    VALUE 'Y'.
+                   88  ALPKG-RS-BOFLG-N    VALUE 'N'.
+               10  ALPKG-RS-WSD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-WST        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-WED        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-WET        PIC X(05) VALUE SPACES.
+      *           PACKAGE STATUS
+               10  ALPKG-RS-STAT       PIC X(12) VALUE SPACES.
+                   88  ALPKG-RS-STAT-IED   VALUE 'IN-EDIT     '.
+                   88  ALPKG-RS-STAT-IAP   VALUE 'IN-APPROVAL '.
+                   88  ALPKG-RS-STAT-DE    VALUE 'DENIED      '.
+                   88  ALPKG-RS-STAT-AP    VALUE 'APPROVED    '.
+                   88  ALPKG-RS-STAT-IEX   VALUE 'IN-EXECUTION'.
+                   88  ALPKG-RS-STAT-EXE   VALUE 'EXECUTED    '.
+                   88  ALPKG-RS-STAT-EXF   VALUE 'EXEC-FAILED '.
+                   88  ALPKG-RS-STAT-COM   VALUE 'COMMITTED   '.
+      *           PACKAGE STATUS FLAGS (Y/N)
+               10  ALPKG-RS-FLG-AGRE   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-CARE   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-CORE   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-ECOR   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-BONE   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-BORE   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-ABN    PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-PBO    PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-BBHB   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-FLG-SAF    PIC X(01) VALUE SPACES.
+      *           MISC PACKAGE STATUS DATA
+               10  ALPKG-RS-EXRC       PIC X(04) VALUE SPACES.
+                   88  ALPKG-RS-EXRC-00    VALUE '0000'.
+                   88  ALPKG-RS-EXRC-04    VALUE '0004'.
+                   88  ALPKG-RS-EXRC-12    VALUE '0012'.
+                   88  ALPKG-RS-EXRC-16    VALUE '0016'.
+               10  ALPKG-RS-BSTAT      PIC X(10) VALUE SPACES.
+                   88 ALPKG-RS-BSTAT-BO    VALUE 'BACKED-OUT'.
+               10  ALPKG-RS-FLG-CCOR   PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-NOCORR     PIC 9(04) COMP VALUE ZEROS.
+      *           PACKAGE DATES, TIMES AND USERIDS
+      *          FORMATS-- DATE DDMMMYY, TIME HH:MM
+               10  ALPKG-RS-CRD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-CRT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-CRU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-MOD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-MOT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-MOU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CAD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-CAT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-CAU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-APD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-APT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-EXBD       PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-EXBT       PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-EXED       PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-EXET       PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-EXU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BOD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-BOT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-BOU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BID        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-BIT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-BIU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-COD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-COT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-COU        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALPKG-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALPKG-RS-RUU        PIC X(08) VALUE SPACES.
+      *           PACKAGE NOTES
+               10  ALPKG-RS-NOTE1      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE2      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE3      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE4      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE5      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE6      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE7      PIC X(60) VALUE SPACES.
+               10  ALPKG-RS-NOTE8      PIC X(60) VALUE SPACES.
+      *           COMPONENT VALIDATION SETTING YES/NO/WARNINGS ONLY
+               10  ALPKG-RS-CVAL       PIC X(01).
+                   88  ALPKG-RS-CVAL-Y    VALUE 'Y'.
+                   88  ALPKG-RS-CVAL-N    VALUE 'N'.
+                   88  ALPKG-RS-CVAL-W    VALUE 'W'.
+               10  FILLER              PIC X(01) VALUE SPACES.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALPKG-RS-PROMPKG    PIC X(01) VALUE SPACES.
+                   88  ALPKG-RS-PROM-YES   VALUE 'Y'.
+                   88  ALPKG-RS-PROM-NO    VALUE 'N', ' '.
+               10  ALPKG-RS-FLAG-HISE  PIC X(01) VALUE SPACES.
+               10  ALPKG-RS-IPKGID     PIC X(16) VALUE SPACES.
+               10  ALPKG-RS-PKGVER     PIC 9(04) COMP VALUE 0.
+               10  ALPKG-RS-PPKGID     PIC X(16) VALUE SPACES.
+               10  ALPKG-RS-ENV        PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-STG-ID     PIC X(01) VALUE SPACES.
+               10  FILLER              PIC X(23) VALUE SPACES.
+      *           VERSION 3 ISO DATES (YYYYMMDD), TIMES (HHMMSSTH)
+               10  ALPKG-RS-RUDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-RUTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CRDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CRTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-PUDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-PUTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CADF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CATF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-ADDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-ADTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-WSDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-WSTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-WEDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-WETF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-EXDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-EXTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BODF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BOTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BIDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-BITF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CMDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-CMTF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-EEDF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-EETF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-C7DF       PIC X(08) VALUE SPACES.
+               10  ALPKG-RS-C7TF       PIC X(08) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST PACKAGE HEADER INFORMATION - RESPONSE BLOCK (BASE FIELDS)
+      *
+      *****************************************************************
+       01  ALPKB-RS.
+           05  ALPKB-RS-HEADER.
+               10  ALPKB-RS-LEN        PIC 9(04) COMP VALUE 140.
+               10  ALPKB-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALPKB-RS-ID         PIC 9(04) COMP VALUE 1473.
+               10  ALPKB-RS-VERS       PIC 9(04) COMP VALUE 3.
+               10  ALPKB-RS-EYE        PIC X(04)      VALUE 'LPKS'.
+           05  ALPKB-RS-DATAAREA.
+      *           PACKAGE CREATION INFORMATION
+               10  ALPKB-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALPKB-RS-COMMENT    PIC X(50) VALUE SPACES.
+               10  ALPKB-RS-PKG-TYPE   PIC X(10) VALUE SPACES.
+                   88  ALPKB-RS-PKG-TYPE-S VALUE 'STANDARD  '.
+                   88  ALPKB-RS-PKG-TYPE-E VALUE 'EMERGENCY '.
+      *           PACKAGE STATUS
+               10  ALPKB-RS-STAT       PIC X(12) VALUE SPACES.
+                   88  ALPKB-RS-STAT-IED   VALUE 'IN-EDIT     '.
+                   88  ALPKB-RS-STAT-IAP   VALUE 'IN-APPROVAL '.
+                   88  ALPKB-RS-STAT-DE    VALUE 'DENIED      '.
+                   88  ALPKB-RS-STAT-AP    VALUE 'APPROVED    '.
+                   88  ALPKB-RS-STAT-IEX   VALUE 'IN-EXECUTION'.
+                   88  ALPKB-RS-STAT-EXE   VALUE 'EXECUTED    '.
+                   88  ALPKB-RS-STAT-EXF   VALUE 'EXEC-FAILED '.
+                   88  ALPKB-RS-STAT-COM   VALUE 'COMMITTED   '.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALPKB-RS-IPKGID     PIC X(16) VALUE SPACES.
+               10  ALPKB-RS-PKGVER     PIC 9(04) COMP VALUE ZERO.
+               10  ALPKB-RS-PROMPKG    PIC X(01) VALUE SPACES.
+                   88  ALPKB-RS-PROMPKG-YES VALUE 'Y'.
+                   88  ALPKB-RS-PROMPKG-NO  VALUE 'N', ' '.
+               10  ALPKB-RS-FLG-HISE   PIC X(01) VALUE SPACES.
+                   88  ALPKB-RS-HISE-YES   VALUE 'Y'.
+                   88  ALPKB-RS-HISE-NO    VALUE 'N', ' '.
+               10  ALPKB-RS-ENV        PIC X(08) VALUE SPACES.
+               10  ALPKB-RS-STG-ID     PIC X(01) VALUE SPACES.
+               10  FILLER              PIC X(11) VALUE SPACES.

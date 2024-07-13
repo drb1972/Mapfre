@@ -1,0 +1,37 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag & sh dsname env sys sbs stage
+tag @ uh memsel
+tag ¢ sh memname
+tag ~ uh tblname
+tag ` uh tbltype
+tag ^ uh tblcomm
+tag $ uh tblnvers
+%--------------------------  Member Selection List  ----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++FROM  Data set:   &
++TO    Environment:&        +System:&        +Subsystem:&        +Stage:&
++                                                                          NEW
++   MEMBER     ELEMENT    TYPE     COMMENT                               VERSION
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+ @ ¢          ~          `        ^                                        $  +
+enddef

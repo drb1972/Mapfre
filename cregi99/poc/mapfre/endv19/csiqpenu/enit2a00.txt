@@ -1,0 +1,31 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Export Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Export Package panel to export the SCL associated with a package to an
++external data set.  To export enter a Export to data set name, select action
++1 and press enter.  You may cancel the Export Package action by selecting
++action 2 and pressing enter.
++
++
++Select 1 -4 for information about:
+%   1+- Package identification fields
+%   2+- Package event fields
+%   3+- Export to data set name fields
+%   4+- Export options fields
+%
+%
++ Select a Help topic or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citpkev0
+                 3,enit2A10
+                 4,enit2A20
+                )
+)END

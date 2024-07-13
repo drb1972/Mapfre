@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Cast - Action Security Check \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The C1DEFLTS Table contains a flag*PKGCSEC*that indicates whether
++actions should be checked at package cast time, to determine if
++the person casting the package has the authority to perform all
++actions contained in that package.
++
++If PKGCSEC=Y, each action is checked in the package. If the person
++is not authorized to perform all actions, he/she cannot cast the
++package.  If PKGCSEC=N, no security checks are performed.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

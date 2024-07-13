@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Output Member Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM displays the Merge Output Member Selection List when you leave the
++MEMBER field blank or provide an overlay mask on the Merge Output Specification
++panel. PDM builds the list using the members in the WIP library.
++
++To select a member, tab to the line where the member name appears and
++type%S+next to the member name. You can select multiple WIP file
++members at one time.
++
++When you press ENTER the Merge process is invoked for all selected members.
++When the Merge process has been completed for a member, the message
++*MERGED appears in the RENAME field next to each member.
++
++If you are using batch mode, the message *WRITTEN appears rather than
++*MERGED, indicating that the appropriate batch request control
++statements have been written. The actual merge does not take place
++until the requests are submitted for processing.
++
++
+)END

@@ -1,0 +1,40 @@
+      *****************************************************************
+      *                                                               *
+      *            MOVE ELEMENT - REQUEST BLOCK                       *
+      *                                                               *
+      *****************************************************************
+       01  AEMOV-RQ.
+           05  AEMOV-RQ-HEADER.
+               10  AEMOV-RQ-LEN        PIC 9(04) COMP VALUE 296.
+               10  AEMOV-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AEMOV-RQ-ID         PIC 9(04) COMP VALUE 1296.
+               10  AEMOV-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AEMOV-RQ-EYE        PIC X(04)      VALUE 'EMOQ'.
+           05  AEMOV-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AEMOV-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AEMOV-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AEMOV-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AEMOV-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AEMOV-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AEMOV-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AEMOV-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AEMOV-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AEMOV-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AEMOV-RQ-SYN        PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-WIT-HIS    PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-BYP-DEL    PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-SIGNIN     PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-RETA-SIGNO PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-SIGNO-TO   PIC X(08)      VALUE SPACES.
+               10  AEMOV-RQ-JUMP       PIC X(01)      VALUE SPACES.
+               10  AEMOV-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AEMOV-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AEMOV-WCCID         PIC X(12)      VALUE SPACES.
+               10  AEMOV-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AEMOV-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AEMOV-WPROGRO-2-8   PIC X(56)      VALUE SPACES.

@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(OUTPUT) CAPS(OFF)       FORMAT(&VARFMCCI) INTENS(HIGH)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY
+%------------------------------- ELEMENT MASTER --------------------------------
+%COMMAND ===>_ZCMD                                            +(PANEL 1 OF 2)  +
++
++ELEMENT: ¢EMNAME    +ENV:¢EMENV   +SYS:¢EMSYS   +SUB:¢EMSBS   +TYPE:¢EMTYPE  +
++PROC GRP:¢EPRGRP  +  STG:¢Z      +VVLL:¢ECVL           +LAST ACTION:¢ELSTACT
++N/S:¢EMSRCD                                          +   SIGNOUT ID:¢EOWNRID
++DESCRIPTION:`EMBCOM
++PKG ID (SOURCE):¢ESPKGID         +   PKG ID (OUTPUT):¢EOPKGID
++LOCKED FOR PKG: ¢ECPKGID         +
++---------------------------  LAST ELEMENT ACTION  -----------------------------
++USERID: ¢ELAUID  +  DATE/TIME:¢ELADATE¢ELATIME+        CCID:^ELACCID      +
++COMMENT:`ELACOMM                                  +  ACTION:¢ELMODACT  +
++ACTN RC:¢EMRC+      PROCESSOR:¢EMLPRON +¢EMLPROF +  PROC RC:¢EPRC ¢EMPFLAG
++
++------------------------------  CURRENT SOURCE  -------------------------------
++USERID: ¢EMLUID  +  DATE/TIME:¢EMLDTE ¢EMLT   +        CCID:^ECTL#        +
++COMMENT:`EMCCOM                                  +DELTA FMT:¢EMELMFMT
++ADD/UPDATE FROM DSN:@EFDSN
++
++---------------------------------  GENERATE  ----------------------------------
++USERID: ¢EMPUID  +  DATE/TIME:¢EMPD   ¢EMPT   +        CCID:^EGCCID       +
++COMMENT:`EMPCOM                                  +
++COMPONENT LIST VVLL:¢ECMPVL                      +DELTA FMT:¢EMCMPFMT
++                                               (Press ENTER for next panel)
+)INIT
+  .ZVARS = '(EMSTGID)'
+  .HELP = CITSED00
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Cast Package Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to cast a package. You can also review the package SCL, and
++add notes you may want to associate with the package.
+%
+%   C+- To cast the package.
+%   S+- To review the package SCL.
+%   N+- To add notes you want to associate with the package.
+%  CI+- To view correlation information.
++
++    Select%1+-%9+for information about
++
+%    1+- Package ID fields          %5+- Validate components
+%    2+- Package status             %6+- Execution window
+%    3+- Sharable package           %7+- Package events
+%    4+- Backout enabled            %8+- More about package cast
+                                    %9+- Notes exist for package
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITBKEN0
+                  5,CITCVAL0 6,CITXWIN0 7,CITPKEV0 8,CITT7200 9,citnefp0)
+)END

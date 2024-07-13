@@ -1,0 +1,24 @@
+@REM ****************************************************** #PSBDT1B ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: CREATE JCL WHICH IS RELATED TO A NEW
+@REM *              PDS BEING PROCESSED BY BDT (JES).  FOR A FLOW
+@REM *              DESCRIPTION, REFER TO #PSBDT11.
+@REM *******************************************************************
+@REM *******************************************************************
+@REM PTF P002337  APPLIED TO CORRECT MISSING FDSN/SPACE DURING DELETE
+@REM *******************************************************************
+@REM *******************************************************************
+@REM PTF P004539  ADD DSNTYPE FOR PDSE CHECK
+@REM *******************************************************************
+//I&F5     DD DISP=(OLD,DELETE),DSN=&&F&F5
+//O&F5     DD DISP=(NEW,CATLG),UNIT=&RUNIT,
+//             DSN=&TDSN,
+//             DCB=&RDSN,
+@IF &RVOLSER
+//             VOL=SER=&RVOLSER,
+@ENDIF
+@IF &C1SPDSNT
+//             DSNTYPE=LIBRARY,
+@ENDIF
+//             SPACE=(CYL,(0005,0005,0005))

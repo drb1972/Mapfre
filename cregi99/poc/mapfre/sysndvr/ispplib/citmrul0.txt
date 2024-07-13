@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Mapping Rule Description \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++On create, modify, and display panels, the 1 to 40 character
++description of the mapping rule on the panel.
++
++On the test panel, the description of the mapping rule used to
++generate the remote data set name or path name.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++                               %PF3+to return
+)END

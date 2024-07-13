@@ -1,0 +1,53 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+   ^ TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF) JUST(ASIS)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY
+%USSDSPL -----------------  DISPLAY USS MAPPING RULE  --------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++DESTINATION:¢VNBSSDST+
++
++  MAPPING RULE DESCRIPTION:|VUMDESC                                 +
++  UPDATED:¢Z      ¢Z    +BY¢VUMUPUID+ +CREATED:¢Z      ¢Z    +BY¢VUMCRUID+
++
++  If REMOTE Path Name is blank, HOST path will be excluded from transmission.
+$SAREA                                                                         $
+)AREA SAREA
++  HOST Path Name:
++  *^VUMHPN01                                                        +*
++  *^VUMHPN02                                                        +*
++  *^VUMHPN03                                                        +*
++  *^VUMHPN04                                                        +*
++  *^VUMHPN05                                                        +*
++  *^VUMHPN06                                                        +*
++  *^VUMHPN07                                                        +*
++  *^VUMHPN08                                                        +*
++  *^VUMHPN09                                                        +*
++  *^VUMHPN10                                                        +*
++  *^VUMHPN11                                                        +*
++  *^VUMHPN12                                                        +*
++
++  Maps to REMOTE Path Name:
++  *^VUMRPN01                                                        +*
++  *^VUMRPN02                                                        +*
++  *^VUMRPN03                                                        +*
++  *^VUMRPN04                                                        +*
++  *^VUMRPN05                                                        +*
++  *^VUMRPN06                                                        +*
++  *^VUMRPN07                                                        +*
++  *^VUMRPN08                                                        +*
++  *^VUMRPN09                                                        +*
++  *^VUMRPN10                                                        +*
++  *^VUMRPN11                                                        +*
++  *^VUMRPN12                                                        +*
+)INIT
+  .HELP = CITPD800
+  .ZVARS = '(VUMUPDAT VUMUPTIM VUMCRDAT VUMCRTIM)'
+)PROC
+)END

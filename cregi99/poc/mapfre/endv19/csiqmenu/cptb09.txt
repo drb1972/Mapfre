@@ -1,0 +1,25 @@
+CPTB090  'Invalid Quantity'                                .ALARM=YES
+'CPTB090 Space quantity must be 1 through 9999'
+
+CPTB091  'Sourceless Element'                              .ALARM=YES
+'CPTB091 Sourceless element cannot be selected'
+
+CPTB092  'Storage unavailable'                             .ALARM=YES
+'CPTB092 A storage request was denied. Increase the region size.'
+
+CPTB093  'LRECL is too Large'                              .ALARM=YES
+'CPTB093 The LRECL of the WIP, Root or Derivation file is too large'
+
+CPTB094  'PV/LB not allowed'                               .ALARM=YES
+'CPTB094 Panvalet or Librarian datasets are not supported'
+
+CPTB095  'COMPARE is too large'                            .ALARM=YES
+'CPTB095 The compare to value should be between 1 and 32000'
+CPTB096  'Location Type invalid'                           .ALARM=YES
+'CPTB096 The Root, DV1 and DV2 locations must all be Endevor'
+CPTB097  'Invalid Processor Group'                         .ALARM=YES
+'CPTB097 Processor group name does not exist for inventory'
+CPTB098  'Caution Messages'                                .ALARM=YES
+'CPTB098 PDM process completed with caution message(s)'
+CPTB099  'Invalid version level'                           .ALARM=YES
+'CPTB099 Element is a Log delta type, last version level required'

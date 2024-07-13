@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Summary of Levels Panels \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                                   %Page 1 of 3
+%Heading Information:
++  * Environment name and Stage ID where the element resides.
++  * System, subsystem, and type associated with the element.
++  * Element+- Name of the 1-255 character element name. If the name is
++       greater than 10 characters you can scroll right or left by placing
++       the cursor in the name field and using the%RIGHT+or%LEFT+function
++       keys, usually F11 and F10.
++       You can also type%ZEXPAND+in the%OPTION+field, place the cursor on
++       the element name and hit%ENTER+to display the entire element name
++       in a pop-up window.
++  * (Retrieve only) Name of target data set for the Retrieve.
++
+%Level Information:
++  * Version/level (VVLL) number, DATE and TIME when the level was created.
++  * USER ID to which the element is signed out.
++  * Number of statements (STMTS) at each level.
++  * Number of INSERTS and DELETES at each level.
++
++
++                        (%PF3+to return,%ENTER+to continue)
+)PROC
+   &ZCONT = CITSLEV2
+)END

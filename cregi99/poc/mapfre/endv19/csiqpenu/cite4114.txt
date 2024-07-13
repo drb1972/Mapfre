@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Length and Compare \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Source Length+- Logical record length in source statements. The maximum
+   allowable value is 32,000. For variable length records, this length
+   does not include the four-byte record header.
+
+%Compare From+- Position within each statement at which comparing begins
+   when identifying changed statements (5 digits in the range 0-32,000).
+   The default is 1.
+
+%Compare To+- Position within each statement at which comparing stops
+   when identifying changed statements (5 digits in the range 0-32,000).
+   The default is 72, and should be set to 80 for type Process,
+   if you plan to use in-stream data in processors.
+
+
++
++\ \ (%PF3+to return) \ \
+)END

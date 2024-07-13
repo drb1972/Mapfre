@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - CCID Usage \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Build WIP dialog allows the user to specify a CCID as a selection
++criterion for CA Endevor SCM elements. The user has the option of
++comparing the CCID against all or only one of the Master Control File
++CCID fields listed below:
++
++     Base CCID
++     Last Action CCID
++     Last Generate CCID
++     Retrieve CCID
++
++When specified in foreground mode or to generate SCL for background
++execution, the specified CCID is used to identify elements for inclusion
++on Root, Derivation 1 or Derivation 2 element selection lists.
++
++When specified in SCL for background execution, the CCID is used to
++select elements from the environment specified in Root, Derivation 1,
++or Derivation 2 keywords of the Build WIP action.
++
+)END

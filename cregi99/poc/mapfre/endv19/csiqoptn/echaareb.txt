@@ -1,0 +1,61 @@
+      ***************************************************************
+      *             REQUEST EXTENSION BLOCK
+      ***************************************************************
+      *
+      * THIS COPYBOOK MAPS ALL THE FIELDS NECESSARY FOR LONG NAME
+      * SUPPORT. IF YOU ARE NOT USING THE LONG NAME FEATURE, THIS
+      * COPYBOOK IS NOT NECESSARY. NOT ALL THE FIELDS ARE REQUIRED
+      * FOR ALL FUNCTIONS. SEE THE MATRIX BELOW TO DETERMINE WHICH
+      * FIELDS ARE REQUIRED BY WHICH FUNCTIONS.
+      *
+      *                     LONG NAME FIELD / FUNCTION MATRIX
+      *            |--------------------------------------------------|
+      *            | A | D | G | M | P | P | R | S | T | U | E | L | D|
+      * FUNCTION-> | D | E | E | O | R | R | E | I | R | P | E | E | I|
+      *            | D | L | N | V | E | M | T | G | A | D | L | L | R|
+      *            |--------------------------------------------------|
+      * ELM     -> | X | X | X | X | X |   | X | X | X | X | X | X |  |
+      * ELM-THRU-> | X | X | X | X | X |   | X | X | X | X |   | X |  |
+      * TELM    -> |   |   |   |   |   |   |   |   | X |   |   |   |  |
+      * PATH    -> | X |   |   |   |   | X | X |   |   | X |   |   | X|
+      * USSFILE -> | X |   |   |   |   | X | X |   |   | X |   |   | X|
+      * USSFILE-THRU>  |   |   |   |   | X |   |   |   |   |   |   | X|
+      *            |--------------------------------------------------|
+      *****************************************************************
+       01  AAREB-RQ.
+      *        HEADER DATA
+           05  AAREB-RQ-HEADER.
+               10  AAREB-RQ-LEN           PIC 9(04) COMP VALUE 1808.
+               10  AAREB-RQ-FLAGS         PIC 9(04) COMP VALUE ZERO.
+               10  AAREB-RQ-ID            PIC 9(04) COMP VALUE 1008.
+               10  AAREB-RQ-VERS          PIC 9(04) COMP VALUE 1.
+               10  AAREB-RQ-EYE           PIC X(04)      VALUE 'AREB'.
+           05  AAREB-RQ-DATAAREA.
+      ***************************************************************
+      *        ELEMENT DATA
+      ***************************************************************
+               10  AAREB-RQ-ELMDATA.
+                   15  AAREB-RQ-ELM       PIC X(255)     VALUE SPACES.
+                   15  FILLER             PIC X(01)      VALUE SPACES.
+                   15  AAREB-RQ-ELM-THRU  PIC X(255)     VALUE SPACES.
+                   15  FILLER             PIC X(01)      VALUE SPACES.
+                   15  AAREB-RQ-TELM      PIC X(255)     VALUE SPACES.
+      ***************************************************************
+      *        USS PATH/FROM/THRU USS FILE DATA
+      ***************************************************************
+      *        THRU USS FILE NAME
+                   15  AAREB-RQ-HFSF-THRU REDEFINES
+                       AAREB-RQ-TELM      PIC X(255).
+                   15  AAREB-RQ-USSFILE-THRU REDEFINES
+                       AAREB-RQ-HFSF-THRU PIC X(255).
+               10  FILLER                 PIC X(01)      VALUE SPACES.
+      *        PATH AND FROM USS FILE NAMES
+               10  AAREB-RQ-PATH          PIC X(768)     VALUE SPACES.
+               10  AAREB-RQ-HFSF          PIC X(255)     VALUE SPACES.
+               10  AAREB-RQ-USSFILE       REDEFINES
+                   AAREB-RQ-HFSF          PIC X(255).
+               10  FILLER                 PIC X(01)      VALUE SPACES.
+               10  AAREB-RQ-LFSEXT        PIC X(01)      VALUE SPACES.
+      *        RESERVED AND ALIGNMENT DATA
+               10  AAREB-RQ-RESERVE       PIC X(01)      VALUE SPACES.
+               10  FILLER                 PIC X(02)      VALUE SPACES.

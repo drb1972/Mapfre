@@ -1,0 +1,26 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Leave the COMMAND field blank to display an element selection list.
++Otherwise:
++ Type  To
+%   U+  Display the User Option menu.
+%   D+  Display the Quick Edit User Defaults panel.
+%  AO+  Display the Action Options panel for Quick Edit.
+%   P+  Do Package activities.
+%  PD+  Invoke Parallel Development Manager.
+%   E+  Edit an element.                    %G+  Generate an element.
+%  CR+  Create a new element.               %O+  Move an element.
+%   #+  Delete an element.                 %SI+  Signin an element.
+%   M+  Display Master Control File information for an element.
+%   S+  Display a Summary of Levels panel (%SX+- component summary).
+%   B+  Display the Element Browse panel  (%BX+- component list).
+%   C+  Display the Element Changes panel (%CX+- component changes).
+%   H+  Display the Element History panel (%HX+- component history).
+%  LO+  Display Output Components for an element.
+%  LI+  Display Input  Components for an element.
+%  LC+  Display Components list for an element.
+%  LL+  Display the Element Listing from the Component List.
++                                           (%END+to return)
+)END

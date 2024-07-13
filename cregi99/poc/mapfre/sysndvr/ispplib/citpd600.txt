@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Data Set Mapping Rules \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to create, display, modify, or test data set mapping
++rules.
++
+%  blank+- Modify the mapping rule.
+%      T+- Test one or more mapping rules.
+%      #+- Delete the mapping rule.
++
++
++  Select from the following options for more information:
+%    1+- Destination name           %4+- Remote data set name
+%    2+- Mapping rule description   %5+- Approx host members/cyl
+%    3+- Host data set name         %6+- Created/updated fields
++
++
++
++
++
++
++
++                               %PF3+to return
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDEST0 2,CITMRUL0 3,CITHDSN0
+                  4,CITRDSN0 5,CITAHMC0 6,CITPDBTM)
+)END

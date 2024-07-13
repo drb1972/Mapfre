@@ -1,0 +1,51 @@
+)ATTR DEFAULT(%+¯)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ¢ TYPE(text) INTENS(LOW) skip(on)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
++    ------------- Create Endevor System Spreadsheet ---------------
++OPTION  ===>$ZCMD
++    Press F3 to Quit.
+%
++    SYSTEM  =>$Z ¢
++    Email  ==>$Z                                              ¢
++    Must be an MAPFRE E-mail address e.g joe.blogs@mapfre.com
++
++    Include the following Environments (Y/N)
++
++    UNIT   ==>$Z¢
++    SYST   ==>$Z¢
++    ACPT   ==>$Z¢
++    PROD   ==>$Z¢
+%
+¢
++           |Z                                                 ¢
++
+
+)INIT
+  .HELP = NOHELP
+  .ZVARS = '(C1SYS C1EMAIL UNIT SYST ACPT PROD ERR)'
+  VGET (C1SYS) PROFILE
+  VGET (C1EMAIL) PROFILE
+  VGET (UNIT) PROFILE
+  VGET (SYST) PROFILE
+  VGET (ACPT) PROFILE
+  VGET (PROD) PROFILE
+  &option = ' '
+)reinit
+
+)PROC
+  VER (&C1SYS,NB)
+  VER (&C1EMAIL,NB)
+  VER (&UNIT,LIST,N,Y)
+  VER (&SYST,LIST,N,Y)
+  VER (&ACPT,LIST,N,Y)
+  VER (&PROD,LIST,N,Y)
+
+  VPUT (C1SYS) PROFILE
+  VPUT (C1EMAIL) PROFILE
+  VPUT (UNIT) PROFILE
+  VPUT (SYST) PROFILE
+  VPUT (ACPT) PROFILE
+  VPUT (PROD) PROFILE
+)END

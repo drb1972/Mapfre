@@ -1,0 +1,29 @@
+      *****************************************************************
+      *                                                               *
+      *            ENDEVOR API CONTROL STRUCTURE                      *
+      *                                                               *
+      *****************************************************************
+       01  AACTL.
+           05  AACTL-HEADER.
+               10  AACTL-LEN           PIC 9(4) COMP VALUE 208.
+               10  AACTL-FLAGS         PIC 9(4) COMP VALUE 0.
+               10  AACTL-ID            PIC 9(4) COMP VALUE 10.
+               10  AACTL-VERS          PIC 9(4) COMP VALUE 2.
+               10  AACTL-EYE           PIC X(4)      VALUE '$CTL'.
+           05  AACTL-DATAAREA.
+               10  AACTL-MSG-DDN       PIC X(8)      VALUE SPACES.
+               10  AACTL-LIST-DDN      PIC X(8)      VALUE SPACES.
+               10  AACTL-HI-MSGID      PIC X(8)      VALUE SPACES.
+               10  AACTL-SHUTDOWN      PIC X         VALUE 'Y'.
+               10  AACTL-FREELIBS      PIC X         VALUE SPACE.
+               10  AACTL-RESERVE2      PIC X         VALUE SPACE.
+               10  AACTL-PRODUCTID     PIC X         VALUE SPACE.
+                   88  AACTL-PRODUCTID-QEPLUGIN        VALUE 'Q'.
+               10  AACTL-RTNCODE       PIC 9(4)      VALUE ZEROS.
+               10  AACTL-REASON        PIC 9(4)      VALUE ZEROS.
+               10  AACTL-SELECTED      PIC 9(8)      VALUE ZEROS.
+               10  AACTL-RETURNED      PIC 9(8)      VALUE ZEROS.
+               10  AACTL-STOPRC        PIC 9(4) COMP VALUE ZEROS.
+               10  FILLER              PIC X(2)      VALUE SPACES.
+               10  AACTL-ERRMSG        PIC X(132)    VALUE SPACES.
+               10  AACTL-CMDMSG-DDN    PIC X(8)      VALUE SPACES.

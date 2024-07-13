@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - From Location \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields identify the originating location for an Element that has
++been moved or transferred from another inventory location.
++
+%UserID+- Id of the user who requested the Move or Transfer.
+%Date/Time+- Date and time when the Element was moved or transferred.
+%Action+- Move or Transfer.
++
+%Element+- Element name at the originating location. Name of the
++   1-255 character Element name. If the name is greater than 60
++   characters, you can scroll right or left: place the cursor
++   on the name field and then use the%RIGHT+or%LEFT+function keys,
++   usually F11 and F10. Alternately, to display the entire Element
++   name in a pop-up window, type%ZEXPAND+in the%COMMAND+field,
++   place the cursor on the Element name, and then press%ENTER.
+%Sys+- System name at the originating environment.
+%Sub+- Subsystem name at the originating environment.
+%Type+- Type name at the originating environment.
+%Stg+- Stage ID at the originating environment.
+%VVLL+- Version and level at the originating environment.
+)END

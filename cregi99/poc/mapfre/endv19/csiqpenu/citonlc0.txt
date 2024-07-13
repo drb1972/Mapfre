@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Only Component \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Applicable for ACM users only.  Indicates whether you want to
++delete both the element component list and the element, or the
++element component list only. Acceptable values are:
++
+%   N+- Default. Delete the element and the component list information.
++
+%   Y+- Delete just the element component list.
++
++
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

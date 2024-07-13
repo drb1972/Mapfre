@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Backout Package Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++  Use this panel to back out or back in a package, an element action within a
++  package, or to display back-out information using these options:
++
+%    BP+- Back out the package.   %Note:+If a package is partially backed out
++                                  using the%EB+option, options%BP+and%BI+will
+%    BI+- Back in the package.     back out or in all remaining output members.
++
+%    EB+- Back out or back in output members of a package by element action.
++
+%    B +- Display backout information for the package.
++
+%    CI+- Display correlation information.
++
++  Select an option below for more information:
+%    1+- Package ID fields        %5+- Package events
+%    2+- Package status           %6+- Backout information display
+%    3+- Sharable package         %7+- More on backout
+%    4+- Execution window
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0 3,CITSHPK0 4,CITXWIN0
+                  5,CITPKEV0 6,CITP1400 7,CITT7600)
+)END

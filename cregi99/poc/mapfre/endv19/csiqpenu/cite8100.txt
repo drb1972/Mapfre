@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Approver Group Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to create, update, display, or delete approver group
++definitions.
++
++
++
++    Select%1+-%2+ for more information
++
+%    1+- About approver groups      %2+- Field descriptions
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE8110 2,CITE8120)
+)END

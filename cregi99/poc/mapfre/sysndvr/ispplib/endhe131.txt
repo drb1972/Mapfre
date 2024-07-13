@@ -1,0 +1,25 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
+%Display System/Subsys List+- Indicates whether the system and
++  subsystem selection lists will appear when the System or
++  Subsystem fields do not contain explicit values.
+%    Y+- Display system and subsystem selection lists.
+%    N+- (Default)  Do not display the system and subsystem
++        selection lists.
++
+%  Note+- When using the Create (CR) option, if you do not
++    provide fully qualified system and subsystem names
++    the System and Subsystem Selection Lists are returned
++    even when this field is set to%N+.
++
++
++
++
++
++
++
++
++ \ \ (%END+to return) \ \
+)END

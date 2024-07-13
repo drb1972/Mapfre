@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ One Route Map - Example \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++In its simplest form, a series of environment/stage locations can be
++chained together to form a one-route map.
++
++       *****************      *****************      *****************
++       *     DEV       *      *      QA       *      *      PROD     *
++       *****************      *****************      *****************
++       * UNIT *  INT   *      *  QA   *  HOLD *      *  FIX  *  PROD *
++       *      *        *      *       *       *      *       *       *
++       *    ----->   ----------->   ----->  ---------------------->  *
++       *      *        *      *       *       *      *       *       *
++       *****************      *****************      *****************
++
++
++
++
++
++                                            (%PF3+to return)
+)END

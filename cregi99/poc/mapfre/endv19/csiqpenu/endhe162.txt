@@ -1,0 +1,29 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Prompt after Edit \-\ TUTORIAL
+%Command ===>~ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+%    Prompt after Edit+- Indicates whether the Submit PROMPT panel will
++       be shown after element Edit action.
++
++       This option works only in case where%CD18101_QE_QUE_BATCH_ACT+
++       feature is turned on.
++
++       Available values for Prompt after Edit:
+%          Y+- Show Batch Submit panel to submit batch job with queued
++              data after each Edit action.
+%          N+- Do not show Batch Submit panel after each Edit action.
++
++
++
++
++                                 (Press}END+to return)
+)PROC
+&ZUP = ENDHE150
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(END)
+)END

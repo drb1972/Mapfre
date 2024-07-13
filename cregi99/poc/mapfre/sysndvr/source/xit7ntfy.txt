@@ -1,0 +1,288 @@
+XIT7NTFY TITLE 'ENDEVOR/MVS PACKAGE EXIT07   EXAMPLE - NOTIFY'
+*************************************************************P0001582**
+*                                                            P0001582 *
+*   XIT7NTFY HAS BEEN MODIFIED TO SHOW HOW TO USE THE        P0001582 *
+*   NEW XMITM PROTOCOL WITH BC1PNTFY. XMITM PROTOCOL WAS     P0001582 *
+*   DESIGNED TO LET BC1PNTFY CREATE A MULTI LINES MESSAGE    P0001582 *
+*   FOR THE XMIT (TRANSMIT) FEATURE OF TSO.                  P0001582 *
+*                                                            P0001582 *
+*   IT USES THE NEW MACRO $NTFXMTM AS EXPLAINED BELOW.       P0001582 *
+*                                                            P0001582 *
+*   HOW TO USE $NTFXMTM:                                     P0001582 *
+*                                                            P0001582 *
+*   TYPE=I : USES CPOOL TO ALLOCATE EXTRA ROOM FOR           P0001582 *
+*                 ADDITIONAL MESSAGE LINES                   P0001582 *
+*            PRIM : NUMBER OF CELLS                          P0001582 *
+*            SECM : IF THE NUMBER OF LINES GETS GREATER THAN P0001582 *
+*                   PRIM , SEC ALLOWS FOR MORE LINES.        P0001582 *
+*                                                            P0001582 *
+*   TYPE=W : ACQUIRES A CELL                                 P0001582 *
+*            MOVES NOTMSGXT IN THIS CELL (MESSAGE FOR XMITM) P0001582 *
+*                                                            P0001582 *
+*   TYPE=C : FREES THE CPOOL ALLOCATED BY TYPE I.            P0001582 *
+*                                                            P0001582 *
+*************************************************************P0001582**
+***********************************************************************
+*   DESCRIPTION: THIS PACKAGE EXIT PROGRAM WILL NOTIFY                *
+*                A USER USING TSO/SEND PROTOCOL.                      *
+*                THE OTHER POSSIBLE PROTOCOLS (TPX, XMIT AND          *
+*                XMITM) WILL BE INCLUDED BUT COMMENTED                *
+*                OUT.                                                 *
+*                                                                     *
+*                NOTE THIS SAMPLE DOES NOT DRIVE NOTIFYS FROM         *
+*                AN APPROVER LIST, IT IS ON THE USERID LEVEL. FOR AN  *
+*                EXAMPLE NOTIFYING APPROVERS, USE XIT7APNT.           *
+*                                                                     *
+*   SETUP        THE SETUP ROUTINE ENABLES THIS PROGRAM               *
+*                AT THE FOLLOWING EXIT POINTS:                        *
+*                                                                     *
+*                1. POST CAST                                         *
+*                                                                     *
+*                                                                     *
+*   REGISTERS ON ENTRY:                                               *
+*                                                                     *
+*                0(R1) --> $PECBDS     EXIT CONTROL BLOCK             *
+*                4(R1) --> $PREQPDS    EXIT REQUEST BLOCK             *
+*                8(R1) --> $PHDRDS     EXIT HEADER  BLOCK             *
+*                                                                     *
+*   REGISTER USAGE:                                                   *
+*                                                                     *
+*                R5     -> $NOTIFY                                    *
+*                R6     -> $PECBDS                                    *
+*                R7     -> $PREQPDS                                   *
+*                R8     -> $PHDRDS                                    *
+*                R12    -> BASE PROGRAM                               *
+*                                                                     *
+*   ==>          R13    -> CONVENTIONAL STACK USAGE                   *
+*                                                                     *
+*   LINK EDIT : RENT, AMODE=31, RMODE=ANY                             *
+*                                                                     *
+*                                                                     *
+***********************************************************************
+***********************************************************************
+*   PACKAGE EXIT CONTROL BLOCK                                        *
+***********************************************************************
+         $PECBDS
+***********************************************************************
+*   PACKAGE EXIT REQUEST BLOCK                                        *
+***********************************************************************
+         $PREQPDS
+***********************************************************************
+*   PACKAGE EXIT HEADER  BLOCK                                        *
+***********************************************************************
+         $PHDRDS
+***********************************************************************
+*   REQISTER EQUATES                                                  *
+***********************************************************************
+R0       EQU   0
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R8       EQU   8
+R9       EQU   9
+R10      EQU   10
+R11      EQU   11
+R12      EQU   12
+R13      EQU   13
+R14      EQU   14
+R15      EQU   15
+*
+***********************************************************************
+*   THIS PROGRAM'S WORKAREA MAP                                       *
+***********************************************************************
+WORKAREA DSECT
+*
+SAVEAREA DS    18F
+*
+         $NOTIFY DSECT=NO
+NOTFRST  DC    A(0)  FIRST MSG                           P0001582        0003380
+NOTCUR   DC    A(0)                                      P0001582        0003400
+CPOOLR   CPOOL BUILD,PCELLCT=2500,SCELLCT=500,CSIZE=80,  P0001582      **0003410
+               LOC=BELOW,MF=L                            P0001582        0003420
+*
+PLIST    DS    8F                                              C9221850
+*
+WORKLN   EQU   *-WORKAREA
+         TITLE 'XIT7NTFY: NOTIFY USERID'
+***********************************************************************
+*   MAINLINE LOGIC                                                    *
+***********************************************************************
+XIT7NTFY CSECT
+         SAVE  (14,12),,'NOTIFY EXIT'       SAVE CALLER'S REG 12(13)
+         LR    R12,R15                      POINT TO THIS PROGRAM
+         USING XIT7NTFY,R12
+         L     R6,0(,R1)                    POINT TO THE $PECBDS
+         USING $PECBDS,R6
+         L     R7,4(,R1)                    POINT TO THE $PREQPDS
+         USING $PREQPDS,R7
+         L     R8,8(,R1)                    POINT TO THE $PHDRDS
+         USING $PHDRDS,R8
+***********************************************************************
+*   GET STORAGE FOR SAVEAREA AND $NOTIFY                              *
+***********************************************************************
+         L     R0,=A(WORKLN)                GET SIZE OF W.A
+         GETMAIN R,LV=(0)                   GET WORKING STORAGE
+         ST    R1,8(R13)                    STORE NEW STACK +8(OLD)
+         ST    R13,4(R1)                    STORE OLD STACK +4(NEW)
+         LR    R13,R1                       POINT R13 TO OUR STACK
+***********************************************************************
+*        CHECK FOR SETUP CALL                                        *
+***********************************************************************
+         LA    R5,72(R13)                   POINT TO LOCAL WORKAREA
+*
+         USING $NOTIFY,R5                   ESTABLISH ADDRESSIBILIY
+*
+         CLC    PECBFNNM,=CL8'SETUP'        ARE WE AT SETUP
+         BNE    MAIN0100                    NO GO SET UP $NOTIFY
+***********************************************************************
+*
+*  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP PROCESSING.
+*  THE USER EXIT SHOULD MODIFY THESE FIELDS TO ENABLE EXIT POINTS.
+*  THIS SETUP IS DONE ONCE PER ENDEVOR SESSION.
+*  THE DEFAULT IS 'N'. TO ENABLE SET FIELD TO 'Y'.
+*
+***********************************************************************
+         MVI   PECBCAAF,C'Y'                ENABLE AFTER CAST  EXIT
+         B     MAIN9000                     RETURN TO ENDEVOR
+***********************************************************************
+*  POINT TO $NOTIFY                                                   *
+***********************************************************************
+MAIN0100 DS    0H
+         $NTFXMTM TYPE=I             INIT CPOOL FOR MSG        P0001582
+*
+***********************************************************************
+*   LOAD NOTIFY PROGRAM IF NOT ALREADY DONE                           *
+*   NOTE: CHECK WITH YOUR ENDEVOR TECHNICIAN TO SEE IF THIS ANCHOR    *
+*         WORD IS BEING USED BY ANOTHER PACKAGE EXIT.                 *
+***********************************************************************
+         ICM   R15,B'1111',PECBUEXT         PROGRAM ALREADY LOADED?
+         BNZ   MAIN0110                     YES. CONTINUE
+         LOAD  EP=BC1PNTFY,ERRET=MAIN8000   NO. LOAD IT
+         LR    R15,R0
+         ST    R15,PECBUEXT                 STORE IN EXIT ANCHOR WORD
+MAIN0110 DS    0H
+***********************************************************************
+*   SET UP TSO $NOTIFY CONTROL BLOCK                                  *
+***********************************************************************
+         MVC   NOTFTYPE,=CL8'TSO'           SELECT 'TSO'
+         MVI   NTSOLOGN,C'Y'                SET LOGON ATTRIBUTE
+         MVC   NOTFUSER,PECBUSER
+***********************************************************************
+*   SET UP TPX $NOTIFY CONTROL BLOCK                                  *
+*   NOTE: USE OF THE TPX PROTOCOL REQUIRES CODING SITE SPECIFIC       *
+*         INFORMATION. WHERE EVER YOU SEE THE "<==" THIS DATA MUST    *
+*         BE PROVIDED BY THE PROGRAM.                                 *
+*   NOTE: THIS EXAMPLE USES THE TPX LIST OPTION. IT WILL PROCESS A    *
+*         LIST OF USERS DEFINED TO TPX.                               *
+***********************************************************************
+*        MVC   NOTFTYPE,=CL8'TPX'           SELECT "TPX"
+*        MVC   NTPXJOBN,=CL8'XXXXXXXX'  <== PRODUCTION TPX JOBNAME
+*        MVI   NTPXTYPE,C'L'                USE LIST PROCESSING
+*        MVC   NOTFUSER,=CL8'TPXLISTN'  <== PREDEFINED TPX USER LIST
+*        MVI   NTPXSAVE,C'Y'                SET THE SAVE ATTRIBUTE
+***********************************************************************
+*   FILL IN ALL THE XMIT REQUEST FIELDS                               *
+*   NOTE: TO USE THE XMIT OPTION, XMIT MUST BE ENABLED ON YOUR        *
+*         SYSTEM. CHECK WITH YOUR MVS SYSTEM PROGRAMMER.              *
+***********************************************************************
+*        MVC   NOTFTYPE,=CL8'XMIT'          <====  USE MVS/XMIT
+*        MVC   NOTFUSER,=CL8'USERID'        <====  USER ID
+*        MVC   NXMTNODE,=CL8'NJENODEN'      <====  USER NJE NODE NAME
+************************************************************** P0001582
+*   FILL IN ALL THE XMITM REQUEST FIELDS                       P0001582
+*   NOTE: TO USE THE XMITM OPTION,XMIT MUST BE ENABLED ON YOUR P0001582
+*         SYSTEM. CHECK WITH YOUR MVS SYSTEM PROGRAMMER.       P0001582
+************************************************************** P0001582
+*        MVC   NOTFTYPE,=CL8'XMITM'        <====  USE MVS/XMIT P0001582
+*        MVC   NOTFUSER,=CL8'USERID'       <====  USER ID      P0001582
+*        MVC   NXMTNODE,=CL8'NJENODEN'     <====  NJE NODE ID  P0001582
+***********************************************************************
+*   BUILD MESSAGE TEXT  - EITHER FROM LITERAL POOL OR USER MESSAGE    *
+***********************************************************************
+         MVC   NOTMSGTX,BLANKS              CLEAR MESSAGE TEXT
+         LA    R2,L'WMSGTEXT-1              SET MESSAGE   LENGTH
+         EX    R2,MVCMSG00                  MOVE MESSAGE
+*                                                              P0001582
+* ALL LINES BELOW UNTIL 'CALL' HEADER LINE SHOULD BE           P0001582
+*     COMMENTED FOR OTHER PROTOCOLS THAN XMITM.                P0001582
+*                                                              P0001582
+*        $NTFXMTM TYPE=W              STORE NOTMSGTX IN CPOOL  P0001582
+*                                                              P0001582
+*        MVC   NOTMSGTX,BLANKS        CLEAR MESSAGE TEXT       P0001582
+*        LA    R2,L'WMSGTXT1-1        SET MESSAGE 1 LENGTH     P0001582
+*        EX    R2,MVCMSG01            MOVE MESSAGE 1           P0001582
+*        $NTFXMTM TYPE=W              STORE NOTMSGTX IN CPOOL  P0001582
+*                                                              P0001582
+*        MVC   NOTMSGTX,BLANKS        CLEAR MESSAGE TEXT       P0001582
+*        LA    R2,L'WMSGTXT2-1        SET MESSAGE 2 LENGTH     P0001582
+*        EX    R2,MVCMSG02            MOVE MESSAGE 2 IN CPOOL  P0001582
+*        $NTFXMTM TYPE=W              STORE NOTMSGTX IN CPOOL  P0001582
+***********************************************************************
+** CALL NOTIFY PROGRAM SENDING THE $NOTIFY BLOCK
+***********************************************************************
+         LA    R1,PLIST              POINT TO PARAM LIST       C9221851
+         LA    R14,$NOTIFY           POINT TO CONTROL BLOCK    C9221851
+         ST    R14,0(,R1)            POINT TO CONTROL BLOCK    C9221851
+         OI    0(R1),X'80'                  SET V.L. SWITCH
+         L     R15,PECBUEXT          RESTORE BC1PNTFY ADDRESS  P0001582
+*
+*
+         BALR  R14,R15                      BRANCH TO BC1PNTFY  (1)
+*
+*
+         LTR   R15,R15                      CHECK RETURN CODES
+         BNZ   MAIN8000
+         B     MAIN9000
+MAIN8000 DS    0H
+         MVC   PECBRTCD,=A(PECB$CAN)         BAD RETURN CODE
+***********************************************************************
+* IT IS THE USERS DECISION TO FAIL THE PACKAGE FUNCTION OR JUST ISSUE
+* A MESSAGE IF THE NOTIFICATION FACILITY RETURNS A NON ZERO RETURN
+* CODE. KEEP IN MIND THAT THE HIGHEST A RETURN VALUE CAN BE ON AN
+* "AFTER" PACKAGE FUNCTION, WILL BE FOUR. THE EXIT FACILITY WILL
+* DIMINISH A HIGHER RETURN CODE AND THE USER WILL GET A MESSAGE
+* TO THAT EFFECT.
+***********************************************************************
+***********************************************************************
+*   MOVE ERROR MESSGE FROM UTILITY INTO EXIT BLOCK                    *
+***********************************************************************
+         MVC   PECBMSG,NOTERMSG             MOVE ERROR MESSAGE
+         B     MAINEXIT
+MAIN9000 DS    0H
+         XC    PECBRTCD,PECBRTCD             CLEAR RC AREA
+***********************************************************************
+*   RETURN TO ENDEVOR                                                 *
+***********************************************************************
+MAINEXIT DS    0H
+*
+         $NTFXMTM TYPE=C             FREE CPOOL FOR MESSAGE    P0001582
+*
+         LR    R5,R13                        SAVE NEW STACK POINTER
+         L     R13,4(R13)                    POINT TO OLD STACK
+***********************************************************************
+*   CLEAN UP THIS PROGRAM'S STORAGE                                   *
+*   NOTE: THIS HAS TO BE DONE BEFORE THE "LOAD MULTIPLE" IS           *
+*   DOEN BECAUSE YOU LOSE THE POINTER TO YOUR STORAGE                 *
+***********************************************************************
+*
+         L     R0,=A(WORKLN)                GET SIZE
+         FREEMAIN R,A=(5),LV=(0)            FREE STORAGE
+*
+MAINRTRN DS    0H
+         RETURN (14,12)
+*
+MVCMSG00 MVC   NOTMSGTX(0),WMSGTEXT
+MVCMSG01 MVC   NOTMSGTX(0),WMSGTXT1                            P0001582
+MVCMSG02 MVC   NOTMSGTX(0),WMSGTXT2                            P0001582
+***********************************************************************
+*   PROGRAM CONSTANTS                                                 *
+***********************************************************************
+WMSGTEXT DC    C'MESSAGE TEXT FOR NOTIFICATION FACILITY'
+WMSGTXT1 DC    C'EXTRA MESSAGE LINE 1 FOR XMITM PROTOCOL'      P0001582
+WMSGTXT2 DC    C'EXTRA MESSAGE LINE 2 FOR XMITM PROTOCOL'      P0001582
+BLANKS   DC    CL80' '
+         END

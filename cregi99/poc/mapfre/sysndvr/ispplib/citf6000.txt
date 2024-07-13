@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Print Element \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The Print Element action prints information about selected elements.
+
++Print requests are queued to a temporary data set during each session.
++When you terminate the session, you are asked if you want to submit
++a job to print all the requests made during the session.
+
++By default the current level of the element is printed. If you want
++to print a preceding level, select that level from the Summary of Levels
++panel for that element.
+
++    Select%1+-%3+for information about specific fields
++
+%    1+- Panel options              %3+- List options
+%    2+- Inventory fields
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITF6001 2,CITNDVR0 3,CITLOPT0)
+)END

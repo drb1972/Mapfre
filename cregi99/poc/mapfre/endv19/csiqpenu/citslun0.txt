@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink MVS Server LU Name \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Server LU Name+ The VTAM LU name of the DistribuLink MVS Server that
++   will collect the package inventory for later distribution.  This
++   is a required field.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

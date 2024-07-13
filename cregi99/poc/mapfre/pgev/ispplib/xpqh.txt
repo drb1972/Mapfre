@@ -1,0 +1,14 @@
+)ATTR DEFAULT(%+_)
+)BODY EXPAND(\\)
+%\-\  EXPORT XPEDITER LISTING TO PLEXQ1  \-\
++
+  This panel builds and submits a job on the XXXX to do the following:
+
+ %a)+EXPORT XPEDITER LISTING from Xpediter DDIO file on XXXX
+ %b)+Submit Connect Direct Process to send exported listing to QPLEX
+ %c)+Submit a second job on the QPLEX to import the listing.
+
+  The first  jobname your TSO prefix followed by XP2Q
+  The second jobname is your TSO prefix followed by XP3Q
+
+)END

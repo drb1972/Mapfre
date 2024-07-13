@@ -1,0 +1,32 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(INPUT) INTENS(HIGH) JUST(LEFT)
+)BODY EXPAND(\\)
+%\-\ FOREGROUND PRINT REQUEST OPTIONS \-\
+%OPTION  ===>_ZCMD                                                             +
++
+%        J+- Submit job to execute (and delete) foreground PRINT requests
+%        D+- Delete PRINT requests (and do not perform PRINT actions)
+%        K+- Keep PRINT requests
++
++
++
++PRINT OPTION:
++  SYSOUT CLASS %===>_C+
++
++
++JOB STATEMENT INFORMATION:
+% ===>_C1PJC1                                                                  +
+% ===>_C1PJC2                                                                  +
+% ===>_C1PJC3                                                                  +
+% ===>_C1PJC4                                                                  +
+)INIT
+  .HELP = CITSPR90
+)PROC
+  IF (&ZCMD = 'J')
+    VER (&C,NONBLANK,MSG=CISO005)
+)END

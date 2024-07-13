@@ -1,0 +1,30 @@
+CIGG300S '$COMP3 invalid request'                        .ALARM=YES
+'C1G0300S INTERNAL ERROR, NOTIFY TECHNICAL SUPPORT'
+
+CIGG301E 'W/A not large enough'                         .ALARM=YES
+'C1G0301E Result area not large enough for compression'
+
+CIGG302E 'W/A not large enough'                         .ALARM=YES
+'C1G0302E Result area not large enough for decompression'
+
+CIGG303S '$COMP3 invalid request'                       .ALARM=YES
+'C1G0303S INTERNAL ERROR, NOTIFY TECHNICAL SUPPORT'
+
+CIGG304E 'Storage INIT Error'                           .ALARM=YES
+'C1G0304E Error encountered during storage initialization'
+
+CIGG305E 'Not Enough Storage'                           .ALARM=YES
+'C1G0305E Unable to acquire storage, increate region size'
+
+CIGG306E 'Invalid $COMP3 request'                       .ALARM=YES
+'C1G0306E $COMP3 request missing storage anchor address'
+
+CIGG307E '$COMP3 Expand invalid'                        .ALARM=YES
+'C1G0307E $COMP3 eye-catcher is missing from file to be decompressed'
+
+CIGG308I 'Compression Results'                          .ALARM=YES
+'C1G0308I See &C1MDSN for more information.'
+
+CIGG309I 'Decompression Results'                        .ALARM=YES
+'C1G0309I See &C1MDSN for more information.'
+

@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Element Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%10+for information about element options
++
+%    1+- Element storage options         %6+- Auto retention
+%    2+- Default processor group         %7+- Language identification
+%    3+- Regression information          %8+- Workbench fields
+%    4+- Length and compare fields       %9+- HFS fields
+%    5+- Consolidation rules            %10+- Element Recfm
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE4111 2,CITE4112 3,CITE4113 4,CITE4114
+          5,CITE4115 6,CITE4119 7,CITE4116 8,CITE4117 9,CITE4118
+          10,CITE411A)
+)END

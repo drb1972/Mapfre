@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Terminology \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++To use PDM effectively you should understand the following terms.
++
++  * Common insertions/deletions
++  * Conflict and contention
++  * WIP Selection Matrix
++  * Complexity Factor
++
++A%Common Insertion+or%Deletion+occurs when two programmers insert or
++delete the same line(s) at the same place in their respective
++derivations of the Root program.
++
++A%Conflict+occurs when two programmers insert different lines at
++exactly the same place in their respective derivations of the Root
++program. Conflicts are identified in the WIP file.
++
++                                            (%ENTER+to continue )
+)PROC
+   &ZCONT = BC1TT510
+)END

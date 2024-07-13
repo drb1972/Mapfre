@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Element Information \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++This panel provides summary information about the elements in a
++package that has been executed.
+
++The panel identifies the package that was executed and lists:
++  * The statement number for each action in the package (from the
++       Package Execution Reports.
++  * The action associated with the statement number.
++  * The element acted upon in the statement.
++  * The element type acted upon in the statement.
++  * Execution information, including
++     - The date and time execution began.
++     - The date and time execution ended.
++     - The highest action and processor return codes.
++       Note: Use%ESORT ARC+to sort the list by the action return code column.
++
++    Select%1+-%2+for information about
++
+%    1+- Package ID fields          %2+- Package status
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITPKID0 2,CITSTAT0)
+)END

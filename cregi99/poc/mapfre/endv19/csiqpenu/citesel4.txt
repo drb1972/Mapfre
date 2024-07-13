@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Transfer \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Type the line commands of%T, TN+or%XE+next to the element(s) you wish to
++process.
++
++%T + - Transfer an Element. Transferring source-less elements is not supported.
++
++%TN+ - Transfer an Element and rename the Element at the target location.
++       A pop-up Window will appear that allows you to enter the new name.
++      %Note:+If you are invoking the move processor for transfers, you
++       cannot rename an element at the target location.
++
++%XE+ - Displays the element name in a pop-up Window. The window can be moved
++       by using:
++       1) the%WINDOW+command using a PF function key (KEYS)
++       2) by a double click on the pop-up boarder and double clicking
++          on the target location.
++
++To use the%ZEXPAND+command, enter the ZEXPAND command on the COMMAND line
++and position the cursor anywhere on the Element name field and press%ENTER.
++
++\ \ (%PF3+to return) \ \
+)END

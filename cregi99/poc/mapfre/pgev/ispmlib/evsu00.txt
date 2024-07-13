@@ -1,0 +1,14 @@
+EVSU001E 'TIME not allowed on jobcard'         .ALARM=YES
+'You must not code the TIME= statement'
+EVSU002E 'REGION=0M/0K not allowed'            .ALARM=YES
+'You must not code REGION=0M or REGION=0K'
+EVSU003E 'SYSAFF not allowed'                  .ALARM=YES
+'You must not code SYSAFF, use SCHENV instead'
+EVSU004E 'Job class not 3'                     .ALARM=YES
+'Endevor jobs should run with CLASS=3 coded'
+EVSU005E 'Jobcard accounting not 0'            .ALARM=YES
+'The accounting information for an Endevor job should be 0'
+EVSU006E 'PRTY not allowed'                    .ALARM=YES
+'You must not code the PRTY statement'
+EVSU007E 'Not a TT prefixed jobname'           .ALARM=YES
+'The jobname must begin with TT'

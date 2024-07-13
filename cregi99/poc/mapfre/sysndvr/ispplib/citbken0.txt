@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Backout Enabled Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether this package can be backed out or shipped.
++
+%  Y+- Allow this package to be backed out or shipped.
++
+%  N+- Do not allow this package to be backed out or shipped.
++
++  Note: A package can be backed in after it has been backed out.
++
++
++
++
++
++
++
++
++
++
++
++
++                               %PF3+to return
+)END

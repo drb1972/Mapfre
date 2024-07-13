@@ -1,0 +1,39 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Primary Options Menu \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++ Use the Primary Options Menu to invoke CA Endevor SCM functions.
++
++ You can use option X, EXIT, if you would like to exit your session.
++
++
++
++
++
++    Select one of the options listed below for more information
++
+%    1+- Defaults                  %7+- Batch package option
+%    2+- Displaying information    %8+- User menu
+%    3+- Foreground options        %9+- Tutorial
+%    4+- Batch option             %10+- Summary of changes for current release
+%    5+- Environment definition   %11+- Summary of changes for previous release
+%    6+- Package option            %E+- ESORT selection list cmd
++
++
++
++
++
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITO0000
+                       2,CITD0000
+                       3,CITF0000
+                       4,CITB0000
+                       5,CITE0000
+                       6,CITP0000
+                       7,CITBP000
+                       8,CITUSER0
+                       9,CITT0000
+                       10,CIT15100
+                       11,CITC1500
+                       E,CITC3920)
+)END

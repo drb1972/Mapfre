@@ -1,0 +1,71 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element and Uppercase Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++
++Use the%LEFT+and%RIGHT+commands (usually PF10 and PF11) to scroll through the
++information on this panel.
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%Layout+- The layout of this panel is controlled by the
++    %LAYOUT (L-Long/S-Short)+option on the%User Defaults+panel.  If set
++     to%'L'+The element name field appears on top at the top of the panel
++     and allows for long-named Elements. If set to%'S'+, the Element name
++     field is limited to 10 characters and the options related to
++     long-named Elements, such as UPPERCASE, CASE SENSITIVE and USS path
++     and file names are hidden.
++
+%Element+- The 1 to 255 character name of the element(s) you want to
++     process. You can enter 51 characters at a time in this field
++     or 10 characters if your layout option is set to 'SHORT'.
++     If the value is longer than the available space you can use the
++     scroll right PF key (usually PF11) to enter additional
++     characters. You can also enter the EXPAND primary command to
++     display an ISPF pop-up window where you can then enter the entire
++     Element name.
++
++     Extended element name masking is supported, which allows the
++     wildcard character asterisk (*) to be used multiple times in an
++     element name mask. For example, the specification U*PD* would
++     return all element names that begin with U and contain the
++     characters PD anywhere else in the element name, such as UPD,
++     U1PD2ATE, U123PDT or UABCDXPD.
++
++     Note: You can set up a PF Key Definition for the EXPAND
++     command by entering the KEYS command from within ISPF
++     and setting PFn...EXPAND.
++
++Certain actions such as the Transfer action support both a FROM and TO
++Element name. Enter a different Element name if you want to change the
++name of the Element at the target location. If you do not enter a TO
++Element name, the name defaults to the FROM location Element name.
++
+%To Element+- The 1 to 255 character name of the Element at the target
++     location. You can enter 51 characters at a time in this field.
++     If the value is greater than 51 characters you can use the
++     scroll right PF key (usually PF11) to enter additional
++     characters. You can also enter the EXPAND command to display an
++     ISPF pop-up window where you can then enter the entire Element
++     name. Name masking is not supported.
++
+%Uppercase+- Indicates if the name coded in the Element name fields
++     should be accepted as entered or uppercased. Applies to all
++     Element name fields on the panel, as in the case of the Transfer
++     action panel.
++    %Y+- Uppercase the value coded prior to processing the action.
++    %N+- Use the Element name exactly as coded.
++
++     The initial value for this field is set from the%&LIT1         +
++     ENDICNFG Configuration Table parameter. Once the action panel is
++     displayed the value entered by the user is saved and restored
++     each time the panel is re-displayed.
++
++\ \ (Press%Enter+to continue or%PF3+to return) \ \
+)INIT
+   &LIT1 = 'UPPERCASE'
+)PROC
+)END

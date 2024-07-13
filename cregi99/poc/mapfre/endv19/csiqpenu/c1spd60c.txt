@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) INTENS(HIGH) JUST(ASIS)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%CREATE ------------------  CREATE DSN MAPPING RULE  ---------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++
++
++DESTINATION:¢VNBSSDST+
++
++    MAPPING RULE DESCRIPTION %===>~VDMDESCR                                +
++
++    To EXCLUDE datasets from being transmitted, leave REMOTE DSN blank.
++    For SCRIPT datasets, use the value%(SCRIPT-FILE)+in the REMOTE DSN.
++
++    HOST DATASET NAME  %===>_VDMHDSN                                     +
++          maps to           ^VNBDSL1                                     +
++    REMOTE DATASET NAME%===>_VDMRDSN                                     +
++                            ^VNBDSL2                                     +
++
++    Approx Host Members/Cyl%===>_Z  +
++
++
++
++
++
++UPDATED:¢VDMUPDAT¢VDMUPTIM+BY¢VDMUUSER +CREATED:¢VDMCRDAT¢VDMCRTIM+BY¢VDMCUSER+
+)INIT
+  .HELP = CITPD600
+  .ZVARS = '(VDMAHMPC)'
+)PROC
+)END

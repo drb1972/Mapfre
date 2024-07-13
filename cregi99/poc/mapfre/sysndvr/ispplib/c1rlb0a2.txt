@@ -1,0 +1,34 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage
+TAG _ MUH STRING ACTION WCOMP
+tag | sh msg s1id s2id
+tag ¢ s s1name s2name
+tag ^ muhn start end
+tag & muh dislist ccid wpgrp showtext wlout
+%----------------------------  List Element Action  ----------------------------
+%OPTION  ===>_   +
+|
+%                              Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   L+- List element action      %M+- Master   %C+- Changes
++
++FROM LOCATION:
++  ENVIRONMENT %===>_        +       LIST OPTIONS:
++  SYSTEM      %===>_        +          DISPLAY LIST     %===>&Y+ (Y/N)
++  SUBSYSTEM   %===>_        +          WHERE CCID EQ    %===>&            +
++  ELEMENT     %===>_          +        WHERE PROC GRP EQ%===>&        +
++  TYPE        %===>_        +
++  STAGE       %===>_ +      | +-¢            | +-¢            +
++
++TEXT STRING:
++  %===>_
++SCAN COLUMNS:
++  START%===>^   +  END %===>^   +
++  SHOW TEXT %===>&N+ (Y/N)
++
++ACTION TO BE GENERATED WHEN LIST IS CREATED%===>_        +
++WRITE LIST TO OUTPUT DATA SET%===>&N+ (Y/N)
++WHERE COMPONENT EQ %===>_        +
+enddef

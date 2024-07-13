@@ -1,0 +1,62 @@
+         MACRO
+         ENHAERET &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        RETRIEVE ELEMENT - REQUEST BLOCK                             *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=1,                  CONTROL BLOCK VERSION           X
+               EYE='EREQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AERET_RQ
+         SPACE ,
+AERET_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AERET_RQ_DATA
+*                 ELEMENT DATA
+AERET_RQ_ELM      DC CL10' '           ELEMENT NAME
+AERET_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+AERET_RQ_VERSION  DC CL2' '            VERSION (1-99)
+AERET_RQ_LEVEL    DC CL2' '            LEVEL (0-99)
+*                 FROM LOCATION DATA
+AERET_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AERET_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AERET_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AERET_RQ_TYPE     DC CL8' '            TYPE NAME
+AERET_RQ_STG_ID   DC CL1' '            STAGE ID
+AERET_RQ_STG_NUM  DC CL1' '            STAGE NUMBER (1/2)
+*                 TARGET LOCATION DATA
+AERET_RQ_DDN      DC CL8' '            TARGET DD OR FILE NAME
+AERET_RQ_DSN      DC CL44' '           TARGET DATA SET NAME
+AERET_RQ_MBR      DC CL10' '           TARGET MEMBER NAME
+*                 ACTION OPTIONS
+AERET_RQ_CCID     DC CL12' '           CCID
+AERET_RQ_COMM     DC CL40' '           COMMENT
+AERET_RQ_REPLACE  DC CL1' '            REPLACE MEMBER (Y/N)
+AERET_RQ_NO_SIGNO DC CL1' '            NO SIGNOUT (Y/N)
+AERET_RQ_EXPAND   DC CL1' '            EXPAND INCLUDES (Y/N)
+AERET_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AERET_RQ_SEARCH   DC CL1' '            SEARCH MAP (Y/N)
+AERET_RQ_RESERVE  DC CL3' '            ** RESERVED **
+*                 WHERE CLAUSE SELECTION CRITERIA
+AERET_RQ_WCCID_TYP DC CL1' '           WHERE CCID TYPE VALUE (A/C/R)
+AERET_RQ_WCCID    DC CL12' '           WHERE CCID VALUE
+                  DC CL84' '           2ND THRU 8TH WHERE CCID
+AERET_RQ_WPROGRO  DC CL8' '            WHERE PROCESSOR GROUP
+                  DC CL56' '           2ND THRU 8TH WHERE PRO GRP
+                  DS 0X
+                  DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AERET_RQ_VER#1_DATADSLN EQU *-AERET_RQ_DATA
+AERET_RQ_VER#1_DSLN     EQU *-AERET_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+AERET_RQ_DATADSLN EQU *-AERET_RQ_DATA
+AERET_RQ_DSLN     EQU *-AERET_RQ
+         ORG      AERET_RQ_DATA
+AERET_RQ_DATAAREA DS XL(AERET_RQ_DATADSLN)     DATA AREA
+         MEND

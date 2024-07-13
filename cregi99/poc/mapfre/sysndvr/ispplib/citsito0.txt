@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Signout To \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When the "Signout To" field is left blank, the element will be Signed In.
++When the "Signout To" field is not blank, the SIGNIN action causes the element
++to be signed out to the specified user.
++This option will be in effect for SI until the 'Signout To' field is cleared.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

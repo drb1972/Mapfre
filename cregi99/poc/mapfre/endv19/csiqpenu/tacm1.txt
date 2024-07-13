@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\  ACM Query  \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to perform ACM queries for specified elements, members,
++comments, or objects.  You may also build GENERATE SCL based on the results.
++
++OPTION:  Blank - Perform Element Query:  Display WHEre-used or COMponents-used
++                 information associated with the element at the inventory
++                 location specified.  (The inventory name specifications may
++                 contain masking characters.)
++         M     - Member Query: Display WHEre-used information for non-element
++                 PDS members referenced in element component lists. Optionally,
++                 the DSNAME field can be used to further identify the member
++                 (i.e. SYS1.MACLIB - use no quotes)
++         C     - Display WHEre-used Comment relationships that have been
++                 manually defined using the CONRELE utility in a processor.
++                 Use the COMMENT/OBJECT field to specify the data.
++                 This field is case-sensitive.
++         O     - Same as option "C" but for Object relationships.
++
++ELEMENT/MEMBER: For options blank or M, enter the name of the element
++         or member name for the query.
++                             (%ENTER+to continue,%END+to return)
+)PROC
+   &ZCONT = TACM2
+)END

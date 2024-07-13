@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Environments \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Environment is the term for the functional areas of an organization.
++
++For example, there might be separate development and production
++environments.
++
++There is no limit to the number of environments that may be defined.
++Environments are defined in the C1DEFLTS table. Environment information
++can be viewed on the Site/Environment Information panel.
++
++
++
++
++
++
++
++
++             (%PF3+to return,%ENTER+for more on Site/Environment panel)
+)PROC
+   &ZCONT = CITE7000
+)END

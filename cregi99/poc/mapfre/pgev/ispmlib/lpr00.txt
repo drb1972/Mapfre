@@ -1,0 +1,4 @@
+LPR001
+'Input data set name must be specified and must be a valid dsname'
+LPR002  '&LPRSMSG' .WINDOW=NORESP .TYPE=NOTIFY
+'&LPRLMSG'

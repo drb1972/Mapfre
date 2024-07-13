@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Establishing Map Routes \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To define a route, add the following line to one or more
++C1DEFLTS TYPE=ENVRNMNT sections of the C1DEFLTS Table.
++
++       NEXTENV=(environment name,stage id)
++
+%  environment name+- The name of the next environment on the route.
+%  stage id+- The one character identifier of the first stage.
++     in this environment that is on the route.
++
++     The stage ID is optional, and if included, must be defined in the
++     C1DEFLTS Table. If you do not provide a stage id, the default is
++     Stage 1 of the environment.
++
++Refer to the Installation Guide for more information on
++modifying the C1DEFLTS table.
++
++
++                                            (%PF3+to return)
+)END

@@ -1,0 +1,43 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+|VARFLIT%-------------------- SYSTEM DEFINITION --------------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++CURRENT ENV: ¢VAREVNME+        NEXT    ENV:    ¢VARNXENV+
++SYSTEM:      ¢VARSYNME+        NEXT SYSTEM%===>_VARNXSYS+
++TITLE%=====> ~VARSYTTL                                          +
++UPDATED:     ¢Z      ¢Z       +BY¢VARLUUID+
++GENERAL OPTIONS:
++  COMMENT%===>_Z+(Y/N)      CCID%===>_Z+(Y/N) REQ ELM JUMP ACK%===>_Z+(Y/N)
++AUTO AGE LEVEL RETENTION OPTIONS:
++  ELEMENT   %===>_Z+(Y/N)     RETAIN LVLS FOR ===>_Z  +MONTHS
++  COMPONENT %===>_Z+(Y/N)     RETAIN LVLS FOR ===>_Z  +MONTHS
++ELEMENT REGISTRATION CHECK OPTIONS:
++  DUP ELEMENT NAME %===>_Z+(Y/N)                         MSG LVL%===>_Z+(W/C/E)
++  DUP PROC O/P TYP %===>_Z+(Y/N) ACROSS SBS%===>_Z+(Y/N) MSG LVL%===>_Z+(W/C/E)
++SIGN-IN/SIGN-OUT OPTIONS:
++  ACTIVATE OPTION     %===>_Z+(Y/N)
++  VALIDATE DATA SET   %===>_Z+(Y/N)
++PROCESSOR TRANSLATION OUTPUT LIBRARIES:
++  STAGE 1 LOAD LIBRARY%===>_VARSY1LD                                    +
++  STAGE 1 LIST LIBRARY%===>_VARSY1LT                                    +
++  STAGE 2 LOAD LIBRARY%===>_VARSY2LD                                    +
++  STAGE 2 LIST LIBRARY%===>_VARSY2LT                                    +
+)INIT
+  .HELP = CITE2100
+  .ZVARS = '(VARLUDTE VARLUTME +
+             VARSYCMT VARSYCID VARSYJMP +
+             VARSYEAR VARSYEAM VARSYCAR VARSYCAM    +
+             VARDREG VARDREGS VARPREG VARRXSBS VARPREGS      +
+             VARSYSIG VARSYVDS)'
+)PROC
+)END

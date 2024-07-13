@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Component List Compare Help \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel allows you to compare the component lists for two elements and
+ identify differences between the two.
++Enter the name(s) and locations of the "new" and "old" elements in full and
+ amend the display options as required.  The specified elements must have
+ associated component lists.  Pressing enter will take you into the compare
+ report.  By default, only differences to Input Components are reported, though
+ this can be changed by selecting the appropriate Display Option(s) on the
+ screen.
+
++To create a batch job to run the component list compare, select a Mode of%B+
+
++Differences can easily be found in the report by searching for%**+
++
++Note on%VVLL+
++This field is optional, but if specified, refers to the component list%not+to
+ to the element itself.  There is no relationship between the two.  A new level
+ is created every time the element is generated.  To determine which VVLL to
+ specify, use%SX+in Element Display to get the Summary of Component List levels
++                                            (%PF3+to return)
+)END

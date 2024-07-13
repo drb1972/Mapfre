@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (UD) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Display/update the Element UserData+
++
++  This sample user routine (NDUSRXUD) displays a pop-up panel with the
++  element user-data.  If you are authorised, you can amend the data and
++  press%ENTER+to update it or press%END+to return without change.
++
+%  Intended Use:+
++  Use this routine to update the Element User-data.  For example if
++  using the UserData to control processing, you might pass%DEBUG+options,
++  to the generate processor,%DB2+options like OWNER or System, or%CICS+
++  region names for testing etc.
++
+%  Note:+
++  SMF recording must be active for any Environment in which you use the
++  alter action. If SMF recording is not active, the Alter action fails.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

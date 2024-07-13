@@ -1,0 +1,39 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+! TYPE(TEXT) COLOR(GREEN)
++ TYPE(TEXT) INTENS(LOW)
+% TYPE(TEXT) INTENS(HIGH)
+¢ TYPE(OUTPUT) COLOR(GREEN) CAPS(OFF)
+^ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF)
+)BODY EXPAND(\\)
+%\-\ Package Execution Utility Help \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                @
+)AREA SAREA1
++
++   The Package Execution Utility is used to execute development
++   packages to either (or/both):-
++   a) Move USS processed elements (EAR, DEPLOY,WSDL,XSD)
++   b) Move elements with components to be shipped to the Mplex
++   for implementation in to test streams.
++
++   A job named F0<trackerid> will be submitted to execute the
++   development package.
++
++  %JOB RESTARTS
++   The PACKAGE execution steps in the F0* job can be restarted by
++   simply submitting the entire job via the Package Execution Utility.
++
++   The SHIPMENT step can be restarted by entering a 'Y' in the
++  %"Restart From Shipment Step..:" field.
++
++   A scheduling environment directs a job to an Lpar with the required
++   resources, e.g. DB2. It will also select the Lpar that is the least
++   utilised.
++   Sometimes there is no single schedule environment that satisfies
++   all the resources required so you must select an Lpar individually.
++   In this case go into the SE option in SDSF, look at the scheduling
++   environments that you need and select a common Lpar (or system as
++   it is referred to on the SE screen).
+)PROC
+)END

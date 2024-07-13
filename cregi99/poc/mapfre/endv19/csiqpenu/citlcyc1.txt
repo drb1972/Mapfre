@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Basic Life Cycle Operations \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Normal change procedures include:
++  * Retrieving from production to a development library.
++  * Making changes.
++  * Adding/updating into the test stage.
++  * Moving to QA.
++  * Moving back into Production.
++
++      +<------------- retrieve -----------------------------------+
++      |      ********       ********       ********           ****|***
++      |      * TEST *       *  QA  *       * EMER *           * PROD *
++      |      *      *       *      *       *      *           *      *
++      |      ***|**|*       **|***|*       ********           **|*****
++  $$$$|$$$      |  |          |   |                             |
++  $  dev $      |  +- move -->+   +-------- move -------------->+
++  $      --add->+
++  $$$$$$$$
++
++
++                                            (%PF3+to return)
+)END

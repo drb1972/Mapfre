@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Subsystem Definition \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Define subsystems for specific applications within systems. For example
++you might define subsystems PO (purchase order) and AP (accounts payable)
++within system FINANCE. Keep in mind that:
++
++  * There must be at least one subsystem per system
++  * A subsystem must be defined to each system where it will be used. For
++    example, if system FINANCE is defined to environments TEST, QA, and PROD,
++    then subsystem PO will have to be defined to system FINANCE in each
++    environment.
++  * A subsystem can have the same name as the system to which it is defined.
++
++
++Select%1+-%4+for information about subsystem definition fields.
++
+%    1+- Current location           %3+- Subsystem name/description
+%    2+- Next location              %4+- Exclude from proc o/p check
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITLOCC0 2,CITLOCN0 3,CITNAM00 4,CITE3105)
+)END

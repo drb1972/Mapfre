@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ APPROVER GROUP RELATION DISPLAY \-\
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %blank+- Display relationships between inventory areas and Approver Groups
++
++ENVIRONMENT    %===>_VAREVNME+
++
++SYSTEM         %===>_VARSYNME+
++
++SUBSYSTEM      %===>_VARSBNME+
++
++TYPE           %===>_VARTYNME+
++
++STAGE NUMBER   %===>_Z+
++
++APPROVER TYPE  %===>_VARGJTYP  +  (EMERGENCY/STANDARD)
++
++Note: Leaving the SYSTEM, SUBSYSTEM, TYPE or STAGE NUMBER field blank
++      will cause selection list display.  Entering an asterisk (*)
++      will only return a match if the inventory rule was built with
++      an asterisk (*) as the name.
+)INIT
+  .ZVARS = '(VARGJDS#)'
+  .HELP = CITAGRL0
+)PROC
+)END

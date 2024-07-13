@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Cast - Integrity Check \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++After the package is cast, it contains either a copy of the footprint
++of the source element or a checksum value for source members from an
++external data set.
++
++Before executing the package, the members or elements referenced by
++the package are validated to ensure no changes have been made.  If any
++differences exist at that time, the package is not executed.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

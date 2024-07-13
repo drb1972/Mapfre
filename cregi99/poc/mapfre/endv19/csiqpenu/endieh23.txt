@@ -1,0 +1,28 @@
+)PANEL
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ @ TYPE(OUTPUT) INTENS(LOW)
+)BODY EXPAND(\\)
+%\-\  THE ELEMENT IS LOCKED BY A PACKAGE  \-\
+%Command ===>_ZCMD
++
++   *********************************************************************
++   *                                                                   *
++   *   The element you are currently editing is reserved by a package  *
++   *  @EECPKG          +                                               *
++   *                                                                   *
++   *   If the package executes while the element is in edit mode,      *
++   *   execution of the package will be%significantly delayed.+        *
++   *                                                                   *
++   *   To prevent any chance of a delay enter the%SAVE+command in the  *
++   *   edit session%Immediately+and then continue to edit the element. *
++   *                                                                   *
++   *   To%cancel+the edit request, enter the%END+command.              *
++   *   To%continue+with the edit request, press the%ENTER+key.         *
++   *                                                                   *
++   *********************************************************************
+)INIT
+)PROC
+)END

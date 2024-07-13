@@ -1,0 +1,38 @@
+)BODY EXPAND(\\)
+%\-\ Endevor - Release 12 New Features \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 2 of 2+
++  The following panels present information about the new
++  features and enhancements that are available with%R12+of
++  Endevor.
++
++  Select one of the following options for more information:               Last
++                                                                         Change
++  %14+- Enhanced Search and Replace Utility                              % sp1+
++  %15+- Rapid Implementation Facility                                    % sp1+
++  %16+- Option to Process Deletes First                                  % sp1+
++  %17+- ACM CSV-API Enhancements                                         % sp1+
++  %18+- Option to Filter Promotion Packages                              % sp1+
++  %19+- CSV-API Promotion Package Filtering Enhancement                  % sp2+
++  %20+- Synchronization Notification Enhancement                         % sp2+
++  %21+- Package Ship Command File HLQ Enhancement                        % sp3+
++  %22+- Banner Page Enhancement                                          % sp3+
++  %23+- XIT7MAIL Enhancement                                             % sp3+
++  %24+- Integrated PDM Enhancement                                       % sp3+
++
++
++\ \ (Hit%ENTER+for the previous options,%END+to exit) \ \
+)PROC
+   &ZSEL = TRANS(&ZCMD 14,CITC12E0
+                       15,CITC12E1
+                       16,CITC12E2
+                       17,CITC12E3
+                       18,CITC12E4
+                       19,CITC12E5
+                       20,CITC12E8
+                       21,CITC12E9
+                       22,CITC12EA
+                       23,CITC12EB
+                       24,CITC12EC)
+   &ZCONT = CITC1200
+)END

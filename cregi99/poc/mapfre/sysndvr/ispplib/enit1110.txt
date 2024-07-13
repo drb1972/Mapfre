@@ -1,0 +1,31 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Selection List Action Fields \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The action fields appear on the top half of the Package Selection List panel
++and are used to perform the following package functions:
++
+%Approve-+Approve a package for execution.
+%Archive-+Copy the package definitions to an external data set.
+%Backin-+ Back a package in, reversing the Backout Package action.
+%Backout-+Backout the changed package to restore the executable and output
++         modules to the state they were in prior to execution.
+%Cast-+   Cast a package, which freezes the data and prevents further change
++         at that time.
+%Commit-+ Commit a package removing all backout/backin data, but retaining
++         package event information.
+%Define-+ Create a new or updates an existing package.
+%Delete-+ Delete an entire package.
+%Deny-+   Deny execution of a package.
+%Execute-+Execute a package.
+%Export-+ Write the SCL associated with a package to an external data set.
++
++Press%Enter,+Press%PF7+for previous Help menu, or%End+to exit Help
+)PROC
+  &ZUP   = enit1100
+  &zcont = enit1111
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Best Practices Implementation Toolkit \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Best Practices Implementation Toolkit +
++
+ This toolkit takes the existing CA Endevor SCM Rapid Implementaion
+ feature several steps beyond simply creating the CA Endevor SCM
+ lifecycle map and a few sample applications. After some preliminary
+ setup and execution, the results yield a standard lifecycle map,
+ unlimited inventory locations, predefined type definitions, processor
+ groups, processors, and all of the CA Endevor SCM configuration
+ tables - all based on software change management best practices.
+
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT16030
+)END

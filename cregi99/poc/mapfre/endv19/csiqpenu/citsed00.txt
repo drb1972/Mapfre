@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Three Element Master panels display Master Control File information about
++an element.
++
++    Select one of the options below for more information:
++
+%    1+- Identification fields      %6+- Base
+%    2+- Last element action        %7+- From location
+%    3+- Current source             %8+- User data
+%    4+- Generate                   %9+- Alter
+%    5+- Retrieve
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITSED10 2,CITSED20 3,CITSED30 4,CITSED40
+                  5,CITSED50 6,CITSED60 7,CITSED70 8,CITSED80 9,CITSED90)
+)END

@@ -1,0 +1,17 @@
+@REM ****************************************************** #PSNFTPJ ***
+@REM *    CONTENTS: ENDEVOR/MVS - JCL TO TRANSMIT DATASET
+@REM * TRANSMITTER: NETVIEW FILE TRANSFER PROGRAM (FTP)
+@REM *     PURPOSE: TRANSMIT A PARTITIONED OR SEQUENTIAL DATASET
+@REM *              NOTE THAT ONLY ONE "FUNCTION=ADD" (TRANSMISSION)
+@REM *              CAN BE PERFORMED PER EXECUTION OF THIS JOBSTEP
+@REM *******************************************************************
+@REM
+//*  ******************************************************************
+//*  * JOBSTEP JCL TO TRANSMIT A DATASET USING NETVIEW FTP
+//*  ******************************************************************
+//XFTP&F4  EXEC PGM=DVGIFBI,COND=(0,LT)
+//*STEPLIB   DD DISP=SHR,DSN=IQUAL.NVFTP.LOAD
+//SYSPRINT  DD SYSOUT=*
+//SYSUDUMP  DD SYSOUT=*
+//DVGLOG    DD SYSOUT=*
+//SYSIN     DD *

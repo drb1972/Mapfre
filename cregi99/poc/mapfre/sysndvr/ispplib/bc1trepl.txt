@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ If Partitioned, Replace Like-Named Members \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether PDM is to replace like-named members in
++the WIP data set or the merge output library. Acceptable values are:
++
++   %Y+  The default. Replace like-named members.
++
++   %N+  Do not replace like-named members.
++
++
++
++
++
++
++
+)END

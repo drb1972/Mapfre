@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Configuration Member \-\ TUTORIAL
+%COMMAND ===>_ZCMD                                                             +
+%
++Use this panel to view the Destination Configuration Member of the Endevor
++PARMLIB data set. This member is optional and is specified with the
+%DESTCFGMBR=+parameter in the C1DEFLTS table.
++
++If this member exists it can contain symbol names and values for each package
++ship destination. These symbols can be used in package ship SCRIPT data set
++members (created by processor execution) to provide unique data values to
++these members based upon the destination of the package.
++
++This member must be created and maintained by the administrator.
++
++
++
++
++
+)PROC
+)END

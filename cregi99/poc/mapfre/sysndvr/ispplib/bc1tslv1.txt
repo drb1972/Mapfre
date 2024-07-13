@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Using Previous Versions/Levels \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When using an inventory location as a Build WIP input location, you can
++tell PDM to use a level other than the current version/level during
++the Build WIP operation.
++
++If you know the version and level you want to use, you can enter them
++directly on the Root, Derivation 1 or Derivation 2 Specification Panel.
++Otherwise, you can review a Summary of Levels panel to find the
++version/level you want to use.
++
++
+)END

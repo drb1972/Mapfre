@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type Definition - Consolidation Rules \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Auto consol+- Indicates whether change levels are to be consolidated
++   automatically. Acceptable values are:
+%     Y+ Consolidate automatically. When you create the 99th change level
++        for an element, change levels 1-50 are consolidated into a single
++        level, changing level 99 to level 50.
+%     N+ Default. Do not consolidate automatically. If the value of
++        field is N, LVLS TO CONSOL must be 0.
+%Consol at lvl+- Specifies the level number at which change levels are
++  consolidated for elements with reverse or forward deltas.
++  For image deltas, this is the level number at which image levels are
++  removed. The default is 99.
+%Lvls to consol+- For reverse and forward element deltas, this
++  indicates the number of deltas to consolidate when the number of levels
++  reaches the figure in the CONSOL AT LVL field. For image element
++  deltas, this indicates the number of image deltas to remove when the
++  number of levels reaches the figure in the CONSOL AT LVL field.
++  The default is 50.
++  This value must be zero if AUTO CONSOL=N, and cannot be greater than
++  the value in the CONSOL AT LVL field.
++\ \ (%PF3+to return) \ \
+)END

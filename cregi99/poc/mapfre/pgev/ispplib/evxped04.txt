@@ -1,0 +1,23 @@
+)ATTR
+ ! TYPE(OUTPUT) INTENS(HIGH) CAPS(OFF)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ } TYPE(TEXT)  COLOR(YELLOW)    HILITE(REVERSE)
+)BODY EXPAND (\\) window (52,11)
+%\-\ Target Xpediter DDIO file \-\
++
++  TO XPEDITER DDIO file:
++     +Project %==>_ODDIO1  +
++     +Group   %==>_ODDIO2  +
++     +Type    %==>_ODDIO3  +
+)INIT
+ .help = EVXPED1H
+)REINIT
+  REFRESH(*)
+)PROC
+  VER (&ODDIO1,NB)
+  VER (&ODDIO2,NB)
+  VER (&ODDIO3,NB)
+)END

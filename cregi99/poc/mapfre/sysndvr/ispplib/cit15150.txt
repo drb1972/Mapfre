@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Eclipse Based UI Enhancements \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
+%
+%Eclipse Based UI Enhancements+
+
+ The Endevor Eclipse based user interface has been enhanced to support
+ the Endevor Move and Generate actions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15100
+)END

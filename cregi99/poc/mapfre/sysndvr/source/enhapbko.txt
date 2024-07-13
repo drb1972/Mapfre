@@ -1,0 +1,35 @@
+         MACRO
+         ENHAPBKO &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        BACK-OUT PACKAGE - REQUEST BLOCK
+*
+***********************************************************************
+APBKO_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APBKO_RQ$EYE    EQU C'PBOQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APBKO_RQ
+         SPACE ,
+APBKO_RQ_DATA     DS XL1               BEGINNING OF DATA AREA
+         ORG      APBKO_RQ_DATA
+APBKO_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 RESERVED AREA
+APBKO_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL1' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APBKO_RQ_VER#1_DATADSLN EQU *-APBKO_RQ_DATA
+APBKO_RQ_VER#1_DSLN     EQU *-APBKO_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APBKO_RQ_DATADSLN EQU *-APBKO_RQ_DATA
+APBKO_RQ_DSLN     EQU *-APBKO_RQ
+         ORG      APBKO_RQ_DATA
+APBKO_RQ_DATAAREA DS XL(APBKO_RQ_DATADSLN)    DATA AREA
+         MEND

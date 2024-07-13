@@ -1,0 +1,11 @@
+/* START OF SPECIFICATIONS *******************************************/ 00001000
+                                                                        00022000
+TABLE NAME(TS0B07L) USE(INQUIRY) CODE(0240) SEPARATOR(,);               00023001
+                                                                        00024000
+  FIELD PANEL(BLG0F000) INDEX(S0B07)        /*  ACTIVITY RECORD TYPE */ 00025000
+        RCDSWORD(Y);                                                    00026000
+                                                                        00027000
+  FIELD PANEL(BLG6RNOR) INDEX(S0CD0)        /*  PARENT CHANGE NUMBER */ 00028000
+        REQUIRED(Y);                                                    00029000
+                                                                        00030000
+ETABLE;                                                                 00040000

@@ -1,0 +1,42 @@
+         MACRO
+         ENHAEPRM &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        PRINT MEMBER ELEMENT - REQUEST BLOCK                         *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=2,                  CONTROL BLOCK VERSION           X
+               EYE='EPMQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AEPRM_RQ
+         SPACE ,
+AEPRM_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEPRM_RQ_DATA
+*                 MEMBER DATA
+AEPRM_RQ_MBR      DC CL10' '           ELEMENT NAME
+AEPRM_RQ_MBR_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEPRM_RQ_DDN      DC CL8' '            SOURCE DD OR FILE NAME
+AEPRM_RQ_DSN      DC CL44' '           SOURCE DATA SET NAME
+*                 TARGET LOCATION DATA
+AEPRM_RQ_TDDN     DC CL8' '            TARGET DD OR FILE NAME
+AEPRM_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AEPRM_RQ_VER#1_DATADSLN EQU *-AEPRM_RQ_DATA
+AEPRM_RQ_VER#1_DSLN     EQU *-AEPRM_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+AEPRM_RQ_NOCC     DC CL1' '            SUPPRESS PRINTING OF HDR (Y/N)
+                  DC CL3' '            *** RESERVED *** (SLACK)
+AEPRM_RQ_VER#2_DATADSLN EQU *-AEPRM_RQ_DATA
+AEPRM_RQ_VER#2_DSLN     EQU *-AEPRM_RQ
+.* ADD VERSION 3 FIELDS AFTER THIS POINT
+AEPRM_RQ_DATADSLN EQU *-AEPRM_RQ_DATA
+AEPRM_RQ_DSLN     EQU *-AEPRM_RQ
+         ORG      AEPRM_RQ_DATA
+AEPRM_RQ_DATAAREA DS XL(AEPRM_RQ_DATADSLN)     DATA AREA
+         MEND

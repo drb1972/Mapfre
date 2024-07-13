@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection List - Archive \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Type%V+next to each element you want to archive. Press ENTER to archive them.
++       Archiving source-less elements is not supported. The selection list
++       displays the following information:
++
+%To+- The DDNAME for the archive data set.
++
+%Element+- Names of elements that met the selection criteria.
+%Type+   - Type associated with the element.
+%NS+     - A Y identifies the element as source-less.
+%Environ+- Environment where the element resides.
+%S+      - ID of the Stage where the element resides.
+%System+ - Name of the system associated with the element.
+%Subsystem+- Name of the subsystem associated with the element.
+%VVLL+   - Version and level associated with the element.
+%RC+     - Return code for the most recent action performed against
++          the element.
++
++
++                                           (%PF3+to return)
++
+)END

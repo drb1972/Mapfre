@@ -1,0 +1,48 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Processor Utility Program CONMOVE \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Processor Utility Program CONMOVE                        \ \+Enabled:%AVAILABLE
++
++
++  CD18108   Processor Utility Program CONMOVE
++
++  This enhancement introduces a new processor utility program CONMOVE.
++
++  This utility allows you to move output components from an element's
++  component list through the Endevor lifecycle and is generally intended for
++  MOVE processors.
++
++  The user syntax specified through the CONMVIN DD statement tells the
++  CONMOVE utility which output component data sets to process and which
++  target data set to copy that output component data set's members to. This
++  is done by matching the  component data set to the input statements
++  specified to obtain the target data set name of the copy operation. Input
++  statements are matched against the component data sets in the order in
++  which they are coded.
++
++  The CONMOVE utility only processes PDS/PDSE data sets found in an element's
++  component list. Output components such as ELIB data sets or USS files are
++  not supported by the CONMOVE utility.
++
++  The CONMOVE utility calls BSTCOPY to perform the copy operation. Up to 8
++  members at a time for a single data set are copied for each call to
++  BSTCOPY. If there are more than 8 members coming from the same component
++  data set, then multiple calls will be made to BSTCOPY to copy all of the
++  members. Each call to BSTCOPY only processes the members from a single
++  data set.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+)PROC
+ &ZSEL = TRANS(&ZCMD,*,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

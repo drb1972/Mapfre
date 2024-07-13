@@ -1,0 +1,12 @@
+@REM ****************************************************** #PSBDT21 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START OF DESTINATION
+@REM * TRANSMITTER: BULK DATA TRANSFER VERSION 2
+@REM *     PURPOSE: INCLUDE #PSBDT2E TO WRITE A "Q" COMMAND TO THE
+@REM *              INTERNAL READER TO EXECUTE THE REMOTE COPY/DELETE
+@REM *              JOB.  HOLDCOUNT(&FILECOUNT) WILL DELAY EXECUTION.
+@REM *******************************************************************
+@REM *
+@PASS=20
+@IF &FILECOUNT
+@INCLUDE=(E)
+@ENDIF

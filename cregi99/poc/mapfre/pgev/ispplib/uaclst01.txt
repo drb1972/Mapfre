@@ -1,0 +1,45 @@
+)ATTR
+ ! TYPE(TEXT)   INTENS(HIGH) COLOR(GREEN)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Endevor User Access List  \-\
+%COMMAND ==>_ZCMD                                            % Date - &ZDATE
++
++   ¢Endevor Environment   ==>$Z       !  Specify '*' for all Environments
++   ¢Endevor System        ==>$Z       !  Specify '*' for all Systems
++   ¢Access level          ==>$Z!         A - All levels
+!                                         O - Override Signout only
+!                                         U - Update & Override Signout
+!                                         R - Read only
++   ¢RACF User ID          ==>$Z       !  Leave blank for all Users
++
++
++      Enter the Endevor Environment and System name for a complete
++      of all Users who have access to that Endevor System.
++
++      To display only those users with OVERRIDE SIGNOUT authority, set
++      the Access level flag to O.
++
++      To filter the list to a specific User, enter a RACF User ID
++      and set the desired access level to report on.
++
+)INIT
+  .ZVARS = '(VAREVNME SYS U1SACC RUSERID)'
+  VGET (VAREVNME SYS U1SACC RUSERID) PROFILE
+  .cursor = SYS
+  IF (&U1SACC EQ ' ')
+     &U1SACC = A
+)REINIT
+  .cursor = SYS
+)PROC
+  VER (&VAREVNME,NB,LIST,UNIT,SYST,ACPT,PROD,ARCH,UTIL,*)
+  VER (&SYS,NB)
+  VER (&U1SACC,NB,LIST,A,O,U,R)
+
+  &PFK = .PFKEY
+  VPUT (VAREVNME SYS U1SACC RUSERID) PROFILE
+)END

@@ -1,0 +1,69 @@
+      *****************************************************************
+      *
+      *            LIST PACKAGE APPROVERS - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALAPP-RQ.
+           05  ALAPP-RQ-HEADER.
+               10  ALAPP-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALAPP-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALAPP-RQ-ID         PIC 9(04) COMP VALUE 1408.
+               10  ALAPP-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALAPP-RQ-EYE        PIC X(04)      VALUE 'LAPQ'.
+           05  ALAPP-RQ-DATAAREA.
+               10  ALAPP-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALAPP-RQ-PROMHIST   PIC X(01) VALUE SPACES.
+               10  ALAPP-RQ-RESERVE    PIC X(03) VALUE SPACES.
+      *
+      *****************************************************************
+      *
+      *            LIST PACKAGE APPROVERS - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALAPP-RS.
+           05  ALAPP-RS-HEADER.
+               10  ALAPP-RS-LEN        PIC 9(04) COMP VALUE 708.
+               10  ALAPP-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALAPP-RS-ID         PIC 9(04) COMP VALUE 1409.
+               10  ALAPP-RS-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALAPP-RS-EYE        PIC X(04)      VALUE 'LAPS'.
+           05  ALAPP-RS-DATAAREA.
+      *     **    PACKAGE APPROVER BASE INFORMATION
+               10  ALAPP-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALAPP-RS-GRPNM      PIC X(16) VALUE SPACES.
+               10  ALAPP-RS-ENVNM      PIC X(08) VALUE SPACES.
+               10  ALAPP-RS-OUNIQ      PIC 9(16) COMP VALUE ZERO.
+               10  ALAPP-RS-SEQNO      PIC 9(08) COMP VALUE ZERO.
+               10  ALAPP-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALAPP-RS-APFLG      PIC X(01) VALUE SPACES.
+                   88  ALAPP-RS-APFLG-A          VALUE 'A'.
+                   88  ALAPP-RS-APFLG-D          VALUE 'D'.
+               10  ALAPP-RS-GRPTYP     PIC X(01) VALUE SPACES.
+                   88  ALAPP-RS-GRPTYP-S         VALUE 'S'.
+                   88  ALAPP-RS-GRPTYP-E         VALUE 'E'.
+               10  ALAPP-RS-ADISQ      PIC X(01) VALUE SPACES.
+               10  ALAPP-RS-QUORUM     PIC 9(04) COMP VALUE ZERO.
+               10  ALAPP-RS-NOAPPR     PIC 9(04) COMP VALUE ZERO.
+                   88  ALAPP-RS-NOAP-MX          VALUE 16.
+               10  ALAPP-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALAPP-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALAPP-RS-RUU        PIC X(08) VALUE SPACES.
+      ***  THE FOLLOWING FIELDS OCCUR ALAPP-RS-NOAP-MX TIMES.
+      ***  ALAPP-RS-NOAPPR CONTAINS THE NUMBER OF APPROVER IDS
+      ***  CURRENTLY EXISTING IN THIS AREA.
+               10  ALAPP-RS-APPROVERS OCCURS 16 TIMES.
+                   15  ALAPP-RS-APID       PIC X(08) VALUE SPACES.
+                   15  ALAPP-RS-APD        PIC X(07) VALUE SPACES.
+                   15  ALAPP-RS-APT        PIC X(05) VALUE SPACES.
+                   15  ALAPP-RS-APFLAG     PIC X(08) VALUE SPACES.
+                       88  ALAPP-RS-APFLA-A          VALUE 'APPROVED'.
+                       88  ALAPP-RS-APFLA-D          VALUE 'DENIED  '.
+                       88  ALAPP-RS-APFLA-E          VALUE 'DISQUAL '.
+                       88  ALAPP-RS-APFLA-P          VALUE SPACES.
+                   15  ALAPP-RS-APREQD     PIC X(08) VALUE SPACES.
+                       88  ALAPP-RS-APREQD-R         VALUE 'REQUIRED'.
+                       88  ALAPP-RS-APREQD-O         VALUE SPACES.
+      *           VERSION 2 FIELDS AFTER THIS POINT
+               10  ALAPP-RS-IPKGID         PIC X(16) VALUE SPACES.
+               10  ALAPP-RS-PKGVER         PIC 9(04) COMP VALUE ZERO.
+               10  FILLER                  PIC X(22) VALUE SPACES.

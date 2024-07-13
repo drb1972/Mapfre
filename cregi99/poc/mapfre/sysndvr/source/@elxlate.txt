@@ -1,0 +1,313 @@
+         MACRO
+&LABEL   @ELXLATE &ACTION,&TYPE=SINGLE,&EBCDIC=,&ASCII=,               X
+               &TABLE=
+.* -------------------------------------------------------------------
+.*
+.*  COPYRIGHT (C) 1986-2013 CA. ALL RIGHTS RESERVED.
+.*
+.* -------------------------------------------------------------------
+         GBLC  &GTABLE,&GTABLEE,&GTABLEA,&GTABLEW
+         GBLA  &GSIZE,&GMAX,&GATOE(65536),&GETOA(65536)
+         GBLA  &GRSVD(256)
+         GBLB  &GLXDSCT                      DSECT GENERATED
+         LCLA  &LINDEXE,&LINDEXA,&LLAST,&LRPT,&L
+         LCLA  &SBCSSZ,&SBCSMX
+         LCLA  &DBCSSZ,&DBCSMX
+         LCLC  &LVERSN,&LRSVD,&LWORKC
+.*
+&LVERSN  SETC  '1.0 ' <====================== MACRO VERSION
+.*
+&LRSVD   SETC  'S'    SET TO "GOOD" VALUE
+&SBCSSZ  SETA  1
+&SBCSMX  SETA  256
+&DBCSSZ  SETA  2
+&DBCSMX  SETA  65536
+         AIF   ('&ACTION' EQ 'BEGIN').BEGIN
+         AIF   ('&ACTION' EQ 'END').END
+         AIF   ('&ACTION' EQ 'DEFINE').DEFINE
+         AIF   ('&ACTION' EQ 'DSECT').DSECT
+         AGO   .ERROR01
+.*=====================================================================
+.*  "BEGIN" VERB PROCESSING
+.*=====================================================================
+.BEGIN   ANOP
+         AIF   ('&TABLE' EQ '').ERROR02
+.DSECT   ANOP
+         AIF   (&GLXDSCT).DSECT90
+&GXLDSCT SETB  1
+ELXHEADR DSECT
+ELXCATCH DS    CL8                           EYECATCH "ASCIEBCD"
+ELXTBLNM DS    CL8                           CODE TABLE NAME
+ELXASMDT DS    CL8                           DATE ASSEMBLED
+ELXASMTM DS    CL8                           TIME ASSEMBLED
+ELXVERSN DS    CL4                           TABLE STRUCTURE VERSION
+ELXA2ET@ DS    A                             ASCII TO EBCDIC TBL PTR
+ELXE2AT@ DS    A                             EBCDIC TO ASCII TBL PTR
+ELXSIZE  DS    AL1                           BYTES/ENTRY
+ELXSBCS  EQU   &SBCSSZ                       * SINGLE BYTE CODE SET
+ELXTBLID DS    XL1                           * RESERVED - NOT USED
+ELXLATOR DS    XL1                           TRANSLATOR
+ELXLCLI  EQU   C'C'                          * client TRANSLATEs (n/a)
+ELXLSRV  EQU   C'S'                          * SERVER TRANSLATES
+ELXRSVDC DS    X                             RESERVED CHARACTERS
+ELXRSV_S EQU   C'S'                          * RSVD CHARS ARE STD
+ELXRSV_N EQU   C'N'                          * RSVD CHARS ARE NON-STD
+* ELXRSVDC CONTAINS AN "N" IF ONE OF THE RESERVED CHARACTER ASSIGNMENTS
+* WAS SPECIFIED WITH A NON-STANDARD VALUE. CLIENT TRANSLATION IS NOT
+* ALLOWED UNDER THIS CIRCUMSTANCE.  SERVER TRANSLATION WILL BE FORCED
+* AT RUN TIME.
+         DS    XL16                          ** RESERVED **
+.DSECT90 ANOP
+         AIF   ('&ACTION' EQ 'DSECT').MEXIT
+.*---------------------------------------------------------------------
+.*  DEFINE RESERVED CHARACTER ASSIGNMENTS
+.*---------------------------------------------------------------------
+&GRSVD(X'00'+1) SETA X'00'
+&GRSVD(X'C1'+1) SETA X'41'
+&GRSVD(X'C2'+1) SETA X'42'
+&GRSVD(X'C3'+1) SETA X'43'
+&GRSVD(X'C4'+1) SETA X'44'
+&GRSVD(X'C5'+1) SETA X'45'
+&GRSVD(X'C6'+1) SETA X'46'
+&GRSVD(X'C7'+1) SETA X'47'
+&GRSVD(X'C8'+1) SETA X'48'
+&GRSVD(X'C9'+1) SETA X'49'
+&GRSVD(X'D1'+1) SETA X'4A'
+&GRSVD(X'D2'+1) SETA X'4B'
+&GRSVD(X'D3'+1) SETA X'4C'
+&GRSVD(X'D4'+1) SETA X'4D'
+&GRSVD(X'D5'+1) SETA X'4E'
+&GRSVD(X'D6'+1) SETA X'4F'
+&GRSVD(X'D7'+1) SETA X'50'
+&GRSVD(X'D8'+1) SETA X'51'
+&GRSVD(X'D9'+1) SETA X'52'
+&GRSVD(X'E2'+1) SETA X'53'
+&GRSVD(X'E3'+1) SETA X'54'
+&GRSVD(X'E4'+1) SETA X'55'
+&GRSVD(X'E5'+1) SETA X'56'
+&GRSVD(X'E6'+1) SETA X'57'
+&GRSVD(X'E7'+1) SETA X'58'
+&GRSVD(X'E8'+1) SETA X'59'
+&GRSVD(X'E9'+1) SETA X'5A'
+&GRSVD(X'81'+1) SETA X'61'
+&GRSVD(X'82'+1) SETA X'62'
+&GRSVD(X'83'+1) SETA X'63'
+&GRSVD(X'84'+1) SETA X'64'
+&GRSVD(X'85'+1) SETA X'65'
+&GRSVD(X'86'+1) SETA X'66'
+&GRSVD(X'87'+1) SETA X'67'
+&GRSVD(X'88'+1) SETA X'68'
+&GRSVD(X'89'+1) SETA X'69'
+&GRSVD(X'91'+1) SETA X'6A'
+&GRSVD(X'92'+1) SETA X'6B'
+&GRSVD(X'93'+1) SETA X'6C'
+&GRSVD(X'94'+1) SETA X'6D'
+&GRSVD(X'95'+1) SETA X'6E'
+&GRSVD(X'96'+1) SETA X'6F'
+&GRSVD(X'97'+1) SETA X'70'
+&GRSVD(X'98'+1) SETA X'71'
+&GRSVD(X'99'+1) SETA X'72'
+&GRSVD(X'A2'+1) SETA X'73'
+&GRSVD(X'A3'+1) SETA X'74'
+&GRSVD(X'A4'+1) SETA X'75'
+&GRSVD(X'A5'+1) SETA X'76'
+&GRSVD(X'A6'+1) SETA X'77'
+&GRSVD(X'A7'+1) SETA X'78'
+&GRSVD(X'A8'+1) SETA X'79'
+&GRSVD(X'A9'+1) SETA X'7A'
+&GRSVD(X'F0'+1) SETA X'30'
+&GRSVD(X'F1'+1) SETA X'31'
+&GRSVD(X'F2'+1) SETA X'32'
+&GRSVD(X'F3'+1) SETA X'33'
+&GRSVD(X'F4'+1) SETA X'34'
+&GRSVD(X'F5'+1) SETA X'35'
+&GRSVD(X'F6'+1) SETA X'36'
+&GRSVD(X'F7'+1) SETA X'37'
+&GRSVD(X'F8'+1) SETA X'38'
+&GRSVD(X'F9'+1) SETA X'39'
+&GRSVD(X'40'+1) SETA X'20'
+&GRSVD(X'7F'+1) SETA X'22'
+&GRSVD(X'6C'+1) SETA X'25'
+&GRSVD(X'50'+1) SETA X'26'
+&GRSVD(X'7D'+1) SETA X'27'
+&GRSVD(X'4D'+1) SETA X'28'
+&GRSVD(X'5D'+1) SETA X'29'
+&GRSVD(X'5C'+1) SETA X'2A'
+&GRSVD(X'4E'+1) SETA X'2B'
+&GRSVD(X'6B'+1) SETA X'2C'
+&GRSVD(X'60'+1) SETA X'2D'
+&GRSVD(X'4B'+1) SETA X'2E'
+&GRSVD(X'61'+1) SETA X'2F'
+&GRSVD(X'5E'+1) SETA X'3B'
+&GRSVD(X'7A'+1) SETA X'3A'
+&GRSVD(X'4C'+1) SETA X'3C'
+&GRSVD(X'7E'+1) SETA X'3D'
+&GRSVD(X'6E'+1) SETA X'3E'
+&GRSVD(X'6F'+1) SETA X'3F'
+&GRSVD(X'6D'+1) SETA X'5F'
+.*---------------------------------------------------------------------
+.*  DEFINE TABLE NAMES, DEFINE TABLE HEADER
+.*---------------------------------------------------------------------
+&TABLE   CSECT
+&GTABLE  SETC  '&TABLE'
+&GTABLEA SETC  '&GTABLE'.'_ASCII_TO_EBCDIC'
+&GTABLEE SETC  '&GTABLE'.'_EBCDIC_TO_ASCII'
+&GTABLEW SETC  '&GTABLE'.'_RSVD_CHARS'
+&GTABLE._TABLE DS 0D
+         DC    CL8'ASCIEBCD'            ;EYECATCH
+         DC    CL8'&GTABLE'             ;TABLE NAME
+         DC    CL8'&SYSDATE'            ;ASSEMBLY DATE
+         DC    CL8'&SYSTIME'            ;ASSEMBLY TIME
+         DC    CL4'&LVERSN'             ;MACRO VERSION
+         DC    A(&GTABLEA)                                             X
+               IF ASSEMBLY ERROR OCCURS, "@ELXLATE END" IS MISSING
+         DC    A(&GTABLEE)                                             X
+               IF ASSEMBLY ERROR OCCURS, "@ELXLATE END" IS MISSING
+         AIF   ('&TYPE' EQ 'SINGLE').BEGIN10
+         AIF   ('&TYPE' NE 'DOUBLE').ERROR03
+&GSIZE   SETA  &DBCSSZ
+&GMAX    SETA  &DBCSMX
+         AGO   .BEGIN20
+.BEGIN10 ANOP
+&GSIZE   SETA  &SBCSSZ
+&GMAX    SETA  &SBCSMX
+.BEGIN20 ANOP
+         DC    AL1(&GSIZE)              ;BYTES-PER-ENTRY
+         DC    C' '                     ;TABLE ID
+         DC    CL1'S'                   ;LOCATION OF TRANSLATOR
+         DC    AL1(&GTABLEW)            ;RESERVED CHARACTERS (STD/NOT)
+         DC    XL16'00'                 ;RESERVED
+         $CPYRITE
+         ORG   &GTABLE._TABLE+X'400'
+         ACTR  &GMAX*2+4096
+&LINDEXA SETA  1
+.BEGL1   ANOP
+&GATOE(&LINDEXA) SETA 0
+&LINDEXA SETA  &LINDEXA+1
+         AIF   (&LINDEXA LE &GMAX).BEGL1
+&LINDEXE SETA  1
+.BEGL2   ANOP
+&GATOE(&LINDEXE) SETA 0
+&LINDEXE SETA  &LINDEXE+1
+         AIF   (&LINDEXE LE &GMAX).BEGL2
+         AGO   .MEXIT
+.*=====================================================================
+.*  "END" VERB PROCESSING
+.*=====================================================================
+.END     ANOP
+         AIF   ('&GTABLE' EQ '').ERROR04
+.*---------------------------------------------------------------------
+.*  VALIDATE RESERVED CHARACTER ASSIGNMENTS
+.*---------------------------------------------------------------------
+&LINDEXE SETA  0
+.ENDR0   ANOP
+&LINDEXE SETA  &LINDEXE+1
+         AIF   (&LINDEXE GT 256).ENDRX
+         AIF   (&GRSVD(&LINDEXE) EQ 0).ENDR0
+         AIF   (&GETOA(&LINDEXE) EQ &GRSVD(&LINDEXE)).ENDR0
+&L       SETA  &LINDEXE-1
+         MNOTE 4,'WARNING: EBCDIC(&L)=&GETOA(&LINDEXE), SHOULD BE &GRSVX
+               D(&LINDEXE)'
+&LRSVD   SETC  'N'         NON-STANDARD
+         AGO   .ENDR0
+.ENDRX   ANOP
+.*---------------------------------------------------------------------
+.*  VALIDATE EBCDIC-TO-ASCII MAPPING
+.*---------------------------------------------------------------------
+         ACTR  &GMAX*2+4096
+&LINDEXE SETA  0
+.ENDM0   ANOP
+&LINDEXE SETA  &LINDEXE+1
+         AIF   (&LINDEXE GT &GMAX).ENDMX
+&LINDEXA SETA  &GETOA(&LINDEXE)+1
+&L       SETA  &LINDEXE-1
+         AIF   (&GATOE(&LINDEXA) EQ &L).ENDM0
+         AIF   (&GATOE(&LINDEXA) EQ 0).ENDM0
+         MNOTE 4,'WARNING: EBCDIC(&L)=&GETOA(&LINDEXE), ASCII(&GETOA(&LX
+               INDEXE))=&GATOE(&LINDEXA)'
+         AGO   .ENDM0
+.ENDMX   ANOP
+.*---------------------------------------------------------------------
+.*  VALIDATE EBCDIC-TO-ASCII MAPPING
+.*---------------------------------------------------------------------
+         ACTR  &GMAX*2+4096
+&LINDEXA SETA  0
+.ENDMA0  ANOP
+&LINDEXA SETA  &LINDEXA+1
+         AIF   (&LINDEXA GT &GMAX).ENDMAX
+&LINDEXE SETA  &GATOE(&LINDEXA)+1
+&L       SETA  &LINDEXA-1
+         AIF   (&GETOA(&LINDEXE) EQ &L).ENDMA0
+         AIF   (&GETOA(&LINDEXE) EQ 0).ENDMA0
+         MNOTE 4,'WARNING: ASCII(&L)=&GATOE(&LINDEXA), EBCDIC(&GATOE(&LX
+               INDEXA))=&GETOA(&LINDEXE)'
+         AGO   .ENDMA0
+.ENDMAX  ANOP
+.*---------------------------------------------------------------------
+.*  DEFINE THE ASCII-TO-EBCDIC TABLE
+.*---------------------------------------------------------------------
+&GTABLEW EQU   C'&LRSVD'
+&GTABLEA DS    0X                       ;ASCII-TO-EBCDIC TABLE
+&LINDEXA SETA  2
+&LLAST   SETA  &GATOE(1)
+&LRPT    SETA  1
+         ACTR  &GMAX*2+4096
+.ENDL1   AIF   (&LLAST EQ &GATOE(&LINDEXA)).ENDL1EQ
+         DC    &LRPT.AL&GSIZE.(&LLAST)
+&LLAST   SETA  &GATOE(&LINDEXA)
+&LRPT    SETA  0
+.ENDL1EQ ANOP
+&LRPT    SETA  &LRPT+1
+&LINDEXA SETA  &LINDEXA+1
+         AIF   (&LINDEXA LE &GMAX).ENDL1
+         DC    &LRPT.AL&GSIZE.(&LLAST)
+.*---------------------------------------------------------------------
+.*  DEFINE THE EBCDIC-TO-ASCII TABLE
+.*---------------------------------------------------------------------
+&GTABLEE DS    0X                       ;EBCDIC-TO-ASCII TABLE
+&LINDEXE SETA  2
+&LLAST   SETA  &GETOA(1)
+&LRPT    SETA  1
+         ACTR  &GMAX*2+4096
+.ENDL2   AIF   (&LLAST EQ &GETOA(&LINDEXE)).ENDL2EQ
+         DC    &LRPT.AL&GSIZE.(&LLAST)
+&LLAST   SETA  &GETOA(&LINDEXE)
+&LRPT    SETA  0
+.ENDL2EQ ANOP
+&LRPT    SETA  &LRPT+1
+&LINDEXE SETA  &LINDEXE+1
+         AIF   (&LINDEXE LE &GMAX).ENDL2
+         DC    &LRPT.AL&GSIZE.(&LLAST)
+.*---------------------------------------------------------------------
+.*  CLEAR THE GLOBAL TABLE NAME VARIABLE, THEN EXIT
+.*---------------------------------------------------------------------
+&GTABLE  SETC  ''
+         END
+         AGO   .MEXIT
+.*=====================================================================
+.*  "DEFINE" VERB PROCESSING
+.*=====================================================================
+.DEFINE  ANOP
+         AIF   ('&GTABLE' EQ '').ERROR04
+&LINDEXA SETA  &ASCII
+&LINDEXE SETA  &EBCDIC
+&GATOE(&LINDEXA+1) SETA &LINDEXE
+&GETOA(&LINDEXE+1) SETA &LINDEXA
+         AGO   .MEXIT
+.*=====================================================================
+.*  ERROR MESSAGES
+.*=====================================================================
+.ERROR01 ANOP
+         MNOTE '8,INVALID ACTION = &ACTION'
+         AGO   .MEXIT
+.ERROR02 ANOP
+         MNOTE '8,MISSING TABLE= PARAMETER'
+         AGO   .MEXIT
+.ERROR03 ANOP
+         MNOTE '8,INVALID TYPE= PARAMETER, MUST BE SINGLE OR DOUBLE'
+         AGO   .MEXIT
+.ERROR04 ANOP
+         MNOTE '8,SPECIFICATION ERROR... BEGIN ACTION NOT SPECIFIED'
+         AGO   .MEXIT
+.MEXIT   ANOP
+         MEND

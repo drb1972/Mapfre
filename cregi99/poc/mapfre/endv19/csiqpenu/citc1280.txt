@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Usability \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 3 of 4+
+% ISPF Panel Standardization +
+
++ The Endevor ISPF foreground action panels have been standardized
+  including%CCID+and%Comment+relocation to the top of the panels, and
+ %List Options+and %Action Options+order and placement standardized across the
+  panels where possible.
+
+
+
+
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1290
+)END

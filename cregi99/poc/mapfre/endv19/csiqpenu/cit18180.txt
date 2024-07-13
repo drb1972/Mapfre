@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ List SMF Admin Actions Via API and CSV \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%List SMF Admin Actions Via API and CSV
++
++ This enhancement provides API and CSV support for Admin SMF records.
++ There are currently 12 types of administrative objects that can be
++ extracted via the API or CSV, they are:
++ %Object Name:  Description:
++  APPRGRP       Approver Group
++  APPRREL       Approver Relation
++  PROCGRP       Processor Group
++  PROCSYM       Processor Symbols
++  SYSTEM        System
++  SUBSYS        Subsystem
++  TYPE          Type
++  TYPEDSN       Type Data Set
++  DEST          Destination
++  DSNMAP        DSN Mapping
++  USSMAP        USS Mapping
++  CLONE         CLONE SYSTEM
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18190
+)END

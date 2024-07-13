@@ -1,0 +1,32 @@
+ENDE220W 'No match found'                               .ALARM=Y NOKANA
+'ENDE220W No Element found in the current element selection list matching ' +
+'the search criteria.'
+
+ENDE221I '&EEFTFCNT matches found.'                     .ALARM=Y .TYPE=N NOKANA
+'ENDE221I &EEFTFCNT Elements found in the current element selection list '  +
+'matching the search criteria.'
+
+ENDE222I .WINDOW=NORESP NOKANA
+'Searching...'
+
+ENDE223I .WINDOW=NORESP
+'Searched &EEFTSCNT of &EEFTTCNT, Found &EEFTFCNT, ' +
+'Press ATTN to cancel.'
+
+ENDE224E 'From Column > To Column.'                     .ALARM=Y NOKANA
+'ENDE224E The From column value is greater than the To column value.'
+
+ENDE225E 'Missing search text'                          .ALARM=Y NOKANA
+'ENDE225E At least one text string to search for needs to be specified.'
+
+ENDE226E 'Text > Column Range'                          .ALARM=Y NOKANA
+'ENDE226E The text string to search for doesn't fit the selected column range.'
+
+ENDE227E 'Enter 1 or 2  '                               .ALARM=Y NOKANA
+'ENDE227E The field requires a number between 1 and 2'
+
+ENDE228E 'Enter 1 - 4  '                                .ALARM=Y NOKANA
+'ENDE228E The field requires a number between 1 and 4'
+
+ENDE229E 'Enter A or O  '                               .ALARM=Y NOKANA
+'ENDE229E The field requires a A or O value'

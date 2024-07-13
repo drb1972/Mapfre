@@ -1,0 +1,9 @@
+/*
+/*--------------------------------------------------------------------*
+/*  The following message(s) are issued by Endevor exit RBSEXT06.     *
+/*--------------------------------------------------------------------*
+/*
+CIUU861E 'Unable to obtain storage'                      .ALARM=YES
+'Unable to obtain working storage - please contact Endevor Support'
+CIUU862E 'Termination failure'                           .ALARM=YES
+'The Endevor/Infoman interface failed during termination processing'

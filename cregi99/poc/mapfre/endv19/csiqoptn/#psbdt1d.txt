@@ -1,0 +1,25 @@
+@REM ****************************************************** #PSBDT1D ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: CREATE JCL WHICH IS RELATED TO A NEW
+@REM *              PDS BEING PROCESSED BY BDT (JES).  FOR A FLOW
+@REM *              DESCRIPTION, REFER TO #PSBDT11.
+@REM *
+@REM *     PRISPACE/SECSPACE WILL BE EMPTY FOR DELETE ACTIONS.
+@REM *     MAKE IT A DEFAULT.
+@REM *******************************************************************
+@REM PTF C9226020 APPLIED TO CORRECT MISPLACED INP&F5 DD CARD
+@REM *******************************************************************
+@REM *******************************************************************
+@REM PTF P002337  APPLIED TO CORRECT MISSING FDSN/SPACE DURING DELETE
+@REM *******************************************************************
+@REM *******************************************************************
+@REM PTF P004032  APPLIED TO CORRECT SPACE DURING SHIP BACKOUT
+@REM *******************************************************************
+@REM
+@REM @IF &MBRS2COPY
+//         SPACE=(CYL,(&PRISPACE,&SECSPACE))
+@REM @ENDIF
+@REM @IF &MBRS2DELETE
+@REM //        SPACE=(CYL,(005,005),RLSE)
+@REM @ENDIF

@@ -1,0 +1,46 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- COMPARE DATASETS -{-{-
++OPTION  ===>_ZCMD
++
++ BASE Dataset Name..:_dsn                       +
++
++ Compare:
++   PlexC1:           _z+ (Y/N)
++   PlexD1:           _z+ (Y/N)
++   PlexE1:           _z+ (Y/N)
++   PlexF1:           _z+ (Y/N)
++   PlexM1:           _z+ (Y/N)
++   PlexN1:           _z+ (Y/N)
++   PlexP1:           _z+ (Y/N) (not during CHAPS exl. zone 14:00-17:30)
++   PlexQ1:           _z+ (Y/N)
++   PlexQ1 PREV.Pxx1: _z+ (Y/N)
++
++
+)INIT
+   .ZVARS  = '(cplex dplex eplex fplex mplex nplex pplex qplex prev)'
+   .HELP   = evcompH
+   &ZCMD   = ''
+)REINIT
+)PROC
+   ver (&dsn,NB,DSNAME)
+   ver (&cplex,NB,LIST,Y,N)
+   ver (&dplex,NB,LIST,Y,N)
+   ver (&eplex,NB,LIST,Y,N)
+   ver (&fplex,NB,LIST,Y,N)
+   ver (&mplex,NB,LIST,Y,N)
+   ver (&nplex,NB,LIST,Y,N)
+   ver (&pplex,NB,LIST,Y,N)
+   ver (&qplex,NB,LIST,Y,N)
+   ver (&prev,NB,LIST,Y,N)
+   &PFK = .PFKEY
+)END

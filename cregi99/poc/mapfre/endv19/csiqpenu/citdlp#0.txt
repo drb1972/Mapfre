@@ -1,0 +1,14 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ DistribuLink Inventory Number \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
+%Number+- 1- to 15-character inventory number.
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

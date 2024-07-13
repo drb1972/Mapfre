@@ -1,0 +1,22 @@
+      *****************************************************************
+      *
+      *            APPROVE PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APAPP-RQ.
+           05  APAPP-RQ-HEADER.
+               10  APAPP-RQ-LEN        PIC 9(04) COMP VALUE 516.
+               10  APAPP-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APAPP-RQ-ID         PIC 9(04) COMP VALUE 1520.
+               10  APAPP-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  APAPP-RQ-EYE        PIC X(04)      VALUE 'PAPQ'.
+           05  APAPP-RQ-DATAAREA.
+               10  APAPP-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APAPP-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.
+      *  VERSION 2 FIELDS
+               10  APAPP-RQ-UPDT-NOTES PIC X(01) VALUE SPACES.
+                   88  APAPP-RQ-UPDT-NOTES-YES   VALUE 'Y'.
+                   88  APAPP-RQ-UPDT-NOTES-NO    VALUE 'N' ' '.
+               10  APAPP-RQ-NOTES      PIC X(480) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

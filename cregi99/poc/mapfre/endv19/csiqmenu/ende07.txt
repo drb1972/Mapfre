@@ -1,0 +1,30 @@
+ENDE070E 'Value Required'                              .ALARM=YES
+'ENDE070E A numeric value is required for this field'
+
+ENDE071E 'Invalid Value'                               .ALARM=YES
+'ENDE071E The value must be numeric and in the range 1 to 255, inclusive'
+
+ENDE072E 'Invalid Quantity'                            .ALARM=YES
+'ENDE072E The value is lower than the minimum (&ICTP,&ICTS,&ICTSP)'
+
+ENDE073E 'Invalid Value'                               .ALARM=YES
+'ENDE073E The return code must be numeric and between 0 and 16, inclusive '
+
+ENDE074I 'Update Cancelled'                            .ALARM=YES
+'ENDE074I The Dialog Defaults update was cancelled at the user''s request'
+
+ENDE075I 'Defaults Updated'                            .ALARM=YES
+'ENDE075I The Dialog Defaults were successfully updated'
+
+ENDE076E 'Invalid Space Unit'                          .ALARM=YES
+'ENDE076E The Space Unit value specified is invalid'
+
+ENDE077I 'Update Cancelled'                            .ALARM=YES
+'ENDE077I The Action Options update was cancelled at the user''s request'
+
+ENDE078I 'Options Updated'                             .ALARM=YES
+'ENDE078I The Action Options were successfully updated'
+
+ENDE079I 'Element Moved'
+'ENDE079I Element was successfully moved'
+

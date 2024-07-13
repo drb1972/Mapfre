@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group Definitions \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Processor groups allow you to use multiple generate, move, or delete
++processors with a single type. For example, if your site has programs
++in batch COBOL and CICS COBOL, processor groups allow you to define a
++type COBOL with two associated processor groups, one for each "flavor"
++of COBOL code.
++
++Processor groups can be defined in both Stage 1 and Stage 2. Groups in
++either Stage can have up to three processors (generate, move, delete).
++
++You must specify a move processor for Stage 2 types if you plan to use
++the map to move from Stage 2 to another environment.
++
++    Definition panels differ for
++
+%    1+- Groups called *NOPROC*     %3+- Other groups
+%    2+- Groups for type PROCESS
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITEANP0 2,CITEATP0 3,CITEAPG0)
+)END

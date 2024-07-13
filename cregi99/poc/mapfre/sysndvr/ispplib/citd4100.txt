@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Library Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use this panel to do the following:
++
++* Select a member for which you want to view the member's CSECTs and
++  footprints.
++  (Use%I+to select).
++
++* Display information about a member, if a footprint appears on this
++  panel. (Use%L, S, B, H, C, M+to select.) (Use%L, M+to select
++  source-less elements.)
++
++The library containing the listed members is identified at the top of
++the panel.
++
++The footprint for a member displays next to the member name.
++
++    Select%1+-%2+for more on
++
+%    1+- Footprint fields           %2+- Footprints
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITFOOT0 2,CITT6000)
+)END

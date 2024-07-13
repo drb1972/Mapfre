@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Usability \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 1 of 4+
+% Element and Package Selection List Scrolling +
+
++ Element and package selection lists have been expanded to allow scrolling%left
+ +and%right+to show more data associated with an element or package in the
+  selection list, without having to select the element or package for individual
+  display.  Data included on an element selection list includes most of the data
+  found in the element MCF record.  Data included on a package selection list
+  includes most of the data found in the package header record.
+
+
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC1270
+)END

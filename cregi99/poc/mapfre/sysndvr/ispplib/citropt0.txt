@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Request Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+% Use     To access a definition panel in this mode
++
+%blank+   Display, allowing you to view, but not change the definition.
++
+%  #+     Delete, allowing you to delete the definition.
++
+%  C+     Create, allowing you to create a new definition.
++
+%  U+     Update, allowing you to update an existing definition.
++
+%  K+     Clone. System request panel only. Allows you to access a
++         System Definition panel used to clone system definitions.
++
++
++
++
+
++                                            (%PF3+to return)
+)END

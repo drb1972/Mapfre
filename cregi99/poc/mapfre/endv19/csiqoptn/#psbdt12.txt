@@ -1,0 +1,48 @@
+@REM ****************************************************** #PSBDT12 ***
+@REM *    CONTENTS: ENDEVOR/MVS - START PROCESSING A NEW PDS
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: CREATE JCL WHICH IS RELATED TO A NEW
+@REM *              PDS BEING PROCESSED BY BDT (JES).  FOR A FLOW
+@REM *              DESCRIPTION, REFER TO #PSBDT11.
+@REM *******************************************************************
+@REM PTF C9226020 APPLIED TO CORRECT MISPLACED INP&F5 DD CARD
+@REM *******************************************************************
+@REM PTF P002337  APPLIED TO CORRECT MISSING FDSN/SPACE DURING DELETE
+@REM *******************************************************************
+@REM PTF P004032  APPLIED TO CORRECT SPACE DURING SHIP BACKOUT
+@REM *******************************************************************
+@REM PTF P004952  REMOVED CODE THAT PLACED &RDSN OR &FDSN INTO INPUT DSN.
+@REM              ADDED TESTS, TO OMIT IEBCOPY STATEMENTS IF NOTHING TO
+@REM              COPY.
+@REM              REORDERED SPACE AND VOLSER PARAMETERS, TO PREVENT
+@REM              JCL ERRORS.
+@REM              ADDED #PSBDT1Y TO INCLUDE &HVOLSER AFTER 'IF'
+@REM              ADDED #PSBDT1Z TO INCLUDE &RVOLSER AFTER 'IF'
+@REM *******************************************************************
+@REM
+@PASS=10                         COPY FILE DD CARDS FOR FLATTENING PDS
+@IF &MBRS2COPY
+//I&F5     DD DISP=(OLD,&HDISP),
+//             DSN=&FDSN
+//O&F5     DD DISP=(,PASS),DSN=&&F&F5,UNIT=&HUNIT,
+@ENDIF
+@IF &MBRS2COPY
+@INCLUDE=Y
+//         SPACE=(CYL,(0001,0005))
+@ENDIF
+@PASS=20                         COPY CONTROL COMMAND
+@IF &MBRS2COPY
+@INCLUDE=N
+@ENDIF
+@PASS=30                         XMIT FILE DDCARDS FOR BDTXMIT
+@IF &MBRS2COPY
+@INCLUDE=Z
+@ENDIF
+@PASS=40                         RE-STAGE UNLOADED FILE TO PDS DD CARDS
+@IF &MBRS2COPY
+@INCLUDE=B
+@ENDIF
+@PASS=50                         COPY CONTROL STATEMENT
+@IF &MBRS2COPY
+@INCLUDE=N
+@ENDIF

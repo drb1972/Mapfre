@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Creating Packages \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Creating a package involves:
++
++  * Identifying the elements to be included in the package.
++  * Building a file of actions to be performed against the elements.
++  * Identifying the package as standard or emergency.
++  * Specifying dates between which the package must be executed.
++
++You can also create a package by reusing an existing package.
++
++After creation, a package has a status of in-edit. You can modify a
++package as long as it has a status of in-edit.
++
++
++
++
++
++                                            (%PF3+to return)
+)END

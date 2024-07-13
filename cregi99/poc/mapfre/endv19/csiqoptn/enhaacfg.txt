@@ -1,0 +1,39 @@
+         MACRO
+         ENHAACFG &DSECT=YES,                                          X
+               &PREFIX=AACFG,                                          X
+               &EYE=CFG,  ENA$NDVR VALIDATION CODE NEEDS EYECATCHER    X
+               &VER=1     TO END WITH LETTER Q - IM NOT KIDDING..
+*
+         ENHAAID#                      API ID DEFINITIONS
+***********************************************************************
+*        CONFIG REQUEST BLOCK                                         *
+***********************************************************************
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=&VER,               CONTROL BLOCK VERSION           X
+               EYE='&EYE.Q',           CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=&PREFIX._RQ
+*
+         LCLC  &P
+&P       SETC  '&PREFIX._RQ'
+*
+&P._DATA DS    0X
+&P._FUNC       DS   CL1              FUNCTION CODE
+&P._FUNC_TYP   EQU  C'T'             TYPE SEQUENCE
+&P._FUNC_OPT   EQU  C'O'             OPTIONAL FEATURES TABLE (ENCOPTBL)
+&P._FUNC_SYM   EQU  C'S'             SITE SYMBOL TABLE
+&P._FUNC_DIAL  EQU  C'D'             DIALOG OPTIONS (ENDICNFG)
+&P._FUNC_C1DEF EQU  C'C'             C1 DEFAULTS (C1DEFLTS)
+&P._DDN        DS   CL8              OUTPUT DDN
+&P._QUAL       DS   CL1              CSV QUALIFIER
+&P._QUAL_DEF   EQU  C'"'             DEFAULT QUALIFIER - DOUBLE QUOTE
+&P._ESC        DS   CL1              CSV ESCAPE CHAR
+&P._ESC_DEF    EQU  C'\'             DEFAULT ESCAPE - BACKSLASH
+*
+         SPACE ,
+&P._VER#1_DATADSLN EQU *-&P._DATA
+&P._VER#1_DSLN     EQU *-&P.              N
+&P._DATADSLN   EQU *-&P._DATA
+&P._DSLN EQU   *-&P
+         ORG   &P._DATA
+&P._DATAAREA DS XL(&P._DATADSLN)  STORAGE FOR AREA
+         MEND

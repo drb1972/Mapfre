@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate Element \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether to generate an element after adding or
++transferring it.
++
++Acceptable values are:
++
+%     Y+- Default - Generate the element.
+%     N+- Do not generate the element.
++
++
++
++
++
++
++
++
++
++
++\ \ (%PF3+to return) \ \
+)END

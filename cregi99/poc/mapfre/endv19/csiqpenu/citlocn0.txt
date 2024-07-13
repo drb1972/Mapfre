@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Next Location Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Next env+-
++   For systems and subsystems, the next environment on the map.
++   For types and processor groups, the environment at the next map location.
++
+%Stage ID+- The ID of the Stage at the next map location.
++
+%System+-
++   For systems and subsystems, the name of the current system in
++      the next environment on the map.
++   For types and processor groups, the name of the current system at
++      the next map location.
++
+%Type+- The name of the current type at the next map location.
++
+%PF3+to return, Select%1+-%5+for more on
++
+%    1+- Environment                %4+- Type
+%    2+- Stage                      %5+- Mapping
+%    3+- System
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT2100 2,CITT2200 3,CITT2300 4,CITT2500
+                  5,CITT3000)
+)END

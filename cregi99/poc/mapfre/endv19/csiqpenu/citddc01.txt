@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Configuration Member \-\ TUTORIAL
+%COMMAND ===>_ZCMD                                                             +
+%
++Use this panel to review the contents of the destination configuration member
++of the Endevor PARMLIB data set. This member is parsed for display on this
++panel so it is a good idea to use this display option to check the validity of
++the destination configuration member after making a change.
++
++The member must be edited to make changes. You cannot make changes to the
++member through this display only option.
++
++The LEFT and RIGHT commands (usually PF10 and PF11) are available on this
++panel to display the full 72 character Symbol Value field in the list and to
++fill in the destination ID on every line, useful when sorting via ESORT on the
+%Value+field.
++
++
++    Select from the following options for more information:
++
+%    1+- Syntax of the destination configuration member statements
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITDDC02)
+)END

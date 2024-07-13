@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+¯)
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ¢ TYPE(text) INTENS(LOW) skip(on)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND({})
+%{-} Search for Wizard Change {-}
+%Option ===>@ZCMD
+%
+¢   %S¢Search for history %Z¢Display Wizard Types %H¢Help
+¢   %Q¢Quit
+¢
++    System  ==>@Z ¢       (OS,OD,OJ)
+¢
++    Member  ==>@Z       ¢
+¢
++    Type    ==>@Z       ¢
+¢
+¢
+¢    Previous versions of the members can be viewed on the Tplex in
+¢     PREV.PO_1.<type>.B<cmrnumber>
+¢    Where <cmrnumber> is the numeric part of the CMR number that made
+¢    the change. These datasets are kept permanently.
+¢    On the target plexes the datasets are kept for one month and
+¢    stored in PGEV.PO_1.<type>.B<cmrnumber>
+¢
+)INIT
+  .ZVARS = '(SYS MEM TYPE)'
+  VGET (SYS) PROFILE
+  VGET (MEM) PROFILE
+  VGET (TYPE) PROFILE
+
+)PROC
+  VER (&SYS,NB,LIST,OS,OD,OJ,EK)
+  VER (&TYPE,NB)
+  VER (&MEM,NB)
+
+  VPUT (SYS) PROFILE
+  VPUT (MEM) PROFILE
+  VPUT (TYPE) PROFILE
+)END

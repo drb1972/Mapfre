@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Map Implementation Checklist \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++When defining routes for a map:
++
++ * Set up routes that reflect your software life cycles.  Draw a
++   diagram of the routes first, using the examples in the
++   Administrator's Guide, chapter 4, as examples.
++
++ * Establish the routes in the C1DEFLTS Table
++
++ * Use the System, Subsystem, Type, and Processor Group Definition panels
++   to identify inventory classifications and processor groups at the
++   successive locations in each route.
++
++ * Run CONRPT07, System Definition Profile, to verify that you have
++   set up the correct routes.  Also run CONRPT07 whenever you change a
++   route, to verify that you have made the modifications correctly.
++   See the Reports manual for a sample of the CONRPT07.
++
++
++                                            (%PF3+to return)
+)END

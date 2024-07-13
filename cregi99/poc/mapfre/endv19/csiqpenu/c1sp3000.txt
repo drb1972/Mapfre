@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+   /*------------------------------------------------------------*/
+   /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+   /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+   /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   /*------------------------------------------------------------*/
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   < TYPE(TEXT) INTENS(&VNBPKGD9)
+   # TYPE(TEXT) INTENS(&VNBPKGC2)
+   @ TYPE(&VNBPKGC1) INTENS(HIGH)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY
+%CAST -------------------------- CAST PACKAGE ----------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %C+- Cast Package                     %S+ - Display SCL
++  %N+- Add Notes to Package
++
++PACKAGE ID:|VPHPKGID        +             STATUS: |VPHSTAT     +
++DESCRIPTION: ~VPHCOMM                                           +
++PACKAGE TYPE:|VPHTYPE   +
++SHARABLE PACKAGE:  |Z+
++VALIDATE COMPONENTS  #===>@Z+(Y/N/W)
++ENABLE BACKOUT       %===>_Z+(Y/N)
+<NOTES EXIST FOR PACKAGE+
++EXECUTION WINDOW FROM%===>_Z      _Z    + TO%===>_Z      _Z    +
++
++              USER ID  DATE    TIME
++CREATED:     |VPHCRUID|Z      |Z    +
++LAST UPDATED:|VPHPUUID|Z      |Z    +
++
+)INIT
+  .HELP = CITP3000
+  .ZVARS = '(VPHPSHR  VNBPKGCV  VPHBOFLG            +
+             VPHWSD   VPHWST    VPHWED    VPHWET    +
+             VPHCRD   VPHCRT    VPHPUD    VPHPUT )'
+)PROC
+)END

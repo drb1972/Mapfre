@@ -1,0 +1,17 @@
+startdef
+tag % sh
+tag + s
+TAG _ UMH CMD DSNAME DSNTHRU
+tag | sh msg
+%------------------------------ Footprint Display ------------------------------
+%OPTION  ===>_ +
+|
+%Blank+- Selection list (Shows footprints for non-load modules)
+%   I+ - Load module CSECTS and footprints
+%   L+ - Footprinted member contained in output or listing library
++
++
++PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_                                                +
++   THRU MEMBER  %===>_        +
+enddef

@@ -1,0 +1,461 @@
+          MACRO
+          ENHOPARQ &SPECIFIED=ALL,&ALLOWED=ALL
+          GBLA &ENHOLIST           1                       LIST
+          GBLA &ENHOREST           2                       RESTORE
+          GBLA &ENHOCOPY           4                       COPY
+          GBLA &ENHOADD            8                       ADD
+          GBLA &ENHOUPDT           16                      UPDATE
+          GBLA &ENHOARCH           32                      ARCHIVE
+          GBLA &ENHOGEN            64                      GENERATE
+          GBLA &ENHOMOVE           128                     MOVE
+          GBLA &ENHODEL            256                     DELETE
+          GBLA &ENHORET            512                     RETRIEVE
+          GBLA &ENHOPRNT           1024                    PRINT
+          GBLA &ENHOXFER           2048                    TRANSFER
+          GBLA &ENHOSIGN           4096                    SIGNIN
+          GBLA &ENHONONE           8192                    NONE
+          GBLC &PARMFCTN
+          GBLC &TITLE
+.*
+          LCLA &VEROLIST
+          LCLA &VEROREST
+          LCLA &VEROCOPY
+          LCLA &VEROADD
+          LCLA &VEROUPDT
+          LCLA &VEROARCH
+          LCLA &VEROGEN
+          LCLA &VEROMOVE
+          LCLA &VERODEL
+          LCLA &VERORET
+          LCLA &VEROPRNT
+          LCLA &VEROXFER
+          LCLA &VEROSIGN
+.*
+          LCLA &VALPAR
+          LCLA &NUMBER,&CTR1,&ERR
+          LCLA &AIG
+          LCLA &ALLOWB
+.*
+.*--------------------------------------------------*
+.*                                                  *
+.*--------------------------------------------------*
+.VER       ANOP
+&ALLOWB   SETA  0
+           AIF  (T'&SPECIFIED NE 'O').VEROK
+&ALLOWB    SETA  1
+           AGO  .VEROK
+.*
+.VEROK     ANOP
+&VEROLIST  SETA    0
+&VEROREST  SETA    0
+&VEROCOPY  SETA    0
+&VEROADD   SETA    0
+&VEROUPDT  SETA    0
+&VEROARCH  SETA    0
+&VEROGEN   SETA    0
+&VEROMOVE  SETA    0
+&VERODEL   SETA    0
+&VERORET   SETA    0
+&VEROPRNT  SETA    0
+&VEROXFER  SETA    0
+&VEROSIGN  SETA    0
+.*
+           AIF  ('&ALLOWED' NE 'ALL').VSTART
+.*
+&VEROLIST  SETA    1
+&VEROREST  SETA    1
+&VEROCOPY  SETA    1
+&VEROADD   SETA    1
+&VEROUPDT  SETA    1
+&VEROARCH  SETA    1
+&VEROGEN   SETA    1
+&VEROMOVE  SETA    1
+&VERODEL   SETA    1
+&VERORET   SETA    1
+&VEROPRNT  SETA    1
+&VEROXFER  SETA    1
+&VEROSIGN  SETA    1
+&VALPAR  SETA  &ENHOLIST+&ENHOREST+&ENHOCOPY+&ENHOADD+&ENHOUPDT
+&VALPAR  SETA  &VALPAR+&ENHOARCH+&ENHOGEN+&ENHOMOVE+&ENHODEL+&ENHORET
+&VALPAR  SETA  &VALPAR+&ENHOPRNT+&ENHOXFER+&ENHOSIGN
+         MNOTE '*-----------------------------------------------------'
+         MNOTE '*      ALLOWED ACTIONS (&TITLE.)              '
+         MNOTE '*      LIST                                   '
+         MNOTE '*      RESTORE                                '
+         MNOTE '*      COPY                                   '
+         MNOTE '*      ADD                                    '
+         MNOTE '*      UPDATE                                 '
+         MNOTE '*      ARCHIVE                                '
+         MNOTE '*      GENERATE                               '
+         MNOTE '*      MOVE                                   '
+         MNOTE '*      DELETE                                 '
+         MNOTE '*      RETRIEVE                               '
+         MNOTE '*      PRINT                                  '
+         MNOTE '*      TRANSFER                               '
+         MNOTE '*      SIGNIN                                 '
+         MNOTE '*-----------------------------------------------------'
+         AGO  .START
+.VSTART  ANOP
+&NUMBER  SETA N'&ALLOWED
+.*--------------------------------------------------------------*
+.*      LIST OF AUTHORIZED ACTIONS (SEE ENHOPTNS MACRO)         *
+.*--------------------------------------------------------------*
+&CTR1    SETA 1
+         MNOTE '*-----------------------------------------------------'
+         MNOTE '*      ALLOWED ACTIONS (&TITLE.)              '
+.VMNOTE  ANOP
+         MNOTE '*      &ALLOWED(&CTR1)'
+.*
+         AIF   (&CTR1 EQ &NUMBER).VEMNOTE
+&CTR1    SETA  &CTR1+1
+         AGO   .VMNOTE
+.VEMNOTE ANOP
+         MNOTE '*-----------------------------------------------------'
+&CTR1    SETA 1
+.*--------------------------------------------------------------*
+.*                                                              *
+.*--------------------------------------------------------------*
+.*
+.VLIST   ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,4) NE 'LIST').VREST
+         AIF   ('&VEROLIST' EQ '0').VLIST1
+&VEROLIST SETA 3
+         AGO   .VDEFIN
+.VLIST1  ANOP
+&VEROLIST SETA 1
+&VALPAR  SETA  &VALPAR+&ENHOLIST
+         AGO    .VLOOP
+.*
+.VREST   ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,7) NE 'RESTORE').VCOPY
+         AIF   ('&VEROREST' EQ '0').VREST1
+&VEROREST SETA 3
+         AGO   .VDEFIN
+.VREST1  ANOP
+&VEROREST SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOREST
+         AGO    .VLOOP
+.*
+.VCOPY   ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,4) NE 'COPY').VADD
+         AIF   ('&VEROCOPY' EQ '0').VCOPY1
+&VEROCOPY SETA 3
+         AGO   .VDEFIN
+.VCOPY1  ANOP
+&VEROCOPY SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOCOPY
+         AGO    .VLOOP
+.*
+.VADD    ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,3) NE 'ADD').VUPDATE
+         AIF   ('&VEROADD' EQ '0').VADD1
+&VEROADD  SETA 3
+         AGO   .VDEFIN
+.VADD1   ANOP
+&VEROADD  SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOADD
+         AGO    .VLOOP
+.*
+.VUPDATE ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,6) NE 'UPDATE').VARCHIVE
+         AIF   ('&VEROUPDT' EQ '0').VUPDAT1
+&VEROUPDT SETA 3
+         AGO   .VDEFIN
+.VUPDAT1 ANOP
+&VEROUPDT SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOUPDT
+         AGO    .VLOOP
+.*
+.VARCHIVE ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,7) NE 'ARCHIVE').VGENER
+         AIF   ('&VEROARCH' EQ '0').VARCHIV1
+&VEROARCH SETA 3
+         AGO   .VDEFIN
+.VARCHIV1 ANOP
+&VEROARCH SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOARCH
+         AGO    .VLOOP
+.*
+.VGENER  ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,8) NE 'GENERATE').VMOVE
+         AIF   ('&VEROGEN' EQ '0').VGENER1
+&VEROGEN  SETA 3
+         AGO   .VDEFIN
+.VGENER1 ANOP
+&VEROGEN  SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOGEN
+         AGO    .VLOOP
+.*
+.VMOVE   ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,4) NE 'MOVE').VDELETE
+         AIF   ('&VEROMOVE' EQ '0').VMOVE1
+&VEROMOVE SETA 3
+         AGO   .VDEFIN
+.VMOVE1  ANOP
+&VEROMOVE SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOMOVE
+         AGO    .VLOOP
+.*
+.VDELETE ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,6) NE 'DELETE').VRETRIEV
+         AIF   ('&VERODEL' EQ '0').VDELET1
+&VERODEL  SETA 3
+         AGO   .VDEFIN
+.VDELET1 ANOP
+&VERODEL  SETA     1
+&VALPAR  SETA  &VALPAR+&ENHODEL
+         AGO    .VLOOP
+.*
+.VRETRIEV ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,8) NE 'RETRIEVE').VPRINT
+         AIF   ('&VERORET' EQ '0').VRETRIE1
+&VERORET  SETA 3
+         AGO   .VDEFIN
+.VRETRIE1 ANOP
+&VERORET  SETA     1
+&VALPAR  SETA  &VALPAR+&ENHORET
+         AGO    .VLOOP
+.*
+.VPRINT  ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,5) NE 'PRINT').VTRANSF
+         AIF   ('&VEROPRNT' EQ '0').VPRINT1
+&VEROPRNT SETA 3
+         AGO   .VDEFIN
+.VPRINT1 ANOP
+&VEROPRNT SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOPRNT
+         AGO    .VLOOP
+.*
+.VTRANSF ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,8) NE 'TRANSFER').VSIGN
+         AIF   ('&VEROXFER' EQ '0').VTRANSF1
+&VEROXFER SETA 3
+         AGO   .VDEFIN
+.VTRANSF1 ANOP
+&VEROXFER SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOXFER
+         AGO    .VLOOP
+.*
+.VSIGN   ANOP
+         AIF   ('&ALLOWED(&CTR1)'(1,6) NE 'SIGNIN').VUNKNOW
+         AIF   ('&VEROSIGN' EQ '0').VSIGN1
+&VEROSIGN SETA 3
+         AGO   .VDEFIN
+.VSIGN1  ANOP
+&VEROSIGN SETA     1
+&VALPAR  SETA  &VALPAR+&ENHOSIGN
+         AGO    .VLOOP
+.*-----------------------------------------------------------------*
+.*       UNKNOW PARAMETER                                          *
+.*-----------------------------------------------------------------*
+.VUNKNOW   ANOP
+      MNOTE 16,'ACTION &ALLOWED(&CTR1) IS UNKNOW (IN LIST OF ACTION)'   '
+&ERR      SETA  1
+          AGO   .VLOOP
+.*-----------------------------------------------------------------*
+.*       ACTION ALREADY DEFINED                                    *
+.*-----------------------------------------------------------------*
+.VDEFIN  ANOP
+ MNOTE  16,'ACTION &ALLOWED(&CTR1) ALREADY DEFINED (IN LIST OF ACTION)'
+         AGO    .VLOOP
+.VLOOP   ANOP
+         AIF   (&CTR1 EQ &NUMBER).START
+&CTR1    SETA  &CTR1+1
+         AGO   .VLIST
+.VNLOOP  ANOP
+         AGO    .START
+.*--------------------------------------------------*
+.*                                                  *
+.*--------------------------------------------------*
+.START    ANOP
+&CTR1     SETA 1
+          AIF  (&ALLOWB EQ 1).END
+          AIF  ('&SPECIFIED(&CTR1)'(1,3) EQ 'ALL').END
+          AIF  ('&SPECIFIED(&CTR1)'(1,4) EQ 'NONE').NONE
+          AGO  .START1
+.NONE     ANOP
+&VALPAR   SETA &ENHONONE
+          AGO  .END
+.*
+.START1   ANOP
+&NUMBER   SETA N'&SPECIFIED
+&ERR      SETA 0
+&VALPAR   SETA 0
+.LIST     ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,4) NE 'LIST').REST
+          AIF  (&VEROLIST EQ 1).LIST1
+          AIF  (&VEROLIST EQ 2).DEFIN
+&AIG      SETA &VEROLIST
+          AGO  .NOTAUTH
+.LIST1    ANOP
+&VALPAR   SETA &VALPAR+&ENHOLIST
+&VEROLIST SETA 2
+          AGO  .LOOP
+.*
+.REST     ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,7) NE 'RESTORE').COPY
+          AIF  (&VEROREST EQ 1).REST1
+          AIF  (&VEROREST EQ 2).DEFIN
+&AIG      SETA &VEROREST
+          AGO  .NOTAUTH
+.REST1    ANOP
+&VALPAR   SETA &VALPAR+&ENHOREST
+&VEROREST SETA 2
+          AGO  .LOOP
+.*
+.COPY     ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,4) NE 'COPY').ADD
+          AIF  (&VEROCOPY EQ 2).DEFIN
+          AIF  (&VEROCOPY EQ 1).COPY1
+&AIG      SETA &VEROCOPY
+          AGO  .NOTAUTH
+.COPY1    ANOP
+&VALPAR   SETA &VALPAR+&ENHOCOPY
+&VEROCOPY SETA 2
+          AGO  .LOOP
+.*
+.ADD      ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,3) NE 'ADD').UPDATE
+          AIF  (&VEROADD  EQ 1).ADD1
+          AIF  (&VEROADD  EQ 2).DEFIN
+&AIG      SETA &VEROADD
+           AGO  .NOTAUTH
+.ADD1     ANOP
+&VALPAR   SETA &VALPAR+&ENHOADD
+&VEROADD  SETA 2
+          AGO  .LOOP
+.*
+.UPDATE   ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,6) NE 'UPDATE').ARCHIVE
+          AIF  (&VEROUPDT EQ 1).UPDAT1
+          AIF  (&VEROUPDT EQ 2).DEFIN
+&AIG      SETA &VEROUPDT
+          AGO  .NOTAUTH
+.UPDAT1   ANOP
+&VALPAR   SETA &VALPAR+&ENHOUPDT
+&VEROUPDT SETA 2
+          AGO  .LOOP
+.*
+.ARCHIVE  ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,7) NE 'ARCHIVE').GENER
+          AIF  (&VEROARCH EQ 1).ARCHIV1
+          AIF  (&VEROARCH EQ 2).DEFIN
+&AIG      SETA &VEROARCH
+          AGO  .NOTAUTH
+.ARCHIV1  ANOP
+&VALPAR   SETA &VALPAR+&ENHOARCH
+&VEROARCH SETA 2
+          AGO  .LOOP
+.*
+.GENER    ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,8) NE 'GENERATE').MOVE
+          AIF  (&VEROGEN  EQ 1).GENER1
+          AIF  (&VEROGEN  EQ 2).DEFIN
+&AIG      SETA &VEROGEN
+          AGO  .NOTAUTH
+.GENER1   ANOP
+&VALPAR   SETA &VALPAR+&ENHOGEN
+&VEROGEN  SETA 2
+          AGO  .LOOP
+.*
+.MOVE     ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,4) NE 'MOVE').DELETE
+          AIF  (&VEROMOVE EQ 1).MOVE1
+          AIF  (&VEROMOVE EQ 2).DEFIN
+&AIG      SETA &VEROMOVE
+          AGO  .NOTAUTH
+.MOVE1    ANOP
+.MOVE2    ANOP
+&VALPAR   SETA &VALPAR+&ENHOMOVE
+&VEROMOVE SETA 2
+          AGO  .LOOP
+.*
+.DELETE   ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,6) NE 'DELETE').RETRIEV
+          AIF  (&VERODEL  EQ 1).DELET1
+          AIF  (&VERODEL  EQ 2).DEFIN
+&AIG      SETA &VERODEL
+          AGO  .NOTAUTH
+.DELET1   ANOP
+&VALPAR   SETA &VALPAR+&ENHODEL
+&VERODEL  SETA 2
+          AGO  .LOOP
+.*
+.RETRIEV  ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,8) NE 'RETRIEVE').PRINT
+          AIF  (&VERORET  EQ 1).RETRIE1
+          AIF  (&VERORET  EQ 2).DEFIN
+&AIG      SETA &VERORET
+          AGO  .NOTAUTH
+.RETRIE1  ANOP
+&VALPAR   SETA &VALPAR+&ENHORET
+&VERORET  SETA 2
+          AGO  .LOOP
+.*
+.PRINT    ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,5) NE 'PRINT').TRANSF
+          AIF  (&VEROPRNT EQ 1).PRINT1
+          AIF  (&VEROPRNT EQ 2).DEFIN
+&AIG      SETA &VEROPRNT
+          AGO  .NOTAUTH
+.PRINT1   ANOP
+&VALPAR   SETA &VALPAR+&ENHOPRNT
+&VEROPRNT SETA 2
+          AGO  .LOOP
+.*
+.TRANSF   ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,8) NE 'TRANSFER').SIGN
+          AIF  (&VEROXFER EQ 1).TRANSF1
+          AIF  (&VEROXFER EQ 2).DEFIN
+&AIG      SETA &VEROXFER
+          AGO  .NOTAUTH
+.TRANSF1  ANOP
+&VALPAR   SETA &VALPAR+&ENHOXFER
+&VEROXFER SETA 2
+          AGO  .LOOP
+.*
+.SIGN     ANOP
+          AIF  ('&SPECIFIED(&CTR1)'(1,6) NE 'SIGNIN').UNKNOW
+          AIF  (&VEROSIGN EQ 1).SIGN1
+          AIF  (&VEROSIGN EQ 2).DEFIN
+&AIG      SETA &VEROSIGN
+          AGO  .NOTAUTH
+.SIGN1    ANOP
+&VALPAR   SETA &VALPAR+&ENHOSIGN
+&VEROSIGN SETA 2
+          AGO  .LOOP
+.*-----------------------------------------------------------------*
+.*       UNKNOW PARAMETER                                          *
+.*-----------------------------------------------------------------*
+.UNKNOW   ANOP
+          MNOTE 12,'ACTION &SPECIFIED(&CTR1) IS UNKNOW'
+&ERR      SETA  1
+          AGO   .LOOP
+.*-----------------------------------------------------------------*
+.*       ACTION ALREADY DEFINED                                    *
+.*-----------------------------------------------------------------*
+.DEFIN    ANOP
+&ERR      SETA  1
+          AIF   (&AIG GT 2).LOOP
+          MNOTE 12,'ACTION &SPECIFIED(&CTR1) ALREADY DEFINED'
+          AGO   .LOOP
+.*-----------------------------------------------------------------*
+.*       ACTION NOT DFINED IN THE AUTHORIZED ACTION                *
+.*-----------------------------------------------------------------*
+.NOTAUTH  ANOP
+&ERR      SETA  1
+          AIF   (&AIG GT 2).LOOP
+          MNOTE 12,'ACTION &SPECIFIED(&CTR1) NOT AUTHORIZED'
+          AGO   .LOOP
+.LOOP     ANOP
+          AIF   (&CTR1 EQ &NUMBER).STOP
+&CTR1     SETA  &CTR1+1
+          AGO   .LIST
+.STOP     ANOP
+          AIF   (&ERR NE 1).END
+&VALPAR   SETA  1
+.END      ANOP
+.*&PARMFCTN SETC  '(&PARM1,&VALPAR)'
+&PARMFCTN SETC  '&PARMFCTN&VALPAR.)'
+.MEND     ANOP
+          MEND

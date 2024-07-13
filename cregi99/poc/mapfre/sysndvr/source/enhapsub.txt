@@ -1,0 +1,46 @@
+         MACRO
+         ENHAPSUB &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*        SUBMIT PACKAGE - REQUEST BLOCK
+***********************************************************************
+APSUB_RQ$VER    EQU 1                  CONTROL BLOCK VERSION
+APSUB_RQ$EYE    EQU C'PSUQ'            CONTROL BLOCK EYE-CATCHER
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               PREFIX=APSUB_RQ
+         SPACE ,
+APSUB_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      APSUB_RQ_DATA
+APSUB_RQ_PKGID    DC CL16' '           PACKAGE ID
+*                 JOBCARD LOCATION DATA
+APSUB_RQ_JCDDN    DC CL8' '            DD OR FILE NAME
+APSUB_RQ_JCDSN    DC CL44' '           DATA SET NAME
+APSUB_RQ_JCMBR    DC CL08' '           MEMBER NAME
+                  DC CL2' '            RESERVED
+*                 SUBMIT TO LOCATION DATA
+APSUB_RQ_TOLOC    DC CL8' '            TO LOCATION (IR DDN OR CA7)
+*                 ACTION OPTIONS
+APSUB_RQ_WSTATUS  DC CL1' '            WHERE STATUS (A/F/B)
+APSUB_RQ_MULTJS   DC CL1' '            MULTIPLE JOBSTREAMS (Y/N)
+APSUB_RQ_INCRJN   DC CL1' '            INCREMENT JOBNAME (Y/N)
+APSUB_RQ_JCLPROC  DC CL8' '            JCL PROCEDURE NAME
+APSUB_RQ_DEPJN    DC CL8' '            CA-7 DEPENDENT JOB NAME
+*                 RESERVED AREA
+APSUB_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DC CL4' '            ALIGNMENT
+                  DS 0X
+                  DS 0F
+         SPACE ,
+APSUB_RQ_VER#1_DATADSLN EQU *-APSUB_RQ_DATA
+APSUB_RQ_VER#1_DSLN     EQU *-APSUB_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+APSUB_RQ_DATADSLN EQU *-APSUB_RQ_DATA
+APSUB_RQ_DSLN     EQU *-APSUB_RQ
+         ORG      APSUB_RQ_DATA
+APSUB_RQ_DATAAREA DS XL(APSUB_RQ_DATADSLN)     DATA AREA
+         MEND

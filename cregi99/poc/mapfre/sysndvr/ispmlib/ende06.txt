@@ -1,0 +1,30 @@
+ENDE060I 'Environment not Selected'                    .ALARM=YES
+'ENDE060I An environment was NOT selected from the Environment List'
+
+ENDE061I 'System not Selected'                         .ALARM=YES
+'ENDE061I A system was NOT selected from the System List'
+
+ENDE062I 'Subsystem not Selected'                      .ALARM=YES
+'ENDE062I A Subsystem was NOT selected from the Subsystem List'
+
+ENDE063I 'Type not Selected'                           .ALARM=YES
+'ENDE063I A Type was NOT selected from the Type List'
+
+ENDE064E 'Proc Grp not Selected'                       .ALARM=YES
+'ENDE064E A Processor Group was NOT selected from the Processor Group List'
+
+ENDE065E 'Invalid Selection'                           .ALARM=YES
+'ENDE065E The selection character specified is invalid'
+
+ENDE066E 'Too Many Selections'                         .ALARM=YES
+'ENDE066E Only one selection can be made from the list'
+
+ENDE067E 'Enter F or B'                                .ALARM=YES
+'ENDE067E Enter F for Foreground mode or B for Batch mode.'
+
+ENDE068I 'JCL Submitted'                               .ALARM=YES
+'ENDE068I JCL to generate element &EEVELMNM has been submitted.'
+
+ENDE069E 'JOB Card Required'                           .ALARM=YES
+'ENDE069E At least one JCL JOB Card is required.'
+

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ API & CSV Utility New Function \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++                                                                 %Page 1 of 3+
+% List Element Change Level Summary +
+
++ The API and CSV Utility function%List Element+has been modified to allow the
+  return of element or component change level summary data through the use of
+  the%DATA+clause option%ELEMENT|COMPONENT CHANGE LEVEL SUMMARY.+ The change
+  level summary data returned has a new API response block to map the data.
+  Response records returned include basic element information as well as
+  information specific to each change level of that element.  There is%one+
+  change level per response record returned, with the number of records for an
+  element equal to the number of change levels.
+
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12B0
+)END

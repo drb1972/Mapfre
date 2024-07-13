@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%\-\ Multiple Entry-Stage Environments\-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%Multiple Entry-Stage Environments +
+
++ Multiple Entry-Stage Environments
+  The administrator now has the option of defining an environment's entry stage.
+
++ Previously, the entry stage was always stage 1. If an entry stage is not
+  defined, the entry stage defaults to stage 1. If you want all of the stage
+  entry points to remain with the first stage of each environment, you do not
+  have to make any changes. The administrator defines the entry stage in the
+  C1DEFLTS table using the ENTRYSTG# parameter.
+  The ENTRYSTG# parameter can be defined as 1 or 2.
+
+
+ \*\ Refer to the Endevor documentation for detailed information \*\
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7040
+)END

@@ -1,0 +1,36 @@
+ENDE100E 'Allocation Failed'          .HELP=ENDIEH10   .ALARM=YES
+'ENDE100E Data set allocation failed. Enter HELP for more information'
+
+ENDE101E 'InPlace or NoSource?'       .HELP=ENDIEH10   .ALARM=YES
+'ENDE101E Generate In-Place and NoSource cannot both be set to Y'
+
+ENDE102E 'B,C,H,S Invalid'            .HELP=ENDIEH10   .ALARM=YES
+'ENDE102E B, C, H, and S options are invalid on a sourceless element'
+
+ENDE103I 'Selection canceled'                          .ALARM=YES
+'ENDE103I The ENV/SYS/SBS selection dialog was canceled by PF3 or the END' +
+'         command'
+
+ENDE104E 'Tgt ELM not in map'                         .ALARM=YES
+'ENDE104E There is no possible target location with the specified names' +
+'         that map to the selected element'
+
+ENDE105E 'Invalid location'                            .ALARM=YES
+'ENDE105E The entered combination of Environment, System, and Subsystem' +
+'         does not exist'
+
+ENDE106E 'Unknown ENV'                                 .ALARM=YES
+'ENDE106E The Environment does not exist, or you do not have permission' +
+'         to use it'
+
+ENDE107E 'Unknown SYS'                                 .ALARM=YES
+'ENDE107E The System does not exist at specified location, or you do not' +
+'         have permission to use it'
+
+ENDE108E 'Unknown SUB'                                 .ALARM=YES
+'ENDE108E The Subsystem does not exist at specified location, or you ' +
+'         do not have permission to use it'
+
+ENDE109E 'ISPF Service error'                          .ALARM=YES
+'ENDE109E ISPF error occurred during processing'
+

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Retrieve - Panel Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%blank+- Use this option to return an Element selection list. This
++        applies when DISPLAY LIST=Y.
++
+%R    +- Retrieve the specified element to a user library.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%PF3+to return or%ENTER+for Element Display Options) \ \
+)PROC
+   &ZCONT = CITDOPT0
+)END

@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Print Element's Output Listing Option \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Print Element's Output Listing Option +
+
++ You can use the Print Element action (in foreground and batch) to
+  print an element's associated output listing. To print an element's
+  current output listing from the Print Element panel, use the new%PL+
+  option. The listing's file location is determined by examining the
+  element's output component data. The%LISTING+option support was
+  added to the Print Element Action SCL to provide this feature in batch.
+
+
+
+
+
+
+
+
+%\*\+Refer to the%Endevor+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITC12E0
+)END

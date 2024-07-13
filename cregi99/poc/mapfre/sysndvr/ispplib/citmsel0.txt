@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Member Selection List \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++You can execute the following actions from appropriate selection lists:
+   %A+- Add
+   %U+- Update
+   %L+- List
+   %P+- Print
+   %B+- Browse
++
+%From data set+- Data set contining the members on the list.
++
+%Member+- Names of members that met selection criteria.
++
++
++
++    Select%1+-%2+for information about
++
+%    1+- Add/update selection list  %2+- Footprint fields (list/print)
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITMSEL1 2,CITFOOT0)
+)END

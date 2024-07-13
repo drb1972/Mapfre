@@ -1,0 +1,45 @@
+)ATTR DEFAULT(%+_)
+       /* ¬ TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ! TYPE(TEXT) INTENS(&VARTYA1)
+   \ TYPE(OUTPUT) INTENS(&VARTYA1)
+   } TYPE(TEXT) INTENS(&VARTYB1)
+   { TYPE(OUTPUT) INTENS(&VARTYB1)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+|VARFLIT+----------------------  TYPE DEFINITION  ------------------------------
++COMMAND ===>_VARWKCMD                                                         +
++CURRENT ENV: ¢VAREVNME+  STAGE ID: ¢Z+  SYSTEM: ¢VARSYNME+  TYPE: ¢VARTYNME+
++
++DESCRIPTION: +===>¢VARTYDES                                                +
++UPDATED:          ¢Z      ¢Z    +BY¢VARLUUID+
++
++             -----------------  ELEMENT OPTIONS  -------------------
++DELTA FORMAT(F/R/I/L)+===>¢Z+ SOURCE LEN  +===>¢Z    + ELE RECFM(N/F/V)+===>¢Z+
++COMPRESS/ENCRYPT(Y/N)+===>¢Z+ COMPARE FROM+===>¢Z    + DFLT PROC +===>¢VARTDPRG
+¢VARTYES1   +(Y/N)    ¢Z   ¢Z+ COMPARE TO  +===>¢Z    + LANGUAGE  +===>¢VARTYLAN
+!CONSOL AT LVL ¢Z   \Z +       REGRESSION% +===>¢Z +    PV/LB LANG+===>¢VARTYLAI
+!LVLS TO CONSOL¢Z   \Z +       REG SEV(I/W/C/E) +===>¢Z+
++
++         -----------------  COMPONENT LIST OPTIONS  ------------------
++FWD/REV DELTA(F/R)   +===>¢Z+¢VARTYCS1   +(Y/N)¢Z   ¢Z}CONSOL AT LVL ¢Z   {Z +
++                                                      }LVLS TO CONSOL¢Z   {Z +
++         -------------------------  LIBRARIES  -----------------------
++  BASE/IMAGE LIBRARY+===>¢VARTYBLB                                    +
++  DELTA LIBRARY     +===>¢VARTYDLB                                    +
++  INCLUDE LIBRARY   +===>¢VARTYILB                                    +
++  SOURCE O/P LIBRARY+===>¢VARTYSLB                                    +
++    EXPAND INCLUDES(Y/N) +===>¢Z+
+)INIT
+  .HELP = CITE4100
+  .ZVARS = '(VARWKSID +
+             VARLUDTE VARLUTME +
+             VARTYIMB VARTYSLE VARTYELE +
+             VARTYSQZ VARTYCPF VARTYES2 VARTYEDM VARTYCPT +
+             VARTYES3 VARTYLTB VARTYRGP VARTYES4 +
+             VARTYELR VARTYRGS VARTYIMX +
+             VARTYCS2 VARTYCDM VARTYCS3 VARTYLTX VARTYCS4 VARTYCLR +
+             VARTYEXI)'
+)END

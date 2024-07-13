@@ -1,0 +1,35 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Reset Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Reset Package panel to reset a package.  To reset a package
++select action 1 and press enter. Cancel the Reset Package action by
++selecting action 2 and pressing enter.
++
++
++Select 1 - 6 for information about:
+%   1+- Package identification fields
+%   2+- Package status
+%   3+- Promotion package
+%   4+- Sharable package
+%   5+- Enable backout
+%   6+- Package event fields
+%
+%
+%
++Select a Help topic, or Press%PF3+or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citstat0
+                 3,citprom0
+                 4,citshpk0
+                 5,citbken0
+                 6,citpkev0
+                )
+)END

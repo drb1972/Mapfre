@@ -1,0 +1,89 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST SYSTEM - REQUEST BLOCK                        *
+      *                                                               *
+      *****************************************************************
+       01  ALSYS-RQ.
+           05  ALSYS-RQ-HEADER.
+               10  ALSYS-RQ-LEN        PIC 9(4) COMP VALUE 44.
+               10  ALSYS-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSYS-RQ-ID         PIC 9(4) COMP VALUE 1056.
+               10  ALSYS-RQ-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALSYS-RQ-EYE        PIC X(4)      VALUE 'LSYQ'.
+           05  ALSYS-RQ-DATAAREA.
+               10  ALSYS-RQ-PATH       PIC X         VALUE 'L'.
+               10  ALSYS-RQ-RETURN     PIC X         VALUE 'F'.
+               10  ALSYS-RQ-SEARCH     PIC X         VALUE 'A'.
+               10  ALSYS-RQ-RESERVE1   PIC X         VALUE SPACE.
+               10  ALSYS-RQ-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSYS-RQ-TOENV      PIC X(8)      VALUE SPACES.
+               10  ALSYS-RQ-STG-ID     PIC X         VALUE SPACE.
+               10  ALSYS-RQ-TOSTG-ID   PIC X         VALUE SPACE.
+               10  ALSYS-RQ-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  FILLER              PIC XX        VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *                                                               *
+      *            LIST SYSTEM - RESPONSE BLOCK                       *
+      *                                                               *
+      *****************************************************************
+       01  ALSYS-RS.
+           05  ALSYS-RS-HEADER.
+               10  ALSYS-RS-LEN        PIC 9(4) COMP VALUE 272.
+               10  ALSYS-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALSYS-RS-ID         PIC 9(4) COMP VALUE 1057.
+               10  ALSYS-RS-VERS       PIC 9(4) COMP VALUE 3.
+               10  ALSYS-RS-EYE        PIC X(4)      VALUE 'LSYS'.
+           05  ALSYS-RS-DATAAREA.
+               10  ALSYS-RS-SITE       PIC X         VALUE SPACE.
+               10  ALSYS-RS-ENV        PIC X(8)      VALUE SPACES.
+               10  ALSYS-RS-SYSTEM     PIC X(8)      VALUE SPACES.
+               10  ALSYS-RS-STG-NAME   PIC X(8)      VALUE SPACES.
+               10  ALSYS-RS-STG-ID     PIC X         VALUE SPACE.
+               10  ALSYS-RS-STG-REL    PIC 9(4)      VALUE ZEROS.
+               10  ALSYS-RS-UPD-CNT    PIC 9(8)      VALUE ZEROS.
+               10  ALSYS-RS-UPD-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALSYS-RS-UPD-BDTE REDEFINES ALSYS-RS-UPD-DATE.
+                   15  ALSYS-RS-UPD-YYYY   PIC 9(4).
+                   15  ALSYS-RS-UPD-MM     PIC 9(2).
+                   15  ALSYS-RS-UPD-DD     PIC 9(2).
+               10  ALSYS-RS-UPD-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALSYS-RS-UPD-BTME REDEFINES ALSYS-RS-UPD-TIME.
+                   15  ALSYS-RS-UPD-HH     PIC 9(2).
+                   15  ALSYS-RS-UPD-MI     PIC 9(2).
+                   15  ALSYS-RS-UPD-SS     PIC 9(2).
+                   15  ALSYS-RS-UPD-TH     PIC 9(2).
+               10  ALSYS-RS-UPD-USER   PIC X(8)      VALUE SPACES.
+               10  ALSYS-RS-TITLE      PIC X(50)     VALUE SPACES.
+               10  ALSYS-RS-NXT-SYS    PIC X(8)      VALUE SPACES.
+               10  ALSYS-RS-LOADLIB    PIC X(44)     VALUE SPACES.
+               10  ALSYS-RS-LISTING    PIC X(44)     VALUE SPACES.
+               10  ALSYS-RS-COMMENT    PIC X         VALUE SPACE.
+               10  ALSYS-RS-CCID       PIC X         VALUE SPACE.
+               10  ALSYS-RS-SISO1      PIC X         VALUE SPACE.
+               10  ALSYS-RS-SISO2      PIC X         VALUE SPACE.
+               10  FILLER              PIC X         VALUE SPACE.
+               10  ALSYS-RS-JUMP       PIC X         VALUE SPACE.
+               10  ALSYS-RS-BAK-DATE   PIC 9(8)      VALUE ZEROS.
+               10  ALSYS-RS-BAK-BDTE REDEFINES ALSYS-RS-BAK-DATE.
+                   15  ALSYS-RS-BAK-YYYY   PIC 9(4).
+                   15  ALSYS-RS-BAK-MM     PIC 9(2).
+                   15  ALSYS-RS-BAK-DD     PIC 9(2).
+               10  ALSYS-RS-BAK-TIME   PIC 9(8)      VALUE ZEROS.
+               10  ALSYS-RS-BAK-BTME REDEFINES ALSYS-RS-BAK-TIME.
+                   15  ALSYS-RS-BAK-HH     PIC 9(2).
+                   15  ALSYS-RS-BAK-MI     PIC 9(2).
+                   15  ALSYS-RS-BAK-SS     PIC 9(2).
+                   15  ALSYS-RS-BAK-TH     PIC 9(2).
+               10  ALSYS-RS-FMID       PIC 9(5)      VALUE ZEROS.
+               10  ALSYS-RS-DREG       PIC X         VALUE SPACE.
+               10  ALSYS-RS-DREGS      PIC X         VALUE SPACE.
+               10  ALSYS-RS-PREG       PIC X         VALUE SPACE.
+               10  ALSYS-RS-PREGS      PIC X         VALUE SPACE.
+               10  FILLER              PIC X(9)      VALUE SPACE.
+               10  ALSYS-RS-EAURET     PIC X         VALUE SPACE.
+               10  ALSYS-RS-EAURETM    PIC 9(3)      VALUE ZEROS.
+               10  ALSYS-RS-CAURET     PIC X         VALUE SPACE.
+               10  ALSYS-RS-CAURETM    PIC 9(3)      VALUE ZEROS.
+               10  ALSYS-RS-PREGXSBS   PIC X         VALUE SPACE.
+               10  FILLER              PIC X(3)      VALUE SPACES.

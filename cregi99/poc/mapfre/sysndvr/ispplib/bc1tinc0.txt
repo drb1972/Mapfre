@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The INCLUDE Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the INCLUDE command to indicate which matrix rows PDM should
++include in the Build WIP process.  The INCLUDE command can be used to
++include a row that you have previously excluded, or to override
++the "no replace" parameter.
++
++To include a matrix row, type%I+next to the appropriate member(s),
++then press ENTER.
++
++The screen returns with the message *INCLUDED in the RENAME field,
++next to the appropriate WIP member(s), to indicate that the member has
++been included.  A member set number also appears for the member.
++
++
+)END

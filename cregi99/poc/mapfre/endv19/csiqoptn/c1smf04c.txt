@@ -1,0 +1,282 @@
+      ****************************************************************
+      * C1SMF04C - COBOL DESCRIPTION OF THE SMF ADMIN ACTION RECORDS *
+      ****************************************************************
+       01  SM4REC4.
+           05  SMFHDDS.
+               10  FILLER                      PIC X(01).
+               10  SMHRECTY                    PIC X(01).
+               10  SMHTIME                     PIC X(04).
+               10  SMHDATE                     PIC X(04).
+               10  SMHCPUID                    PIC X(04).
+               10  FILLER                      PIC X(08).
+               10  SMHC1ENV                    PIC X(08).
+               10  SMHUSER                     PIC X(08).
+               10  FILLER                      PIC X(06).
+           05  SM4REC4-HEADER.
+               10  SM4RECLN                    PIC 9(04) COMP SYNC.
+               10  SM4RECVN                    PIC 9(04) COMP SYNC.
+                   88 SM4-VERS                     VALUE 2.
+               10  SM4FUNC                     PIC 9(08) COMP SYNC.
+                   88 SM4-FCRE                     VALUE 1.
+                   88 SM4-FDEF                     VALUE 1.
+                   88 SM4-FERA                     VALUE 2.
+                   88 SM4-FDEL                     VALUE 2.
+                   88 SM4-FUPD                     VALUE 3.
+                   88 SM4-FCSY                     VALUE 4.
+               10  SM4FUNNM                    PIC X(08).
+      ****************************************************************
+      * ADMIN ACTION HEADER INFORMATION                              *
+      ****************************************************************
+               10  SM4ACTN                     PIC X(08).
+                   88 SM4ACTN-APPRGRP              VALUE 'APPRGRP '.
+                   88 SM4ACTN-APPRREL              VALUE 'APPRREL '.
+                   88 SM4ACTN-PROCGRP              VALUE 'PROCGRP '.
+                   88 SM4ACTN-PROCSYM              VALUE 'PROCSYM '.
+                   88 SM4ACTN-SYSTEM               VALUE 'SYSTEM  '.
+                   88 SM4ACTN-SUBSYS               VALUE 'SUBSYS  '.
+                   88 SM4ACTN-TYPE                 VALUE 'TYPE    '.
+                   88 SM4ACTN-TYPEDSN              VALUE 'TYPEDSN '.
+                   88 SM4ACTN-DEST                 VALUE 'DEST    '.
+                   88 SM4ACTN-DSNMAP               VALUE 'DSNMAP  '.
+                   88 SM4ACTN-USSMAP               VALUE 'USSMAP  '.
+                   88 SM4ACTN-CLONE                VALUE 'CLONE   '.
+                   88 SM4ACTN-DYNENV               VALUE 'DYNENV  '.
+               10  SM4SITE                     PIC X(01).
+               10  SM4ENV                      PIC X(08).
+               10  SM4STGID                    PIC X(01).
+               10  SM4STG-NBR                  PIC X(01).
+               10  SM4WRITR                    PIC X(01).
+                   88 SM4WRITR-SM4-WRE             VALUE 'E'.
+                   88 SM4WRITR-SM4-WRS             VALUE 'S'.
+               10  SM4DATE                     PIC X(08).
+               10  SM4TIME                     PIC X(08).
+               10  SM4DSNAM                    PIC X(44).
+               10  FILLER                      PIC 9(04) COMP SYNC.
+               10  FILLER                      PIC 9(04) COMP SYNC.
+               10  FILLER                      PIC 9(04) COMP SYNC.
+               10  SM4DLEN                     PIC 9(04) COMP SYNC.
+      ****************************************************************
+      * END OF THE HEADER PORTION OF THE RECORD,                     *
+      * START OF ADMIN DATA FOR EACH ADMIN ACTION                    *
+      ****************************************************************
+           05  SM4DATA                         PIC X(3000).
+      ****************************************************************
+      * APPROVER GROUP JUNCTION                                      *
+      ****************************************************************
+           05  SM4-AGJ-DATA  REDEFINES SM4DATA.
+               10  SM4-AGJ-SYSTEM                  PIC X(08).
+               10  SM4-AGJ-SUBSYS                  PIC X(08).
+               10  SM4-AGJ-TYPE                    PIC X(08).
+               10  SM4-AGJ-STGID                   PIC X(01).
+               10  SM4-AGJ-STG-NBR                 PIC X(01).
+               10  SM4-AGJ-JUN-TYP                 PIC X(09).
+               10  SM4-AGJ-AGRNAME                 PIC X(16).
+      ****************************************************************
+      * APPROVER GROUP                                               *
+      ****************************************************************
+           05  SM4-AGR-DATA  REDEFINES SM4DATA.
+               10  SM4-AGR-NAME                    PIC X(16).
+               10  SM4-AGR-QUORUM                  PIC X(05).
+               10  SM4-AGR-GRP-DSQ                 PIC X(01).
+               10  SM4-AGR-DESC                    PIC X(50).
+               10  SM4-AGR-USER-AREA               PIC X(128).
+               10  FILLER  REDEFINES SM4-AGR-USER-AREA.
+                   15  SM4-AGR-USER      OCCURS 16 TIMES PIC X(08).
+               10  SM4-AGR-USR-REQ-AREA            PIC X(16).
+               10  FILLER  REDEFINES SM4-AGR-USR-REQ-AREA.
+                   15  SM4-AGR-USR-REQ   OCCURS 16 TIMES PIC X(01).
+      ****************************************************************
+      * TYPE DSN                                                     *
+      ****************************************************************
+           05  SM4-DSN-DATA  REDEFINES SM4DATA.
+               10  SM4-DSN-SYSTEM                  PIC X(08).
+               10  SM4-DSN-REC-ID                  PIC X(02).
+               10  SM4-DSN-DSN-TYP                 PIC X(02).
+               10  SM4-DSN-DSN                     PIC X(44).
+      ****************************************************************
+      * PROCESSOR GROUP                                              *
+      ****************************************************************
+           05  SM4-PGR-DATA  REDEFINES SM4DATA.
+               10  SM4-PGR-SYSTEM                  PIC X(08).
+               10  SM4-PGR-TYPE                    PIC X(08).
+               10  SM4-PGR-NAME                    PIC X(08).
+               10  SM4-PGR-NXT-PGR                 PIC X(08).
+               10  SM4-PGR-DESC                    PIC X(50).
+               10  SM4-PGR-OUT-TYP                 PIC X(16).
+               10  SM4-PGR-PMOVE                   PIC X(01).
+               10  SM4-PGR-PXFER                   PIC X(01).
+               10  SM4-PGR-GEN-PRO                 PIC X(08).
+               10  SM4-PGR-GEN-FG                  PIC X(01).
+               10  SM4-PGR-DEL-PRO                 PIC X(08).
+               10  SM4-PGR-DEL-FG                  PIC X(01).
+               10  SM4-PGR-MOV-PRO                 PIC X(08).
+               10  SM4-PGR-MOV-FG                  PIC X(01).
+      ****************************************************************
+      * PROCESSOR SYMBOL                                             *
+      ****************************************************************
+           05  SM4-PSY-DATA  REDEFINES SM4DATA.
+               10  SM4-PSY-SYSTEM                  PIC X(08).
+               10  SM4-PSY-TYPE                    PIC X(08).
+               10  SM4-PSY-PG-NAME                 PIC X(08).
+               10  SM4-PSY-PRO-NAM                 PIC X(08).
+               10  SM4-PSY-PRO-TYP                 PIC X(03).
+               10  SM4-PSY-SYM-NAM                 PIC X(08).
+               10  SM4-PSY-DEF-VAL                 PIC X(70).
+               10  SM4-PSY-OVR-VAL                 PIC X(70).
+
+      ****************************************************************
+      * SUBSYSTEM                                                    *
+      ****************************************************************
+           05  SM4-SBS-DATA  REDEFINES SM4DATA.
+               10  SM4-SBS-SYSTEM                  PIC X(08).
+               10  SM4-SBS-SUBSYS                  PIC X(08).
+               10  SM4-SBS-NXT-SBS                 PIC X(08).
+               10  SM4-SBS-DESC                    PIC X(50).
+               10  SM4-SBS-EXC-OUT                 PIC X(01).
+
+      ****************************************************************
+      * SYSTEM                                                       *
+      ****************************************************************
+           05  SM4-SYS-DATA  REDEFINES SM4DATA.
+               10  SM4-SYS-SYSTEM                  PIC X(08).
+               10  SM4-SYS-NXT-SYS                 PIC X(08).
+               10  SM4-SYS-DESC                    PIC X(50).
+               10  SM4-SYS-COMM-RQ                 PIC X(01).
+               10  SM4-SYS-CCID-RQ                 PIC X(01).
+               10  SM4-SYS-SISO                    PIC X(01).
+               10  SM4-SYS-SO-DSN                  PIC X(01).
+               10  SM4-SYS-ELM-JMP                 PIC X(01).
+               10  SM4-SYS-DUP-ELM                 PIC X(01).
+               10  SM4-SYS-DUP-EML                 PIC X(01).
+               10  SM4-SYS-DUP-OUT                 PIC X(01).
+               10  SM4-SYS-DUP-OSB                 PIC X(01).
+               10  SM4-SYS-DUP-OML                 PIC X(01).
+               10  SM4-SYS-ELM-AGE                 PIC X(01).
+               10  SM4-SYS-ELM-LVL                 PIC X(03).
+               10  SM4-SYS-CMP-AGE                 PIC X(01).
+               10  SM4-SYS-CMP-LVL                 PIC X(03).
+               10  SM4-SYS-S1-LOAD                 PIC X(44).
+               10  SM4-SYS-S1-LIST                 PIC X(44).
+               10  SM4-SYS-S2-LOAD                 PIC X(44).
+               10  SM4-SYS-S2-LIST                 PIC X(44).
+
+      ****************************************************************
+      * CLONE SYSTEM                                                 *
+      ****************************************************************
+           05  SM4-CSY-DATA  REDEFINES SM4DATA.
+               10  SM4-CSY-SYSTEM                  PIC X(08).
+               10  SM4-CSY-DESC                    PIC X(50).
+               10  SM4-CSY-FRM-ENV                 PIC X(08).
+               10  SM4-CSY-FRM-SYS                 PIC X(08).
+               10  SM4-CSY-INC-SBS                 PIC X(01).
+               10  SM4-CSY-INC-TYP                 PIC X(01).
+
+      ****************************************************************
+      * TYPE                                                         *
+      ****************************************************************
+           05  SM4-TYP-DATA  REDEFINES SM4DATA.
+               10  SM4-TYP-SYSTEM                  PIC X(08).
+               10  SM4-TYP-TYPE                    PIC X(08).
+               10  SM4-TYP-NXT-TYP                 PIC X(08).
+               10  SM4-TYP-DESC                    PIC X(50).
+               10  SM4-TYP-DFLT-PG                 PIC X(08).
+               10  SM4-TYP-BASE                    PIC X(44).
+               10  SM4-TYP-DELTA                   PIC X(44).
+               10  SM4-TYP-INCLUDE                 PIC X(44).
+               10  SM4-TYP-SOL                     PIC X(44).
+               10  SM4-TYP-EXP-INC                 PIC X(01).
+               10  SM4-TYP-DLT-FMT                 PIC X(01).
+               10  SM4-TYP-CMP-FMT                 PIC X(01).
+               10  SM4-TYP-COMPR                   PIC X(01).
+               10  SM4-TYP-RGR-PCT                 PIC X(02).
+               10  SM4-TYP-RGR-SEV                 PIC X(01).
+               10  SM4-TYP-SRC-LNG                 PIC X(05).
+               10  SM4-TYP-CMPR-FR                 PIC X(05).
+               10  SM4-TYP-CMPR-TO                 PIC X(05).
+               10  SM4-TYP-ELM-LVL                 PIC X(01).
+               10  SM4-TYP-ELM-AT                  PIC X(03).
+               10  SM4-TYP-ELM-NUM                 PIC X(03).
+               10  SM4-TYP-CMP-LVL                 PIC X(01).
+               10  SM4-TYP-CMP-AT                  PIC X(03).
+               10  SM4-TYP-CMP-NUM                 PIC X(03).
+               10  SM4-TYP-USS-RFM                 PIC X(04).
+               10  SM4-TYP-LANG                    PIC X(08).
+               10  SM4-TYP-PL-LANG                 PIC X(08).
+               10  SM4-TYP-DAT-FMT                 PIC X(01).
+               10  SM4-TYP-ELM-RFM                 PIC X(01).
+               10  SM4-TYP-FIL-EXT                 PIC X(08).
+
+      ****************************************************************
+      * DESTINATION                                                  *
+      ****************************************************************
+           05  SM4-DST-DATA  REDEFINES SM4DATA.
+               10  SM4-DST-DEST-ID                 PIC X(08).
+               10  SM4-DST-DESC                    PIC X(30).
+               10  SM4-DST-XMIT-CD                 PIC X(01).
+               10  SM4-DST-RMT-NOD                 PIC X(16).
+               10  SM4-DST-COMPLEM                 PIC X(01).
+               10  SM4-DST-HST-PFX                 PIC X(14).
+               10  SM4-DST-HST-DSP                 PIC X(01).
+               10  SM4-DST-HST-UNT                 PIC X(08).
+               10  SM4-DST-HST-VOL                 PIC X(06).
+               10  SM4-DST-RMT-PFX                 PIC X(14).
+               10  SM4-DST-RMT-DSP                 PIC X(01).
+               10  SM4-DST-RMT-UNT                 PIC X(08).
+               10  SM4-DST-RMT-VOL                 PIC X(06).
+               10  SM4-DST-IP-NAME                 PIC X(63).
+               10  SM4-DST-IP-PORT                 PIC X(05).
+               10  SM4-DST-HUSSPFX                 PIC X(732).
+               10  SM4-DST-HUSSDSP                 PIC X(01).
+               10  SM4-DST-RUSSPFX                 PIC X(732).
+               10  SM4-DST-RUSSDSP                 PIC X(01).
+               10  SM4-DST-RMT-JC1                 PIC X(72).
+               10  SM4-DST-RMT-JC2                 PIC X(72).
+               10  SM4-DST-RMT-JC3                 PIC X(72).
+               10  SM4-DST-RMT-JC4                 PIC X(72).
+
+      ****************************************************************
+      * DSN MAPPING RULE                                             *
+      ****************************************************************
+           05  SM4-DMR-DATA  REDEFINES SM4DATA.
+               10  SM4-DMR-DEST                    PIC X(08).
+               10  SM4-DMR-DESC                    PIC X(40).
+               10  SM4-DMR-HST-DSN                 PIC X(44).
+               10  SM4-DMR-HMBRCYL                 PIC X(03).
+               10  SM4-DMR-RMT-DSN                 PIC X(44).
+
+      ****************************************************************
+      * USS MAPPING RULE                                             *
+      ****************************************************************
+           05  SM4-UMR-DATA  REDEFINES SM4DATA.
+               10  SM4-UMR-DEST                    PIC X(08).
+               10  SM4-UMR-DESC                    PIC X(40).
+               10  SM4-UMR-HST-PTH                 PIC X(768).
+               10  SM4-UMR-RMT-PTH                 PIC X(768).
+      ****************************************************************
+      * DYNAMIC ENVIRONMENT                                          *
+      ****************************************************************
+           05  SM4-DYN-DATA  REDEFINES SM4DATA.
+               10  SM4-DYN-NAME                    PIC X(08).
+               10  SM4-DYN-DESC                    PIC X(40).
+               10  SM4-DYN-LIKE                    PIC X(08).
+               10  SM4-DYN-NXTE                    PIC X(08).
+               10  SM4-DYN-NXTS                    PIC X(01).
+               10  SM4-DYN-ENTS                    PIC X(01).
+               10  SM4-DYN-LJGR                    PIC X(01).
+               10  SM4-DYN-LJSI                    PIC X(01).
+               10  SM4-DYN-SMFE                    PIC X(01).
+               10  SM4-DYN-SMFA                    PIC X(01).
+               10  SM4-DYN-SMFS                    PIC X(01).
+               10  SM4-DYN-DBAV                    PIC X(01).
+               10  SM4-DYN-DBAC                    PIC X(01).
+               10  SM4-DYN-SYNC                    PIC X(01).
+               10  SM4-DYN-S1ID                    PIC X(01).
+               10  SM4-DYN-S1NM                    PIC X(08).
+               10  SM4-DYN-S1TI                    PIC X(40).
+               10  SM4-DYN-S1MC                    PIC X(44).
+               10  SM4-DYN-S1ST                    PIC X(01).
+               10  SM4-DYN-S2ID                    PIC X(01).
+               10  SM4-DYN-S2NM                    PIC X(08).
+               10  SM4-DYN-S2TI                    PIC X(40).
+               10  SM4-DYN-S2MC                    PIC X(44).
+               10  SM4-DYN-S2ST                    PIC X(01).

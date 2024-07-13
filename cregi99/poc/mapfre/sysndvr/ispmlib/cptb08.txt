@@ -1,0 +1,30 @@
+CPTB080  'Invalid Selection'                               .ALARM=YES
+'CPTB080 Valid selection character(s) are: S '
+
+CPTB081  'Merge Complete'                                  .ALARM=YES
+'CPTB081 The Merge operation completed with no errors.'
+
+CPTB082  'Request Written'                                 .ALARM=YES
+'CPTB082 The PDM MERGE request has been written to the Batch Request dataset.'
+
+CPTB083  'Option Unavailable'                              .ALARM=YES
+'CPTB083 Your site has disabled the PDM feature.'
+
+CPTB084  'Element not Found'                               .ALARM=YES
+'CPTB084 The element was not found in the MCF. It may have been deleted'
+
+CPTB085  'Invalid Selection'                               .ALARM=YES
+'CPTB085 Summary of levels is only permitted for location option E.'
+
+CPTB086  'Invalid Format'                                  .ALARM=YES
+'CPTB086 The format must be VVLL'
+
+CPTB087  'Invalid VVLL'                                 .ALARM=YES
+'CPTB087 The VVLL specified does not exist for the element specified.'
+
+CPTB088  'Invalid VVLL'                                   .ALARM=YES
+'CPTB088 The VVLL specified does not exist for the element specified.'
+
+CPTB089  'FROM Column > THRU'                              .ALARM=YES
+'CPTB089 The COMPARE FROM column value is greater than the COMPARE THRU value.'
+

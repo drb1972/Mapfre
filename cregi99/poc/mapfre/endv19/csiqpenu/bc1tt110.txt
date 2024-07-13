@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Simple Parallel Development \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Simple parallel development is the concurrent and independent
++development of applications by different programmers within the same
++company. In most simple parallel development situations,
++modifications are minimal and conflicts are few or nonexistent.
++Managerial intervention is rarely required. Most of the time the
++developers themselves can determine the time needed to make the
++necessary changes.
++
++Problem: Two programmers have been independently enhancing a report
++generation program. Potential conflicts and overlaps need to be
++identified and resolved and the program modifications must be
++integrated before the program is placed into production.
+
++
+)END

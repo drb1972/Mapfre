@@ -1,0 +1,59 @@
+         MACRO
+         ENHAEUPD &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*                                                                     *
+*        UPDATE ELEMENT - REQUEST BLOCK                               *
+*                                                                     *
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=2,                  CONTROL BLOCK VERSION           X
+               EYE='EUPQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=AEUPD_RQ
+         SPACE ,
+AEUPD_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      AEUPD_RQ_DATA
+*                 ELEMENT DATA
+AEUPD_RQ_ELM      DC CL10' '           ELEMENT NAME
+AEUPD_RQ_ELM_THRU DC CL10' '           THRU ELEMENT NAME
+*                 FROM LOCATION DATA
+AEUPD_RQ_DDN      DC CL8' '            FROM DD OR FILE NAME
+AEUPD_RQ_DSN      DC CL44' '           FROM DATA SET NAME
+AEUPD_RQ_MBR      DC CL10' '           FROM MEMBER NAME
+*                 TARGET LOCATION DATA
+AEUPD_RQ_ENV      DC CL8' '            ENVIRONMENT NAME
+AEUPD_RQ_SYSTEM   DC CL8' '            SYSTEM NAME
+AEUPD_RQ_SUBSYS   DC CL8' '            SUBSYSTEM NAME
+AEUPD_RQ_TYPE     DC CL8' '            TYPE NAME
+*                 ACTION OPTIONS
+AEUPD_RQ_CCID     DC CL12' '           CCID
+AEUPD_RQ_COMM     DC CL40' '           COMMENT
+                  DC CL1' '            ** RESERVED **
+AEUPD_RQ_DEL      DC CL1' '            DELETE INPUT SOURCE (Y/N)
+AEUPD_RQ_OVESIGNO DC CL1' '            OVERRIDE SIGNOUT (Y/N)
+AEUPD_RQ_BYP_GEN  DC CL1' '            BYPASS GENERATE PROCESSOR (Y/N)
+AEUPD_RQ_PROGRO   DC CL8' '            PROCESSOR GROUP NAME
+AEUPD_RQ_SYNC     DC CL1' '            SYNCHRONIZE (Y/N)
+AEUPD_RQ_HIST     DC CL1' '              WITH HISTORY (Y/N)
+AEUPD_RQ_RESERVE  DC CL1' '            ** RESERVED **
+         SPACE ,
+AEUPD_RQ_VER#1_DATADSLN EQU *-AEUPD_RQ_DATA
+AEUPD_RQ_VER#1_DSLN     EQU *-AEUPD_RQ
+         SPACE ,
+.* UPD VERSION 2 FIELDS AFTER THIS POINT
+AEUPD_RQ_FINGERP  DC CL16' '           SOURCE FINGERPRINT
+AEUPD_RQ_FINGERP2 DS CL16' '           SYNC FINGERPRINT
+                  DS 0X
+                  DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+AEUPD_RQ_VER#2_DATADSLN EQU *-AEUPD_RQ_DATA
+AEUPD_RQ_VER#2_DSLN     EQU *-AEUPD_RQ
+         SPACE ,
+AEUPD_RQ_DATADSLN EQU *-AEUPD_RQ_DATA
+AEUPD_RQ_DSLN     EQU *-AEUPD_RQ
+         ORG      AEUPD_RQ_DATA
+AEUPD_RQ_DATAAREA DS XL(AEUPD_RQ_DATADSLN)     DATA AREA
+         MEND

@@ -1,0 +1,24 @@
+ENDS001E 'Allocation Failed'                             .ALARM=YES
+'Unable to allocate the SCL data set'
+
+ENDS002E 'Open/Close Failed'                             .ALARM=YES
+'Unable to OPEN or CLOSE the SCL data set'
+
+ENDS003E 'Allocation Failed'                             .ALARM=YES
+'Unable to allocate a temporary SCL data set'
+
+ENDS004E 'Open/Close Failed'                             .ALARM=YES
+'Unable to OPEN or CLOSE the temporary SCL data set'
+
+ENDS005E 'Member in Use'                                 .ALARM=YES
+'The partitioned data set member is in use by another user'
+
+ENDS006E 'Copy Failed'                                   .ALARM=YES
+'Unable to create a temporary copy of the SCL data set'
+
+ENDS007E 'Invalid action'                                .ALARM=YES
+'The WRITE_RECORD request failed  '
+
+ENDS008E 'Copy Failed'                                   .ALARM=YES
+'Unable to update the SCL data set'
+

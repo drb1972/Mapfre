@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Header Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Element+- Name of the element.
+%Env+- Environment where element resides.
+%Sys+- System associated with the element.
+%Sub+- Subsystem associated with the element.
+%Type+- Type associated with the element.
++
+%Proc grp+- Processor group associated with the element.
+%Stg+- ID of the Stage where the element resides.
+%VVLL+- Element version and level.
+%Last action+- Last action performed against the element.
+%N/S+- If set to NOSOURCE, element source is not at the inventory location.
+%Signout ID+- ID of the person to whom the element is signed out.
+%Description+- Comment associated with the last action.
++
+%Pkg ID (Source)+- ID of the package that last affected element source.
+%Pkg ID (Output)+- ID of the package that created the current output
++                  form of this element.
++
+%Locked for PKG +- ID of the package that has this element locked
++
++                                            (%PF3+to return)
+)END

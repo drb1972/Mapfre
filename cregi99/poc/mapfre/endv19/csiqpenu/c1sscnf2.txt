@@ -1,0 +1,34 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+ $ TYPE(INPUT) INTENS(LOW) PAD(_)        /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(HIGH) JUST(LEFT)
+)BODY
+%-------------------------------  CONFIRMATION  --------------------------------
+%COMMAND ===>_ZCMD                                                             +
++
++
++        **************************************************************
++        *   PLEASE NOTE:                                             *
++        *                                                            *
++        *   ¢FFLTXT    +action requested.                            *
++        *                                                            *
++        *       ¢PDSCNT+elements have been selected                  *
++        *               for SCL generation.                          *
++        *                                                            *
++        *                                                            *
++        *                                                            *
++        *   INSTRUCTIONS:                                            *
++        *                                                            *
++        *        Press the%ENTER+key to create SCL action            *
++        *               statements for all elements selected.        *
++        *                                                            *
++        *        Enter%END+command to cancel the request.            *
++        *                                                            *
++        **************************************************************
++
+)INIT
+)END

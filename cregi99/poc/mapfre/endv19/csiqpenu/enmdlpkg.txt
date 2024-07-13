@@ -1,0 +1,85 @@
+)PANEL KEYLIST(ISRSNAB,ISR)
+)ATTR DEFAULT() FORMAT(MIX)            /* ISREMRXC - ENGLISH - 7.3 */
+ 0D TYPE(PS)
+ 05 TYPE(PT)
+ 06 TYPE(PIN)
+ 09 TYPE(FP)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+ 22 TYPE(WASL) SKIP(ON) GE(ON)
+ 10 TYPE(ET)
+ 27 TYPE(NEF) CAPS(ON) PADC(USER)
+ 28 AREA(SCRL) EXTEND(ON)
+)BODY WINDOW(80,22) EXPAND() CMD(ZCMD)
+	 Endevor Batch Package SCL Syntax 
+Option ===>Z                                                              
+
+Enter number or action name.
+EnterENDcommand to cancel MODEL command.
+SAREA40                                                                       
+)AREA SAREA40
+Package
+P1 Define
+P2 Cast
+P3 Review/Inspect
+P4 Execute/Submit
+P5 BackOut
+P6 BackIn
+P7 Commit
+P8 Reset
+P9 Delete
+)INIT
+.ZVARS = '(ZCMD)'
+&ZWINTTL = ' '
+.HELP = ISR2P300
+IF (&ISRMDSPL = 'RETURN  ')
+    .RESP = END
+.CURSOR = 'ZCMD'
+)REINIT
+REFRESH(ZCMD)
+)PROC
+&ZCMD = TRUNC (&ZCMD,'.')
+&ZTMPTRL = .TRAIL
+&ZCMD = TRANS (&ZCMD
+DEFINE,P1 DEF,P1 CAST,P2 REVIEW,P3 INSPECT,P3 APPROVE,P3 DENY,P3
+EXECUTE,P4 EXEC,P4 EX,P4 SUBMIT,P4 SUB,P4
+BACKOUT,P5 BO,P5 BACKIN,P6 BI,P6 COMMIT,P7 RESET,P8 DELETE,P9
+' ',' ' *,*)
+IF (&ZCMD ^= ' ') &ZCMD = '&ZCMD..&ZTMPTRL'
+&ZSEL = TRANS (TRUNC (&ZCMD,'.')
+ P1,'PGM(ISRECMBR) PARM(ENMDLPDE)'
+ P2,'PGM(ISRECMBR) PARM(ENMDLPCA)'
+ P3,'PGM(ISRECMBR) PARM(ENMDLPIN)'
+ P4,'PGM(ISRECMBR) PARM(ENMDLPEX)'
+ P5,'PGM(ISRECMBR) PARM(ENMDLPBO)'
+ P6,'PGM(ISRECMBR) PARM(ENMDLPBI)'
+ P7,'PGM(ISRECMBR) PARM(ENMDLPCO)'
+ P8,'PGM(ISRECMBR) PARM(ENMDLPRE)'
+ P9,'PGM(ISRECMBR) PARM(ENMDLPDL)'
+ ' ',' '
+   *,'?')
+IF (&ZSEL = '?')
+   &ZEMTEMP = &ZCMD
+   .MSG = ISRYM013
+   &ZCMD = ' '
+   IF (&ZMACRO = 'Y')               /* If a macro command    @OY38423*/
+     .RESP = 'END'                  /* don't display error   @OY38423*/
+     &ISRMMEMB = '?'                /* Indicate no member fnd@OY38423*/
+&ISRMMEND = 'N'                     /* SET THE END INDICATOR TO NO   */
+IF (.RESP = END)                    /* IF ENDING, WHY ... WHO CAUSED */
+  IF (&ISRMONCL ^= 'Y')             /* MAKE SURE ITS NOT A CLASS OP. */
+    IF (&ISRMDSPL ^= 'RETURN  ')    /* MAKE SURE ITS NOT END ON MBR. */
+      &ISRMMEND = 'Y'               /* NO - ITS BECAUSE USER HIT END */
+&ZMSG = .MSG                        /* Set message variable          */
+VPUT(ZMSG) PROFILE                  /* Save message in prof pool     */
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(P1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(P2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(P3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(P4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(P5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(P6)
+FIELD(ZPS01007) VAR(ZCMD) VAL(P7)
+FIELD(ZPS01008) VAR(ZCMD) VAL(P8)
+FIELD(ZPS01009) VAR(ZCMD) VAL(P9)
+)END

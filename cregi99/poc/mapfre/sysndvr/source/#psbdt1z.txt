@@ -1,0 +1,19 @@
+@REM ****************************************************** #PSBDT1Z ***
+@REM *    CONTENTS: ENDEVOR/MVS - RESOLVE &HVOLSER; USED BY #PSBDT12
+@REM * TRANSMITTER: BULK DATA TRANSFER USING JES NJE/NJI
+@REM *     PURPOSE: ENABLE &RVOLSER TO BE IN AN 'IF' STATEMENT.
+@REM *******************************************************************
+@REM PTF P004952  IN #PSBDT12, TESTS WERE ADDED TO ENABLE OMISSION OF
+@REM              IEBCOPY STATEMENTS IF NOTHING TO COPY.
+@REM              THIS REQUIRED 'IF' STATEMENT; SO THIS MACRO WAS ADDED.
+@REM *******************************************************************
+@REM INSERTED BY #PSBDT12 IF &MBRS2COPY IS ON.
+//JCL&F5   DD DATA,DLM=$5
+//OUT&F5   DD DISP=(,PASS),DSN=&&F&F5,UNIT=&RUNIT,
+@IF &RVOLSER
+//             VOL=SER=&RVOLSER,
+@ENDIF
+//             SPACE=(CYL,(0001,0005))
+//INP&F5   DD *
+$5
+//INP&F5   DD DISP=(OLD,DELETE),DSN=&&F&F5

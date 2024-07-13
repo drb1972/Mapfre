@@ -1,0 +1,24 @@
+)ATTR DEFAULT(%+_)
+! TYPE(TEXT) COLOR(GREEN)
+@ TYPE(TEXT) COLOR(TURQ)
+¢ TYPE(OUTPUT) COLOR(GREEN) CAPS(OFF)
+^ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF)
+)BODY EXPAND(\\)
+%\-\  ENDEVOR WIZARD  \-\
++
++   Use this panel to prepare an Endevor Wizard change.
++
++   Enter Change Number and Endevor System.
++
++   Before using this panel create a CMR and datasets called:
++      TTsystem.cmr.type
++
++   Where system is the Endevor system e.g. OS OJ etc
++   Where type is the Endevor type e.g. JOBS JOBSA PROCLIB etc
++
++   The next panel will allow you to create wizard control members
++   and JCL to add them to Endevor move them and build and Endevor
++   package for production
++
+)INIT
+)END

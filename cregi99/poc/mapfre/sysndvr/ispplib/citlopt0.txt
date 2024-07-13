@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Options Fields \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
+%Display List+- Indicates whether or not to display an element
++     list:  Y (yes) or N (no).  The default is Y.
++
+%Apply List Filters+- Specify Y (yes) to display the list filter panel.
++     When N (no) is specified, the panel is not displayed and filters
++     are%not+applied.  The list filter panel allows you to enter
++     options to filter your element list.  Data entered for the
++     Apply List Filters option and panel is retained across sessions.
++
+%Build Using Map+- Type Y (yes) if you want to search the map,
++     starting at the FROM location, when building a selection list.
+%     Warning:+ Avoid using BUILD USING MAP = Y in combination with
++               DISPLAY LIST = N.
++
++Select the options below for more information:
+%     1+- More about mapping
+%     2+- Options specific to Display, Signin, Retrieve
+%     3+- Applying list filters
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT3000 2,CITLOPT1 3,CITLOPT2)
+)END

@@ -1,0 +1,17 @@
+CIGG126E 'MEMBER NOT REPLACED'                           .ALARM=YES
+'THE MEMBER WAS FOUND IN THE LIBRARY AND NO REPLACE WAS SPECIFIED'
+
+CIGG127C 'MEMBER NOT FOUND'                              .ALARM=YES
+'THE BASE, DELTA, OR CONFIG REC IS MISSING OR FOOTPRINT INFO IS MISSING.'
+
+CIGG128E 'INCLUDE CHAR. NOT FOUND'                       .ALARM=YES
+'INCLUDE CHARACTERISTICS FOR TYPE NOT FOUND'
+
+CIGG129E 'Proc RC > Max RC'                              .ALARM=YES
+'C1G0129E The step return code is greater than the maximum return code (MAXRC) '
+
+CIGG129C 'Proc RC > Max RC'                              .ALARM=YES
+'C1G0129C The step return code is greater than the maximum return code (MAXRC) '
+
+CIGG129S 'Proc RC > Max RC'                              .ALARM=YES
+'C1G0129S The step return code is greater than the maximum return code (MAXRC) '

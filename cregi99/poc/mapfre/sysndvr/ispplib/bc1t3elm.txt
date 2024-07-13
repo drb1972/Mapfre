@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - Element Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select one or more elements when specifying Root,
++Derivation 1, or Derivation 2 as an%inventory location+during
++the Build WIP process.
++
++Elements with%Y+in the%NS+column cannot be used. These elements are
++source-less elements created by the CA Endevor SCM "Generate No Source"
++action.
++
++To select an element, type%S+next to the element name, then press ENTER.
++
++This list displays the current level of the elements. To access a summary
++of levels panel for an element, type%S+in the command field,%S+next to
++the element name, then press ENTER.
++
++
++
++                         (%ENTER+for more on Summary of Levels panel )
+)PROC
+   &ZCONT = BC1TSLV0
+)END

@@ -1,0 +1,79 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
+¦SCRLAREA                                                                    ¦
+)AREA SCRLAREA
++Use the%Element Selection List+to select an element for action processing
++or to display element information.
++
++Request an action against or display information about an element by typing
++one of the specified options next to the element name in the selection list.
++
++Select more than one element for processing by specifying a processing
++option for up to as many elements as appear on the screen. The options
++specified do not have to be the same. The dialog processes the elements
++in the order in which they appear in the selection list.
++
++The list can be filtered further using the%EONLY+and%ESEARCH+commands,
++and the sort order can be changed using the%ESORT+command.
++
++While displaying an element selection list, enter the%Action Options+panel
++by entering%AO+on the command line. The Action Options panel allows the
++setting of options for the actions to be processed, including Override
++Signout, CCID and Comment. The action options must be updated before
++specifying any options in the selection list. Any options specified in the
++selection list are processed before the Action Options panel is displayed.
++
++Submit Queue:%SQ+- Invoke the Submit/Show Queue command to work with pending
++batch requests when the%AO+(Action Option), Queue actions for Batch, is
++Enabled.  From the confirmation panel you can then Submit, Edit or Cancel
++the requests.
++
+<SELECT - Show D4T>
+<WHEN &VNTQD4TA=E>
++Deploy for Test:%DT+- Invoke the Deploy for Test facility to deploy one or
++more elements from a source sandbox to a target test sandbox along with all
++their output components. A report and cleanup action are also available
++within this facility.
++
+<OTHERWISE>
+</SELECT>
++
++    The following topics will be presented only if selected by number:
++
++     { 1}Quick Edit Action Commands+
++     { 2}Element Selection List filtering and sorting+
++     { 3}Using the SQ command to work with the request Queue+
++     { 4}Using the DT command to Deploy to Test environments+
++     { 5}Using Quick Edit User Routines (if enabled)+
++     { 6}Using the SY command to synchronize an element+
++     { 7}Using CCOLS command to arrange colums in element list+
++
++\ \ (Press}END+to exit) \ \
+)PROC
+&ZUP = ENDHE100
+&ZSEL = TRANS(&ZCMD,
+  1,*ENDHE110
+  2,*ENDHE166
+  3,*ENDHE159
+  4,*ENXHLP01
+  5,*CITI1020
+  6,*ENDHE163
+  7,*ENDHE164
+   *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(6)
+FIELD(ZPS01007) VAR(ZCMD) VAL(7)
+FIELD(ZPS01008) VAR(ZCMD) VAL(END)
+)END

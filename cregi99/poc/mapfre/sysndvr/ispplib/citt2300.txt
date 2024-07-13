@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Systems \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++System is the term for the applications at a site.
++For example, a site might have financial (system: FINANCE) and
++manufacturing (system: MFG) systems.
++
++A system must be defined to each environment where it will be used.
++
++You work with systems using the System Definition panel. You can
++clone system definitions within or across environments using the
++System Definition - Clone panel.
++
++
++   Select%1+-%2+for more on
++
+%    1+- System definition panel    %2+- System definition - clone
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE2100 2,CITE2300)
+)END

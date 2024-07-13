@@ -1,0 +1,79 @@
+)Attr
+   @ type( input) intens(high) caps(off) just(left ) pad('_')
+     color(blue)
+   ! type( input) intens(high) caps(off) just(left ) color(blue)
+   _ type( input) intens(high) caps(on ) just(left )
+   ¬ type(text) intens(low ) caps(off) just(asis ) color(blue)
+         hilite(uscore)
+   | type(text) intens(high) caps(off) just(asis ) color(blue)
+         hilite(uscore)
+   # type(text) intens(high) caps(on) just(left ) color(yellow)
+         hilite(uscore)
+   ` type(text) intens(high) caps(off) just(asis ) color(turq)
+   ~ type(text) intens(low ) caps(off) just(asis ) color(turq)
+   % type(text) intens(low ) caps(off) just(asis ) color(blue)
+)Body
++--------------------% Print Data via TCP/IP LPR Command +----------------------
+%Command ===>_zcmd
+`
+`Enter/Verify:
+`    Input Data Set    %===>_lprpinds                                         +
+%
+`    Printer Name      %===>!lprdest                                          +
+`    Host Name (node)  %===>!lprhost                                          +
+%
+`    Binary            %===>!lprbin+   Use if the file is already ASCII
+`    Carriage Control  %===>!lprcc+    Honor Carriage Control in Column 1
+`    Copies            %===>!lprcopy+
+`    Lines per Page    %===>!lprlcnt+  Lines per page if no CC or (0=default)
+`    Header Info       %===>!lprhead+  Generate header information
+`    Burst Page        %===>!lprburst+ Generate a burst page on the printer
+`    Notify Complete   %===>!lprntfy+  Send Mail when print complete
+`    PostScript        %===>!lprps    +Portrait, Landscape, or No
+`    Other Options     %===>@lpruopt                                           +
+`
+)Init
+ .HELP = lprph0
+ .cursor  = lprpinds
+ &lprbin  = trans(trunc(&lprbin,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprcc   = trans(trunc(&lprcc,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprcopy = trans(&lprcopy &z,1 *,*)
+ &lprlcnt = trans(&lprlcnt &z,0 *,*)
+ &lprhead = trans(trunc(&lprhead,1) Y,Yes N,No y,Yes n,No &z,Yes)
+ &lprburst= trans(trunc(&lprburst,1) Y,Yes N,No y,Yes n,No &z,Yes)
+ &lprntfy = trans(trunc(&lprntfy,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprps   = trans(trunc(&lprps,1) P,Portrait, L,Landscape N,No
+                                  p,Portrait, l,Landscape n,No &z,No)
+)Reinit
+ .cursor = lprpinds
+ &lprbin  = trans(trunc(&lprbin,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprcc   = trans(trunc(&lprcc,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprcopy = trans(&lprcopy &z,1 *,*)
+ &lprlcnt = trans(&lprlcnt &z,0 *,*)
+ &lprhead = trans(trunc(&lprhead,1) Y,Yes N,No y,Yes n,No &z,Yes)
+ &lprburst= trans(trunc(&lprburst,1) Y,Yes N,No y,Yes n,No &z,Yes)
+ &lprntfy = trans(trunc(&lprntfy,1) Y,Yes N,No y,Yes n,No &z,No)
+ &lprps   = trans(trunc(&lprps,1) P,Portrait, L,Landscape N,No
+                                  p,Portrait, l,Landscape n,No &z,No)
+)Proc
+ &lprbin = trans(trunc(&lprbin,1) Y,Yes N,No y,Yes n,No &z,No *,*)
+ &lprcc   = trans(trunc(&lprcc,1) Y,Yes N,No y,Yes n,No &z,No *,*)
+ &lprcopy = trans(&lprcopy &z,1 *,*)
+ &lprlcnt = trans(&lprlcnt &z,0 *,*)
+ &lprhead = trans(trunc(&lprhead,1) Y,Yes N,No y,Yes n,No &z,Yes *,*)
+ &lprburst= trans(trunc(&lprburst,1) Y,Yes N,No y,Yes n,No &z,Yes *,*)
+ &lprntfy = trans(trunc(&lprntfy,1) Y,Yes N,No y,Yes n,No &z,No *,*)
+ &lprps   = trans(trunc(&lprps,1) P,Portrait, L,Landscape N,No
+                                  p,Portrait, l,Landscape n,No &z,No *,*)
+ ver (&lprpinds,nonblank,dsname,msg=lpr001)
+ ver (&lprdest,nb)
+ ver (&lprhost,nb)
+ ver (&lprbin,nb,list,Yes,No)
+ ver (&lprcc,nb,list,Yes,No)
+ ver (&lprcopy,nb,num)
+ ver (&lprlcnt,nb,num)
+ ver (&lprhead,nb,list,Yes,No)
+ ver (&lprburst,nb,list,Yes,No)
+ ver (&lprntfy,nb,list,Yes,No)
+ ver (&lprps,nb,list,Portrait,Landscape,No)
+)End

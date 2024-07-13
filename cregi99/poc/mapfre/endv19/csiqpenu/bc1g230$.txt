@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
+%BUILD WIP ------------  DERIVATION 2 SPECIFICATION PANEL  ---------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++Specify%"DERIVATION 2"+location below, then press%ENTER+key.
++
++DERIVATION 2 LIBRARY:+
++   PROJECT %===>_PTBD2PRJ+
++   GROUP   %===>_PTBD2LIB+
++   TYPE    %===>_PTBD2TYP+
++   MEMBER  %===>_PTBD2MEM  +       THRU MEMBER%===>_PTBD2TMB  +
++
++DERIVATION 2 OTHER PARTITIONED OR SEQUENTIAL DATA SET:+
++   DATA SET NAME%===>_PTBD2OTH
+)INIT
+   .HELP = BCTG2300
+)END

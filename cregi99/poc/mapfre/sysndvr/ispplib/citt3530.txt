@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate Action and the Map \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++
++  The Generate action is affected only if the COPYBACK option is specified.
++  COPYBACK causes the environment map to be searched for a copy of
++  the element requested for generation.  For example, you can generate
++  with copyback into a test stage, even if the element to be generated
++  generated resides in a different environment in the environment map.
++  The element will be copied to the target stage before invoking the
++  generate processor.
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

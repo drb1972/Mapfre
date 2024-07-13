@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Action Summary Support for Long-Named Elements \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Package Action Summary Support for Long-Named Elements
++
++ With this enhancement, the Display Action Summary option of the
++ Package Display panel has been updated to include support
++ for Long-Named Elements.
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18160
+)END

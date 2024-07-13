@@ -1,0 +1,49 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++------------------- TestStream &TYPE -}-}-
+Command ===>_ZCMD                                            +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%
+%
++            &MSG1
++            &MSG2
++            &MSG3
+%                          
+%                          
++            Tracker ID For &TYPE
++                       ===>_Z     +
+%
+%
++            Always Display Log ===>_Z+(Y/N)
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+  IF (&PRODOVER = 'UP')
+    &TYPE = 'Production Components Update'
+  ELSE IF (&PRODOVER = 'OV')
+         &TYPE = 'Override Components Update  '
+       ELSE
+         &TYPE = 'Override Components Delete  '
+        &MSG1 = 'N.B. Components will be deleted from ENVT and stream libraries'
+        &MSG2 = '     and they will NOT be replaced by PROD or TEST.'
+        &MSG3 = '     Use one of the other options to recopy if required.'
+  .ZVARS = '(ZSYSID STREAMID TRACKER SHOWLOG)'
+  IF (&SHOWLOG = ' ')
+    &SHOWLOG = 'N'
+)REINIT
+  &ZCMD = ' '
+  REFRESH ZCMD
+)PROC
+  VER (&TRACKER,NB,PICT,NNNNNN)
+  VER (&SHOWLOG,NB,LIST,Y,N)
+  VPUT (TRACKER SHOWLOG)
+)END

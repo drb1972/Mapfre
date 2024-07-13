@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Current Source \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%UserID+- Id of the user to whom the Element is currently signed out.
+%Date/time+- Date and time when the Element was last changed.
+%CCID+- CCID specified for the last action against the Element.
++
+%Comment+- Comment specified for the last action against the Element.
+%Delta FMT+- Storage format for Element deltas.
+%               F+- Forward
+%               R+- Reverse
+%               I+- Image
+%               L+- Log
++
+%Add/Update from LOC+- Location of the source used to create this
++   Element. The value can be the name of a sequential file, a
++   library and member name or a path and USS file name. If the
++   name is greater than 56 characters, you can scroll right or left:
++   place the cursor on the name field and then use the%RIGHT+or
++  %LEFT+function keys, usually F11 and F10. Alternately, to display
++   the entire name in a pop-up window, type%ZEXPAND+in the%COMMAND+
++   field, place the cursor on the Location name, and then press%ENTER.
++\ \ (%PF3+to return) \ \
+)END

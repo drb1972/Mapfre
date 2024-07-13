@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ List Output \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This panel allows you to specify a library and member to which you
++to write list output.
++
++
++
++
++
++
++
++
++
++
++                   (%PF3+to return,%ENTER+for more on ISPF fields)
+)PROC
+   &ZCONT = CITISPF0
+)END

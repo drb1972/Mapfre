@@ -1,0 +1,30 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%\-\ PACKAGE SHIPMENT REPORTS \-\
+%COMMAND%===>_ZCMD                                                             +
++
++SELECT REPORTS:
+ _Z%73 +Destination detail
+ _Z%74 +Package shipments by Package id
+ _Z%75 +Package shipments by Destination id
+ _Z%76 +Package shipments by Shipment date
++
++   PACKAGE ID  %===>_VARSPPKG        +                                     +
++
++   DESTINATION %===>_VARDEST+
++
++   SELECT WHERE DATE :    (DDMMMYY or MM/DD/YY format)
++       SHIPPED       AFTER%===>_SADTE   + BEFORE%===>_SBDTE   +
+%
+)INIT
+ .ZVARS = '(RPT73 RPT74 RPT75 RPT76)'
+ .HELP = CITR1600
+)PROC
+)END

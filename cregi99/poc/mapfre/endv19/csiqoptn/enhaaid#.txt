@@ -1,0 +1,364 @@
+         MACRO
+         ENHAAID# &DSECT=NO
+         AIF   ('&DSECT' NE 'YES').NODSECT
+AID#H    DSECT
+*             %EQU ON
+         DC   Y(0)
+.NODSECT ANOP
+         GBLB  &ENHAAID#
+         AIF   (&ENHAAID#).MEND
+&ENHAAID# SETB (1)
+         SPACE ,
+*
+* THE API CONTROL STRUCTURE MUST ALWAYS BE THE FIRST PARM IN
+* ANY CALLS TO THE ENDEVOR/MVS APPLICATION PROGRAMMER INTERFACE.
+*
+AACTL$ID       EQU   10                API CONTROL STRUCTURE
+         SPACE ,
+AASHT$ID       EQU   990               (INTERNAL) SHUTDOWN REQUEST
+         SPACE ,
+*********************************************************************
+*  EACH REQUEST BLOCK HAS A CORRESPONDING RESPONSE BLOCK.
+*  THE REQUEST BLOCKS ARE ALL EVEN NUMBERED, AND THE CORRESPONDING
+*  RESPONSE BLOCK NUMBER IS THE REQUEST BLOCK NUMBER + 1.
+*  OPTIONALLY, THERE CAN BE A REQUEST EXTENSION BLK. ONE SIZE FITS
+*  ALL. ITS IDENTIFIER IS
+*  NOTE: RESPONSE EYE CATCHER EQUATES ARE DEFINED FOR ACTIONS THAT
+*        REQUIRE A RESPONSE BLOCK TO BE BUILT BY ENA$NDVR.
+*********************************************************************
+AAREQ_LOW      EQU   1008              LOWEST VALID REQUEST NUMBER
+AAREQ_HIGH     EQU   2020              HIGHEST VALID REQUEST NUMBER
+*
+AAINV_LOW      EQU   1024              LOWEST LIST REQUEST NUMBER
+AAINV_HIGH     EQU   1184              HIGHEST LIST REQUEST NUMBER
+*
+AAEEX_LOW      EQU   1200              LOWEST ELMEXT REQUEST NUMBER
+AAEEX_HIGH     EQU   1200              HIGHEST ELEMEX REQUEST NUMBER
+*
+AAACT_LOW      EQU   1216              LOWEST ACTION REQUEST NUMBER
+AAACT_HIGH     EQU   1392              HIGHEST ACTION REQUEST NUMBER
+*
+AAPKL_LOW      EQU   1408              LOWEST PKG LIST REQUEST NUMBER
+AAPKL_HIGH     EQU   1504              HIGHEST PKG LIST REQUEST NUMBER
+*
+AAPKG_LOW      EQU   1520              LOWEST PKG UPD REQUEST NUMBER
+AAPKG_HIGH     EQU   1776              HIGHEST PKG UPD REQUEST NUMBER
+*
+AACMP_LOW      EQU   1792              LOWEST CMP LIST REQUEST NUMBER
+AACMP_HIGH     EQU   1808              HIGHEST CMP LIST REQUEST NUMBER
+*
+AADIR_LOW      EQU   1824              LOWEST DIRECTORY REQUEST NUMBER
+AADIR_HIGH     EQU   1856              HIGHEST DIRECTORY REQUEST NUMBER
+*
+AASHL_LOW      EQU   1872              LOWEST SHIP LIST REQ NUMBER
+AASHL_HIGH     EQU   1904              HIGHEST SHIP LIST REQ NUMBER
+*
+AASCL_LOW      EQU   1920              LOWEST SCL FORMAT NUMBER
+AASCL_HIGH     EQU   1936              HIGHEST SCL FORMAT NUMBER
+*
+AASMF_LOW      EQU   1952              LOWEST SCL FORMAT NUMBER
+AASMF_HIGH     EQU   1968              HIGHEST SCL FORMAT NUMBER
+*
+AAFIN_LOW      EQU   1984              LOWEST VALIDATE FINGERP NUMBER
+AAFIN_HIGH     EQU   2000              HIGHEST VALIDATE FINGERP NUMBER
+*
+AACFG_LOW      EQU   2004              LOWEST GET CONFIG NUMBER
+AACFG_HIGH     EQU   2020              HIGHEST GET CONFIG NUMBER
+*
+*********************************************************************
+*              REQUEST EXTENSION BLOCK (REB)
+*                   (LONG NAME SUPPORT)
+*********************************************************************
+AAREB_RQ$ID    EQU   1008              "REQUEST EXTENSION BLOCK"
+*
+*********************************************************************
+*              PASSWORD BLOCK (PWB)
+*********************************************************************
+AAPWB_RQ$ID    EQU   1012              "PASSWORD BLOCK"
+*
+*********************************************************************
+*              PASSTICKET REQUEST BLOCK
+*********************************************************************
+AAPTK_RQ$ID    EQU   1016              "PASSTICKET REQUEST"
+AAPTK_RS$ID    EQU   AAPTK_RQ$ID+1     "PASSTICKET RESPONSE"
+*
+*********************************************************************
+*              LIST MCF DATA (INV LOCATION)        PGM=ENAPIINV
+*********************************************************************
+ALENV_RQ$ID    EQU   1024              "LIST ENVIRONMENT"
+ALENV_RS$ID    EQU   ALENV_RQ$ID+1
+*
+ALSTG_RQ$ID    EQU   1040              "LIST STAGE"
+ALSTG_RS$ID    EQU   ALSTG_RQ$ID+1
+*
+ALSYS_RQ$ID    EQU   1056              "LIST SYSTEM"
+ALSYS_RS$ID    EQU   ALSYS_RQ$ID+1
+*
+ALSBS_RQ$ID    EQU   1072              "LIST SUBSYSTEM"
+ALSBS_RS$ID    EQU   ALSBS_RQ$ID+1
+*
+ALTYP_RQ$ID    EQU   1088              "LIST TYPE"
+ALTYP_RS$ID    EQU   ALTYP_RQ$ID+1
+*
+ALELM_RQ$ID    EQU   1104              "LIST ELEMENT"
+ALELM_RS$ID    EQU   ALELM_RQ$ID+1     "MASTER DATA"
+ALELB_RS$ID    EQU   ALELM_RQ$ID+1     "BASE MASTER DATA"
+ALELS_RS$ID    EQU   ALELM_RQ$ID+1     "CHANGE LEVEL SUMMARY DATA"
+ALELX_RS$ID    EQU   ALELM_RQ$ID+1     "LONG NAME EXTENSION RECS"
+*
+ALSIT_RQ$ID    EQU   1120              "LIST SITE"
+ALSIT_RS$ID    EQU   ALSIT_RQ$ID+1
+*
+ALPGR_RQ$ID    EQU   1136              "LIST PROCESSOR GROUP"
+ALPGR_RS$ID    EQU   ALPGR_RQ$ID+1
+*
+ALDSN_RQ$ID    EQU   1152              "LIST DATA SET"
+ALDSN_RS$ID    EQU   ALDSN_RQ$ID+1
+*
+ALAGR_RQ$ID    EQU   1168              "LIST APPROVER GROUP"
+ALAGR_RS$ID    EQU   ALAGR_RQ$ID+1
+*
+ALAGJ_RQ$ID    EQU   1184              "LIST APPROVER JUNCTION"
+ALAGJ_RS$ID    EQU   ALAGJ_RQ$ID+1
+*********************************************************************
+*              ELEMENT/COMPONENT EXTRACT       PGM=ENAPIEXT
+*********************************************************************
+AEELM_RQ$ID    EQU   1200              "EXTRACT ELEMENT"
+AEELM_RS$ID    EQU   AEELM_RQ$ID+1
+*********************************************************************
+*              ELEMENT ACTIONS                 PGM=ENAPIACT
+*  NOTE: RESPONSE EYE CATCHER EQUATES ARE DEFINED FOR ACTIONS THAT
+*        REQUIRE A RESPONSE BLOCK TO BE BUILT BY ENA$NDVR.
+*********************************************************************
+AEADD_RQ$ID    EQU   1216              "ADD ELEMENT"
+AEADD_RS$ID    EQU   AEADD_RQ$ID+1
+AEADD_RS$EYE   EQU   C'EADS'           "RESPONSE EYE-CATCHER"
+*
+AEDEL_RQ$ID    EQU   1232              "DELETE ELEMENT"
+AEDEL_RS$ID    EQU   AEDEL_RQ$ID+1
+AEDEL_RS$EYE   EQU   C'EDES'           "RESPONSE EYE-CATCHER"
+*
+AEGEN_RQ$ID    EQU   1248              "GENERATE ELEMENT"
+AEGEN_RS$ID    EQU   AEGEN_RQ$ID+1
+AEGEN_RS$EYE   EQU   C'EGES'           "RESPONSE EYE-CATCHER"
+*
+AEAAA_RQ$ID    EQU   1264              "UNUSED SLOT "
+AEAAA_RS$ID    EQU   AEAAA_RQ$ID+1
+AEAAA_RS$EYE   EQU   C'EAAS'           "RESPONSE EYE-CATCHER"
+*
+AEBBB_RQ$ID    EQU   1280              "UNUSED SLOT"
+AEBBB_RS$ID    EQU   AEBBB_RQ$ID+1
+AEBBB_RS$EYE   EQU   C'EBBS'           "RESPONSE EYE-CATCHER"
+*
+AEMOV_RQ$ID    EQU   1296              "MOVE ELEMENT"
+AEMOV_RS$ID    EQU   AEMOV_RQ$ID+1
+AEMOV_RS$EYE   EQU   C'EMOS'           "RESPONSE EYE-CATCHER"
+*
+AEPRE_RQ$ID    EQU   1312              "PRINT ELEMENT"
+AEPRE_RS$ID    EQU   AEPRE_RQ$ID+1
+AEPRE_RS$EYE   EQU   C'EPES'           "RESPONSE EYE-CATCHER"
+*
+AEPRM_RQ$ID    EQU   1328              "PRINT MEMBER"
+AEPRM_RS$ID    EQU   AEPRM_RQ$ID+1
+AEPRM_RS$EYE   EQU   C'EPMS'           "RESPONSE EYE-CATCHER"
+*
+AERET_RQ$ID    EQU   1344              "RETRIEVE ELEMENT"
+AERET_RS$ID    EQU   AERET_RQ$ID+1
+AERET_RS$EYE   EQU   C'ERES'           "RESPONSE EYE-CATCHER"
+*
+AESIG_RQ$ID    EQU   1360              "SIGNIN ELEMENT"
+AESIG_RS$ID    EQU   AESIG_RQ$ID+1
+AESIG_RS$EYE   EQU   C'ESIS'           "RESPONSE EYE-CATCHER"
+*
+AETRA_RQ$ID    EQU   1376              "TRANSFER ELEMENT"
+AETRA_RS$ID    EQU   AETRA_RQ$ID+1
+AETRA_RS$EYE   EQU   C'ETRS'           "RESPONSE EYE-CATCHER"
+*
+AEUPD_RQ$ID    EQU   1392              "UPDATE ELEMENT"
+AEUPD_RS$ID    EQU   AEUPD_RQ$ID+1
+AEUPD_RS$EYE   EQU   C'EUPS'           "RESPONSE EYE-CATCHER"
+*********************************************************************
+*              PACKAGE LIST ACTIONS            PGM=ENAPIPKL
+*********************************************************************
+ALAPP_RQ$ID    EQU   1408              "LIST APPROVERS"
+ALAPP_RS$ID    EQU   ALAPP_RQ$ID+1
+*
+ALBKO_RQ$ID    EQU   1424              "LIST BACKOUT INFORMATION"
+ALBKO_RS$ID    EQU   ALBKO_RQ$ID+1
+*
+ALCAS_RQ$ID    EQU   1440              "LIST CAST REPORT"
+ALCAS_RS$ID    EQU   ALCAS_RQ$ID+1
+*
+ALCOR_RQ$ID    EQU   1456              "LIST CORRELATION RECS"
+ALCOR_RS$ID    EQU   ALCOR_RQ$ID+1
+*
+ALPKG_RQ$ID    EQU   1472              "LIST PACKAGE HEADER INFO"
+ALPKG_RS$ID    EQU   ALPKG_RQ$ID+1
+ALPKB_RS$ID    EQU   ALPKG_RQ$ID+1
+*
+ALSCL_RQ$ID    EQU   1488              "LIST PACKAGE SCL"
+ALSCL_RS$ID    EQU   ALSCL_RQ$ID+1
+*
+ALSUM_RQ$ID    EQU   1504              "LIST PACKAGE ACTION SUMMARY"
+ALSUM_RS$ID    EQU   ALSUM_RQ$ID+1
+*********************************************************************
+*              PACKAGE UPDATE ACTIONS          PGM=ENAPIPKG
+*  NOTE: RESPONSE EYE CATCHER EQUATES ARE DEFINED FOR ACTIONS THAT
+*        REQUIRE A RESPONSE BLOCK TO BE BUILT BY ENA$NDVR.
+*********************************************************************
+APAPP_RQ$ID    EQU   1520              "APPROVE PACKAGE"
+APAPP_RS$ID    EQU   APAPP_RQ$ID+1
+APAPP_RS$EYE   EQU   C'PAPS'           "RESPONSE EYE-CATCHER"
+*
+APARC_RQ$ID    EQU   1536              "ARCHIVE PACKAGE"
+APARC_RS$ID    EQU   APARC_RQ$ID+1
+APARC_RS$EYE   EQU   C'PARS'           "RESPONSE EYE-CATCHER"
+*
+APBKI_RQ$ID    EQU   1552              "BACK-IN PACKAGE"
+APBKI_RS$ID    EQU   APBKI_RQ$ID+1
+APBKI_RS$EYE   EQU   C'PBIS'           "RESPONSE EYE-CATCHER"
+*
+APBKO_RQ$ID    EQU   1568              "BACK-OUT PACKAGE"
+APBKO_RS$ID    EQU   APBKO_RQ$ID+1
+APBKO_RS$EYE   EQU   C'PBOS'           "RESPONSE EYE-CATCHER"
+*
+APCAS_RQ$ID    EQU   1584              "CAST PACKAGE"
+APCAS_RS$ID    EQU   APCAS_RQ$ID+1
+APCAS_RS$EYE   EQU   C'PCAS'           "RESPONSE EYE-CATCHER"
+*
+APCOM_RQ$ID    EQU   1600              "COMMIT PACKAGE"
+APCOM_RS$ID    EQU   APCOM_RQ$ID+1
+APCOM_RS$EYE   EQU   C'PCMS'           "RESPONSE EYE-CATCHER"
+*
+APCOR_RQ$ID    EQU   1616              "CORRELATION"
+APCOR_RS$ID    EQU   APCOR_RQ$ID+1
+APCOR_RS$EYE   EQU   C'PCOS'           "RESPONSE EYE-CATCHER"
+*
+APDEF_RQ$ID    EQU   1632              "DEFINE PACKAGE"
+APDEF_RS$ID    EQU   APDEF_RQ$ID+1
+APDEF_RS$EYE   EQU   C'PDFS'           "RESPONSE EYE-CATCHER"
+*
+APDEL_RQ$ID    EQU   1648              "DELETE PACKAGE"
+APDEL_RS$ID    EQU   APDEL_RQ$ID+1
+APDEL_RS$EYE   EQU   C'PDES'           "RESPONSE EYE-CATCHER"
+*
+APDEN_RQ$ID    EQU   1664              "DENY PACKAGE"
+APDEN_RS$ID    EQU   APDEN_RQ$ID+1
+APDEN_RS$EYE   EQU   C'PDNS'           "RESPONSE EYE-CATCHER"
+*
+APEXE_RQ$ID    EQU   1680              "EXECUTE PACKAGE"
+APEXE_RS$ID    EQU   APEXE_RQ$ID+1
+APEXE_RS$EYE   EQU   C'PEXS'           "RESPONSE EYE-CATCHER"
+*
+APEXP_RQ$ID    EQU   1696              "EXPORT PACKAGE"
+APEXP_RS$ID    EQU   APEXP_RQ$ID+1
+APEXP_RS$EYE   EQU   C'PXPS'           "RESPONSE EYE-CATCHER"
+*
+APINS_RQ$ID    EQU   1712              "INSERT PACKAGE"
+APINS_RS$ID    EQU   APINS_RQ$ID+1
+APINS_RS$EYE   EQU   C'PINS'           "RESPONSE EYE-CATCHER"
+*
+APRES_RQ$ID    EQU   1728              "RESET PACKAGE"
+APRES_RS$ID    EQU   APRES_RQ$ID+1
+APRES_RS$EYE   EQU   C'PRES'           "RESPONSE EYE-CATCHER"
+*
+APSUB_RQ$ID    EQU   1744              "SUBMIT PACKAGE"
+APSUB_RS$ID    EQU   APSUB_RQ$ID+1
+APSUB_RS$EYE   EQU   C'PSUS'           "RESPONSE EYE-CATCHER"
+*
+APCCC_RQ$ID    EQU   1760              "UNUSED SLOT   "
+APCCC_RS$ID    EQU   APCCC_RQ$ID+1
+APCCC_RS$EYE   EQU   C'PCCS'           "RESPONSE EYE-CATCHER"
+*
+APDDD_RQ$ID    EQU   1776              "UNUSED SLOT   "
+APDDD_RS$ID    EQU   APDDD_RQ$ID+1
+APDDD_RS$EYE   EQU   C'PDDS'           "RESPONSE EYE-CATCHER"
+*
+*********************************************************************
+*              LIST USING COMPONENTS ACTION PGM=ENAPICMP
+*********************************************************************
+ALCMP_RQ$ID    EQU   1792              "LIST COMPONENT"
+ALCMP_RS$ID    EQU   ALCMP_RQ$ID+1
+*
+ALFFF_RQ$ID    EQU   1808              "UNUSED SLOT   "
+ALFFF_RS$ID    EQU   ALFFF_RQ$ID+1
+*
+*********************************************************************
+*              LIST DIRECTORY ACTIONS       PGM=ENAPIDIR
+*********************************************************************
+ALDIR_RQ$ID    EQU   1824              "LIST DIRECTORY"
+ALDIR_RS$ID    EQU   ALDIR_RQ$ID+1
+*
+ALGGG_RQ$ID    EQU   1840              "UNUSED SLOT   "
+ALGGG_RS$ID    EQU   ALGGG_RQ$ID+1
+*
+ALHHH_RQ$ID    EQU   1856              "UNUSED SLOT   "
+ALHHH_RS$ID    EQU   ALHHH_RQ$ID+1
+*
+*********************************************************************
+*              LIST SHIP ACTIONS       PGM=ENAPIPKL
+*********************************************************************
+ALDST_RQ$ID    EQU   1872              "LIST DESTINATIONS"
+ALDST_RS$ID    EQU   ALDST_RQ$ID+1
+*
+ALPKS_RQ$ID    EQU   1888              "LIST PACKAGE SHIP"
+ALPKS_RS$ID    EQU   ALPKS_RQ$ID+1
+*
+ALJJJ_RQ$ID    EQU   1904              "UNUSED SLOT   "
+ALJJJ_RS$ID    EQU   ALJJJ_RQ$ID+1
+*
+*********************************************************************
+*              SCL FORMAT ACTIONS      PGM=ENAPISCL
+*********************************************************************
+AUSCL_RQ$ID    EQU   1920              "SCL FORMAT"
+AUSCL_RS$ID    EQU   AUSCL_RQ$ID+1
+AUSCL_RS$EYE   EQU   C'USCS'           "RESPONSE EYE-CATCHER"
+*
+ALKKK_RQ$ID    EQU   1936              "UNUSED SLOT   "
+ALKKK_RS$ID    EQU   ALKKK_RQ$ID+1
+*
+*********************************************************************
+*              LIST SMFDATA             PGM=ENAPISMF
+*********************************************************************
+ALSMF_RQ$ID    EQU   1952               "LIST SMFDATA"
+*
+ALSMF_RS$ID     EQU   ALSMF_RQ$ID+1     LIST SMFDATA
+ALSMF_RS$EYE    EQU   C'SMFS'
+*
+ALSMFS_RS$ID    EQU   ALSMF_RQ$ID+1     LIST SMFDATA SECURITY
+ALSMFA_RS$ID    EQU   ALSMF_RQ$ID+1     LIST SMFDATA ACTIVITY
+ALSMFEA_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEB_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEC_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFED_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEE_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEF_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEG_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEH_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEI_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEJ_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEK_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEL_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+ALSMFEM_RS$ID   EQU   ALSMF_RQ$ID+1     LIST SMFDATA ADMIN/ENVIRONMENT
+*
+ALSMF_RQ$NXT   EQU   1968               "UNUSED"
+*
+*********************************************************************
+*              VALIDATE FINGERPRINT     PGM=ENAPIINV
+*********************************************************************
+ALFIN_RQ$ID    EQU   1984
+ALFIN_RS$ID    EQU   ALFIN_RQ$ID+1
+
+ALFIN_RQ$NXT   EQU   2000               "UNUSED"
+
+*********************************************************************
+*              CONFIG REQUESTS
+*********************************************************************
+AACFG_RQ$ID    EQU   2004              "CONFIG REQUEST"
+AACFG_RS$ID    EQU   AACFG_RQ$ID+1     "CONFIG RESPONSE"
+AACFG_RS$EYE   EQU   C'CFGS'
+*
+AACFG_RQ$NXT   EQU   2020               "UNUSED"
+*
+         SPACE ,
+.MEND    MEND

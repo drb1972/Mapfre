@@ -1,0 +1,39 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- RESIZE JOBCARD -{-{-
++OPTION  ===>_ZCMD
++
++  Complete the JCL JOB card and press ENTER to submit the jobstream.
++  Enter the END command to terminate the submit.
++
++   _ewjcl1                                                            +
++   _ewjcl2                                                            +
++   _ewjcl3                                                            +
++   _ewjcl4                                                            +
++
++  Edit JCL before submit?_z+(Y/N)
++
+!  N.B. For overnight resizing please use class J which opens up
+!       at 19:00, but do not submit on the QEOS or QFOS as it does
+!       not open up there.
++
+)INIT
+   .ZVARS  = '(viewjob)'
+   .HELP   = RESIZEH
+   &ZCMD   = ''
+   vget (ewjcl1 ewjcl2 ewjcl3 ewjcl4) profile
+)REINIT
+)PROC
+   ver (&viewjob,NB,LIST,Y,N)
+   vput (ewjcl1 ewjcl2 ewjcl3 ewjcl4) profile
+   &PFK = .PFKEY
+)END

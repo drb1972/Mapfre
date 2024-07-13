@@ -1,0 +1,40 @@
+)ATTR
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*-----------------------------------------------------------------------*/
+   % TYPE(TEXT) INTENS(HIGH)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   ! TYPE(OUTPUT) INTENS(LOW)
+   @ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF)
+   ^ TYPE(OUTPUT) CAPS(OFF)       FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+)BODY
+%------------------- Master Display for Element¢EMNAME    %------+Panel 1 of 2
+%Command ===>_ZCMD                                                             +
++
++Environment..!EMENV   + Processor Group.!EPRGRP  + Signout ID.!EOWNRID +
++System.......!EMSYS   + VVLL............!ECVL +    N/S........!EMSRCD  +
++Subsystem....!EMSBS   + Last Action.....!ELSTACT + Lock Pkg...!ECPKGID
++Type.........!EMTYPE  + Source Package..!ESPKGID         +
++Stage........!Z+        Output Package..!EOPKGID         +
++Base Comment.`EMBCOM                                 +
+%---------------------- Last Element Action -¢ELMODACT%-------------------------
++User ID......!ELAUID  + Date/Time...!ELADATE!Z    + CCID..........^ELACCID
++Action RC....!EMRC+     Processor...!EMLPRON +!EMLPROF +
++Processor RC.!EPRC !EMPFLAG
++Comment......`ELACOMM                                 +
+%------------------------------- Current Source --------------------------------
++User ID......!EMLUID  + Date/Time...!EMLDTE !EMLT + Delta Format..!Z+
++Comment..`EMCCOM                                  + CCID..........^ECTL#
++From DS Name.@EFDSN                                               +
+%---------------------------------- Generate -----------------------------------
++UserID.......!EMPUID  + Date/Time...!EMPD   !EMPT + CCID..........^EGCCID
++Comment......`EMPCOM                                  +
++
++
++                        Press ENTER for the next panel
+)INIT
+  .ZVARS = '(EMSTGID ELATIME EMELMFMT)'
+  .HELP = CITSED00
+)END

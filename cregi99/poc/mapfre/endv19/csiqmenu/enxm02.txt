@@ -1,0 +1,6 @@
+ENXM020E 'Multiple Inv Locations'                   .ALARM=Y .TYPE=W NOKANA
+'Deploy for Test feature can only be executed from a single source '      +
+'inventory location (ENV/SYS/SBS)'
+
+ENXM021E 'Invalid Inv Location'                     .ALARM=Y .TYPE=W NOKANA
+'Deploy for Test feature cannot be executed from a target subsystem'

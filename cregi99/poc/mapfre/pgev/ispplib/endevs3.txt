@@ -1,0 +1,27 @@
+)ATTR DEFAULT(%+_)
+! type(OUTPUT) intens(LOW) COLOR(TURQUOISE)
+? type(OUTPUT) intens(LOW) COLOR(YELLOW)
+% TYPE(TEXT) INTENS(HIGH) COLOR(YELLOW)
++ TYPE(TEXT) INTENS(LOW) COLOR(TURQUOISE)
+¢ TYPE(TEXT) INTENS(LOW) COLOR(WHITE)
+_ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) COLOR(GREEN)
+)Body  Expand(//)
+%-/-/- Endevor Security -/-/-
+%Command ===>_zcmd
+%
++
++Environment :?envname +System :?sysname +User Type :?usertype
++
++Line commands :%A+: Add user %R+: Remove user
++
++Cmd Userid
+)Model
+ _Z+?usrname
+)Init
+.ZVARS = '(sel)'
+.cursor = sel
+)Reinit
+)Proc
+  If (&ztdsels ^= 0000)           /* If user selected some rows ... */
+     ver (&sel,LIST,a,A,r,R)
+)End

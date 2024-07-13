@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Master - Identification Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++                                                                   %Page 1 of 2
+%Elm+- Name of the 1-255 character Element name. If the name is greater
++      than 60 characters, you can scroll right or left: place the
++      cursor on the name field and then use the%RIGHT+or%LEFT+function
++      keys, usually F11 and F10. Alternately, to display the entire
++      Element name in a pop-up window, type%ZEXPAND+in the%COMMAND+
++      field, place the cursor on the Element name, and then press ENTER.
++
+%Env+- Environment where Element resides.
+%Sys+- System associated with the Element.
+%Sub+- Subsystem associated with the Element.
+%Typ+- Type associated with the Element.
+%Stg+- ID of the Stage where the Element resides.
++
+%Proc grp+- Processor group associated with the Element.
+%VVLL+- Element version and level.
+%Last action+- Last action performed against the Element.
+%NoSource+- If set to NOSOURCE, Element source is not at the inventory location.
+%Signout ID+- ID of the person to whom the Element is signed out.
++
++\ \ (%ENTER+to continue or%PF3+to return) \ \
+)PROC
+   &ZCONT = CITSED12
+)END

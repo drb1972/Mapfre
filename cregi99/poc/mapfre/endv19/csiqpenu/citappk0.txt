@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Append to Package Field \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether you want to append imported SCL or a copied package
++to this package.  If APPEND TO PACKAGE=N, the new imported or copied
++information will overwrite the current package contents.
++
+%  Y+- Append new data to the existing package.
++
+%  N+- Overwrite the existing contents of the package.
++
++
++
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

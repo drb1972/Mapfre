@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Endevor Start-up \-\
+%Option ===>~ZCMD
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Endevor Start-up
++
++  The%ENDEVOR OPTION MENU+provides a streamlined dialog to access the
++  Endevor interfaces. Select the desired option number, e.g. 2 for Quick
++  Edit.  The options are point-and-shoot enabled so you can just move your
++  cursor to the option text and press ENTER to go directly to that option.
++  Notes:
++  1. Some emulators support point-and-shoot as a double-click.
++  2. The%S - Settings+option is meant for testing and debugging.
++
++  The panel also displays information about the current environment:
++  - The system name.
++  - The ISPF application id.
++  - The suffix that overlays the last 2 characters in 'C1DEFLTS'.
++    This line is suppressed if no suffix was specified.
++
++  The panel has a dynamic area that can be used to show information to users.
++  A program can be written to e.g. display a greeting message.
++  See sample programs ENDEVORG and ENDEVORL in the CSIQCLS0 library.
++  Activation of the program can be done by passing its name to ENDEVORS or
++  via the Settings panel.
++
++  More information can be found in the Endevor documentation for rexx exec
++  ENDEVORS.
++
++\ \ (Press}END+to exit) \ \
+)PROC
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(END)
+)END

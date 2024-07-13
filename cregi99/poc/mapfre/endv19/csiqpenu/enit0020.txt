@@ -1,0 +1,21 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Batch Package SCL Data Set Name Fields \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++The SCL data set name fields identify the external data set and member to
++which batch package SCL is written.  They are standard ISPF data set
++specifications.  The data set can be a PDS or sequential file.
++
++Use the Other Sequential or Partititoned Data Set field as an alternative to
++the SCL Data Set Name fields.  Type the data set and member specification
++in 'data set(member)' format.
++
++ Press%PF7+for previous Help menu, or%End+to exit Help
++
+)PROC
+  &ZUP   = enit0000
+)END

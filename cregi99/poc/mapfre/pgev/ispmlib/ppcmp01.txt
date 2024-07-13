@@ -1,0 +1,2 @@
+PPCMP010 'Package not defined'                                .ALARM=YES
+'The package name specified does not exist in Endevor'

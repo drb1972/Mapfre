@@ -1,0 +1,2 @@
+ENIP110E 'VALIDATE Not Available'                      .ALARM=YES
+'The VALIDATE option is not yet available'

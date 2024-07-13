@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  Build Generol Migration File \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                       @
+)AREA SAREA1
++  All the following fields must be completed to build the control file
++  used by ADSM to promote the changes into System Test and onwards.
++
++  Infoman Change Record Number: Format must be C0nnnnnn
++
++  AD Application Team:          List of valid teams are:
++                                HO - Home, MO - Motor, TV - Travel,
++                                PT - Pet, HR - Home Resc, CL - Claims
++                                AC - Accounts, WB- Web, LF - Life
++                                FS - Financial Services
++
++  Reason For Change:            This is freeform text and should be
++                                something meaningful.
++
++  Gener/OL Sublibrary:          The list of valid sublibraries are:
++
++                                MOTOR, RESIDENT, ACCOUNT, CREDCLMS,
++                                NONRES, CUSTCON, HOUSE, NSMOT,
++                                NSRES, NSMCL, NSNONRES, TRAVEL, PET
++
++  Target SGTLIB:                Final SGTLIB in Production:
++                                Valid SGTLIBs are 1, 2 or U
++
++  Component Name:               The component name witin Gener/OL
++
++  Component Type:               The component type within Gener/OL
++                                Valid types are:
++
++                                P - Program
++                                W - Work Area
++                                R - Record Layout
++                                M - Map
++                                F - File
+)PROC
+)END

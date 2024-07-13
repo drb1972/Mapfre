@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%\-\ SCL changes \-\
+%Option ===>_ZCMD                                              %(Screen 3 of 4)+
+%
+%Definition of the%Processor Output Type+
+
++ The validation of the%DEFINE PROCESSOR GROUP+syntax has been enhanced to
+  allow%any+value of 16 characters or less.
+
++ If the value contains spaces it must be enclosed in quotes. Leading spaces
+  are not allowed.
+
++                                              %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7203
+)END

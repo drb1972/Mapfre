@@ -1,0 +1,33 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit User Routines Feature (AL) \-\
+%Option ===>~ZCMD                                                 %Version 18.1
+¦SCRAREA                                                                       ¦
+)AREA SCRAREA
+%Display/Update Element Meta-data (CCID, Description, etc.)
++
++  This sample user routine (NDUSRXAL) displays a pop-up panel with the
++  element meta-data.  If you are authorised, you can amend the data and
++  press%ENTER+to update it or press%END+to return without change.
++
+%  Intended Use:+
++  Use this routine to update the Element description, CCID information,
++  processor group, or User-data using the ALTER SCL request.
++
+%  Note:+
++  SMF recording must be active for any Environment in which you use the
++  alter action. If SMF recording is not active, the Alter action fails.
++
++\ \ (Press}ENTER+to continue or}END+to exit) \ \
+)INIT
+   VGET (EEVQUREQ) SHARED /* Refresh count */
+)PROC
+ &ZUP = CITI1020
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01002) VAR(ZCMD) VAL(END)
+)END

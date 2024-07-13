@@ -1,0 +1,22 @@
+%------------------------- Scanlist SCL Options --------------------------------
+%OPTION  ===>_ZCMD                                                             +
+%
++  Additional information for building RETRIEVE SCL for the SCANLIST utility.
+%
++CCID             ===>_SLCCID  +
++RETRIEVE DSN     ===>_SLRETDSN                                      +
++OVERRIDE SIGNOUT ===>_Z+(Y/N)
++REPLACE MEMBERS  ===>_Z+(Y/N)
++
+)INIT
+ .HELP = SCANLISH
+ .CURSOR = ZCMD
+ .ZVARS = '(SLOVE,SLREP)'
+ VGET (SLCCID SLRETDSN SLOVE SLREP) PROFILE
+)PROC
+VER (&SLCCID,NB,PICT,ANNNNNNN)
+VER (&SLRETDSN,NB,DSNAME)
+VER (&SLOVE,NB,LIST,Y,N)
+VER (&SLREP,NB,LIST,Y,N)
+VPUT (SLCCID SLRETDSN SLOVE SLREP) PROFILE
+)END

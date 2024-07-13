@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Batch Options Menu \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The PDM Batch Options Menu allows you to browse (Option 1), edit (Option 2)
++and submit (Option 4) request data sets. You can also build additional JCL
++(Option 3) to be included with the request.
++
++You identify the request data set and member using the BATCH REQUEST DATA
++SET and OTHER PARTITIONED OR SEQUENTIAL DATA SET fields.
++
++The INCLUDE JCL field is required for Option 4 (Submit). The default is
+%N+(do not include JCL). Type%Y+in this field if you want to include JCL
++that you have created using Option 3. The JCL to be included must
++already exist before you type%Y+in this field.
++
++The JOB STATEMENT INFORMATION fields are for the job card information
++to be submitted with the job.
++
++
+)END

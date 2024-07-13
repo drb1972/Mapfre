@@ -1,0 +1,30 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Element Selection Lists - Commands \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
++                                                                   %Page 3 of 3
+%EONLY Command (continued)
++that includes blanks in its name, but do not enclosed the name in quotes.
++Up to 41 characters can be specified for the Element name value.
++
++You are allowed to specify the > (greater than) or < (less than) symbol
++when entering date values. Enter the date value in DDMMMYY format.
++To specify a date range, specify the dash symbol between the two date
++values%EO DAT 01JAN15-30SEP16+.
++
++A long name indicator column follows the Element name column. You can
++filter on the indicator field by using a column heading of%&L
++Examples:%EONLY &L &L+(long-named Elements only)
++         %EO   -&L &L+(exclude long-named Elements)
++
++
++
++
++
++
++\ \ (Press%ENTER+or%PF3+to return) \ \
++
+)INIT
+  &L = +
+)PROC
+  &ZCONT = CITESELA
+)END

@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Type definition - Regression Information \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Regression pct+- Maximum acceptable regression percent for elements
++  of this type (2 digits). For image and log delta elements, this field has
++  no effect and must be set to zero.
++
+%Regr sev+- Regression severity. Determines severity of the error
++  message when regression is detected.  Acceptable values are:
++
+%   I+- Informational message.
+%   W+- Warning message.
+%   C+- Default. Critical message.
+%   E+- Fatal message.
+
+
+
+
+
+
++
++\ \ (%PF3+to return) \ \
+)END

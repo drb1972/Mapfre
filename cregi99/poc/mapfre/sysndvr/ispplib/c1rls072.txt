@@ -1,0 +1,34 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag ^ sh msg
+tag & sh dsname dsnmem
+tag @ uh memsel
+tag ¢ sh memname
+tag ~ sh memfoot
+%------------------------  Load Module IDR Display  ----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+^
++                    Library:&
++                     Member:&
++
++             |---------------------  F O O T P R I N T  ---------------------|
++   CSECT      SYSTEM   SUBSYSTEM ELEMENT    TYPE     S  VVLL  DATE    TIME LD
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+ @ ¢          ~
+enddef

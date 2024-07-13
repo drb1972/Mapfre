@@ -1,0 +1,34 @@
+)ATTR
+ % TYPE(TEXT)   INTENS(HIGH)
+ + TYPE(TEXT)   INTENS(LOW)
+ # TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Deny Package \-\ TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
++
++Use the Deny Package panel to change the status of a package from In-approval
++to Denied.  To deny a package select action 1, Deny Package, and press enter.
++You can cancel the Deny action by selecting action 2 and pressing enter.
++
++The Deny Package Panel allows you to enter notes you may want to associate
++with the package as part of the Deny action.  To enter notes select action N,
++and press enter.  The Enter Package Note Text panel displays.
++
++Select 1 - 4 for information about:
+%   1+- Package identification fields
+%   2+- Sharable package
+%   3+- Enable backout
+%   4+- Execution window
+%   5+- Package event fields
++
++ Select a Help topic, or%End+to exit Help
+
+)PROC
+  &ZSEL  = TRANS(&ZCMD
+                 1,citpkid0
+                 2,citshpk0
+                 3,citbken0
+                 4,citxwin0
+                 5,citpkev0
+                )
+)END

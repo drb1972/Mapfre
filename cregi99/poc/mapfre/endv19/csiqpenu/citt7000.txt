@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Packages \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++A package is a set of element actions that may require approval before
++being executed. You create a package by building batch SCL streams
++containing the actions to be executed.
++
++
++
++
++    Select%1+-%8+for information about
++
+%    1+- Creating packages          %5+- Committing packages
+%    2+- Casting packages           %6+- Package Backout
+%    3+- Reviewing packages         %7+- Package shipment
+%    4+- Executing packages         %8+- Package action/status summary
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITT7100 2,CITT7200 3,CITT7300 4,CITT7400
+                  5,CITT7500 6,CITT7600 7,CITT7700 8,CITT7800)
+)END

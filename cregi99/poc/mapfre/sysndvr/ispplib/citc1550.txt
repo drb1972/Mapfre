@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Package Shipment Destinations for XCOM Transmission \-\
+%Option ===>_ZCMD                                                 %Version 15.0+
+%
+%Package Shipment Destinations for XCOM Transmission
++
+ This enhancement supports the IPNAME parameter. This change is limited to
+ the XCOM transmission method. XCOM clients can specify either the 1-8
+ character NODENAME or the 1-63 character IPNAME. If an attempt to specify both
+ is made or an IPNAME value is specified for a non-XCOM Destination definition,
+ an error message is issued.
+
+ This enhancement also provides the ability to specify an IPPORT number along
+ with the IPNAME. If the IPNAME is specified, an IPPORT value must be provided.
+
+
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15100
+)END

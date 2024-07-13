@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Confirm Shipment \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You can change the value in the PKG/BACKOUT field. For XCOM and
++Connect:Direct you can enter a command file prefix to override the
++default of the MODHLI value or the userid value if MODHLI is blank.
++
++Type SH in the OPTION field, then press ENTER to place the shipment
++in the shipment queue.
++
++After you press ENTER to queue a shipment
++
++   * The next selected destination appears in the DESTINATION field, if
++     you selected multiple destinations for the package and not all
++     package/destination pairs have been placed in the queue.
++
++   * The Destination Selection list appears, if you selected multiple
++     packages and not all packages have been placed in the queue.
++
++                                            (%PF3+to return)
+)END

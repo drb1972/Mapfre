@@ -1,0 +1,29 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ About Approver Groups \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                  +Page 2 of 2+
+%
++Approver groups can be related to inventory areas:
++- Multiple approver groups can be related to one inventory area.
++- A single group can be related to many inventory areas.
+
++Once an approver group has been related to an inventory area, all
++actions against that area must be included in packages.
++
++
++
++
++
++
++
++
++
++
++
++
++
++  ---- Press%ENTER+to go back to the first panel or%END+to exit ----
+)INIT
+  &LIT1 = 'APPROVER_DISQUALIFIED'
+)PROC
+  &ZCONT = 'CITE8110'
+)END

@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Merge Process \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM creates a Merge Output file from a WIP file. Before invoking the
++Merge process, all conflicts must be edited out of the WIP file. The
++WIP file can contain non-conflicting inserts and deletes.
++
++When building a Merge Output file PDM:
++
++  * Removes the WIP header information.
++
++  * Inserts and deletes lines as necessary
++
++  * Removes the WIP annotations.
++
++  * Ignores comment lines.
++
++
++
+)END

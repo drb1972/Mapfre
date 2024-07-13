@@ -1,0 +1,40 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(OUTPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) INTENS(LOW)
+   ` TYPE(OUTPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) INTENS(LOW)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(LOW)
+   # AREA(SCRL) EXTEND(ON)
+)BODY
+%-------------------------- Environment Information ----------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
+#MYAREA -----------------------------------------------------------------------#
+)AREA MYAREA
++  Current Environment......._VAREVNME+
++  Title.....................~VAREVTTL
++  Next Environment..........¢VARNXENV+
++
++  Journal...................¢VAREVJNL
++  SMF Element Actions.......¢Z+
++  SMF Security..............¢Z+
++  SMF Admin Actions.........¢Z+
++  MVS/DB Bridge.............¢Z+
++  Out-of-Sync Alerts........¢Z+
++  Dynamic...................¢Z+
++
++
++
++
++
++
++
+)INIT
+  .ZVARS = '(VARSFACT VARSFSEC VARSFENV VARSC1DB VARSCLOC VARDYNAM)'
+  .HELP = CITE7000
+)END

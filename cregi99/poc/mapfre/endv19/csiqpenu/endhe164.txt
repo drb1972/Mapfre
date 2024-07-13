@@ -1,0 +1,84 @@
+)ATTR DEFAULT(%+~)
+ } TYPE(PS)
+ { TYPE(SAC)
+ $ TYPE(ET)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens  */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Using the CCOLS command \-\ TUTORIAL
+%Command ===>~ZCMD                                                             +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
+% CCOLS command -+
++    The Quick Edit%CCOLS+command will allow you to customize Element
++    selection list table columns. Specifically you can arrange the column
++    sequence, change colors and change column width. You can fix the
++    selected columns in position while scrolling with separator line.
++    Issue the CCOLS command to open the customization panel.
++
+% Column sequence -+
++    Arrange the rows in the order you want them to be sequenced
++    using ISPF Editor M|A|B Line commands.
++    Columns from top to bottom will be arranged from left to right on your
++    screen.
++    A separator line will fix columns to the left side of the screen.
++    Any column above the separator line is fixed and columns underneath are
++    scrollable.
++    Fixed columns will not move when you scroll.
++    You can omit columns completely by commenting character "*" or by
++    specifying Len of 0.
++
+% Color of Column -+
++    To change the color of a column field overtype its attribute field
++    according to the available characters noted in the edit session
++    Help at the bottom of the edit screen.
++
+% Width of Column -+
++    Change the width of a column by overtyping in the Len column or leave it
++    blank to use dft Len.
++
+% Reset to Default -+
++    There are 2 ways to return to default settings:
++      %1)+use the RESET command while in the ISPF editor
++      %2)+use the CCOLS RESET command directly from the panel to return
++          to default settings without entering the ISPF editor.
++
+% Heading Description -+
++    Atr chr  - Column value attribute for setting variable color.
++    Max Len  - Maximum value of variable in column.
++    Dft Len  - Default width of column.
++    Len      - Width of column set by user.
++    Divider  - Divider between header and column values.
++
+% Example -+
++
+% *$Heading               Atr Max Dft Len Divider%*
+% ********************** $chr Len Len%*************
+$   Element                @  255 010 008 ----------------------------
+$   Environ                @  008 008 003 --------
+$ !******FIXED COLUMNS ABOVE***********************
+$   Type                   ¬  010 010     ----------
+$ * UsrData                @  080 010     -
+$   Message                ¢  008 008     --------
++
++    In this example, the "element" and "Environment" columns will be fixed
++    on screen, folowed by the rest columns scrollable.
++    "Type" and "Message" will be on a first display until RIGHT scroll is
++    issued.
++    The Element column will have a length of 8 and the color BLUE
++    The Environ column will have a length of 3 and the color BLUE
++    The Type    column will have a length of 10 and the color RED
++    The UsrData column will not be displayed since it is commented "*"
++    The Message column will have a length of 8 and the color WHITE
++    (Colors are in the edit session inbound help on the bottom)
++
+% Notes :
++    Changing the header / max length / default length fields is not allowed.
++    Changing, deleating or duplication of rows in the CCOLS ISPF Edit
++    session is not allowed.
++
++\ \ (Press}END+to return) \ \
+)PROC
+&ZUP = ENDHE150
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(END)
+)END

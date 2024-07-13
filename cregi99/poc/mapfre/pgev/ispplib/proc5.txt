@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) CAPS(ON) PAD(_)
+   ! TYPE(text) INTENS(LOW) PAD(NULLS) skip(on)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
++    ------------- Build DB2 Stored Procedure ------------------------
+%
+%Please enter details for variable ¢a + of type ¢type
+%PF3 to cancel
+%
+%Size must be a value between 1 and 127
+%
+%   ¢ERROR
+%
+% Information required for Sysprocedures table insert:
++ ----------------------------------------------------
++ Variable name     ==>$VARNAMES!
++ IN/OUT/INOUT      ==>$INOUT!
++ Size              ==>$NNN!
+
+)INIT
+  .HELP = NOHELP
+  &VARNAMES = &Z
+  &INOUT = &Z
+  &NNN = &Z
+
+)PROC
+  &TEST = TRUNC(&VARNAMES,4)
+  VER (&TEST,NB,PICT,ACCC)
+  VER (&INOUT,NB,LIST,IN,OUT,INOUT)
+  VER (&NNN,NB,RANGE,1,127)
+
+)END

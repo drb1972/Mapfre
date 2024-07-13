@@ -1,0 +1,31 @@
+)PANEL
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PADC(_)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   ! TYPE(OUTPUT) INTENS(LOW)
+)BODY  EXPAND(@@)
+ @-@% ACM Submit JOBCARD Statements @-@
+
+%COMMAND ===>_ZCMD                                                     +
++
++ Complete the JCL JOB card and press%ENTER+to submit the jobstream.
++ Enter the%END+command to terminate the submit.
++
++  _C1BJC1                                                                  +
++  _C1BJC2                                                                  +
++  _C1BJC3                                                                  +
++  _C1BJC4                                                                  +
++
+)INIT
+.HELP = TACMJ
+.CURSOR = 'C1BJC1'
+VGET  (C1BJC1 C1BJC1 C1BJC1 C1BJC1)
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)PROC
+VER   (&C1BJC1,NONBLANK)
+VPUT  (C1BJC1 C1BJC1 C1BJC1 C1BJC1) PROFILE
+  *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

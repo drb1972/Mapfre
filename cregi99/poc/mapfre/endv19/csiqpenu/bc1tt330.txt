@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Creating a Merge Output File \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The final step in the PDM process is to create a Merge Output File
++from a WIP File. A Merge Output File is a normal source file, and can
++be stored in the appropriate source repository, input to a compiler,
++or added into the Endevor inventory.
++
++Before creating a merge output file, all conflicts must be edited out
++of the WIP file. PDM creates the merge output file by performing the
++indicated insertions and deletions and removing WIP information.
++
++
++                              (%ENTER+for more on Merge Output Files )
+)PROC
+   &ZCONT = BC1T4000
+)END

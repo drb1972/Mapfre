@@ -1,0 +1,44 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(&VCAPFT) INTENS(&VCAPFI) CAPS(ON) JUST(LEFT)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY EXPAND(\\)
++BATCH%\-\ Batch Options Menu \-\------
+%OPTION% ===>_VARWKCMD                                                        +
++
++  %1+ BUILD SCL - Build batch SCL actions
++  %2+ EDIT      - Edit request data set
++  %3+ SUBMIT    - Submit job for batch processing
++  %4+ VALIDATE  - Check request data set for syntax errors
++  %5+ BUILD JCL - Enter additional JCL to be included with the job
++
++Request Data Set:
++   Project %===>_VNBRPRO +     Append     %===>_Z+ (Y/N)
++   Group   %===>_VNBRGRP +     Include JCL%===>_Z+ (Y/N)
++   Type    %===>_VNBRTYP +     STOPRC     %===>_Z +RC to stop processing
++   Member  %===>_VNBRMBR +     Concurrent Action Processing%===>$Z+ (Y/N)
++                                          Concurrent Number%===>$Z +Max¢Z +
++Other Partitioned or Sequential Data Set:
++   DSNAME%===>_VNBROTH                                                     +
++
++Job Statement Information:
+%===>_C1BJC1                                                                  +
+%===>_C1BJC2                                                                  +
+%===>_C1BJC3                                                                  +
+%===>_C1BJC4                                                                  +
++
+)INIT
+  .ZVARS = '(VNBINCA VNBINCF VARSTPRC VCAPYN VCAPRN VCAPMN )'
+  .HELP = CITB0000
+  &YNLIST = 'Y N'
+)PROC
+  VER (&VARSTPRC,NB,RANGE,4,99)
+  VER (&VCAPYN,NB,LISTV,&YNLIST,MSG=CIFV005)
+  IF (&VCAPYN = 'Y')
+    IF (&VCAPRN NE '  ')
+      VER (&VCAPRN,NB,RANGE,2,&VCAPMN)
+)END

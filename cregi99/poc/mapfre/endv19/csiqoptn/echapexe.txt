@@ -1,0 +1,16 @@
+      *****************************************************************
+      *
+      *            EXECUTE PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APEXE-RQ.
+           05  APEXE-RQ-HEADER.
+               10  APEXE-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APEXE-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APEXE-RQ-ID         PIC 9(04) COMP VALUE 1680.
+               10  APEXE-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APEXE-RQ-EYE        PIC X(04)      VALUE 'PEXQ'.
+           05  APEXE-RQ-DATAAREA.
+               10  APEXE-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APEXE-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

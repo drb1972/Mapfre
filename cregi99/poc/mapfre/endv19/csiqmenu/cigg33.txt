@@ -1,0 +1,8 @@
+CIGG330E 'I/O Error on PDS'                     .ALARM=YES
+'C1G0330E Browse &C1MDSN for more information'
+
+CIGG335E 'Multi-Volume Data set'                .ALARM=YES
+'C1G0335E E/LIB VSAM data sets with LServ are required for multivolume.'
+
+CIGG337E 'Conrele needs ASCM = Y'               .ALARM=YES
+'C1G0337E Conrele requested, but C1DEFLTS ASCM=N, Must be set to Y.'

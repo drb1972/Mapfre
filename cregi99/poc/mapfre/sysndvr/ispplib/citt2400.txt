@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Subsystems \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Subsystem is the term for a particular application within a
++system. For example, there might be purchase order (subsystem: PO)
++accounts payable (subsystem: AP) applications within system FINANCE.
++
++  * There must be at least one subsystem per system.
++
++  * A subsystem must be defined to each system in which it will be used.
++
++    For example, if you plan to have subsystem PO within system FINANCE,
++    and define system FINANCE to environments TEST, QA, and PROD, you
++    must also define subsystem PO to system FINANCE in each environment.
++
++  * A subsystem can have the same name as the system to which you
++    define it.
++
++You work with subsystems using the Subsystem Definition panel.
++
++                (%PF3+to return,%ENTER+for Subsystem Definition panel)
+)PROC
+   &ZCONT = CITE3100
+)END

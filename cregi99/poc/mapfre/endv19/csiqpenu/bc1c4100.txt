@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM - Build WIP Summary Report \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Build WIP Summary Report has been redesigned to include
++
++ * A%header+that identifies the WIP, Root, Derivation 1, Derivation 2,
++        and Merge Output data sets.
++ * A%row for each processed WIP member+that shows.
++      - The associated Root, Derivation 1 and Derivation 2 members.
++      - The complexity factor for the WIP member.
++      - The number of inserts/deletes for the Derivation 1 and 2 members.
++      - The number of common inserts/deletes.
++      - Whether or not the member was automatically merged.
++ * A%summary+indicating the number of members
++      - Selected and number processed.
++      - With REPLACE conflicts, and the number in error.
++      - With no inserts or deletes, and the number with no conflicts.
++      - That were automatically merged.
++      - With each of the five complexity factors.
++
++
+)END

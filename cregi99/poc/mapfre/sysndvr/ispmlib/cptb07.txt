@@ -1,0 +1,30 @@
+CPTB070  'Specify D or E'                                  .ALARM=YES
+'CPTB070 Specify D(ataset) or E(ndevor)'
+
+CPTB071  '&PTBMLOC not Found'                              .ALARM=YES
+'CPTB071 The specified &PTBMLOC was not found'
+
+CPTB072  'No Matches Found'                                .ALARM=YES
+'CPTB072 No matches were found for the specified &PTBMLOC criteria.'
+
+CPTB073  'No &PTBMLOC selected'                            .ALARM=YES
+'CPTB073 A(n) &PTBMLOC was not selected from the previous list.'
+
+CPTB074 'Type not Defined'                                 .ALARM=YES
+'CPTB074 The Element Type specified is not defined at the stage specified.'
+
+CPTB075  'Stage Required'                                  .ALARM=YES
+'CPTB075 A Stage ID must be specified'
+
+CPTB076  'Invalid Stage'                                   .ALARM=YES
+'CPTB076 An invalid Stage ID was specified.'
+
+CPTB077  'Full Name Required'                              .ALARM=YES
+'CPTB077 A full name was specified for the WIP but a single element is required'
+
+CPTB078 'Invalid VVLL'                                    .ALARM=YES
+'CPTB078 The VVLL number must be between 0100 and 9999'
+
+CPTB079 'Invalid VVLL'                                   .ALARM=YES
+'CPTB079 The VVLL number must be between 0100 and 9999'
+

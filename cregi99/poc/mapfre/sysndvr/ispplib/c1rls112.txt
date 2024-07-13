@@ -1,0 +1,32 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag @ uh grpsel
+tag ¢ sh grpname
+tag ^ sh grptitle
+tag & sh env sys stage type
+%----------------------   Processor Group Selection List   ---------------------
+%COMMAND ===>_   +                                            %SCROLL ===>_FULL+
+|
++  Environment:&        +   System:&        +   Stage:& +   Type:&         +
++
++  PROCESSOR
++    GROUP    PROCESSOR GROUP DESCRIPTION
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+@ ¢          ^                                                      +
+enddef

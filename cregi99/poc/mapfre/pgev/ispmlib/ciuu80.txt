@@ -1,0 +1,23 @@
+/*
+/*--------------------------------------------------------------------*
+/*  The following message(s) are issued by Endevor exit DLGEXT07.     *
+/*--------------------------------------------------------------------*
+/*
+CIUU800E 'Unable to obtain storage'                      .ALARM=YES
+'Unable to obtain working storage - please contact Endevor Support'
+CIUU801E 'Invalid Package name'                          .ALARM=YES
+'The Package name does not comply wtih standards'
+CIUU802E 'Not admin user'                                .ALARM=YES
+'Action only permitted by admin users'
+CIUU804E 'Missing comment'                               .ALARM=YES
+'A comment must be supplied'
+CIUU805E 'Invalid action'                                .ALARM=YES
+'The action is not permitted in a Package'
+CIUU806E 'Suffix/Stage mismatch'                         .ALARM=YES
+'The Package suffix does not match the affected stage'
+CIUU807E 'Invalid action'                                .ALARM=YES
+'The action is not permitted in production'
+CIUU808E 'CCID mismatch'                                 .ALARM=YES
+'The Package and action CCIDs do not match'
+CIUU809E 'CCID length error'                             .ALARM=YES
+'The CCID must be 8 characters'

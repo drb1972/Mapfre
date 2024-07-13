@@ -1,0 +1,41 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2022 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON) JUST(ASIS)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+)BODY EXPAND(\\)
+%\-\ Quick Edit Batch Generate Additional JCL \-\
+%Command ===>_VARWKCMD                                                         +
++ Complete the additional JCL and press Enter to submit the jobstream.
++ Or press%END+command to back up to the Submit Job panel.
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++  _VNBDD01                                                                 +
++  _VNBDD02                                                                 +
++  _VNBDD03                                                                 +
++  _VNBDD04                                                                 +
++  _VNBDD05                                                                 +
++  _VNBDD06                                                                 +
++  _VNBDD07                                                                 +
++  _VNBDD08                                                                 +
++  _VNBDD09                                                                 +
++  _VNBDD10                                                                 +
++  _VNBDD11                                                                 +
++  _VNBDD12                                                                 +
++  _VNBDD13                                                                 +
++  _VNBDD14                                                                 +
++  _VNBDD15                                                                 +
++  _VNBDD16                                                                 +
++  _VNBDD17                                                                 +
++  _VNBDD18                                                                 +
++  _VNBDD19                                                                 +
++  _VNBDD20                                                                 +
+)INIT
+)PROC
+)END

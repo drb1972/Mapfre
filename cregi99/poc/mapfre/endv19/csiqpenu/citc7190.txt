@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%\-\ ACMQ and CONRELE \-\
+%Option ===>_ZCMD                                              %(Screen 1 of 1)+
+%
+%ACMQ and CONRELE related components
+
++ As of Service Pack 2 of release 7, the ACM Query facility will relate CONRELE
+  related input components to elements with the same name and type.
+  The ACM query reports will mark related elements with the character 'R' next
+  to the level number.
+
+                                               %(ENTER+to continue,%END+to exit)
+)PROC
+   &ZCONT = CITC7200
+)END

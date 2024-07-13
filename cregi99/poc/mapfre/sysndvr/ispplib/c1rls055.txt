@@ -1,0 +1,38 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+tag & sh env sys sbs element type stage dsname title
+tag @ uh lvlsel1
+tag # sh lvlvvll1
+tag ~ uh lvlnewn1
+tag ` sh lvldate1
+tag ^ sh lvltime1
+tag $ sh lvlstmt1
+tag ) s
+%-----------------------------  Summary Of Levels  -----------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++FROM    Environment:&            +System:&             +Subsystem:&
++        Element:    &            +Type:  &             +Stage:    &
++TO      Dataset:    &                                              +
++
++------------------------&                           +--------------------------
++     VVLL     NEWNAME  DATE     TIME      STMTS
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+  @  #        ~        `        ^         $         )
+enddef

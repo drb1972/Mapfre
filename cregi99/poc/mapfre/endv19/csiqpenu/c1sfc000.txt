@@ -1,0 +1,75 @@
+)INEXIT LOAD,ENDDYNPX
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\ VALIDATE ELEMENTS \-\
+%OPTION  ===>_ZCMD                                            %SCROLL ===>_AMT +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+%   blank+- Element list           %S+- Summary  %B+- Browse  %H+- History
+%   VE+- Validate element          %M+- Master   %C+- Changes
++
+<SELECT Dynamic Element Location>
+<WHEN &VNTUIELM=S>
++FROM LOCATION:                         ACTION OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             ELEMENT MASTER         %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             SYNCHRONIZATION        %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             COMPONENT VALIDATION   %===>_Z+(Y/N)
++  ELEMENT    %===>@VNT1ENME  |VNTIND    +TERSE MESSAGES         %===>_Z+(Y/N)
++  TYPE       %===>_TYPEN   +
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +   LIST OPTIONS:
++                      ¢Z+-|CLU2ID  +     DISPLAY LIST           %===>_Z+(Y/N)
++                                         APPLY LIST FILTERS     %===>_Z+(Y/N)
++                                         BUILD USING MAP        %===>_Z+(Y/N)
+<OTHERWISE>
++ELEMENT%===>@VNT1ENME                                           |VNTIND
++  TYPE %===>_TYPEN   +
++
++FROM LOCATION:                         OPTIONS:
++  ENVIRONMENT%===>_VAREVNME+             ELEMENT MASTER         %===>_Z+(Y/N)
++  SYSTEM     %===>_SYS     +             SYNCHRONIZATION        %===>_Z+(Y/N)
++  SUBSYSTEM  %===>_SBS     +             COMPONENT VALIDATION   %===>_Z+(Y/N)
++  STAGE      %===>_D+ ¢Z+-|CLU1ID  +     TERSE MESSAGES         %===>_Z+(Y/N)
++                      ¢Z+-|CLU2ID  +     DISPLAY LIST           %===>_Z+(Y/N)
++                                         APPLY LIST FILTERS     %===>_Z+(Y/N)
++                                         BUILD USING MAP        %===>_Z+(Y/N)
++                                         UPPERCASE ELM NAME     %===>_Z+(Y/N)
++                                         CASE-SENSITIVE ELM NAME%===>_Z+(Y/N)
+</SELECT>
+)INIT
+<SELECT Dynamic Element Location - Make ZVARs match the field positions>
+<WHEN &VNTUIELM=S>
+  .ZVARS = '(VAREMCHK VARSYCHK VARCMCHK VARTMSGS CLU1I CLU2I +
+             VARWKLST VARWHPNL VARSHMAP )'
+  &VNTUPPER = 'Y'                              /* Force uppercase on         */
+  &VNTSCASE = 'Y'                              /* Force Case sensitive on    */
+<OTHERWISE>
+  .ZVARS = '(VAREMCHK VARSYCHK VARCMCHK CLU1I VARTMSGS CLU2I VARWKLST +
+             VARWHPNL VARSHMAP  VNTUPPER VNTSCASE)'
+  &tcursor = .cursor
+  if (.CURSOR = ZCMD AND .MSG = &Z)            /* if cursor is top and no msg*/
+      .CURSOR = 'VNT1ENME'                     /* If on top put cursor here */
+</SELECT>
+  .HELP = CITFC000
+  &LIST2 = 'Y N'
+  IF (&VARWHPNL = ' ')
+    &VARWHPNL = 'N'
+  IF (&AMT = ' ')
+     &AMT = PAGE
+  IF (&ETMPCASE = ' ')
+    &VNTSCASE = 'Y'
+    &ETMPCASE = 'Y'
+)PROC
+  VPUT (AMT) PROFILE
+  VER  (&VARWHPNL,NB,LISTV,&LIST2,MSG=CIFV005)
+)FIELD
+ FIELD(VNT1ENME) IND(VNTIND) SCROLL(ON)
+)END

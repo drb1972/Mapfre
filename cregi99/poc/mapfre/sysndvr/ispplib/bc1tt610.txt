@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%PDM Syntax Request Report+- Lists the Build WIP syntax and flags
++    any errors found when parsing the syntax.
++
+%PDM Build WIP Detail Report+- Lists the member sets processed and
++    provides detail information for every member set. You can suppress
++    the detail information by coding STATS OFF DETAIL in the BUILD
++    WIP request
++
+%PDM Build WIP Summary Report+- Lists summary information for the
++    Build WIP action.
++
++You can produce just the Syntax Request Report by coding STATS OFF ALL
++in the BUILD WIP request.
++
++
+)END

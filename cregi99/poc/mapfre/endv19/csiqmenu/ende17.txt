@@ -1,0 +1,11 @@
+ENDE170I 'Elm Name Non-Standard'                       .ALARM=YES
+' Caution! Element name is not valid as a PDS member name.          '
+ENDE171I 'Element SAVE May Fail'                       .ALARM=YES
+' Element SAVE may fail, depending on Type definition.'
+ENDE172E 'Request Cancelled'                            .ALARM=YES
+'ENDE172E The request to synchronize the element was cancelled'
+ENDE173E 'CCOLS Disabled'                              .ALARM=YES
+'ENDE173E CD19002 Quick Edit Columns customization feature is not enabled.'
+ENDE174E 'CCOLS open error'                     .ALARM=YES
+'ENDE174E CCOLS failed to access profile member. Verify that the CCOLS' +
+' edit session is not open in another session.'

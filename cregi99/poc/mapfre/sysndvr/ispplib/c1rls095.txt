@@ -1,0 +1,41 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+TAG & SH ENV SYS SBS STAGE
+tag @ uh elmsel
+tag ¢ sh element
+tag ~ sh elmtyns
+tag ^ sh elmvvll
+tag $ sh elmdates
+tag ) sh elmrcs
+tag ! sh elmact
+%---------------------------  Element Selection List  --------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++ Environment:&         +System:&        +  Subsystem:&        +  Stage:& +
++                                    ---- DATES -----    -- RC ---     LAST
++   ELEMENT    TYPE    NS  VVLL      CURRENT GENERATE    PROC NDVR    ACTION
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+@  ¢          ~           ^         $                   )            !
+enddef

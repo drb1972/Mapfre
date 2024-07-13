@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Target Symbol Names for Existing Symbols \-\
+%Option ===>_ZCMD                                                 %Version 16.0+
+%
+%Target Symbol Names for Existing Symbols +
++
+ New target%C1T+symbols are available for corresponding source
+%C1S+symbols so the naming conventions are consistent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT160B0
+)END

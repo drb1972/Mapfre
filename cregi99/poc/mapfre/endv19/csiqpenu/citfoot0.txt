@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Footprint Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The FOOTPRINT fields show the Master Control File footprint
++information for the named member.
++
++The%LD+field indicates whether the footprint was created by the load
++utility. Load utility footprints identify only when the member was
++loaded into the system. Do not use LD footprints to verify element
++integrity.
++
++
++
++
++
++
++
++
+
++
++\ \ (%PF3+to return) \ \
+)END

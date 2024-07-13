@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Name Fields \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These are required fields. If you do not want to specify one or more
++processors, you must type *NOPROC* in those fields.
++
++Make sure that processors named in these fields have been defined for
++the type and stage to which you are defining the processor group.
++
+%Generate processor+- The generate processor included in this processor group.
++
+%Delete processor+- The delete processor included in this processor group.
++
+%Move processor+- The move processor included in this processor group.
++
++
++
++
++
++
++                                            (%PF3+to return)
+)END

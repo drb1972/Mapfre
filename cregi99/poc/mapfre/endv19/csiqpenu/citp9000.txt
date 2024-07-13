@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Shipment \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To build a shipment you must provide:
++
+%   Package ID+- A 1- to 16-character ID for the package to be shipped.
+%   Destination+- The 1- to 7-character name of the shipment destination.
+%   Pkg/backout+- Indicates whether you want to ship package outputs (P)
++      or backout members (B). Default is P.
+%   Status sort order+- The sort order for the shipment status list. Do
++      this by typing 1, 2, or 3 in each of the STATUS SORT ORDER fields.
++
++Then type%1+in the OPTION field and press ENTER to build the shipment.
++
++To use options%2+-%5+type the number in the OPTION field, then press ENTER.
++
+%Status date range+- Allows you to provide a date range to be covered
++   by the shipment status list. Format is mmddyy.
+%Host job statement information+- Job card for host execution.
++
++
++                                            (%PF3+to return)
+)END

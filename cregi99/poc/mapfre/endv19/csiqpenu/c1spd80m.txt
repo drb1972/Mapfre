@@ -1,0 +1,83 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(HIGH)
+   | TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(ASIS)
+   ¬ TYPE(OUTPUT) INTENS(LOW) CAPS(OFF) JUST(ASIS)
+   $ AREA(SCRL) EXTEND(ON)
+)BODY
+%USSMOD  ------------------  MODIFY USS MAPPING RULE  --------------------------
+%COMMAND ===>_VARWKCMD                                                         +
++
++ %blank+- Update Rule      %#+- Delete Rule
++
++DESTINATION:¢VNBSSDST+
++
++  MAPPING RULE DESCRIPTION%===>|VUMDESC                                 +
++  UPDATED:¢Z      ¢Z    +BY¢VUMUPUID+ +CREATED:¢Z      ¢Z    +BY¢VUMCRUID+
++
++  If%REMOTE+Path Name is blank,%HOST+path will be%excluded+from transmission.
+$SAREA                                                                         $
+)AREA SAREA
++  Enter HOST Path Name below:
++  ===>|VMHPN01                                                         +*
++  ===>|VMHPN02                                                         +*
++  ===>|VMHPN03                                                         +*
++  ===>|VMHPN04                                                         +*
++  ===>|VMHPN05                                                         +*
++  ===>|VMHPN06                                                         +*
++  ===>|VMHPN07                                                         +*
++  ===>|VMHPN08                                                         +*
++  ===>|VMHPN09                                                         +*
++  ===>|VMHPN10                                                         +*
++  ===>|VMHPN11                                                         +*
++  ===>|VMHPN12                                                         +*
++
++  Maps to REMOTE Path Name:
++  ===>|VMRPN01                                                         +*
++  ===>|VMRPN02                                                         +*
++  ===>|VMRPN03                                                         +*
++  ===>|VMRPN04                                                         +*
++  ===>|VMRPN05                                                         +*
++  ===>|VMRPN06                                                         +*
++  ===>|VMRPN07                                                         +*
++  ===>|VMRPN08                                                         +*
++  ===>|VMRPN09                                                         +*
++  ===>|VMRPN10                                                         +*
++  ===>|VMRPN11                                                         +*
++  ===>|VMRPN12                                                         +*
++
++  This was the HOST Path Name prior to modifying this mapping rule:
++     *¬VOMHPN01                                                        +*
++     *¬VOMHPN02                                                        +*
++     *¬VOMHPN03                                                        +*
++     *¬VOMHPN04                                                        +*
++     *¬VOMHPN05                                                        +*
++     *¬VOMHPN06                                                        +*
++     *¬VOMHPN07                                                        +*
++     *¬VOMHPN08                                                        +*
++     *¬VOMHPN09                                                        +*
++     *¬VOMHPN10                                                        +*
++     *¬VOMHPN11                                                        +*
++     *¬VOMHPN12                                                        +*
++
++  This was the REMOTE Path Name prior to modifying this mapping rule:
++     *¬VOMRPN01                                                        +*
++     *¬VOMRPN02                                                        +*
++     *¬VOMRPN03                                                        +*
++     *¬VOMRPN04                                                        +*
++     *¬VOMRPN05                                                        +*
++     *¬VOMRPN06                                                        +*
++     *¬VOMRPN07                                                        +*
++     *¬VOMRPN08                                                        +*
++     *¬VOMRPN09                                                        +*
++     *¬VOMRPN10                                                        +*
++     *¬VOMRPN11                                                        +*
++     *¬VOMRPN12                                                        +*
+)INIT
+  .HELP = CITPD800
+  .ZVARS = '(VUMUPDAT VUMUPTIM VUMCRDAT VUMCRTIM)'
+)PROC
+)END

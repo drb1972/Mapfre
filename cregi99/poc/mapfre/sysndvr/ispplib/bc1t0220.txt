@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PRTMAT Output Defaults \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++These fields allow you to set a default SYSOUT class and destination
++for the PDM Print Matrix (PRTMAT) command. The PRTMAT command allows
++you to print the WIP Member Selection Matrix.
++
++Modify these fields as necessary to conform to your site standards.
++
+%SYSOUT Class+- Required Alpha-numeric character defining the SYSOUT
++    output class designation. This field is initialized to A.
++
+%Destination+- Optional 1 to 17-character output destination identifier.
++    The format is NODE.USER. If only one parameter is used, PDM assumes
++    that it designates the USER. If blank, PDM defaults to LOCAL.
++    This field is equivalent to the DEST=  JCL statement.
++    For example, to set the default PRTMAT output destination to the
++    locally defined printer PRINTER1, specify PRINTER1 in this field.
++
+%Writer Name+- Optional 1 to 8-character output writer name.  This field
++    is equivalent to the SYSOUT=(A,writer) JCL statement.
++
+%NOTE+- The Destination and Writer Name fields are mutually exclusive.
++
+)END

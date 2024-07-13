@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%\-\ Element Delta Levels Moved With History Indicator \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%Element Delta Levels Moved With History Indicator
++
++ With this enhancement a new history Indicator%"H"+has been added to the%SYNC+
++%column+to help identify Element delta levels that were moved or transferred
++ as part of a group, signifying that these delta levels were never the last
++ (current) level at the Element's current location.  These History delta levels
++ are present due to a Move or Transfer action, with the With History action
++ option, from some other location. Note that the H indicator can appear in the
++ SYNC column along with the S (sync) or C (consolidation) indicators.
++
++%For example:+Assume that Element level 0104 exists at Stage 1 and level 0101
++ exists at Stage 2. If a Move with History is performed, the following results:
++  - Element delta levels 0102 and 0103%will have+the%H+indicator added because
++    they were copied as part of the with history option and were never the
++    last levels at Stage 2
++  - Element delta level 0104%will not have+the%H+indicator as it is the last
++    level at the target location.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18250
+)END

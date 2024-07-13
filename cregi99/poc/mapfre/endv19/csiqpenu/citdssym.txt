@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%Tutorial \-\ Site Symbols Table \-\ Tutorial
+%Option ===>_ZCMD                                                              +
+%
++   The Site Symbols display option provides a list of all
++   site-defined symbols and the data values assigned to them.
++
++   (The name of the Site Symbol table, as defined in C1DEFLTS,
++    is displayed in the panel title.)
++
++                                            (%PF3+to return)
+)END

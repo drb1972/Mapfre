@@ -1,0 +1,45 @@
+      *****************************************************************
+      *                                                               *
+      *            RETRIEVE ELEMENT - REQUEST BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  AERET-RQ.
+           05  AERET-RQ-HEADER.
+               10  AERET-RQ-LEN        PIC 9(04) COMP VALUE 356.
+               10  AERET-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AERET-RQ-ID         PIC 9(04) COMP VALUE 1344.
+               10  AERET-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AERET-RQ-EYE        PIC X(04)      VALUE 'EREQ'.
+           05  AERET-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AERET-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AERET-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+               10  AERET-RQ-VERSION    PIC X(02)      VALUE SPACES.
+               10  AERET-RQ-LEVEL      PIC X(02)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AERET-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AERET-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AERET-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AERET-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AERET-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AERET-RQ-DDN        PIC X(08)      VALUE SPACES.
+               10  AERET-RQ-DSN        PIC X(44)      VALUE SPACES.
+               10  AERET-RQ-MBR        PIC X(10)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AERET-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AERET-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AERET-RQ-REPLACE    PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-NO-SIGNO   PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-EXPAND     PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-SEARCH     PIC X(01)      VALUE SPACES.
+               10  AERET-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AERET-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AERET-WCCID         PIC X(12)      VALUE SPACES.
+               10  AERET-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AERET-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AERET-WPROGRO-2-8   PIC X(56)      VALUE SPACES.
+               10  FILLER              PIC X(03)      VALUE SPACES.

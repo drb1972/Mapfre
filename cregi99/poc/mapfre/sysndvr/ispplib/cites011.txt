@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Function Controls \-\ TUTORIAL
+%OPTION ===>_ZCMD                                              %(Screen 2 of 5)+
+
+%SPFEDIT QNAME+- Queue name used when an enqueue is issued on
++     a PDS (not RECFM=U), to prevent simultaneous updates. The PDS may be
++     a source library, object library, or other library. The resource name
++     for the enqueue is the data set name.
++
+%SYSIEWL QNAME+- Queue name used when an enqueue is issued on a PDS
++     defined as RECFM=U (for example, a load library).
++
+%Authorized Tables+- Indicates whether the security tables have to be
++     loaded from authorized libraries.  Values are:
+
+        %REQUIRE+- authorized libraries are required.
+
++       %ALLOW+  - unauthorized libraries are allowed, but a warning is
+                   issued.
+
+        %IGNORE+ - The library's authorization is not checked.
+
++\ \ (%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CITES012
+)END

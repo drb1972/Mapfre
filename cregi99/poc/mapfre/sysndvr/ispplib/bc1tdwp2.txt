@@ -1,0 +1,19 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Delete WIP After Merge \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++This field indicates whether PDM is to delete the WIP member after
++successfully merging the changes into a CA Endevor SCM location. The
++default is%N+(do not delete the WIP member).
++
++PDM will delete the WIP member if the merge ended with no errors and
++the WIP data set is a PDS.
++
++PDM will not delete a sequential WIP data set.
++
++
++
++
++
++
+)END

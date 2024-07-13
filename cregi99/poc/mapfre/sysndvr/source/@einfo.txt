@@ -1,0 +1,177 @@
+         MACRO                                                          00010019
+         @EINFO &ENTRY=,&BLGSESS=00,&APISESID=USERID,                  X00020001
+               &ENDVPIDT=ENDEVOR,&INVCLASS=MASTER,&WAITTIME=300,       X00020001
+               &RECTYPE=CHANGE                                          00020001
+.********************************************************************** 00030019
+.*                                                                    * 00040019
+.*                                                                    * 00040019
+.*   THIS MACRO GENERATES A LOAD MODULE THAT MUST BE CALLED BC1TEI90. * 00050019
+.*                                                                    * 00060019
+.*   THIS MACRO GENERATES A LOAD MODULE THAT CONTAINS THE START UP    * 00140001
+.*   INFORMATION REQUIRED TO INITIALIZE THE INFO/MAN INTERFACE.       * 00150001
+.*   THE LOAD MODULE IS MAPPED AGAINST @EINDS.                        * 00160001
+.*                                                                    * 00130019
+.*   ENTRY= START             - INDICATES THE BEGINNING OF THIS       * 00230019
+.*                              OF THIS TABLE.  ** REQUIRED **        * 00240019
+.*        = END               - INDICATES THE END OF THIS TABLE.      * 00300019
+.*                              ** REQUIRED **                        * 00310019
+.*   BLGSESS=00                 - THE INFO/MAN BLGSESXX MODULE NAME   * 00320001
+.*                              USE DURING API INITIALIZATION.        * 00330000
+.*                              THE SESSION LOAD MODULE IS A STANDARD * 00340001
+.*                              PIECE OF INFO/MAN.                    * 00350001
+.*                              ** REQUIRED **                        * 00350101
+.*                              DEFAULT VALUE IS 00 ==> BLGSES00      * 00350201
+.*   APISESID=USERID          - THE INFO/MAN SESSION ID PASSED TO     * 00320019
+.*                              4.2 API. ( 4.2 ALLOWS FOR ID OTHER    * 00330019
+.*                              THAN THE USERID)                      * 00340019
+.*                              ** REQUIRED **.                       * 00350019
+.*                              IF NO API APPLICATION IDS ARE DEFINED,*
+.*                              USE THE USERID DEFAULT. THE ACTUAL    *
+.*                              USERID WILL BE SUBSTITUTED AT API     *
+.*                              INIT TIME )                           *
+.*   ENDVPIDT=ENDEVOR         - NAME OF THE LOAD MODULE PRODUCED      * 00360019
+.*                              BY THE BATCH UTILITY. THIS MODULE     * 00370019
+.*                              CONTAINS ALL THE CONTROL STATEMENTS   * 00380019
+.*                              AND LOGIC TO DRIVE THE INTERFACE.     * 00390019
+.*                              ** REQUIRED **.                       * 00350019
+.*                              DEFAULT VALUE IS ENDEVOR              *
+.*   INVCLASS=MASTER          - NAME OF THE INOF/MAN SECURITY CLASS   * 00360019
+.*                              OF THE INVOKER OF THE INTERFACE.      * 00370019
+.*                              ** REQUIRED **.                       * 00350019
+.*                              DEFAULT VALUE IS MASTER               *
+.*   WAITTIME=300             - THE MAX TIME THAT THE INTERFACE SHOULD* 00360019
+.*                              WAIT FOR A RESPONSE FROM THE INFO/MAN * 00370019
+.*                              SERVER.                               * 00370019
+.*                              ** REQUIRED **.                       * 00350019
+.*                              DEFAULT VALUE IS 300 SECS.            *
+.*   RECTYPE=CHANGE           - FOR STAND ALONE ACTIONS ONLY.         * 00360019
+.*                              WHAT RECORD TYPE ARE YOU USING,       * 00370019
+.*                              CHANGE OR PROBLEM.                    * 00370019
+.*                              ** REQUIRED **.                       * 00350019
+.*                              DEFAULT VALUE IS CHANGE.              *
+.********************************************************************** 00600019
+         GBLB  &GEND                                                    00620019
+         GBLB  &GSTART                                                  00630019
+.********************************************************************** 00710019
+.*                                                                    * 00720019
+.*   CHECK ENTRY= SPECIFICATION                                       * 00730019
+.*                                                                    * 00740019
+.********************************************************************** 00750019
+         AIF   ('&ENTRY' EQ 'START').RTN1000                            00760019
+         AIF   ('&ENTRY' EQ 'END').RTN4000                              00780019
+         AGO   .RTN8010                                                 00790019
+.********************************************************************** 00800019
+.*                                                                    * 00810019
+.*   ENTRY=START SPECIFIED                                            * 00820019
+.*                                                                    * 00830019
+.********************************************************************** 00840019
+.RTN1000 ANOP                                                           00850019
+         AIF   (&GEND).RTN8000                                          00860019
+         AIF   (&GSTART).RTN8040                                        00870019
+         AIF   ('&BLGSESS' EQ '').RTN8070                               00871020
+         AIF   ('&APISESID' EQ '').RTN8080                              00871020
+         AIF   ('&ENDVPIDT' EQ '').RTN8090                              00871020
+         AIF   ('&INVCLASS' EQ '').RTN8100                              00871020
+         AIF   ('&WAITTIME' EQ '').RTN8110                              00871020
+         AIF   ('&RECTYPE'  EQ '').RTN8120                              00871020
+         AIF   ('&RECTYPE'  EQ 'CHANGE').RTN1010                        00871020
+         AIF   ('&RECTYPE'  EQ 'PROBLEM').RTN1010                       00871020
+         AGO   .RTN8130
+.RTN1010 ANOP                                                           00850019
+BC1TEI90 CSECT                                                          01430002
+         @EINDS DSECT=NO                                                01440017
+         ORG   EINBLSES                                                 01441001
+         DC    CL6'BLGSES'                                              01442001
+         DC    CL2'&BLGSESS'                                            01442001
+         ORG   EINAPSES                                                 01441001
+         DC    CL8'&APISESID'                                           01442001
+         ORG   EINEPIDT                                                 01441001
+         DC    CL8'&ENDVPIDT'                                           01442001
+         ORG   EINCLASS                                                 01441001
+         DC    CL8'&INVCLASS'                                           01442001
+         ORG   EINWTIME                                                 01441001
+         DC    H'&WAITTIME'                                             01442001
+         ORG   EINRTYPE                                                 01441001
+         DC    CL8'&RECTYPE'                                            01442001
+         MEXIT
+.*
+.********************************************************************** 02020017
+.*                                                                    * 02030017
+.*   ENTRY=END SPECIFIED                                              * 02040017
+.*                                                                    * 02050017
+.********************************************************************** 02060017
+.RTN4000 ANOP                                                           02070017
+         AIF   (&GEND).RTN8020                                          02080017
+         AIF   (&GSTART).RTN8050                                        02090017
+&GEND    SETB  1                                                        02100017
+         TITLE 'ENTRY=END'                                              02110017
+*********************************************************************** 02120017
+*  ENTRY=END                                                          * 02130017
+*********************************************************************** 02140017
+.*                                                                      02240017
+         ORG   ,                                                        02250017
+PATCH    DC    128H'0'                                                  02260017
+         LTORG ,                                                        02270017
+         END                                                            02280017
+         MEXIT                                                          02290017
+.********************************************************************** 02300017
+.*                                                                    * 02310017
+.*   ERRORS                                                           * 02320017
+.*                                                                    * 02330017
+.********************************************************************** 02340017
+.RTN8000 ANOP                                                           02350017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=START SX02360017
+               TATEMENT'                                                02370017
+         MEXIT                                                          02380017
+.RTN8010 ANOP                                                           02390017
+         MNOTE 12,'** ERROR: INVALID VALUE SPECIFIED ON ENTRY= STATEMENX02400017
+               T'                                                       02410017
+         MEXIT                                                          02420017
+.RTN8020 ANOP                                                           02430017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT WAS SPECIFIED TWICE'   02440017
+         MEXIT                                                          02450017
+.RTN8030 ANOP                                                           02460017
+         MNOTE 12,'** ERROR: ENTRY=END STATEMENT PROCEEDS ENTRY=CALL STX02470017
+               ATEMENT'                                                 02480017
+         MEXIT                                                          02490017
+.RTN8040 ANOP                                                           02500017
+         MNOTE 12,'** ERROR: ENTRY=START HAS ALREADY BEEN SPECIFIED'    02510017
+         MEXIT                                                          02520017
+.RTN8050 ANOP                                                           02530017
+         MNOTE 12,'** ERROR: ENTRY=START MUST BE FIRST STATEMENT SPECIFX02540017
+               IED'                                                     02550017
+         MEXIT                                                          02560017
+.RTN8070 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: BLGSESS= CAN NOT BE BLANK.'                02602023
+         MEXIT                                                          02604020
+.RTN8075 ANOP                                                           02601020
+         MNOTE 4 ,'** WARNING BLGSESS= WILL USE DEFAULT VALUE OF 00.'   02602023
+         MEXIT                                                          02604020
+.RTN8080 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: APISESID= CAN NOT BE BLANK'                02602023
+         MEXIT                                                          02604020
+.RTN8090 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: ENDVPIDT= CAN NOT BE BLANK'                02602023
+         MEXIT                                                          02604020
+.RTN8095 ANOP                                                           02601020
+         MNOTE 4 ,'** WARNING ENDVPIDT= WILL USE DEFAULT VALUE OF ENDEVX02602023
+               OR'                                                      02603023
+         MEXIT                                                          02604020
+.RTN8100 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: INVCLASS= CAN NOT BE BLANK.'               02602023
+         MEXIT                                                          02604020
+.RTN1005 ANOP                                                           02601020
+         MNOTE 4 ,'** WARNING INVCLASS= WILL USE DEFAULT VALUE OF MASTEX02602023
+               R'                                                       02603023
+         MEXIT                                                          02604020
+.RTN8110 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: WAITTIME= CAN NOT BE BLANK.'               02602023
+         MEXIT                                                          02604020
+.RTN8120 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: RECTYPE= CAN NOT BE BLANK.'                02602023
+         MEXIT                                                          02604020
+.RTN8130 ANOP                                                           02601020
+         MNOTE 12,'** ERROR: RECTYPE= &RECTYPE INVALID VALUE. MUST BE  X02602023
+               CHANGE OR PROBLEM'
+         MEXIT                                                          02604020
+         MEND                                                           02610017

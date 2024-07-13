@@ -1,0 +1,20 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ LOCATE Command - Examples \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++You can either enter the full command (LOCATE) or abbreviate it (LOC or L).
++
++Examples:
++
++    LOC PROGX      Positions the matrix at the first matrix row
++                   containing PROGX.
++
++    L PROGX DER1   Positions the matrix at the first matrix row containing
++                   PROGX in the DER1 column.
++
++
++
++
++
++
+)END

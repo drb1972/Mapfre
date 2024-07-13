@@ -1,0 +1,381 @@
+         MACRO                                                          00000001
+&LABEL   NAMEQU &FORMAT,           FORMAT TYPE SPECIFICATION           X00000002
+               &L1=,               LEVEL 1                             X00000003
+               &L2=,               LEVEL 2                             X00000004
+               &L3=,               LEVEL 3                             X00000005
+               &L4=,               LEVEL 4                             X00000006
+               &L5=,               LEVEL 5                             X00000007
+               &L6=,               LEVEL 6                             X00000008
+               &L7=,               LEVEL 7                             X00000009
+               &L8=,               LEVEL 8                             X00000010
+               &L9=,               LEVEL 9                             X00000011
+               &L10=,              LEVEL 10                            X00000012
+               &CLASS=,            RACF CLASS SPECIFICATION            X00000013
+               &TYPE=,             USE TO SPECIFY "TYPE=END"           X00000014
+               &LOG=NONE,          LOG ROUTE OPTION                    +00000012
+               &WARN=              WARNING MODE OPTION                  00000012
+.*                                                                      00000022
+         COPY  ESIGLBL
+         LCLA  &NAMECNT
+         LCLA  &LVLCNT                                                  00000017
+         LCLA  &SAVNDX                                                  00000018
+         LCLA  &I,&J                                                    00000019
+         LCLA  &LOGB,&OPTS                                              00000021
+         LCLA  &LOGNULL,&LOGNONE,&LOGASIS,&LOGNOFL,&LOGNOST             00000021
+         LCLC  &WORK                                                    00000020
+         LCLC  &S(10)                                                   00000021
+         LCLC  &LOGC                                                    00000021
+         LCLC  &FP                                                      00000021
+         LCLC  &CLS                                                     00000021
+         LCLC  &FMTS(6)                                                 00000021
+         LCLA  &FMTSMAX                                                 00000021
+         LCLA  &FMT#                                                    00000021
+.*
+&FMTS(1) SETC  'ENVIRONMENT_ACCESS'
+&FMTS(2) SETC  'PRIMARY_OPTIONS'
+&FMTS(3) SETC  'FOREGROUND_OPTIONS'
+&FMTS(4) SETC  'ACTION_INITIATION'
+&FMTS(5) SETC  'ACTION_INITIATION'
+&FMTS(6) SETC  'PACKAGE_ACTIONS'
+&FMTS(7) SETC  'CONCURRENT_ACT_PROC'
+&FMTSMAX SETA  7                       <--- Maximum entry number
+.*
+&FP      SETC  'FMTDEF'
+&NAMECNT SETA  18
+&LOGNULL SETA  0
+&LOGNONE SETA  1
+&LOGASIS SETA  2
+&LOGNOFL SETA  3
+&LOGNOST SETA  4
+&LOGB    SETA  0
+&OPTS    SETA  0
+.*                                                                      00000022
+&LABEL   ESIGNEQU
+.********************************************************************** 00000022
+.* CHECK FOR "TYPE=END" WITH NO OTHER PARAMETERS. IF FOUND, GO CHECK IF 00000023
+.* A FORMAT5 DEFINITION HAS BEEN PROVIDED.  IF NO FORMAT 5, GENERATE A  00000024
+.* NOISE TANCY WITH THE "FUNCEQU" MACRO.                                00000025
+.********************************************************************** 00000026
+         AIF   ('&TYPE' EQ 'END' AND '&FORMAT' EQ '').DONE              00000027
+.********************************************************************** 00000028
+.* VALIDATE REQUIRED POSITIONAL PARAMETER - FORMATX, WHERE X            00000029
+.*  IS A NUMBER BETWEEN 1 AND 5 INCLUSIVE.                              00000030
+.********************************************************************** 00000031
+         AIF      ('&FORMAT'(1,6) NE 'FORMAT').FMT0100
+&FMT#    SETC     '&FORMAT'(7,1)                                        00000034
+         AGO      .FMT0200
+.FMT0100 ANOP
+&FMT#    SETA     1
+.FMT0120 ANOP
+         AIF      (&FMT# GT &FMTSMAX).FMTERR1
+         AIF      ('&FMTS(&FMT#)' EQ '&FORMAT').FMT0200
+.FMT0130 ANOP
+&FMT#    SETA     &FMT#+1
+         AGO      .FMT0120
+.FMT0200 ANOP
+         AIF      (&FMT# GT &FMTSMAX OR &FMT# LT 1).FMTERR1             00000036
+         AIF      (&FMT# NE 4).FMT0210                                  00000036
+         AIF      (NOT &NAMEQU(4)).FMT0210                              00000036
+&FMT#    SETA     &FMT#+1
+.FMT0210 ANOP
+         AIF      (&NAMEQU(&FMT#)).FMTERR3                              00000038
+&NAMEQU(&FMT#)    SETB 1                                                00000039
+.********************************************************************** 00000028
+.* FOR THE FIRST ENTRY, CREATE A GENERIC LABEL ADDRESSING
+.* ALL FORMATS.
+.********************************************************************** 00000028
+         AIF   (&NAMELBL).NOPLBL
+&NAMELBL SETB     1
+FORMATS  DS    0H
+.NOPLBL  ANOP
+.********************************************************************** 00000040
+.*                                                                      00000040
+.* Format has been identified, now start generating the                 00000041
+.* index level information.                                             00000042
+.*                                                                      00000043
+.********************************************************************** 00000040
+&SAVNDX  SETA  &SYSNDX                                                  00000044
+&LVLCNT  SETA  0                                                        00000045
+&FP.&FMT# DS 0H                                                         00000046
+&CLS     SETC  '&CLASS'
+         AIF   ('&CLS' NE '').GOTCL
+         ESIERR *,'RACROUTE CLASS OMITTED, "DATASET" ASSUMED.'
+&CLS     SETC  '''DATASET'''
+.GOTCL   ANOP
+.********************************************************************** 00000040
+.* Validate the RACROUTE log option and set the appropriate bits.       00000041
+.********************************************************************** 00000040
+&LOGC    SETC  '&LOG'
+         AIF   ('&LOGC' EQ '').LOGCK30
+         AIF   ('&LOGC' EQ 'NONE').LOGCK40
+         AIF   ('&LOGC' EQ 'none').LOGCK40
+         AIF   ('&LOGC' EQ 'ASIS').LOGCK50
+         AIF   ('&LOGC' EQ 'asis').LOGCK50
+         AIF   ('&LOGC' EQ 'NOFAIL').LOGCK60
+         AIF   ('&LOGC' EQ 'nofail').LOGCK60
+         AIF   ('&LOGC' EQ 'NOSTAT').LOGCK70
+         AIF   ('&LOGC' EQ 'nostat').LOGCK70
+         ESIERR 8,'INVALID LOG OPTION; &LOG.. LOG=ASIS ASSUMED'
+         AGO   .LOGCK50
+.LOGCK30 ANOP
+&LOGB    SETA  &LOGNULL
+         AGO   .LOGCK80
+.LOGCK40 ANOP
+&LOGB    SETA  &LOGNONE
+         AGO   .LOGCK80
+.LOGCK50 ANOP
+&LOGB    SETA  &LOGASIS
+         AGO   .LOGCK80
+.LOGCK60 ANOP
+&LOGB    SETA  &LOGNOFL
+         AGO   .LOGCK80
+.LOGCK70 ANOP
+&LOGB    SETA  &LOGNOST
+         AGO   .LOGCK80
+.LOGCK80 ANOP
+.********************************************************************** 00000040
+.* Validate the ESI warning mode option and set the appropriate flag.   00000041
+.********************************************************************** 00000040
+&OPTS    SETA  0
+         AIF   ('&WARN' EQ '').WARN080  Use global default
+         AIF   ('&WARN' EQ 'NO').WARN060
+         AIF   ('&WARN' EQ 'no').WARN060
+         AIF   ('&WARN' EQ 'N').WARN060
+         AIF   ('&WARN' EQ 'n').WARN060
+         AIF   ('&WARN' EQ 'YES').WARN040
+         AIF   ('&WARN' EQ 'yes').WARN040
+         AIF   ('&WARN' EQ 'Y').WARN040
+         AIF   ('&WARN' EQ 'y').WARN040
+         MNOTE 8,'Warning mode option (&WARN) is invalid, WARN=N is ass+
+               umed'
+.WARN040 ANOP
+&OPTS    SETA  128
+         AGO   .WARN080
+.WARN060 ANOP
+&OPTS    SETA  64
+.WARN080 ANOP
+.**********************************************************************
+.* Now generate the name equate header fields
+.**********************************************************************
+         DC    CL8&CLS                  Entity resource class
+         DC    YL1(&LOGB)               RACROUTE LOG options
+         DC    YL1(&OPTS)               ESI options
+         DC    Y(0)                     Reserved
+         DC    AL1(FMT&FMT#.L&SAVNDX) Number of levels in name          00000048
+         DC    AL3(0)                   Reserved                        00000048
+.**********************************************************************
+.* Generate the entity name level definitions
+.**********************************************************************
+         AIF   ('&L1' EQ '').LVLERR                                     00000049
+&I       SETA  0                                                        00000050
+.GETL1   ANOP                                                           00000051
+&J       SETA  &I                                                       00000052
+&I       SETA  &I+1                                                     00000053
+         AIF   (&I GT N'&L1).DOL1                                       00000054
+&S(&I)   SETC  '&L1(&I)'                                                00000055
+         AGO   .GETL1                                                   00000056
+.DOL1    ANOP                                                           00000057
+&LVLCNT  SETA  1                                                        00000058
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000059
+               &S(10),CNT=&J                                            00000060
+.**********************************************************************
+.* Generate the second level names
+.**********************************************************************
+         AIF   ('&L2' EQ '').CHKL3                                      00000061
+&I       SETA  0                                                        00000062
+.GETL2   ANOP                                                           00000063
+&J       SETA  &I                                                       00000064
+&I       SETA  &I+1                                                     00000065
+         AIF   (&I GT N'&L2).DOL2                                       00000066
+&S(&I)   SETC  '&L2(&I)'                                                00000067
+         AGO   .GETL2                                                   00000068
+.DOL2    ANOP                                                           00000069
+&LVLCNT  SETA  2                                                        00000070
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000071
+               &S(10),CNT=&J                                            00000072
+.**********************************************************************
+.* Generate the third level names
+.**********************************************************************
+         AIF   ('&L3' EQ '').CHKL4                                      00000073
+&I       SETA  0                                                        00000074
+.GETL3   ANOP                                                           00000075
+&J       SETA  &I                                                       00000076
+&I       SETA  &I+1                                                     00000077
+         AIF   (&I GT N'&L3).DOL3                                       00000078
+&S(&I)   SETC  '&L3(&I)'                                                00000079
+         AGO   .GETL3                                                   00000080
+.DOL3    ANOP                                                           00000081
+&LVLCNT  SETA  3                                                        00000082
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000083
+               &S(10),CNT=&J                                            00000084
+.**********************************************************************
+.* Generate the fourth level names
+.**********************************************************************
+         AIF   ('&L4' EQ '').CHKL5                                      00000085
+&I       SETA  0                                                        00000086
+.GETL4   ANOP                                                           00000087
+&J       SETA  &I                                                       00000088
+&I       SETA  &I+1                                                     00000089
+         AIF   (&I GT N'&L4).DOL4                                       00000090
+&S(&I)   SETC  '&L4(&I)'                                                00000091
+         AGO   .GETL4                                                   00000092
+.DOL4    ANOP                                                           00000093
+&LVLCNT  SETA  4                                                        00000094
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000095
+               &S(10),CNT=&J                                            00000096
+.**********************************************************************
+.* Generate the fifth level names
+.**********************************************************************
+         AIF   ('&L5' EQ '').CHKL6                                      00000097
+&I       SETA  0                                                        00000098
+.GETL5   ANOP                                                           00000099
+&J       SETA  &I                                                       00000100
+&I       SETA  &I+1                                                     00000101
+         AIF   (&I GT N'&L5).DOL5                                       00000102
+&S(&I)   SETC  '&L5(&I)'                                                00000103
+         AGO   .GETL5                                                   00000104
+.DOL5    ANOP                                                           00000105
+&LVLCNT  SETA  5                                                        00000106
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000107
+               &S(10),CNT=&J                                            00000108
+.**********************************************************************
+.* Generate the sixth level names
+.**********************************************************************
+         AIF   ('&L6' EQ '').CHKL7                                      00000109
+&I       SETA  0                                                        00000110
+.GETL6   ANOP                                                           00000111
+&J       SETA  &I                                                       00000112
+&I       SETA  &I+1                                                     00000113
+         AIF   (&I GT N'&L6).DOL6                                       00000114
+&S(&I)   SETC  '&L6(&I)'                                                00000115
+         AGO   .GETL6                                                   00000116
+.DOL6    ANOP                                                           00000117
+&LVLCNT  SETA  6                                                        00000118
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000119
+               &S(10),CNT=&J                                            00000120
+.**********************************************************************
+.* Generate the seventh level names
+.**********************************************************************
+         AIF   ('&L7' EQ '').CHKL8                                      00000121
+&I       SETA  0                                                        00000122
+.GETL7   ANOP                                                           00000123
+&J       SETA  &I                                                       00000124
+&I       SETA  &I+1                                                     00000125
+         AIF   (&I GT N'&L7).DOL7                                       00000126
+&S(&I)   SETC  '&L7(&I)'                                                00000127
+         AGO   .GETL7                                                   00000128
+.DOL7    ANOP                                                           00000129
+&LVLCNT  SETA  7                                                        00000130
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000131
+               &S(10),CNT=&J                                            00000132
+.**********************************************************************
+.* Generate the eighth level names
+.**********************************************************************
+         AIF   ('&L8' EQ '').CHKL9                                      00000133
+&I       SETA  0                                                        00000134
+.GETL8   ANOP                                                           00000135
+&J       SETA  &I                                                       00000136
+&I       SETA  &I+1                                                     00000137
+         AIF   (&I GT N'&L8).DOL8                                       00000138
+&S(&I)   SETC  '&L8(&I)'                                                00000139
+         AGO   .GETL8                                                   00000140
+.DOL8    ANOP                                                           00000141
+&LVLCNT  SETA  8                                                        00000142
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000143
+               &S(10),CNT=&J                                            00000144
+.**********************************************************************
+.* Generate the ninth level names
+.**********************************************************************
+         AIF   ('&L9' EQ '').CHKL10                                     00000145
+&I       SETA  0                                                        00000146
+.GETL9   ANOP                                                           00000147
+&J       SETA  &I                                                       00000148
+&I       SETA  &I+1                                                     00000149
+         AIF   (&I GT N'&L9).DOL9                                       00000150
+&S(&I)   SETC  '&L9(&I)'                                                00000151
+         AGO   .GETL9                                                   00000152
+.DOL9    ANOP                                                           00000153
+&LVLCNT  SETA  9                                                        00000154
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9), X00000155
+               &S(10),CNT=&J                                            00000156
+.**********************************************************************
+.* Generate the tenth level names
+.**********************************************************************
+         AIF   ('&L10' EQ '').L10OK                                     00000157
+&I       SETA  0                                                        00000158
+.GETL10  ANOP                                                           00000159
+&J       SETA  &I                                                       00000160
+&I       SETA  &I+1                                                     00000161
+         AIF   (&I GT N'&L10).DOL10                                     00000162
+&S(&I)   SETC  '&L10(&I)'                                               00000163
+         AGO   .GETL10                                                  00000164
+.DOL10   ANOP                                                           00000165
+&LVLCNT  SETA  10                                                       00000166
+         LVLEQU &S(1),&S(2),&S(3),&S(4),&S(5),&S(6),&S(7),&S(8),&S(9),&X00000167
+               S(10),CNT=&J                                             00000168
+.L10OK   ANOP                                                           00000169
+FMT&FMT#.L&SAVNDX EQU &LVLCNT                                           00000170
+.DONE    ANOP                                                           00000171
+         AIF   ('&TYPE' NE 'END').MEND                                  00000172
+         AIF   (NOT &NAMEEND).DONE10
+         ESIERR 8,'DUPLICATE NAMEQU TYPE=END. IGNORED'
+         AGO   .MEND
+.DONE10  ANOP
+&NAMEEND SETB  1
+.*       AIF   (&NAMEQU(5)).MEND                                        00000173
+&I       SETA  5
+.DONE20  ANOP
+         AIF   (&I GT &NAMECNT).DONE80
+         AIF   (&NAMEQU(&I)).DONE40                                     00000173
+&FP.&I   EQU   0                                                        00000174
+.DONE40  ANOP
+&I       SETA  &I+1
+         AGO  .DONE20
+.DONE80  ANOP
+         ESIGNEND
+         AGO   .MEND
+.*                                                                      00000175
+.CHKL3   AIF   ('&L3' EQ '').CHKL4                                      00000176
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000177
+         ESIERR *,' L&LVLCNT AND L3.'                                   00000178
+         AGO   .MEND                                                    00000179
+.CHKL4   AIF   ('&L4' EQ '').CHKL5                                      00000180
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000181
+         ESIERR *,' L&LVLCNT AND L4.'                                   00000182
+         AGO   .MEND                                                    00000183
+.CHKL5   AIF   ('&L5' EQ '').CHKL6                                      00000184
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000185
+         ESIERR *,' L&LVLCNT AND L5.'                                   00000186
+         AGO   .MEND                                                    00000187
+.CHKL6   AIF   ('&L6' EQ '').CHKL7                                      00000188
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000189
+         ESIERR *,' L&LVLCNT AND L6.'                                   00000190
+         AGO   .MEND                                                    00000191
+.CHKL7   AIF   ('&L7' EQ '').CHKL8                                      00000192
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000193
+         ESIERR *,' L&LVLCNT AND L7.'                                   00000194
+         AGO   .MEND                                                    00000195
+.CHKL8   AIF   ('&L8' EQ '').CHKL9                                      00000196
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000197
+         ESIERR *,' L&LVLCNT AND L8.'                                   00000198
+         AGO   .MEND                                                    00000199
+.CHKL9   AIF   ('&L9' EQ '').CHKL10                                     00000200
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000201
+         ESIERR *,' L&LVLCNT AND L9.'                                   00000202
+         AGO   .MEND                                                    00000203
+.CHKL10  AIF   ('&L10' EQ '').L10OK                                     00000204
+         ESIERR 8,'A REQUIRED INTERMEDIATE LEVEL IS MISSING BETWEEN'    00000205
+         ESIERR *,' L&LVLCNT AND L10.'                                  00000206
+         AGO   .MEND                                                    00000207
+.FMTERR1 ESIERR 8,'THE FORMAT NAME VALUE IS INVALID: "&FORMAT".'        00000208
+         ESIERR *,'     VALID VALUES ARE: &FMTS(1), &FMTS(2),'          00000208
+         ESIERR *,'     &FMTS(3), &FMTS(4) OR &FMTS(6)..'               00000208
+         ESIERR *,' '                                                   00000208
+         AGO   .MEND                                                    00000209
+.FMTERR3 ESIERR 8,'"&FORMAT" IS SPECIFIED MULTIPLE TIMES, '             00000213
+         ESIERR *,'     DUPLICATE SPECIFICATIONS ARE IGNORED.'          00000214
+         AGO   .MEND                                                    00000215
+.LVLERR  ESIERR 8,'INDEX LEVEL "L1" IS A REQUIRED PARAMETER.'           00000216
+         AGO   .MEND                                                    00000217
+.MEND    ANOP                                                           00000218
+         MEND                                                           00000219

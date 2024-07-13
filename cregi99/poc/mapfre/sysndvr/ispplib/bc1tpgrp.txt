@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Processor Group \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Through this field you can associate a processor group name to the
++element when PDM places it in its target CA Endevor SCM location.
+
++If you do not provide a processor group name, one is selected for you.
++
++  1) When the element is at the target location prior to the PDM merge,
++     the element will inherit the group name from that element.
++  2) When the element is not at the target location but exists up the
++     map, the element will inherit that element's processor group
++     name.
++  3) The element type definition's default processor group name will
++     be used when the element cannot be found along its destination
++     route.
++
++
++
+)END

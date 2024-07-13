@@ -1,0 +1,54 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*                                                                       */
+/* Note: The installation can force the Generate Processor Mode to       */
+/* be BATCH by performing the following steps:                           */
+/*  1) Change the underscore attribute character (_) one the             */
+/*     'Generate Processor Mode' line to a horizontal bar (|)            */
+/*  2) Uncomment the assignement statement in the )INIT section and      */
+/*     set the EEVPRMOD variable to B for BATCH mode or F for fore-      */
+/*     ground mode.                                                      */
+/* These steps will make the variable an unmodifiable value.             */
+/*                                                                       */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+ | TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+)BODY
+%---------------------------- Action Options -----------------------------------
+%Command ===>_VARWKCMD                                                         +
++
++  CReate/Edit/Generate Action Options:      Signin (SI) Action Options:
++    Generate Element after Edit.._Z+(Y/N)     Signout To............._EEVSITSO+
++    Generate Element in Place...._Z+(Y/N)     Signin Action Mode....._Z+(F/B)
++    Generate Element NoSource...._Z+(Y/N)
++    Generate Action Mode........._Z+(F/B)   Signout (SO) Action Options:
++    Generate with AUTOGEN........_Z+(Y/N)     Signout Action Mode...._Z+(F/B)
++      SPAN (NONE/ALL/SYS/SUB)...._Z   +
++
++  Move Action Options:                      Delete Action Options:
++    Sync........................._Z+(Y/N)     Only Component........._Z+(Y/N)
++    With History................._Z+(Y/N)     Delete Action Mode....._Z+(F/B)
++    Retain Signout..............._Z+(Y/N)
++    Signout to..................._EEVSETSO+
++    Acknowledge Element Jump....._Z+(Y/N)
++    Delete%FROM+Element.........._Z+(Y/N)
++    Move Action Mode............._Z+(F/B)
++
++
++  Make the necessary changes and hit%ENTER+to continue,%END+to cancel
++
+)INIT
+  .ZVARS = '(EEVOGENE EEVOCPBK EEVSIMOD EEVONSRC +
+             EEVPRMOD EEVOAUTG EEVSOMOD EEVOSPAN EEVSYNC  EEVONLCM +
+             EEVMOVWH EEVDLMOD EEVRTNSO EEVJMPEL EEVF9NOD EEVMVMOD )'
+  /*---------------------------------------------------------------*/
+  /* The default value of the 'Generate Processor Mode' field can  */
+  /* be set by uncommenting the following statement.               */
+  /*---------------------------------------------------------------*/
+  /* &EEVPRMOD = B        */
+  .HELP = ENDHE150
+)PROC
+  &EEVSELCH = TRUNC(&VARWKCMD,2)
+)END

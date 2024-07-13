@@ -1,0 +1,330 @@
+         MACRO
+&NAME    $PECBDS &DSCT=YES
+         AIF   ('&DSCT' NE 'YES').SKPDSCT
+$PECBDS  DSECT
+         AGO   .SKPEQU
+.SKPDSCT ANOP
+$PECBDS  DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $PECBDS - BLOCK TO DESCRIBE THE PACKAGE EXIT INTERFACE     *
+*                   EXIT CONTROL BLOCK                               *
+*                                                                    *
+**********************************************************************
+PECBLEN   DC   AL2(PECBSIZE)       LENGTH OF THE BLOCK
+PECBVERS  DC   AL2(PECB$VER)       CURRENT VERSION OF THE BLOCK
+PECB$VER  EQU  3                      VERSION 3
+PECBID    DC   CL4'PECB'          BLOCK ID
+PECBPKID  DC   CL16' '             PACKAGE ID
+*
+*  THE FOLLOWING SIX FIELDS ARE FILLED IN BY ENDEVOR.
+*  THEY CONTAIN THE FUNCTION CODE AND LITERAL NECESSARY FOR A USER
+*  EXIT TO DETERMINE THE CALLING EXIT POINT.
+*
+*  CODES
+*
+PECBFNCD  DC   H'0'                PACKAGE FUNCTION CODE
+*
+*   EQUATES FOR THE PACKAGE FUNCTION CODE
+*
+*   EQU 0                       SETUP EXIT OPTIONS
+*   EQU 1                       BACK-IN PACKAGE
+*   EQU 2                       BACK-OUT PACKAGE
+*   EQU 3                       CAST PACKAGE
+*   EQU 4                       COMMIT PACKAGE
+*   EQU 5                       CREATE PACKAGE
+*   EQU 6                       DELETE PACKAGE
+*   EQU 7                       DISPLAY PACKAGE
+*   EQU 8                       EXECUTE PACKAGE
+*   EQU 9                       EXPORT  PACKAGE
+*   EQU 10                      GENERATE PACKAGE ID
+*   EQU 11                      LIST GENERATION
+*   EQU 12                      REPLACE SCL
+*   EQU 13                      RESET PACKAGE
+*   EQU 14                      REVIEW PACKAGE
+*   EQU 15                      SHIP THE PACKAGE
+*   EQU 16                      ARCHIVE THE PACKAGE
+*   EQU 17                      COLLECT PRODUCT (DISTRIBULINK)
+*   EQU 18                      DYNAMIC APPROVER  RECORD ACTIONS
+*********************************************************************
+*
+PECBSFCD  DC   H'0'                PACKAGE SUB FUNCTION CODE
+*
+*   EQUATES FOR THE PACKAGE SUB FUNCTION CODE
+*
+*
+*   EQU 0                       APPROVE (REVIEW)
+*   EQU 1                       DENY    (REVIEW)
+*   EQU 2                       BUILD    (CREATE/MODIFY)
+*   EQU 3                       COPY     (CREATE/MODIFY)
+*   EQU 4                       EDIT     (CREATE/MODIFY)
+*   EQU 5                       IMPORT   (CREATE/MODIFY)
+*   EQU 6                       APPROVER (DISPLAY)
+*   EQU 7                       BACKOUT  (DISPLAY)
+*   EQU 8                       SCL      (DISPLAY)
+*   EQU 9                       PACKAGE  (DISPLAY)
+*   EQU 10                      ELMSUM   (DISPLAY)
+*   EQU 11                      REPORTS  (DISPLAY)
+*   EQU 12                      XMIT     (SHIP   )
+*   EQU 13                      CONFIRM  (SHIP   )
+*   EQU 14                      BUILD    (LIST   )
+*   EQU 15                      CAST     (LIST   )
+*   EQU 16                      REVIEW   (LIST   )
+*   EQU 17                      EXECUTE  (LIST   )
+*   EQU 18                      SHIP     (LIST   )
+*   EQU 19                      BACK-OUT (LIST   )
+*   EQU 20                      COMMIT   (LIST   )
+*   EQU 21                      UTILITY  (LIST   )
+*   EQU 22                      DISPLAY  (LIST   )
+*   EQU 23                      CORRINFO (DISPLAY)
+*   EQU 24                      ARCHIVE  (LIST)
+*   EQU 25                      COLLECT  (LIST   )
+*   EQU 26                      STAGE    (COLLECT)
+*   EQU 27                      CONFIRM  (COLLECT)
+*   EQU 28                      INSPECT  (LIST)
+*   EQU 29                      BACKIN   PACKAGE
+*   EQU 30                      BACK-OUT PACKAGE
+*   EQU 31                      DELETE   PACKAGE
+*   EQU 32                      EXPORT   PACKAGE
+*   EQU 33                      RESET    PACKAGE
+*   EQU 34                      CAST     PACKAGE
+*   EQU 35                      COMMIT   PACKAGE
+*   EQU 36                      EXECUTE  PACKAGE
+*   EQU 37                      ADD DYNAMIC APPROVER RECORD
+*   EQU 38                      UPDATE DYNAMIC APPROVER RECORD
+*   EQU 39                      DELETE DYNAMIC APPROVER RECORD
+*   EQU 40                      ELEMENT ACTION BACKOUT (EABKO)
+*   EQU 41                      ELEMENT ACTION BACKIN  (EABKI)
+*
+*********************************************************************
+PECBBACD  DC   H'0'                PACKAGE BEFORE/MID/AFTER CODE
+*
+*   EQUATES FOR THE BEFORE, AFTER AND MID CODES
+*
+*   EQU 00                      BEFORE
+*   EQU 01                      AFTER
+*   EQU 02                      MIDDLE
+*
+*********************************************************************
+*
+*  LITERALS
+*
+PECBFNNM  DC   CL8' '              PACKAGE FUNCTION LITERAL
+PECBSFNM  DC   CL8' '              SUBFUNCTION LITERAL
+PECBBANM  DC   CL8' '              BEFORE/AFTER LITERAL
+*
+*  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP PROCESSING.
+*  THE USER EXIT SHOULD MODIFY THESE FIELDS TO ENABLE EXIT POINTS.
+*  THIS SETUP IS DONE ONCE PER ENDEVOR SESSION.
+*
+*  N_O_T_E:  RELATED RELEASE 3.7 FIELDS (PECBTSOX, PECBBATX, PECBARBE,
+*            AND PECBARAF) APPEAR AT THE END OF THE DSECT.
+*
+PECBBIBE  DC   C'N'                BEFORE BACKIN EXIT
+PECBBIAF  DC   C'N'                AFTER  BACKIN EXIT
+*
+PECBBOBE  DC   C'N'                BEFORE BACKOUT EXIT
+PECBBOAF  DC   C'N'                AFTER  BACKOUT EXIT
+*
+PECBCABE  DC   C'N'                BEFORE CAST    EXIT
+PECBCAMD  DC   C'N'                MID    CAST    EXIT
+PECBCAAF  DC   C'N'                AFTER  CAST    EXIT
+*
+PECBCOBE  DC   C'N'                BEFORE COMMIT  EXIT
+PECBCOAF  DC   C'N'                AFTER  COMMIT  EXIT
+*
+PECBCBBE  DC   C'N'                BEFORE CREATE / BUILD EXIT
+PECBCBAF  DC   C'N'                AFTER  CREATE / BUILD EXIT
+*
+PECBCCBE  DC   C'N'                BEFORE CREATE / COPY EXIT
+PECBCCAF  DC   C'N'                AFTER  CREATE / COPY EXIT
+*
+PECBCEBE  DC   C'N'                BEFORE CREATE / EDIT   EXIT
+PECBCEAF  DC   C'N'                AFTER  CREATE / EDIT EXIT
+*
+PECBCIBE  DC   C'N'                BEFORE CREATE / IMPORT EXIT
+PECBCIAF  DC   C'N'                AFTER  CREATE / IMPORT EXIT
+*
+PECBDEBE  DC   C'N'                BEFORE DELETE  EXIT
+PECBDEAF  DC   C'N'                AFTER  DELETE  EXIT
+*
+PECBDABE  DC   C'N'                BEFORE DISPLAY APPROVER
+PECBDBBE  DC   C'N'                BEFORE DISPLAY BACKOUT
+*
+PECBDSBE  DC   C'N'                BEFORE DISPLAY SCL
+PECBDXBE  DC   C'N'                BEFORE DISPLAY ELMSUM
+PECBDPBE  DC   C'N'                BEFORE DISPLAY PACKAGES
+PECBDRBE  DC   C'N'                BEFORE DISPLAY REPORTS
+*
+PECBEXBE  DC   C'N'                BEFORE EXECUTE EXIT
+PECBEXAF  DC   C'N'                AFTER  EXECUTE EXIT
+*
+PECBEPBE  DC   C'N'                BEFORE EXPORT  EXIT
+PECBEPAF  DC   C'N'                AFTER  EXPORT  EXIT
+*
+PECBGPBE  DC   C'N'                BEFORE GENPKGID EXIT
+PECBGPAF  DC   C'N'                AFTER  GENPKGID EXIT
+*
+PECBLTBE  DC   C'N'                BEFORE LIST    EXIT
+PECBLTAF  DC   C'N'                AFTER  LIST    EXIT
+*
+PECBMBBE  DC   C'N'                BEFORE MODIFY / BUILD EXIT
+PECBMBAF  DC   C'N'                AFTER  MODIFY / BUILD EXIT
+*
+PECBMCBE  DC   C'N'                BEFORE MODIFY / COPY EXIT
+PECBMCAF  DC   C'N'                AFTER  MODIFY / COPY EXIT
+*
+PECBMEBE  DC   C'N'                BEFORE MODIFY / EDIT EXIT
+PECBMEAF  DC   C'N'                AFTER  MODIFY / EDIT EXIT
+*
+PECBMIBE  DC   C'N'                BEFORE MODIFY / IMPORT EXIT
+PECBMIAF  DC   C'N'                AFTER  MODIFY / IMPORT EXIT
+*
+PECBRSBE  DC   C'N'                BEFORE RESET   EXIT
+PECBRSAF  DC   C'N'                AFTER  RESET   EXIT
+*
+PECBRABE  DC   C'N'                BEFORE REVIEW / APPROVE EXIT
+PECBRAAF  DC   C'N'                AFTER  REVIEW / APPROVE EXIT
+*
+PECBRDBE  DC   C'N'                BEFORE REVIEW / DENY EXIT
+PECBRDAF  DC   C'N'                AFTER  REVIEW / DENY EXIT
+*
+PECBSXBE  DC   C'N'                BEFORE SHIP / XMIT EXIT
+PECBSXAF  DC   C'N'                AFTER  SHIP / XMIT EXIT
+*
+PECBSCBE  DC   C'N'                BEFORE SHIP / COMFIRM EXIT
+PECBSCAF  DC   C'N'                AFTER  SHIP / CONFIRM EXIT
+*
+*  THE FOLLOWING FIELDS PERTAIN TO REQUEST FOR DATA PROCESSING.
+*
+***
+***    THE FOLLOWING THREE FIELDS ARE INFORMATIONAL FIELDS FOR THE USER
+***    EXIT TO VERIFY WHETHER OR NOT A REQUEST TYPE IS AVAILABLE.
+***    THESE FLAGS ARE SET BY ENDEVOR EXIT PROCESSING PRIOR TO INVOKING
+***    THE FIRST USER EXIT MODULE.
+***
+PECBACTE  DC   C'N'                ACTION RECORD EXISTENCE FLAG
+PECBAPPE  DC   C'N'                APPROVER RECORD EXISTENCE FLAG
+PECBBODE  DC   C'N'                BACKOUT RECORD EXISTENCE FLAG
+***
+***
+***    THE FOLLOWING FIELDS ARE REQUEST FOR DATA FLAGS. TO REQUEST
+***    A RECORD BE SENT, MOVE A C'Y' INTO THE APPROPRIATE FIELD.
+***    CHECK USER DOC TO MAKE SURE THAT THE DATA REQUESTED EXISTS AT
+***    THE POINT AT WHICH THE REQUEST IS BEING MADE.
+***
+PECBACTR  DC   C'N'                USER REQUESTS ACTION ID REC
+PECBAPPR  DC   C'N'                USER REQUESTS APPROVER REC
+PECBBODR  DC   C'N'                USER REQUESTS BACKOUT REC
+PECBSHPR  DC   C'N'                USER REQUESTS SHIP RECORDS
+PECBSCLR  DC   C'N'                USER REQUESTS SCL RECORDS
+***
+***    THE FOLLOWING FIELD INDICATES WHETHER THE EXITS ARE BEING
+***     CALLED AFTER THE SUCCESSFUL EXECUTION OF A PROMOTION PACKAGE
+***     (AUTOCAST)
+***
+PECBAUTC  DC   C' '                Y/N : AUTOCAST IN PROGRESS
+***
+***    THE PECBRQRC FIELD IS USED BY ENDEVOR TO TELL USER EXIT WHAT
+***    THE RESULT OF THE REQUEST FOR DATA ATTEMPT
+***
+PECBRQRC  DC   H'0'                USER REQUEST FOR DATA RETURN CODE
+PECBRROK  EQU  1                   READ WAS SUCCESSFUL, RECORD SENT
+PECBREOF  EQU  2                   END OF FILE FOR RECORD TYPE
+PECBRNFD  EQU  3                   NO RECORDS FOUND FOR KEY
+PECBRERR  EQU  12                  SEVERE ERROR
+***
+***
+***    THE PECBNDXX FIELDS ARE USED BY ENDEVOR TO TELL USER EXIT
+***    ABOUT HIGH RETURN CODES, ERROR TEXT, AND ABEND CODES.
+***    THESE FIELDS ARE ONLY APPLICABLE FOR AFTER CALLS.
+***
+***
+PECBNDRC  DC   H'0'                NDVR HIGH RETURN CODE
+PECBNDAB  DC   CL6' '              NDVR ABEND CODE
+PECBNDMG  DC   CL133' '            NDVR MSGTEXT
+PECBNDML  DC   H'0'                NDVR MSGTEXT LENGTH
+PECBRTCD  DC   F'0'                RETURN CODE FROM EXIT
+PECB$OK   EQU  0                       RETURN 0 ALL O.K.
+PECB$MOK  EQU  4                       RETURN 4 ALL O.K. WITH MODS
+PECB$CAN  EQU  8                       RETURN 8 ABORT
+PECBUSER  DC   CL8' '              TSO USER/BATCH JOBNAME
+PECBMODE  DC   CL1' '              MODE FOR ONLINE(TSO) OR BATCH
+PECB$TSO  EQU  C'T'                     TSO MODE
+PECB$BAT  EQU  C'B'                     BATCH MODE
+PECBMGCD  DC   CL4' '              MESSAGE ID FOR ERROR MESSAGE
+*                                  MESSAGE CODE WILL BE C1XNNNNS
+PECBMGLN  DC   H'0'                LENGTH OF ERROR MESSAGE
+PECBMGSZ  EQU  132                     SIZE IS 132
+PECBMSG   DC   CL(PECBMGSZ)' '     MESSAGE
+PECBCALR  DC   CL1' '              CALLERS ORIGIN
+PECB$NDV  EQU  C'E'                ENDEVOR
+PECB$QE   EQU  C'Q'                QUICK-EDIT
+PECBENPK  DC   CL1'N'              ENTERPRISE PKG FLAG (Y/N)
+***
+***
+***    PECBEABX CAN BE USED TO REQUEST ELEMENT ACTION BACKIN OR
+***    BACKOUT EXIT CALLS. WHEN SET TO Y, IF BACKIN OR BACKOUT
+***    CALLS ARE REQUESTED, THE EXIT WILL ALSO BE CALLED FOR
+***    EACH (!) ELEMENT ACTION BACKOUT ACTION.
+***
+***
+PECBEABX  DC   C'N'                ELEMENT ACTION BACKIN/OUT EXIT Y/N
+          DC   C' '                RESERVED
+***
+PECBUEXT  DC   F'0'                USER EXIT HOLD FIELD
+PECBHIRC  DC   F'0'                HIGHEST RC SET BY PREVIOUS EXITS
+***
+***
+***    THE FOLLOWING FIELDS ARE UPDATE FLAGS FOR THE USER CONTROL
+***    BLOCKS.  THE USER EXIT MUST SET THESE FLAGS TO 'Y' TO INDICATE
+***    TO ENDEVOR THAT THESE BLOCKS HAVE BEEN MODIFIED.
+***
+***
+PECBUECB  DC   C'N'                MODS WHERE MADE TO THE PECBDS
+PECBUREQ  DC   C'N'                MODS WHERE MADE TO THE PREQPDS
+PECBUFIL  DC   C'N'                MODS WHERE MADE TO THE PFILDS
+PECBUAPP  DC   C'N'                EXIT SENDING APPR GROUPS:$PAPPREQ
+*
+* ENDEVOR ACKNOWLEDGEMENT OF THE NUMBER OF $PAPPREQ BLOCKS
+* RECEIVED FROM THE USER EXIT
+*
+PECB#APG  DC   H'0'                NDVR ACK: # OF $PAPPREQ BLKS REC'D
+*
+*  ARCHIVE PACKAGE EXIT ENABLE/DISABLE FLAGS
+*
+PECBARBE  DC   C'N'                BEFORE ARCHIVE
+PECBARAF  DC   C'N'                AFTER  ARCHIVE
+*
+*
+*  THE FOLLOWING FIELDS ARE USED EXCLUSIVELY DURING SETUP PROCESSING.
+*  AT SETUP TIME, THE INITIAL VALUES ARE AS SHOWN UNLESS OVERRIDDEN
+*  IN THE C1UEXITS TABLE (@C1UEXIT TYPE=START,XIT7BATX=Y).
+*
+PECBTSOX  DC    C'Y'               INVOKE EXIT IF RUNNING UNDER TSO
+PECBBATX  DC    C'N'               INVOKE EXIT IF BATCH (NO TSO)
+*
+*  COLLECT PRODUCT EXIT ENABLE/DISABLE FLAGS (USED IN SETUP PROCESSING)
+*
+PECBCSBE  DC   C'N'                BEFORE COLLECT / STAGING EXIT
+PECBCSAF  DC   C'N'                AFTER  COLLECT / STAGING EXIT
+*
+*  COLLECT PRODUCT REQUEST FOR DATA FLAG
+*
+PECBCOLR  DC   C'N'                USER REQUESTS COLLECTION RECORDS
+*
+*  DYNAMIC APPROVER ACTIONS EXIT ENABLE/DISABLE (USED IN SETUP)
+*
+PECBD1BE  DC   C'N'                BEFORE DYNAMIC APPRS ADD/ EXIT
+PECBD1AF  DC   C'N'                AFTER  DYNAMIC APPRS ADD/ EXIT
+PECBDUBE  DC   C'N'                BEFORE DYNAMIC APPRS UPDATE/ EXIT
+PECBDUAF  DC   C'N'                AFTER  DYNAMIC APPRS UPDATE/ EXIT
+PECBDDBE  DC   C'N'                BEFORE DYNAMIC APPRS DELETE/ EXIT
+PECBDDAF  DC   C'N'                AFTER  DYNAMIC APPRS DELETE/ EXIT
+*
+PECBAPI   DC   CL1' '              PKG EXIT INVOKED BY API
+*                                  W - WORKSTATION, A - API
+*                                  N, NULL OR SPACE, NOT API RELATED
+PECBSIZE  EQU   *-$PECBDS          LENGTH OF $PECBDS BLOCK
+         MEND

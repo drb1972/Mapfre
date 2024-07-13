@@ -1,0 +1,10 @@
+PKMR900E 'TRUNCATION EROR'                               .ALARM=YES
+'&VARWLTXT'
+PKMR901E 'INVALID CNTL BLOCK'                            .ALARM=YES
+'&VARWLTXT'
+PKMR902E 'I/O ERROR'                                     .ALARM=YES
+'&VARWLTXT'
+PKMR903E 'TABLE SERVICE FAILURE'                         .ALARM=YES
+'&VARWLTXT'
+PKMR904S 'PACKAGE PROGRAM ABEND'                         .ALARM=YES
+'&VARWLTXT'

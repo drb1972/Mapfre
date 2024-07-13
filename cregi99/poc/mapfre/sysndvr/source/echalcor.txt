@@ -1,0 +1,47 @@
+      *****************************************************************
+      *
+      *  LIST CORRELATION RECORDS - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALCOR-RQ.
+           05  ALCOR-RQ-HEADER.
+               10  ALCOR-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALCOR-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALCOR-RQ-ID         PIC 9(04) COMP VALUE 1456.
+               10  ALCOR-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  ALCOR-RQ-EYE        PIC X(04)      VALUE 'LCOQ'.
+           05  ALCOR-RQ-DATAAREA.
+               10  ALCOR-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALCOR-RQ-TYPE       PIC X(01) VALUE SPACES.
+                   88  ALCOR-RQ-TYPE-H           VALUE 'H'.
+                   88  ALCOR-RQ-TYPE-I           VALUE 'I'.
+                   88  ALCOR-RQ-TYPE-U           VALUE 'U'.
+               10  ALCOR-RQ-RESERVE    PIC X(03) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST CORRELATION RECORDS - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALCOR-RS.
+           05  ALCOR-RS-HEADER.
+               10  ALCOR-RS-LEN        PIC 9(04) COMP VALUE 172.
+               10  ALCOR-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALCOR-RS-ID         PIC 9(04) COMP VALUE 1457.
+               10  ALCOR-RS-VERS       PIC 9(04) COMP VALUE 1.
+               10  ALCOR-RS-EYE        PIC X(04)      VALUE 'LCOS'.
+           05  ALCOR-RS-DATAAREA.
+               10  ALCOR-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALCOR-RS-TYPE       PIC X(01) VALUE SPACES.
+                   88  ALCOR-RS-TYPE-H           VALUE 'H'.
+                   88  ALCOR-RS-TYPE-I           VALUE 'I'.
+                   88  ALCOR-RS-TYPE-U           VALUE 'U'.
+               10  FILLER              PIC X(03) VALUE SPACES.
+               10  ALCOR-RS-SEQNO      PIC 9(08) COMP VALUE ZEROS.
+               10  ALCOR-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALCOR-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALCOR-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALCOR-RS-RUU        PIC X(08) VALUE SPACES.
+               10  ALCOR-RS-CORRID     PIC X(32) VALUE SPACES.
+               10  ALCOR-RS-DATA       PIC X(80) VALUE SPACES.
+               10  FILLER              PIC X(03) VALUE SPACES.

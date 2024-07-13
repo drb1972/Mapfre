@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Generate Merge Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether PDM is to generate reports as part of the Merge process.
++Acceptable values are:
++
+%   A+- Generate all reports (the Merge Summary and Merge Detail reports).
++
+%   S+- Generate only the Merge Summary Report.
++
+%   N+- Do not generate any reports.
++
++
++
++
+)END

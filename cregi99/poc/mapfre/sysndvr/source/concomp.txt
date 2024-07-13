@@ -1,0 +1,312 @@
+//COBOL    EXEC PGM=IKFCBL00,
+//     PARM='LIB,NESEQ,DMAP,PMAP,APOST,LANGLVL(1),BUF=32000,SIZE=4096'
+//STEPLIB DD DSN=UPRFX.UQUAL.COB24.VSCOLIB,DISP=SHR
+//SYSIN    DD  *
+       ID DIVISION.
+       PROGRAM-ID.  CONCOMP.
+      *****************************************************************
+      * THIS IS AN EXAMPLE OF HOW TO PROCESS THE COMPONENT LIST RECS  *
+      * WHICH ARE OUTPUTTED FROM THE CONWRITE PROGRAM WHEN OPTION     *
+      * COMPONENT IS USED.  THE COMPONENT RECORDS WHICH ARE PROCESSED *
+      * BY THIS PROGRAM CONSIST OF COMPONENT LIST HEADER, FOOTPRINT,  *
+      * SYMBOL, AND COMPONENT RECORDS WHICH ARE BUILT BY ENDVR DURING *
+      * PROCESSOR PROCESSING.  THIS PROGRAM SERVES AS AN EXAMPLE OF   *
+      * WHAT FIELDS ARE STORED WITHIN EACH OF THE COMPONENT LIST      *
+      * RECORDS.                                                      *
+      *****************************************************************
+       ENVIRONMENT  DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT INPUT-FILE ASSIGN TO UT-S-INPUT.
+       DATA DIVISION.
+       FILE SECTION.
+       FD  INPUT-FILE
+           RECORD CONTAINS 82 TO 280 CHARACTERS
+           BLOCK  CONTAINS 0  RECORDS
+           LABEL  RECORDS ARE STANDARD
+           DATA   RECORDS ARE CMP1-HEADER-RECORD
+                              CMP2-FOOTPRINT-RECORD
+                              CMP3-COMPONENT-RECORD
+                              CMP5-SYMBOL-RECORD
+                              CURE-ELEMENT-RECORD
+                              CURM-MEMBER-RECORD
+                              CURO-OBJECT-RECORD
+                              CURC-COMMENT-RECORD.
+       COPY COMPRECS.
+       WORKING-STORAGE SECTION.
+       01  MISC-STUFF.
+           10  SUB1           PIC S9(8) COMP.
+           10  SUB2           PIC S9(8) COMP.
+           10  EOF-FLAG       PIC X(1)  VALUE 'N'.
+           10  WORKDATA       PIC X(255).
+           10  WORKDATA-BYTE  REDEFINES WORKDATA
+                              PIC X(1) OCCURS 255 TIMES.
+       PROCEDURE DIVISION.
+           MOVE  0  TO SUB1.
+           MOVE 'N' TO EOF-FLAG.
+           OPEN INPUT INPUT-FILE.
+           PERFORM 100-READ-INPUT THRU 110-RI-EXIT
+                     UNTIL EOF-FLAG = 'Y'.
+           CLOSE INPUT-FILE.
+           DISPLAY ' '.
+           DISPLAY 'CONCOMP RECORDS PROCESSED = ' SUB1.
+           MOVE ZEROS TO RETURN-CODE.
+           GOBACK.
+       100-READ-INPUT.
+           READ INPUT-FILE
+                AT END MOVE 'Y' TO EOF-FLAG
+                GO TO 110-RI-EXIT.
+           IF  CMP1-HEADER-REC
+               PERFORM 200-HEADER THRU 210-H-EXIT
+            ELSE
+               IF  CMP2-FOOTPRINT-REC
+                   PERFORM 300-FOOTPRINT THRU 310-F-EXIT
+            ELSE
+               IF  CMP3-COMPONENT-REC
+                   PERFORM 400-COMPONENT THRU 410-C-EXIT
+            ELSE
+               IF  CMP5-SYMBOL-REC
+                   PERFORM 500-SYMBOL THRU 510-S-EXIT
+            ELSE
+               IF  CURE-ELEMENT-REC
+                   PERFORM 600-USER-ELEMENT THRU 610-UE-EXIT
+            ELSE
+               IF  CURM-MEMBER-REC
+                   PERFORM 700-USER-MEMBER THRU 710-UM-EXIT
+            ELSE
+               IF  CURO-OBJECT-REC
+                   PERFORM 800-USER-OBJECT THRU 810-UO-EXIT
+            ELSE
+               IF  CURC-COMMENT-REC
+                   PERFORM 900-USER-COMMENT THRU 910-UC-EXIT.
+       110-RI-EXIT.
+           EXIT.
+       200-HEADER.
+           DISPLAY  ' '.
+           DISPLAY  'HEADER RECORD FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CMP1-LENGTH          = ' CMP1-LENGTH.
+           DISPLAY  'CMP1-NUMERIC-ID      = ' CMP1-NUMERIC-ID.
+           DISPLAY  'CMP1-VERSION-ID      = ' CMP1-VERSION-ID.
+           DISPLAY  'CMP1-EYECATCH        = ' CMP1-EYECATCH.
+           DISPLAY  'CMP1-FLAGS           = ' CMP1-FLAGS.
+           DISPLAY  'CMP1-SITE            = ' CMP1-SITE.
+           DISPLAY  'CMP1-ENVIRONENT      = ' CMP1-ENVIRONMENT.
+           DISPLAY  'CMP1-SYSTEM          = ' CMP1-SYSTEM.
+           DISPLAY  'CMP1-SUBSYSTEM       = ' CMP1-SUBSYSTEM.
+           DISPLAY  'CMP1-ELEMENT-NAME    = ' CMP1-ELEMENT-NAME.
+           DISPLAY  'CMP1-TYPE            = ' CMP1-TYPE.
+           DISPLAY  'CMP1-VERSION         = ' CMP1-VERSION.
+           DISPLAY  'CMP1-LEVEL           = ' CMP1-LEVEL.
+           DISPLAY  'CMP1-DATE-DDMMMYY    = ' CMP1-DATE-DDMMMYY.
+           DISPLAY  'CMP1-TIME-HH-COL-MM  = ' CMP1-TIME-HH-COL-MM.
+           DISPLAY  'CMP1-STAGE           = ' CMP1-STAGE.
+           DISPLAY  'CMP1-PROCESSOR-GROUP = ' CMP1-PROCESSOR-GROUP.
+           DISPLAY  'CMP1-PROCESSOR       = ' CMP1-PROCESSOR.
+           DISPLAY  'CMP1-FILLER          = ' CMP1-FILLER.
+           ADD 1 TO SUB1.
+       210-H-EXIT.
+           EXIT.
+       300-FOOTPRINT.
+           DISPLAY  ' '.
+           DISPLAY  'FOOTPRINT RECORD FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CMP2-LENGTH          = ' CMP2-LENGTH.
+           DISPLAY  'CMP2-NUMERIC-ID      = ' CMP2-NUMERIC-ID.
+           DISPLAY  'CMP2-VERSION         = ' CMP2-VERSION.
+           DISPLAY  'CMP2-EYECATCH        = ' CMP2-EYECATCH.
+           DISPLAY  'CMP2-FLAGS           = ' CMP2-FLAGS.
+           DISPLAY  'CMP2-SITE            = ' CMP2-SITE.
+           DISPLAY  'CMP2-ENVIRONENT      = ' CMP2-ENVIRONMENT.
+           DISPLAY  'CMP2-SYSTEM          = ' CMP2-SYSTEM.
+           DISPLAY  'CMP2-SUBSYSTEM       = ' CMP2-SUBSYSTEM.
+           DISPLAY  'CMP2-ELEMENT-NAME    = ' CMP2-ELEMENT-NAME.
+           DISPLAY  'CMP2-TYPE            = ' CMP2-TYPE.
+           DISPLAY  'CMP2-VERSION         = ' CMP2-VERSION.
+           DISPLAY  'CMP2-LEVEL           = ' CMP2-LEVEL.
+           DISPLAY  'CMP2-DATE-DDMMMYY    = ' CMP2-DATE-DDMMMYY.
+           DISPLAY  'CMP2-TIME-HH-COL-MM  = ' CMP2-TIME-HH-COL-MM.
+           DISPLAY  'CMP2-STAGE           = ' CMP2-STAGE.
+           DISPLAY  'CMP2-FILLER          = ' CMP2-FILLER.
+           ADD 1 TO SUB1.
+       310-F-EXIT.
+           EXIT.
+       400-COMPONENT.
+           DISPLAY  ' '.
+           DISPLAY  'COMPONENT RECORD FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CMP3-LENGTH            = ' CMP3-LENGTH.
+           DISPLAY  'CMP3-NUMERIC-ID        = ' CMP3-NUMERIC-ID.
+           DISPLAY  'CMP3-VERSION           = ' CMP3-VERSION.
+           DISPLAY  'CMP3-EYECATCH          = ' CMP3-EYECATCH.
+           DISPLAY  'CMP3-FLAGS             = ' CMP3-FLAGS.
+           DISPLAY  'CMP3-PROCESSOR         = ' CMP3-PROCESSOR.
+           DISPLAY  'CMP3-STEP              = ' CMP3-STEP.
+           DISPLAY  'CMP3-TYPE              = ' CMP3-TYPE.
+           DISPLAY  'CMP3-OPERATION-TYPE    = ' CMP3-OPERATION-TYPE.
+           DISPLAY  'CMP3-MEMBER            = ' CMP3-MEMBER.
+           DISPLAY  'CMP3-DDNAME            = ' CMP3-DDNAME.
+           DISPLAY  'CMP3-DATASET           = ' CMP3-DATASET.
+           DISPLAY  'CMP3-VOLUME            = ' CMP3-VOLUME.
+           DISPLAY  'CMP3-LIBRARY-TYPE      = ' CMP3-LIBRARY-TYPE.
+           DISPLAY  'CMP3-SECONDARY-MEMBER  = ' CMP3-SECONDARY-MEMBER.
+           DISPLAY  'CMP3-FOOTPRINT-LENGTH  = ' CMP3-FOOTPRINT-LENGTH.
+           DISPLAY  'CMP3-FOOTPRINT-TYPE    = ' CMP3-FOOTPRINT-TYPE.
+           DISPLAY  'CMP3-FP-SITE           = ' CMP3-FP-SITE.
+           DISPLAY  'CMP3-FP-ENVIRONENT     = ' CMP3-FP-ENVIRONMENT.
+           DISPLAY  'CMP3-FP-SYSTEM         = ' CMP3-FP-SYSTEM.
+           DISPLAY  'CMP3-FP-SUBSYSTEM      = ' CMP3-FP-SUBSYSTEM.
+           DISPLAY  'CMP3-FP-ELEMENT-NAME   = ' CMP3-FP-ELEMENT-NAME.
+           DISPLAY  'CMP3-FP-TYPE           = ' CMP3-FP-TYPE.
+           DISPLAY  'CMP3-FP-VERSION        = ' CMP3-FP-VERSION.
+           DISPLAY  'CMP3-FP-LEVEL          = ' CMP3-FP-LEVEL.
+           DISPLAY  'CMP3-FP-DATE-DDMMMYY   = ' CMP3-FP-DATE-DDMMMYY.
+           DISPLAY  'CMP3-FP-TIME-HH-COL-MM = ' CMP3-FP-TIME-HH-COL-MM.
+           DISPLAY  'CMP3-FP-STAGE          = ' CMP3-FP-STAGE.
+           DISPLAY  'CMP3-FP-LOAD-IND       = ' CMP3-FP-LOAD-IND.
+           DISPLAY  'CMP3-FILLER            = ' CMP3-FILLER.
+           ADD 1 TO SUB1.
+       410-C-EXIT.
+           EXIT.
+       500-SYMBOL.
+           DISPLAY  ' '.
+           DISPLAY  'SYMBOL RECORD FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CMP5-LENGTH            = ' CMP5-LENGTH.
+           DISPLAY  'CMP5-NUMERIC-ID        = ' CMP5-NUMERIC-ID.
+           DISPLAY  'CMP5-VERSION           = ' CMP5-VERSION.
+           DISPLAY  'CMP5-EYECATCH          = ' CMP5-EYECATCH.
+           DISPLAY  'CMP5-FLAGS             = ' CMP5-FLAGS.
+           DISPLAY  'CMP5-SYM-NAME-LENGTH   = ' CMP5-SYM-NAME-LENGTH.
+           DISPLAY  'CMP5-SYM-DATA-LENGTH   = ' CMP5-SYM-DATA-LENGTH.
+           DISPLAY  'CMP5-SYM-NAME          = ' CMP5-SYM-NAME.
+           DISPLAY  'CMP5-SYM-DATA          = ' CMP5-SYM-DATA.
+           DISPLAY  'CMP5-FILLER            = ' CMP5-FILLER.
+           ADD 1 TO SUB1.
+       510-S-EXIT.
+           EXIT.
+       600-USER-ELEMENT.
+           DISPLAY  ' '.
+           DISPLAY  'USER RELATED ELEMENT FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CURE-LENGTH            = ' CURE-LENGTH.
+           DISPLAY  'CURE-NUMERIC-ID        = ' CURE-NUMERIC-ID.
+           DISPLAY  'CURE-VERSION-ID        = ' CURE-VERSION-ID.
+           DISPLAY  'CURE-EYECATCH          = ' CURE-EYECATCH.
+           DISPLAY  'CURE-FLAGS             = ' CURE-FLAGS.
+           DISPLAY  'CURE-ENVIRONMENT       = ' CURE-ENVIRONMENT.
+           DISPLAY  'CURE-SYSTEM            = ' CURE-SYSTEM.
+           DISPLAY  'CURE-SUBSYSTEM         = ' CURE-SUBSYSTEM.
+           DISPLAY  'CURE-ELEMENT-NAME      = ' CURE-ELEMENT-NAME.
+           DISPLAY  'CURE-TYPE              = ' CURE-TYPE.
+           DISPLAY  'CURE-STAGE             = ' CURE-STAGE.
+           DISPLAY  'CURE-VERSION           = ' CURE-VERSION.
+           DISPLAY  'CURE-LEVEL             = ' CURE-LEVEL.
+           DISPLAY  'CURE-DATE              = ' CURE-DATE.
+           DISPLAY  'CURE-TIME              = ' CURE-TIME.
+           DISPLAY  'CURE-COMPONENT-TYPE    = ' CURE-COMPONENT-TYPE.
+           DISPLAY  'CURE-VALIDATE-IND      = '
+                                               CURE-VALIDATE-INDICATOR.
+           DISPLAY  'CURE-ERROR-INDICATOR   = '
+                                               CURE-ERROR-INDICATOR.
+           ADD 1 TO SUB1.
+       610-UE-EXIT.
+           EXIT.
+       700-USER-MEMBER.
+           DISPLAY  ' '.
+           DISPLAY  'USER RELATED MEMBER FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CURM-LENGTH            = ' CURM-LENGTH.
+           DISPLAY  'CURM-NUMERIC-ID        = ' CURM-NUMERIC-ID.
+           DISPLAY  'CURM-VERSION-ID        = ' CURM-VERSION-ID.
+           DISPLAY  'CURM-EYECATCH          = ' CURM-EYECATCH.
+           DISPLAY  'CURM-FLAGS             = ' CURM-FLAGS.
+           DISPLAY  'CURM-DATASET           = ' CURM-DATASET.
+           DISPLAY  'CURM-MEMBER            = ' CURM-MEMBER.
+           DISPLAY  'CURM-ENVIRONMENT       = ' CURM-ENVIRONMENT.
+           DISPLAY  'CURM-SYSTEM            = ' CURM-SYSTEM.
+           DISPLAY  'CURM-SUBSYSTEM         = ' CURM-SUBSYSTEM.
+           DISPLAY  'CURM-ELEMENT-NAME      = ' CURM-ELEMENT-NAME.
+           DISPLAY  'CURM-TYPE              = ' CURM-TYPE.
+           DISPLAY  'CURM-STAGE             = ' CURM-STAGE.
+           DISPLAY  'CURM-VERSION           = ' CURM-VERSION.
+           DISPLAY  'CURM-LEVEL             = ' CURM-LEVEL.
+           DISPLAY  'CURM-DATE              = ' CURM-DATE.
+           DISPLAY  'CURM-TIME              = ' CURM-TIME.
+           DISPLAY  'CURM-COMPONENT-TYPE    = ' CURM-COMPONENT-TYPE.
+           DISPLAY  'CURM-VALIDATE-IND      = '
+                                               CURM-VALIDATE-INDICATOR.
+           DISPLAY  'CURM-FOOTPRINT-IND     = '
+                                              CURM-FOOTPRINT-INDICATOR.
+           DISPLAY  'CURM-ERROR-INDICATOR   = '
+                                               CURM-ERROR-INDICATOR.
+           ADD 1 TO SUB1.
+       710-UM-EXIT.
+           EXIT.
+       800-USER-OBJECT.
+           DISPLAY  ' '.
+           DISPLAY  'USER RELATED OBJECT FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CURO-LENGTH            = ' CURO-LENGTH.
+           DISPLAY  'CURO-NUMERIC-ID        = ' CURO-NUMERIC-ID.
+           DISPLAY  'CURO-VERSION-ID        = ' CURO-VERSION-ID.
+           DISPLAY  'CURO-EYECATCH          = ' CURO-EYECATCH.
+           DISPLAY  'CURO-FLAGS             = ' CURO-FLAGS.
+           DISPLAY  'CURO-ERROR-INDICATOR   = '
+                                               CURO-ERROR-INDICATOR.
+           DISPLAY  'CURO-OBJECT-LENGTH     = '
+                                               CURO-OBJECT-DATA-LENGTH.
+           MOVE SPACES TO WORKDATA.
+           PERFORM 820-MOVE-DATA THRU 830-MD-EXIT
+                    VARYING SUB2 FROM 1 BY 1
+                      UNTIL SUB2 > CURO-OBJECT-DATA-LENGTH.
+           DISPLAY  'CURO-OBJECT-DATA       = ' WORKDATA.
+           ADD 1 TO SUB1.
+       810-UO-EXIT.
+           EXIT.
+       820-MOVE-DATA.
+           MOVE CURO-OBJECT-DATA-BYTE(SUB2) TO WORKDATA-BYTE(SUB2).
+       830-MD-EXIT.
+           EXIT.
+       900-USER-COMMENT.
+           DISPLAY  ' '.
+           DISPLAY  'USER RELATED COMMENT FOLLOWS'.
+           DISPLAY  ' '.
+           DISPLAY  'CURC-LENGTH            = ' CURC-LENGTH.
+           DISPLAY  'CURC-NUMERIC-ID        = ' CURC-NUMERIC-ID.
+           DISPLAY  'CURC-VERSION-ID        = ' CURC-VERSION-ID.
+           DISPLAY  'CURC-EYECATCH          = ' CURC-EYECATCH.
+           DISPLAY  'CURC-FLAGS             = ' CURC-FLAGS.
+           DISPLAY  'CURC-ERROR-INDICATOR   = '
+                                               CURC-ERROR-INDICATOR.
+           DISPLAY  'CURC-COMMENT-LENGTH    = '
+                                              CURC-COMMENT-DATA-LENGTH.
+           MOVE SPACES TO WORKDATA.
+           PERFORM 920-MOVE-DATA THRU 930-MD-EXIT
+                    VARYING SUB2 FROM 1 BY 1
+                      UNTIL SUB2 > CURC-COMMENT-DATA-LENGTH.
+           DISPLAY  'CURC-COMMENT-DATA      = ' WORKDATA.
+           ADD 1 TO SUB1.
+       910-UC-EXIT.
+           EXIT.
+       920-MOVE-DATA.
+           MOVE CURC-COMMENT-DATA-BYTE(SUB2) TO WORKDATA-BYTE(SUB2).
+       930-MD-EXIT.
+           EXIT.
+//SYSLIN   DD  DSN=&&OBJSET,UNIT=VIO,SPACE=(80,(200,50)),
+//         DISP=(,PASS)
+//SYSLIB   DD  DSN=UPRFX.UQUAL.COPYLIB,DISP=SHR
+//SYSPRINT DD  SYSOUT=*
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))
+//LINK    EXEC PGM=IEWL,PARM='XREF,LIST,LET,SIZE=(400K,256K)'
+//SYSLIN    DD  *
+  INCLUDE   OBJLIB(CONCOMP)
+  NAME      CONCOMP(R)
+//OBJLIB    DD DISP=(,DELETE),DSN=&&OBJLIB
+//SYSLIB    DD DSN=UPRFX.UQUAL.COB24.VSCLLIB,DISP=SHR
+//SYSLMOD   DD DSN=UPRFX.UQUAL.LOADLIB,DISP=SHR
+//SYSUT1    DD  UNIT=SYSDA,SPACE=(CYL,(1,1))
+//SYSPRINT  DD SYSOUT=*

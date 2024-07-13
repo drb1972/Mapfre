@@ -1,0 +1,35 @@
+)ATTR DEFAULT(%+_)
+ ¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND (\\)
+%TUTORIAL  ---------------  USER DEFAULTS (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+¬SCRAREA                                                                       ¬
+)AREA SCRAREA
+% %FOREGROUND OPTIONS:+
++
+%  JOB STATEMENT INFORMATION FIELDS+- Use these fields to enter
++    JOB card settings for JOBs submitted in batch.
++
+%  SEL LIST ELEMENT COLUMN WIDTH+- Selection list Element or USS file
++    name column width. The range is 8 to 30. The initial value for
++    this field is set from the%&LIT1                 +ENDICNFG
++    Configuration Table parameter. Once the ISPF User Defaults
++    panel is displayed the value entered by the user is saved and
++    restored each time the panel is re-displayed.
++
+%  LAYOUT (L-Long/S-Short)+- For users who do NOT make use of Long element
++    names, and do NOT need USS file support, set the option
++    to%'S'+for%Short.+ This option dynamically modifies the panel to keep
++    the element name in the earlier panel style and hides options they do
++    not need like Uppercase, Case Sensitive, and USS path and file names.
++    Use option%'L'+for%Long+to enable a layout with a long element name at
++    the top (followed by type, CCID and COMMENT where appropriate) and all
++    the mixed case and USS fields visible and active.
++
++    Each user can choose their preferred value but the system administrator
++    sets the site default via the%&LIT2         +ENDICNFG Configuration
++    Table parameter.
+)INIT
+   &LIT1 = 'SEL_LIST_ELM_COL_WIDTH'
+   &LIT2 = 'UI_OPT_ELEMENT'
+)END

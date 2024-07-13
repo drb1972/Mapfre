@@ -1,0 +1,39 @@
+startdef
+tag % sh
+tag + s
+tag _ uh cmd scroll
+tag | sh msg
+TAG & SH ENV SYS SBS TENV TSYS TSUBSYS TSTAGE
+tag @ uh elmsel1
+tag ¢ sh element
+TAG ~ UH TBLNAME
+tag ` sh elmstage
+tag ^ sh elmtyns
+tag $ sh elmvvll
+tag ) sh elmdates
+tag ! sh elmact
+%--------------------------  Element Selection List  ---------------------------
+%COMMAND ===>_                                                %SCROLL ===>_FULL+
+|
++FROM Environment:&        +System:&        +Subsystem:&
++TO   Environment:&        +System:&        +Subsystem:&        +Stage:&
++
++                                               ---- DATES -----   LAST
++  ELEMENT    TO NAME    TYPE    NS STG   VVLL  CURRENT GENERATE  ACTION
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+@ ¢          ~          ^           `    $     )                 !
+enddef

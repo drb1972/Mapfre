@@ -1,0 +1,31 @@
+)ATTR DEFAULT(%+_)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Administration -}-}-
+Option ===>_ZCMD                                             +System ID :$Z   +
+%
+%
+%
+%
+%                          
+%           S SYSTEM      -Define Systems
+%
+%           T TESTSTRM    -Define TestStreams
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+ .ZVARS = 'ZSYSID'
+)PROC
+  &ZSEL = TRANS( TRUNC (&ZCMD,'.')
+         S,'CMD(%PPCADM0 SYSTEM)'
+        SD,'CMD(%PPCADM0 SYSTEM DEBUG)'
+         T,'CMD(%PPCADM0 STREAM)'
+        TD,'CMD(%PPCADM0 STREAM DEBUG)'
+       ' ',' '
+         *,'?' )
+)END

@@ -1,0 +1,28 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The Build WIP Process \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++The first step in using PDM is to build the Work-In-Process (WIP) file.
++PDM produces the WIP file by combining a Root file with one or two
++derivation files, noting all insertions and deletions from the derivation
++files, and flagging conflicting changes.
++
++The Build WIP process produces one or more of the following reports: The
++PDM Syntax Report, PDM Build WIP Detail Report, or the PDM Build WIP
++Summary Report. These reports are discussed in Chapter 6 of the User's Guide.
++
++There are up to five steps in the Build WIP process: Specifying a WIP
++library and build WIP options; Specifying a Root library; Specifying a
++Derivation 1 (Der1) library; Specifying a Derivation 2 (Der2) library
++(optional); Specifying a merge output data set (optional).
++
++    Select%1-6+for information about:
++
+%    1+- Specifying a WIP library   %4+- Specifying a Der2 library
+%    2+- Specifying a Root library  %5+- Specifying a merge output data set
+%    3+- Specifying a Der1 library  %6+- Build WIP reports
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T2000 2,BC1T2100 3,BC1T2200 4,BC1T2300
+                  5,BC1T2400 6,BC1TT610)
+)END

@@ -1,0 +1,17 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ The WIPCHANG Command \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The WIPCHANG command displays only the lines in the WIP file that
++have changed.
++
++To execute the WIPCHANG command, type WIPCHANG in the command field,
++then press ENTER.
++
++Use the WIPCHANG command to assess the condition of the WIP file.
++
++
++
++
++
+)END

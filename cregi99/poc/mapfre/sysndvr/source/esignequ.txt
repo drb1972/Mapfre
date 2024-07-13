@@ -1,0 +1,62 @@
+         MACRO                                                          00000001
+&LABEL   ESIGNEQU                                                       00000002
+         COPY  ESIGLBL                                                  00000003
+         AIF   (&ESITNEQ).MEND                                          00000004
+&ESITNEQ SETB  1                                                        00000005
+         LCLC  &FUNCTBL,&NAMETBL,&VERSION,&GENDATE,&GENTIME
+&FUNCTBL SETC  'FUNCTBL'
+&NAMETBL SETC  'NAMETBL'
+&ESIDLBL SETC  'ESIDFLTS'
+&VERSION SETC  '1'
+&GENDATE SETC  '&SYSDATE'
+&GENTIME SETC  '&SYSTIME'
+&ESIQLBL SETC  'NEQUQUAL'
+.*
+.* THE DEFAULT NAME OF THE TABLE REMAINS BC1TNEQU.  HOWEVER,
+.* IF A LABEL WAS SPECIFIED, THEN THAT NAME IS TO BE USED.
+.*
+&ESINAME SETC  'BC1TNEQU'
+         AIF   ('&LABEL' EQ '').ESI0100
+&ESINAME SETC  '&LABEL'
+.*
+.ESI0100 ANOP
+&ESINAME CSECT                                                          00000006
+         DC    CL8'&ESINAME'                                            00000007
+         DC    CL4' V&VERSION'                                          00000007
+         DC    CL28' DATE(&GENDATE) TIME(&GENTIME)'                     00000012
+         DC    A(NEQUMASK)                                              00000011
+         DC    AL1(&ESIQLBL)
+         DC    AL3(0)
+         DC    A(&ESINAME)
+         DC    A(ESIGNEQU_SIZE)
+         DC    A(&FUNCTBL)                                              00000007
+         DC    A(&NAMETBL)                                              00000008
+         DC    A(&ESIDLBL)                                              00000008
+         DC    3A(0)                                                    00000009
+NAMETBL  DC    A(0)                                                     00000014
+         DC    A(FMTDEF1)                                               00000015
+         DC    A(FMTDEF2)                                               00000016
+         DC    A(FMTDEF3)                                               00000017
+         DC    A(FMTDEF4)                                               00000018
+         DC    A(FMTDEF5)                                               00000019
+         DC    A(FMTDEF6)                                               00000020
+         DC    A(FMTDEF7)                                               00000021
+         DC    A(FMTDEF8)                                               00000022
+         DC    A(FMTDEF9)                                               00000022
+         DC    A(FMTDEF10)                                              00000022
+         DC    A(FMTDEF11)                                              00000022
+         DC    A(FMTDEF12)                                              00000022
+         DC    A(FMTDEF13)                                              00000022
+         DC    A(FMTDEF14)                                              00000022
+         DC    A(FMTDEF15)                                              00000022
+         DC    A(FMTDEF16)                                              00000022
+         DC    A(FMTDEF17)                                              00000022
+         DC    A(FMTDEF18)                                              00000022
+         ESIDFLTS LIST,NAME=&ESIDLBL
+NEQUDSLN EQU   *-&ESINAME               LENGTH OF TABLE
+NEQUMASK DC    Y(NEQUDSLN,NEQU$FLG,NEQU$TYP,NEQU$VER)
+NEQU$FLG EQU   0
+NEQU$TYP EQU   0
+NEQU$VER EQU   &VERSION
+.MEND    ANOP                                                           00000023
+         MEND                                                           00000024

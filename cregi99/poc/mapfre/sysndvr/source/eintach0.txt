@@ -1,0 +1,89 @@
+SECTION  SEPARATION(1) TEST(N) PRINT(N)      /* SECTION DEFINITION      02170000
+                                                                        02180000
+  /******************************************************************** 02190000
+  /* TITLES FOR:                                                      * 02200000
+  /*  ENDEVOR/INFO CROSS REFERNENCE - STAND ALONE ACTIONS             * 02210000
+  /*    CHANGE RECORDS LINE SUMMARY                                   * 02220000
+  /******************************************************************** 02230000
+                                                                        02240000
+  TITLE                                     /* REPORT TITLES            02250000
+    PUT COLUMN(001) VALUE(DATE &ZECDATE)    /* REPORT DATE              02260000
+    PUT COLUMN(027) VALUE(***         ENDEVOR MVS - INFO/MAN ACTION CHA+02270001
+NGE RECORD SUMMARY REPORT     ***)      /* REPORT TITLE                 02280001
+    PUT COLUMN(123) VALUE(PAGE)               /* REPORT PAGE NUMBER     02290000
+    PUT COLUMN(128) VALUE(&ZPAGENO) LENGTH(4) JUSTIFY(R) /* PAGE NUMBER 02300000
+                                                                        02310000
+    PUT COLUMN(027) VALUE(***            STAND ALONE ACTIONS - CCID = R+02311000
+NID = PARENT RECORD           ***)      /* REPORT TITLE                 02312000
+                                                                        02313000
+    PUT COLUMN(001) VALUE(TIME &ZCTIME)      /* REPORT TIME             02320000
+    PUT COLUMN(036) VALUE(---------------------------------------------+02330000
+----------------)                                                       02340000
+    SPACE LINES(2) EXECUTE(U)               /* SPACE 2 LINES            02350000
+  ETITLE                                    /* END TITLE DEFINITION     02360000
+                                                                        02370000
+  /******************************************************************** 02380000
+  /* TITLES FOR:                                                      * 02390000
+  /*   INFO/MAN AND E/MVS RECORDS THAT ARE MAPPED FOR STAND ALONE     * 02400000
+  /*   ACTIONS.                                                       * 02401000
+  /*                                                                  * 02410000
+  /******************************************************************** 02420000
+                                                                        02430000
+  HEADING                                     /* HEADING DEFINITION     02440000
+      PUT COLUMN(001) VALUE(------------------------------------------) 02450000
+      PUT COLUMN(001) VALUE(ACTION LEVEL)     /*                        02460000
+      PUT COLUMN(015) VALUE(INTERFACE)        /*                        02480000
+      PUT COLUMN(025) VALUE(CHANGE)           /*                        02490000
+      PUT COLUMN(032) VALUE(RECORDS)          /*                        02491000
+      PUT COLUMN(001) VALUE(------------------------------------------) 02500000
+      SPACE LINES(1)                                                    02510000
+    PUT COLUMN(058) VALUE(LAST MOD  )                                   02555800
+    PUT COLUMN(068) VALUE(LAST MOD  )                                   02555900
+    PUT COLUMN(078) VALUE(LAST MOD  )                                   02556000
+    PUT COLUMN(088) VALUE(CHANGE    )                                   02556100
+    PUT COLUMN(098) VALUE(APPROVAL  )                                   02556200
+                                                                        02556300
+    PUT COLUMN(001) VALUE(CCID     )                                    02556400
+    PUT COLUMN(012) VALUE(DESCRIPTION OF INFO CHANGE RECORD  )          02556500
+    PUT COLUMN(058) VALUE(USERID    )                                   02556600
+    PUT COLUMN(068) VALUE(DATE      )                                   02556700
+    PUT COLUMN(078) VALUE(TIME      )                                   02556800
+    PUT COLUMN(088) VALUE(STATUS    )                                   02556900
+    PUT COLUMN(098) VALUE(STATUS    )                                   02557000
+                                                                        02557100
+    PUT COLUMN(001) VALUE(---------)                                    02557200
+    PUT COLUMN(012) VALUE(----------------------------------  )         02557300
+    PUT COLUMN(058) VALUE(--------  )                                   02557400
+    PUT COLUMN(068) VALUE(--------  )                                   02557500
+    PUT COLUMN(078) VALUE(--------  )                                   02557600
+    PUT COLUMN(088) VALUE(--------  )                                   02557700
+    PUT COLUMN(098) VALUE(--------  )                                   02557800
+    SPACE LINES(1) EXECUTE(C)                                           02557900
+EHEADING                                                                02558000
+                                                                        02558100
+/*********************************************************************/ 02558200
+/* PROCESSING FOR:                                                   */ 02558300
+/*                  INFORMATION/MVS SEARCH RESULTS LIST REPORT       */ 02558400
+/*                                                                   */ 02558500
+/*********************************************************************/ 02558600
+                                                                        02558700
+  SEARCH  ARGUMENT(!S0B06  TYPE/ACTION)     EXECUTE(C)  MAP(N)         +02558800
+          MERGE(0) SORT(STAC/. RNID/.)       /* GET ALL CHG WITH ACT    02558900
+                                                                        02559000
+/*********************************************************************/ 02559100
+/* DATA FOR:                                                         */ 02559200
+/*            INFORMATION/MVS SEARCH RESULTS LIST REPORT             */ 02559300
+/*                                                                   */ 02559400
+/*********************************************************************/ 02559500
+                                                                        02559600
+PUT COLUMN(001) LENGTH(008) DATA(RNID/.)    /* RECORD ID                02559700
+PUT COLUMN(012) LENGTH(040) DATA(!S0E0F)    /* DESCRIPTION              02559800
+PUT COLUMN(058) LENGTH(8) DATA(USER/.)      /* USERID LAST ALTERED      02559900
+PUT COLUMN(068) LENGTH(8) DATA(DATM/.)      /* DATE LAST ALTERED        02560000
+PUT COLUMN(078) LENGTH(8) DATA(TIMM/.)      /* TIME LAST ALTERED        02560100
+PUT COLUMN(088) LENGTH(8) DATA(STAC/.)      /* TIME LAST ALTERED        02560200
+PUT COLUMN(098) LENGTH(12) DATA(STAP/.)    /* TIME LAST ALTERED         02560300
+SPACE LINES(1) EXECUTE(C)                   /* SPACE ONE LINE           02560400
+                                                                        03090000
+  ESEARCH                                       /* END CHANGE SEARCH    03100000
+ESECTION                                        /* END OF REPORT        03110000

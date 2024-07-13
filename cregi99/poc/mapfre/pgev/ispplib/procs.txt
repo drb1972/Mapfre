@@ -1,0 +1,55 @@
+)ATTR DEFAULT(%+_)
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW)
+   ! TYPE(text) INTENS(LOW) PAD(NULLS) skip(on)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+)BODY
++    ------------- Build DB2 Stored Procedure ------------------------
+%
+%   %Please enter the number of each kind on parameter required.
++   PF3 to return to previous screen.
+%
+ %Information required for Sysprocedures table insert:
++ ----------------------------------------------------
++
++ SMALLINT          ==>$Z !
++ INTEGER           ==>$Z !
++ REAL              ==>$Z !
++ FLOAT             ==>$Z !
++ DOUBLE PRECISION  ==>$Z !
++ DECIMAL           ==>$Z !
++ CHAR              ==>$Z !
++ VARCHAR           ==>$Z !
++ GRAPHIC           ==>$Z !
++ VARGRAPHIC        ==>$Z !
+
+)INIT
+  .HELP = NOHELP
+  .ZVARS = '(DB2SPX01 DB2SPX02 DB2SPX03 DB2SPX04 DB2SPX05 DB2SPX06   +
+             DB2SPX07 DB2SPX08 DB2SPX09 DB2SPX10 )'
+
+  &DB2SPX01 = 0
+  &DB2SPX02 = 0
+  &DB2SPX03 = 0
+  &DB2SPX04 = 0
+  &DB2SPX05 = 0
+  &DB2SPX06 = 0
+  &DB2SPX07 = 0
+  &DB2SPX08 = 0
+  &DB2SPX09 = 0
+  &DB2SPX10 = 0
+
+)PROC
+  VER (&DB2SPX01,NUM)
+  VER (&DB2SPX02,NUM)
+  VER (&DB2SPX03,NUM)
+  VER (&DB2SPX04,NUM)
+  VER (&DB2SPX05,NUM)
+  VER (&DB2SPX06,NUM)
+  VER (&DB2SPX07,NUM)
+  VER (&DB2SPX08,NUM)
+  VER (&DB2SPX09,NUM)
+  VER (&DB2SPX10,NUM)
+
+)END

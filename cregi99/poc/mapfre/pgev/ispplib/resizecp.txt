@@ -1,0 +1,29 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- COPY DATASETS  -{-{-
++OPTION  ===>_ZCMD
++
++
++
++  Copy to DSN..:_ndsn                                       +
++
++  Release space after copy.._z+ (Y/N)
+)INIT
+   .ZVARS  = '(RLSE)'
+   .HELP   = RESIZEH
+   &ZCMD   = ''
+)REINIT
+)PROC
+   ver (&ndsn,NB,dsname)
+   ver (&rlse,list,Y,N)
+   &PFK = .PFKEY
+)END

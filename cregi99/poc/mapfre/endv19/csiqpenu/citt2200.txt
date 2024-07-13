@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Stages \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Stage is the term for a stage in the software life cycle. For
++example, a site may have stages TEST, QA, FIX, and PROD in its life cycle.
++There must be two stages for each environment.
++
++Stages have a name, representing their place in the life cycle (for
++example TEST) and an ID (1 or 2). Stages are referred to as Stage 1
++(the first stage in an environment) and Stage 2 (the second stage
++in an environment).
++
++Stages are defined in the C1DEFLTS table. Stage information is
++displayed on the Stage Information panel.
++
++Stages can be linked together to establish unique promotion routes
++for program inventory within and between environments.  These routes
++make up the map for a site.
++
++   Select%1+-%2+for more on
++
+%    1+- Stage information panel    %2+- Mapping
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITE1000 2,CITT3000)
+)END

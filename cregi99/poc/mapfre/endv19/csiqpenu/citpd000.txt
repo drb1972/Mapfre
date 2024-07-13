@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Options Menu \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use the Destination Options Menu to access panels that allow you to
++create, display, modify, or delete destinations. Do this by typing the
++appropriate number in the OPTION field, then pressing ENTER.
++
++  1+- To display destination information.
++  2+- To create or modify a destination.
++  3+- To delete a destination.
++
++To create a destination, you must specify the destination name on this
++panel (1- to 7-characters).
++
++Otherwise, leaving the DESTINATION field blank returns a Destination
++Selection List when you press ENTER.
++
++
++
++                                            (%PF3+to return)
+)END

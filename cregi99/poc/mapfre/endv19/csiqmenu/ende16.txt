@@ -1,0 +1,22 @@
+ENDE160I 'Used By ENDIE4M '                            .ALARM=NO
+' This element is referenced by no other elements.'
+ENDE161I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! This element is referenced by one element.'
+ENDE162I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! This element is referenced by &EEVETKAC elements.'
+
+ENDE163I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! This element is a component of backed out pkg &EEVXPKG..'
+
+ENDE164I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! This element already exists in the EDIT Entry Stage. '
+ENDE165I 'Used By ENDIE4M '                            .ALARM=NO
+' That copy of the element will be replaced by this copy '
+ENDE166I 'Used By ENDIE4M '                            .ALARM=NO
+' when the element is saved.'
+ENDE167I 'Used By ENDIE4M '                            .ALARM=NO
+' Caution! A NOSOURCE version of this element already exists '
+ENDE168I 'Used By ENDIE4M '                            .ALARM=NO
+' in the edit entry stage. '
+ENDE169E 'F/G Execution ^ Allowed'                     .ALARM=NO
+'Processor Group change; delete processor of current group not allowed in F/G'

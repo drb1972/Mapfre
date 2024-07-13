@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Support for Variable-length Records in Quick Edit Create Action \-\
+%Option ===>_ZCMD                                                 %Version 16.0
++
+%Support for Variable-length Records in Quick Edit Create Action+
++
+ A new attribute is added to the Type definition to define the
+ element record format. The value of this attribute specifies
+ whether the record format is%FIXED, VARIABLE+or%NOT DEFINED.+
+ Administrators can update this value as appropriate using the
+%ELE RECFM+field on the Type Definition panel or by using the
+ SCL%ELEMENT RECFM IS+clause on the batch Define Type action.
+ The default value for existing Type definitions is%NOT DEFINED.+
+
+ In addition, the%Preserve VB record length+option is added to the
+ Endevor Quick Edit Option panel. This option lets you specify
+ whether the ISPF editor preserves the record length in a variable
+ length file when the element is saved in an ISPF Edit session.
+ If a value of N is specified, the trailing spaces are removed.
+
+
+
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT160C0
+)END

@@ -1,0 +1,22 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Expand Includes \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Indicates whether to expand INCLUDE statements in the retrieved
++element. Acceptable values are:
++
+%   N+- Default. Do not expand include statements.
++
+%   Y+- Expand include statements.
++
++
++
++
++
++
++
++
++
++
++                                            (%PF3+ to return)
+)END

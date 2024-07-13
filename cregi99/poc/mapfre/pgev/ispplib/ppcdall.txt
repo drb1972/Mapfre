@@ -1,0 +1,37 @@
+)ATTR DEFAULT(%+_)
+ @ TYPE(OUTPUT) INTENS(HIGH)
+ $ TYPE(OUTPUT) INTENS(LOW)
+ ¢ TYPE(OUTPUT) INTENS(LOW) HILITE(REVERSE) COLOR(PINK)
+ 0D TYPE(PS)
+ 0A TYPE(NT)
+ 11 TYPE(SAC)
+)BODY EXPAND(}})
++-}-}- TestStream Delete & Allocate Datasets -}-}-
+Command ===>_ZCMD                                            +System ID :$Z   +
+%
+%
++            Current TestStream :¢Z +
+%
+%
+%
+%                          
++            Tracker ID To Delete & Allocate TestStream
++                       ===>_Z     +
+%
++            Process Datasets ===>_DELALLOC+(DELETE/ALLOCATE)
+%
+%
++            N.B. ALLOCATE Deletes All Datasets Before Allocating
+%
+%
+%            ENTER+to continue or%PF3/END+to return.
+)INIT
+  .ZVARS = '(ZSYSID STREAMID TRACKER)'
+)REINIT
+  REFRESH DELALLOC
+)PROC
+  VER (&TRACKER,NB,PICT,NNNNNN)
+  &DELALLOC = TRANS (&DELALLOC D,DELETE A,ALLOCATE *,*)
+  VER (&DELALLOC,NB,LIST,DELETE,ALLOCATE)
+  VPUT (TRACKER DELALLOC)
+)END

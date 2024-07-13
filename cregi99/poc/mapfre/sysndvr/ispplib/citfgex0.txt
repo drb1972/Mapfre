@@ -1,0 +1,21 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Foreground Execution \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The foreground execution fields indicate whether the associated
++processor can be executed in foreground. Acceptable values are:
++
+%   Y+- The processor can be executed in foreground.
++
+%   N+- The processor cannot be executed in foreground.
++
++
++
++
++
+
+
+
++
++                                            (%PF3+to return)
+)END

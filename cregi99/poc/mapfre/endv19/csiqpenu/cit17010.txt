@@ -1,0 +1,37 @@
+)BODY EXPAND(\\)
+%\-\ Name Masking Support for the Build SCL Environment Value \-\
+%Option ===>_ZCMD                                                 %Version 17.0+
+%
+%Name Masking Support for the Build SCL Environment Value
++
+ On a Batch Admin Build SCL statement, name masking (wildcards and
+ placeholders) can be used on the Environment value.
+
+%Examples:
++
++BUILD SCL FOR ENV%&LIT1     + TO DDN SCLENV.
++
++BUILD SCL APPROVER GROUP &LIT2
++   FROM ENVIRONMENT%&LIT3   + TO DDN SCLAGR.
++
++BUILD SCL FOR SYSTEM &LIT4
++   FROM ENVIRONMENT%&LIT5   + TO DDN SCLSYS.
++
++BUILD SCL FOR TYPE 'AS*'
++   FROM ENVIRONMENT%&LIT6   + SYSTEM &LIT7    STAGE ID &LIT8
++   INCLUDE SUBORDINATES TO DDN SCLTYP.
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
++
+)INIT
+ &LIT1 = 'D%%J*'
+ &LIT2 = 'A*'
+ &LIT3 = 'P%D*'
+ &LIT4 = 'SYS%E*'
+ &LIT5 = 'DEV%%A*'
+ &LIT6 = 'QA%E%V*'
+ &LIT7 = 'S%S*'
+ &LIT8 = '%'
+)PROC
+   &ZCONT = CIT17020
+)END

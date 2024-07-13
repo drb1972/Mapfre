@@ -1,0 +1,26 @@
+%TUTORIAL  ---------------  USER DEFAULTS (continued)  ---------------  TUTORIAL
+%OPTION  ===>_ZCMD                                                             +
+
+  %WORK DATA SET ALLOCATION INFORMATION FIELDS:+ Contain information
+   that defines the default allocation for your work areas.
+
+   The Endevor administrator should set the minimum value of the
+   'Primary Quantity + Secondary Quantity + Space Unit' combination.
+   User is not allowed to use a lower value than that.
+    %Primary Quantity+- The number of units of space in the primary
+                        allocation.
+    %Secondary+-        The number of units of space in each secondary
+    %Quantity+          allocation.
+    %Space Units+-      Units in which space is allocated (CYL or TRK).
+                        1 CYL = 15 TRK.
+    %Unit Name+-        Descriptive name of the disk device.  Specify
+                        any appropriate value in the UNIT= parameter of
+                        DD (JCL) statements at your site.
+    %Volume Serial+-    The volume serial number of the specific device
+                        you want to use for your work areas.  Leave this
+                        field blank to use the installation default.
+
+                          %(Hit ENTER to continue)+
+)PROC
+   &ZCONT = CITO0020
+)END

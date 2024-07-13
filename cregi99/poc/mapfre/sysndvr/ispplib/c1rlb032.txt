@@ -1,0 +1,30 @@
+startdef
+tag % sh
+tag + s
+tag _ muh cmd env sys sbs element type stage comment
+tag _ muh ccid wpgrp
+tag | sh msg s1id s2id
+tag ¢ s s1name s2name dislist
+tag & muh accid copyback override pgrp
+%-----------------------------  Generate Elements  -----------------------------
+%OPTION  ===>_   +
+|
+%                             +Element Display Options:
+%   blank+- Element list         %S+- Summary  %B+- Browse   %H+- History
+%   G+- Generate element         %M+- Master   %C+- Changes
++
++FROM LOCATION:                      ACTION OPTIONS:
++  ENVIRONMENT %===>_        +          CCID            %===>&            +
++  SYSTEM      %===>_        +          COPYBACK        %===>&N+ (Y/N)
++  SUBSYSTEM   %===>_        +          OVERRIDE SIGNOUT%===>&N+ (Y/N)
++  ELEMENT     %===>_          +        PROCESSOR GROUP %===>&         +
++  TYPE        %===>_        +
++  STAGE       %===>_ +      | +-¢            | +-¢
++
++  COMMENT           %===>_                                        +
++
++LIST OPTIONS:
++  DISPLAY LIST      %===>¢Y+ (Y/N)
++  WHERE CCID EQ     %===>_            +
++  WHERE PROC GRP EQ %===>_        +
+enddef

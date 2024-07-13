@@ -1,0 +1,45 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(TEXT) INTENS(&VARPKCIT)
+   \ TYPE(TEXT) INTENS(&VARPKCIO)
+   ~ TYPE(OUTPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) INTENS(HIGH)
+)BODY
+%COMMIT ---------------------  COMMIT PACKAGE  ---------------------------------
+%OPTION  ===>_VARWKCMD                                                         +
++
++  %C+- Commit Package                   \I ^- Display Correlation Information
++
++ACTION OPTIONS:
++DELETE PROMOTION HISTORY%===>¢Z+(Y/N)
++
++PACKAGE ID:|VPHPKGID        +            STATUS:|VPHSTAT     +
++DESCRIPTION: ~VPHCOMM                                           +
++PACKAGE TYPE:|VPHTYPE   +                PROMOTION PACKAGE:|VPHPROM   +
++SHARABLE PACKAGE:|Z+
++EXECUTION WINDOW FROM:|Z      |Z    +    TO:|Z      |Z    +
++
++              USER ID  DATE    TIME
++CREATED:     |VPHCRUID|Z      |Z    +
++LAST UPDATED:|VPHPUUID|Z      |Z    +
++CAST:        |VPHCUID |Z      |Z    +
++APPROVED:             |Z      |Z    +
++EXECUTED:    |VPHXUID |Z      |Z    +         RC:|Z    +|Z         +
++BACKED OUT:  |VPHOUID |Z      |Z    +
++BACKED IN:   |VPHIUID |Z      |Z    +
++
+)INIT
+  .HELP = CITP7000
+  .ZVARS = '( VNBDPHIS VPHPSHR                                    +
+              VPHWSD VPHWST VPHWED VPHWET                         +
+              VPHCRD VPHCRT                                       +
+              VPHPUD VPHPUT VPHCD  VPHCT                          +
+              VPHAD VPHAT VPHXD VPHXT VPHXRC VPHBSTAT             +
+              VPHOD VPHOT VPHID VPHIT )'
+)PROC
+)END

@@ -1,0 +1,18 @@
+)ATTR DEFAULT(%+_)
+  ! TYPE(INPUT) INTENS(LOW) PAD(' ')
+  ¢ TYPE(OUTPUT) INTENS(LOW)
+)BODY EXPAND(\\)
+%\-\  SELECT ELEMENT OF TYPE &TYPE \-\
+%COMMAND ===>_ZCMD                                         \ \%Scroll ===>_amt +
+%
+%   Walker name                   Alias    Description
+)MODEL ROWS(ALL)
+!z+¢z                            ¢z       ¢z
+)INIT
+    .ZVARS = '(sel,ele,ndvele,desc)'
+    &sel = &z
+    &amt = PAGE
+    &zcmd = &z
+)PROC
+ vput (ele ndvele ztdsels zcmd)
+)END

@@ -1,0 +1,25 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Files \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++To use PDM effectively, you should be familiar with the definitions
++of the following PDM files: the Root file; Derivation 1 and Derivation 2
++files; the Work-In-Process (WIP) file; the Merge Output file; the Merge
++Output Endevor element; and the Statistics file.
++
++A%Root+file refers to the base program with which programmers are
++working. Derivation 1 and Derivation 2 files are derived from this
++program. For example, the Root might be Release 1.0 of a vendor product;
++Derivation 1, your modifications to the product; and Derivation 2 the
++vendor's new release (1.1) of the product.
++
+%Derivation 1+and%Derivation 2+files are user specified modifications
++of the Root file. PDM builds the Work-In-Process (WIP) file by
++comparing the Root, the Derivation 1 and, optionally, the Derivation 2
++files.
++
++
++                                            (%ENTER+to continue )
+)PROC
+   &ZCONT = BC1TT410
+)END

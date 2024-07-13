@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ Integrated PDM Enhancement \-\
+%Option ===>_ZCMD                                                 %Release 12.0+
++
+% Integrated PDM Enhancement +
+
++ The Integrated PDM Enhancement allows for the result of a Parallel
+  Development Manager (PDM) merge to be placed directly into an Endevor
+  inventory location, retaining the original derivation's CCID, Comment,
+  timestamp and User ID in the resulting, merged element.
+
+  An additional feature of this enhancement is to be able to initiate
+  PDM from within the Quick-Edit environment, without exiting
+  Quick-Edit, and to then return to the Quick-Edit session after the PDM
+  session is complete.
+
+
+
+
+
+%\*\+Refer to the%CA Endevor SCM+documentation%\*\
++\ \ for detailed information. \ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15100
+)END

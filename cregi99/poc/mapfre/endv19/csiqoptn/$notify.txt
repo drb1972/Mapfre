@@ -1,0 +1,132 @@
+         MACRO
+&NAME    $NOTIFY &DSECT=YES
+         AIF   ('&DSECT' NE 'YES').SKPDSECT
+$NOTIFY  DSECT
+         AGO   .SKPEQU
+.SKPDSECT ANOP
+$NOTIFY  DS    0F
+.SKPEQU  ANOP
+**********************************************************************
+*                                                                    *
+*         $NOTIFY - USER EXIT BLOCK FOR BUILDING NOTIFICATION        *
+*                   MESSAGES. USER EXIT FILLS IN THE DATA AND THEN   *
+*                   CALLS THE ENDEVOR NOTIFICATION UTILITY PGM       *
+*                   BC1PNTFY.                                        *
+*                   11/15/90                                         *
+*                                                                    *
+**********************************************************************
+NOTLEN   DC    AL2(NOTSIZE)        LENGTH OF THE BLOCK                  00160019
+NOTVERS  DC    AL2(NOT$VERS)       CURRENT VERSION OF THE BLOCK         00170019
+NOT$VERS EQU   1                       VERSION 1                        00180019
+NOTID    DC    CL4'$NOT'           BLOCK ID                             00190019
+**********************************************************************
+*  SELECT NOTIFY TYPE                                                *
+**********************************************************************
+NOTFTYPE DC    CL8' '              NO DEFAULT
+*        DC    CL8'TSO'
+*        DC    CL8'TPX'
+*        DC    CL8'XMIT'
+*        DC    CL8'SMTP'
+*        DC    CL8'SMTPF'         CALL FMAILRUTN (FIND USERID
+*                                      AND MAIL  ADDRES IN ESMTPTBL)
+**********************************************************************
+*  SET MESSAGE TEST AND LENGTH                                       *
+**********************************************************************
+NOTMSGTX DC    CL80' '              MAX MSG LENGTH = 80
+**********************************************************************
+*  GENERIC ID FIELD                                                  *
+**********************************************************************
+NOTFUSER DC    CL8' '               NO DEFAULT
+*
+**********************************************************************
+*  TSO SPECIFIC ATTRIBUTES                                           *
+*  MESSAGE ATTRIBUTE WIL DEFAULT TO NOW.                             *
+**********************************************************************
+NTSOALLU DC    C'N'                 SET 'ALL' USERS OPTION
+NTSOLOGN DC    C'Y'                 SET 'LOGON ' ATTR
+NTSOSAVE DC    C'N'                 SET 'SAVE' ATTR
+**********************************************************************
+*  TPX SPECIFIC VALUES                                               *
+**********************************************************************
+NTPXJOBN DC    CL8' '               NO DEFAULT,NAME OF STARTED TASK
+**********************************************************************
+*  TPX SPECIFIC ATTRIBUTES                                           *
+*  THE MESSAGE ID TYPE WILL DEFAULT TO USERID.                       *
+*  TO USER OTHER OPTION SET THE NTPXTYPE FIELD TO PROPER VALUE.      *
+*  TO SEND TO ALL USERS, SET THE NTPXTYPE TO BLANKS, AND THE         *
+*  NTPXALL FIELD TO C'Y'.                                            *
+**********************************************************************
+NTPXTYPE DC    C'U'                 USERID OPTION ( DEFAULT)
+*   POSSIBLE VALUES
+*   FOR USERID - U
+*   FOR LISTID - L
+*   FOR TERMID - T
+*   FOR APPLID - A
+*   FOR SESSID - S
+NTPXALL  DC    C'N'                 ALL OPTION
+NTPXSAVE DC    C'Y'                 SET THE SAVE OPTION
+NTPXBREK DC    C'N'                 NSET THE BREAK IN OPTION
+**********************************************************************
+*  XMIT SPECIFIC VALUES                                              *
+**********************************************************************
+NXMTNODE DC    CL8' '               NJE NODE
+**********************************************************************
+*  ERROR MESSAGE FIELD FROM THE NOTITY UTILITY                       *
+*  WILL BE BLANKS IF R15=00                                          *
+**********************************************************************
+NOTERMSG DC    CL132' '             ERROR MESSAGE FIELD
+**********************************************************************
+NXMTUNON DC    C'N'                 XMIT - USE NONOTIFY - N(O) Y(ES)
+         DS    0F
+NOTMSGCP DS    A                    ADDR OF LAST  MSG IN CHAIN
+NOTMSGLP DS    A                    ADDR OF FIRST MSG IN CHAIN
+*  FOR NOTMSGSVF='F' THIS IS THE POINTER TO START OF A MSG CHAIN.
+*  EACH ENTRY IN THE CHAIN IS 84 BYTES IN LENGTH.
+*  THE 4 BYTES PRECEEDING EACH ENTRY CONTAIN THE ADDRESS OF THE NEXT
+*  ENTRY. NULL FOR THE LAST ENTRY.
+*
+*  FOR NOTMSGSVF='V' THIS IS THE START ADDRESS IF A MSG CHAIN.
+*  EACH ENTRY BEING 4+2+NN IN LENGTH.
+*  THE 4 BYTES PRECEEDING EACH ENTRY CONTAIN THE ADDRESS OF THE NEXT
+*  ENTRY. NULL FOR THE LAST ENTRY.
+*  THE 2 BYTES PRECEEDING EACH ENTRY CONTAIN THE LENGTH OF THIS ENTRY.
+*
+NOTCPID  DS    A                    CPID FOR CPOOL
+*                                      MSG FORMAT:
+*                                         A(NEXT MSG TEXT) OR A(0)
+*                                         CL80'MSG TEXT'
+NOTSMTPM DS    A                    PTR TO HLFWRD LNG, FOLLOWED BY TXT  T
+*                                   (OVERRIDES NOTMSGTX * NOTMSGLP)
+*                                   (NOTSMTPM IS AVAILABLE FOR SMTP
+*                                   TRANSMISSION ONLY)
+NOTMSGVF DS    C                    (V) VARIABLE MESSAGE FORMAT
+         DS    C                    ** RESERVED **
+NOTMSGMX DS    H                    MAXIMUM MSG LENGTH IF VARIABLE FMT
+NOTSMTPS DC    CL50' '              EMAIL SUBJECT TEXT
+NOTSMTPN DC    CL8' '               ** RESERVED **
+NOTSMTPC DC    CL1' '               ** RESERVED **
+         DS    0F
+NOTMAIL@ DS    A                    POINTER TO EMAIL ADDRESS
+NOTURL@  DS    A                    POINTER TO URL
+NOTRC    DS    A                    RETURN CODE FROMBC1PNTFY
+*                              =0 : USER FOUND IN ESMTPTBL
+*                              =4 : USER NOT FOUND IN ESMTPTBL
+*                                    DFTID=USERID DEFINED
+*                              =8 : USER NOT FOUND IN ESMTPTBL
+NOTPTR@  DS    A                    @ ==>  NEXT $NOTIFY BLOCK
+NOTAPGID DS    CL16                 APPROVER GROUP ID
+NOTFROM@ DC    A(0)                 ==> ADDRESS OF FROM VALUE
+*                                       AREA OF 50 CHARACTERS
+*                                       NO IMBEDDED SPACES ALLOWED
+NOTATSIGN DC   X'00'                ATSIGN VALUE
+         DC    XL3'00'              ** RESERVED **
+NOTUIURL@ DC   A(0)                 POINTER TO UI URL
+         DC    XL21'00'             ** RESERVED **
+NOTFOPT  DS    C                    WHICH NOTIFY OPTION FOR EXIT7
+         DC    XL2'00'              ** RESERVED **
+*                                   1 - DEFAULT
+*                                   2 - USERID
+*                                   3 - WHATEVER
+NOTFOPTA DC    A(0)                 ADDRESS OF DATA ASSOC WITH NOTFOPT
+NOTSIZE EQU    *-$NOTIFY
+         MEND

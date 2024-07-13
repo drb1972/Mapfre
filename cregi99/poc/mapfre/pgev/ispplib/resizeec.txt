@@ -1,0 +1,31 @@
+)ATTR
+    + TYPE(TEXT)   COLOR(green)           INTENS(LOW) SKIP(ON)
+    $ TYPE(TEXT)   COLOR(YELLOW)          INTENS(LOW) SKIP(ON)
+    ! TYPE(TEXT)   COLOR(blue)            INTENS(LOW) SKIP(ON)
+    ¢ TYPE(TEXT)   COLOR(white)           INTENS(LOW) SKIP(ON)
+    _ TYPE(INPUT)  COLOR(RED)    CAPS(ON) INTENS(HIGH) JUST(LEFT) PAD(_)
+    ¯ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+    " TYPE(OUTPUT) COLOR(RED)    CAPS(OFF)
+    ` TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF)
+    @ TYPE(OUTPUT) COLOR(BLUE)   CAPS(OFF) JUST(RIGHT)
+)BODY EXPAND({{)
+!-{-{- DATASET IN USE -{-{-
++OPTION  ===>_ZCMD
++
++  The dataset that you requested to compress is in use.
++
++  If you choose to compress while it is in use you could cause issues
++  for tasks with an enq on the datset.
++
++  DISP=OLD or DISP=SHR?.........:_Z+ (O/S)
++
+)INIT
+   .ZVARS  = '(enqtype)'
+   .HELP   = RESIZEH
+   &enqtype = ''
+   &ZCMD   = ''
+)REINIT
+)PROC
+   ver (&enqtype,NB,LIST,O,S)
+   &PFK = .PFKEY
+)END

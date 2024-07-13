@@ -1,0 +1,15 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Editing WIP Files \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Programmers edit the WIP File to resolve annotated conflicts. Editing
++tools provided by PDM allow a project team to try out different edit
++scenarios before actually integrating the changes in the WIP file.
+
++    Select%1-2+for information about
++
+%    1+- WIP file annotations       %2+- PDM editing tools
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,BC1T1520 2,BC1T1530)
+)END

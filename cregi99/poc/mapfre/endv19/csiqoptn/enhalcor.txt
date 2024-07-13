@@ -1,0 +1,79 @@
+         MACRO
+         ENHALCOR &DSECT=YES
+         SPACE ,
+         ENHAAID# ,                    API ID DEFINITIONS
+         SPACE 3
+***********************************************************************
+*
+*        LIST CORRELATION RECORDS - REQUEST BLOCK
+*
+***********************************************************************
+ALCOR_VER       EQU 1                  CONTROL BLOCK VERSION
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALCOR_VER,          CONTROL BLOCK VERSION           X
+               EYE='LCOQ',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALCOR_RQ
+         SPACE ,
+ALCOR_RQ_DATA     DS X                 BEGINNING OF DATA AREA
+         ORG      ALCOR_RQ_DATA
+ALCOR_RQ_PKGID    DC CL16' '           PACKAGE ID
+ALCOR_RQ_TYPE     DC CL1' '            CORRELATION TYPE
+ALCOR_RQ_TYPE$H   EQU C'H'                HARVEST
+ALCOR_RQ_TYPE$I   EQU C'I'                INFOMAN
+ALCOR_RQ_TYPE$U   EQU C'U'                USER DEFINED
+*                 RESERVED AREA
+ALCOR_RQ_RESERVE  DC CL3' '            ** RESERVED **
+                  DS 0X
+ALCOR_RQ_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALCOR_RQ_VER#1_DATADSLN EQU *-ALCOR_RQ_DATA
+ALCOR_RQ_VER#1_DSLN     EQU *-ALCOR_RQ
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALCOR_RQ_DATADSLN EQU *-ALCOR_RQ_DATA
+ALCOR_RQ_DSLN     EQU *-ALCOR_RQ
+         ORG      ALCOR_RQ_DATA
+ALCOR_RQ_DATAAREA DS XL(ALCOR_RQ_DATADSLN)     DATA AREA
+         SPACE 3
+***********************************************************************
+*
+*        LIST CORRELATION RECORDS - RESPONSE BLOCK
+*
+***********************************************************************
+         SPACE ,
+         ENHAAPFX DSECT=&DSECT,                                        X
+               VER=ALCOR_VER,          KEEP VERSION NUMBERS IN SYNC    X
+               EYE='LCOS',             CONTROL BLOCK EYE-CATCHER       X
+               PREFIX=ALCOR_RS
+         SPACE ,
+ALCOR_RS_DATA@    DS X                 BEGINNING OF DATA AREA
+         ORG      ALCOR_RS_DATA@
+ALCOR_RS_PKGID    DC CL16' '           PACKAGE ID
+ALCOR_RS_TYPE     DC CL1' '            CORRELATION TYPE
+ALCOR_RS_TYPE$H   EQU C'H'                HARVEST
+ALCOR_RS_TYPE$I   EQU C'I'                INFOMAN
+ALCOR_RS_TYPE$U   EQU C'U'                USER DEFINED
+                  DC CL3' '            ALIGNMENT
+ALCOR_RS_SEQNO    DC F'0'              RPT LINE SEQUENCE NUMBER
+ALCOR_RS_SITE     DC CL1' '            SITE ID
+ALCOR_RS_RUD      DC CL7' '            LAST UPDATE DATE (DDMMMYY)
+ALCOR_RS_RUT      DC CL5' '            LAST UPDATE TIME (HH:MM)
+ALCOR_RS_RUU      DC CL8' '            USERID ASSOC WITH LAST UPDATE
+ALCOR_RS_CORRID   DC CL32' '           CORRELATION ID
+ALCOR_RS_DATA     DC CL80' '           CORRELATION DATA
+                  DC CL3' '            ALIGNMENT
+                  DS 0X
+ALCOR_RS_X        DS 0F                LABEL NEEDED FOR CHDR GEN
+         SPACE ,
+ALCOR_RS_VER#1_DATADSLN EQU *-ALCOR_RS_DATA@
+ALCOR_RS_VER#1_DSLN     EQU *-ALCOR_RS
+         SPACE ,
+.* ADD VERSION 2 FIELDS AFTER THIS POINT
+         SPACE ,
+ALCOR_RS_DATADSLN EQU *-ALCOR_RS_DATA@
+ALCOR_RS_DSLN     EQU *-ALCOR_RS
+         ORG      ALCOR_RS_DATA@
+ALCOR_RS_DATAAREA DS XL(ALCOR_RS_DATADSLN)     DATA AREA
+         MEND

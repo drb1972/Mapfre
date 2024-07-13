@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ "TO" Element name \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The Add new name panel appears when you select the%AN+option
++from the USS file selection panel.
++
+%From USS file+- The USS file name you selected on the previous panel
+        carries forward and is display. If the name is greater than
+        51 characters you can use the scroll keys or the%ZEXPAND+command
+        to display the entire value.
+
+%To Element+- The 1 to 255 character name of the To Element. The From
+        USS file name is placed into the To Element field as a default.
+        You can then modify the value as necessary. Five 51 character
+        lines are provided to enter the value.
+
+%UPPERCASE+- Indicates if the name coded in the To Element name
+     field should be accepted as entered or uppercased.
+     Y - Uppercase the value coded prior to processing the action.
+     N - Use the Element name exactly as coded.
+
+
++\ \ (Press%PF3+to return) \ \
+)PROC
+)END

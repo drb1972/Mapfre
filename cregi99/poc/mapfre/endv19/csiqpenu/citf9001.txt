@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Transfer - Dialog Options \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
+%Blank+- Use this option to return an Element selection list. This
++        applies when DISPLAY LIST=Y.
++
+%T    +- Transfer action request. The transfer action cannot be
++        used when the From Element is a source-less element. Source-
++        less elements are created by the Generate NOSOURCE action.
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%PF3+to return or%ENTER+for Element Display Options) \ \
+)PROC
+   &ZCONT = CITDOPT0
+)END

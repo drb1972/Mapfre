@@ -1,0 +1,6 @@
+CIEV160 'Library Not Allowed'                           .ALARM=YES
+'The library cannot be specified. Processor support was not purchased'
+CIEV161 'Invalid USS delimiter'                         .ALARM=YES
+'The USS record delimiter specified is invalid                       '
+CIEV162 'Invalid data set type'                         .ALARM=YES
+'Valid data set type values are D (Data set) and U (USS)'

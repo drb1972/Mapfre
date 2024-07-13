@@ -1,0 +1,12 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Merge Output Specification Panel \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++Use the Merge Output Specification Panel to identify where you want to
++place the merged output.
++
+%Merge to+- Indicates whether you want the merged output to be in a
++    data set, option%D,+or in an Endevor location, option%E.+
+
+)PROC
+)END

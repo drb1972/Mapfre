@@ -1,0 +1,24 @@
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%Command ===>_ZCMD                                                             +
++
++Use the Quick Edit Action Prompt panel to provide a CCID and/or
++a comment to complete a Quick Edit request.
++
++A CCID must conform to syntax rules.
++
++A comment can have 1-40 characters, and cannot include imbedded
++single quotation marks.
++
++
++
++
++
++
++
++
++
++
++
++                                       (%END+to return)
+)END

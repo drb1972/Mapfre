@@ -1,0 +1,8 @@
+@REM ****************************************************** #PSLOCL8 ***
+@REM *    CONTENTS: ENDEVOR/MVS - FINISH PROCESSING DESTINATION
+@REM * TRANSMITTER: LOCAL (SHARED DASD) TRANSFER
+@REM *     PURPOSE: SUBMIT ARJOB DATASET FOR EXECUTION VIA TSO.
+@REM *******************************************************************
+@REM
+@PASS=10
+@INCLUDE=(E)

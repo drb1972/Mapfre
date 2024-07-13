@@ -1,0 +1,25 @@
+)ATTR DEFAULT(%+_)
+ @ AREA(SCRL) EXTEND(ON)
+)BODY EXPAND(\\)
+%\-\  Build Generol Migration File \-\
+%COMMAND ===>_ZCMD
+@SAREA1                                                                       @
+)AREA SAREA1
++  This panel will build a one or two members containing
++  the Gener/OL migration syntax used to migrate components from
++  one SGTLIB to another.
++
++  It will then add the add the members to Endevor so they can be used
++  to promote the Gener/OL components from Unit Test onwards.
++
++  The following fields must be completed:
++
++  Infoman Change Record Number: Format must be C0nnnnnn
++
++  AD Application Team:          List of valid teams are:
++                                HO - Home, MO - Motor, TV - Travel,
++                                PT - Pet, HR - Home Resc, CL - Claims
++                                AC - Accounts, WB- Web, LF - Life
++                                FS - Financial Services
+)PROC
+)END

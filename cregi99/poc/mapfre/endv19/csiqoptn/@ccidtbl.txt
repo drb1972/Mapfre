@@ -1,0 +1,45 @@
+          MACRO
+          @CCIDTBL &ENV=,&SYSTEM=,&CCID=,&ENTRY=
+          GBLB &FIRST
+.**********************************************************************
+.*   CHECK IF ENTRY= SPECIFIED                                        *
+.**********************************************************************
+          AIF  ('&ENTRY' EQ 'END').RTN200
+          AIF  (K'&ENTRY NE 0).ERR100
+.**********************************************************************
+.*   VALIDATE PARAMETERS                                              *
+.**********************************************************************
+          AIF  (K'&ENV EQ 0 OR K'&ENV GT 8).ERR101
+          AIF  (K'&SYSTEM EQ 0 OR K'&SYSTEM GT 8).ERR102
+          AIF  (K'&CCID EQ 0 OR K'&CCID GT 12).ERR103
+.**********************************************************************
+.*   FIRST TIME LOGIC                                                 *
+.**********************************************************************
+          AIF  (&FIRST).RTN100
+&FIRST    SETB 1
+CCIDTBL   CSECT
+.**********************************************************************
+.*   GENERATE CCID TABLE                                              *
+.**********************************************************************
+.RTN100   ANOP
+          DC   CL4'CCID',CL8'&ENV',CL8'&SYSTEM',CL12'&CCID'
+          MEXIT
+.RTN200   ANOP
+          DC   CL4'CCID',XL28'00'       END OF TABLE INDICATOR
+          END
+          MEXIT
+.**********************************************************************
+.*   ERRORS                                                           *
+.**********************************************************************
+.ERR100   ANOP
+          MNOTE 12,'ENTRY=END MUST BE SPECIFIED AS LAST CARD IN TABLE'
+          MEXIT
+.ERR101   ANOP
+          MNOTE 12,'ENV= PARAMATER MUST BE 1 TO 8 CHARACTERS'
+          MEXIT
+.ERR102   ANOP
+          MNOTE 12,'SYSTEM= PARAMATER MUST BE 1 TO 8 CHARACTERS'
+          MEXIT
+.ERR103   ANOP
+          MNOTE 12,'CCID= PARAMATER MUST BE 1 TO 12 CHARACTERS'
+          MEND

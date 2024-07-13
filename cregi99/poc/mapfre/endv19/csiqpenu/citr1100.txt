@@ -1,0 +1,26 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Master Control File Reports \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++To use this panel
++
++  1. Type an alphanumeric character in the selection field for the
++        reports you want to generate.
++
++  2. Specify the inventory location for which you want the report(s).
++      * ENVIRONMENT is required, all other fields are optional.
++      * DAYS applies only to Reports 04 and 05.
++
++  3. If you want Reports 01-08, 09, or 12 to contain information from
++        all map locations, specify SEARCH ENVIRONMENT MAP=Y.
++
++If you specify SEARCH ENVIRONMENT MAP=Y:
++
++  * The specified location is the starting point for the report.
++
++  * The report is organized by system, and within systems by environment.
++
++                            (%PF3+to return,%ENTER+for more on mapping)
+)PROC
+   &ZCONT = CITT3000
+)END

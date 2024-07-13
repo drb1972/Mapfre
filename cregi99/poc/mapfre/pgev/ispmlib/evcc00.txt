@@ -1,0 +1,2 @@
+EVCC001E 'CCID/Com not updated'                         .ALARM = YES
+'CCID/Com not updated - Element found but is at the end stage'

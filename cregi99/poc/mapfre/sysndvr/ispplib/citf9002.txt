@@ -1,0 +1,18 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Transfer - Action Options \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+%
++
++    Select%1+-%9+for information about Transfer options
++
+%    1+- CCIDs and Comments         %6+- Sync
+%    2+- Delete from element        %7+- With history
+%    3+- Generate Element           %8+- Retain signout
+%    4+- Override signout           %9+- Signout to
+%    5+- Processor group
+
+
+)PROC
+   &ZSEL = TRANS(&ZCMD 1,CITCCID0 2,CITBYED0 3,CITBYGP0 4,CITORSO0
+                 5,CITPGRP0 6,CITSYNC0 7,CITWHIS0 8,CITRTSO0 9,CITSOTO0)
+)END

@@ -1,0 +1,42 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)
+   ¢ TYPE(OUTPUT) INTENS(LOW)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY
+%Build  -----------------  Create/Modify Connection  ---------------------------
+%Option  ===>_VARWKCMD                                                         +
++
++  %blank+- Build Connection         %D+- Display DSN Mapping Rules for Update+
++  %    C+- Create DSN Mapping Rule  %T+- Test DSN Mapping Rules              +
++
++
++Connection ID:¢VNBSSDST+
++Description%===>~VDDDESCR                      +
++Server LU Name%===>_VDDXNODE+
++
++
++Staging Data Set Info:      For Host Site                               +
++    DSN Prefix             %===>_VDDHSPFX      +
++    Disposition            %===>_Z     +
++    Unit                   %===>_VDDHUNIT+
++    Volume Serial          %===>_Z     +
++
++                                                                           +
++                                                                           +
++                                                                           +
++                                                                           +
++
++Updated:¢Z      ¢Z    +by¢VDDUUSER+     +Created:¢Z      ¢Z    +by¢VDDCUSER+
+)INIT
+  .HELP = CITPC20M
+    .ZVARS = '( VDDHDISP +
+                VDDHVSER +
+                VDDUPDAT VDDUPTIM +
+                VDDCRDAT VDDCRTIM )'
+)PROC
+)END

@@ -1,0 +1,49 @@
+)ATTR DEFAULT(%+_)
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 2023 Broadcom. All rights reserved.                     */
+/*-----------------------------------------------------------------------*/
+¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+| TYPE(OUTPUT) INTENS(LOW)
+_ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+@ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF)
+$ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(OFF) NUMERIC(ON)
+{ TYPE(PS)
+¬ AREA(SCRL)  EXTEND(ON)
+)BODY EXPAND(\\) CMD() WINDOW(46,15)
+%\-\ Search Progress \-\
++
++ The search is taking a longer time,
++ do you want to continue?
++
++ Searched elements:  ¢SEACNT  +
++ Remaining elements: ¢REMCNT  +
++ Matches found:      ¢FNDCNT  +
++
++ Elapsed time:            ¢ELAPSED   +
++ Estimated time remaining:¢REMAIN    +
++
++ Press%ENTER+to continue or%END+to cancel.
+)INIT
+    .HELP = ENDHE165
+    &SEACNT = ' '
+    &REMCNT = ' '
+    &FNDCNT = ' '
+    &ELAPSED = ' '
+    &REMAIN = ' '
+*REXX(*,EEFTTCNT,EEFTSCNT,EEFTFCNT,EEFTETIM)
+SEACNT = EEFTSCNT + 0
+FNDCNT = EEFTFCNT + 0
+REMCNT = EEFTTCNT - EEFTSCNT
+hh =   EEFTETIM % 3600
+mm = ( EEFTETIM // 3600 ) % 60
+ss = ( EEFTETIM // 3600 ) // 60
+ELAPSED = right(hh,2,"0")":"right(mm,2,"0")":"right(ss,2,"0")
+REMAIN = (EEFTETIM * REMCNT) % SEACNT
+hh =   REMAIN   %  3600
+mm = ( REMAIN   // 3600 ) % 60
+ss = ( REMAIN   // 3600 ) // 60
+REMAIN = right(hh,2,"0")":"right(mm,2,"0")":"right(ss,2,"0")
+*ENDREXX
+)PROC
+    IF (&ZCMD = 'END') .RESP = END
+)END

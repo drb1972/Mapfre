@@ -1,0 +1,138 @@
+)ATTR
+/*-----------------------------------------------------------------------*/
+/* Copyright (C) 1986-2013 CA. All Rights Reserved.                      */
+/*-----------------------------------------------------------------------*/
+ ¢ TYPE(OUTPUT) INTENS(HIGH)
+ @ TYPE(OUTPUT) INTENS(LOW)
+ _ TYPE(INPUT) INTENS(HIGH) PADC(_) CAPS(ON)
+ ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI) PADC(_)
+ ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM) PADC(_)
+ ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES) PADC(_)
+)BODY
+%------------------------- Component Selection List ----------------------------
+%Command ===>_VARWKCMD                                        %Scroll ===>_AMT +
++
++  Element Options:
++  %L+Browse Member
++
++   Member   Step     Ddname   Dsname
++ - -------- -------- -------- --------------------------------------------
+)MODEL
++_Z@Z       @Z       @Z       @Z                                           +
+)INIT
+/* Start code for ESORT */
+VGET (ZSCREEN)
+  IF (&ZSCREEN = 1)
+    &PANELID1 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID1) PROFILE
+  IF (&ZSCREEN = 2)
+    &PANELID2 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID2) PROFILE
+  IF (&ZSCREEN = 3)
+    &PANELID3 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID3) PROFILE
+  IF (&ZSCREEN = 4)
+    &PANELID4 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID4) PROFILE
+  IF (&ZSCREEN = 5)
+    &PANELID5 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID5) PROFILE
+  IF (&ZSCREEN = 6)
+    &PANELID6 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID6) PROFILE
+  IF (&ZSCREEN = 7)
+    &PANELID7 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID7) PROFILE
+  IF (&ZSCREEN = 8)
+    &PANELID8 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID8) PROFILE
+  IF (&ZSCREEN = 9)
+    &PANELID9 = '&ZSCREEN:ENDIE290'
+    VPUT (PANELID9) PROFILE
+  IF (&ZSCREEN = A)
+    &PANELIDA = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDA) PROFILE
+  IF (&ZSCREEN = B)
+    &PANELIDB = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDB) PROFILE
+  IF (&ZSCREEN = C)
+    &PANELIDC = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDC) PROFILE
+  IF (&ZSCREEN = D)
+    &PANELIDD = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDD) PROFILE
+  IF (&ZSCREEN = E)
+    &PANELIDE = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDE) PROFILE
+  IF (&ZSCREEN = F)
+    &PANELIDF = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDF) PROFILE
+  IF (&ZSCREEN = G)
+    &PANELIDG = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDG) PROFILE
+  IF (&ZSCREEN = H)
+    &PANELIDH = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDH) PROFILE
+  IF (&ZSCREEN = I)
+    &PANELIDI = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDI) PROFILE
+  IF (&ZSCREEN = J)
+    &PANELIDJ = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDJ) PROFILE
+  IF (&ZSCREEN = K)
+    &PANELIDK = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDK) PROFILE
+  IF (&ZSCREEN = L)
+    &PANELIDL = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDL) PROFILE
+  IF (&ZSCREEN = M)
+    &PANELIDM = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDM) PROFILE
+  IF (&ZSCREEN = N)
+    &PANELIDN = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDN) PROFILE
+  IF (&ZSCREEN = O)
+    &PANELIDO = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDO) PROFILE
+  IF (&ZSCREEN = P)
+    &PANELIDP = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDP) PROFILE
+  IF (&ZSCREEN = Q)
+    &PANELIDQ = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDQ) PROFILE
+  IF (&ZSCREEN = R)
+    &PANELIDR = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDR) PROFILE
+  IF (&ZSCREEN = S)
+    &PANELIDS = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDS) PROFILE
+  IF (&ZSCREEN = T)
+    &PANELIDT = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDT) PROFILE
+  IF (&ZSCREEN = U)
+    &PANELIDU = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDU) PROFILE
+  IF (&ZSCREEN = V)
+    &PANELIDV = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDV) PROFILE
+  IF (&ZSCREEN = W)
+    &PANELIDW = '&ZSCREEN:ENDIE290'
+    VPUT (PANELIDW) PROFILE
+/* End code for ESORT */
+/*     Alternate Model and ZVARS with the second line displaying the          */
+/*     component footprint.                                                   */
+/*+_Z@Z       @Z       @Z       @Z                                     +      */
+/*  @Z       @Z       @Z       @Z         @Z       @Z+-@Z @Z @Z      @Z    +  */
+/*.ZVARS = '(EEVLOSEL EEVLOMBR EEVLOSTP EEVLODDN EEVLODSN          +          */
+/*           EEVLOENV EEVLOSYS EEVLOSUB EEVLOELM EEVLOTYP EEVLOSTG +          */
+/*           EEVLOVER EEVLOLVL EEVLODTE EEVLOTME )'                           */
+/*                                                                            */
+  .ZVARS = '(EEVLOSEL EEVLOMBR EEVLOSTP EEVLODDN EEVLODSN)'
+  .HELP = ENDHE290
+  IF (&AMT = '')
+    &AMT = PAGE
+)PROC
+  VPUT (AMT) PROFILE
+  &VARWKSEL = &EEVLOSEL
+  &EEVSELCH = &EEVLOSEL
+)END

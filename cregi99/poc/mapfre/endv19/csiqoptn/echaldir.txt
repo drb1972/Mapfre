@@ -1,0 +1,67 @@
+      *****************************************************************
+      *                                                               *
+      *            LIST DIRECTORY - REQUEST BLOCK                     *
+      *                                                               *
+      *****************************************************************
+       01  ALDIR-RQ.
+           05  ALDIR-RQ-HEADER.
+               10  ALDIR-RQ-LEN        PIC 9(4) COMP VALUE 88.
+               10  ALDIR-RQ-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALDIR-RQ-ID         PIC 9(4) COMP VALUE 1824.
+               10  ALDIR-RQ-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALDIR-RQ-EYE        PIC X(4)      VALUE 'LDIQ'.
+           05  ALDIR-RQ-DATAAREA.
+      *        REQUEST DATA SET AND MEMBER INFORMATION
+               10  ALDIR-RQ-DDN        PIC X(08)     VALUE SPACES.
+               10  ALDIR-RQ-DSN        PIC X(44)     VALUE SPACES.
+               10  ALDIR-RQ-MBR        PIC X(10)     VALUE SPACES.
+               10  ALDIR-RQ-MBR-THRU   PIC X(10)     VALUE SPACES.
+      *        ACTION OPTIONS
+               10  ALDIR-RQ-CSECT      PIC X(01)     VALUE SPACES.
+                   88  ALDIR-RQ-CSECT-YES               VALUE 'Y'.
+                   88  ALDIR-RQ-CSECT-NO                VALUE ' ' 'N'.
+               10  ALDIR-RQ-SUBDIR     PIC X(01)     VALUE SPACES.
+                   88  ALDIR-RQ-SUBDIR-YES              VALUE 'Y'.
+                   88  ALDIR-RQ-SUBDIR-NO               VALUE ' ' 'N'.
+               10  FILLER              PIC X(02)     VALUE SPACES.
+      *****************************************************************
+      *                                                               *
+      *            LIST DIRECTORY - RESPONSE BLOCK                    *
+      *                                                               *
+      *****************************************************************
+       01  ALDIR-RS.
+           05  ALDIR-RS-HEADER.
+               10  ALDIR-RS-LEN        PIC 9(4) COMP VALUE 344.
+               10  ALDIR-RS-FLAGS      PIC 9(4) COMP VALUE 0.
+               10  ALDIR-RS-ID         PIC 9(4) COMP VALUE 1825.
+               10  ALDIR-RS-VERS       PIC 9(4) COMP VALUE 1.
+               10  ALDIR-RS-EYE        PIC X(4)      VALUE 'LDIS'.
+           05  ALDIR-RS-DATAAREA.
+      *        FOOTPRINT DATA
+               10  ALDIR-RS-ENV        PIC X(08)     VALUE SPACES.
+               10  ALDIR-RS-SYSTEM     PIC X(08)     VALUE SPACES.
+               10  ALDIR-RS-SUBSYS     PIC X(08)     VALUE SPACES.
+               10  ALDIR-RS-ELEMENT    PIC X(10)     VALUE SPACES.
+               10  ALDIR-RS-TYPE       PIC X(08)     VALUE SPACES.
+               10  ALDIR-RS-STG-NUM    PIC X(01)     VALUE SPACES.
+      *        VVLL FORMAT: VV.LL (01.98)
+               10  ALDIR-RS-VVLL.
+                   15  ALDIR-RS-VV     PIC X(02)     VALUE SPACES.
+                   15  FILLER          PIC X(01)     VALUE SPACES.
+                   15  ALDIR-RS-LL     PIC X(02)     VALUE SPACES.
+      *        DATE FORMAT: DDMMMYY (31MAR01)
+               10  ALDIR-RS-DATE       PIC X(07)     VALUE SPACES.
+      *        TIME FORMAT: HH:MM   (23:59)
+               10  ALDIR-RS-TIME       PIC X(05)     VALUE SPACES.
+               10  ALDIR-RS-SITEID     PIC X(01)     VALUE SPACES.
+               10  ALDIR-RS-LD-FLAG    PIC X(01)     VALUE SPACES.
+      *        END OF FOOTPRINT DATA
+               10  ALDIR-RS-CSECT      PIC X(08)     VALUE SPACES.
+               10  ALDIR-RS-MODE       PIC X(01)     VALUE SPACES.
+                   88  ALDIR-RQ-MODE-D                  VALUE 'D'.
+                   88  ALDIR-RQ-MODE-F                  VALUE 'F'.
+                   88  ALDIR-RQ-MODE-U                  VALUE 'U'.
+               10  FILLER              PIC X(01)     VALUE SPACES.
+               10  ALDIR-RS-MBRL       PIC 9(4) COMP VALUE ZEROS.
+               10  ALDIR-RS-MBR        PIC X(255)    VALUE SPACES.
+               10  FILLER              PIC X(03)     VALUE SPACES.

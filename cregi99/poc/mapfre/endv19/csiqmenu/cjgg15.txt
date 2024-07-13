@@ -1,0 +1,18 @@
+CJGG151E 'ERROR READING JFCB'                            .ALARM=YES
+'&C1LMSG'
+CJGG152E 'ERROR READING DSCB'                            .ALARM=YES
+'&C1LMSG'
+CJGG153E 'OPEN ERROR'                                    .ALARM=YES
+'&C1LMSG'
+CJGG154W 'MEMBER NOT FOUND'                              .ALARM=YES
+'&C1LMSG'
+CJGG155S 'DIRECTORY I/O ERROR'                           .ALARM=YES
+'&C1LMSG'
+CJGG156S 'INSUFFICIENT STORAGE'                          .ALARM=YES
+'&C1LMSG'
+CJGG157E 'UNABLE TO UPDT DIRECTORY'                      .ALARM=YES
+'&C1LMSG'
+CJGG158S 'NO SPACE IN DIRECTORY'                         .ALARM=YES
+'&C1LMSG'
+CJGG159E 'DATA SET NOT ALLOCATED'                        .ALARM=YES
+'&C1LMSG'

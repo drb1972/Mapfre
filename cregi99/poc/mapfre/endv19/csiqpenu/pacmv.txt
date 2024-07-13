@@ -1,0 +1,26 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR     */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY           */
+   _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PADC(_)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   ! TYPE(OUTPUT) INTENS(HIGH)
+)BODY  LMSG(LMSG) EXPAND(@@)
+ @-@ ACM QUERY @-@
+ +
+%COMMAND ===>_ZCMD                                                     +
+ +
+ @ @ ACM QUERY ERROR @ @
+ @ @ ASCM PARAMETER IN C1DEFLTS IS NOT SET FOR ACMQ USAGE @ @
+ @ @ ASCM=Y MUST BE SET IN THE C1DEFLTS TO USE ACMQ @ @
+ +
+ +
+ !LMSG                                                                        +
+
+ +
+ +
+%@-@
+)INIT
+  .HELP = CITASCMN
+)PROC
+)END

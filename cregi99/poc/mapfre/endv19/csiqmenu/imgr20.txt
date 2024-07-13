@@ -1,0 +1,20 @@
+IMGR200E 'INVALID LOCATION'                              .ALARM=YES
+'&VARWLTXT'
+IMGR201E 'VSAM I/O ERROR'                                .ALARM=YES
+'&VARWLTXT'
+IMGR202E 'TFO FAILURE'                                   .ALARM=YES
+'&VARWLTXT'
+IMGR203E 'SYSTEM DEFINED'                                .ALARM=YES
+'&VARWLTXT'
+IMGR204E 'FMB CREATE FAILURE'                            .ALARM=YES
+'&VARWLTXT'
+IMGR205E 'TDF CODE INVALID'                              .ALARM=YES
+'&VARWLTXT'
+IMGR206E 'TDF CODE MISSING'                              .ALARM=YES
+'&VARWLTXT'
+IMGR207E 'TDF CODE N/A'                                  .ALARM=YES
+'&VARWLTXT'
+IMGR208E 'TDF CODE DUPLICATED'                           .ALARM=YES
+'&VARWLTXT'
+IMGR209E 'TDF EXCEEDS OCCURRENCE'                        .ALARM=YES
+'&VARWLTXT'

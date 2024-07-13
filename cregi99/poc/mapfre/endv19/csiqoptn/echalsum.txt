@@ -1,0 +1,124 @@
+      *****************************************************************
+      *
+      *  LIST PACKAGE ACTION SUMMARY - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  ALSUM-RQ.
+           05  ALSUM-RQ-HEADER.
+               10  ALSUM-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  ALSUM-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALSUM-RQ-ID         PIC 9(04) COMP VALUE 1504.
+               10  ALSUM-RQ-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALSUM-RQ-EYE        PIC X(04)      VALUE 'LSUQ'.
+           05  ALSUM-RQ-DATAAREA.
+               10  ALSUM-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  ALSUM-RQ-PROMHIST   PIC X(01) VALUE SPACES.
+               10  ALSUM-RQ-RESERVE    PIC X(03) VALUE SPACES.
+           SKIP1
+      *****************************************************************
+      *
+      *  LIST PACKAGE ACTION SUMMARY - RESPONSE BLOCK
+      *
+      *****************************************************************
+       01  ALSUM-RS.
+           05  ALSUM-RS-HEADER.
+               10  ALSUM-RS-LEN        PIC 9(04) COMP VALUE 3012.
+               10  ALSUM-RS-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  ALSUM-RS-ID         PIC 9(04) COMP VALUE 1505.
+               10  ALSUM-RS-VERS       PIC 9(04) COMP VALUE 2.
+               10  ALSUM-RS-EYE        PIC X(04)      VALUE 'LSUS'.
+           05  ALSUM-RS-DATAAREA.
+               10  ALSUM-RS-PKGID      PIC X(16) VALUE SPACES.
+               10  ALSUM-RS-STMTNO     PIC X(05) VALUE SPACES.
+               10  ALSUM-RS-SITE       PIC X(01) VALUE SPACES.
+               10  ALSUM-RS-ACTN       PIC X(08) VALUE SPACES.
+               10  ALSUM-RS-NDVRRC     PIC X(04) VALUE SPACES.
+               10  ALSUM-RS-PROCRC     PIC X(04) VALUE SPACES.
+               10  ALSUM-RS-BEXD       PIC X(07) VALUE SPACES.
+               10  ALSUM-RS-BEXT       PIC X(05) VALUE SPACES.
+               10  ALSUM-RS-EEXD       PIC X(07) VALUE SPACES.
+               10  ALSUM-RS-EEXT       PIC X(05) VALUE SPACES.
+               10  ALSUM-RS-CCID       PIC X(12) VALUE SPACES.
+               10  ALSUM-RS-COMM       PIC X(40) VALUE SPACES.
+               10  ALSUM-RS-RUD        PIC X(07) VALUE SPACES.
+               10  ALSUM-RS-RUT        PIC X(05) VALUE SPACES.
+               10  ALSUM-RS-RUU        PIC X(08) VALUE SPACES.
+      *           VERSION 2 FIELDS ADDED HERE
+               10  ALSUM-RS-IPKGID     PIC X(16) VALUE SPACES.
+               10  ALSUM-RS-PKGVER     PIC 9(04) COMP VALUE ZERO.
+               10  FILLER              PIC X(22) VALUE SPACES.
+      *           END OF VERSION 2 FIELDS
+      ***
+      ***  SOURCE LOCATION INFORMATION
+      ***
+               10  ALSUM-RS-SAPREQ     PIC X(01) VALUE SPACES.
+                   88  ALSUM-RS-APREQ VALUE 'Y'.
+               10  ALSUM-RS-SVAREQ     PIC X(01) VALUE SPACES.
+                   88  ALSUM-RS-VAREQ VALUE 'Y'.
+      *
+               10  ALSUM-RS-SLOC       PIC X(01) VALUE SPACES.
+                   88  ALSUM-RS-C1     VALUE 'C'.
+                   88  ALSUM-RS-FILE   VALUE 'F'.
+                   88  ALSUM-RS-DSN    VALUE 'D'.
+                   88  ALSUM-RS-ARCH   VALUE 'A'.
+      *        DATA AVAILABLE WHEN LOCATION IS C OR A
+               10  ALSUM-RS-SLOC-C-A.
+                   15  ALSUM-RS-SSITE  PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-SENV   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-SSYS   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-SSBS   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-SELMOFF PIC 9(04) COMP VALUE 0.
+                   15  ALSUM-RS-STYP   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-SSTG   PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-SSTGN  PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-SSTGI  PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-SVVLL  PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-SDD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-SDT    PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-SGD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-SGT    PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-SPD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-SPT    PIC X(05) VALUE SPACES.
+      *        DATA AVAILABLE WHEN LOCATION IS D , F OR P
+               10  ALSUM-RS-SLOC-D-F   REDEFINES ALSUM-RS-SLOC-C-A.
+                   15  ALSUM-RS-SFILEOFF PIC 9(04) COMP.
+                   15  ALSUM-RS-SNAMEOFF PIC 9(04) COMP.
+                   15  FILLER            PIC X(82).
+      *        DATA AVAILABLE WHEN LOCATION IS C, A, D, F, OR P
+      *
+               10  ALSUM-RS-SPPKGID    PIC X(16) VALUE SPACES.
+               10  ALSUM-RS-SPPKGTS    PIC 9(16) COMP VALUE ZEROS.
+      ***
+      ***  TARGET LOCATION INFORMATION
+      ***
+               10  ALSUM-RS-TAPREQ     PIC X(01) VALUE SPACES.
+               10  ALSUM-RS-TVAREQ     PIC X(01) VALUE SPACES.
+               10  ALSUM-RS-TLOC       PIC X(01) VALUE SPACES.
+      *        DATA AVAILABLE WHEN LOCATION IS C OR A
+               10  ALSUM-RS-TLOC-C-A.
+                   15  ALSUM-RS-TSITE  PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-TENV   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-TSYS   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-TSBS   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-TELMOFF PIC 9(04) COMP VALUE 0.
+                   15  ALSUM-RS-TTYP   PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-TSTG   PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-TSTGN  PIC X(08) VALUE SPACES.
+                   15  ALSUM-RS-TSTGI  PIC X(01) VALUE SPACES.
+                   15  ALSUM-RS-TVVLL  PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-TDD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-TDT    PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-TGD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-TGT    PIC X(05) VALUE SPACES.
+                   15  ALSUM-RS-TPD    PIC X(07) VALUE SPACES.
+                   15  ALSUM-RS-TPT    PIC X(05) VALUE SPACES.
+      *        DATA AVAILABLE WHEN LOCATION IS D, F OR P
+               10  ALSUM-RS-TLOC-D-F   REDEFINES ALSUM-RS-TLOC-C-A.
+                   15  ALSUM-RS-TFILEOFF PIC 9(04) COMP.
+                   15  ALSUM-RS-TNAMEOFF PIC 9(04) COMP.
+                   15  FILLER            PIC X(82).
+      *        DATA AVAILABLE WHEN LOCATION IS C, A, D, F, OR P
+               10  ALSUM-RS-TPPKGID    PIC X(16) VALUE SPACES.
+               10  ALSUM-RS-TPPKGTS    PIC 9(16) COMP VALUE ZEROS.
+      *        DATA AVAILABLE WHEN LOCATION IS C, A, D, F, OR P
+               10  ALSUM-RS-DAREAS     PIC X(2600) VALUE SPACES.

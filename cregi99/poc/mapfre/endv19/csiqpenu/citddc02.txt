@@ -1,0 +1,26 @@
+)ATTR DEFAULT(%¬_)
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Destination Configuration Member - Syntax \-\ TUTORIAL
+%COMMAND ===>_ZCMD                                                             ¬
+%
+¬The syntax of each statement in the destination configuration member is as
+¬follows:
+¬  >>-- %DESTination 'destid'¬ --------------------------->
+¬    +<----<----<----<----<----<----<----<----<----<---+
+¬  --+--> %SYMbol 'symbol-name' VALue 'symbol-value'¬--+-->
+¬  ---> %.¬ ---------------------------------------------><
+¬
+¬  Where:
+¬  -%destid¬is the destination ID for which you are defining symbols and values.
+¬  -%symbol-name¬is the 1 to 12 character symbol name.
+¬  -%symbol-value¬is the 1 to 72 character value of the symbol.
+¬  - There can be multiple%DESTINATION¬statements, allowing you to define
+¬    unique symbols for each destination.
+¬  -%SYMBOL¬and%VALUE¬keywords must be paired and can be defined as many times
+¬    as necessary for each destination.
+¬  - Duplicate destinations or symbol names within destination are not allowed.
+¬  - Symbol names are not case sensitive and are sorted when parsed and
+¬    displayed.
+¬  - Specified destination IDs are not verified against defined destination IDs.
+¬
+)END

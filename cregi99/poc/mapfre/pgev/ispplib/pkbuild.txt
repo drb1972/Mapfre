@@ -1,0 +1,53 @@
+)ATTR
+ ! TYPE(TEXT)   INTENS(HIGH) COLOR(GREEN)
+ % TYPE(TEXT)   INTENS(HIGH) SKIP(OFF)
+ + TYPE(TEXT)   INTENS(LOW)  SKIP(ON)
+ ¢ TYPE(TEXT)   INTENS(LOW) COLOR(TURq)
+ _ TYPE(INPUT)  INTENS(HIGH) CAPS(ON)
+ $ TYPE(INPUT)  INTENS(HIGH) pad(_)
+)BODY EXPAND (\\)
+%\-\  Package Build  \-\
+%Command ==>_ZCMD
++
++    This utility will build and cast a package to MOVE all elements by
++    CCID at the immediately prior stages in the map. E.g. For a production
++    package everything under the CCID from stages F and O will be moved.
++
++    Package id    %===>_PKGID           +
++    Endevor System%===>_Z +
++
++
++
++ Job statement information:
++
++  ===>_C1BJC1
++  ===>_C1BJC2
++  ===>_C1BJC3
++  ===>_C1BJC4
+)INIT
+ .HELP = PKBUILDH
+ .ZVARS = '(PKGSY)'
+ VGET (PKGSY C1BJC1 C1BJC2 C1BJC3 C1BJC4)
+ *REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)PROC
+VER (&PKGID,NB)
+*REXX (PKGID PK1 PK2 PK9 PK10)
+pk1  = 'BAD'
+pk2  = 'BAD'
+pk9  = 'BAD'
+pk10 = 'BAD'
+if left(pkgid,1)                 = 'C'   then pk1  = 'OK'
+if datatype(substr(pkgid,2,7))   = 'NUM' then pk2  = 'OK'
+if pos(substr(pkgid,9,1),'BDFP') > 0     then pk9  = 'OK'
+if datatype(substr(pkgid,10,7))  = 'NUM' | ,
+   substr(pkgid,10,7)            = ' '   then pk10 = 'OK'
+*ENDREXX
+VER (&PK1,LIST,OK,MSG=PKGB001)
+VER (&PK2,LIST,OK,MSG=PKGB002)
+VER (&PK9,LIST,OK,MSG=PKGB003)
+VER (&PK10,LIST,OK,MSG=PKGB004)
+VER (&PKGSY,NB,LEN,'=',2)
+&ZTRAIL = .TRAIL
+VPUT (PKGID PKGSY C1BJC1 C1BJC2 C1BJC3 C1BJC4) PROFILE
+*REXX(C1BJC1,C1BJC2,C1BJC3,C1BJC4,(EVJOBCRD))
+)END

@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Site Information--Package Processing \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%                                                            %(Screen 2 of 2)
+%Security+ - Indicates what kind of Package Security is defined for
++            your site.  Possible options are:
+
+             APPROVER  Package actions are restricted to package approvers
+
+             ESI       An external security package controls package
+                       processing via the ESI interface.
+
+             MIGRATE   Both Approver security and ESI security will be
+                       checked with approver security taking precedence over
+                       ESI security.
+)END

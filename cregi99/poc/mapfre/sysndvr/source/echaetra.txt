@@ -1,0 +1,56 @@
+      *****************************************************************
+      *                                                               *
+      *            TRANSFER ELEMENT - REQUEST BLOCK                   *
+      *                                                               *
+      *****************************************************************
+       01  AETRA-RQ.
+           05  AETRA-RQ-HEADER.
+               10  AETRA-RQ-LEN        PIC 9(04) COMP VALUE 360.
+               10  AETRA-RQ-FLAGS      PIC 9(04) COMP VALUE ZERO.
+               10  AETRA-RQ-ID         PIC 9(04) COMP VALUE 1376.
+               10  AETRA-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  AETRA-RQ-EYE        PIC X(04)      VALUE 'ETRQ'.
+           05  AETRA-RQ-DATAAREA.
+      *        ELEMENT DATA
+               10  AETRA-RQ-ELM        PIC X(10)      VALUE SPACES.
+               10  AETRA-RQ-ELM-THRU   PIC X(10)      VALUE SPACES.
+               10  AETRA-RQ-VERSION    PIC X(02)      VALUE SPACES.
+               10  AETRA-RQ-LEVEL      PIC X(02)      VALUE SPACES.
+               10  AETRA-RQ-TELM       PIC X(10)      VALUE SPACES.
+      *        FROM LOCATION DATA
+               10  AETRA-RQ-ENV        PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-SYSTEM     PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-SUBSYS     PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-TYPE       PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-STG-ID     PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-STG-NUM    PIC X(01)      VALUE SPACES.
+      *        TARGET LOCATION DATA
+               10  AETRA-RQ-TENV       PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-TSYSTEM    PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-TSUBSYS    PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-TTYPE      PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-TSTG-ID    PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-TSTG-NUM   PIC X(01)      VALUE SPACES.
+      *        ACTION OPTIONS
+               10  AETRA-RQ-CCID       PIC X(12)      VALUE SPACES.
+               10  AETRA-RQ-COMM       PIC X(40)      VALUE SPACES.
+               10  AETRA-RQ-NEWVER     PIC X(02)      VALUE SPACES.
+               10  AETRA-RQ-IGN-GFAIL  PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-BYP-GENPRO PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-PROGRO     PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-OVESIGNO   PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-BYP-ELEDEL PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-BYP-DELPRO PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-WIT-HIS    PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-SYN        PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-SIGNIN     PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-RETA-SIGNO PIC X(01)      VALUE SPACES.
+               10  AETRA-RQ-SIGNO-TO   PIC X(08)      VALUE SPACES.
+               10  AETRA-RQ-RESERVE    PIC X(03)      VALUE SPACES.
+      *        WHERE CLAUSE SELECTION CRITERIA
+               10  AETRA-WCCID-TYP     PIC X(01)      VALUE SPACES.
+               10  AETRA-WCCID         PIC X(12)      VALUE SPACES.
+               10  AETRA-WCCID-2-8     PIC X(84)      VALUE SPACES.
+               10  AETRA-WPROGRO       PIC X(08)      VALUE SPACES.
+               10  AETRA-WPROGRO-2-8   PIC X(56)      VALUE SPACES.
+               10  FILLER              PIC X(03)      VALUE SPACES.

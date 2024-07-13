@@ -1,0 +1,24 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Package Shipment \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++The package shipment utility uses data transmission programs to
++distribute package outputs (source, object, listing, or load modules),
++or package backout members from a host site to another site. It is
++designed for users who develop software at a central site and want to
++transmit source, object, or executable code either locally or to other
++(remote) sites.
++
++To use the package shipment utility:
++  * Packages must be created with BACKOUT ENABLED=Y.
++  * Packages must have been executed, but not committed
++* One of these data transmission packages must be available
++  - XCOM (CAI)
++  - Bulk Data Transfer (IBM) Version 2, or via NJE/NJI
++  - NetView File Transfer Program Version 1 (IBM)
++  - Connect:Direct (IBM, formerly Network DataMover)
++  * Remote destinations must be defined
++
++See Chapter 5 of the Packages manual.
++                                            (%PF3+to return)
+)END

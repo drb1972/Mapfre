@@ -1,0 +1,72 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT) INTENS(HIGH)      DEFAULTS DISPLAYED FOR      */
+       /* + TYPE(TEXT) INTENS(LOW)       INFORMATION ONLY            */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT) INTENS(HIGH) CAPS(OFF) JUST(LEFT)
+   $ TYPE(INPUT) INTENS(LOW) PAD(_)      /* UNIQUE ATTRIBUTES FOR   */
+   ! TYPE(INPUT) INTENS(LOW) PAD(NULLS)  /* DASHES AND NULL PADDING */
+   ¢ TYPE(OUTPUT) INTENS(HIGH) JUST(RIGHT)
+   | TYPE(OUTPUT) INTENS(LOW)
+   ^ TYPE(INPUT) CAPS(&VARCACCI) FORMAT(&VARFMCCI)
+   ` TYPE(INPUT) CAPS(&VARCACOM) FORMAT(&VARFMCOM)
+   ~ TYPE(INPUT) CAPS(&VARCADES) FORMAT(&VARFMDES)
+)BODY EXPAND(\\)
+%\-\ Apply List Filters \-\
+%OPTION  ===>_ZCMD                                                             +
++
++Apply List Filters %===>_Z+(Y/N)
++
++Filter Options:
++  Where CCID EQ    %===>^EEVWCCID    +
++  Where USERID EQ  %===>_EEVWUID +
++  Where PROC GRP EQ%===>_EEVWPGRP+
++
++For Where CCID/USERID, compare to:     For Where CCID, compare to:
++  Current    %===>_Z+(Y/N)               All Element Change Lvls%===>_Z+(Y/N)
++  Generate   %===>_Z+(Y/N)
++  Last Action%===>_Z+(Y/N)
++  Retrieve   %===>_Z+(Y/N)
++
++
++
++
++
++
++\ \** Hit%ENTER+to process,%END+to return **\ \
++
+)INIT
+  .HELP = ENDHE132
+  .ZVARS = '(EEVALF EEVWCUT1 EEVWCUT5 EEVWCUT2 EEVWCUT3 EEVWCUT4)'
+  &LIST2 = 'Y N'
+  IF (&EEVWCUT1 = ' ')
+    &EEVWCUT1 = 'Y'
+  IF (&EEVWCUT2 = ' ')
+    &EEVWCUT2 = 'Y'
+  IF (&EEVWCUT3 = ' ')
+    &EEVWCUT3 = 'Y'
+  IF (&EEVWCUT4 = ' ')
+    &EEVWCUT4 = 'Y'
+  IF (&QTMPCUT5 = ' ')
+    &EEVWCUT5 = 'N'
+    &QTMPCUT5 = 'N'
+)PROC
+  VER (&EEVALF,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&EEVWCUT1,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&EEVWCUT2,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&EEVWCUT3,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&EEVWCUT4,NB,LISTV,&LIST2,MSG=CIFV005)
+  VER (&EEVWCUT5,NB,LISTV,&LIST2,MSG=CIFV005)
+  IF (&EEVWCCID ^= ' ')
+    IF (&EEVWCUT2 = 'N')
+      IF (&EEVWCUT3 = 'N')
+        IF (&EEVWCUT4 = 'N')
+          IF (&EEVWCUT5 = 'N')
+            IF (&EEVWCUT1 = 'N')
+              .MSG = CIFV012
+  IF (&EEVWUID  ^= ' ')
+    IF (&EEVWCUT2 = 'N')
+      IF (&EEVWCUT3 = 'N')
+        IF (&EEVWCUT4 = 'N')
+          IF (&EEVWCUT1 = 'N')
+            .MSG = CIFV012
+)END

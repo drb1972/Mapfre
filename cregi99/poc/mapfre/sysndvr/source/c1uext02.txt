@@ -1,0 +1,176 @@
+C1UEXT02 TITLE 'ENDEVOR EXIT 2 EXAMPLE'                                 00001000
+*********************************************************************** 00002000
+*                                                                     * 00004300
+*   REGISTERS ON ENTRY:                                               * 00004400
+*                                                                     * 00004500
+*                0(R1) --> $ECBDS      EXIT CONTROL BLOCK             * 00004600
+*                4(R1) --> $ENVDS      ENVIRONMENT BLOCK              * 00004700
+*                                                                     * 00004800
+*   REGISTER USAGE:                                                   * 00004900
+*                                                                     * 00005000
+*                R3     -> STATUS INDICATOR                           * 00006000
+*                R5     -> CCIDS                                      * 00006200
+*                R6     -> $ENDVS                                     * 00006300
+*                R7     -> $ECBDS                                     * 00007000
+*                R8     -> $REQPDS                                    * 00008000
+*                R12    -> BASE PROGRAM                               * 00009000
+*                R13    -> STACK USED FOR STANDARD IBM USAGE          * 00010000
+*********************************************************************** 00012000
+         TITLE '$ECBDS : EXIT CONTROL BLOCK'                            00012100
+*********************************************************************** 00012200
+*   EXIT CONTROL BLOCK                                                * 00012300
+*********************************************************************** 00012500
+         $ECBDS                                                         00012600
+         TITLE '$ENVDS : ENVIRONMENT BLOCK'                             00012700
+*********************************************************************** 00012800
+*   ENVIRONMENT BLOCK                                                 * 00012900
+*********************************************************************** 00013000
+         $ENVDS                                                         00013100
+         TITLE '$REQPDS: REQUEST INFORMATION BLOCK'                     00013200
+*********************************************************************** 00013300
+*   REQUEST INFORMATION BLOCK                                         * 00013400
+*********************************************************************** 00013500
+         $REQPDS                                                        00013600
+         TITLE 'CCIDDS : CCID TABLE'                                    00013700
+*********************************************************************** 00013800
+*   DSECT FOR LOADMODULE CCIDTBL                                      * 00013900
+*********************************************************************** 00014000
+CCIDS    DSECT                                                          00014100
+CCIDEYE  DS    CL4                     EYECATCHER 'CCID'                00014200
+CCIDENV  DS    CL4                     ENVIRONMENT NAME                 00014300
+CCIDSYS  DS    CL4                     SYSTEM NAME                      00014400
+CCIDCCID DS    CL4                     CCID NAME                        00014500
+CCIDSLN  EQU   *-CCIDS                 DSECT LENGTH                     00014600
+         TITLE 'REGISTER EQUATES'                                       00014700
+*********************************************************************** 00014800
+*   REGISTER EQUATES                                                  * 00014900
+*********************************************************************** 00015000
+R0       EQU   0                                                        00015200
+R1       EQU   1                                                        00015300
+R2       EQU   2                                                        00015400
+R3       EQU   3                                                        00015500
+R4       EQU   4                                                        00015600
+R5       EQU   5                                                        00015700
+R6       EQU   6                                                        00015800
+R7       EQU   7                                                        00015900
+R8       EQU   8                                                        00016000
+R9       EQU   9                                                        00016100
+R10      EQU   10                                                       00016200
+R11      EQU   11                                                       00016300
+R12      EQU   12                                                       00016400
+R13      EQU   13                                                       00016500
+R14      EQU   14                                                       00016600
+R15      EQU   15                                                       00016700
+         TITLE 'MAIN : MAINLINE LOGIC'                                  00016800
+*********************************************************************** 00016900
+*   MAINLINE LOGIC                                                    * 00017000
+*********************************************************************** 00017100
+C1UEXT02 CSECT                                                          00017400
+         SAVE  (14,12),,'EXAMPLE OF EXIT 2'                             00017600
+         LR    R12,R15                 POINT AT THIS PROGRAM            00017700
+        USING  C1UEXT02,R12                                             00017900
+         L     R7,0(R1)                POINT AT $ECBDS                  00018001
+        USING  $ECBDS,R7                                                00018100
+         L     R6,4(R1)                POINT AT $ENVDS #1               00018200
+        USING  $ENVDS,R6                                                00018300
+         L     R8,ECBREQA              POINT AT $REQPDS#1               00018400
+        USING  $REQPDS,R8                                               00018500
+        USING  CCIDS,R5                                                 00018600
+         XR    R3,R3                   CLEAR CCID-MUST-MATCH INDICATOR  00018700
+         CLC   REQCCID,BLANKS          Q: WAS CCID SPECIFIED ?          00018800
+         BE    MAINEXIT                A: NO, EXIT IN SUCCESS           00018900
+         SPACE                                                          00019000
+*********************************************************************** 00019100
+*   LOAD THE CCIDTBL, IF NECESSARY                                    * 00019200
+*********************************************************************** 00019300
+         ICM   R5,B'1111',ECBUEXT      Q: TABLE ALREADY BEEN LOADED?    00020000
+         BNZ   MAIN0100                A: YES, CHECK FOR CCID MATCH     00030000
+         LOAD  EP=CCIDTBL,ERRET=MAIN0800                                00031000
+         ST    R0,ECBUEXT              SAVE THE TABLE ADDR IN THE ECB   00032000
+         LR    R5,R0                     AND IN R5                      00033000
+         SPACE                                                          00033100
+*********************************************************************** 00033200
+*   VALIDATE CCID ONLY FOR ADD AND UPDATE ACTIONS                     * 00033300
+*********************************************************************** 00033400
+         CLC   CCIDEYE,=CL4'CCID'      Q: IS TABLE ENTRY VALID?         00034000
+         BNE   MAIN0810                A: NO, BAD TABLE                 00035000
+         CLC   ECBFUNC,=A(ECB$ADD)     Q: IS THE ACTION "ADD" ?         00035100
+         BE    MAIN0100                A: YES, CHECK ENVNEXT            00035200
+         CLC   ECBFUNC,=A(ECB$UPD)     Q: IS THE ACTION "UPDATE" ?      00035300
+         BE    MAIN0100                A: YES, CHECK ENVNEXT            00035400
+         B     MAINEXIT                  OTHERWISE EXIT.                00036000
+         SPACE                                                          00036100
+*********************************************************************** 00036200
+*   POINT R6 AT THE TARGET $ENVDS BLOCK : ENVNEXT                     * 00036300
+*********************************************************************** 00036400
+MAIN0100 DS    0H                                                       00037000
+         L     R6,ENVNEXT              POINT AT $ENVDS #2               00038000
+         SPACE                                                          00039000
+*********************************************************************** 00039100
+*   LOOP THROUGH CCID TABLE LOOKING FOR MATCH                         * 00039200
+*********************************************************************** 00039300
+MAIN0110 DS    0H                                                       00040000
+         CLC   ENVENVM,CCIDENV         Q: ENVIRONMENT NAME MATCH?       00040100
+         BNE   MAIN0120                A: NO, CHECK NEXT TABLE ENTRY    00040200
+         CLC   ENVSYSTM,CCIDSYS        Q: SYSTEM NAME MATCH?            00040300
+         BNE   MAIN0120                A: NO, CHECK NEXT TABLE ENTRY    00040400
+         CLC   REQCCID,CCIDCCID        Q: CCID MATCH?                   00040500
+         BE    MAINEXIT                A: YES, CCID IS VALID            00040600
+         LA    R3,1                    SAY CCID MATCH MUST OCCUR        00040700
+MAIN0120 DS    0H                        AND READ NEXT                  00040800
+         LA    R5,CCIDSLN(,R5)         POINT TO NEXT ENTRY              00040900
+         CLC   CCIDEYE,=CL4'CCID'      Q: IS TABLE ENTRY VALID?         00041000
+         BNE   MAIN0810                A: NO, BAD TABLE                 00041100
+         CLI   CCIDENV,X'00'           Q: LAST TABLE ENTRY              00041200
+         BNE   MAIN0110                A: NO, CHECK NEXT TABLE ENTRY    00041300
+         SPACE                                                          00041400
+*********************************************************************** 00041500
+*   ALL ENTRIES HAVE BEEN REVIEWED; CHECK IF MATCH MUST OCCUR         * 00041600
+*********************************************************************** 00041700
+         LTR   R3,R3                   Q: MUST MATCH OCCUR ?            00041800
+         BZ    MAINEXIT                A: NO, ALLOW ACTION TO OCCUR     00041900
+         B     MAIN0820                DO NOT ALLOW ACTION TO OCCUR     00042000
+         SPACE                                                          00042100
+*********************************************************************** 00042200
+*   LOAD FAILURE FOR MODULE CCIDTBL                                   * 00042300
+*********************************************************************** 00042400
+MAIN0800 DS    0H                                                       00042500
+         MVC   ECBMSG(L'ERROR1),ERROR1 LOAD FAILURE FOR MODULE CCIDTBL  00042600
+         MVC   ECBMSGCD,=CL4'0001'     SET LOAD FAILURE INDICATOR       00042700
+         MVC   ECBRTCD,=A(ECB$FAIL)    TELL NDVR NOT TO PERFORM ACTION  00042800
+         B     MAINEXIT                  AND RETURN                     00042900
+         SPACE                                                          00043000
+*********************************************************************** 00043100
+*   MODULE CCIDTBL CONTAINS INVALID ENTRY                             * 00043200
+*********************************************************************** 00043300
+MAIN0810 DS    0H                                                       00043400
+         MVC   ECBMSG(L'ERROR2),ERROR2 INVALID TABLE ENTRY              00043500
+         MVC   ECBMSGCD,=CL4'0002'     SET LOAD FAILURE INDICATOR       00043600
+         MVC   ECBRTCD,=A(ECB$FAIL)    TELL NDVR NOT TO PERFORM ACTION  00043700
+         B     MAINEXIT                  AND RETURN                     00043800
+         SPACE                                                          00043900
+*********************************************************************** 00044000
+*   INVALID CCID REQUEST FOR ACTION - CCID NOT FOUND IN TABLE CCIDTBL * 00044100
+*********************************************************************** 00044200
+MAIN0820 DS    0H                                                       00044300
+         MVC   ECBMSG(L'ERROR3),ERROR3 INVALID TABLE ENTRY              00044400
+         MVC   ECBMSGCD,=CL4'0003'     SET LOAD FAILURE INDICATOR       00044500
+         MVC   ECBRTCD,=A(ECB$FAIL)    TELL NDVR NOT TO PERFORM ACTION  00044600
+         B     MAINEXIT                  AND RETURN                     00044700
+         SPACE                                                          00044800
+*********************************************************************** 00044900
+*   RETURN TO CALLER                                                  * 00045000
+*********************************************************************** 00045100
+MAINEXIT DS    0H                                                       00045200
+         XR    R15,R15                 CLEAR R15 FOR NEATNESS           00045300
+         RETURN (0,12)                   AND RETURN                     00045400
+         SPACE                                                          00045500
+         TITLE 'PROGRAM CONSTANTS'                                      00045600
+*********************************************************************** 00045700
+*   PROGRAM CONSTANTS                                                 * 00045800
+*********************************************************************** 00045900
+BLANKS   DC    CL80' '                                                  00046000
+ERROR1   DC    C'LOAD FAILURE FOR MODULE CCIDTBL '                      00046100
+ERROR2   DC    C'CCIDTBL NOT PROPERLY DEFINED '                         00046200
+ERROR3   DC    C'INVALID CCID REQUESTED FOR THIS ENV/SYS '              00046300
+         END                                                            00046400

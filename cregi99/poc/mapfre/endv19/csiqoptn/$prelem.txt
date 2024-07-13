@@ -1,0 +1,152 @@
+.**********************************************************************
+.*                                                                    *
+.*                    U N U S E D   M A C R O                         *
+.*                                                                    *
+.* This macro is unused.  It is being left hanging around only for    *
+.* safety's sake at release 3.8 (97/08).  This may be deleted if      *
+.* unused at some future release.                                     *
+.**********************************************************************
+         MACRO
+.**********************************************************************
+.* Name:        $PRELEM                                               *
+.* Description: Processor element identification                      *
+.* Function:    Identify a processor element (step, dd card, etc).    *
+.*              and generate the label.                               *
+.**********************************************************************
+&LABEL   $PRELEM &FUNC,&TYPE=,&NAME=   Processor element
+.*       COPY  $PRGLBLS                Copy the global variables
+         GBLA  &PREITE#
+         GBLA  &PREPGM#
+         GBLA  &PREDDA#
+         GBLA  &PREDDB#
+         GBLA  &PRENPGM
+         GBLA  &PRENDDA
+         GBLA  &PRENDDB
+         GBLA  &PRENITE
+         GBLC  &PRELMNM
+         GBLC  &PREITE(1000)           ITE next label
+         GBLC  &PREPGM(1000)           ITE program chain name table
+         GBLC  &PREDDA(1000)           ITE DDA chain name table
+         GBLC  &PREDDB(1000)           ITE DDB chain name table
+         GBLC  &PRNODE(1000)           ITE node name table
+         GBLC  &PRENDIF(1000)          ITE endif block label
+         GBLC  &PRELSE(1000)           ITE else block label
+         AIF   ('&FUNC' EQ 'PUSH'  OR                                  +
+               '&FUNC'  EQ 'POP'   OR                                  +
+               '&FUNC'  EQ 'RETURN').PR0100
+         MNOTE 16,'Invalid Element request type: ''&FUNC'''
+         MEXIT
+.PR0100  ANOP                          Setup for new element
+         AIF   ('&TYPE' EQ 'PGM').PR0200
+         AIF   ('&TYPE' EQ 'DDA').PR0300
+         AIF   ('&TYPE' EQ 'DDB').PR0400
+         AIF   ('&TYPE' EQ 'ITE').PR0500
+         MNOTE 16,'Invalid Element type: ''&TYPE'''
+         MEXIT
+.**********************************************************************
+.* Program element processing ($PRPGM type)
+.**********************************************************************
+.PR0200  ANOP                          Setup for new element
+         AIF   ('&FUNC' EQ 'PUSH').PR0220
+         AIF   ('&FUNC'  EQ 'POP' ).PR0240
+         AIF   ('&FUNC'  EQ 'RETURN').PR0260
+.PR0220  ANOP                          Push down program element stack
+&PREPGMGEN SETB 1                      Element name required
+&PREPGM# SETA  &PREPGM#+1
+&PRENPGM SETA  &PRENPGM+1
+&PREPGM(&PRENPGM) SETC  'PRO&PREPGM#.PGM'
+         MEXIT
+.PR0240  ANOP                          Popup the program element stack
+&PRELMNM SETC  ''
+         AIF   (NOT &PREPGMGEN).PR9900
+&PREPGMGEN SETB 0
+&PRELMNM SETC  '&PREPGM(&PRENPGM)'
+&PRENPGM SETA  &PRENPGM-1
+         MEXIT
+.PR0260  ANOP                          Return program element info
+&PRELMNM SETC  '&PREPGM(&PRENPGM)'
+         MEXIT
+.**********************************************************************
+.* Primary DD definition procesing ($PRDDA type)
+.**********************************************************************
+.PR0300  ANOP                          Setup for new element
+         AIF   ('&FUNC' EQ 'PUSH').PR0320
+         AIF   ('&FUNC'  EQ 'POP' ).PR0340
+         AIF   ('&FUNC'  EQ 'RETURN').PR0360
+.PR0320  ANOP                          Push down program element stack
+&PREDDAGEN SETB 1                      Element name required
+&PREDDA# SETA  &PREDDA#+1
+&PRENDDA SETA  &PRENDDA+1
+&PREDDA(&PRENDDA) SETC  'PRO&PREDDA#.DDA'
+         MEXIT
+.PR0340  ANOP                          Popup the program element stack
+&PRELMNM SETC  ''
+         AIF   (NOT &PREDDAGEN).PR9900
+&PREDDAGEN SETB 0
+&PRELMNM SETC  '&PREDDA(&PRENDDA)'
+&PRENDDA SETA  &PRENDDA-1
+         MEXIT
+.PR0360  ANOP                          Return program element info
+&PRELMNM SETC  '&PREDDA(&PRENDDA)'
+         MEXIT
+.**********************************************************************
+.* Secondary DD definition procesing ($PRDDB type)
+.**********************************************************************
+.PR0400  ANOP                          Setup for new element
+         AIF   ('&FUNC' EQ 'PUSH').PR0420
+         AIF   ('&FUNC'  EQ 'POP' ).PR0440
+         AIF   ('&FUNC'  EQ 'RETURN').PR0460
+.PR0420  ANOP                          Push down program element stack
+&PREDDBGEN SETB 1                      Element name required
+&PREDDB# SETA  &PREDDB#+1
+&PRENDDB SETA  &PRENDDB+1
+&PREDDB(&PRENDDB) SETC  'PRO&PREDDB#.DDB'
+         MEXIT
+.PR0440  ANOP                          Popup the program element stack
+&PRELMNM SETC  ''
+         AIF   (NOT &PREDDBGEN).PR9900
+&PREDDBGEN SETB 0
+&PRELMNM SETC  '&PREDDB(&PRENDDB)'
+&PRENDDB SETA  &PRENDDB-1
+         MEXIT
+.PR0460  ANOP                          Return program element info
+&PRELMNM SETC  '&PREDDB(&PRENDDB)'
+         MEXIT
+.**********************************************************************
+.* Secondary DD definition procesing ($PRDDB type)
+.**********************************************************************
+.PR0500  ANOP                          Setup for new element
+         AIF   ('&FUNC' EQ 'PUSH').PR0520
+         AIF   ('&FUNC'  EQ 'POP' ).PR0540
+         AIF   ('&FUNC'  EQ 'RETURN').PR0560
+.PR0520  ANOP                          Push down program element stack
+&PREITEGEN SETB 1                      Element name required
+&PRENITE SETA  &PRENITE+1
+         AIF      ('&NAME' NE '').PR0525
+&PREITE# SETA  &PREITE#+1
+&PREITE(&PRENITE) SETC  'PRO&PREITE#.ITE'
+         AGO     .PR0530
+.PR0525  ANOP                          Push down program element stack
+&PREITE(&PRENITE) SETC  '&NAME'
+.PR0530  ANOP                          Push down program element stack
+         AIF     (&PRENITE NE 1).PR9900
+&PRICHNF SETC    '&PREITE(&PRENITE)'
+         MEXIT
+.PR0540  ANOP                          Popup the program element stack
+&PRELMNM SETC  ''
+         AIF   (&PRENITE EQ 0).PR9900  Nothing to pop
+.*       AIF   (NOT &PREITEGEN).PR9900
+&PREITEGEN SETB 0
+&PRELMNM SETC  '&PREITE(&PRENITE)'
+&PRENITE SETA  &PRENITE-1
+         AIF   (&PRENITE EQ 0).PR9900  Nothing to pop
+         MEXIT
+.PR0560  ANOP                          Return program element info
+&PRELMNM SETC  '&PREITE(&PRENITE)'
+         MEXIT
+.**********************************************************************
+.* All done.
+.**********************************************************************
+.PR9900  ANOP
+         MEXIT
+         MEND

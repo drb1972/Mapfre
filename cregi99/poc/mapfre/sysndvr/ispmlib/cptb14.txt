@@ -1,0 +1,30 @@
+CPTB140 'Invalid Command'                           .ALARM=YES
+'CPTB140 The WIP Edit selection list does not support the command entered.'
+
+CPTB141 'No Members Selected'                       .ALARM=YES
+'CPTB141 The WIP dataset is empty or no members matching the mask were found.'
+
+CPTB142 'LM Service Error'                          .ALARM=YES
+'CPTB142 The ISPF/PDF LMMDISP service encountered a serious error.'
+
+CPTB143 'Dataset not Sequential'                    .ALARM=YES
+'CPTB143 The PDM statistics dataset must be a sequential dataset only'
+
+CPTB144 'LRECL too Small'                           .ALARM=YES
+'CPTB144 The PDM statistics dataset record length (LRECL) is too small'
+
+CPTB145 'RECFM not Variable'                        .ALARM=YES
+'CPTB145 The PDM statistics dataset must be defined as variable (blocked)'
+
+CPTB146 'Incompatible DSORG'                        .ALARM=YES
+'CPTB146 The Merge and the WIP dataset must have the same characteristics'
+
+CPTB147 'Defaults Updated'                          .ALARM=YES
+'CPTB147 Your PDM session defaults have been updated.'
+
+CPTB148 'Auto-Merge Invalid'                        .ALARM=YES
+'CPTB148 The WIP cannot be automatically Merged if CREATE WIP is N'
+
+CPTB149 'Matrix Sorted'
+'CPTB149 The WIP Matrix has been successfully sorted'
+

@@ -1,0 +1,166 @@
+)ATTR DEFAULT(%+_)
+       /* % TYPE(TEXT)  INTENS(HIGH)      DEFAULTS DISPLAYED FOR     */
+       /* + TYPE(TEXT)  INTENS(LOW)       INFORMATION ONLY           */
+       /* _ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT)             */
+   @ TYPE(INPUT)  INTENS(HIGH) PAD(_) CAPS(ON) JUST(LEFT)
+   | TYPE(OUTPUT) INTENS(HIGH)
+   ^ TYPE(&VQT)   INTENS(HIGH)    JUST(RIGHT) PAD(0)
+   # AREA(SCRL)   EXTEND(ON)
+)BODY
+%---------------------------  DYNAMIC APPROVER GROUP  --------------------------
+%COMMAND ===>_VARWKCMD                                        %SCROLL ===>_AMT +
+#DYNAP                                                                      #
+)AREA DYNAP
++Enter Dynamic Approver Group information
++PACKAGE ID:  |VPHPKGID        +
++QUORUM:^Z    +
++       APPROVER         REQ STATUS                  ADDED BY
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
++ |Z   @Z       +  |Z   @Z+ |Z                     +|Z
+)INIT
+  .HELP = CITP4100
+  IF (&AMT = ' ')
+     &AMT = PAGE
+  .ZVARS = '(VQ                 +
+             VUA01 VU01 VRA01 VR01 VSTAT01  VADD01  +
+             VUA02 VU02 VRA02 VR02 VSTAT02  VADD02  +
+             VUA03 VU03 VRA03 VR03 VSTAT03  VADD03  +
+             VUA04 VU04 VRA04 VR04 VSTAT04  VADD04  +
+             VUA05 VU05 VRA05 VR05 VSTAT05  VADD05  +
+             VUA06 VU06 VRA06 VR06 VSTAT06  VADD06  +
+             VUA07 VU07 VRA07 VR07 VSTAT07  VADD07  +
+             VUA08 VU08 VRA08 VR08 VSTAT08  VADD08  +
+             VUA09 VU09 VRA09 VR09 VSTAT09  VADD09  +
+             VUA10 VU10 VRA10 VR10 VSTAT10  VADD10  +
+             VUA11 VU11 VRA11 VR11 VSTAT11  VADD11  +
+             VUA12 VU12 VRA12 VR12 VSTAT12  VADD12  +
+             VUA13 VU13 VRA13 VR13 VSTAT13  VADD13  +
+             VUA14 VU14 VRA14 VR14 VSTAT14  VADD14  +
+             VUA15 VU15 VRA15 VR15 VSTAT15  VADD15  +
+             VUA16 VU16 VRA16 VR16 VSTAT16  VADD16  ) '
+ /* Initialize arrow fields to indicate input.  */
+ /* If the field to which the arrow points is   */
+ /*  NOT an input field (i.e. it contains       */
+ /*  protected data), then C1SPMISC will change */
+ /*  the attribute of the associated arrow      */
+ /*  fields so that the arrows are hidden.      */
+  &VUA01 = '===>'
+  &VUA02 = '===>'
+  &VUA03 = '===>'
+  &VUA04 = '===>'
+  &VUA05 = '===>'
+  &VUA06 = '===>'
+  &VUA07 = '===>'
+  &VUA08 = '===>'
+  &VUA09 = '===>'
+  &VUA10 = '===>'
+  &VUA11 = '===>'
+  &VUA12 = '===>'
+  &VUA13 = '===>'
+  &VUA14 = '===>'
+  &VUA15 = '===>'
+  &VUA16 = '===>'
+  &VRA01 = '===>'
+  &VRA02 = '===>'
+  &VRA03 = '===>'
+  &VRA04 = '===>'
+  &VRA05 = '===>'
+  &VRA06 = '===>'
+  &VRA07 = '===>'
+  &VRA08 = '===>'
+  &VRA09 = '===>'
+  &VRA10 = '===>'
+  &VRA11 = '===>'
+  &VRA12 = '===>'
+  &VRA13 = '===>'
+  &VRA14 = '===>'
+  &VRA15 = '===>'
+  &VRA15 = '===>'
+  &VRA16 = '===>'
+ /* Set attribute setting for the userid        */
+ /* and required fields.  These setting will    */
+ /* have been updated by C1SPMISC.              */
+  .ATTR (VU01)  = '&VATTRU01'
+  .ATTR (VR01)  = '&VATTRU01'
+  .ATTR (VU02)  = '&VATTRU02'
+  .ATTR (VR02)  = '&VATTRU02'
+  .ATTR (VU03)  = '&VATTRU03'
+  .ATTR (VR03)  = '&VATTRU03'
+  .ATTR (VU04)  = '&VATTRU04'
+  .ATTR (VR04)  = '&VATTRU04'
+  .ATTR (VU05)  = '&VATTRU05'
+  .ATTR (VR05)  = '&VATTRU05'
+  .ATTR (VU06)  = '&VATTRU06'
+  .ATTR (VR06)  = '&VATTRU06'
+  .ATTR (VU07)  = '&VATTRU07'
+  .ATTR (VR07)  = '&VATTRU07'
+  .ATTR (VU08)  = '&VATTRU08'
+  .ATTR (VR08)  = '&VATTRU08'
+  .ATTR (VU09)  = '&VATTRU09'
+  .ATTR (VR09)  = '&VATTRU09'
+  .ATTR (VU10)  = '&VATTRU10'
+  .ATTR (VR10)  = '&VATTRU10'
+  .ATTR (VU11)  = '&VATTRU11'
+  .ATTR (VR11)  = '&VATTRU11'
+  .ATTR (VU12)  = '&VATTRU12'
+  .ATTR (VR12)  = '&VATTRU12'
+  .ATTR (VU13)  = '&VATTRU13'
+  .ATTR (VR13)  = '&VATTRU13'
+  .ATTR (VU14)  = '&VATTRU14'
+  .ATTR (VR14)  = '&VATTRU14'
+  .ATTR (VU15)  = '&VATTRU15'
+  .ATTR (VR15)  = '&VATTRU15'
+  .ATTR (VU16)  = '&VATTRU16'
+  .ATTR (VR16)  = '&VATTRU16'
+ /* Set attribute setting for the arrow         */
+ /* fields.  Thse settings will  have been      */
+ /* updated by C1SPMISC.                        */
+  .ATTR (VUA01) = '&VATTRA01'
+  .ATTR (VRA01) = '&VATTRA01'
+  .ATTR (VUA02) = '&VATTRA02'
+  .ATTR (VRA02) = '&VATTRA02'
+  .ATTR (VUA03) = '&VATTRA03'
+  .ATTR (VRA03) = '&VATTRA03'
+  .ATTR (VUA04) = '&VATTRA04'
+  .ATTR (VRA04) = '&VATTRA04'
+  .ATTR (VUA05) = '&VATTRA05'
+  .ATTR (VRA05) = '&VATTRA05'
+  .ATTR (VUA06) = '&VATTRA06'
+  .ATTR (VRA06) = '&VATTRA06'
+  .ATTR (VUA07) = '&VATTRA07'
+  .ATTR (VRA07) = '&VATTRA07'
+  .ATTR (VUA08) = '&VATTRA08'
+  .ATTR (VRA08) = '&VATTRA08'
+  .ATTR (VUA09) = '&VATTRA09'
+  .ATTR (VRA09) = '&VATTRA09'
+  .ATTR (VUA10) = '&VATTRA10'
+  .ATTR (VRA10) = '&VATTRA10'
+  .ATTR (VUA11) = '&VATTRA11'
+  .ATTR (VRA11) = '&VATTRA11'
+  .ATTR (VUA12) = '&VATTRA12'
+  .ATTR (VRA12) = '&VATTRA12'
+  .ATTR (VUA13) = '&VATTRA13'
+  .ATTR (VRA13) = '&VATTRA13'
+  .ATTR (VUA14) = '&VATTRA14'
+  .ATTR (VRA14) = '&VATTRA14'
+  .ATTR (VUA15) = '&VATTRA15'
+  .ATTR (VRA15) = '&VATTRA15'
+  .ATTR (VUA16) = '&VATTRA16'
+  .ATTR (VRA16) = '&VATTRA16'
+)PROC
+  VPUT (AMT) PROFILE
+)END

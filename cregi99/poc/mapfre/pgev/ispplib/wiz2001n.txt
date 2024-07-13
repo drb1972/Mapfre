@@ -1,0 +1,50 @@
+)ATTR DEFAULT(%+_)
+! TYPE(OUTPUT) COLOR(GREEN) INTENS(HIGH) CAPS(OFF)
+@ TYPE(TEXT) COLOR(TURQ)
+¢ TYPE(OUTPUT) COLOR(TURQ) CAPS(OFF) INTENS(LOW)
+^ TYPE(OUTPUT) COLOR(YELLOW) CAPS(OFF)
+)BODY EXPAND({})
+%{-} Endevor Wizard {-}
+%Option ===>¢ZCMD
++
+  %1  @DSLIST  +Work with dsns matching^MASK
+  %2  @SELECT  +Create Wizard Control Members in¢wizlib
+  %3  @EDITCNTL+Edit Wizard Control Members
+  %4  @JOB     +Build JCL                ^MSG
+                                         !L1
+  %   @HELP    +Use PF1 for HELP         !L2
+                                         !L3
++ JOB Options:                           !L4
++                                        !L5
+  +Emergency              %===>¢Z+(Y/N)  !L6
++                                        !L7
++ +ADD/UPDATE elements    %===>¢Z+(Y/N) Lock members
++ +MOVE elements to ACPT F%===>¢Z+(Y/N) Not used for emergencies
++ +Build and Cast Package %===>¢Z+(Y/N)
++
++ +Comment                %===>¢C1COMM                                  +
++
+)INIT
+ .help   = WIZ2000H
+ .cursor = ZCMD
+ .ZVARS  = '(EMER SCLADD SCLMOV SCLPKG)'
+)PROC
+ &C1ENV = TRANS(&EMER  Y,PROD N,ACPT)
+ IF (&ZCMD = 4)
+   VER(&C1COMM,NB,LEN,GT,8)
+   VER(&C1COMM,LISTX,#)
+   VER(&EMER,NB,LIST,Y,N)
+   VER(&SCLADD,NB,LIST,Y,N)
+   VER(&SCLMOV,NB,LIST,Y,N)
+   VER(&SCLPKG,NB,LIST,Y,N)
+   IF (&EMER = Y)
+     VER(&SCLMOV,LIST,N)
+&ZSEL=TRANS(TRUNC(&ZCMD,'.')
+          1,'CMD(WIZ0100 &CHANGE &C1SYSTEM)'
+          2,'CMD(WIZ0200 &CHANGE &C1SYSTEM)'
+          3,'CMD(WIZ0300 &CHANGE &C1SYSTEM)'
+          4,'CMD(WIZ0400 &CHANGE &C1SYSTEM &SCLADD &SCLMOV &SCLPKG &C1ENV)'
+        ' ',' '
+          X,'EXIT'
+          *,'?' )
+)END

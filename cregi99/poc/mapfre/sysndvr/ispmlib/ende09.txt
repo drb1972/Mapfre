@@ -1,0 +1,26 @@
+ENDE090E '&EEVISPFS Failed'                            .ALARM=YES
+'ENDE090E The &EEVISPFS service passed a RC of X''&EEVISPFR'' (&EEVPGMNM)'
+
+ENDE091E 'Internal Error  '        .HELP=ENDIEH91      .ALARM=YES
+'ENDE091E $IMR passed a RC of X''&EEVERRRC''. Enter HELP for more information'
+
+ENDE092E 'Source Management Error' .HELP=ENDIEH92      .ALARM=YES
+'ENDE092E $SMR passed a RC of X''&EEVERRRC''. Enter HELP for more information'
+
+ENDE093S 'ABEND &EEVABCOD'                             .ALARM=YES
+'ENDE093S A &EEVABCOD ABEND occurred during Quick Edit processing'
+
+ENDE094E 'Internal Error  '                            .ALARM=YES
+'ENDE094E Unable to load program &EEVERRPG..  $BLOAD RESULT=&EEVXPRSL'
+
+ENDE095E 'Processor Group Error'   .HELP=ENDIEH95      .ALARM=YES
+'ENDE095E $FPGR passed a RC of X''&EEVERRRC''. Enter HELP for more information'
+
+ENDE096E 'Internal Error  '                            .ALARM=YES
+'ENDE096E The Info/Management interface passed a return code of X''&EEVERRRC'' '
+
+ENDE097E 'ProcGrp chg ^ Allowed'                       .ALARM=YES
+'ENDE097E Existing delete processor cannot execute in foreground'
+
+ENDE098E 'Source SYNC Check Error' .HELP=ENDIEH98      .ALARM=YES
+'ENDE098E $SCHK passed a RC of X''&EEVERRRC''. Enter HELP for more information'

@@ -1,0 +1,57 @@
+)ATTR
+ } TYPE(PS)
+ { TYPE(SAC)
+ ¦ AREA(SCRL)   EXTEND(ON)   /* Scrollable area - support small screens */
+ @ TYPE(ET)                  /* Emphasised Text  */
+)BODY EXPAND (\\)
+%TUTORIAL \-\ Quick Edit Help \-\ TUTORIAL
+%SELECTION ===>_ZCMD                                                           +
+¦SCRLAREA                                                                      ¦
+)AREA SCRLAREA
++&RXABT
++
++The Quick Edit dialog uses the standard ISPF/PDF Edit services to
++allow you to make changes to an existing element, generate an
++existing element, create a new element, and change the Quick Edit
++dialog defaults.
++
++  Select one of the options below for more information:
++   {1}Commands and Options+
++   {2}Location fields+
++   {3}List Options+
++   {4}Action Options+
++   {5}Working with Selection Lists+
++   {6}Using CCOLS command to arrange columns in element list+
++
++   {C}Display summary of changes for the current release+
++   {Z}Display summary of changes for previous releases+
++
++      For more details, See the@Endevor+documentation at
++             @&VNTUIDOC                                +
++
++\ \(Press}ENTER+to continue or}END+to return)\ \
+)INIT
+ &VNTUIDOC = 'https://techdocs.broadcom.com/endevor'
+ IF (&RXABT = &z)
+     &RXNAM = &DFNAME
+     &RXTAB = &CIDFLTNM
+     &RXABT = '123456789  123456789 123456789 123456789 123456789 123456789'
+     &RXABT = '&RXABT 123456789 123456789'
+     *REXX (RXNAM RXTAB RXABT)
+        RXABT = center(strip(RXNAM) "(" || strip(RXTAB) || ")",79)
+     *ENDREXX
+)PROC
+ &ZSEL = TRANS(&ZCMD 1,ENDHE110 2,ENDHE120 3,ENDHE130 4,ENDHE140
+                     5,ENDHE250 6,ENDHE164 C,CITJ0000 Z,*CITORELS *,'?')
+ IF (&ZCMD = 'END') .RESP = 'END'
+)PNTS
+FIELD(ZPS01001) VAR(ZCMD) VAL(1)
+FIELD(ZPS01002) VAR(ZCMD) VAL(2)
+FIELD(ZPS01003) VAR(ZCMD) VAL(3)
+FIELD(ZPS01004) VAR(ZCMD) VAL(4)
+FIELD(ZPS01005) VAR(ZCMD) VAL(5)
+FIELD(ZPS01006) VAR(ZCMD) VAL(C)
+FIELD(ZPS01007) VAR(ZCMD) VAL(Z)
+FIELD(ZPS01008) VAR(ZCMD) VAL(' ')
+FIELD(ZPS01009) VAR(ZCMD) VAL(END)
+)END

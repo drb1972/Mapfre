@@ -1,0 +1,16 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ Build WIP - Type Selection List \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++Use this list to select a type when specifying Root,
++Derivation 1, or Derivation 2 as an%inventory location+during
++the Build WIP process.
++
++To select a type, type%S+next to the type name, then press ENTER.
++
++
++
++
++
++
+)END

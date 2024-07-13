@@ -1,0 +1,23 @@
+)BODY EXPAND(\\)
+%TUTORIAL \-\ PDM Files, continued \-\ TUTORIAL
+%OPTION ===>_ZCMD                                                              +
+%
++PDM builds a%Work-In-Process (WIP)+file by comparing the Root and
++one or two Derivations. The WIP File is an annotated intermediate
++that identifies the insertions and deletions made in each of
++the Derivations, as well as the insertions and deletions common
++to both. Potential insert conflicts are also identified.
++
++PDM creates a%Merge Output File+or an%Endevor Merge Output Element+
++from a WIP file by performing all the annotated insertions and
++deletions, and then removing all the WIP annotation information.
++
++The%Statistics File+is an optional file that can be created when the
++Build WIP or Merge function is run. This file contains statistics,
++such as the number of insertions or deletions, the size of insert
++and delete blocks, complexity factor, inventory location, and so on.
++
++This file can be used as input to a report package, such as SAS.
++
++
+)END

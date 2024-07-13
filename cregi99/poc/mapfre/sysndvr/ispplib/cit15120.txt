@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ELIB Support for z/OS VSAM Extended Addressability \-\
+%Option ===>_ZCMD                                                 %Version 15.1+
+%
+%ELIB Support for z/OS VSAM Extended Addressability +
+
+ The ELIB data set format supports z/OS VSAM extended addressability for
+ VSAM data sets. The extended addressability feature allows you to allocate
+ VSAM data sets that are larger than 4 gigabytes. If extended addressability
+ is enabled in z/OS for any of your VSAM ELIB data sets, CA Endevor SCM
+ recognizes that this option is enabled and handles ELIB access appropriately.
+ You do not need to make any changes in CA Endevor SCM to enable support
+ for extended addressability.
+
+ Ask your Storage Administrator to determine whether z/OS VSAM extended
+ addressability is available for your site and how you can implement it.
+
+
+
+
+
+%\ \+Refer to the%CA Endevor SCM+documentation for detailed information%\ \
+
++\ \ (Hit%ENTER+to continue,%END+to exit) \ \
+)PROC
+   &ZCONT = CIT15130
+)END

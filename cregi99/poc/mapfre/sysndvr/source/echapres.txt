@@ -1,0 +1,16 @@
+      *****************************************************************
+      *
+      *            RESET A PACKAGE - REQUEST BLOCK
+      *
+      *****************************************************************
+       01  APRES-RQ.
+           05  APRES-RQ-HEADER.
+               10  APRES-RQ-LEN        PIC 9(04) COMP VALUE 32.
+               10  APRES-RQ-FLAGS      PIC 9(04) COMP VALUE 0.
+               10  APRES-RQ-ID         PIC 9(04) COMP VALUE 1728.
+               10  APRES-RQ-VERS       PIC 9(04) COMP VALUE 1.
+               10  APRES-RQ-EYE        PIC X(04)      VALUE 'PREQ'.
+           05  APRES-RQ-DATAAREA.
+               10  APRES-RQ-PKGID      PIC X(16) VALUE SPACES.
+               10  APRES-RQ-RESERVE    PIC X(03) VALUE SPACES.
+               10  FILLER              PIC X(01) VALUE SPACES.

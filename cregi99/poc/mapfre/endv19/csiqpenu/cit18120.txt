@@ -1,0 +1,27 @@
+)BODY EXPAND(\\)
+%\-\ ISPF Long-Named Element Master Display \-\
+%Option ===>_ZCMD                                                 %Version 18.0
++
+%ISPF Long-Named Element Master Display Enhancement
++
++ The ISPF Element Master Display is enhanced to allow the Element name
++ and the "Add From/Retrieve To" locations to be scrollable.  This
++ allows the full element name of up to 255 characters and the location
++ information of up to 1023 characters to be viewed.
++
++
++
++
++
++
++
++
++
++
++
++
++
++\ \ (Press%ENTER+to continue or%END+to exit) \ \
+)PROC
+   &ZCONT = CIT18130
+)END

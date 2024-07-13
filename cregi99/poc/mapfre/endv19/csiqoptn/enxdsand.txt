@@ -1,0 +1,82 @@
+//*********************************************************************
+//* ENXDSAND - DELETE SANDBOX PROCESSOR AND ITS ALLOCATIONS
+//*
+//*   DELSBS -  Delete the sandbox subsystem definition from Endevor
+//*   ALLOTMP - Allocate a temporary data set to hold the Delete
+//*             statements
+//*   LISTCAT - List files belonging to this Sandbox
+//*             (delta, base libs, etc.)
+//*   BLDDELS - Build Delete statements for each data set associated
+//*             with this sandbox subsystem
+//*   EXEDELS - Execute the data set delete statements
+//*   DELCMPS - Delete all output components
+//*********************************************************************
+//ENXDSAND PROC AAA=,
+//*** Prefix for sandbox data sets to delete
+//         SUBSPRFX='UPRFX.UQUAL.&C1SY..&C1ELEMENT.',
+//         ZZZ=
+//*
+//*********************************************************************
+//* Delete the sandbox subsystem definition from Endevor
+//* under the context of the alternate userid
+//*********************************************************************
+//DELSBS   EXEC PGM=CONAPI,PARM='ENBE1000',ALTID=Y,MAXRC=4
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSTERM  DD SYSOUT=*
+//SYSUDUMP DD SYSOUT=*
+//ENESCLIN DD *
+   DELETE SUBSYSTEM '&C1ELEMENT'
+          FROM ENVIRONMENT '&C1ENVMNT'
+             SYSTEM '&C1SY'
+   .
+//*
+//*********************************************************************
+//* Allocate a temporary data set to hold the Delete statements
+//*********************************************************************
+//ALLOCTMP EXEC PGM=BC1PDSIN
+//C1INIT01 DD  DSN=&&DELETES,DISP=(,PASS),
+//             SPACE=(TRK,(5,5)),
+//             DCB=(RECFM=FB,LRECL=200,BLKSIZE=0,DSORG=PS)
+//*
+//*********************************************************************
+//* List files belonging to this Sandbox (detla, base libs, etc.)
+//*********************************************************************
+//LISTCAT  EXEC PGM=IDCAMS,MAXRC=4,COND=(0,LT)
+//SYSPRINT DD  DSN=&&LISTCAT,DISP=(,PASS),
+//             SPACE=(TRK,(5,10)),
+//             RECFM=FB,LRECL=150,BLKSIZE=0
+//SYSIN    DD  *
+  LISTCAT LEVEL('&SUBSPRFX') NAME
+//*
+//*********************************************************************
+//* Build delete statements for each data set associated with
+//* this sandbox subsystem
+//*********************************************************************
+//BLDDELS  EXEC PGM=IRXJCL,PARM='ENBPIU00 M NONVSAM',COND=(0,LT)
+//SYSEXEC  DD  DISP=SHR,DSN=IPRFX.IQUAL.CSIQCLS0
+//TABLE    DD  DSN=&&LISTCAT,DISP=(OLD,DELETE)
+//POSITION DD *
+  literal       02 08
+  SubsDataset   18 61
+//MODEL    DD *
+ DELETE '&SubsDataset'
+//OPTIONS  DD  DUMMY
+//SYSPRINT DD  SYSOUT=*
+//SYSTSPRT DD  SYSOUT=*
+//TBLOUTX  DD  SYSOUT=*
+//TBLOUT   DD  DSN=&&DELETES,DISP=(OLD,PASS)
+//*
+//**********************************************************************
+//* Execute data set delete statements
+//**********************************************************************
+//EXEDELS  EXEC PGM=IKJEFT1B,COND=(0,LT)
+//SYSTSIN  DD  DSN=&&DELETES,DISP=(OLD,DELETE),LRECL=200
+//SYSTSPRT DD  SYSOUT=*
+//*
+//**********************************************************************
+//* Delete all output components
+//**********************************************************************
+//DELCMPS  EXEC PGM=CONDELE,PARM=*COMPONENTS
+//SYSPRINT DD  SYSOUT=*
+//C1PARM   DD  SYSOUT=*
